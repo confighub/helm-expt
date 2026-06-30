@@ -632,163 +632,211 @@ stringData:
 }
 
 function howItWorksHtml(catalog) {
-  const counts = catalog.matrixDisposition;
-  const routeActionTotal = catalog.lifecycleRouteActionSummary.total;
-  const automaticRouteActions = catalog.lifecycleRouteActionSummary.automatic;
-  const explainerRows = [
-    ["How it works", "The hub for the four moves and all mechanism docs.", "../docs/user/how-it-works.md"],
-    ["Data model", "Unit, space, target, worker, OCI bundle, target fact, route, and receipt.", "../docs/user/confighub-data-model.md"],
-    ["Helm render intents", "The compact base-variant config generated from a proven Helm render path.", "../docs/user/helm-render-intents.md"],
-    ["Deployment path", "cub installer to ConfigHub Units to one OCI bundle to Argo, Flux, or cub-direct.", "../docs/user/cub-deployment-path.md"],
-    ["GitOps adopter guide", "For Argo and Flux teams: keep the controller, change the source to one OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
-    ["Security end to end", "Secrets, delivery credentials, RBAC, scanning, and no silent privileged step.", "../docs/user/security-end-to-end.md"],
-    ["Day-2 upgrade and rollback", "Staged, reviewed, rehearsed, observed changes with versioned rollback.", "../docs/user/day2-upgrade-rollback.md"],
-  ];
-  const refusalRows = [
-    ["Never silent", `Every routed step must be shown. Current route actions marked automatic: ${automaticRouteActions}/${routeActionTotal}.`],
-    ["Disposition is not green", `Current lane cells include ${counts.pass} pass, ${counts.watch} watch, ${counts.blocked} blocked, ${counts.todo} not yet run, and ${counts.na} not applicable.`],
-    ["Proven versus in progress", "Argo from ConfigHub OCI is proven. Flux from OCI and cub-direct are still in progress until committed receipts exist."],
-    ["Dry-run boundary", "<code>cub-scout compare three-way --dry-from</code> is shipped. <code>cub-scout object-set --dry-from</code> is forthcoming."],
-  ];
-  const variantRows = [
-    ["Base", "The install shape: default, no-crds, HA, existing Secret, or another reviewed starting point.", "Yes, when the base is created or refreshed.", "Catalog recipe and package."],
-    ["Render variant", "The captured, hash-pinned Kubernetes output from one base render.", "No. It is the captured output.", "Package, rendered objects, and evidence receipts."],
-    ["Derived variant", "A per-env, per-region, per-customer, or any-field change from one base.", "No. It changes the rendered objects after render.", "ConfigHub Units and variants."],
-  ];
-  const aiControlRows = [
-    ["Edit exact rendered objects", "You see the object and field diff before anything ships."],
-    ["Check secrets and misconfig", "Scans can flag Secrets, old keys, broad RBAC, missing prerequisites, and risky defaults."],
-    ["Gate the change", "A policy or person approves the exact diff and the approval record stays with the change."],
-    ["Unwind after rollout", "Because the change is recorded as data, you can find it, change it back, and check what happened."],
-  ];
   return `<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How It Works · ConfigHub Helm Ops</title>
-  <style>${siteCss()}
-    .move-spine { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 24px 0 8px; }
-    .move-card { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 16px; }
-    .move-card .kicker { display: block; color: var(--good); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .78rem; margin-bottom: 8px; }
-    .move-card p { margin: 0; font-size: .92rem; }
-    .move-section { border-top: 1px solid var(--line); padding-top: 26px; }
-    .mini-visual { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 14px; margin: 14px 0; }
-    .parallel { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
-    .parallel .arrow, .oci-arrow { color: var(--muted); font-size: 1.4rem; text-align: center; }
-    .node { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 12px; min-height: 74px; }
-    .node strong { display: block; margin-bottom: 4px; }
-    .node p { margin: 0; font-size: .86rem; }
-    .oci-visual { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
-    .consumer-list { display: grid; gap: 8px; }
-    .consumer { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 10px; }
-    .consumer .state { display: inline-block; border-radius: 999px; padding: 2px 7px; font-size: .72rem; margin-left: 6px; border: 1px solid var(--line); }
-    .consumer .proven { color: #fff; background: var(--good); border-color: var(--good); }
-    .consumer .coming { color: var(--muted); background: var(--panel); }
-    .proof-frame { width: 100%; min-height: 420px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-    .disposition-bar { display: flex; width: 100%; height: 28px; overflow: hidden; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); margin: 14px 0 10px; }
-    .disposition-bar span { display: block; height: 100%; }
-    .disposition-bar .pass { background: var(--good); }
-    .disposition-bar .watch { background: #f9ab00; }
-    .disposition-bar .blocked { background: var(--bad); }
-    .disposition-bar .todo { background: #8ab4f8; }
-    .disposition-bar .na { background: #c8ced5; }
-    .disposition-bar .blank { background: #edf0f3; }
-    @media (max-width: 760px) {
-      .move-spine, .parallel, .oci-visual { grid-template-columns: 1fr; }
-      .parallel .arrow, .oci-arrow { display: none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How It Works · ConfigHub Helm Ops</title>
+<style>${siteCss()}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+.vs .col{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);}
+.vs .col.helm{background:var(--panel);}
+.vs h3{margin:0 0 8px;font-size:1rem;}
+.vs ul{margin:0;padding-left:18px;}
+.vs li{margin:4px 0;font-size:.95rem;color:var(--ink);}
+.fstage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px 16px;margin:10px 0;background:var(--surface);}
+.fstage .ftag{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.03em;}
+.fstage h3{margin:3px 0 6px;font-size:1.1rem;}
+.fstage p{margin:0;font-size:.96rem;}
+.fstage.star{border-left-color:var(--good);background:#f4faf5;}
+.pill{display:inline-block;font-size:.7rem;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px;}
+.codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
+.honest{border:1px solid #f0c36d;background:#fff8e5;border-radius:8px;padding:14px 16px;margin:16px 0;}
+.honest h3{margin:0 0 6px;font-size:1rem;}
+.honest p,.honest li{color:#6d4b00;}
+.decide{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);border-radius:8px;padding:6px 16px;margin:14px 0;}
+.counts,.scope{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0;}
+.count{border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;background:var(--surface);}
+.count b{display:block;font-size:1.2rem;}
+.count.pass b{color:var(--good);}.count.watch b{color:var(--warn);}.count.bad b{color:var(--bad);}
+.count span{font-size:.76rem;color:var(--muted);}
+.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem;}
+.gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+.gtable th{background:var(--panel);}
+.yes{color:var(--good);font-weight:700;}.no{color:var(--bad);font-weight:700;}.part{color:var(--warn);font-weight:700;}
+em{font-style:italic;color:var(--ink);}
+@media(max-width:760px){.vs,.counts,.scope{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-  <header class="hero human-hero">
-    ${topNav(".")}
-    <h1>How It Works</h1>
-    <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render once, let you change anything afterward, and put your change back on every upgrade — the thing Helm can't do.</p>
-    <p><strong>Render, record, route.</strong> Render the chart, record the inputs and evidence, and route the tricky parts Helm leaves around the edges. Then deliver and observe the live app. Use the catalog path when the same render needs to be reviewed, customized, upgraded, and supported. For commands, start with <a href="./try.html">Get Started</a>.</p>
-    <div class="mini-visual parallel" aria-label="configuration as code versus configuration as data">
-      <div class="node"><strong>configuration as code</strong><p>Helm rebuilds from templates on every upgrade. If you edited the rendered objects by hand, the upgrade wipes your edit.</p></div>
-      <div class="arrow">&rarr;</div>
-      <div class="node"><strong>configuration as data</strong><p>cub captures the rendered objects as data. Change any field afterward, and cub puts your change back on upgrade.</p></div>
+<header class="hero">
+  ${topNav(".")}
+  <div class="hero-copy">
+    <h1>How it works</h1>
+    <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
+    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges — then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+  </div>
+</header>
+<main>
+
+  <h2>1 · The core idea</h2>
+  <div class="vs">
+    <div class="col helm">
+      <h3>Helm: rebuilt from templates</h3>
+      <ul>
+        <li>Every setting has to be wired into the template up front.</li>
+        <li>Need a setting the chart didn't expose? You're stuck, or you copy the whole chart.</li>
+        <li><code>helm upgrade</code> rebuilds from the templates and <strong>overwrites</strong> what you changed.</li>
+      </ul>
     </div>
-    <div class="move-spine" aria-label="Four-move spine">
-      <div class="move-card"><span class="kicker">F1</span><h3>The chart you pick</h3><p>Upstream chart and version, locked before the catalog builds on it.</p></div>
-      <div class="move-card"><span class="kicker">F2</span><h3>Bases and pinned renders</h3><p>Reviewed bases such as default, no-crds, or HA; each rendered once, proven Helm-equivalent, and stored as a hash-pinned render variant.</p></div>
-      <div class="move-card"><span class="kicker">F3</span><h3>What it needs and hides</h3><p>Prerequisites, hooks, CRDs, webhook certs, and setup jobs become explicit routes with disposition.</p></div>
-      <div class="move-card"><span class="kicker">F4</span><h3>Your customizations</h3><p>Derived variants change operating context or any field from one base, and the next upgrade keeps it.</p></div>
+    <div class="col">
+      <h3>Us: kept as files you can edit</h3>
+      <ul>
+        <li>Render once to plain YAML files you can read.</li>
+        <li>Change <em>any</em> field afterward — by hand, a script, or an AI agent.</li>
+        <li>The next upgrade <strong>keeps</strong> your change instead of wiping it.</li>
+      </ul>
     </div>
-  </header>
-  <main>
-    ${generatedStamp(catalog, "how it works guide")}
-    <section class="move-section" aria-labelledby="chart">
-      <h2 id="chart">F1 · The chart you pick</h2>
-      <p>Start with the upstream Helm chart and version. The catalog locks the chart source before it builds bases, renders objects, records evidence, or says anything about support.</p>
-      <p>This keeps the first question simple: which chart and version are we talking about?</p>
-    </section>
+  </div>
 
-    <section class="move-section" aria-labelledby="render">
-      <h2 id="render">F2 · Bases and their pinned renders</h2>
-      <p><strong>First check:</strong> under the same chart, values, base, and capability profile, the cub installer recipe produces the same Kubernetes objects as Helm. That proves ConfigHub did not quietly change the starting point.</p>
-      <p>A base is the shape: default, no-crds, HA, existing Secret, or another reviewed starting point. A render variant is the captured output from that base: hash-pinned objects with receipts and evidence.</p>
-      <p>A generated render intent records the compact config for that base variant: chart version, values profile, namespace, capability profile, source lock, package base, and the evidence lanes attached to it.</p>
-      <div class="mini-visual parallel" aria-label="Helm and cub installer both render the same object set">
-        <div class="node"><strong>Regular Helm</strong><p><code>helm template</code> or <code>helm install</code> produces a Kubernetes object set.</p></div>
-        <div class="arrow">&rarr;</div>
-        <div class="node"><strong>cub installer</strong><p>The recipe produces the same object set, with receipts and a repeatable package.</p></div>
-      </div>
-      <h3>Variants, in one picture</h3>
-      ${markdownLikeTable([
-        ["Variant", "Meaning", "Re-renders Helm?", "Lives where?"],
-        ...variantRows,
-      ])}
-      <p><a href="../docs/user/how-it-works.md#1-render--the-recipe">Go deeper: render in the how-it-works hub</a> · <a href="../docs/user/helm-render-intents.md">Helm render intents</a> · <a href="../data/helm-render-intents/summary.md">generated render-intent data</a> · <a href="../docs/reference/direct-cub-helm-model.md">direct cub/Helm model</a> · <a href="../docs/user/reading-the-matrix.md">reading the matrix</a></p>
-    </section>
+  <h2>2 · The catalog: what's available</h2>
+  <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
+  <div class="scope">
+    <div class="count"><b>20</b><span>charts live-tested end to end</span></div>
+    <div class="count"><b>110</b><span>chart versions rendered</span></div>
+    <div class="count"><b>2</b><span>reviewed bases per chart</span></div>
+    <div class="count"><b>8</b><span>standard base shapes</span></div>
+    <div class="count"><b>396</b><span>matrix rows tracked</span></div>
+  </div>
+  <p>Each chart ships a recommended <strong>default</strong> base plus one standard fork. The forks come from a fixed vocabulary — named by what they change, not bespoke per chart:</p>
+  <table class="gtable">
+    <tr><th>Base shape</th><th>What it changes</th></tr>
+    <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
+    <tr><td><code>parameterized</code></td><td>Same shape as default, with fill-safe fields exposed as placeholders.</td></tr>
+    <tr><td><code>existing-secret</code></td><td>Bring your own Secret instead of a generated one.</td></tr>
+    <tr><td><code>no-crds</code></td><td>CRDs owned externally (by a controller or GitOps).</td></tr>
+    <tr><td><code>ha</code></td><td>High-availability / scaled-out mode.</td></tr>
+    <tr><td><code>ingress-tls</code></td><td>Exposed via ingress with TLS.</td></tr>
+    <tr><td><code>minimal</code> · <code>tls</code></td><td>Lean install; or bring-your-own TLS material.</td></tr>
+  </table>
 
-    <section class="move-section" aria-labelledby="route">
-      <h2 id="route">F3 · What it needs and the work Helm hides</h2>
-      <p>Prerequisites such as a Secret, namespace, or target fact, and hidden work such as hooks, CRDs, CRD-first ordering, webhook certs, and setup jobs, become explicit routes.</p>
-      <p>Routes are proved against Argo, Flux, and kubectl paths where evidence exists: observe, execute, and record a receipt. automatic: <strong>${escapeHtml(String(automaticRouteActions))}/${escapeHtml(String(routeActionTotal))}</strong>. Anything unhandled is a named blocker, never silent.</p>
-      <iframe class="proof-frame" title="Visible versus silent hook proof" src="../data/hook-test-proof/visible-vs-silent.html"></iframe>
-      <p><a href="../docs/user/chart-hooks-what-happens.md">Go deeper: chart hooks</a> · <a href="../docs/user/pathway-route-hooks-transparently.md">route hooks transparently</a> · <a href="../data/lifecycle-route-actions/summary.md">lifecycle route actions</a></p>
-    </section>
+  <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
+  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → render variant) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
 
-    <section class="move-section" aria-labelledby="customize">
-      <h2 id="customize">F4 · Your customizations</h2>
-      <p>Derived variants change the operating context or any field from one base. Use them for dev, staging, prod, regions, customers, labels, targets, approvals, or rendered-object edits. When the chart upgrades, cub puts your change back.</p>
-      <h3>AI-assisted changes, with control</h3>
-      <p>AI can edit the exact rendered objects, but it does not get to skip review. You see the diff, secrets and misconfig checks, gates, and an approval record before anything ships. If something goes wrong after rollout, the recorded change is there to unwind.</p>
-      ${markdownLikeTable([
-        ["AI can help", "Control you keep"],
-        ...aiControlRows,
-      ])}
-    </section>
+  <div class="fstage">
+    <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
+    <h3>The recipe — your source of truth</h3>
+    <p>A recipe is the chart and version, the values you chose, the base you picked, and the locks — kept in git. It's the one place your intent lives. Nothing is rendered yet.</p>
+  </div>
 
-    <section class="move-section" aria-labelledby="deliver">
-      <h2 id="deliver">Deliver the reviewed result</h2>
-      <p><strong>Delivery check:</strong> ConfigHub publishes the reviewed Units once as an OCI artifact. Argo, Flux, or kubectl/cub can consume the same bundle, with each delivery path checked separately.</p>
-      <p>The operational problem is rerender drift. The controller pulls the reviewed object set instead of independently rebuilding a lookalike result from values at delivery time.</p>
-      <div class="mini-visual oci-visual" aria-label="One OCI bundle consumed by three delivery paths">
-        <div class="node"><strong>ConfigHub Units</strong><p>Reviewed desired state, labels, variants, gates, and receipts.</p></div>
-        <div class="oci-arrow">&rarr;<br><code>OCI</code><br>&rarr;</div>
-        <div class="consumer-list">
-          <div class="consumer"><strong>Argo CD</strong><span class="state proven">proven</span><p>Committed end-to-end OCI receipts exist.</p></div>
-          <div class="consumer"><strong>Flux</strong><span class="state coming">in progress</span><p>Documented design until committed receipts exist.</p></div>
-          <div class="consumer"><strong>cub-direct</strong><span class="state proven">managed path proven</span><p>The managed applier handles CRD ordering, prune, and readable SSA conflicts.</p></div>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Three adoption caveats we manage</h3>
-        <p>These apply to the cub-direct path for every chart. They are not hidden as successes; they are the first-run friction points that must be handled before cub feels better than plain Helm.</p>
-        ${markdownLikeTable([
-          ["Caveat", "Managed path"],
-          ...universalCubAdoptionRows(),
-        ], { rawSecondColumn: true })}
-        <p>Per-chart password and CRD heads-up: <a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a>.</p>
-      </div>
-      <div class="card">
-        <h3>What Argo or Flux points at</h3>
-        <p>Keep your controller. The practical change is the source: point it at the ConfigHub OCI artifact instead of asking the controller to re-render Helm downstream.</p>
-        <pre><code># Argo CD Application source
+  <div class="fstage star">
+    <span class="ftag">RENDER</span><span class="codetag">F2 · base → render variant</span>
+    <h3>Render — inputs first, then the frozen objects</h3>
+    <p>A <strong>base variant</strong> is a named render choice (default, no-crds, ha…). Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new base; change only the operating context → no re-render.</p>
+  </div>
+
+  <div class="fstage">
+    <span class="ftag">RECORD</span><span class="codetag">the proof bundle</span>
+    <h3>Record — the evidence, kept with the render</h3>
+    <p>With the render we keep its proof: content checksums, the Helm-equivalence receipt, a security scan, and an install gate, plus the diffs and any live observations. A later reviewer — or an agent — can see exactly what was rendered and re-run the same check. (The render intent above is the compact, machine-readable index into all of it.)</p>
+  </div>
+
+  <div class="fstage">
+    <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
+    <h3>Route — the work Helm leaves at the edges</h3>
+    <p>Anything that doesn't survive a config-only render — hooks, CRDs, webhooks, generated facts, target prerequisites, setup jobs — becomes a <strong>named route</strong>, not hidden engine behaviour. Each route is observed, routed, marked target-specific, or refused. The reason this matters, in the doctrine's words: <em>render config-only and say nothing about where those behaviours went, and the user is more lost than with Helm, not less.</em></p>
+  </div>
+
+  <div class="fstage star">
+    <span class="ftag">CHANGE</span><span class="codetag">F4 · derived variant</span>
+    <h3>Change — derive from a base, and ConfigHub manages it</h3>
+    <p>A <strong>derived variant</strong> is a change derived <em>from</em> a base — set the operating context (target, region, labels, approvals) or edit any field. Make one per environment from a single base; the next upgrade keeps your edits instead of wiping them. ConfigHub then <strong>manages</strong> it — compares, promotes, approves, delivers, observes. ("Managed" is a property, not a kind: a base variant can be managed too.) This is the part Helm structurally can't do.</p>
+  </div>
+
+  <h3>The three kinds of variant — Variants, in one picture</h3>
+  <table class="gtable">
+    <tr><th>Kind</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
+    <tr><td><strong>Base variant</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new base.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
+    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base — the exact objects.</td><td>No — it's already rendered</td><td>the recipe</td></tr>
+    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base — per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
+  </table>
+  <p class="quiet-line">Any of these can be <strong>managed</strong> — that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fourth kind.</p>
+
+  <h2>4 · The decisions, and why</h2>
+  <table class="gtable">
+    <tr><th>We chose to…</th><th>…because</th></tr>
+    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
+    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers — no re-render drift between review and runtime.</td></tr>
+    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm did imperatively still has to happen somewhere — or be deliberately skipped. If we hid that, you'd be more lost than with Helm.</td></tr>
+    <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
+    <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
+    <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
+  </table>
+
+  <h2>5 · Recommended patterns</h2>
+  <p>Take the smallest path that does the job, and grow only when you need to:</p>
+  <table class="gtable">
+    <tr><th>You want to…</th><th>Recommended path</th></tr>
+    <tr><td>Just see the objects</td><td>Render and read them — no account, no cluster.</td></tr>
+    <tr><td>Install one chart</td><td>Start at the chart's <code>default</code> base: <code>cub installer setup --pull &lt;package&gt; --base default</code>.</td></tr>
+    <tr><td>Run a database / anything with a password</td><td>Use the <code>existing-secret</code> base and supply the Secret yourself — don't ship a generated one over GitOps.</td></tr>
+    <tr><td>Change something after install</td><td>Make a <strong>derived variant</strong> — it keeps your change through upgrades, no re-render.</td></tr>
+    <tr><td>Run dev / staging / prod</td><td>One base → many derived variants (per environment, region, customer). The base stays single; the instances live in ConfigHub.</td></tr>
+    <tr><td>Already run Argo or Flux</td><td>Keep your controller. Publish once to OCI; point Argo/Flux at the same bundle.</td></tr>
+  </table>
+
+  <h2>6 · What's yours to decide</h2>
+  <p>Some choices we can't make for you — they depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
+  <div class="decide"><p><strong>Which base fits.</strong> We recommend <code>default</code>, but you know whether you need <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. The catalog names the trade-off; you pick.</p></div>
+  <div class="decide"><p><strong>Namespace.</strong> Simple charts honour <code>--namespace</code>. Some complex charts embed a namespace in their objects and must install at their canonical one — the chart page says which.</p></div>
+  <div class="decide"><p><strong>Image pinning.</strong> Some default bases ship a floating tag. For reproducible, digest-bound delivery, pin it: <code>--set-image NAME=repo/img@sha256:…</code>.</p></div>
+  <div class="decide"><p><strong>Secrets.</strong> Bring your own via the <code>existing-secret</code> base and stage it out-of-band (ExternalSecrets, Vault, or <code>kubectl</code>). We can't invent your production secret.</p></div>
+  <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them — each one is listed, not assumed.</p></div>
+  <div class="decide"><p><strong>When to go back to Helm.</strong> If a chart isn't in the catalog, plain <code>cub helm template</code> / <code>cub helm install</code> is the right one-shot — just record the inputs (chart, version, values, namespace) so the next upgrade is reproducible.</p></div>
+
+  <h2>7 · How verification works</h2>
+  <p>Every chart-variant carries a <strong>proof bundle</strong> — the receipts that back each claim:</p>
+  <table class="gtable">
+    <tr><th>Receipt</th><th>What it proves</th></tr>
+    <tr><td><code>render-receipt</code></td><td>The exact inputs and the checksum of the rendered object set — and that two local renders matched (<code>deterministicAcrossTwoLocalRenders: true</code>).</td></tr>
+    <tr><td><code>helm-equivalence-receipt</code></td><td>The cub render equals plain <code>helm template</code>, object for object, after declared normalizations.</td></tr>
+    <tr><td><code>scan-receipt</code></td><td>A security scan of the rendered objects, with findings by severity.</td></tr>
+    <tr><td><code>install-gate</code></td><td>A checksum-bound decision on where it's safe to install (local-test / review / production).</td></tr>
+    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Every object's identity, and the digest chain (recipe → variant → values → renderer → rendered objects).</td></tr>
+  </table>
+  <p>The model has four steps — <strong>recipe → render → record → route</strong>: lock the inputs as a recipe, render them to the exact objects, record the evidence with them, and route everything Helm leaves at the edges. Live results are reported as a <strong>disposition</strong>, per lane, per variant — never one blanket tick:</p>
+  <div class="counts">
+    <div class="count pass"><b>961</b><span>pass</span></div>
+    <div class="count watch"><b>116</b><span>watch</span></div>
+    <div class="count bad"><b>124</b><span>blocked</span></div>
+    <div class="count"><b>87</b><span>not yet run</span></div>
+    <div class="count"><b>1484</b><span>not applicable</span></div>
+  </div>
+  <p><strong>watch</strong> isn't pass; <strong>blocked</strong> isn't hidden; <strong>not-applicable</strong> is counted on its own. And you can check any of it three ways:</p>
+  <table class="gtable">
+    <tr><th>Way to check</th><th>Needs a cluster?</th><th>What it confirms</th></tr>
+    <tr><td>Run the render check yourself (<code>npm run &lt;chart&gt;:verify-install:render</code>)</td><td>No</td><td>Your own render matches the catalog's recorded contract.</td></tr>
+    <tr><td>Re-verify the committed evidence (<code>npm run verify</code>)</td><td>No</td><td>The receipts, hashes, and generated files are self-consistent.</td></tr>
+    <tr><td>Run a fresh live lane (<code>npm run kind-parity:run</code> / <code>live-parity:run</code>)</td><td>Yes</td><td>Helm vs cub, and OCI→Argo/Flux, on a throwaway cluster.</td></tr>
+  </table>
+
+  <h2>8 · What's idempotent, what's deterministic — and why</h2>
+  <p>This is the line that matters most for trusting the catalog: some steps are pure computation you can reproduce offline; others touch a live cluster and can't be byte-identical. We're explicit about which is which.</p>
+  <table class="gtable">
+    <tr><th>Stage</th><th>Idempotent?</th><th>Reproducible from source, no cluster?</th><th>Why</th></tr>
+    <tr><td><strong>Render</strong> (recipe → objects)</td><td class="yes">yes</td><td class="yes">yes — byte-identical</td><td>kustomize over the frozen upstream with pinned inputs; same inputs always give the same objects.</td></tr>
+    <tr><td><strong>Record</strong> (receipts, checksums)</td><td class="yes">yes</td><td class="yes">yes</td><td>Just hashing and writing committed content — no live state.</td></tr>
+    <tr><td><strong>Catalog / matrix / site views</strong></td><td class="yes">yes</td><td class="yes">yes</td><td>Re-derived from the committed recipes; stable joins, stable order.</td></tr>
+    <tr><td><strong>Route</strong> (hooks / CRDs / prereqs)</td><td class="part">plan: yes</td><td class="part">plan: yes · run: no</td><td>Naming and classifying is pure; <em>running</em> a route touches a cluster and may have side effects.</td></tr>
+    <tr><td><strong>Apply</strong> (kubectl / Argo / Flux)</td><td class="yes">yes — apply + prune converges</td><td class="no">no</td><td>Declarative apply converges to the same state, but it's a live action on a cluster.</td></tr>
+    <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no — not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
+  </table>
+  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The doctrine keeps live runs honest: <em>they're serial and ephemeral — cub-lk is kind under the hood, one rig at a time, torn down after; render parity ≠ live-ready, and watch ≠ pass.</em></p>
+
+  <h2>9 · Delivery: one source, no surprises</h2>
+  <p>The frozen render is published once to an OCI registry. Argo, Flux, or <code>kubectl</code> all pull the <em>same files</em> — the controller never rebuilds its own version from values. <strong>Keep your controller; just point it at the ConfigHub bundle.</strong></p>
+  <pre><code># Argo CD Application source
 source:
   repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
   path: ./&lt;space&gt;
@@ -797,47 +845,34 @@ source:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 spec:
-  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
-  secretRef:
-    name: confighub-oci-creds</code></pre>
-        <p>The controller reports its normal synced or healthy status after it pulls the same ConfigHub OCI bundle. In this public corpus, Argo-from-OCI has committed receipts; Flux-from-OCI remains in progress until equivalent receipts are committed.</p>
-      </div>
-      <p><a href="../docs/user/cub-deployment-path.md">Go deeper: cub deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
-    </section>
+  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci</code></pre>
+  <p class="quiet-line">Argo-from-OCI is proven with committed end-to-end receipts. Flux-from-OCI is documented and still in progress until it has the same receipts.</p>
+  <div class="honest">
+    <h3>Three adoption caveats we manage</h3>
+    <p>On the <strong>managed cub-direct applier</strong> path these apply to every chart. They're the first-run friction points, named — not hidden behind a green install:</p>
+    <ul>
+      <li><strong>Generated passwords.</strong> A default that ships its own Secret installs green but can break silently over GitOps — choose an <code>existing-secret</code> base.</li>
+      <li><strong>CRD ordering.</strong> CRDs must land before the objects that use them; the managed applier orders this for you.</li>
+      <li><strong>SSA conflicts.</strong> Server-side-apply field ownership is surfaced as a readable conflict, not a silent overwrite.</li>
+    </ul>
+    <p>Per-chart password and CRD heads-up: <a href="./charts/index.html">cub adoption caveats</a> for the chart you're installing.</p>
+  </div>
 
-    <section class="move-section" aria-labelledby="observe">
-      <h2 id="observe">Disposition counts</h2>
-      <p><strong>Live check:</strong> live evidence is reported as an honest disposition, not a green wall. Watch is not pass, blocked is not hidden, and not-applicable is counted separately.</p>
-      <p>This matters because synced is not the same as working. Receipts must say what was observed, when it was observed, and which target or namespace the claim applies to.</p>
-      ${dispositionBar(counts)}
-      <div class="lanes">
-        <div class="metric"><strong>${escapeHtml(String(counts.pass))}</strong><span>pass cells</span></div>
-        <div class="metric"><strong>${escapeHtml(String(counts.watch))}</strong><span>watch cells</span></div>
-        <div class="metric"><strong>${escapeHtml(String(counts.blocked))}</strong><span>blocked cells</span></div>
-        <div class="metric"><strong>${escapeHtml(String(counts.todo))}</strong><span>not yet run</span></div>
-        <div class="metric"><strong>${escapeHtml(String(counts.na))}</strong><span>not applicable</span></div>
-      </div>
-      <p><a href="../docs/user/verification-lanes.md">Go deeper: verification lanes</a> · <a href="../docs/user/what-we-refuse-to-claim.md">what we refuse to claim</a> · <a href="./matrix.html">open the matrix</a></p>
-    </section>
+  <h2>10 · Letting AI make the changes, safely</h2>
+  <h3>AI-assisted changes, with control</h3>
+  <p>AI is the fastest way to make a change after install — and the most dangerous if you can't see what it did. Because the config is just files, an agent edits the actual rendered files, and you check before anything ships: the exact diff, a scan for secrets and bad settings, an approval step. If a bad value gets through, you can undo it later — the change is tracked, not lost. The AI proposes; you review and approve; the cluster only sees what passed.</p>
 
-    <section class="move-section" aria-labelledby="mechanisms">
-      <h2 id="mechanisms">Mechanism Guides</h2>
-      <p>These are the plain-English guide pages behind the four moves.</p>
-      ${markdownLikeTable([
-        ["Guide", "Use it for", "Open"],
-        ...explainerRows.map(([guide, body, link]) => [guide, body, `<a href="${link}">${link}</a>`]),
-      ], { rawThirdColumn: true })}
-    </section>
-
-    <section class="move-section" aria-labelledby="rails">
-      <h2 id="rails">Honesty Rails</h2>
-      ${markdownLikeTable([
-        ["Rule", "Public-site wording"],
-        ...refusalRows,
-      ], { rawSecondColumn: true })}
-    </section>
-  </main>
-  <footer>Generated from helm-expt proof data. This guide explains the public mental model; generated evidence remains the source for exact status.</footer>
+  <h2>11 · The honesty rules</h2>
+  <table class="gtable">
+    <tr><th>Rule</th><th>What it means on the site</th></tr>
+    <tr><td>Never quiet</td><td>Every routed step is shown; routes stay <code>automatic: false</code> until they've earned it.</td></tr>
+    <tr><td>No green wall</td><td>Dispositions are counted separately — pass · watch · blocked · not-run · n/a — not lumped into one number.</td></tr>
+    <tr><td>Proven vs in progress</td><td>Argo-from-OCI is proven; Flux-from-OCI and the no-controller path are in progress until the receipts exist.</td></tr>
+    <tr><td>When Helm is better, we say so</td><td>If Helm is still the better path for a chart today, the chart page says it.</td></tr>
+  </table>
+  <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
+</main>
+<footer>${generatedStamp(catalog, "how it works guide")}<p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
 </body>
 </html>
 `;
@@ -1582,138 +1617,124 @@ function legacyOfferingHtml(catalog) {
 }
 
 function tryHtml(catalog) {
-  const proofRows = [
-    ["Render and install parity", "Helm, kubectl, and the serverless cub render reach the same result on throwaway clusters.", "../data/serverless-install-parity-proof/summary.html"],
-    ["OCI for Argo and Flux", "The rendered objects can be pushed as an OCI artifact for controllers that already run in your cluster.", "../data/serverless-oci-gitops-proof/summary.html"],
-  ];
   return `<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get Started · ConfigHub Helm Ops</title>
-  <style>${siteCss()}${installPageCss()}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Started · ConfigHub Helm Ops</title>
+<style>${siteCss()}
+.callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
+.callout p{margin:0;color:var(--ink);}
+.steps-line{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.86rem;color:var(--muted);}
+.steps-line b{color:var(--accent);}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+.two .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
+.two .box h3{margin:0 0 6px;font-size:1rem;}
+.rapply{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;}
+.rapply .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
+.rapply .box .n{font-family:ui-monospace,monospace;font-size:.74rem;color:var(--good);}
+.rapply .box h3{margin:2px 0 6px;font-size:1rem;}
+.tag{font-size:.74rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);}
+.win{color:var(--good);font-weight:700;}
+.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem;}
+.gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
+.gtable th{background:var(--panel);}
+em{font-style:italic;color:var(--ink);}
+@media(max-width:760px){.two,.rapply{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-  <header class="hero human-hero install-hero">
-    ${topNav(".")}
-    <div class="install-hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Get started</p>
-        <h1>Try It Now with Kubernetes</h1>
-        <p class="lead">Use a quick dev cluster to install a chart, change it after it is running, and upgrade without losing your edit. Helm parity is the reassurance: the starting app is the same before you make it yours.</p>
-        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
-      </div>
-      <div class="terminal-card" aria-label="Prometheus install comparison">
-        <div class="terminal-title">prometheus → monitoring</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
-<span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \\
+<header class="hero">
+  ${topNav(".")}
+  <div class="hero-copy">
+    <h1>Try It Now with Kubernetes</h1>
+    <p class="lead">On any throwaway cluster — a quick dev cluster such as kind: install a chart, change a setting, then upgrade — and your change stays. That last part is the thing Helm can't do. No account to start. You run <code>helm install</code> and <code>cub installer</code> side by side and read the same result.</p>
+    <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
+  </div>
+</header>
+<main>
+  <h2>1 · Install it — same result as Helm</h2>
+  <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
+  <pre><code># plain Helm — one step · prometheus → monitoring
+$ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
-<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
+# ConfigHub — render the reviewed package, then apply
+$ cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
     --base default --work-dir ./prom --non-interactive --namespace monitoring
-<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
-      </div>
-    </div>
-    <p class="caption">Same chart, same namespace, same Kubernetes result. Then make a change and cub puts your change back on upgrade.</p>
-  </header>
-  <main>
-    <section class="narrow-section callout-section" aria-labelledby="package-note">
-      <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, known routes, and proof links. That is the durable catalog path. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
-    </section>
+$ kubectl apply -f ./prom/out/manifests</code></pre>
 
-    <section class="narrow-section" aria-labelledby="how">
-      <h2 id="how">Step 1 · Install from a reviewed render</h2>
-      <p><code>helm install</code> renders the chart and applies it in a single step, so you only see the objects once they are already running. cub does the same work in two visible steps: render first, then apply.</p>
-      <div class="step-grid">
-        <div class="card">
-          <h3>1 · Render</h3>
-          <p><code>cub installer setup</code> writes the exact objects to <code>./prom/out/manifests</code> — readable before anything reaches the cluster. It does not re-run Helm; the package already holds the chart's reviewed render.</p>
-        </div>
-        <div class="card">
-          <h3>2 · Apply</h3>
-          <p><code>kubectl apply</code> installs them. Same objects, now running.</p>
-        </div>
-      </div>
-      <p class="mono-line"><code>helm template prom prometheus-community/prometheus --version 29.8.0</code> # 23 objects → the same, plus cub's explicit Namespace</p>
-      <p><strong>Same objects, confirmed before you change anything. Helm-verified starting point.</strong></p>
-    </section>
+  <h3>Helm hides one step. cub shows it.</h3>
+  <p><code>helm install</code> renders the chart and installs it in one go, so you only see what it made after it's already running. cub splits that into two steps you can watch:</p>
+  <div class="rapply">
+    <div class="box"><div class="n">1 · RENDER</div><h3>Read it first</h3><p><code>cub installer setup</code> writes the exact files to <code>./prom/out/manifests</code> — read them before anything reaches the cluster. It doesn't re-run Helm; the files are already in the package.</p></div>
+    <div class="box"><div class="n">2 · APPLY</div><h3>Then install</h3><p><code>kubectl apply</code> installs them. Same objects, now running.</p></div>
+  </div>
+  <pre><code>$ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objects
+$ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
+  <p>Same chart, same namespace, same Kubernetes result. Then make a change — and cub puts your change back on upgrade.</p>
+  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at a package — a chart we've already reviewed and rendered, kept in the public catalog. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p></div>
 
-    <section class="narrow-section" aria-labelledby="stays">
-      <h2 id="stays">Step 2 · Change it after install — and it stays</h2>
-      <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
-      <div class="step-grid">
-        <div class="card">
-          <h3>Free — your settings stay</h3>
-          <p>No account.</p>
-          <pre><code>$ cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
+  <h2>2 · Change it after install — and it stays</h2>
+  <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <div class="two">
+    <div class="box">
+      <h3>Free — your settings stay</h3>
+      <p class="tag">no account</p>
+      <pre><code>$ cub installer setup --pull .../prometheus/29.8.0 \\
     --set-image server=prom/prometheus:v3.1
-$ cub installer setup --pull packages/prometheus-community/prometheus/29.9.0</code></pre>
-          <p>The options and image swaps you set are remembered, so an upgrade doesn't wipe them.</p>
-        </div>
-        <div class="card">
-          <h3>With an account — any edit stays</h3>
-          <pre><code>$ cub installer upload --space my-app
-$ edit out/manifests/deployment-server.yaml
-$ cub installer plan && cub installer upload --yes
-$ cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 \
-    --merge-external-source</code></pre>
-          <p>Change any line in the rendered files — even one the chart never exposed — and the upgrade keeps it.</p>
-        </div>
-      </div>
-    </section>
+# upgrade to a newer chart version
+$ cub installer setup --pull .../prometheus/29.9.0
+# your image change is carried forward</code></pre>
+      <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
+    </div>
+    <div class="box">
+      <h3>With an account — any edit stays</h3>
+      <p class="tag">account</p>
+      <pre><code>$ cub installer upload --space my-app
+$ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
+$ cub installer plan &amp;&amp; cub installer upload --yes
+# upgrade, keeping your hand edit
+$ cub installer setup --pull .../29.9.0 --merge-external-source</code></pre>
+      <p>Change any line in the files — even one the chart never let you set — and the <span class="win">upgrade keeps it</span>.</p>
+    </div>
+  </div>
 
-    <section class="narrow-section" aria-labelledby="catch">
-      <h2 id="catch">Catch a classic error first</h2>
-      <p>AI keys, generated passwords, and other Secrets can slip into a rendered chart. In the cub lane they are still files you can inspect, rotate, externalize, or block before the cluster or registry sees them.</p>
-      <div class="terminal-card" aria-label="AI key before install">
-        <div class="terminal-title">rendered Secret before install</div>
-        <pre class="terminal-body"><code>apiVersion: v1
+  <h2>3 · Catch a classic mistake first</h2>
+  <p>AI keys, generated passwords, and other Secrets can end up baked into a chart. With cub they're just files, so you can read them, rotate them, move them out, or drop them — before the cluster or your registry ever sees them.</p>
+  <pre><code>apiVersion: v1
 kind: Secret
 metadata:
   name: ai-provider
-type: Opaque
 stringData:
-<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # rotate or externalize</span>
+  AI_API_KEY: sk-prod-old-key-rotate-me   # rotate or move out
+# nothing has touched a cluster yet</code></pre>
 
-<span class="term-comment"># status: rendered, reviewed, not applied</span></code></pre>
-      </div>
-    </section>
-
-    <section class="narrow-section" aria-labelledby="gitops">
-      <h2 id="gitops">The other delivery — GitOps via OCI</h2>
-      <p>Already running Argo or Flux from an OCI registry? Skip <code>kubectl</code>. Push the same rendered output to your registry and let the controller you already trust pull it in:</p>
-      <div class="terminal-card">
-        <div class="terminal-title">prometheus → OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> flux push artifact oci://&lt;your-registry&gt;/prometheus:v1 --path=./prom/out \\
+  <h2>4 · Already on Argo or Flux? Skip kubectl</h2>
+  <p>If your cluster pulls from an OCI registry, push the same files there and let the controller you already run pull them in. It gets exactly what you read, not a fresh render.</p>
+  <pre><code>$ flux push artifact oci://&lt;your-registry&gt;/prometheus:v1 --path=./prom/out \\
     --source=cub-render --revision=v1</code></pre>
-      </div>
-    </section>
 
-    <section class="narrow-section" aria-labelledby="proof">
-      <h2 id="proof">What We Checked</h2>
-      <p>We checked the low-commitment claim: a no-account path can reach the same install outcome, hand reviewed rendered objects to existing delivery tools, and give you a correct baseline before you make changes.</p>
-      ${markdownLikeTable([
-        ["Proof", "What it says", "Open"],
-        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
-      ], { rawThirdColumn: true })}
-      <p><a href="./verification.html">Open Verification</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./variants.html">Understand variants</a> · <a href="./serverless.html">Read the serverless guide</a></p>
-    </section>
+  <h2>What we checked</h2>
+  <p>With no account, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything.</p>
+  <table class="gtable">
+    <tr><th>Check</th><th>What it shows</th></tr>
+    <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>
+    <tr><td>Works with Argo and Flux</td><td>The files can be pushed to an OCI registry for the controllers already in your cluster.</td></tr>
+  </table>
 
-    <section class="narrow-section callout-section" aria-labelledby="verify-baseline">
-      <h2 id="verify-baseline">Verify The Baseline</h2>
-      <p>Npm proof commands are checks for the repo evidence. They are separate from product commands such as <code>cub installer setup</code>, <code>helm install</code>, and <code>kubectl apply</code>.</p>
-      <div class="terminal-card">
-        <div class="terminal-title">render contract check</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run redis:verify-install:render -- \\
+  <h2>Check it yourself</h2>
+  <p>These npm commands check the catalog's own evidence — they're not how you install. Use them to confirm what we claim; you install with <code>cub installer setup</code>, <code>helm install</code>, or <code>kubectl apply</code>.</p>
+  <pre><code># confirm the render matches Helm (a check, not an install)
+$ npm run redis:verify-install:render -- \\
     --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
-      </div>
-      <p><a href="./verification.html">Use the Verification landing page</a> to choose between user-side checks, committed evidence checks, and fresh live lanes.</p>
-    </section>
-  </main>
-  <footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
+  <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
+
+  <p class="closing-line">Get Started needs no account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
+  <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
+</main>
+<footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
 </body>
 </html>
 `;
@@ -1988,7 +2009,7 @@ function verificationHtml(catalog) {
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">Render, Record, Route</h2>
+      <h2 id="render-record-route">Recipe, Render, Record, Route</h2>
       <p>Flat YAML shows what would run. Verification adds the trail behind it and the routes around it, so hooks, CRDs, generated Secrets, setup jobs, and target prerequisites do not disappear.</p>
       ${markdownLikeTable([
         ["Move", "Meaning", "What gets checked"],
@@ -3962,8 +3983,8 @@ function chartPageHtml(catalog, entry) {
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">Render, Record, Route</h2>
-      <p>The chart page has two layers. The user-facing layer is the render intent: the compact record of this chart version, base variant, namespace, values profile, capability profile, package base, and evidence lanes. The full evidence chain underneath is recipe → base → rendered revision → package → ConfigHub Units → variants and receipts.</p>
+      <h2 id="render-record-route">Recipe, Render, Record, Route</h2>
+      <p>The chart page has two layers. The user-facing layer is the <strong>render intent</strong>: the compact record of this chart version, base variant, namespace, values profile, capability profile, package base, and evidence lanes. Underneath, the full chain runs recipe → base variant → render intent → render variant → package base → ConfigHub Units → managed variants and receipts.</p>
       <div class="grid">
         <div class="card"><h3>Render</h3><p>Choose a base variant and turn the Helm chart into the exact Kubernetes objects for that install shape.</p></div>
         <div class="card"><h3>Record</h3><p>Keep the render inputs, source lock, package base, proof lanes, and ${firstRenderIntentLink} together so people and agents can rerun or compare the same baseline.</p></div>

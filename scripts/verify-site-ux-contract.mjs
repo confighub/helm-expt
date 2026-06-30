@@ -28,7 +28,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "Render, Record, Route", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "Recipe, Render, Record, Route", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -48,7 +48,7 @@ const checks = [
   },
   {
     file: "site/verification.html",
-    terms: ["Verification", "Start With The Question", "Product Commands And Proof Commands", "Render, Record, Route", "Fresh Evidence And Committed Evidence", "Verify It Yourself", "NPM Script Catalog"],
+    terms: ["Verification", "Start With The Question", "Product Commands And Proof Commands", "Recipe, Render, Record, Route", "Fresh Evidence And Committed Evidence", "Verify It Yourself", "NPM Script Catalog"],
   },
   {
     file: "site/existing-apps.html",
@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["F1 · The chart you pick", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
+    terms: ["The recipe — your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
 ];
 
@@ -121,7 +121,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Helm rebuilds your whole configuration", "Render, record, route", "F1", "Get Started"],
+    headerTerms: ["Helm rebuilds your whole configuration", "Recipe, render, record, route", "Get Started"],
   },
   {
     file: "site/variants.html",
