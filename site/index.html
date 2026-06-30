@@ -511,11 +511,11 @@
     <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">AI Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm is a fine packaging system, but using it in app delivery operations can be unpredictable. We are here to help you fix this. This site introduces new AI-friendly Helm tools, and our Catalog of standard Helm charts with best practice customisations. We use ConfigHub for advanced functions and you can get started without using it at all.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. Open source, and you can start without an account.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Preview your installs</p>
-        <p>Use APIs to fix config values in broken deployments</p>
-        <p>Manage highly user-customised application fleets without upgrade pains</p>
+        <p>Preview your installs, with every hook, CRD, prerequisite, and footgun mapped</p>
+        <p>Change any field after install, and keep it through upgrades</p>
+        <p>Run many customised installs as one fleet, without the upgrade pain</p>
       </div>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
@@ -539,8 +539,8 @@ stringData:
       <div class="journey-flow" aria-label="Four-step product journey">
         <a class="journey-step" href="./try.html">
           <span class="kicker">First</span>
-          <h3>Pre Flight Checks</h3>
-          <p>WITHOUT connecting to our systems, preview your chart rendering, catch the parts you would change, and fix issues before deployment.</p>
+          <h3>Pre-flight checks</h3>
+          <p>No account, no cluster: see every hook, CRD, prerequisite, and footgun a chart carries, and fix what you would change before anything reaches the cluster.</p>
           <span class="go">Get Started</span>
         </a>
         <a class="journey-step" href="./charts/index.html">
@@ -551,8 +551,8 @@ stringData:
         </a>
         <a class="journey-step" href="./variants.html">
           <span class="kicker">Then</span>
-          <h3>Manage Helm Lifecycle</h3>
-          <p>Add promotions and upgrades. Start from one base and make multiple versions for users, dev, staging, prod, per-region.</p>
+          <h3>Change it and keep it</h3>
+          <p>With a free account, edit any rendered field, even ones the chart never exposed, and keep it through upgrades. Start from one base and make versions for dev, staging, prod, per region.</p>
           <span class="go">What are Variants?</span>
         </a>
         <a class="journey-step" href="./journey.html">
@@ -582,7 +582,7 @@ stringData:
       <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
       <div class="home-list light-grid">
-        <div class="home-list-item"><h3>See every object</h3><p>The exact Kubernetes resources, as plain files you can read before anything reaches the cluster.</p></div>
+        <div class="home-list-item"><h3>See what will bite you</h3><p>Every hook, CRD, prerequisite, and footgun a chart carries, named up front. helm template shows you the objects; we show you the traps.</p></div>
         <div class="home-list-item"><h3>Catch classic errors</h3><p>AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry.</p></div>
         <div class="home-list-item"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there, named up front.</p></div>
         <div class="home-list-item"><h3>Bringing AI?</h3><p>Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, Secrets, hooks, CRDs, and target assumptions.</p></div>
@@ -614,7 +614,7 @@ stringData:
       <p>A basic ConfigHub account is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="home-list">
         <div class="home-list-item"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="home-list-item"><h3>Make your versions</h3><p>Start from one reviewed base, then create dev, staging, prod, region, or customer variants without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
+        <div class="home-list-item"><h3>Edit and keep your versions</h3><p>With a free account, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
         <div class="home-list-item"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
         <div class="home-list-item"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
       </div>
