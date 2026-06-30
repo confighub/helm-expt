@@ -65,7 +65,7 @@ function buildReport() {
     const key = `${chart}|${version}`;
     const catalogEntry = top100ByKey.get(key);
     const rowsForChart = matrixByKey.get(key) ?? [];
-    const receipt = publicationReceipts.get(ref) ?? publicationReceipts.get(packagePath);
+    const receipt = publicationReceipts.get(ref);
     const publicationStatus = receipt ? "published-receipt" : "assigned-ref";
     return {
       chart,
@@ -112,7 +112,6 @@ function publicationReceiptMap() {
       digest: receipt?.spec?.package?.sha256 || "",
     };
     if (ref) result.set(ref, item);
-    if (packagePath) result.set(packagePath, item);
   }
   return result;
 }
