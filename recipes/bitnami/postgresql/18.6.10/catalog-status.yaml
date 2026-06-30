@@ -13,7 +13,7 @@ spec:
   supportedVariants:
     []
   candidateVariants:
-    - "generated-passwords"
+    - "static-passwords"
     - "existing-secret"
   deferredVariants: []
   review:

@@ -11,14 +11,14 @@ Accepted disposition receipts recorded: 105
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 7 | 0 | 0 | recipe-hook-policy:no-hooks | 5 |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/mongodb@19.0.7` | static-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
+| `bitnami/mysql@14.0.3` | static-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 8 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/postgresql@18.6.7` | static-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
+| `bitnami/rabbitmq@16.0.14` | static-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 5 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 6 | 0 | 0 | lifecycle-observations:2/2 | 2 |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 2 |
+| `grafana/grafana@10.5.15` | static-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 2 |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 2 |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 2 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-review-ready | 8 | 0 | 0 | recipe-lifecycle-policy | 2 |
@@ -42,13 +42,13 @@ The same queue is available as `next-actions.csv`.
 | `hashicorp/consul@2.0.0` | 8 | 0 |  | - | default-control-plane: warn, 5 finding(s) (liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1;unset-memory-requirements:1); secure-mesh-existing-secrets: warn, 6 finding(s) (job-ttl-seconds-after-finished:1;liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1) |
 | `argo-cd/argo-cd@9.5.15` | 7 | 0 |  | - | default: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9); no-crds: warn, 18 finding(s) (unset-cpu-requirements:9;unset-memory-requirements:9) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 7 | 0 |  | - | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
-| `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); static-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `external-secrets/external-secrets@2.5.0` | 6 | 0 |  | - | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `hashicorp/vault@0.32.0` | 6 | 0 |  | - | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); dev-mode: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
-| `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
-| `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
+| `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); static-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); static-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); static-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
+| `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); static-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
 | `grafana/loki@7.0.0` | 5 | 0 |  | - | simple-scalable-minio: warn, 18 finding(s) (unset-memory-requirements:9;unset-cpu-requirements:8;no-read-only-root-fs:1); single-binary-filesystem: warn, 12 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6) |
 | `ingress-nginx/ingress-nginx@4.15.1` | 5 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); internal-clusterip: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
 | `longhorn/longhorn@1.11.2` | 5 | 0 |  | - | default: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2); ui-ingress: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2) |
@@ -70,11 +70,11 @@ runtime fit, and final support scope.
 | Chart | First base | Base readiness | Decision focus | Image subjects needing resolution | Next action |
 | --- | --- | --- | --- | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
-| `bitnami/mongodb@19.0.7` | generated-passwords | render-only | runtime-or-prerequisite-scope | 0 | choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first |
-| `bitnami/mysql@14.0.3` | generated-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
+| `bitnami/mongodb@19.0.7` | static-passwords | render-only | runtime-or-prerequisite-scope | 0 | choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first |
+| `bitnami/mysql@14.0.3` | static-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/nginx@24.0.2` | http-clusterip | render-only | runtime-or-prerequisite-scope | 0 | choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first |
-| `bitnami/postgresql@18.6.7` | generated-passwords | render-only | runtime-or-prerequisite-scope | 0 | choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
+| `bitnami/postgresql@18.6.7` | static-passwords | render-only | runtime-or-prerequisite-scope | 0 | choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first |
+| `bitnami/rabbitmq@16.0.14` | static-passwords | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `bitnami/redis@25.5.3` | default | render-only | runtime-or-prerequisite-scope | 0 | choose whether default is in production scope; close or document its render-only live-readiness issue first |
 | `external-secrets/external-secrets@2.5.0` | default | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |

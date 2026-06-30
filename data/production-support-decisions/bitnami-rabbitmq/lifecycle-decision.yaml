@@ -10,16 +10,16 @@ spec:
     namespace: "rabbitmq"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "lifecycle-observed-for-proof-scope"
   decidedAt: "2026-06-09"
-  claim: "The RabbitMQ generated-passwords base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. The generated administrator password and Erlang cookie are bound before render, and the rendered Secrets are separated by cub installer rather than hidden in workload units."
+  claim: "The RabbitMQ static-passwords base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. The generated administrator password and Erlang cookie are bound before render, and the rendered Secrets are separated by cub installer rather than hidden in workload units."
   lifecycleModel:
     hookPolicy: "no-chart-hooks"
-    selectedTopology: "standalone-statefulset-generated-passwords"
+    selectedTopology: "standalone-statefulset-static-passwords"
     generatedFacts: "auth.password and auth.erlangCookie are generated and bound before render; the rendered credential and configuration Secrets are deterministic and separated during cub installer output."
     storagePolicy: "The public proof uses the chart's default standalone StatefulSet PVC posture. StorageClass, backup, restore, queue recovery, and rollback remain target decisions."
     excludedTopology: "existing-secret is a useful target-fact path but remains outside this production-support claim until its target password, Erlang cookie, custody, and rotation policy are separately reviewed."
@@ -43,17 +43,17 @@ spec:
         - "secret-rabbitmq-rabbitmq-config.yaml"
         - "secret-rabbitmq-rabbitmq.yaml"
   limits:
-    - "This supports the generated-passwords public proof base, not every RabbitMQ deployment topology."
+    - "This supports the static-passwords public proof base, not every RabbitMQ deployment topology."
     - "This proof does not test RabbitMQ backup, restore, queue recovery, clustering, failover, or credential and Erlang-cookie rotation."
     - "Credential rotation, Erlang-cookie rotation, and secret custody are target operating procedures outside this public proof."
     - "Populated init scripts, custom configuration, or external credential paths require a new reviewed base."
   evidence:
     -
-      path: "runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml"
-      claim: "Two-cluster Helm-vs-installer parity passes for generated-passwords."
+      path: "runs/live-kind-parity/bitnami-rabbitmq-static-passwords/receipt.yaml"
+      claim: "Two-cluster Helm-vs-installer parity passes for static-passwords."
     -
-      path: "runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml"
-      claim: "ConfigHub OCI/Argo live parity passes for generated-passwords."
+      path: "runs/live-helm-confighub-compare/bitnami-rabbitmq-static-passwords/receipt.yaml"
+      claim: "ConfigHub OCI/Argo live parity passes for static-passwords."
     -
       path: "data/production-disposition/receipts/bitnami-rabbitmq/generated-fact-ownership.yaml"
       claim: "Records generated credential ownership and the separated Secret policy."

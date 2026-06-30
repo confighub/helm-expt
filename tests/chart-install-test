@@ -41,7 +41,7 @@ def resolve_helm_expt(explicit: str | None) -> Path:
 
 def default_base(pkg: Path) -> str | None:
     """Resolve the default:true base via `cub installer doc` — robust to the
-    real base names (e.g. `generated-passwords`, `single-binary-filesystem`)
+    real base names (e.g. `static-passwords`, `single-binary-filesystem`)
     and to key ordering in installer.yaml, which a regex got wrong."""
     rc, o, _ = sh(["cub", "installer", "doc", str(pkg)], timeout=60)
     if rc != 0:

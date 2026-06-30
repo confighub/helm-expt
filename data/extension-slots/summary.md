@@ -34,10 +34,10 @@ recipe/package proof artifacts.
 | Chart | Built variants | Example surfaces | Control point |
 | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default+no-crds | raw/extra manifests; tpl-powered values | tpl:controlled-by-empty-defaults |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset+generated-passwords | tpl-powered values | tpl:controlled-by-empty-defaults |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset+static-passwords | tpl-powered values | tpl:controlled-by-empty-defaults |
 | `bitnami/nginx@24.0.2` | existing-tls-ingress+http-clusterip | NGINX config blocks; raw/extra manifests; sidecars | extension-slots:controlled-by-empty-defaults |
 | `external-secrets/external-secrets@2.5.0` | default+no-crds | raw/extra manifests; tpl-powered values | tpl:controlled-by-empty-defaults |
-| `grafana/grafana@10.5.15` | existing-secret-ingress+generated-passwords | sidecars; monitoring config; Secret/env injection | extension-slots:controlled-by-empty-defaults |
+| `grafana/grafana@10.5.15` | existing-secret-ingress+static-passwords | sidecars; monitoring config; Secret/env injection | extension-slots:controlled-by-empty-defaults |
 | `grafana/loki@7.0.0` | simple-scalable-minio+single-binary-filesystem | raw/extra manifests; Secret/env injection; tpl-powered values | tpl:controlled-by-empty-defaults |
 | `grafana/tempo@1.24.4` | local-persistent+s3-query-observability | volumes/mounts; tpl-powered values | extension-slots:controlled-by-empty-defaults |
 | `hashicorp/consul@2.0.0` | default-control-plane+secure-mesh-existing-secrets | controller/gateway config; tpl-powered values | extension-slots:controlled-by-empty-defaults |
@@ -55,9 +55,9 @@ sidecar, or add-on slots in the chart facts.
 
 | Chart | Built variants | Current hard gap | Route |
 | --- | --- | --- | --- |
-| `bitnami/mysql@14.0.3` | generated-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
-| `bitnami/postgresql@18.6.7` | generated-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
+| `bitnami/mysql@14.0.3` | static-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
+| `bitnami/postgresql@18.6.7` | static-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
+| `bitnami/rabbitmq@16.0.14` | static-passwords+existing-secret | ha (curated proof lane - bespoke teaching needed) | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `bitnami/redis@25.5.3` | default+reuse-existing-secret | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `ingress-nginx/ingress-nginx@4.15.1` | default+admission-disabled+internal-clusterip | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |
 | `longhorn/longhorn@1.11.2` | default+ui-ingress | - | use the supported base; route Helm-input changes through a reviewed `cub installer` base and post-render changes through `cub variant create` |

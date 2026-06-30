@@ -8,8 +8,8 @@ spec:
     -
       default: true
       description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
     -
       description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
       externalRequires:

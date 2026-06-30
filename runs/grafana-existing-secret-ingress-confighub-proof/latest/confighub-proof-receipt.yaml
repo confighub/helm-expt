@@ -16,7 +16,7 @@ spec:
     chart: "grafana/grafana"
     chartVersion: "10.5.15"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-ingress"
     selectedBase: "existing-secret-ingress"
     docVerified: true

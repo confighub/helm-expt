@@ -6,13 +6,13 @@ This proof lane shows the current ConfigHub path for `bitnami/mysql@14.0.3`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `generated-passwords`.
+The selected happy-path install variant is `static-passwords`.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `generated-passwords` | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
+| `static-passwords` | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
 | `existing-secret` | no | mysql existing Secret variant rendered from bitnami/mysql@14.0.3 |
 
 ## Acceptance Contract

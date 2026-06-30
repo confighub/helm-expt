@@ -18,8 +18,8 @@ const chart = {
 
 const variants = [
   {
-    name: "generated-passwords",
-    base: "generated-passwords",
+    name: "static-passwords",
+    base: "static-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
     valuesText: `global:
@@ -100,8 +100,8 @@ runProofCli({
   recordChartLockDigest: true,
   valueModel: {
     checkedValues: [
-      { path: "auth.password", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random password generation; this variant persists the generated value before render" },
-      { path: "auth.erlangCookie", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random Erlang cookie generation; this variant persists the generated value before render" },
+      { path: "auth.password", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random password generation; this variant persists the generated value before render" },
+      { path: "auth.erlangCookie", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random Erlang cookie generation; this variant persists the generated value before render" },
       { path: "auth.existingPasswordSecret", variant: "existing-secret", disposition: "target-fact-bound", reason: "externalizes the credential into a declared target Secret instead of rendering a Secret" },
       { path: "auth.existingErlangSecret", variant: "existing-secret", disposition: "target-fact-bound", reason: "externalizes the Erlang cookie into a declared target Secret instead of rendering it in the chart Secret" },
       { path: "auth.existingSecretPasswordKey", variant: "existing-secret", disposition: "target-secret-key", reason: "documents the expected key in the target Secret" },
@@ -115,7 +115,7 @@ runProofCli({
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
-    { category: "generated-facts", status: "variant-controlled", evidence: "auth.password + auth.erlangCookie", note: "The generated-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic." },
+    { category: "generated-facts", status: "variant-controlled", evidence: "auth.password + auth.erlangCookie", note: "The static-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingPasswordSecret + auth.existingErlangSecret", note: "The existing-secret variant declares target Secrets for password and Erlang cookie; it still renders the configuration Secret." },
     { category: "hook-policy", status: "not-present-in-promoted-render", policy: "no-hooks", note: "Promoted RabbitMQ variants render no hook objects with the pinned inputs; if enabled by future values, hooks must map to lifecycle policy before production." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|rabbitmq|rabbitmq" },
@@ -127,7 +127,7 @@ runProofCli({
     maintainedNotes: [
       "Default chart rendering is nondeterministic unless auth.password is bound before render.",
       "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render.",
-      "generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically.",
+      "static-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically.",
       "existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts.",
       "existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
@@ -156,7 +156,7 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart rendering is nondeterministic until generated credentials and the Erlang cookie are bound;",
-      "the generated-passwords variant persists auth.password and auth.erlangCookie before render;",
+      "the static-passwords variant persists auth.password and auth.erlangCookie before render;",
       "the existing-secret variant uses declared target Secrets for both generated values and still renders only chart-owned configuration;",
       "generated fact, target fact, dependency lock, StatefulSet/PVC, clustering, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -250,8 +250,8 @@ runProofCli({
         `${variant.name} RoleBinding missing`,
       );
       check(identities.includes("v1|Secret|rabbitmq|rabbitmq-config"), `${variant.name} config Secret missing`);
-      if (variant.name === "generated-passwords") {
-        check(identities.includes("v1|Secret|rabbitmq|rabbitmq"), "generated-passwords Secret missing");
+      if (variant.name === "static-passwords") {
+        check(identities.includes("v1|Secret|rabbitmq|rabbitmq"), "static-passwords Secret missing");
       }
       if (variant.name === "existing-secret") {
         check(!identities.includes("v1|Secret|rabbitmq|rabbitmq"), "existing-secret must not render the credential Secret");

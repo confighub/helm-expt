@@ -20,5 +20,5 @@ spec:
       - "--namespace"
       - "grafana"
   variants:
-    - "variants/generated-passwords/variant.yaml"
+    - "variants/static-passwords/variant.yaml"
     - "variants/existing-secret-ingress/variant.yaml"

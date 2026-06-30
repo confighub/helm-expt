@@ -8,8 +8,8 @@ spec:
     -
       default: true
       description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
     -
       description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
       externalRequires:

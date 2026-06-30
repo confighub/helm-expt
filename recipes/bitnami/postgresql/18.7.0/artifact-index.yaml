@@ -46,7 +46,7 @@ spec:
     supportedVariants:
       []
     candidateVariants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     deferredVariants:
       []
@@ -68,12 +68,12 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0"
     installer: "packages/bitnami/postgresql/18.7.0/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "325bb171918958666a38e2e441599f48ab7b8e02278f168d3a745f5b111a50d2"
+    deterministicBundleSHA256: "01891b0a7a01aac8cfbcbb64569d918da4c4c524c5ae8fc7e01a5b4eb58acc8b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
-        name: "generated-passwords"
-        path: "packages/bitnami/postgresql/18.7.0/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/postgresql/18.7.0/bases/static-passwords"
         default: true
         description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.7.0"
       -
@@ -83,8 +83,8 @@ spec:
         description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.7.0"
   variants:
     -
-      name: "generated-passwords"
-      variant: "recipes/bitnami/postgresql/18.7.0/variants/generated-passwords/variant.yaml"
+      name: "static-passwords"
+      variant: "recipes/bitnami/postgresql/18.7.0/variants/static-passwords/variant.yaml"
       namespace: "postgresql"
       releaseName: "postgresql"
       valuesProfile: "recipes/bitnami/postgresql/18.7.0/effective-values.yaml"
@@ -97,12 +97,12 @@ spec:
         {}
       targetFactSummary: "none"
       packageBase:
-        name: "generated-passwords"
-        path: "packages/bitnami/postgresql/18.7.0/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/postgresql/18.7.0/bases/static-passwords"
         default: true
         description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.7.0"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -111,13 +111,13 @@ spec:
           - "v1|Namespace||postgresql"
       revisions:
         -
-          name: "generated-passwords-r001"
+          name: "static-passwords-r001"
           revision: "r001"
-          variantRevision: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/variant-revision.yaml"
+          variantRevision: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml"
           digest: "a62a1709dcd88a1de3f59db3d65a2725b07255081b69026536cbaf90dd550385"
           renderedObjectSetSHA256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
-          renderedObjects: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/rendered/release-objects.yaml"
-          objectInventory: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          renderedObjects: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/object-inventory.yaml"
           objectCount: 7
           helmObjectCount: 7
           cubInstallObjectCountIncludingSupport: 8
@@ -126,22 +126,22 @@ spec:
           receipts:
             render:
               kind: "RenderReceipt"
-              path: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              path: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/receipts/render-receipt.yaml"
               result: "recorded"
               renderedObjectSetSHA256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
-              path: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              path: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
               renderedObjectSetSHA256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
             scan:
               kind: "ScanReceipt"
-              path: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              path: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
               result: "warn"
               renderedObjectSetSHA256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
             installGate:
               kind: "InstallGate"
-              path: "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              path: "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
     -

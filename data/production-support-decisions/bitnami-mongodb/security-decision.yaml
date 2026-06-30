@@ -10,13 +10,13 @@ spec:
     namespace: "mongodb"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret-replicaset"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "pdb-policy-accepted-for-target-scope"
   decidedAt: "2026-06-09"
-  claim: "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a replica-set base where appropriate."
+  claim: "The selected static-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a replica-set base where appropriate."
   route: "accept-or-patch-pdb-policy"
   routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
   findingSummary:
@@ -31,7 +31,7 @@ spec:
         topChecks:
           pdb-unhealthy-pod-eviction-policy: 2
         renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
-      generated-passwords:
+      static-passwords:
         findingCount: 1
         topChecks:
           pdb-unhealthy-pod-eviction-policy: 1
@@ -55,8 +55,8 @@ spec:
       path: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml"
       claim: "Local rendered-object scan receipt for existing-secret-replicaset."
     -
-      path: "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-      claim: "Local rendered-object scan receipt for generated-passwords."
+      path: "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for static-passwords."
     -
       path: "data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml"
       claim: "Earlier production disposition accepts MongoDB scan warnings as production-review inputs."

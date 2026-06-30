@@ -43,7 +43,7 @@ spec:
       - "local-test"
     productionReadiness: "production-review-ready"
     supportedVariants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     candidateVariants:
       []
@@ -67,12 +67,12 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3"
     installer: "packages/bitnami/mysql/14.0.3/installer.yaml"
     receipt: "recipes/bitnami/mysql/14.0.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "141a6b01c3e7b0276e22b8df64d3076e2849d0ae4270d3759e938d218d120a43"
+    deterministicBundleSHA256: "1959aaa51a0e2153a2a4988fcf698188a93890ca486f9ffee3a15d9292aeb63b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
-        name: "generated-passwords"
-        path: "packages/bitnami/mysql/14.0.3/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/mysql/14.0.3/bases/static-passwords"
         default: true
         description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
       -
@@ -82,8 +82,8 @@ spec:
         description: "mysql existing Secret variant rendered from bitnami/mysql@14.0.3"
   variants:
     -
-      name: "generated-passwords"
-      variant: "recipes/bitnami/mysql/14.0.3/variants/generated-passwords/variant.yaml"
+      name: "static-passwords"
+      variant: "recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml"
       namespace: "mysql"
       releaseName: "mysql"
       valuesProfile: "recipes/bitnami/mysql/14.0.3/effective-values.yaml"
@@ -96,12 +96,12 @@ spec:
         {}
       targetFactSummary: "none"
       packageBase:
-        name: "generated-passwords"
-        path: "packages/bitnami/mysql/14.0.3/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/mysql/14.0.3/bases/static-passwords"
         default: true
         description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base static-passwords --work-dir <tmp> --non-interactive --namespace mysql"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -110,13 +110,13 @@ spec:
           - "v1|Namespace||mysql"
       revisions:
         -
-          name: "generated-passwords-r001"
+          name: "static-passwords-r001"
           revision: "r001"
-          variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml"
+          variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml"
           digest: "f5255e2acc903498bb91e3aad431849f888374c43a13050676b83b3ab7fe02a1"
           renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
-          renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
-          objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          renderedObjects: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/object-inventory.yaml"
           objectCount: 8
           helmObjectCount: 8
           cubInstallObjectCountIncludingSupport: 9
@@ -125,22 +125,22 @@ spec:
           receipts:
             render:
               kind: "RenderReceipt"
-              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/render-receipt.yaml"
               result: "recorded"
               renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
-              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
               renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             scan:
               kind: "ScanReceipt"
-              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
               result: "warn"
               renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
             installGate:
               kind: "InstallGate"
-              path: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              path: "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
     -

@@ -8,8 +8,8 @@ spec:
     -
       default: true
       description: "mysql generated passwords variant rendered from bitnami/mysql@14.0.3"
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
     -
       description: "mysql existing Secret variant rendered from bitnami/mysql@14.0.3"
       externalRequires:

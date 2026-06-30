@@ -22,7 +22,7 @@ spec:
       category: "generated-facts"
       status: "variant-controlled"
       evidence: "auth.rootPassword + auth.password + auth.replicationPassword"
-      note: "The generated-passwords variant binds all generated password fields before render so Helm output is deterministic."
+      note: "The static-passwords variant binds all generated password fields before render so Helm output is deterministic."
     -
       category: "target-facts"
       status: "variant-controlled"

@@ -20,5 +20,5 @@ spec:
       - "--namespace"
       - "rabbitmq"
   variants:
-    - "variants/generated-passwords/variant.yaml"
+    - "variants/static-passwords/variant.yaml"
     - "variants/existing-secret/variant.yaml"

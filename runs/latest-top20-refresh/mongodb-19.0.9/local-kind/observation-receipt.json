@@ -2,10 +2,10 @@
   "apiVersion": "helm-expt.confighub.com/v1alpha1",
   "kind": "ObservationReceipt",
   "metadata": {
-    "name": "mongodb-19-0-9-generated-passwords-local-kind"
+    "name": "mongodb-19-0-9-static-passwords-local-kind"
   },
   "spec": {
-    "variantRevision": "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml",
+    "variantRevision": "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml",
     "renderedObjectSetSHA256": "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68",
     "observer": {
       "name": "top20-local-e2e",
@@ -24,7 +24,7 @@
     "chart": "bitnami/mongodb",
     "chartVersion": "19.0.9",
     "rank": 17,
-    "variant": "generated-passwords",
+    "variant": "static-passwords",
     "renderedObjectCount": 8,
     "checks": [
       {

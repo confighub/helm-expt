@@ -1,0 +1,163 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-rabbitmq-16.0.14-static-passwords-live-parity-20260605
+spec:
+  chart: bitnami/rabbitmq
+  version: 16.0.14
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-05T18:25:30Z'
+  package:
+    path: packages/bitnami/rabbitmq/16.0.14
+  recipe:
+    path: recipes/bitnami/rabbitmq/16.0.14
+  variantRevision: recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-rabbitmq-mq198i1w-k6p
+    kubeContext: kind-helm-expt-parity-rabbitmq-mq198i1w-k6p
+    namespace: rabbitmq
+    legNamespaces:
+      regularHelm: rabbitmq-helm
+      configHubKubectlApply: rabbitmq-apply
+      configHubOciArgo: rabbitmq-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-rabbitmq-mq198i1w-k6p
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-rabbitmq-mq198i1w-k6p"...
+
+        Deleting cluster "helm-expt-parity-rabbitmq-mq198i1w-k6p" ...
+
+        Deleted nodes: ["helm-expt-parity-rabbitmq-mq198i1w-k6p-control-plane"]
+
+        Deleting Space "helm-expt-parity-rabbitmq-mq198i1w-k6p-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install rabbitmq rabbitmq --repo https://charts.bitnami.com/bitnami
+        --version 16.0.14 --namespace rabbitmq-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-rabbitmq-static-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31
+      objectCount: 10
+      liveHelmManifestSHA256: 9c638a38ce78bcb02aae0a4e0e731a21d2bc88fde2929ef2bd9c6ab47dbc358e
+      liveHelmManifestObjectCount: 10
+      namespace: rabbitmq-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/rabbitmq   1/1   76s
+        pods: rabbitmq-0   1/1   Running   0     76s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
+        --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rabbitmq-mq198i1w-k6p-rabbitmq
+        --non-interactive --namespace rabbitmq-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 60147c2a99a04d582f4948219aebee776608b80202286ea310f1d4cac16b521e
+      objectCount: 11
+      namespace: rabbitmq-apply
+      manifestNamespaces:
+      - rabbitmq
+      - rabbitmq-apply
+      runtimeNamespaces: &id001
+      - rabbitmq
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# rabbitmq
+
+          statefulset.apps/rabbitmq   1/1   2m41s'
+        pods: '# rabbitmq
+
+          rabbitmq-0   1/1   Running   0     2m42s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-rabbitmq-mq198i1w-k6p-rabbitmq
+      controller: Argo CD OCI
+      app: rabbitmq-parity
+      manifestSHA256: 44da673cdbafa50ae88dd9df998747845c68ada29f3a590ca63e9e3b50528ae3
+      objectCount: 11
+      namespace: rabbitmq-oci
+      manifestNamespaces:
+      - rabbitmq
+      - rabbitmq-oci
+      runtimeNamespaces: &id002
+      - rabbitmq
+      ociRevision: sha256:7087a4b08b869c34da50b37975a1fc00ec804da15274294b6e1b65e8fbc2c6ec
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-rabbitmq-rabbitmq-config.yaml
+      - secret-rabbitmq-rabbitmq.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# rabbitmq
+
+          statefulset.apps/rabbitmq   1/1   4m1s'
+        pods: '# rabbitmq
+
+          rabbitmq-0   1/1   Running   0     4m2s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||rabbitmq
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||rabbitmq
+      semanticDiffs: []
+      comparisonSHA256: c6fcfee201c616020737877b77e4aca885ff005df9adfc1f75bae7439752f4cb
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||rabbitmq
+      semanticDiffs: []
+      comparisonSHA256: c6fcfee201c616020737877b77e4aca885ff005df9adfc1f75bae7439752f4cb
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-rabbitmq-mq198i1w-k6p\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-rabbitmq-mq198i1w-k6p.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-rabbitmq-mq198i1w-k6p\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-rabbitmq-mq198i1w-k6p\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rabbitmq-mq198i1w-k6p\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rabbitmq-mq198i1w-k6p.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
+  - name: regular-helm-live
+    result: pass
+    detail: 'I0605 19:27:20.746389   26424 warnings.go:107] "Warning: spec.trafficDistribution:
+      \"PreferClose\" is deprecated; use \"PreferSameZone\""'
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# rabbitmq
+
+      statefulset.apps/rabbitmq   1/1   2m41s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||rabbitmq'] diffs=0

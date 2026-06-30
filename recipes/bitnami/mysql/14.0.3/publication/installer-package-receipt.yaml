@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mysql/14.0.3 -o <tmp>/mysql-14.0.3.tgz"
-    sha256: "141a6b01c3e7b0276e22b8df64d3076e2849d0ae4270d3759e938d218d120a43"
+    sha256: "1959aaa51a0e2153a2a4988fcf698188a93890ca486f9ffee3a15d9292aeb63b"
   package:
     name: "bitnami-mysql"
     path: "packages/bitnami/mysql/14.0.3"
@@ -28,11 +28,11 @@ spec:
         sha256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
         bytes: 11930
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
         bytes: 12409
       -
@@ -41,22 +41,22 @@ spec:
         bytes: 2495
       -
         path: "installer.yaml"
-        sha256: "fb7e769ba4d4033d4253ac58c0ffcd4f7908c14d1715f1e7abd2b8d889f454f9"
-        bytes: 3383
+        sha256: "1cae496fc6caacd7e9d03deadb54a7058851ab299f5b5d32e9d686b94f31000e"
+        bytes: 3377
     version: "14.0.3"
   setupChecks:
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"
-      base: "generated-passwords"
-      command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base static-passwords --work-dir <tmp> --non-interactive --namespace mysql"
       cubInstallObjectCountIncludingSupport: 9
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
+      variant: "static-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mysql"

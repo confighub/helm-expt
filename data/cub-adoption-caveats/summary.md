@@ -25,13 +25,13 @@ The default base bakes a password Secret that is **the same for everyone**. cub 
 
 | Chart | Default base | Password keys | Fix |
 | --- | --- | --- | --- |
-| bitnami/mongodb | `generated-passwords` | 1 | use the `existing-secret-replicaset` base → `kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>` |
-| bitnami/mysql | `generated-passwords` | 2 | use the `existing-secret` base → `kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>` |
-| bitnami/postgresql | `generated-passwords` | 1 | use the `existing-secret` base → `kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>` |
-| bitnami/rabbitmq | `generated-passwords` | 1 | use the `existing-secret` base → `kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=<value>` |
+| bitnami/mongodb | `static-passwords` | 1 | use the `existing-secret-replicaset` base → `kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>` |
+| bitnami/mysql | `static-passwords` | 2 | use the `existing-secret` base → `kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>` |
+| bitnami/postgresql | `static-passwords` | 1 | use the `existing-secret` base → `kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>` |
+| bitnami/rabbitmq | `static-passwords` | 1 | use the `existing-secret` base → `kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=<value>` |
 | bitnami/redis | `default` | 1 | use the `reuse-existing-secret` base → `kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>` |
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |
-| grafana/grafana | `generated-passwords` | 1 | use the `existing-secret-ingress` base → `kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=<value> --from-literal=admin-password=<value>` |
+| grafana/grafana | `static-passwords` | 1 | use the `existing-secret-ingress` base → `kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=<value> --from-literal=admin-password=<value>` |
 | runix/pgadmin4 | `default` | 1 | replace the placeholder before prod |
 
 ### CRDs need first-ordering on cub-direct (#1015) — 36 charts

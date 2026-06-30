@@ -32,7 +32,7 @@ semantic, such as `NetworkPolicy.spec.ingress: []`.
 
 ## Watchlist Decisions
 
-Grafana `generated-passwords` currently remains on the watchlist for empty RBAC
+Grafana `static-passwords` currently remains on the watchlist for empty RBAC
 `rules: []` shape differences. The workload converges, but the rule has not yet
 been accepted as a general Kubernetes normalization across target profiles.
 

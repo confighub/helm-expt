@@ -17,20 +17,20 @@ spec:
       claim: bitnami/postgresql has source hook count 0 in the retained source scan for version 18.6.7.
     - path: recipes/bitnami/postgresql/18.6.7/control-points.yaml
       claim: The recipe records hook-policy with policy no-hooks for the supported bases.
-    - path: recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml
-      claim: The generated-passwords rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/object-inventory.yaml
+      claim: The static-passwords rendered object inventory contains no hook objects.
     - path: recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/object-inventory.yaml
       claim: The existing-secret rendered object inventory contains no hook objects.
-    - path: recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/install-gate.yaml
-      claim: The generated-passwords install gate does not require Helm hook execution.
+    - path: recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/install-gate.yaml
+      claim: The static-passwords install gate does not require Helm hook execution.
     - path: recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/install-gate.yaml
       claim: The existing-secret install gate does not require Helm hook execution.
-    - path: runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity without hook objects.
+    - path: runs/live-kind-parity/bitnami-postgresql-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity without hook objects.
     - path: runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml
       claim: The existing-secret base passes strict two-cluster live parity without hook objects.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret
   remainingProductionBlockers: []
   nextDecision: Decide whether to accept or patch the remaining PDB scan warning, then record storage, backup, restore, and rollback policy for production support.

@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/mysql"
     chartVersion: "14.0.3"
     packagePath: "packages/bitnami/mysql/14.0.3"
-    variant: "generated-passwords"
+    variant: "static-passwords"
     configHubUnitCount: 8
   unitRevisionBindings:
     -

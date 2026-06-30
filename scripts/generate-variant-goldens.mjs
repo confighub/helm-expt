@@ -467,11 +467,11 @@ function derivedExpansionSources() {
       ],
     },
     {
-      id: "grafana-generated-passwords",
+      id: "grafana-static-passwords",
       component: "Grafana",
       componentSlug: "grafana",
       recipeRoot: "recipes/grafana/grafana/10.5.15",
-      base: "generated-passwords",
+      base: "static-passwords",
       proofPath: "runs/grafana-confighub-proof/latest/confighub-proof-receipt.yaml",
       namespace: "grafana",
       targetPrefix: "observability-targets",

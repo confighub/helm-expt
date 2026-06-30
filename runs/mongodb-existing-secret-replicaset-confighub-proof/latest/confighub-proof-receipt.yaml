@@ -16,7 +16,7 @@ spec:
     chart: "bitnami/mongodb"
     chartVersion: "19.0.7"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-replicaset"
     selectedBase: "existing-secret-replicaset"
     docVerified: true

@@ -19,7 +19,7 @@ spec:
           placeholder: "confighub-redis-password"
     -
       pkg: "bitnami/mysql"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       secrets:
         -
@@ -32,7 +32,7 @@ spec:
           placeholder: "confighub-mysql-root-password"
     -
       pkg: "bitnami/mongodb"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       secrets:
         -
@@ -41,7 +41,7 @@ spec:
           placeholder: "confighub-mongodb-root-password"
     -
       pkg: "bitnami/rabbitmq"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       secrets:
         -
@@ -50,7 +50,7 @@ spec:
           placeholder: "confighub-rabbitmq-password"
     -
       pkg: "bitnami/postgresql"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       secrets:
         -
@@ -58,7 +58,7 @@ spec:
           key: "postgres-password"
           placeholder: "confighub-postgres-password"
   result: "watch"
-  claim: "Helm generates a RANDOM password per install. cub renders deterministically and ships an auth Secret in out/secrets/ — but for these default bases the value is FIXED (identical across namespaces, committed in the package, e.g. `confighub-redis-password`). That is a shared, well-known default credential, not a generated one — convenient for demos, a footgun deployed unchanged. Bases named `generated-passwords` that ship a fixed value are misleadingly named."
+  claim: "Helm generates a RANDOM password per install. cub renders deterministically and ships an auth Secret in out/secrets/ — but for these default bases the value is FIXED (identical across namespaces, committed in the package, e.g. `confighub-redis-password`). That is a shared, well-known default credential, not a generated one — convenient for demos, a footgun deployed unchanged. Bases named `static-passwords` that ship a fixed value are misleadingly named."
   packages:
     -
       pkg: "bitnami/nginx/24.0.2"
@@ -80,7 +80,7 @@ spec:
         []
     -
       pkg: "bitnami/mysql"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       status: "fixed-credential"
       fixed:
@@ -96,7 +96,7 @@ spec:
         []
     -
       pkg: "bitnami/mongodb"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       status: "fixed-credential"
       fixed:
@@ -108,7 +108,7 @@ spec:
         []
     -
       pkg: "bitnami/rabbitmq"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       status: "fixed-credential"
       fixed:
@@ -120,7 +120,7 @@ spec:
         []
     -
       pkg: "bitnami/postgresql"
-      base: "generated-passwords"
+      base: "static-passwords"
       misleadingName: true
       status: "fixed-credential"
       fixed:

@@ -18,8 +18,8 @@ const chart = {
 
 const variants = [
   {
-    name: "generated-passwords",
-    base: "generated-passwords",
+    name: "static-passwords",
+    base: "static-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
     valuesText: `global:
@@ -188,9 +188,9 @@ runProofCli({
   },
   valueModel: {
     checkedValues: [
-      { path: "auth.rootPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random root password generation; this variant persists the generated value before render" },
-      { path: "auth.password", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "the chart can generate a user password; this variant binds it before render" },
-      { path: "auth.replicationPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "the chart can generate a replication password; this variant binds it before render" },
+      { path: "auth.rootPassword", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random root password generation; this variant persists the generated value before render" },
+      { path: "auth.password", variant: "static-passwords", disposition: "generated-fact-bound", reason: "the chart can generate a user password; this variant binds it before render" },
+      { path: "auth.replicationPassword", variant: "static-passwords", disposition: "generated-fact-bound", reason: "the chart can generate a replication password; this variant binds it before render" },
       { path: "auth.existingSecret", variant: "existing-secret", disposition: "target-fact-bound", reason: "externalizes the credential into a declared target Secret instead of rendering a Secret" },
       { path: "auth.secretKeys.adminPasswordKey", variant: "existing-secret", disposition: "target-secret-key", reason: "documents the expected key in the target Secret" },
       { path: "primary.persistence.enabled", variant: "all", disposition: "stateful-storage-enabled", reason: "chart defaults create a StatefulSet with volume claim templates" },
@@ -204,7 +204,7 @@ runProofCli({
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
-    { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword + auth.password + auth.replicationPassword", note: "The generated-passwords variant binds all generated password fields before render so Helm output is deterministic." },
+    { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword + auth.password + auth.replicationPassword", note: "The static-passwords variant binds all generated password fields before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret variant declares the target Secret instead of rendering one." },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|mysql|mysql" },
@@ -215,7 +215,7 @@ runProofCli({
   dossier: {
     maintainedNotes: [
       "Default chart rendering is nondeterministic unless auth.rootPassword, auth.password, and auth.replicationPassword are bound before render.",
-      "generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically.",
+      "static-passwords variant persists all three password fields as generated facts and renders the Secret deterministically.",
       "existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
       "Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production.",
@@ -242,7 +242,7 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart rendering is nondeterministic until generated credentials are bound;",
-      "the generated-passwords variant persists auth.rootPassword, auth.password, and auth.replicationPassword before render;",
+      "the static-passwords variant persists auth.rootPassword, auth.password, and auth.replicationPassword before render;",
       "the existing-secret variant uses a declared target Secret and does not render a Secret;",
       "generated fact, target fact, lifecycle boundary, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -328,8 +328,8 @@ runProofCli({
       check(identities.includes("networking.k8s.io/v1|NetworkPolicy|mysql|mysql"), `${variant.name} NetworkPolicy missing`);
       check(identities.includes("policy/v1|PodDisruptionBudget|mysql|mysql"), `${variant.name} PodDisruptionBudget missing`);
       check(identities.includes("v1|ConfigMap|mysql|mysql"), `${variant.name} ConfigMap missing`);
-      if (variant.name === "generated-passwords") {
-        check(identities.includes("v1|Secret|mysql|mysql"), "generated-passwords Secret missing");
+      if (variant.name === "static-passwords") {
+        check(identities.includes("v1|Secret|mysql|mysql"), "static-passwords Secret missing");
       }
       if (variant.name === "existing-secret") {
         check(!secretIdentities.length, "existing-secret must not render a Secret");

@@ -8,24 +8,24 @@ spec:
     chart: "grafana/grafana"
     version: "10.5.15"
     variants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-ingress"
     helmObjectsByVariant:
-      generated-passwords: 9
+      static-passwords: 9
       existing-secret-ingress: 9
     cubInstallObjectsByVariant:
-      generated-passwords: 10
+      static-passwords: 10
       existing-secret-ingress: 10
     helmMatchByVariant:
-      generated-passwords: "9/9"
+      static-passwords: "9/9"
       existing-secret-ingress: "9/9"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after generated fact or target fact binding, chart deprecation review, RBAC review, UI ingress policy, and provisioning/sidecar/Secret extension-slot review are satisfied"
   receipts:
-    - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/install-gate.yaml"
     - "revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/existing-secret-ingress/r001/receipts/render-receipt.yaml"
     - "revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml"

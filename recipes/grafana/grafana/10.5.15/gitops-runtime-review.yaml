@@ -45,7 +45,7 @@ spec:
   nextActions:
     - "Use kind-ingress-nginx for local live proof of this base when ingress behavior is part of the test."
     - "For production, replace the kind target profile with the target's real ingress controller, DNS, auth, TLS, and edge policy evidence."
-    - "Alternatively, use the generated-passwords base as the simple local proof path when ingress and existing admin Secret are not part of the target."
+    - "Alternatively, use the static-passwords base as the simple local proof path when ingress and existing admin Secret are not part of the target."
   notClaimed:
     - "This row does not prove external ingress reachability on a real load balancer."
     - "This row does not prove authentication policy beyond staging the expected admin Secret target fact."

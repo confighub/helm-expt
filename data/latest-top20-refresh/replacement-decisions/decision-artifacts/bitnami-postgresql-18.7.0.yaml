@@ -6,23 +6,23 @@ spec:
   chart: bitnami/postgresql
   currentVersion: 18.6.7
   currentSupportedVersion: 18.6.7
-  currentSupportedBase: generated-passwords
+  currentSupportedBase: static-passwords
   candidateVersion: 18.7.0
   latestUpstreamVersion: 18.7.0
   candidateFreshness: latest-upstream-aligned
-  candidateBase: generated-passwords
+  candidateBase: static-passwords
   decision: defer-replacement
   decisionDate: "2026-06-10"
   catalogEffect: no-catalog-promotion
   targetScope:
-    name: public-catalog-generated-passwords-postgresql
+    name: public-catalog-static-passwords-postgresql
     clusterClass: cub-lk-kind-vanilla
     namespace: postgresql
     deliveryPath: confighub-oci
     gitopsController: argo
   summary: "Keep bitnami/postgresql@18.6.7 as the supported public catalog version for now; retain bitnami/postgresql@18.7.0 as a proof-complete candidate."
   rationale:
-    - "The PostgreSQL 18.7.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence for the generated-passwords base."
+    - "The PostgreSQL 18.7.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence for the static-passwords base."
     - "The current PostgreSQL 18.6.7 supported scope already has target-scoped public catalog support evidence."
     - "Replacing a supported stateful database base needs an explicit target-scoped support decision for generated credentials, storage, backup/restore, hooks, scan disposition, and target-fact policy."
   decisionTopicsReviewed:
@@ -44,11 +44,11 @@ spec:
     - path: recipes/bitnami/postgresql/18.7.0/catalog-status.yaml
       claim: "PostgreSQL 18.7.0 is visible as a catalog-candidate, not catalog-supported."
     - path: runs/latest-top20-refresh/postgresql-18.7.0/confighub-proof/latest/confighub-proof-receipt.yaml
-      claim: "PostgreSQL 18.7.0 ConfigHub proof passed for the generated-passwords base."
+      claim: "PostgreSQL 18.7.0 ConfigHub proof passed for the static-passwords base."
     - path: runs/latest-top20-refresh/postgresql-18.7.0/local-kind/observation-receipt.json
-      claim: "PostgreSQL 18.7.0 local kind observation passed for the generated-passwords base."
-    - path: runs/latest-top20-refresh/postgresql-18.7.0/live-parity/generated-passwords/receipt.yaml
-      claim: "PostgreSQL 18.7.0 two-cluster Helm-vs-installer live parity passed for the generated-passwords base."
+      claim: "PostgreSQL 18.7.0 local kind observation passed for the static-passwords base."
+    - path: runs/latest-top20-refresh/postgresql-18.7.0/live-parity/static-passwords/receipt.yaml
+      claim: "PostgreSQL 18.7.0 two-cluster Helm-vs-installer live parity passed for the static-passwords base."
     - path: data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml
       claim: "Generated fact ownership is an explicit replacement topic for this chart."
     - path: data/production-disposition/receipts/bitnami-postgresql/hook-and-lifecycle-phase-policy.yaml

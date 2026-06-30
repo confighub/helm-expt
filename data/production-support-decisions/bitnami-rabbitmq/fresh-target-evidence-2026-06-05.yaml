@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ProductionSupportEvidenceReceipt"
 metadata:
-  name: "bitnami-rabbitmq-generated-passwords-argo-oci-support-evidence-20260605"
+  name: "bitnami-rabbitmq-static-passwords-argo-oci-support-evidence-20260605"
 spec:
   chart: "bitnami/rabbitmq"
   version: "16.0.14"
-  base: "generated-passwords"
+  base: "static-passwords"
   observedAt: "2026-06-05T18:25:30Z"
   result: "pass"
   targetScope:
@@ -40,13 +40,13 @@ spec:
     allowedExtraConfigHubObjects:
       - "v1|Namespace||rabbitmq"
   twoClusterCrossCheck:
-    path: "runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml"
+    path: "runs/live-kind-parity/bitnami-rabbitmq-static-passwords/receipt.yaml"
     result: "pass"
     semanticParity: "pass"
     regularHelmRuntime: "pass"
     installerRuntime: "pass"
   source:
-    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-rabbitmq-generated-passwords/receipt.yaml"
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-rabbitmq-static-passwords/receipt.yaml"
     cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
   checks:
     -
@@ -67,9 +67,9 @@ spec:
       detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
   supportClaim:
     state: "fresh-target-evidence-passed"
-    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared RabbitMQ generated-passwords support scope."
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared RabbitMQ static-passwords support scope."
   limits:
     - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
     - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
-    - "This supports the generated-passwords base, not the existing-secret topology."
+    - "This supports the static-passwords base, not the existing-secret topology."
     - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

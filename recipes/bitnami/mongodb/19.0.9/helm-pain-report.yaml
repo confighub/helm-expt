@@ -16,7 +16,7 @@ spec:
   productionReadiness: "not-reviewed-for-production"
   notes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
-    - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
+    - "static-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
     - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
     - "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag."
@@ -50,11 +50,11 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic."
+      detectedPainPoint: "The static-passwords variant binds the generated root password before render so Helm output is deterministic."
       evidence:
         - "auth.rootPassword"
       configHubHome: "generated-fact"
@@ -77,7 +77,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "hook-policy"
@@ -86,7 +86,7 @@ spec:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
       disposition: "handled-by-lifecycle-policy"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled-for-render"
     -
       id: "replicaset-topology"
@@ -95,7 +95,7 @@ spec:
         - "apps/v1|StatefulSet|mongodb|mongodb"
       configHubHome: "recipe"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "variant-controlled"
     -
       id: "stateful-workload"
@@ -104,7 +104,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "pvc-policy"
@@ -113,7 +113,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "network-policy"
@@ -122,7 +122,7 @@ spec:
         - "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
       configHubHome: "recipe"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "pdb-policy"
@@ -131,7 +131,7 @@ spec:
         - "policy/v1|PodDisruptionBudget|mongodb|mongodb"
       configHubHome: "recipe"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "tpl"
@@ -140,7 +140,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "controlled-by-empty-defaults"
     -
       id: "installer-support-object"
@@ -149,7 +149,7 @@ spec:
         - "v1|Namespace||mongodb"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
@@ -160,7 +160,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"

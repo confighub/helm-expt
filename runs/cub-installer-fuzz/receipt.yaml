@@ -253,7 +253,7 @@ spec:
           detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
     -
       pkg: "bitnami/mysql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -354,7 +354,7 @@ spec:
           detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
     -
       pkg: "bitnami/mongodb"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -455,7 +455,7 @@ spec:
           detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
     -
       pkg: "bitnami/rabbitmq"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -556,7 +556,7 @@ spec:
           detail: "Error: <tmp> has no `images:` block; declare one to use --set-image, or have the package author declare image inputs and a set-container-image group in transfor"
     -
       pkg: "bitnami/postgresql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -

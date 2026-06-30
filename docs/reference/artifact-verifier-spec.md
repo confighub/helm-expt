@@ -134,7 +134,7 @@ packages/bitnami/mysql/14.0.3/
 ```
 
 That proof is the eleventh promoted row from the adversarial harness. It checks
-two variants, `generated-passwords` and `existing-secret`, including
+two variants, `static-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding for root, user, and replication
 passwords, target Secret binding, rendered object inventories, render receipts,
 Helm equivalence receipts, scan receipts, install gates, separated Secret
@@ -148,7 +148,7 @@ packages/grafana/grafana/10.5.15/
 ```
 
 That proof is the twelfth promoted row from the adversarial harness. It checks
-two variants, `generated-passwords` and `existing-secret-ingress`, including
+two variants, `static-passwords` and `existing-secret-ingress`, including
 source/dependency locks, upstream deprecation status, generated admin password
 binding, target Secret binding, UI ingress exposure, rendered object
 inventories, render receipts, Helm equivalence receipts, scan receipts,
@@ -207,7 +207,7 @@ packages/bitnami/mongodb/19.0.7/
 ```
 
 That proof is the sixteenth full public-chart proof row. It checks two
-variants, `generated-passwords` and `existing-secret-replicaset`, including
+variants, `static-passwords` and `existing-secret-replicaset`, including
 source/dependency locks, generated root password binding, target Secret
 binding, replica-set and arbiter StatefulSets, persistent storage,
 NetworkPolicy/PDB policy, Helm hook lifecycle review, rendered object
@@ -284,7 +284,7 @@ packages/bitnami/postgresql/18.6.7/
 ```
 
 That proof is the sixth promoted row from the adversarial harness. It checks
-two variants, `generated-passwords` and `existing-secret`, including
+two variants, `static-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding, target fact binding, rendered
 object inventories, render receipts, Helm equivalence receipts, scan receipts,
 install gates, separated Secret handling, and deterministic `cub installer`
@@ -298,7 +298,7 @@ packages/bitnami/rabbitmq/16.0.14/
 ```
 
 That proof is the seventh promoted row from the adversarial harness. It checks
-two variants, `generated-passwords` and `existing-secret`, including
+two variants, `static-passwords` and `existing-secret`, including
 source/dependency locks, generated fact binding for password and Erlang cookie,
 target fact binding for both Secrets, rendered object inventories, render
 receipts, Helm equivalence receipts, scan receipts, install gates, separated
@@ -458,11 +458,11 @@ For the promoted PostgreSQL proof:
 
 1. Both promoted variants render deterministically with Helm under the pinned
    inputs.
-2. `generated-passwords` renders exactly 7 Helm objects, including one Secret
+2. `static-passwords` renders exactly 7 Helm objects, including one Secret
    and one StatefulSet.
 3. `existing-secret` renders exactly 6 Helm objects, including zero Secrets and
    one StatefulSet.
-4. `generated-passwords` binds `auth.postgresPassword` before render.
+4. `static-passwords` binds `auth.postgresPassword` before render.
 5. `existing-secret` declares target Secret `postgresql/postgresql-auth`.
 6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
 7. `cub installer package` produces byte-identical bundles across two local runs.
@@ -475,11 +475,11 @@ For the promoted RabbitMQ proof:
 
 1. Both promoted variants render deterministically with Helm under the pinned
    inputs.
-2. `generated-passwords` renders exactly 10 Helm objects, including the
+2. `static-passwords` renders exactly 10 Helm objects, including the
    credential Secret, the config Secret, and one StatefulSet.
 3. `existing-secret` renders exactly 9 Helm objects, including only the config
    Secret and one StatefulSet.
-4. `generated-passwords` binds `auth.password` and `auth.erlangCookie` before
+4. `static-passwords` binds `auth.password` and `auth.erlangCookie` before
    render.
 5. `existing-secret` declares target Secrets `rabbitmq/rabbitmq-auth` and
    `rabbitmq/rabbitmq-erlang-cookie`.
@@ -553,11 +553,11 @@ For the promoted MySQL proof:
 
 1. Both promoted variants render deterministically with Helm under the pinned
    inputs.
-2. `generated-passwords` renders exactly 8 Helm objects, including one Secret
+2. `static-passwords` renders exactly 8 Helm objects, including one Secret
    and one StatefulSet.
 3. `existing-secret` renders exactly 7 Helm objects, including zero Secrets and
    one StatefulSet.
-4. `generated-passwords` binds `auth.rootPassword`, `auth.password`, and
+4. `static-passwords` binds `auth.rootPassword`, `auth.password`, and
    `auth.replicationPassword` before render.
 5. `existing-secret` declares target Secret `mysql/mysql-auth`.
 6. The Bitnami `common` dependency is recorded in `dependency-lock.yaml`.
@@ -571,11 +571,11 @@ For the promoted Grafana proof:
 
 1. Both promoted variants render deterministically with Helm under the pinned
    inputs.
-2. `generated-passwords` renders exactly 9 Helm objects, including one Secret
+2. `static-passwords` renders exactly 9 Helm objects, including one Secret
    and one Deployment.
 3. `existing-secret-ingress` renders exactly 9 Helm objects, including zero
    Secrets, one Deployment, and one Ingress.
-4. `generated-passwords` binds `adminPassword` before render.
+4. `static-passwords` binds `adminPassword` before render.
 5. `existing-secret-ingress` declares target Secret `grafana/grafana-admin`.
 6. The chart has no subchart dependencies and records an empty dependency
    closure.
@@ -649,7 +649,7 @@ For the promoted MongoDB proof:
 
 1. Both promoted variants render deterministically with Helm under the pinned
    inputs.
-2. `generated-passwords` renders exactly 8 Helm objects, including one Secret,
+2. `static-passwords` renders exactly 8 Helm objects, including one Secret,
    Deployment, PVC, NetworkPolicy, and PDB.
 3. `existing-secret-replicaset` renders exactly 10 Helm objects, including no
    Secret, a primary StatefulSet, an arbiter StatefulSet, and headless services.

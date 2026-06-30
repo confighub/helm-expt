@@ -8,21 +8,21 @@
 
 ### supported-cites-cross-version-receipt (5)
 
-- **WARN** `bitnami/mongodb` — decision for 19.0.7 cites a 19.1.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+- **WARN** `bitnami/mongodb` — decision for 19.0.7 cites a 19.1.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml
 - **WARN** `bitnami/nginx` — decision for 24.0.2 cites a 25.0.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
-- **WARN** `bitnami/postgresql` — decision for 18.6.7 cites a 18.7.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml
+- **WARN** `bitnami/postgresql` — decision for 18.6.7 cites a 18.7.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-postgresql-static-passwords/receipt.yaml
 - **WARN** `bitnami/redis` — decision for 25.5.3 cites a 27.0.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-redis-default/receipt.yaml
 - **WARN** `prometheus-community/prometheus` — decision for 29.8.0 cites a 29.9.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml
 
 ### recommends-base-outside-supported-scope (10)
 
-- **WARN** `bitnami/mongodb` — password caveat recommends base "existing-secret-replicaset" but the support decision covers only "generated-passwords" — following the page's own advice steps off the supported base
-- **WARN** `bitnami/mysql` — password caveat recommends base "existing-secret" but the support decision covers only "generated-passwords" — following the page's own advice steps off the supported base
+- **WARN** `bitnami/mongodb` — password caveat recommends base "existing-secret-replicaset" but the support decision covers only "static-passwords" — following the page's own advice steps off the supported base
+- **WARN** `bitnami/mysql` — password caveat recommends base "existing-secret" but the support decision covers only "static-passwords" — following the page's own advice steps off the supported base
 - **WARN** `bitnami/nginx` — password caveat recommends base "existing-tls-ingress" but the support decision covers only "http-clusterip" — following the page's own advice steps off the supported base
-- **WARN** `bitnami/postgresql` — password caveat recommends base "existing-secret" but the support decision covers only "generated-passwords" — following the page's own advice steps off the supported base
-- **WARN** `bitnami/rabbitmq` — password caveat recommends base "existing-secret" but the support decision covers only "generated-passwords" — following the page's own advice steps off the supported base
+- **WARN** `bitnami/postgresql` — password caveat recommends base "existing-secret" but the support decision covers only "static-passwords" — following the page's own advice steps off the supported base
+- **WARN** `bitnami/rabbitmq` — password caveat recommends base "existing-secret" but the support decision covers only "static-passwords" — following the page's own advice steps off the supported base
 - **WARN** `bitnami/redis` — password caveat recommends base "reuse-existing-secret" but the support decision covers only "default" — following the page's own advice steps off the supported base
-- **WARN** `grafana/grafana` — password caveat recommends base "existing-secret-ingress" but the support decision covers only "generated-passwords" — following the page's own advice steps off the supported base
+- **WARN** `grafana/grafana` — password caveat recommends base "existing-secret-ingress" but the support decision covers only "static-passwords" — following the page's own advice steps off the supported base
 - **WARN** `grafana/tempo` — password caveat recommends base "s3-query-observability" but the support decision covers only "local-persistent" — following the page's own advice steps off the supported base
 - **WARN** `metrics-server/metrics-server` — password caveat recommends base "external-tls-ca" but the support decision covers only "default" — following the page's own advice steps off the supported base
 - **WARN** `prometheus-community/kube-prometheus-stack` — CRD caveat recommends base "no-crds" but the support decision covers only "default" — following the page's own advice steps off the supported base

@@ -16,9 +16,9 @@ spec:
     chart: "bitnami/mysql"
     chartVersion: "14.0.3"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
-    selectedBase: "generated-passwords"
+    selectedBase: "static-passwords"
     docVerified: true
     targetFactRequirements:
       -
@@ -30,13 +30,13 @@ spec:
             namespace: "mysql"
             suggestedSource: "kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>"
   render:
-    command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir .tmp/confighub-proof/mysql-generated-passwords --non-interactive --namespace mysql"
+    command: "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base static-passwords --work-dir .tmp/confighub-proof/mysql-static-passwords --non-interactive --namespace mysql"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
     facts:
       targetFactChecks:
-        base: "generated-passwords"
+        base: "static-passwords"
         mode: "not-required"
         result: "pass"
       targetFacts:
@@ -50,7 +50,7 @@ spec:
         requiredValues:
           []
   rerender:
-    command: "cub installer render --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer render --work-dir .tmp/confighub-proof/mysql-static-passwords"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
@@ -59,11 +59,11 @@ spec:
     sha256: "141a6b01c3e7b0276e22b8df64d3076e2849d0ae4270d3759e938d218d120a43"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub installer vet --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/mysql-static-passwords"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub installer upload --work-dir .tmp/confighub-proof/mysql-generated-passwords --space helm-mysql-confighub-proof --component MySQL --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MySQL --unit-label HelmChart=bitnami-mysql --unit-label HelmChartVersion=14.0.3 --unit-label Variant=generated-passwords --unit-label Proof=mysql-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/mysql-static-passwords --space helm-mysql-confighub-proof --component MySQL --layer App --environment Demo --owner ConfigHubHelm --variant static-passwords --unit-label Component=MySQL --unit-label HelmChart=bitnami-mysql --unit-label HelmChartVersion=14.0.3 --unit-label Variant=static-passwords --unit-label Proof=mysql-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-mysql-confighub-proof"
@@ -74,9 +74,9 @@ spec:
       - "v1/Secret mysql/mysql"
   plan:
     preUpload:
-      command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-static-passwords"
       result: "expected-missing-upload-state"
-    command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-generated-passwords"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/mysql-static-passwords"
     result: "pass"
     summary: "No changes.\nImages in helm-mysql-confighub-proof (post-render):\n  init  StatefulSet/mysql [preserve-logs-symlinks] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1\n      StatefulSet/mysql [mysql] docker.io/bitnamilegacy/mysql:9.4.0-debian-12-r1"
   serverSideVariant:

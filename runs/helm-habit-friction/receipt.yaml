@@ -246,7 +246,7 @@ spec:
           detail: "Error: unknown input \"servers[0]\""
     -
       pkg: "bitnami/mysql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -332,7 +332,7 @@ spec:
           detail: "Error: unknown input \"servers[0]\""
     -
       pkg: "bitnami/mongodb"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -418,7 +418,7 @@ spec:
           detail: "Error: unknown input \"servers[0]\""
     -
       pkg: "bitnami/rabbitmq"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -
@@ -504,7 +504,7 @@ spec:
           detail: "Error: unknown input \"servers[0]\""
     -
       pkg: "bitnami/postgresql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "fuzzed"
       cases:
         -

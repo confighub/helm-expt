@@ -13,7 +13,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Variants in this note | generated-passwords, existing-secret |
+| Variants in this note | static-passwords, existing-secret |
 
 Production support is not implied by this file. A chart can be supported for
 local proof/demo use while still needing accepted scan, gate, lifecycle, and
@@ -23,7 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Default chart rendering is nondeterministic unless auth.password is bound before render.
 - Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render.
-- generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically.
+- static-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically.
 - existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts.
 - existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
@@ -34,7 +34,8 @@ operating-policy dispositions plus a final target-scoped support decision.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- generated-passwords is the simplest install path and records generated Secret separation.
+- static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it also freezes the RabbitMQ erlang cluster cookie, so every install trusts the same shared cluster secret; it does not generate or separate any credential.
+- ⚠ static-passwords is for demos and local-test only: the committed password and erlang cookie is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret to bring your own Secret for anything real.
 - existing-secret is supported when the declared RabbitMQ Secret target facts are satisfied.
 - Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
 - Target production review must choose storage class, RabbitMQ recovery policy, and backup/restore mechanism before use.
@@ -46,7 +47,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart declares the Bitnami common dependency; promoted variants lock its metadata. |
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
-| generated-facts | variant-controlled | The generated-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic. |
+| generated-facts | variant-controlled | The static-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret variant declares target Secrets for password and Erlang cookie; it still renders the configuration Secret. |
 | hook-policy | not-present-in-promoted-render | Promoted RabbitMQ variants render no hook objects with the pinned inputs; if enabled by future values, hooks must map to lifecycle policy before production. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|rabbitmq\|rabbitmq |

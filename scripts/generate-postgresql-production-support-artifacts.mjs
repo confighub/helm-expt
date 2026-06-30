@@ -9,8 +9,8 @@ const mode = process.argv[2] ?? "--generate";
 const chart = "bitnami/postgresql";
 const chartSlug = "bitnami-postgresql";
 const version = "18.6.7";
-const supportedBase = "generated-passwords";
-const variants = ["existing-secret", "generated-passwords"];
+const supportedBase = "static-passwords";
+const variants = ["existing-secret", "static-passwords"];
 const imageReviewPath = join(repoRoot, "data", "attack-plan-workdown", "image-digest-review.csv");
 const imageWorkdownPath = join(repoRoot, "data", "image-digest-workdown", "chart-summary.csv");
 const externalScanPath = join(repoRoot, "data", "external-scan-lane", "review.csv");
@@ -53,7 +53,7 @@ function buildImagePolicyDecision() {
       decision: "no-open-image-digest-gap",
       decidedAt: "2026-06-09",
       claim:
-        "The rendered PostgreSQL bases use digest-pinned Bitnami PostgreSQL image references in the current proof corpus. There is no open image-digest work item for the selected generated-passwords support scope.",
+        "The rendered PostgreSQL bases use digest-pinned Bitnami PostgreSQL image references in the current proof corpus. There is no open image-digest work item for the selected static-passwords support scope.",
       renderedImageSummary: {
         renderedSubjects: Number(chartSummary.rendered_subjects),
         subjectsNeedingResolution: Number(chartSummary.subjects_needing_resolution),
@@ -104,7 +104,7 @@ function buildSecurityDecision() {
       decision: "pdb-policy-accepted-for-target-scope",
       decidedAt: "2026-06-09",
       claim:
-        "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a high-availability base where appropriate.",
+        "The selected static-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB policy or a high-availability base where appropriate.",
       route: workdown.dispositionRoute,
       routeReason: workdown.routeReason,
       findingSummary: {
@@ -170,10 +170,10 @@ function buildLifecycleDecision() {
       decision: "lifecycle-observed-for-proof-scope",
       decidedAt: "2026-06-09",
       claim:
-        "The PostgreSQL generated-passwords base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. The generated postgres password is bound before render and the rendered Secret is separated by cub installer rather than hidden in workload units.",
+        "The PostgreSQL static-passwords base has no Helm hook objects and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo. The generated postgres password is bound before render and the rendered Secret is separated by cub installer rather than hidden in workload units.",
       lifecycleModel: {
         hookPolicy: "no-chart-hooks",
-        selectedTopology: "standalone-statefulset-generated-passwords",
+        selectedTopology: "standalone-statefulset-static-passwords",
         generatedFacts:
           "auth.postgresPassword is generated and bound before render; the rendered Secret is deterministic and separated during cub installer output.",
         storagePolicy:
@@ -202,14 +202,14 @@ function buildLifecycleDecision() {
         },
       },
       limits: [
-        "This supports the generated-passwords public proof base, not every PostgreSQL deployment topology.",
+        "This supports the static-passwords public proof base, not every PostgreSQL deployment topology.",
         "This proof does not test PostgreSQL backup, restore, point-in-time recovery, failover, replication, or high-availability operation.",
         "Credential rotation and secret custody are target operating procedures outside this public proof.",
         "Populated init scripts or extended configuration slots require a new reviewed base.",
       ],
       evidence: [
-        { path: relativeRepo(kindParityPath), claim: "Two-cluster Helm-vs-installer parity passes for generated-passwords." },
-        { path: relativeRepo(liveReceiptPath), claim: "ConfigHub OCI/Argo live parity passes for generated-passwords." },
+        { path: relativeRepo(kindParityPath), claim: "Two-cluster Helm-vs-installer parity passes for static-passwords." },
+        { path: relativeRepo(liveReceiptPath), claim: "ConfigHub OCI/Argo live parity passes for static-passwords." },
         {
           path: `data/production-disposition/receipts/${chartSlug}/generated-fact-ownership.yaml`,
           claim: "Records generated credential ownership and the separated Secret policy.",
@@ -293,12 +293,12 @@ function buildFreshEvidenceReceipt() {
       ],
       supportClaim: {
         state: "fresh-target-evidence-passed",
-        detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared PostgreSQL generated-passwords support scope.",
+        detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared PostgreSQL static-passwords support scope.",
       },
       limits: [
         "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster.",
         "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact.",
-        "This supports the generated-passwords base, not the existing-secret topology.",
+        "This supports the static-passwords base, not the existing-secret topology.",
         "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier.",
       ],
     },

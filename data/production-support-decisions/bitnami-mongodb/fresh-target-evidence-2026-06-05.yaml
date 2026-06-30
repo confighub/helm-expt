@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ProductionSupportEvidenceReceipt"
 metadata:
-  name: "bitnami-mongodb-generated-passwords-argo-oci-support-evidence-20260605"
+  name: "bitnami-mongodb-static-passwords-argo-oci-support-evidence-20260605"
 spec:
   chart: "bitnami/mongodb"
   version: "19.0.7"
-  base: "generated-passwords"
+  base: "static-passwords"
   observedAt: "2026-06-05T18:46:27Z"
   result: "pass"
   targetScope:
@@ -39,13 +39,13 @@ spec:
     allowedExtraConfigHubObjects:
       - "v1|Namespace||mongodb"
   twoClusterCrossCheck:
-    path: "runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml"
+    path: "runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml"
     result: "pass"
     semanticParity: "pass"
     regularHelmRuntime: "pass"
     installerRuntime: "pass"
   source:
-    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml"
+    liveReceiptPath: "runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords/receipt.yaml"
     cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
   checks:
     -
@@ -66,9 +66,9 @@ spec:
       detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
   supportClaim:
     state: "fresh-target-evidence-passed"
-    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared MongoDB generated-passwords support scope."
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared MongoDB static-passwords support scope."
   limits:
     - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
     - "This assumes an existing Argo CD OCI controller is available to reconcile the ConfigHub artifact."
-    - "This supports the generated-passwords base, not the existing-secret replica-set topology."
+    - "This supports the static-passwords base, not the existing-secret replica-set topology."
     - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

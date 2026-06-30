@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | generated-passwords, existing-secret |
+| Supported variants | static-passwords, existing-secret |
 | Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 |
 | Feature summary | generated-secrets;required-values;install-vs-upgrade;remote-dependencies |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
-| Next action | choose whether generated-passwords is in production scope; close or document its render-only live-readiness issue first |
+| Next action | choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first |
 
 ## Artifact Chain
 
@@ -59,24 +59,24 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| generated-passwords | [recipes/bitnami/postgresql/18.6.7/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/postgresql/18.6.7/bases/generated-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/generated-passwords) | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
+| static-passwords | [recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml](variants/static-passwords/variant.yaml) | [packages/bitnami/postgresql/18.6.7/bases/static-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/static-passwords) | [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml](revisions/static-passwords/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
 | existing-secret | [recipes/bitnami/postgresql/18.6.7/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/bitnami/postgresql/18.6.7/bases/existing-secret](../../../../packages/bitnami/postgresql/18.6.7/bases/existing-secret) | [recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | required Secret postgresql/postgresql-auth keys postgres-password |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| generated-passwords | [packages/bitnami/postgresql/18.6.7/bases/generated-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/generated-passwords) | yes | postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7 |
+| static-passwords | [packages/bitnami/postgresql/18.6.7/bases/static-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/static-passwords) | yes | postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7 |
 | existing-secret | [packages/bitnami/postgresql/18.6.7/bases/existing-secret](../../../../packages/bitnami/postgresql/18.6.7/bases/existing-secret) | no | postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
-| generated-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/render-receipt.yaml](revisions/generated-passwords/r001/receipts/render-receipt.yaml) |
-| generated-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
-| generated-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](revisions/generated-passwords/r001/receipts/scan-receipt.yaml) |
-| generated-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/install-gate.yaml](revisions/generated-passwords/r001/receipts/install-gate.yaml) |
+| static-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/render-receipt.yaml](revisions/static-passwords/r001/receipts/render-receipt.yaml) |
+| static-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
+| static-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml](revisions/static-passwords/r001/receipts/scan-receipt.yaml) |
+| static-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/install-gate.yaml](revisions/static-passwords/r001/receipts/install-gate.yaml) |
 | existing-secret | r001 | render | RenderReceipt | recorded | [recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/render-receipt.yaml](revisions/existing-secret/r001/receipts/render-receipt.yaml) |
 | existing-secret | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml) |
 | existing-secret | r001 | scan | ScanReceipt | warn | [recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/receipts/scan-receipt.yaml](revisions/existing-secret/r001/receipts/scan-receipt.yaml) |

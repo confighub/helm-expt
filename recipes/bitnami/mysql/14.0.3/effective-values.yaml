@@ -1,7 +1,7 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "EffectiveValues"
 metadata:
-  name: "bitnami-mysql-14.0.3-generated-passwords"
+  name: "bitnami-mysql-14.0.3-static-passwords"
 spec:
   files:
     -

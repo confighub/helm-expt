@@ -89,7 +89,7 @@ Deterministic rendering is good for reviewable diffs, but a deterministic Secret
 value is not a generated password. If a demo/default base ships a fixed
 placeholder credential, the row stays `watch` until the name, warning, and
 recommended production route make that obvious. A base named
-`generated-passwords` must not quietly contain fixed shared credentials.
+`static-passwords` must not quietly contain fixed shared credentials.
 
 ## 6d. Drift detection must state field coverage
 `cub-scout compare three-way --dry-from` can detect meaningful drift, but field

@@ -1,0 +1,171 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-postgresql-18.6.7-static-passwords-live-parity-20260605
+spec:
+  chart: bitnami/postgresql
+  version: 18.6.7
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-05T18:19:50Z'
+  package:
+    path: packages/bitnami/postgresql/18.6.7
+  recipe:
+    path: recipes/bitnami/postgresql/18.6.7
+  variantRevision: recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-postgresql-mq1917o7-j3h
+    kubeContext: kind-helm-expt-parity-postgresql-mq1917o7-j3h
+    namespace: postgresql
+    legNamespaces:
+      regularHelm: postgresql-helm
+      configHubKubectlApply: postgresql-apply
+      configHubOciArgo: postgresql-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-postgresql-mq1917o7-j3h
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-postgresql-mq1917o7-j3h"...
+
+        Deleting cluster "helm-expt-parity-postgresql-mq1917o7-j3h" ...
+
+        Deleted nodes: ["helm-expt-parity-postgresql-mq1917o7-j3h-control-plane"]
+
+        Deleting Space "helm-expt-parity-postgresql-mq1917o7-j3h-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
+        --version 18.6.7 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 5ddff6ac6f2de4b98f6fce9d482167f300406c3ff738317e34b322522465ea72
+      objectCount: 7
+      liveHelmManifestSHA256: 49289a64e4726985ae3c00d23ca6cf8d4228cadf81a79ed4cb800f2c8e5ee728
+      liveHelmManifestObjectCount: 7
+      namespace: postgresql-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/postgresql   1/1   43s
+        pods: postgresql-0   1/1   Running   0     43s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.6.7
+        --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mq1917o7-j3h-postgresql
+        --non-interactive --namespace postgresql-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 615c55f5bd24884a6f70ee82de170a43f0be5224daf3c490d1ad81860d47d622
+      objectCount: 8
+      namespace: postgresql-apply
+      manifestNamespaces:
+      - postgresql-apply
+      runtimeNamespaces: &id001
+      - postgresql-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# postgresql-apply
+
+          statefulset.apps/postgresql   1/1   20s'
+        pods: '# postgresql-apply
+
+          postgresql-0   1/1   Running   0     20s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-postgresql-mq1917o7-j3h-postgresql
+      controller: Argo CD OCI
+      app: postgresql-parity
+      manifestSHA256: 1dcff96ff9e29ca71259cf68168c41913da0725596e0f79fd2c21ddbed37e09d
+      objectCount: 8
+      namespace: postgresql-oci
+      manifestNamespaces:
+      - postgresql-oci
+      runtimeNamespaces: &id002
+      - postgresql-oci
+      ociRevision: sha256:ac2561476b8a404a1e969f9d1ff030b38e71ec26ea461a220e89b0c1c8547d6a
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-postgresql-oci-postgresql.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# postgresql-oci
+
+          statefulset.apps/postgresql   1/1   28s'
+        pods: '# postgresql-oci
+
+          postgresql-0   1/1   Running   0     28s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||postgresql
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||postgresql
+      semanticDiffs: []
+      comparisonSHA256: c3866137a465ac636d73c84a83f03755b6dc44de56f05463b9c548fb927c384f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||postgresql
+      semanticDiffs: []
+      comparisonSHA256: c3866137a465ac636d73c84a83f03755b6dc44de56f05463b9c548fb927c384f
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-postgresql-mq1917o7-j3h\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mq1917o7-j3h.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-postgresql-mq1917o7-j3h\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-postgresql-mq1917o7-j3h\"\n\
+      You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-postgresql-mq1917o7-j3h\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mq1917o7-j3h.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nC"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"postgresql\" does not exist. Installing it now.\nNAME: postgresql\n\
+      LAST DEPLOYED: Fri Jun  5 19:22:47 2026\nNAMESPACE: postgresql-helm\nSTATUS:\
+      \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
+      CHART NAME: postgresql\nCHART VERSION: 18.6.7\nAPP VERSION: 18.4.0\n\n\u26A0\
+      \ WARNING: Since August 28th, 2025, only a limited subset of images/charts are\
+      \ available for free.\n    Subscribe to Bitnami Secure Images to receive continued\
+      \ support and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nPostgreSQL can\
+      \ be accessed via port 5432 on the following DNS names from within your cluster:\n\
+      \n    postgresql.postgresql-helm.svc.cluster.local - Read/Write connection\n\
+      \nTo get the password for \"postgres\" run:\n\n    export POSTGRES_PASSWORD=$(kubectl\
+      \ get secret --namespace postgresql-helm postgresql -o jsonpath=\"{.data.postgres-password}\"\
+      \ | base64 -d)\n\nTo connect to you"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# postgresql-apply
+
+      statefulset.apps/postgresql   1/1   20s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||postgresql'] diffs=0

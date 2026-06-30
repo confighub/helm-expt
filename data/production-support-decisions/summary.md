@@ -25,7 +25,7 @@ evidence work before it becomes production-supported for a target scope.
 
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
-| Supported scope evidence | 17 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 13 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 17 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (static-passwords)<br>`bitnami/mysql@14.0.3` (static-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 13 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 
 ## Priority Rows
 
@@ -46,11 +46,11 @@ Each decision directory also has a generated workdown page:
 | Chart | Workdown |
 | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | [default](./argo-cd-argo-cd/README.md) |
-| `bitnami/mongodb@19.0.7` | [generated-passwords](./bitnami-mongodb/README.md) |
-| `bitnami/mysql@14.0.3` | [generated-passwords](./bitnami-mysql/README.md) |
+| `bitnami/mongodb@19.0.7` | [static-passwords](./bitnami-mongodb/README.md) |
+| `bitnami/mysql@14.0.3` | [static-passwords](./bitnami-mysql/README.md) |
 | `bitnami/nginx@24.0.2` | [http-clusterip](./bitnami-nginx/README.md) |
-| `bitnami/postgresql@18.6.7` | [generated-passwords](./bitnami-postgresql/README.md) |
-| `bitnami/rabbitmq@16.0.14` | [generated-passwords](./bitnami-rabbitmq/README.md) |
+| `bitnami/postgresql@18.6.7` | [static-passwords](./bitnami-postgresql/README.md) |
+| `bitnami/rabbitmq@16.0.14` | [static-passwords](./bitnami-rabbitmq/README.md) |
 | `bitnami/redis@25.5.3` | [default](./bitnami-redis/README.md) |
 | `external-secrets/external-secrets@2.5.0` | [default](./external-secrets-external-secrets/README.md) |
 | `grafana/grafana@10.5.15` | [existing-secret-ingress](./grafana-grafana/README.md) |
@@ -71,11 +71,11 @@ Each decision directory also has a generated workdown page:
 | Chart | Base | Decision | Target scope | Live evidence decision | Next action |
 | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default | supported | cub-lk-kind-vanilla; namespace=argocd; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate hardened, self-managed, repository-credential, SSO, or backup/restore bases for real customer GitOps control planes. |
-| `bitnami/mongodb@19.0.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads. |
-| `bitnami/mysql@14.0.3` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=mysql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MySQL workloads. |
+| `bitnami/mongodb@19.0.7` | static-passwords | supported | cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, replica-set, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MongoDB workloads. |
+| `bitnami/mysql@14.0.3` | static-passwords | supported | cub-lk-kind-vanilla; namespace=mysql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, credential-rotation, storage-class, SLO, or resource-hardened bases for real customer MySQL workloads. |
 | `bitnami/nginx@24.0.2` | http-clusterip | supported | cub-lk-kind-vanilla; namespace=nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
-| `bitnami/postgresql@18.6.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=postgresql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads. |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads. |
+| `bitnami/postgresql@18.6.7` | static-passwords | supported | cub-lk-kind-vanilla; namespace=postgresql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads. |
+| `bitnami/rabbitmq@16.0.14` | static-passwords | supported | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads. |
 | `bitnami/redis@25.5.3` | default | supported | cub-lk-kind-vanilla; namespace=redis; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, storage-class, SLO, or availability-hardened bases for real customer Redis workloads. |
 | `external-secrets/external-secrets@2.5.0` | default | supported | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads. |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | superseded | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review a maintained Grafana chart or replacement catalog source before making a production-support claim. |

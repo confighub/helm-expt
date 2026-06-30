@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-10.5.15.tgz"
-    sha256: "f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9"
+    sha256: "d7ae862f221952ba312e507f322f3d163bc325b96ab6438d5583a221fe4c284a"
   package:
     name: "grafana-grafana"
     path: "packages/grafana/grafana/10.5.15"
@@ -28,11 +28,11 @@ spec:
         sha256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
         bytes: 7305
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
         bytes: 7240
       -
@@ -41,22 +41,22 @@ spec:
         bytes: 2401
       -
         path: "installer.yaml"
-        sha256: "9f01e12f92e96dd69e32534372be62cb8b11c415294099bb14d842f91016688b"
-        bytes: 1293
+        sha256: "a7a792cace4be1c3074ee183803b4cd89955afd639dd944318dc35dd734868c6"
+        bytes: 1287
     version: "10.5.15"
   setupChecks:
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||grafana"
-      base: "generated-passwords"
-      command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base static-passwords --work-dir <tmp> --non-interactive --namespace grafana"
       cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
       semanticObjectMatches: "9/9"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
+      variant: "static-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||grafana"

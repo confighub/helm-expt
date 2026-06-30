@@ -2,10 +2,10 @@
   "apiVersion": "helm-expt.confighub.com/v1alpha1",
   "kind": "ObservationReceipt",
   "metadata": {
-    "name": "postgresql-18-6-10-generated-passwords-local-kind"
+    "name": "postgresql-18-6-10-static-passwords-local-kind"
   },
   "spec": {
-    "variantRevision": "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml",
+    "variantRevision": "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml",
     "renderedObjectSetSHA256": "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69",
     "observer": {
       "name": "top20-local-e2e",
@@ -24,7 +24,7 @@
     "chart": "bitnami/postgresql",
     "chartVersion": "18.6.10",
     "rank": 8,
-    "variant": "generated-passwords",
+    "variant": "static-passwords",
     "renderedObjectCount": 7,
     "checks": [
       {

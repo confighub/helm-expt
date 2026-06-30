@@ -25,11 +25,11 @@ spec:
         sha256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
         bytes: 9112
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
         bytes: 9715
       -
@@ -46,9 +46,9 @@ spec:
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      variant: "generated-passwords"
-      base: "generated-passwords"
-      command: "cub installer setup --pull data/latest-top20-refresh/candidates/postgresql-18.6.10/packages/bitnami/postgresql/18.6.10 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+      variant: "static-passwords"
+      base: "static-passwords"
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/postgresql-18.6.10/packages/bitnami/postgresql/18.6.10 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
       helmReleaseObjectCount: 7
       cubInstallObjectCountIncludingSupport: 8
       semanticObjectMatches: "7/7"

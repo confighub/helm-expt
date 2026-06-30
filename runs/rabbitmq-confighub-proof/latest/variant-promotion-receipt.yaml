@@ -1,7 +1,7 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "VariantPromotionReceipt"
 metadata:
-  name: "rabbitmq-generated-passwords-variant-promotion-20260527"
+  name: "rabbitmq-static-passwords-variant-promotion-20260527"
 spec:
   observedAt: "2026-05-27"
   context:
@@ -13,48 +13,48 @@ spec:
     chart: "bitnami/rabbitmq"
     chartVersion: "16.0.14"
     packagePath: "packages/bitnami/rabbitmq/16.0.14"
-    variant: "generated-passwords"
+    variant: "static-passwords"
     upstreamSpace: "helm-rabbitmq-confighub-proof"
     downstreamSpace: "RabbitMQ-staging"
   commands:
     upstreamUpdate: "cub unit update statefulset-rabbitmq-rabbitmq runs/rabbitmq-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-rabbitmq-confighub-proof --change-desc ..."
-    upstreamAddUnit: "cub unit create promotion-marker-rabbitmq-generated-passwords runs/rabbitmq-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-rabbitmq-confighub-proof --allow-exists"
+    upstreamAddUnit: "cub unit create promotion-marker-rabbitmq-static-passwords runs/rabbitmq-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-rabbitmq-confighub-proof --allow-exists"
     dryRun: "cub variant promote RabbitMQ-staging --dry-run -o mutations"
-    changeset: "cub changeset create rabbitmq-generated-passwords-variant-promote-20260527 --space RabbitMQ-staging --description ... --allow-exists"
-    promote: "cub variant promote RabbitMQ-staging --changeset RabbitMQ-staging/rabbitmq-generated-passwords-variant-promote-20260527 --change-desc ..."
+    changeset: "cub changeset create rabbitmq-static-passwords-variant-promote-20260527 --space RabbitMQ-staging --description ... --allow-exists"
+    promote: "cub variant promote RabbitMQ-staging --changeset RabbitMQ-staging/rabbitmq-static-passwords-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote RabbitMQ-staging --change-desc ..."
   upstreamChange:
     changedUnit: "statefulset-rabbitmq-rabbitmq"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
-    annotation: "helm-expt.confighub.com/promotion-proof=rabbitmq-generated-passwords-promotion-20260527"
+    annotation: "helm-expt.confighub.com/promotion-proof=rabbitmq-static-passwords-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
-    markerUnit: "promotion-marker-rabbitmq-generated-passwords"
+    markerUnit: "promotion-marker-rabbitmq-static-passwords"
     upstreamUnitID: "94ffb1a0-0fa3-4a33-b309-012fbedb037c"
     result: "pass"
     proofOnly: true
   preview:
     result: "pass"
-    output: "  + promotion-marker-rabbitmq-generated-passwords"
+    output: "  + promotion-marker-rabbitmq-static-passwords"
   changeset:
-    slug: "rabbitmq-generated-passwords-variant-promote-20260527"
+    slug: "rabbitmq-static-passwords-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset rabbitmq-generated-passwords-variant-promote-20260527 (b5c79233-66ff-4f20-8583-48cab5269140)"
+    output: "Successfully created changeset rabbitmq-static-passwords-variant-promote-20260527 (b5c79233-66ff-4f20-8583-48cab5269140)"
   promote:
     result: "fail"
     output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: statefulset-rabbitmq-rabbitmq\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
   fallbackPromote:
     used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-rabbitmq-generated-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-rabbitmq-static-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
     downstreamUpstreamRevisionNumBefore: 2
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
-    addedUnitSlug: "promotion-marker-rabbitmq-generated-passwords"
+    addedUnitSlug: "promotion-marker-rabbitmq-static-passwords"
     addedUnitDownstreamUpstreamUnitID: "94ffb1a0-0fa3-4a33-b309-012fbedb037c"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"

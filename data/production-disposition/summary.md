@@ -82,8 +82,8 @@ active support state.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
-| Image digest resolution | 10 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/rabbitmq@16.0.14` (generated-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (existing-secret-ingress)<br>and 5 more |
-| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/postgresql@18.6.7` (generated-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (internal-clusterip) |
+| Image digest resolution | 10 | Pin images by digest or record an explicit exception before production OCI support.<br>`argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mysql@14.0.3` (static-passwords)<br>`bitnami/rabbitmq@16.0.14` (static-passwords)<br>`external-secrets/external-secrets@2.5.0` (default)<br>`grafana/grafana@10.5.15` (existing-secret-ingress)<br>and 5 more |
+| Lifecycle support boundary | 4 | Record which lifecycle behavior is supported, observed, excluded, or operator-owned.<br>`bitnami/mongodb@19.0.7` (static-passwords)<br>`bitnami/postgresql@18.6.7` (static-passwords)<br>`bitnami/redis@25.5.3` (default)<br>`ingress-nginx/ingress-nginx@4.15.1` (internal-clusterip) |
 | Security acceptance or hardened base | 4 | Accept current security findings for the target scope or create a hardened base variant.<br>`longhorn/longhorn@1.11.2` (default)<br>`prometheus-community/kube-prometheus-stack@85.3.3` (default)<br>`prometheus-community/prometheus@29.8.0` (server-only-ephemeral)<br>`secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` (default) |
 | Close open dispositions | 1 | Write or fix missing disposition receipts before making a support decision.<br>`jetstack/cert-manager@v1.20.2` (crds-enabled) |
 | Scope decision | 1 | Write the missing target-scoped support boundary.<br>`bitnami/nginx@24.0.2` (http-clusterip) |
@@ -98,14 +98,14 @@ spreadsheet form, use
 | Chart | Variants | ConfigHub proof | Live/e2e | Production status | Accepted | Open dispositions |
 | --- | --- | --- | --- | --- | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | pass | local-kind-observed | production-review-ready | 7 |  |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | pass | local-kind-observed | production-review-ready | 6 |  |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
+| `bitnami/mongodb@19.0.7` | static-passwords, existing-secret-replicaset | pass | local-kind-observed | production-review-ready | 6 |  |
+| `bitnami/mysql@14.0.3` | static-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | pass | local-kind-observed | production-review-ready | 4 |  |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
+| `bitnami/postgresql@18.6.7` | static-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
+| `bitnami/rabbitmq@16.0.14` | static-passwords, existing-secret | pass | local-kind-observed | production-review-ready | 5 |  |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | pass | local-kind-observed | production-review-ready | 4 |  |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | pass | local-kind-observed | production-review-ready | 6 |  |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
+| `grafana/grafana@10.5.15` | static-passwords, existing-secret-ingress | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | pass | local-kind-observed | production-review-ready | 5 |  |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | pass | local-kind-observed | production-review-ready | 4 |  |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | pass | local-kind-observed | production-review-ready | 8 |  |

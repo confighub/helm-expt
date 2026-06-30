@@ -10,13 +10,13 @@ spec:
     namespace: "postgresql"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "no-open-image-digest-gap"
   decidedAt: "2026-06-09"
-  claim: "The rendered PostgreSQL bases use digest-pinned Bitnami PostgreSQL image references in the current proof corpus. There is no open image-digest work item for the selected generated-passwords support scope."
+  claim: "The rendered PostgreSQL bases use digest-pinned Bitnami PostgreSQL image references in the current proof corpus. There is no open image-digest work item for the selected static-passwords support scope."
   renderedImageSummary:
     renderedSubjects: 2
     subjectsNeedingResolution: 0
@@ -28,7 +28,7 @@ spec:
       rows: 1
       uniqueImages: 1
       renderedObjectSetSHA256: "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
-    generated-passwords:
+    static-passwords:
       rows: 1
       uniqueImages: 1
       renderedObjectSetSHA256: "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b"

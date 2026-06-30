@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | generated-passwords, existing-secret |
+| Supported variants | static-passwords, existing-secret |
 | Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
@@ -59,24 +59,24 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| generated-passwords | [recipes/bitnami/mysql/14.0.3/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/mysql/14.0.3/bases/generated-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/generated-passwords) | [recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | none |
+| static-passwords | [recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml](variants/static-passwords/variant.yaml) | [packages/bitnami/mysql/14.0.3/bases/static-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/static-passwords) | [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml](revisions/static-passwords/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | none |
 | existing-secret | [recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/bitnami/mysql/14.0.3/bases/existing-secret](../../../../packages/bitnami/mysql/14.0.3/bases/existing-secret) | [recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | required Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| generated-passwords | [packages/bitnami/mysql/14.0.3/bases/generated-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/generated-passwords) | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
+| static-passwords | [packages/bitnami/mysql/14.0.3/bases/static-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/static-passwords) | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
 | existing-secret | [packages/bitnami/mysql/14.0.3/bases/existing-secret](../../../../packages/bitnami/mysql/14.0.3/bases/existing-secret) | no | mysql existing Secret variant rendered from bitnami/mysql@14.0.3 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
-| generated-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/render-receipt.yaml](revisions/generated-passwords/r001/receipts/render-receipt.yaml) |
-| generated-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
-| generated-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](revisions/generated-passwords/r001/receipts/scan-receipt.yaml) |
-| generated-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/install-gate.yaml](revisions/generated-passwords/r001/receipts/install-gate.yaml) |
+| static-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/render-receipt.yaml](revisions/static-passwords/r001/receipts/render-receipt.yaml) |
+| static-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
+| static-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/scan-receipt.yaml](revisions/static-passwords/r001/receipts/scan-receipt.yaml) |
+| static-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/install-gate.yaml](revisions/static-passwords/r001/receipts/install-gate.yaml) |
 | existing-secret | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/render-receipt.yaml](revisions/existing-secret/r001/receipts/render-receipt.yaml) |
 | existing-secret | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml) |
 | existing-secret | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/scan-receipt.yaml](revisions/existing-secret/r001/receipts/scan-receipt.yaml) |

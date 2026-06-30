@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | generated-passwords, existing-secret-replicaset |
+| Candidate variants | static-passwords, existing-secret-replicaset |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, image-digest, installer-support-object, network-policy, pdb-policy, pvc-policy, replicaset-topology, source-lock, stateful-workload, target-facts, tpl |
 
 ## Feature And Proof Summary
@@ -59,24 +59,24 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| generated-passwords | [recipes/bitnami/mongodb/19.1.0/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/mongodb/19.1.0/bases/generated-passwords](../../../../packages/bitnami/mongodb/19.1.0/bases/generated-passwords) | [recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | none |
+| static-passwords | [recipes/bitnami/mongodb/19.1.0/variants/static-passwords/variant.yaml](variants/static-passwords/variant.yaml) | [packages/bitnami/mongodb/19.1.0/bases/static-passwords](../../../../packages/bitnami/mongodb/19.1.0/bases/static-passwords) | [recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml](revisions/static-passwords/r001/variant-revision.yaml) | 8 | 9 | 8/8 | pass | warn | warn | none |
 | existing-secret-replicaset | [recipes/bitnami/mongodb/19.1.0/variants/existing-secret-replicaset/variant.yaml](variants/existing-secret-replicaset/variant.yaml) | [packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset](../../../../packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset) | [recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml](revisions/existing-secret-replicaset/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| generated-passwords | [packages/bitnami/mongodb/19.1.0/bases/generated-passwords](../../../../packages/bitnami/mongodb/19.1.0/bases/generated-passwords) | yes | mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0 |
+| static-passwords | [packages/bitnami/mongodb/19.1.0/bases/static-passwords](../../../../packages/bitnami/mongodb/19.1.0/bases/static-passwords) | yes | mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0 |
 | existing-secret-replicaset | [packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset](../../../../packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset) | no | mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.1.0 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
-| generated-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/render-receipt.yaml](revisions/generated-passwords/r001/receipts/render-receipt.yaml) |
-| generated-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
-| generated-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](revisions/generated-passwords/r001/receipts/scan-receipt.yaml) |
-| generated-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/install-gate.yaml](revisions/generated-passwords/r001/receipts/install-gate.yaml) |
+| static-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/receipts/render-receipt.yaml](revisions/static-passwords/r001/receipts/render-receipt.yaml) |
+| static-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
+| static-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/receipts/scan-receipt.yaml](revisions/static-passwords/r001/receipts/scan-receipt.yaml) |
+| static-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/receipts/install-gate.yaml](revisions/static-passwords/r001/receipts/install-gate.yaml) |
 | existing-secret-replicaset | r001 | render | RenderReceipt | recorded | [recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/render-receipt.yaml](revisions/existing-secret-replicaset/r001/receipts/render-receipt.yaml) |
 | existing-secret-replicaset | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret-replicaset/r001/receipts/helm-equivalence-receipt.yaml) |
 | existing-secret-replicaset | r001 | scan | ScanReceipt | warn | [recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml](revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml) |

@@ -1,0 +1,159 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: grafana-grafana-10.5.15-static-passwords-live-parity-20260605
+spec:
+  chart: grafana/grafana
+  version: 10.5.15
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-05T18:58:30Z'
+  package:
+    path: packages/grafana/grafana/10.5.15
+  recipe:
+    path: recipes/grafana/grafana/10.5.15
+  variantRevision: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-grafana-mq1aexyg-oaf
+    kubeContext: kind-helm-expt-parity-grafana-mq1aexyg-oaf
+    namespace: grafana
+    legNamespaces:
+      regularHelm: grafana-helm
+      configHubKubectlApply: grafana-apply
+      configHubOciArgo: grafana-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-grafana-mq1aexyg-oaf
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-grafana-mq1aexyg-oaf"...
+
+        Deleting cluster "helm-expt-parity-grafana-mq1aexyg-oaf" ...
+
+        Deleted nodes: ["helm-expt-parity-grafana-mq1aexyg-oaf-control-plane"]
+
+        Deleting Space "helm-expt-parity-grafana-mq1aexyg-oaf-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
+        --version 10.5.15 --namespace grafana-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-static-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d
+      objectCount: 9
+      liveHelmManifestSHA256: 7ebe2f520415aa02bac2cfe21a61fe940b0d4280833a36c91763b4dec42b6dfb
+      liveHelmManifestObjectCount: 9
+      namespace: grafana-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/grafana   1/1   1     1     3m7s
+        pods: grafana-55bb48b9dd-q562q   1/1   Running   0     3m7s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+        --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-grafana-mq1aexyg-oaf-grafana
+        --non-interactive --namespace grafana-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 29d58333c7e9dcb8dac6c1736c4ca6464e0e6c8c0c722a2c6c0b45a01f4c0fba
+      objectCount: 10
+      namespace: grafana-apply
+      manifestNamespaces:
+      - grafana-apply
+      runtimeNamespaces: &id001
+      - grafana-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# grafana-apply
+
+          deployment.apps/grafana   1/1   1     1     21s'
+        pods: '# grafana-apply
+
+          grafana-55bb48b9dd-9kngh   1/1   Running   0     20s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-grafana-mq1aexyg-oaf-grafana
+      controller: Argo CD OCI
+      app: grafana-parity
+      manifestSHA256: 110c88a3b8a5d068d0b17c531f7ceeca2def09288909f90cbfda2eb19f39cf21
+      objectCount: 10
+      namespace: grafana-oci
+      manifestNamespaces:
+      - grafana-oci
+      runtimeNamespaces: &id002
+      - grafana-oci
+      ociRevision: sha256:cbcab3df8f9bb65e7d77bdffb4e08e698e1b621f29126e6388298b033033dafe
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-grafana-oci-grafana.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# grafana-oci
+
+          deployment.apps/grafana   1/1   1     1     5m8s'
+        pods: '# grafana-oci
+
+          grafana-55bb48b9dd-2ml5t   1/1   Running   1 (4m20s ago)   5m9s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||grafana
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||grafana
+      semanticDiffs: []
+      comparisonSHA256: 7a4327c255c0d0933b1d3ebdb48823ef911e69f35a7d8f82d3b6e7625b8133ae
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 9
+      configHubObjectCount: 10
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||grafana
+      semanticDiffs: []
+      comparisonSHA256: 7a4327c255c0d0933b1d3ebdb48823ef911e69f35a7d8f82d3b6e7625b8133ae
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-grafana-mq1aexyg-oaf\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-grafana-mq1aexyg-oaf\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-grafana-mq1aexyg-oaf\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-grafana-mq1aexyg-oaf\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argoc"
+  - name: regular-helm-live
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# grafana-apply
+
+      deployment.apps/grafana   1/1   1     1     21s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 320s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||grafana'] diffs=0

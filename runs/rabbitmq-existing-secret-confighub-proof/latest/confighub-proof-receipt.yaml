@@ -16,7 +16,7 @@ spec:
     chart: "bitnami/rabbitmq"
     chartVersion: "16.0.14"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     selectedBase: "existing-secret"
     docVerified: true

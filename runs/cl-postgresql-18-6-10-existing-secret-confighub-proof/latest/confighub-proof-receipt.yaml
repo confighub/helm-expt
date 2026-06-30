@@ -16,7 +16,7 @@ spec:
     chart: "bitnami/postgresql"
     chartVersion: "18.6.10"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     selectedBase: "existing-secret"
     docVerified: true

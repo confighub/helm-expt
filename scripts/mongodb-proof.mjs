@@ -21,8 +21,8 @@ const mongodbImageDigest = "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf202
 
 const variants = [
   {
-    name: "generated-passwords",
-    base: "generated-passwords",
+    name: "static-passwords",
+    base: "static-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
     valuesText: `image:
@@ -91,7 +91,7 @@ runProofCli({
   recordChartLockDigest: true,
   valueModel: {
     checkedValues: [
-      { path: "auth.rootPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random root password generation; this variant persists the generated value before render" },
+      { path: "auth.rootPassword", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random root password generation; this variant persists the generated value before render" },
       { path: "auth.existingSecret", variant: "existing-secret-replicaset", disposition: "target-fact-bound", reason: "externalizes root password and MongoDB-valid replica-set key into a declared target Secret instead of rendering a Secret" },
       { path: "architecture", variant: "existing-secret-replicaset", disposition: "replicaset-variant", reason: "replica-set topology is explicit and visible as StatefulSet/headless Service outputs" },
       { path: "auth.existingSecret keys", variant: "existing-secret-replicaset", disposition: "target-secret-key", reason: "documents the expected root password and MongoDB-valid replica-set key in the target Secret" },
@@ -115,7 +115,7 @@ runProofCli({
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
-    { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword", note: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic." },
+    { category: "generated-facts", status: "variant-controlled", evidence: "auth.rootPassword", note: "The static-passwords variant binds the generated root password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret-replicaset variant declares the target Secret and its MongoDB-valid replica-set key requirement instead of rendering one." },
     { category: "image-digest", status: "handled", digest: mongodbImageDigest, note: "Supported bases pin the Bitnami MongoDB image by digest." },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production." },
@@ -130,7 +130,7 @@ runProofCli({
   dossier: {
     maintainedNotes: [
       "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render.",
-      "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically.",
+      "static-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically.",
       "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact.",
       "The mongodb-replica-set-key target fact must be valid MongoDB keyfile material; a generic password-like string can pass presence checks but fail runtime bootstrap.",
       "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.",
@@ -162,7 +162,7 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart rendering is nondeterministic until the generated root password is bound;",
-      "the generated-passwords variant persists auth.rootPassword before render;",
+      "the static-passwords variant persists auth.rootPassword before render;",
       "the existing-secret-replicaset variant uses a declared target Secret, does not render a Secret, and changes topology to replica set;",
       "the replica-set target fact must satisfy MongoDB keyfile requirements, not merely exist;",
       "both supported bases pin the MongoDB image digest instead of rendering a mutable latest tag;",
@@ -258,11 +258,11 @@ runProofCli({
       check(identities.includes("networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"), `${variant.name} NetworkPolicy missing`);
       check(identities.includes("policy/v1|PodDisruptionBudget|mongodb|mongodb"), `${variant.name} PodDisruptionBudget missing`);
       check(identities.includes("v1|ConfigMap|mongodb|mongodb-common-scripts"), `${variant.name} common scripts ConfigMap missing`);
-      if (variant.name === "generated-passwords") {
-        check(identities.includes("apps/v1|Deployment|mongodb|mongodb"), "generated-passwords Deployment missing");
-        check(identities.includes("v1|Service|mongodb|mongodb"), "generated-passwords Service missing");
-        check(identities.includes("v1|PersistentVolumeClaim|mongodb|mongodb"), "generated-passwords PVC missing");
-        check(identities.includes("v1|Secret|mongodb|mongodb"), "generated-passwords Secret missing");
+      if (variant.name === "static-passwords") {
+        check(identities.includes("apps/v1|Deployment|mongodb|mongodb"), "static-passwords Deployment missing");
+        check(identities.includes("v1|Service|mongodb|mongodb"), "static-passwords Service missing");
+        check(identities.includes("v1|PersistentVolumeClaim|mongodb|mongodb"), "static-passwords PVC missing");
+        check(identities.includes("v1|Secret|mongodb|mongodb"), "static-passwords Secret missing");
       }
       if (variant.name === "existing-secret-replicaset") {
         check(!secretIdentities.length, "existing-secret-replicaset must not render a Secret");

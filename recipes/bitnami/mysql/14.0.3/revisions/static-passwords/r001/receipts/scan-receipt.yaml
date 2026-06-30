@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "mysql-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "99e1e78593c8364ddf7f0c3f9aa47ed6fe4bd54733c92b1a18720f152e6a32be"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 5
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "dependency-lock-review:common"
+      rule: "dependency-lock-review"
+      severity: "medium"
+      object: "dependency|common|2.39.0"
+      message: "Bitnami common dependency metadata is locked before recipe publication"
+    -
+      id: "extension-slot-review:initdb-configuration"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|primary.initdb.scripts"
+      message: "initdb and extended configuration slots must be scanned when populated"
+    -
+      id: "generated-secret-ownership:v1|Secret|mysql|mysql"
+      rule: "generated-secret-ownership"
+      severity: "medium"
+      object: "v1|Secret|mysql|mysql"
+      message: "MySQL Secret content and ownership must be explicit before production promotion"
+    -
+      id: "helm-hook-lifecycle-policy:source"
+      rule: "helm-hook-lifecycle-policy"
+      severity: "medium"
+      object: "source|helm-hooks"
+      message: "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production"
+    -
+      id: "stateful-workload-review:apps/v1|StatefulSet|mysql|mysql"
+      rule: "stateful-workload-review"
+      severity: "medium"
+      object: "apps/v1|StatefulSet|mysql|mysql"
+      message: "Stateful workload requires storage, upgrade, and rollback policy"

@@ -22,24 +22,24 @@ spec:
   evidence:
     - path: recipes/grafana/grafana/10.5.15/control-points.yaml
       claim: The recipe records cluster-rbac as a scan-and-review control point.
-    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/object-inventory.yaml
-      claim: The generated-passwords inventory records ClusterRole and ClusterRoleBinding objects.
+    - path: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/object-inventory.yaml
+      claim: The static-passwords inventory records ClusterRole and ClusterRoleBinding objects.
     - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/object-inventory.yaml
       claim: The existing-secret-ingress inventory records the same cluster-scoped RBAC object identities.
-    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords local scan flags Grafana RBAC for production review.
+    - path: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords local scan flags Grafana RBAC for production review.
     - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml
       claim: The existing-secret-ingress local scan flags the same RBAC review shape.
-    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml
-      claim: The generated-passwords base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
+    - path: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml
+      claim: The static-passwords base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
     - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml
       claim: The existing-secret-ingress base is Helm-equivalent under recorded inputs, with only the installer Namespace support object added.
-    - path: runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/grafana-grafana-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
     - path: runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
       claim: The existing-secret-ingress base passes strict two-cluster live parity with the required admin Secret staged.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-ingress
   acceptedWarnings:
     - cluster-rbac-review

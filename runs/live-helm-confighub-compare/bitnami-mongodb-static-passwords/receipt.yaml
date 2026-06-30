@@ -1,0 +1,171 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-mongodb-19.0.7-static-passwords-live-parity-20260605
+spec:
+  chart: bitnami/mongodb
+  version: 19.0.7
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-05T18:46:27Z'
+  package:
+    path: packages/bitnami/mongodb/19.0.7
+  recipe:
+    path: recipes/bitnami/mongodb/19.0.7
+  variantRevision: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-mongodb-mq19zg7s-msa
+    kubeContext: kind-helm-expt-parity-mongodb-mq19zg7s-msa
+    namespace: mongodb
+    legNamespaces:
+      regularHelm: mongodb-helm
+      configHubKubectlApply: mongodb-apply
+      configHubOciArgo: mongodb-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-mongodb-mq19zg7s-msa
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-mongodb-mq19zg7s-msa"...
+
+        Deleting cluster "helm-expt-parity-mongodb-mq19zg7s-msa" ...
+
+        Deleted nodes: ["helm-expt-parity-mongodb-mq19zg7s-msa-control-plane"]
+
+        Deleting Space "helm-expt-parity-mongodb-mq19zg7s-msa-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
+        --version 19.0.7 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 187a27077a6c1924669172528109b878e4d9c7759689a2f52826be8dfbc30f1e
+      objectCount: 8
+      liveHelmManifestSHA256: ffd3c6050b95deb1a98b8746dfc117705637b7ea3392d7cb875368269830cc8c
+      liveHelmManifestObjectCount: 8
+      namespace: mongodb-helm
+      runtime:
+        result: pass
+        workloads: deployment.apps/mongodb   1/1   1     1     81s
+        pods: mongodb-84f445cd86-xd4vz   1/1   Running   0     81s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
+        --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mq19zg7s-msa-mongodb
+        --non-interactive --namespace mongodb-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: debc1f8503fbe857891cee3a7dd5541a13d1abddc0edf68083dfa5537425762b
+      objectCount: 9
+      namespace: mongodb-apply
+      manifestNamespaces:
+      - mongodb-apply
+      runtimeNamespaces: &id001
+      - mongodb-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# mongodb-apply
+
+          deployment.apps/mongodb   1/1   1     1     56s'
+        pods: '# mongodb-apply
+
+          mongodb-84f445cd86-gtvmw   1/1   Running   0     55s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-mongodb-mq19zg7s-msa-mongodb
+      controller: Argo CD OCI
+      app: mongodb-parity
+      manifestSHA256: e4e8867a8b150bc8d1193ae5ff354516e5605f54d9e847fa23b0b6f0c0056635
+      objectCount: 9
+      namespace: mongodb-oci
+      manifestNamespaces:
+      - mongodb-oci
+      runtimeNamespaces: &id002
+      - mongodb-oci
+      ociRevision: sha256:0ae58f950ca72da81d737b6f8dded02e8847ba341e7845ba05039ca158967c47
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-mongodb-oci-mongodb.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# mongodb-oci
+
+          deployment.apps/mongodb   1/1   1     1     5m20s'
+        pods: '# mongodb-oci
+
+          mongodb-84f445cd86-p9q58   1/1   Running   0     5m11s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||mongodb
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      comparisonSHA256: 5cb56fb3a1c69fae59ae3cf62520452fee05586a28aefab8f8d78d16664f97b3
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 8
+      configHubObjectCount: 9
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||mongodb
+      semanticDiffs: []
+      comparisonSHA256: 5cb56fb3a1c69fae59ae3cf62520452fee05586a28aefab8f8d78d16664f97b3
+  checks:
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-mongodb-mq19zg7s-msa\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mq19zg7s-msa.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-mongodb-mq19zg7s-msa\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mq19zg7s-msa\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mq19zg7s-msa\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mq19zg7s-msa.kubeconfig\n\
+      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
+      Installing Argo CD...\nCreating namespace \"argoc"
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"mongodb\" does not exist. Installing it now.\nNAME: mongodb\n\
+      LAST DEPLOYED: Fri Jun  5 19:48:41 2026\nNAMESPACE: mongodb-helm\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART\
+      \ NAME: mongodb\nCHART VERSION: 19.0.7\nAPP VERSION: 8.3.2\n\n\u26A0 WARNING:\
+      \ Since August 28th, 2025, only a limited subset of images/charts are available\
+      \ for free.\n    Subscribe to Bitnami Secure Images to receive continued support\
+      \ and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nMongoDB&reg;\
+      \ can be accessed on the following DNS name(s) and ports from within your cluster:\n\
+      \n    mongodb.mongodb-helm.svc.cluster.local\n\nTo get the root password run:\n\
+      \n    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb-helm\
+      \ mongodb -o jsonpath=\"{.data.mongodb-root-password}\" | base64 -d)\n\nTo connect\
+      \ to your database, create a MongoDB&reg; client container:"
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# mongodb-apply
+
+      deployment.apps/mongodb   1/1   1     1     56s'
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 350s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||mongodb'] diffs=0

@@ -1,0 +1,114 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: grafana-grafana-10.5.15-static-passwords-kind-parity-20260606
+spec:
+  chart: grafana/grafana
+  version: 10.5.15
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-06T08:19:14Z'
+  package:
+    path: packages/grafana/grafana/10.5.15
+  recipe:
+    path: recipes/grafana/grafana/10.5.15
+  variantRevision: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-grafan-676b4-0p57-helm
+    installerCluster: hx-grafan-676b4-0p57-installer
+    namespace: grafana
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-grafan-676b4-0p57-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-grafan-676b4-0p57-helm" ...
+
+          Deleted nodes: ["hx-grafan-676b4-0p57-helm-control-plane"]'
+      - cluster: hx-grafan-676b4-0p57-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-grafan-676b4-0p57-installer" ...
+
+          Deleted nodes: ["hx-grafan-676b4-0p57-installer-control-plane"]'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
+        --version 10.5.15 --namespace grafana --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-grafana-static-passwords/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: grafana
+      manifestSHA256: 893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d
+      objectCount: 9
+      liveHelmManifestSHA256: 3f0766ea872923fd04b57e0433c786556621081a300d71bbcabf5d52e8a5fe01
+      liveHelmManifestObjectCount: 9
+      runtimeNamespaces: &id001
+      - grafana
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# grafana
+
+          deployment.apps/grafana   1/1   1     1     44s'
+        pods: '# grafana
+
+          grafana-55bb48b9dd-p5k2p   1/1   Running   0     44s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+        --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-grafan-676b4-0p57-grafana
+        --non-interactive --namespace grafana
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: grafana
+      manifestSHA256: cd1d2dc51c7428a0c29db17feb64fc729fecb1a4d424126fca3457b27bbeadc7
+      objectCount: 10
+      manifestNamespaces:
+      - grafana
+      runtimeNamespaces: &id002
+      - grafana
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# grafana
+
+          deployment.apps/grafana   1/1   1     1     40s'
+        pods: '# grafana
+
+          grafana-55bb48b9dd-jqtdk   1/1   Running   0     40s'
+        notReady: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||grafana
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 9
+      installerObjectCount: 10
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||grafana
+      semanticDiffs: []
+      comparisonSHA256: 7a4327c255c0d0933b1d3ebdb48823ef911e69f35a7d8f82d3b6e7625b8133ae
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: regular-helm-live
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# grafana
+
+      deployment.apps/grafana   1/1   1     1     40s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||grafana'] diffs=0

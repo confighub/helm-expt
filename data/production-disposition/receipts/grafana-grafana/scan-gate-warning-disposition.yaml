@@ -17,26 +17,26 @@ spec:
       claim: External kube-linter rows for both Grafana bases record no-read-only-root-fs, unset-cpu-requirements, and unset-memory-requirements warnings bound to rendered object digests.
     - path: data/scan-disposition-workdown/workdown.csv
       claim: The generated scan disposition workdown routes Grafana to harden-security-context, meaning production must either add a hardened base or explicitly accept chart defaults for the target.
-    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords rendered-object scan has zero high or critical findings and records RBAC, workload, generated Secret, and extension-slot review points explicitly.
+    - path: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords rendered-object scan has zero high or critical findings and records RBAC, workload, generated Secret, and extension-slot review points explicitly.
     - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml
       claim: The existing-secret-ingress rendered-object scan has zero high or critical findings and records RBAC, workload, UI ingress, and extension-slot review points explicitly.
     - path: data/production-disposition/receipts/grafana-grafana/cluster-rbac-review.yaml
       claim: Grafana cluster-scoped RBAC has an accepted production-review disposition.
     - path: data/production-disposition/receipts/grafana-grafana/generated-fact-ownership.yaml
-      claim: The generated-passwords Secret path has an accepted generated-fact ownership disposition.
+      claim: The static-passwords Secret path has an accepted generated-fact ownership disposition.
     - path: data/production-disposition/receipts/grafana-grafana/target-fact-preflight.yaml
       claim: The existing-secret-ingress target Secret path has an accepted target-fact preflight disposition.
     - path: data/production-disposition/receipts/grafana-grafana/extension-slot-provenance-and-scan-policy.yaml
       claim: Grafana provisioning, plugin, sidecar, env, and ingress extension slots have an accepted empty-by-default scan policy.
-    - path: runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/grafana-grafana-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
     - path: runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
       claim: The existing-secret-ingress base passes strict two-cluster live parity with the required admin Secret staged.
-    - path: runs/live-helm-confighub-compare/grafana-grafana-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
+    - path: runs/live-helm-confighub-compare/grafana-grafana-static-passwords/receipt.yaml
+      claim: The static-passwords base passes regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-ingress
   acceptedWarnings:
     - cluster-rbac-review

@@ -6,11 +6,11 @@ spec:
   chart: "bitnami/postgresql"
   version: "18.6.7"
   recipe: "recipe.yaml"
-  baseVariant: "generated-passwords"
+  baseVariant: "static-passwords"
   variants:
     -
-      name: "generated-passwords"
-      variant: "variants/generated-passwords/variant.yaml"
+      name: "static-passwords"
+      variant: "variants/static-passwords/variant.yaml"
       valuesProfile: "effective-values.yaml"
     -
       name: "existing-secret"
@@ -18,8 +18,8 @@ spec:
       valuesProfile: "effective-values-existing-secret.yaml"
   edges:
     -
-      from: "generated-passwords"
-      to: "generated-passwords"
+      from: "static-passwords"
+      to: "static-passwords"
       type: "base-self"
       inheritedValuePaths:
         - "auth.postgresPassword"
@@ -33,7 +33,7 @@ spec:
       valueSourceMapCoverage:
         []
     -
-      from: "generated-passwords"
+      from: "static-passwords"
       to: "existing-secret"
       type: "inherits-with-overrides"
       inheritedValuePaths:

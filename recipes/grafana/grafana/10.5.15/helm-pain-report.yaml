@@ -12,13 +12,13 @@ spec:
   supportedScopes:
     - "local-test"
   supportedVariants:
-    - "generated-passwords"
+    - "static-passwords"
     - "existing-secret-ingress"
   productionReadiness: "production-review-ready"
   notes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "Default chart rendering is nondeterministic unless adminPassword is bound before render."
-    - "generated-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically."
+    - "static-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-ingress variant does not render a Secret and instead declares grafana/grafana-admin as a target fact."
     - "existing-secret-ingress variant adds explicit UI ingress host and ingress class."
     - "Datasource, dashboard, plugin, sidecar, and Secret/env injection slots are powerful extension surfaces; promoted variants keep them empty."
@@ -48,11 +48,11 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "The generated-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic."
+      detectedPainPoint: "The static-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic."
       evidence:
         - "adminPassword"
       configHubHome: "generated-fact"
@@ -75,7 +75,7 @@ spec:
         - "apps/v1|Deployment|grafana|grafana"
       configHubHome: "recipe"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "ui-ingress-policy"
@@ -84,7 +84,7 @@ spec:
         - "networking.k8s.io/v1|Ingress|grafana|grafana"
       configHubHome: "recipe"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "variant-controlled"
     -
       id: "cluster-rbac"
@@ -93,7 +93,7 @@ spec:
         - "rbac.authorization.k8s.io/v1|ClusterRole||grafana-clusterrole"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "extension-slots"
@@ -102,7 +102,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "handled-by-variant"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "controlled-by-empty-defaults"
     -
       id: "chart-deprecation"
@@ -111,7 +111,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "recipe"
       disposition: "needs-operator-decision"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "noted"
     -
       id: "installer-support-object"
@@ -120,7 +120,7 @@ spec:
         - "v1|Namespace||grafana"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
@@ -131,7 +131,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"

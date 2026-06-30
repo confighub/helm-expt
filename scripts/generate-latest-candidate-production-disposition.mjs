@@ -239,9 +239,9 @@ function writeOutputs(report) {
 function primaryLatestCandidateBase(row) {
   const primaryByChart = new Map([
     ["argo-cd/argo-cd", "default"],
-    ["bitnami/mongodb", "generated-passwords"],
+    ["bitnami/mongodb", "static-passwords"],
     ["bitnami/nginx", "http-clusterip"],
-    ["bitnami/postgresql", "generated-passwords"],
+    ["bitnami/postgresql", "static-passwords"],
     ["bitnami/redis", "default"],
     ["prometheus-community/kube-prometheus-stack", "default"],
     ["prometheus-community/prometheus", "server-only-ephemeral"],

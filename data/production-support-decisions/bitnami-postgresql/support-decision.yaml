@@ -1,14 +1,14 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "bitnami-postgresql-generated-passwords-public-oci-supported"
+  name: "bitnami-postgresql-static-passwords-public-oci-supported"
 spec:
   chart: "bitnami/postgresql"
   version: "18.6.7"
   decision: supported
   decisionDate: "2026-06-09"
   supportedSince: "2026-06-05T18:19:50Z"
-  supportedBase: "generated-passwords"
+  supportedBase: "static-passwords"
   targetScope:
     clusterClass: cub-lk-kind-vanilla
     namespace: "postgresql"
@@ -25,7 +25,7 @@ spec:
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "bitnami/postgresql@18.6.7 generated-passwords base"
+      - "bitnami/postgresql@18.6.7 static-passwords base"
       - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
       - rendered PostgreSQL StatefulSet, Service, PVC, PDB, generated Secret, labels, gates, receipts, and support objects produced by the recorded base
       - digest-pinned upstream image references recorded in the proof corpus
@@ -47,28 +47,28 @@ spec:
       detail: "the chart PDB warning is accepted only for the declared public proof scope; target production deployments should choose an availability policy"
     lifecycleDecision:
       state: "lifecycle-observed-for-proof-scope"
-      detail: "the generated-passwords base has no Helm hooks and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
+      detail: "the static-passwords base has no Helm hooks and reaches readiness through regular Helm, cub installer apply, and ConfigHub OCI/Argo"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
       state: "fresh-target-evidence-passed"
-      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind PostgreSQL generated-passwords scope"
+      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-05 for the declared cub-lk vanilla kind PostgreSQL static-passwords scope"
   evidence:
-    - path: "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - path: "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
-    - path: "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+    - path: "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
       claim: "The rendered-object scan receipt exists for the candidate base."
-    - path: "runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml"
+    - path: "runs/live-kind-parity/bitnami-postgresql-static-passwords/receipt.yaml"
       claim: "The two-cluster Helm-vs-installer parity receipt exists for the candidate base."
-    - path: "runs/live-helm-confighub-compare/bitnami-postgresql-generated-passwords/receipt.yaml"
+    - path: "runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/production-support-decisions/bitnami-postgresql/fresh-target-evidence-2026-06-05.yaml"
       claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
     - path: "data/production-support-decisions/bitnami-postgresql/image-policy-decision.yaml"
       claim: "The target-scoped image policy decision records that PostgreSQL image references are digest-pinned in the current proof corpus."
     - path: "data/production-support-decisions/bitnami-postgresql/security-decision.yaml"
-      claim: "The target-scoped security decision accepts the generated-passwords PDB warning shape only for this public proof scope."
+      claim: "The target-scoped security decision accepts the static-passwords PDB warning shape only for this public proof scope."
     - path: "data/production-support-decisions/bitnami-postgresql/lifecycle-decision.yaml"
       claim: "The target-scoped lifecycle decision binds no-hooks policy, generated credential ownership, separated Secret handling, storage boundaries, and OCI/Argo runtime health to proof-scope evidence."
     - path: "data/production-disposition/receipts/bitnami-postgresql/generated-fact-ownership.yaml"

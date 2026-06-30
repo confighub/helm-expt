@@ -49,7 +49,7 @@ spec:
     supportedVariants:
       []
     candidateVariants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-replicaset"
     deferredVariants:
       []
@@ -71,12 +71,12 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9"
     installer: "packages/bitnami/mongodb/19.0.9/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7"
+    deterministicBundleSHA256: "2bdbf3fe7d26b797d2a9d3ca1729cb2bb7f58070eddba42b70a81c3e13749de1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
-        name: "generated-passwords"
-        path: "packages/bitnami/mongodb/19.0.9/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/mongodb/19.0.9/bases/static-passwords"
         default: true
         description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.9"
       -
@@ -86,8 +86,8 @@ spec:
         description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.9"
   variants:
     -
-      name: "generated-passwords"
-      variant: "recipes/bitnami/mongodb/19.0.9/variants/generated-passwords/variant.yaml"
+      name: "static-passwords"
+      variant: "recipes/bitnami/mongodb/19.0.9/variants/static-passwords/variant.yaml"
       namespace: "mongodb"
       releaseName: "mongodb"
       valuesProfile: "recipes/bitnami/mongodb/19.0.9/effective-values.yaml"
@@ -100,12 +100,12 @@ spec:
         {}
       targetFactSummary: "none"
       packageBase:
-        name: "generated-passwords"
-        path: "packages/bitnami/mongodb/19.0.9/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/mongodb/19.0.9/bases/static-passwords"
         default: true
         description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.9"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"
@@ -114,13 +114,13 @@ spec:
           - "v1|Namespace||mongodb"
       revisions:
         -
-          name: "generated-passwords-r001"
+          name: "static-passwords-r001"
           revision: "r001"
-          variantRevision: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml"
+          variantRevision: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml"
           digest: "57c0003edfc0c19a66af53c438ac0200e3bb12174bd1068a4b455edc17a4c949"
           renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
-          renderedObjects: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/release-objects.yaml"
-          objectInventory: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          renderedObjects: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/object-inventory.yaml"
           objectCount: 8
           helmObjectCount: 8
           cubInstallObjectCountIncludingSupport: 9
@@ -129,22 +129,22 @@ spec:
           receipts:
             render:
               kind: "RenderReceipt"
-              path: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              path: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/receipts/render-receipt.yaml"
               result: "recorded"
               renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
-              path: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              path: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
               renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
             scan:
               kind: "ScanReceipt"
-              path: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              path: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
               result: "warn"
               renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
             installGate:
               kind: "InstallGate"
-              path: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              path: "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
     -

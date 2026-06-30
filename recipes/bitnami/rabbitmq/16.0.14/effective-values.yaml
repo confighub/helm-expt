@@ -1,7 +1,7 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "EffectiveValues"
 metadata:
-  name: "bitnami-rabbitmq-16.0.14-generated-passwords"
+  name: "bitnami-rabbitmq-16.0.14-static-passwords"
 spec:
   files:
     -

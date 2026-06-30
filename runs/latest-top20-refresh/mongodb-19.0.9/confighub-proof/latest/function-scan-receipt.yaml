@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/mongodb"
     chartVersion: "19.0.9"
     packagePath: "data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9"
-    variant: "generated-passwords"
+    variant: "static-passwords"
     configHubUnitCount: 8
   unitRevisionBindings:
     -
