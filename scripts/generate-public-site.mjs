@@ -500,20 +500,20 @@ function html(catalog) {
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const journeySteps = [
-    ["First", "Pre Flight Checks", "WITHOUT connecting to our systems, preview your chart rendering, catch the parts you would change, and fix issues before deployment.", "./try.html", "Get Started"],
+    ["First", "Pre-flight checks", "No account, no cluster: see every hook, CRD, prerequisite, and footgun a chart carries, and fix what you would change before anything reaches the cluster.", "./try.html", "Get Started"],
     ["Second", "Helm Ops Catalog", "We maintain a public catalog of standard charts with known good variants, risk advice, and support for hooks, CRDs, setup jobs, and other Helm extras.", "./charts/index.html", "Go to Catalog"],
-    ["Then", "Manage Helm Lifecycle", "Add promotions and upgrades. Start from one base and make multiple versions for users, dev, staging, prod, per-region.", "./variants.html", "What are Variants?"],
+    ["Then", "Change it and keep it", "With a free account, edit any rendered field, even ones the chart never exposed, and keep it through upgrades. Start from one base and make versions for dev, staging, prod, per region.", "./variants.html", "What are Variants?"],
     ["Later", "Application Delivery Tools", "Use your favourite GitOps tools with ConfigHub to add custom apps alongside your chart-based platform.", "./journey.html", "Apps on ConfigHub"],
   ];
   const seeCards = [
-    ["See every object", "The exact Kubernetes resources, as plain files you can read before anything reaches the cluster."],
+    ["See what will bite you", "Every hook, CRD, prerequisite, and footgun a chart carries, named up front. helm template shows you the objects; we show you the traps."],
     ["Catch classic errors", "AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry."],
     ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
     ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, Secrets, hooks, CRDs, and target assumptions."],
   ];
   const valueCards = [
     ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
-    ["Make your versions", "Start from one reviewed base, then create dev, staging, prod, region, or customer variants without copying values files into a maze.", "./variants.html", "Variants"],
+    ["Edit and keep your versions", "With a free account, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.", "./variants.html", "Variants"],
     ["Build custom apps", "Bring your own apps and configs alongside public charts so a release can move as one reviewed set.", "./journey.html", "Apps"],
     ["Promote and release", "Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.", "./operations.html", "Ops"],
   ];
@@ -530,11 +530,11 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm is a fine packaging system, but using it in app delivery operations can be unpredictable. We are here to help you fix this. This site introduces new AI-friendly Helm tools, and our Catalog of standard Helm charts with best practice customisations. We use ConfigHub for advanced functions and you can get started without using it at all.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. Open source, and you can start without an account.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Preview your installs</p>
-        <p>Use APIs to fix config values in broken deployments</p>
-        <p>Manage highly user-customised application fleets without upgrade pains</p>
+        <p>Preview your installs, with every hook, CRD, prerequisite, and footgun mapped</p>
+        <p>Change any field after install, and keep it through upgrades</p>
+        <p>Run many customised installs as one fleet, without the upgrade pain</p>
       </div>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
