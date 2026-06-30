@@ -107,6 +107,22 @@ orientation layer for humans and agents. It summarizes the current model and
 routes to authoritative evidence. It is not a second source of truth; generated
 data, receipts, recipes, current issues, and verifiers remain authoritative.
 
+## Agent And Operator Docs
+
+These files are for agents and maintainers operating the repo. Keep public
+website pages and `docs/user` pages human-readable; put command routing,
+recovery steps, and repo-specific AX notes here.
+
+| File | Role |
+| --- | --- |
+| [agent/README.md](./agent/README.md) | Canonical start page for agents and maintainers working in this repo. |
+| [agent/tasks.md](./agent/tasks.md) | Task-to-command recipes for common repo operations. |
+| [agent/recovery.md](./agent/recovery.md) | Recovery guide for stale generated files, broken links, command-surface failures, and live-lane failures. |
+| [agent/verification.md](./agent/verification.md) | Agent-focused map from claims to the narrowest useful verifier. |
+| [agent/catalog.md](./agent/catalog.md) | Read-only catalog guide for inspecting chart evidence without redesigning the catalog. |
+| [agent/human-agent-doctrine.md](./agent/human-agent-doctrine.md) | Doctrine for keeping human-facing pages and agent/operator pages aligned without duplicating each other. |
+| [agent/terms.md](./agent/terms.md) | Compact glossary for repo-specific product, proof, catalog, and lane terms. |
+
 ## Generated And Reference Markdown
 
 | Location | Role |
@@ -369,6 +385,8 @@ not the primary user path.
 | [free-path-pitch.md](./planning/free-path-pitch.md) | The free-path value proposition: lead with a "look before you install" pre-flight check, keep parity as a quiet assurance, and separate ship-now copy from future security and AI builds. |
 | [server-account-pitch.md](./planning/server-account-pitch.md) | The account value proposition: your versions, your apps, your releases, plus the shipped-versus-frontier wording that ties the homepage variant and Apps boxes together. |
 | [house-layout.md](./planning/house-layout.md) | The house layout (companion to house-voice): seven principles drawn from hall.kvick.dev — narrow prose, hairline sections, terminal-card commands, two-column hero, light card grid, one accent, restraint — plus the terminal-card pattern and where to apply it. |
+| [agent-experience-audit.md](./planning/agent-experience-audit.md) | AX audit and doctrine: website stays human-first, agent/operator instructions live in repo Markdown, and catalog changes are out of scope for the first pass. |
+| [agent-experience-worklog.md](./planning/agent-experience-worklog.md) | Running log of observed agent friction and the fixes made. |
 | [get-started-rewrite-brief.md](./planning/get-started-rewrite-brief.md) | Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of `--pull`, verified commands, and generator notes. |
 | [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |
 | [persona-ux-audit-2026-06-22.md](./planning/persona-ux-audit-2026-06-22.md) | Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes. |

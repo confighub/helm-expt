@@ -77,6 +77,11 @@ production support.
 
 For when each command fits, see [Choosing Commands](./docs/user/choosing-commands.md).
 
+Working in this repository as an agent or maintainer? Start with
+[Agent And Operator Notes](./docs/agent/README.md). Those notes keep command
+recipes, recovery steps, and repo-specific AX guidance out of the human-facing
+website.
+
 Four questions, answered up front:
 
 - **What can I try without signing up?** Browse the

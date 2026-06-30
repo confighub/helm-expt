@@ -29,7 +29,8 @@ Simple view:
 
 ```text
 Component
-  base variants: how Helm is rendered
+  base variants: the named render choices for Helm
+    render variants: the captured Kubernetes output for one base
   managed variants: how ConfigHub operates the rendered config
 ```
 
@@ -40,12 +41,23 @@ chart/version
   recipe
     base variant
       render intent
-        rendered revision
+        render variant / rendered revision
           package base
             ConfigHub Units
               managed variants
                 promotions / targets / observations
 ```
+
+## Render Variant Examples
+
+A render variant is the captured output of one base render. In the current repo, the captured output is stored as a `variant-revision` plus a package base.
+
+| Component | Base variant | Render intent | Captured render variant | Why it exists |
+| --- | --- | --- | --- | --- |
+| bitnami/redis 25.5.3 | `default` | [bitnami-redis-25-5-3-default](./intents/bitnami-redis-25-5-3-default.yaml) | [revision](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [package base](../../packages/bitnami/redis/25.5.3/bases/default) | The normal Redis render, useful as the baseline before choosing a safer Secret strategy. |
+| bitnami/redis 25.5.3 | `reuse-existing-secret` | [bitnami-redis-25-5-3-reuse-existing-secret](./intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [revision](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [package base](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) | A Redis render that points at an existing Secret instead of using generated password material. |
+| argo-cd/argo-cd 9.5.17 | `no-crds` | [argo-cd-argo-cd-9-5-17-no-crds](./intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [revision](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [package base](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) | An Argo CD render that keeps CRDs out of this base so CRD ordering can be handled explicitly. |
+| prometheus-community/prometheus 29.8.0 | `server-only-ephemeral` | [prometheus-community-prometheus-29-8-0-server-only-ephemeral](./intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [revision](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [package base](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) | A smaller Prometheus render for the server path without the full default shape. |
 
 ## Files
 

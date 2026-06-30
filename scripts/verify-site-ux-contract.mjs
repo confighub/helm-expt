@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs/FAQ", "Start Here", "Five Stages", "Technical Guides", "Verification And Evidence", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Docs/FAQ", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",

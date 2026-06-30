@@ -6,6 +6,10 @@ last_reviewed: 2026-06-14
 
 # Agent Operating Guide
 
+The canonical agent/operator docs now live in
+[docs/agent/README.md](../../docs/agent/README.md). Use this page as a compact
+knowledge-layer reminder, not as a replacement for the agent docs.
+
 Start from the generated front doors, not from old planning prose.
 
 Use:
@@ -34,4 +38,3 @@ state exactly which generated surfaces they touched.
 - [Live parity guide](../../docs/user/live-parity.md)
 - [Master catalog matrix reference](../../docs/reference/master-catalog-matrix.md)
 - [What we refuse to claim](../../docs/user/what-we-refuse-to-claim.md)
-

@@ -23,13 +23,42 @@ observe the resulting Kubernetes objects.
 
 ```text
 Component
-  base variants: how Helm is rendered
+  base variants: the named render choices for Helm
+    render variants: the captured Kubernetes output for one base
   managed variants: how ConfigHub operates the rendered config
 ```
 
 This is the model we want most users and agents to see first. It is close to a
 HelmChart-style config, but it is generated only when the catalog has a real
 base-variant path behind it.
+
+In plain English:
+
+- A **base variant** is a named choice before Helm renders. Examples: Redis
+  `default`, Redis `reuse-existing-secret`, Argo CD `no-crds`, or Prometheus
+  `server-only-ephemeral`.
+- A **render intent** records the inputs for one base variant: chart version,
+  values profile, release name, namespace, capabilities, source lock, and known
+  extras.
+- A **render variant** is the captured result of that render: the exact
+  Kubernetes objects, the revision that records them, and the package base made
+  from them. In the current repo files this is stored as a `variant-revision`
+  plus a `packages/.../bases/...` directory.
+
+## Render Variant Examples
+
+These are real current catalog rows:
+
+| Component | Base variant | Render intent | Captured render variant |
+| --- | --- | --- | --- |
+| Redis 25.5.3 | `default` | [`bitnami-redis-25-5-3-default.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml) | [`revisions/default/r001/variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [`packages/.../bases/default`](../../packages/bitnami/redis/25.5.3/bases/default) |
+| Redis 25.5.3 | `reuse-existing-secret` | [`bitnami-redis-25-5-3-reuse-existing-secret.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [`revisions/reuse-existing-secret/r001/variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [`packages/.../bases/reuse-existing-secret`](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) |
+| Argo CD 9.5.17 | `no-crds` | [`argo-cd-argo-cd-9-5-17-no-crds.yaml`](../../data/helm-render-intents/intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [`revisions/no-crds/r001/variant-revision.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [`packages/.../bases/no-crds`](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) |
+| Prometheus 29.8.0 | `server-only-ephemeral` | [`prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml`](../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [`revisions/server-only-ephemeral/r001/variant-revision.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [`packages/.../bases/server-only-ephemeral`](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) |
+
+So a render variant is not a vague idea. It is the stored render output for one
+base variant, with a path back to the inputs and a path forward to ConfigHub
+Units and managed variants.
 
 ## The Full Model Underneath
 
@@ -38,7 +67,7 @@ chart/version
   recipe
     base variant
       render intent
-        rendered revision
+        render variant / rendered revision
           package base
             ConfigHub Units
               managed variants
@@ -50,21 +79,22 @@ hooks, generated facts, target facts, webhook certificates, namespaces, cloud
 identity, or external Secrets. Those details cannot be waved away by a small
 YAML object.
 
-The render intent sits in the middle. It is the compact config object that says:
+The render intent sits before the render variant. It is the compact config
+object that says:
 
 - which chart and version are used;
 - which base variant is being rendered;
 - which values profile, namespace, release name, capability profile, and source
   lock are part of the render;
-- which package base and rendered revision back it;
+- which package base and captured render variant back it;
 - which evidence lanes exist for the row;
 - which lifecycle routes and target prerequisites are known.
 
 ## Why We Generate It
 
 The render intent gives us the useful compact object without throwing away the
-proof chain. It lets a person or agent talk about a base variant as one thing,
-while still being able to open the recipe, rendered revision, package base,
+proof chain. It lets a person or agent talk about a render variant as one thing,
+while still being able to open the recipe, captured revision, package base,
 receipts, and matrix row when the chart is difficult.
 
 We do not generate render intents for candidate or custom-discussion rows yet.

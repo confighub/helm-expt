@@ -311,7 +311,8 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("");
   o.push("```text");
   o.push("Component");
-  o.push("  base variants: how Helm is rendered");
+  o.push("  base variants: the named render choices for Helm");
+  o.push("    render variants: the captured Kubernetes output for one base");
   o.push("  managed variants: how ConfigHub operates the rendered config");
   o.push("```");
   o.push("");
@@ -322,13 +323,25 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("  recipe");
   o.push("    base variant");
   o.push("      render intent");
-  o.push("        rendered revision");
+  o.push("        render variant / rendered revision");
   o.push("          package base");
   o.push("            ConfigHub Units");
   o.push("              managed variants");
   o.push("                promotions / targets / observations");
   o.push("```");
   o.push("");
+  const examples = renderVariantExamples(intents);
+  if (examples.length) {
+    o.push("## Render Variant Examples", "");
+    o.push("A render variant is the captured output of one base render. In the current repo, the captured output is stored as a `variant-revision` plus a package base.");
+    o.push("");
+    o.push("| Component | Base variant | Render intent | Captured render variant | Why it exists |");
+    o.push("| --- | --- | --- | --- | --- |");
+    for (const example of examples) {
+      o.push(`| ${example.component} | \`${example.base}\` | [${example.name}](./intents/${example.name}.yaml) | [revision](../../${example.revision}) and [package base](../../${example.packageBase}) | ${example.reason} |`);
+    }
+    o.push("");
+  }
   o.push("## Files", "");
   o.push("- [`intents.csv`](./intents.csv) - one row per generated render intent.");
   o.push("- [`intents.json`](./intents.json) - all generated render intents in one object.");
@@ -341,6 +354,40 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("npm run helm-render-intents:verify");
   o.push("```");
   return `${o.join("\n")}\n`;
+}
+
+function renderVariantExamples(intents) {
+  const wanted = [
+    {
+      name: "bitnami-redis-25-5-3-default",
+      reason: "The normal Redis render, useful as the baseline before choosing a safer Secret strategy.",
+    },
+    {
+      name: "bitnami-redis-25-5-3-reuse-existing-secret",
+      reason: "A Redis render that points at an existing Secret instead of using generated password material.",
+    },
+    {
+      name: "argo-cd-argo-cd-9-5-17-no-crds",
+      reason: "An Argo CD render that keeps CRDs out of this base so CRD ordering can be handled explicitly.",
+    },
+    {
+      name: "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
+      reason: "A smaller Prometheus render for the server path without the full default shape.",
+    },
+  ];
+  return wanted
+    .map((item) => {
+      const intent = intents.find((candidate) => candidate.metadata.name === item.name);
+      if (!intent) return null;
+      return {
+        ...item,
+        component: `${intent.spec.chart.name} ${intent.spec.chart.version}`,
+        base: intent.spec.baseVariant,
+        revision: intent.spec.renderInputs.revision,
+        packageBase: intent.spec.renderInputs.packageBase,
+      };
+    })
+    .filter(Boolean);
 }
 
 function contractMd(intents, candidates) {
