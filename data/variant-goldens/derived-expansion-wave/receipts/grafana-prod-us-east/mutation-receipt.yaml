@@ -5,7 +5,7 @@ metadata:
   generatedBy: "scripts/generate-variant-goldens.mjs"
 spec:
   executionMode: "golden-target-not-live-execution"
-  sourceBase: "Grafana/generated-passwords"
+  sourceBase: "Grafana/static-passwords"
   downstreamVariant: "Grafana/prod-us-east"
   noHelmRerender: true
   preservedRenderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"

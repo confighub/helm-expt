@@ -17,8 +17,8 @@ spec:
       claim: The external scan workdown records two MySQL findings, both for pdb-unhealthy-pod-eviction-policy across the two supported bases.
     - path: data/scan-disposition-workdown/workdown.csv
       claim: The generated scan disposition workdown routes bitnami/mysql to accept-or-patch-pdb-policy rather than image-pin, security-hardening, endpoint, or privileged-infrastructure work.
-    - path: recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords local rendered-object scan has zero high or critical findings and records all remaining policy warnings explicitly.
+    - path: recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords local rendered-object scan has zero high or critical findings and records all remaining policy warnings explicitly.
     - path: recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/receipts/scan-receipt.yaml
       claim: The existing-secret local rendered-object scan has zero high or critical findings and records all remaining policy warnings explicitly.
     - path: data/production-disposition/receipts/bitnami-mysql/generated-fact-ownership.yaml
@@ -31,12 +31,12 @@ spec:
       claim: The Bitnami common dependency is locked for the reviewed bases.
     - path: recipes/bitnami/mysql/14.0.3/control-points.yaml
       claim: Extension slots are kept empty in the supported bases and must be rescanned if populated.
-    - path: runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-mysql-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
     - path: runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml
       claim: The existing-secret base passes strict two-cluster live parity with target Secrets staged.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret
   acceptedWarnings:
     - pdb-unhealthy-pod-eviction-policy

@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/rabbitmq"
     chartVersion: "16.0.14"
     packagePath: "packages/bitnami/rabbitmq/16.0.14"
-    variant: "generated-passwords"
+    variant: "static-passwords"
   changeset:
     slug: "rabbitmq-safe-ops-20260527"
     createResult: "pass"

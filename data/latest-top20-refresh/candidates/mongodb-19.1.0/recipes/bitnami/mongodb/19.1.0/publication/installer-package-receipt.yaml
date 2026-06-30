@@ -25,11 +25,11 @@ spec:
         sha256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
         bytes: 22605
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
         bytes: 11257
       -
@@ -46,9 +46,9 @@ spec:
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      variant: "generated-passwords"
-      base: "generated-passwords"
-      command: "cub installer setup --pull data/latest-top20-refresh/candidates/mongodb-19.1.0/packages/bitnami/mongodb/19.1.0 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+      variant: "static-passwords"
+      base: "static-passwords"
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/mongodb-19.1.0/packages/bitnami/mongodb/19.1.0 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
       helmReleaseObjectCount: 8
       cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"

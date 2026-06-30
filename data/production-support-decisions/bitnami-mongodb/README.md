@@ -10,7 +10,7 @@ support decision. It does not replace the source decision artifact:
 | Field | Value |
 | --- | --- |
 | Chart | `bitnami/mongodb@19.0.7` |
-| Candidate base | `generated-passwords` |
+| Candidate base | `static-passwords` |
 | Decision state | `supported` |
 | Target scope | cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
@@ -35,7 +35,7 @@ support decision. It does not replace the source decision artifact:
 
 Included:
 
-- bitnami/mongodb@19.0.7 generated-passwords base
+- bitnami/mongodb@19.0.7 static-passwords base
 - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
 - rendered MongoDB Deployment, Service, PVC, PDB, Secret, labels, gates, receipts, and support objects produced by the recorded base
 - digest-pinned upstream image references recorded in the proof corpus
@@ -53,13 +53,13 @@ Excluded:
 
 ## Evidence
 
-- [recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
-- [recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](../../../recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
-- [runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml](../../../runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
-- [runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml](../../../runs/live-helm-confighub-compare/bitnami-mongodb-generated-passwords/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
+- [recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](../../../recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) - The candidate base is Helm-equivalent under recorded inputs.
+- [recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml](../../../recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml) - The rendered-object scan receipt exists for the candidate base.
+- [runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml](../../../runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml) - The two-cluster Helm-vs-installer parity receipt exists for the candidate base.
+- [runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords/receipt.yaml](../../../runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
 - [data/production-support-decisions/bitnami-mongodb/fresh-target-evidence-2026-06-05.yaml](../../../data/production-support-decisions/bitnami-mongodb/fresh-target-evidence-2026-06-05.yaml) - Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope.
 - [data/production-support-decisions/bitnami-mongodb/image-policy-decision.yaml](../../../data/production-support-decisions/bitnami-mongodb/image-policy-decision.yaml) - The target-scoped image policy decision records that MongoDB image references are digest-pinned in the current proof corpus.
-- [data/production-support-decisions/bitnami-mongodb/security-decision.yaml](../../../data/production-support-decisions/bitnami-mongodb/security-decision.yaml) - The target-scoped security decision accepts the generated-passwords PDB warning shape only for this public proof scope.
+- [data/production-support-decisions/bitnami-mongodb/security-decision.yaml](../../../data/production-support-decisions/bitnami-mongodb/security-decision.yaml) - The target-scoped security decision accepts the static-passwords PDB warning shape only for this public proof scope.
 - [data/production-support-decisions/bitnami-mongodb/lifecycle-decision.yaml](../../../data/production-support-decisions/bitnami-mongodb/lifecycle-decision.yaml) - The target-scoped lifecycle decision binds no-hooks policy, generated credential ownership, separated Secret handling, storage boundaries, and OCI/Argo runtime health to proof-scope evidence.
 - [data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml](../../../data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml) - The extension slot provenance and scan policy receipt exists for this chart.
 - [data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml](../../../data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml) - The generated fact ownership receipt exists for this chart.

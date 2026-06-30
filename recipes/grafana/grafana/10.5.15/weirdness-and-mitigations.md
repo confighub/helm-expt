@@ -13,7 +13,7 @@ current ConfigHub/cub installer proof absorbs it.
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Variants in this note | generated-passwords, existing-secret-ingress |
+| Variants in this note | static-passwords, existing-secret-ingress |
 
 Production support is not implied by this file. A chart can be supported for
 local proof/demo use while still needing accepted scan, gate, lifecycle, and
@@ -23,7 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Chart.yaml marks this chart version deprecated, and the proof records that status.
 - Default chart rendering is nondeterministic unless adminPassword is bound before render.
-- generated-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically.
+- static-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically.
 - existing-secret-ingress variant does not render a Secret and instead declares grafana/grafana-admin as a target fact.
 - existing-secret-ingress variant adds explicit UI ingress host and ingress class.
 - Datasource, dashboard, plugin, sidecar, and Secret/env injection slots are powerful extension surfaces; promoted variants keep them empty.
@@ -31,7 +31,8 @@ operating-policy dispositions plus a final target-scoped support decision.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- generated-passwords is the simplest install path and records generated Secret separation.
+- static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential.
+- ⚠ static-passwords is for demos and local-test only: the committed admin password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret-ingress to bring your own Secret for anything real.
 - existing-secret-ingress is supported when admin Secret and ingress/TLS target facts are satisfied.
 - Cluster RBAC, generated Secret ownership, target Secret preflight, extension-slot policy, and scan/gate warnings are recorded as production review input.
 - Production recommendation remains a separate decision; target UI exposure, resource policy, and workload security posture must be chosen for the target scope.
@@ -43,7 +44,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | source-lock | handled | source-lock.yaml |
 | dependency-lock | handled | chart declares no subchart dependencies; the empty closure is recorded explicitly. |
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
-| generated-facts | variant-controlled | The generated-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic. |
+| generated-facts | variant-controlled | The static-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic. |
 | target-facts | variant-controlled | The existing-secret-ingress variant declares the target Secret instead of rendering one. |
 | deployment-workload | scan-and-review | apps/v1\|Deployment\|grafana\|grafana |
 | ui-ingress-policy | variant-controlled | networking.k8s.io/v1\|Ingress\|grafana\|grafana |

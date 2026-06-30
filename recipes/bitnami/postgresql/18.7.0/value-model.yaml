@@ -6,7 +6,7 @@ spec:
   checkedValues:
     -
       path: "auth.postgresPassword"
-      variant: "generated-passwords"
+      variant: "static-passwords"
       disposition: "generated-fact-bound"
       reason: "default chart uses random password generation; this variant persists the generated value before render"
     -

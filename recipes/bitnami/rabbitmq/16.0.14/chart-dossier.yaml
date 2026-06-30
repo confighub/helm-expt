@@ -8,7 +8,7 @@ spec:
   maintainedNotes:
     - "Default chart rendering is nondeterministic unless auth.password is bound before render."
     - "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render."
-    - "generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
+    - "static-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
     - "existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts."
     - "existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."

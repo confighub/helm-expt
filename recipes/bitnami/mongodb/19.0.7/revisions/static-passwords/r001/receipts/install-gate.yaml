@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mongodb-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for static-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "The no-hooks lifecycle boundary is explicit; any future hook-producing path needs a separate lifecycle route before production"
+    - "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review"
+    - "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review"
+    - "uses a persisted generated fact for auth.rootPassword and renders the chart Secret deterministically"

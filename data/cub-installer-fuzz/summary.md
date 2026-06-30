@@ -35,10 +35,10 @@ This is the lane that matters for *us*: not Helm's footguns, but whether **`cub 
 | --- | --- | --- |
 | bitnami/nginx/24.0.2 | http-clusterip | 7 caught/validated · 5 rendered · 0 bug |
 | bitnami/redis | default | 7 caught/validated · 5 rendered · 0 bug |
-| bitnami/mysql | generated-passwords | 7 caught/validated · 5 rendered · 0 bug |
-| bitnami/mongodb | generated-passwords | 7 caught/validated · 5 rendered · 0 bug |
-| bitnami/rabbitmq | generated-passwords | 7 caught/validated · 5 rendered · 0 bug |
-| bitnami/postgresql | generated-passwords | 7 caught/validated · 5 rendered · 0 bug |
+| bitnami/mysql | static-passwords | 7 caught/validated · 5 rendered · 0 bug |
+| bitnami/mongodb | static-passwords | 7 caught/validated · 5 rendered · 0 bug |
+| bitnami/rabbitmq | static-passwords | 7 caught/validated · 5 rendered · 0 bug |
+| bitnami/postgresql | static-passwords | 7 caught/validated · 5 rendered · 0 bug |
 | bitnami/apache | default | 7 caught/validated · 5 rendered · 0 bug |
 | bitnami/memcached | default | 7 caught/validated · 5 rendered · 0 bug |
 

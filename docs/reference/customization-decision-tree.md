@@ -105,7 +105,7 @@ START — pull a public package → setup → upload → ConfigHub → OCI → A
 ├─ Fork 3 · SECRETS  (F3)                                          [proven]
 │   Does the base render a Secret?
 │   • No (e.g. nginx http-clusterip) → proceed.
-│   • Yes — default "generated-passwords"/"default" base over OCI→Argo is
+│   • Yes — default "static-passwords"/"default" base over OCI→Argo is
 │       GREEN-BUT-BROKEN: `installer upload` never uploads rendered Secrets, the
 │       pod sits in CreateContainerConfigError ("secret not found"), and Argo
 │       still reports Synced (SILENT). Do NOT use the password-generating default

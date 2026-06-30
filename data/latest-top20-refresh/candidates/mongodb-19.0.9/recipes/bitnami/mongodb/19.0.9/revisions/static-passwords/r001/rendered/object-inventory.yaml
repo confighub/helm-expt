@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-mongodb-19.0.9-static-passwords-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
+  objectCount: 8
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|mongodb|mongodb"
+      kind: "Deployment"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+      kind: "NetworkPolicy"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|mongodb|mongodb"
+      kind: "PodDisruptionBudget"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|mongodb|mongodb-common-scripts"
+      kind: "ConfigMap"
+      name: "mongodb-common-scripts"
+      namespace: "mongodb"
+    -
+      apiVersion: "v1"
+      identity: "v1|PersistentVolumeClaim|mongodb|mongodb"
+      kind: "PersistentVolumeClaim"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "v1"
+      identity: "v1|Secret|mongodb|mongodb"
+      kind: "Secret"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|mongodb|mongodb"
+      kind: "ServiceAccount"
+      name: "mongodb"
+      namespace: "mongodb"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|mongodb|mongodb"
+      kind: "Service"
+      name: "mongodb"
+      namespace: "mongodb"

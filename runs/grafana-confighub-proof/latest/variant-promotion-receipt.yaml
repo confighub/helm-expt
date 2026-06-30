@@ -1,7 +1,7 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "VariantPromotionReceipt"
 metadata:
-  name: "grafana-generated-passwords-variant-promotion-20260527"
+  name: "grafana-static-passwords-variant-promotion-20260527"
 spec:
   observedAt: "2026-05-27"
   context:
@@ -13,48 +13,48 @@ spec:
     chart: "grafana/grafana"
     chartVersion: "10.5.15"
     packagePath: "packages/grafana/grafana/10.5.15"
-    variant: "generated-passwords"
+    variant: "static-passwords"
     upstreamSpace: "helm-grafana-confighub-proof"
     downstreamSpace: "Grafana-staging"
   commands:
     upstreamUpdate: "cub unit update deployment-grafana-grafana runs/grafana-confighub-proof/latest/logs/27-promotion-upstream-patched.yaml --space helm-grafana-confighub-proof --change-desc ..."
-    upstreamAddUnit: "cub unit create promotion-marker-grafana-generated-passwords runs/grafana-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-grafana-confighub-proof --allow-exists"
+    upstreamAddUnit: "cub unit create promotion-marker-grafana-static-passwords runs/grafana-confighub-proof/latest/logs/29-promotion-marker-configmap.yaml --space helm-grafana-confighub-proof --allow-exists"
     dryRun: "cub variant promote Grafana-staging --dry-run -o mutations"
-    changeset: "cub changeset create grafana-generated-passwords-variant-promote-20260527 --space Grafana-staging --description ... --allow-exists"
-    promote: "cub variant promote Grafana-staging --changeset Grafana-staging/grafana-generated-passwords-variant-promote-20260527 --change-desc ..."
+    changeset: "cub changeset create grafana-static-passwords-variant-promote-20260527 --space Grafana-staging --description ... --allow-exists"
+    promote: "cub variant promote Grafana-staging --changeset Grafana-staging/grafana-static-passwords-variant-promote-20260527 --change-desc ..."
     fallbackPromote: "cub variant promote Grafana-staging --change-desc ..."
   upstreamChange:
     changedUnit: "deployment-grafana-grafana"
     beforeHeadRevisionNum: 2
     afterHeadRevisionNum: 3
-    annotation: "helm-expt.confighub.com/promotion-proof=grafana-generated-passwords-promotion-20260527"
+    annotation: "helm-expt.confighub.com/promotion-proof=grafana-static-passwords-promotion-20260527"
     updateResult: "pass"
   upstreamAddition:
-    markerUnit: "promotion-marker-grafana-generated-passwords"
+    markerUnit: "promotion-marker-grafana-static-passwords"
     upstreamUnitID: "4ede7f5e-807c-4891-a8c4-8178c8311622"
     result: "pass"
     proofOnly: true
   preview:
     result: "pass"
-    output: "  + promotion-marker-grafana-generated-passwords"
+    output: "  + promotion-marker-grafana-static-passwords"
   changeset:
-    slug: "grafana-generated-passwords-variant-promote-20260527"
+    slug: "grafana-static-passwords-variant-promote-20260527"
     result: "pass"
-    output: "Successfully created changeset grafana-generated-passwords-variant-promote-20260527 (225a3344-addd-48f9-be1e-3b16905b8b42)"
+    output: "Successfully created changeset grafana-static-passwords-variant-promote-20260527 (225a3344-addd-48f9-be1e-3b16905b8b42)"
   promote:
     result: "fail"
     output: "Upgrading units behind their upstream...\nAwaiting triggers...\nSuccessfully upgraded unit: deployment-grafana-grafana\nBulk upgrade operation completed:\n  Success: 1 unit(s)\nAdding 1 unit(s) from upstream"
   fallbackPromote:
     used: true
     result: "pass"
-    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-grafana-generated-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
+    output: "Upgrading units behind their upstream...\nBulk upgrade operation completed:\n  Success: 0 unit(s)\nAdding 1 unit(s) from upstream\nAwaiting triggers...\nSuccessfully created unit: promotion-marker-grafana-static-passwords\nBulk create operation completed:\n  Success: 1 unit(s)\nCopying links from the added units..."
   assertions:
     changedUnitCaughtUp: "pass"
     upstreamHeadRevisionNum: 3
     downstreamUpstreamRevisionNumBefore: 2
     downstreamUpstreamRevisionNumAfter: 3
     addedUnitCloned: "pass"
-    addedUnitSlug: "promotion-marker-grafana-generated-passwords"
+    addedUnitSlug: "promotion-marker-grafana-static-passwords"
     addedUnitDownstreamUpstreamUnitID: "4ede7f5e-807c-4891-a8c4-8178c8311622"
     deletionHandling: "not-tested"
     fieldOwnership: "not-tested"

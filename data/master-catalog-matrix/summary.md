@@ -185,16 +185,16 @@ when you want the user/product view with those columns visible.
 |  | F2c | candidate review | storage-default-reviewed | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/mongodb@19.0.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
 | `bitnami/mongodb@19.0.9` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ⬜ | ⚠️ | run | local-live | ⬜ |
-|  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 | `bitnami/mongodb@19.1.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-replicaset | - | - | - | - | ✅ | ✅ | ✅ | - | ⚠️ | ⚠️ | ✅ | ⚠️ | run | two-cluster-kind-parity | ⬜ |
-|  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 | `bitnami/mysql@14.0.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 | `bitnami/nginx@24.0.2` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-tls-ingress | top20 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | http-clusterip | top20 | `lookup;generated-facts;tpl;capabilities` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
@@ -216,16 +216,16 @@ when you want the user/product view with those columns visible.
 |  | F2c | candidate review | web-ui-existing-secret | candidate | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `bitnami/postgresql@18.6.7` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
 | `bitnami/postgresql@18.6.10` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ⚠️ | run | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 | `bitnami/postgresql@18.7.0` | F1 | source | (source) | - | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
+|  | F2b | base | static-passwords | - | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ⚠️ | run | live-parity | ⬜ |
 | `bitnami/rabbitmq@16.0.14` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F2b | base | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
+|  | F2b | base | static-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ✅ |
 | `bitnami/redis@25.5.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ✅ |
 |  | F2b | base | reuse-existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
@@ -322,9 +322,9 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ❌ | run | live-parity | ⬜ |
 | `grafana/grafana@10.5.15` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | existing-secret-ingress | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | superseded |
-|  | F2b | base | generated-passwords | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-|  | F4a | derived from generated-passwords | customer-acme-prod | derived | - | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
-|  | F4a | derived from generated-passwords | prod-us-east | derived | - | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
+|  | F2b | base | static-passwords | top20 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
+|  | F4a | derived from static-passwords | customer-acme-prod | derived | - | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
+|  | F4a | derived from static-passwords | prod-us-east | derived | - | - | - | - | ✅ | - | - | ⬜ | - | - | - | run | derived-intended-state | ⬜ |
 | `grafana/loki@7.0.0` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2b | base | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | single-binary-filesystem | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ✅ |

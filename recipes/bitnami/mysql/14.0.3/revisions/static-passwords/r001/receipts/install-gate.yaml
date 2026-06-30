@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mysql-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for static-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Supported bases render no hook objects; future hook-producing values need explicit lifecycle policy before production"
+    - "MySQL StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "uses persisted generated facts for auth.rootPassword, auth.password, and auth.replicationPassword and renders the chart Secret deterministically"

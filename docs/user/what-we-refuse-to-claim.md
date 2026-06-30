@@ -61,7 +61,7 @@ capability profile and CRD lifecycle review
 
 ### Grafana
 
-The `generated-passwords` base rendered RBAC objects with empty `rules: []`
+The `static-passwords` base rendered RBAC objects with empty `rules: []`
 arrays. The live RBAC objects did not preserve the authored empty-list shape in
 the same way.
 

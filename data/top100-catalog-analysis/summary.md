@@ -95,9 +95,9 @@ lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 | Chart | Supported version | Latest version | Variants | Required action |
 | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | default;no-crds | Run full promotion lanes before replacing the supported version. |
-| `bitnami/mongodb` | `19.0.7` | `19.1.0` | generated-passwords;existing-secret-replicaset | Run full promotion lanes before replacing the supported version. |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | static-passwords;existing-secret-replicaset | Run full promotion lanes before replacing the supported version. |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | http-clusterip;existing-tls-ingress | Run full promotion lanes before replacing the supported version. |
-| `bitnami/postgresql` | `18.6.7` | `18.7.0` | generated-passwords;existing-secret | Run full promotion lanes before replacing the supported version. |
+| `bitnami/postgresql` | `18.6.7` | `18.7.0` | static-passwords;existing-secret | Run full promotion lanes before replacing the supported version. |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | default;reuse-existing-secret | Run full promotion lanes before replacing the supported version. |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | default;no-crds | Run full promotion lanes before replacing the supported version. |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | default;server-only-ephemeral | Run full promotion lanes before replacing the supported version. |

@@ -11,30 +11,30 @@ spec:
   scope:
     - local-test
     - production-review-input
-  summary: The generated-passwords base binds auth.password and auth.erlangCookie before render so the rendered RabbitMQ credential Secrets are deterministic and separated by cub installer. The existing-secret base externalizes the administrator password and Erlang cookie as required target Secrets, while still rendering the non-credential configuration Secret. This closes generated credential ownership for the reviewed bases, while production support still needs a target-specific secret and rotation policy.
+  summary: The static-passwords base binds auth.password and auth.erlangCookie before render so the rendered RabbitMQ credential Secrets are deterministic and separated by cub installer. The existing-secret base externalizes the administrator password and Erlang cookie as required target Secrets, while still rendering the non-credential configuration Secret. This closes generated credential ownership for the reviewed bases, while production support still needs a target-specific secret and rotation policy.
   evidence:
     - path: recipes/bitnami/rabbitmq/16.0.14/control-points.yaml
       claim: The recipe records generated-facts as variant-controlled and target-facts as variant-controlled.
     - path: recipes/bitnami/rabbitmq/16.0.14/value-model.yaml
-      claim: The value model records generated-passwords values and the existing-secret target-fact route.
+      claim: The value model records static-passwords values and the existing-secret target-fact route.
     - path: recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml
-      claim: The generated-passwords base binds auth.password and auth.erlangCookie before render using deterministic proof values.
+      claim: The static-passwords base binds auth.password and auth.erlangCookie before render using deterministic proof values.
     - path: recipes/bitnami/rabbitmq/16.0.14/effective-values-existing-secret.yaml
       claim: The existing-secret base switches credential inputs to existing target Secrets.
     - path: recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml
       claim: The existing-secret variant declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts.
     - path: packages/bitnami/rabbitmq/16.0.14/installer.yaml
       claim: The installer package exposes the RabbitMQ credential Secrets as external requirements for the existing-secret base.
-    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/render-receipt.yaml
-      claim: The generated-passwords base renders two Secrets deterministically and records that cub installer separates two Secrets.
+    - path: recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/render-receipt.yaml
+      claim: The static-passwords base renders two Secrets deterministically and records that cub installer separates two Secrets.
     - path: recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/render-receipt.yaml
       claim: The existing-secret base renders one Secret because the chart still emits non-credential configuration.
-    - path: runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
+    - path: runs/live-kind-parity/bitnami-rabbitmq-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity between regular Helm and cub installer apply.
     - path: runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
       claim: The existing-secret base passes strict two-cluster live parity with the target Secrets staged for both paths.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret
   remainingProductionBlockers: []
   nextDecision: A production support decision should choose whether RabbitMQ uses generated credentials managed outside the public proof values or the existing-secret base with externally managed credentials.

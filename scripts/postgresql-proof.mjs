@@ -22,8 +22,8 @@ const postgresqlImageDigest = "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a942
 
 const variants = [
   {
-    name: "generated-passwords",
-    base: "generated-passwords",
+    name: "static-passwords",
+    base: "static-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
     valuesText: `image:
@@ -91,7 +91,7 @@ runProofCli({
   recordChartLockDigest: true,
   valueModel: {
     checkedValues: [
-      { path: "auth.postgresPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random password generation; this variant persists the generated value before render" },
+      { path: "auth.postgresPassword", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random password generation; this variant persists the generated value before render" },
       { path: "auth.existingSecret", variant: "existing-secret", disposition: "target-fact-bound", reason: "externalizes the credential into a declared target Secret instead of rendering a Secret" },
       { path: "auth.secretKeys.adminPasswordKey", variant: "existing-secret", disposition: "target-secret-key", reason: "documents the expected key in the target Secret" },
       { path: "image.digest", variant: "all", disposition: "pinned-image", reason: "supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag" },
@@ -114,7 +114,7 @@ runProofCli({
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares the Bitnami common dependency; promoted variants lock its metadata." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
-    { category: "generated-facts", status: "variant-controlled", evidence: "auth.postgresPassword", note: "The generated-passwords variant binds the generated password before render so Helm output is deterministic." },
+    { category: "generated-facts", status: "variant-controlled", evidence: "auth.postgresPassword", note: "The static-passwords variant binds the generated password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "auth.existingSecret", note: "The existing-secret variant declares the target Secret instead of rendering one." },
     { category: "image-digest", status: "handled", digest: postgresqlImageDigest, note: "Supported bases pin the Bitnami PostgreSQL image by digest." },
     { category: "hook-policy", status: "handled-for-render", policy: "no-hooks", note: "The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production." },
@@ -126,7 +126,7 @@ runProofCli({
   dossier: {
     maintainedNotes: [
       "Default chart rendering is nondeterministic unless auth.postgresPassword is bound before render.",
-      "generated-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically.",
+      "static-passwords variant persists auth.postgresPassword as a generated fact and renders the Secret deterministically.",
       "existing-secret variant does not render a Secret and instead declares postgresql/postgresql-auth as a target fact.",
       "Supported bases pin the Bitnami PostgreSQL image by digest instead of rendering the chart default latest tag.",
       "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.",
@@ -154,7 +154,7 @@ runProofCli({
     proves: [
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart rendering is nondeterministic until generated credentials are bound;",
-      "the generated-passwords variant persists auth.postgresPassword before render;",
+      "the static-passwords variant persists auth.postgresPassword before render;",
       "the existing-secret variant uses a declared target Secret and does not render a Secret;",
       "both supported bases pin the PostgreSQL image digest instead of rendering a mutable latest tag;",
       "generated fact, target fact, lifecycle boundary, dependency lock, StatefulSet/PVC, and extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
@@ -243,8 +243,8 @@ runProofCli({
       check(identities.includes("v1|ServiceAccount|postgresql|postgresql"), `${variant.name} ServiceAccount missing`);
       check(identities.includes("networking.k8s.io/v1|NetworkPolicy|postgresql|postgresql"), `${variant.name} NetworkPolicy missing`);
       check(identities.includes("policy/v1|PodDisruptionBudget|postgresql|postgresql"), `${variant.name} PodDisruptionBudget missing`);
-      if (variant.name === "generated-passwords") {
-        check(identities.includes("v1|Secret|postgresql|postgresql"), "generated-passwords Secret missing");
+      if (variant.name === "static-passwords") {
+        check(identities.includes("v1|Secret|postgresql|postgresql"), "static-passwords Secret missing");
       }
       if (variant.name === "existing-secret") {
         check(!secretIdentities.length, "existing-secret must not render a Secret");

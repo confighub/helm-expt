@@ -6,13 +6,13 @@ This proof lane shows the current ConfigHub path for `bitnami/rabbitmq@16.0.14`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `generated-passwords`.
+The selected happy-path install variant is `static-passwords`.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `generated-passwords` | yes | rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14 |
+| `static-passwords` | yes | rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14 |
 | `existing-secret` | no | rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14 |
 
 ## Acceptance Contract

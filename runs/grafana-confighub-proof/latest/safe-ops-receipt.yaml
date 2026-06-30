@@ -13,7 +13,7 @@ spec:
     chart: "grafana/grafana"
     chartVersion: "10.5.15"
     packagePath: "packages/grafana/grafana/10.5.15"
-    variant: "generated-passwords"
+    variant: "static-passwords"
   changeset:
     slug: "grafana-safe-ops-20260527"
     createResult: "pass"

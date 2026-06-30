@@ -10,13 +10,13 @@ spec:
     namespace: "rabbitmq"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "pdb-policy-accepted-for-target-scope"
   decidedAt: "2026-06-09"
-  claim: "The selected generated-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB/availability policy where appropriate."
+  claim: "The selected static-passwords support scope has one external scan warning: the chart's PodDisruptionBudget unhealthy-pod eviction policy. It is accepted for this public proof scope. Target production deployments should choose a stricter PDB/availability policy where appropriate."
   route: "accept-or-patch-pdb-policy"
   routeReason: "the remaining warning is an explicit PodDisruptionBudget policy choice"
   findingSummary:
@@ -31,7 +31,7 @@ spec:
         topChecks:
           pdb-unhealthy-pod-eviction-policy: 1
         renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
-      generated-passwords:
+      static-passwords:
         findingCount: 1
         topChecks:
           pdb-unhealthy-pod-eviction-policy: 1
@@ -55,8 +55,8 @@ spec:
       path: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
       claim: "Local rendered-object scan receipt for existing-secret."
     -
-      path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-      claim: "Local rendered-object scan receipt for generated-passwords."
+      path: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+      claim: "Local rendered-object scan receipt for static-passwords."
     -
       path: "data/production-disposition/receipts/bitnami-rabbitmq/scan-gate-warning-disposition.yaml"
       claim: "Earlier production disposition accepts RabbitMQ scan warnings as production-review inputs."

@@ -2974,12 +2974,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-mongodb-19-0-7-generated-passwords",
+        "name": "bitnami-mongodb-19-0-7-static-passwords",
         "labels": {
           "component": "bitnami/mongodb",
           "chart": "bitnami/mongodb",
           "version": "19.0.7",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -2991,12 +2991,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/mongodb/19.0.7",
-          "variant": "recipes/bitnami/mongodb/19.0.7/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.0.7/bases/generated-passwords",
+          "variant": "recipes/bitnami/mongodb/19.0.7/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.0.7/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7",
           "sourceLock": "recipes/bitnami/mongodb/19.0.7/source-lock.yaml",
           "namespace": "mongodb",
@@ -3009,10 +3009,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.0.7/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.0.7/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -3044,16 +3044,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.7",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/mongodb@19.0.7",
             "recipe: recipes/bitnami/mongodb/19.0.7",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-0-7-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-0-7-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7",
-            "package base: packages/bitnami/mongodb/19.0.7/bases/generated-passwords",
+            "package base: packages/bitnami/mongodb/19.0.7/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -3174,12 +3174,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-mongodb-19-0-9-generated-passwords",
+        "name": "bitnami-mongodb-19-0-9-static-passwords",
         "labels": {
           "component": "bitnami/mongodb",
           "chart": "bitnami/mongodb",
           "version": "19.0.9",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -3191,12 +3191,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/mongodb/19.0.9",
-          "variant": "recipes/bitnami/mongodb/19.0.9/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.0.9/bases/generated-passwords",
+          "variant": "recipes/bitnami/mongodb/19.0.9/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.0.9/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9",
           "sourceLock": "recipes/bitnami/mongodb/19.0.9/source-lock.yaml",
           "namespace": "mongodb",
@@ -3209,10 +3209,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.0.9/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.0.9/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -3244,16 +3244,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.9",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.9/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.9/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/mongodb@19.0.9",
             "recipe: recipes/bitnami/mongodb/19.0.9",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-0-9-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-0-9-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9",
-            "package base: packages/bitnami/mongodb/19.0.9/bases/generated-passwords",
+            "package base: packages/bitnami/mongodb/19.0.9/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -3374,12 +3374,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-mongodb-19-1-0-generated-passwords",
+        "name": "bitnami-mongodb-19-1-0-static-passwords",
         "labels": {
           "component": "bitnami/mongodb",
           "chart": "bitnami/mongodb",
           "version": "19.1.0",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -3391,12 +3391,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/mongodb/19.1.0",
-          "variant": "recipes/bitnami/mongodb/19.1.0/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.1.0/bases/generated-passwords",
+          "variant": "recipes/bitnami/mongodb/19.1.0/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.1.0/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0",
           "sourceLock": "recipes/bitnami/mongodb/19.1.0/source-lock.yaml",
           "namespace": "mongodb",
@@ -3409,10 +3409,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mongodb/19.1.0/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mongodb/19.1.0/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -3444,16 +3444,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.1.0",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.1.0/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.1.0/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/mongodb@19.1.0",
             "recipe: recipes/bitnami/mongodb/19.1.0",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-1-0-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-mongodb-19-1-0-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0",
-            "package base: packages/bitnami/mongodb/19.1.0/bases/generated-passwords",
+            "package base: packages/bitnami/mongodb/19.1.0/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -3574,12 +3574,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-mysql-14-0-3-generated-passwords",
+        "name": "bitnami-mysql-14-0-3-static-passwords",
         "labels": {
           "component": "bitnami/mysql",
           "chart": "bitnami/mysql",
           "version": "14.0.3",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -3591,12 +3591,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/mysql/14.0.3",
-          "variant": "recipes/bitnami/mysql/14.0.3/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mysql/14.0.3/bases/generated-passwords",
+          "variant": "recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mysql/14.0.3/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3",
           "sourceLock": "recipes/bitnami/mysql/14.0.3/source-lock.yaml",
           "namespace": "mysql",
@@ -3609,10 +3609,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/mysql/14.0.3/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/mysql/14.0.3/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -3644,16 +3644,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mysql/14.0.3",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/mysql@14.0.3",
             "recipe: recipes/bitnami/mysql/14.0.3",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-mysql-14-0-3-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3",
-            "package base: packages/bitnami/mysql/14.0.3/bases/generated-passwords",
+            "package base: packages/bitnami/mysql/14.0.3/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -4874,12 +4874,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-postgresql-18-6-10-generated-passwords",
+        "name": "bitnami-postgresql-18-6-10-static-passwords",
         "labels": {
           "component": "bitnami/postgresql",
           "chart": "bitnami/postgresql",
           "version": "18.6.10",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -4891,12 +4891,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/postgresql/18.6.10",
-          "variant": "recipes/bitnami/postgresql/18.6.10/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.6.10/bases/generated-passwords",
+          "variant": "recipes/bitnami/postgresql/18.6.10/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.6.10/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10",
           "sourceLock": "recipes/bitnami/postgresql/18.6.10/source-lock.yaml",
           "namespace": "postgresql",
@@ -4909,10 +4909,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.6.10/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.6.10/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -4944,16 +4944,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.10",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.10/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.10/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/postgresql@18.6.10",
             "recipe: recipes/bitnami/postgresql/18.6.10",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-6-10-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-6-10-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10",
-            "package base: packages/bitnami/postgresql/18.6.10/bases/generated-passwords",
+            "package base: packages/bitnami/postgresql/18.6.10/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -5074,12 +5074,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-postgresql-18-6-7-generated-passwords",
+        "name": "bitnami-postgresql-18-6-7-static-passwords",
         "labels": {
           "component": "bitnami/postgresql",
           "chart": "bitnami/postgresql",
           "version": "18.6.7",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -5091,12 +5091,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/postgresql/18.6.7",
-          "variant": "recipes/bitnami/postgresql/18.6.7/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.6.7/bases/generated-passwords",
+          "variant": "recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.6.7/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7",
           "sourceLock": "recipes/bitnami/postgresql/18.6.7/source-lock.yaml",
           "namespace": "postgresql",
@@ -5109,10 +5109,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.6.7/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.6.7/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -5144,16 +5144,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.7",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/postgresql@18.6.7",
             "recipe: recipes/bitnami/postgresql/18.6.7",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-6-7-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-6-7-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7",
-            "package base: packages/bitnami/postgresql/18.6.7/bases/generated-passwords",
+            "package base: packages/bitnami/postgresql/18.6.7/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -5274,12 +5274,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-postgresql-18-7-0-generated-passwords",
+        "name": "bitnami-postgresql-18-7-0-static-passwords",
         "labels": {
           "component": "bitnami/postgresql",
           "chart": "bitnami/postgresql",
           "version": "18.7.0",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -5291,12 +5291,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/postgresql/18.7.0",
-          "variant": "recipes/bitnami/postgresql/18.7.0/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.7.0/bases/generated-passwords",
+          "variant": "recipes/bitnami/postgresql/18.7.0/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.7.0/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0",
           "sourceLock": "recipes/bitnami/postgresql/18.7.0/source-lock.yaml",
           "namespace": "postgresql",
@@ -5309,10 +5309,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/postgresql/18.7.0/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/postgresql/18.7.0/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -5344,16 +5344,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.7.0",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.7.0/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.7.0/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/postgresql@18.7.0",
             "recipe: recipes/bitnami/postgresql/18.7.0",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-7-0-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/postgresql/18.7.0/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-postgresql-18-7-0-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0",
-            "package base: packages/bitnami/postgresql/18.7.0/bases/generated-passwords",
+            "package base: packages/bitnami/postgresql/18.7.0/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -5474,12 +5474,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "bitnami-rabbitmq-16-0-14-generated-passwords",
+        "name": "bitnami-rabbitmq-16-0-14-static-passwords",
         "labels": {
           "component": "bitnami/rabbitmq",
           "chart": "bitnami/rabbitmq",
           "version": "16.0.14",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -5491,12 +5491,12 @@
           "sourceRepository": "https://charts.bitnami.com/bitnami",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/bitnami/rabbitmq/16.0.14",
-          "variant": "recipes/bitnami/rabbitmq/16.0.14/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords",
+          "variant": "recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml",
+          "revision": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14",
           "sourceLock": "recipes/bitnami/rabbitmq/16.0.14/source-lock.yaml",
           "namespace": "rabbitmq",
@@ -5509,10 +5509,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords"
+          "renderedObjects": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -5544,16 +5544,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/rabbitmq/16.0.14",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/rabbitmq/16.0.14/bases/static-passwords",
           "fullModelPath": [
             "chart/version: bitnami/rabbitmq@16.0.14",
             "recipe: recipes/bitnami/rabbitmq/16.0.14",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-generated-passwords.yaml",
-            "rendered revision: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml",
+            "rendered revision: recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14",
-            "package base: packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords",
+            "package base: packages/bitnami/rabbitmq/16.0.14/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"
@@ -10117,12 +10117,12 @@
       "apiVersion": "helm-expt.confighub.com/v1alpha1",
       "kind": "HelmRenderIntent",
       "metadata": {
-        "name": "grafana-grafana-10-5-15-generated-passwords",
+        "name": "grafana-grafana-10-5-15-static-passwords",
         "labels": {
           "component": "grafana/grafana",
           "chart": "grafana/grafana",
           "version": "10.5.15",
-          "base": "generated-passwords",
+          "base": "static-passwords",
           "catalogLayer": "F2b"
         }
       },
@@ -10134,12 +10134,12 @@
           "sourceRepository": "https://grafana.github.io/helm-charts",
           "sourceContent": ""
         },
-        "baseVariant": "generated-passwords",
+        "baseVariant": "static-passwords",
         "renderInputs": {
           "recipe": "recipes/grafana/grafana/10.5.15",
-          "variant": "recipes/grafana/grafana/10.5.15/variants/generated-passwords/variant.yaml",
-          "revision": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/grafana/grafana/10.5.15/bases/generated-passwords",
+          "variant": "recipes/grafana/grafana/10.5.15/variants/static-passwords/variant.yaml",
+          "revision": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/grafana/grafana/10.5.15/bases/static-passwords",
           "installerPackageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15",
           "sourceLock": "recipes/grafana/grafana/10.5.15/source-lock.yaml",
           "namespace": "grafana",
@@ -10152,10 +10152,10 @@
           "hookPolicy": "no-hooks"
         },
         "renderOutput": {
-          "renderedObjects": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml",
-          "objectInventory": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/object-inventory.yaml",
-          "revision": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml",
-          "packageBase": "packages/grafana/grafana/10.5.15/bases/generated-passwords"
+          "renderedObjects": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
+          "objectInventory": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/object-inventory.yaml",
+          "revision": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml",
+          "packageBase": "packages/grafana/grafana/10.5.15/bases/static-passwords"
         },
         "evidence": {
           "renderParity": "yes",
@@ -10187,16 +10187,16 @@
           "customizationLayer": "F2b rendered standard fork",
           "rowStatus": "real",
           "githubRecipeUrl": "https://github.com/confighub/helm-expt/tree/main/recipes/grafana/grafana/10.5.15",
-          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/generated-passwords",
+          "githubPackageBaseUrl": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/static-passwords",
           "fullModelPath": [
             "chart/version: grafana/grafana@10.5.15",
             "recipe: recipes/grafana/grafana/10.5.15",
-            "base variant: generated-passwords",
-            "render intent: data/helm-render-intents/intents/grafana-grafana-10-5-15-generated-passwords.yaml",
-            "rendered revision: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml",
-            "full rendered YAML: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+            "base variant: static-passwords",
+            "render intent: data/helm-render-intents/intents/grafana-grafana-10-5-15-static-passwords.yaml",
+            "rendered revision: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml",
+            "full rendered YAML: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
             "installer package OCI: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15",
-            "package base: packages/grafana/grafana/10.5.15/bases/generated-passwords",
+            "package base: packages/grafana/grafana/10.5.15/bases/static-passwords",
             "ConfigHub Units: created when the package is uploaded",
             "managed variants: created after upload with cub variant create/promote",
             "targets and observations: recorded by the live lanes when run"

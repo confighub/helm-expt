@@ -23,9 +23,9 @@ candidate support status: not support-promoted
 | Chart | Current supported version | Candidate version | Variants | Work orders |
 | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `default`, `no-crds` | [argo-cd rows](./promotion-work-orders.csv) |
-| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `generated-passwords`, `existing-secret-replicaset` | [mongodb rows](./promotion-work-orders.csv) |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `static-passwords`, `existing-secret-replicaset` | [mongodb rows](./promotion-work-orders.csv) |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | `http-clusterip`, `existing-tls-ingress` | [nginx rows](./promotion-work-orders.csv) |
-| `bitnami/postgresql` | `18.6.7` | `18.7.0` | `generated-passwords`, `existing-secret` | [postgresql rows](./promotion-work-orders.csv) |
+| `bitnami/postgresql` | `18.6.7` | `18.7.0` | `static-passwords`, `existing-secret` | [postgresql rows](./promotion-work-orders.csv) |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | `default`, `reuse-existing-secret` | [redis rows](./promotion-work-orders.csv) |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `default`, `no-crds` | [kube-prometheus-stack rows](./promotion-work-orders.csv) |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `default`, `server-only-ephemeral` | [prometheus rows](./promotion-work-orders.csv) |

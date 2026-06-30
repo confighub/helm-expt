@@ -16,7 +16,7 @@ spec:
     providers, dashboards, plugins, sidecars, and Secret/env injection. The
     supported bases keep those provisioning and sidecar slots empty. The
     existing-secret-ingress base deliberately adds only the UI ingress host and
-    class, while generated-passwords keeps the UI internal. This accepts the
+    class, while static-passwords keeps the UI internal. This accepts the
     current slot policy: populated provisioning, plugin, sidecar, Secret/env, or
     richer ingress/TLS changes must become reviewed installer bases with render
     parity and scan evidence.
@@ -26,19 +26,19 @@ spec:
     - path: recipes/grafana/grafana/10.5.15/value-model.yaml
       claim: The value model records datasources, dashboardProviders, dashboards, plugins, sidecar, and Secret/env paths as extension slots.
     - path: recipes/grafana/grafana/10.5.15/effective-values.yaml
-      claim: The generated-passwords base only binds adminPassword and does not populate provisioning or sidecar slots.
+      claim: The static-passwords base only binds adminPassword and does not populate provisioning or sidecar slots.
     - path: recipes/grafana/grafana/10.5.15/effective-values-existing-secret-ingress.yaml
       claim: The existing-secret-ingress base binds admin Secret reference and a simple ingress host/class without populating provisioning or sidecar slots.
-    - path: recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords scan records extension-slot-review for Grafana provisioning surfaces.
+    - path: recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords scan records extension-slot-review for Grafana provisioning surfaces.
     - path: recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml
       claim: The existing-secret-ingress scan records both provisioning extension review and explicit UI ingress policy review.
-    - path: runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity for the reviewed default extension posture.
+    - path: runs/live-kind-parity/grafana-grafana-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity for the reviewed default extension posture.
     - path: runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
       claim: The existing-secret-ingress base passes strict two-cluster live parity for the reviewed ingress posture.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-ingress
   acceptedPolicy:
     currentBases: Datasource, dashboard, plugin, sidecar, and extra Secret/env slots are not populated in the supported bases.

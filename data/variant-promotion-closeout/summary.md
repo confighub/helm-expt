@@ -58,14 +58,14 @@ were recorded before the changeset-bound add-new-units server fix. The next acti
 | --- | --- | --- |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/mongodb@19.1.0 | generated-passwords | runs/cl-mongodb-19-1-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
+| bitnami/mongodb@19.1.0 | static-passwords | runs/cl-mongodb-19-1-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@24.0.4 | http-clusterip | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | existing-tls-ingress | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/nginx@25.0.0 | http-clusterip | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.6.10 | existing-secret | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/postgresql@18.7.0 | existing-secret | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
-| bitnami/postgresql@18.7.0 | generated-passwords | runs/cl-postgresql-18-7-0-generated-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
+| bitnami/postgresql@18.7.0 | static-passwords | runs/cl-postgresql-18-7-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | default | runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml |
 | bitnami/redis@27.0.0 | reuse-existing-secret | runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml |
 

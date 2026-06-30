@@ -18,17 +18,17 @@ spec:
     - path: recipes/bitnami/mongodb/19.0.7/value-model.yaml
       claim: The value model records primary.initdb.scripts and primary.extendedConfiguration as empty extension slots.
     - path: recipes/bitnami/mongodb/19.0.7/effective-values.yaml
-      claim: The generated-passwords base only sets the image digest and root password; it does not populate initdb or extended-configuration content.
+      claim: The static-passwords base only sets the image digest and root password; it does not populate initdb or extended-configuration content.
     - path: recipes/bitnami/mongodb/19.0.7/effective-values-existing-secret-replicaset.yaml
       claim: The existing-secret-replicaset base only sets architecture, image digest, and existingSecret; it does not populate initdb or extended-configuration content.
-    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords scan records the extension slot review warning explicitly.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords scan records the extension slot review warning explicitly.
     - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml
       claim: The existing-secret-replicaset scan records the extension slot review warning explicitly.
     - path: data/top20-base-readiness/base-readiness.csv
-      claim: The generated-passwords base is the recommended start-here path; existing-secret-replicaset remains runtime-review-needed rather than silently promoted.
+      claim: The static-passwords base is the recommended start-here path; existing-secret-replicaset remains runtime-review-needed rather than silently promoted.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-replicaset
   acceptedPolicy:
     supportedSlotState: Supported bases keep tpl-powered MongoDB extension slots empty.

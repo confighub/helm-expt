@@ -16,6 +16,7 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "First deliberately supported catalog entry.",
+      "⚠ The default base ships a fixed, shared demo password baked into the rendered Secret (base64 confighub-redis-password) — identical on every install and readable from the manifest. It is for demos and local-test only; use reuse-existing-secret to bring your own Secret for anything real.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Both variants are Helm-equivalent through cub installer setup.",
     ],
@@ -33,7 +34,8 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential.",
+      "⚠ static-passwords is for demos and local-test only: the committed password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret to bring your own Secret for anything real.",
       "existing-secret is supported when the declared postgresql-auth target fact is satisfied.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Target production review must choose storage class and database backup/restore mechanism before use.",
@@ -54,7 +56,8 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential.",
+      "⚠ static-passwords is for demos and local-test only: the committed password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret-replicaset to bring your own Secret for anything real.",
       "existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target.",
@@ -65,7 +68,8 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential.",
+      "⚠ static-passwords is for demos and local-test only: the committed password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret to bring your own Secret for anything real.",
       "existing-secret is supported when the declared MySQL Secret target facts are satisfied.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Target production review must choose storage class and database backup/restore mechanism before use.",
@@ -75,7 +79,8 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it also freezes the RabbitMQ erlang cluster cookie, so every install trusts the same shared cluster secret; it does not generate or separate any credential.",
+      "⚠ static-passwords is for demos and local-test only: the committed password and erlang cookie is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret to bring your own Secret for anything real.",
       "existing-secret is supported when the declared RabbitMQ Secret target facts are satisfied.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "Target production review must choose storage class, RabbitMQ recovery policy, and backup/restore mechanism before use.",
@@ -95,7 +100,8 @@ const supportedCatalogEntries = {
     productionReadiness: "production-review-ready",
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
-      "generated-passwords is the simplest install path and records generated Secret separation.",
+      "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential.",
+      "⚠ static-passwords is for demos and local-test only: the committed admin password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret-ingress to bring your own Secret for anything real.",
       "existing-secret-ingress is supported when admin Secret and ingress/TLS target facts are satisfied.",
       "Cluster RBAC, generated Secret ownership, target Secret preflight, extension-slot policy, and scan/gate warnings are recorded as production review input.",
       "Production recommendation remains a separate decision; target UI exposure, resource policy, and workload security posture must be chosen for the target scope.",

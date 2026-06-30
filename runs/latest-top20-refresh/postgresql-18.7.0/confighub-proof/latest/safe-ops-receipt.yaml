@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/postgresql"
     chartVersion: "18.7.0"
     packagePath: "data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0"
-    variant: "generated-passwords"
+    variant: "static-passwords"
   changeset:
     slug: "postgresql-18-7-0-safe-ops-20260527"
     createResult: "pass"

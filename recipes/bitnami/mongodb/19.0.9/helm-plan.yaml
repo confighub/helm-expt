@@ -8,24 +8,24 @@ spec:
     chart: "bitnami/mongodb"
     version: "19.0.9"
     variants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-replicaset"
     helmObjectsByVariant:
-      generated-passwords: 8
+      static-passwords: 8
       existing-secret-replicaset: 10
     cubInstallObjectsByVariant:
-      generated-passwords: 9
+      static-passwords: 9
       existing-secret-replicaset: 11
     helmMatchByVariant:
-      generated-passwords: "8/8"
+      static-passwords: "8/8"
       existing-secret-replicaset: "10/10"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after generated fact or target fact binding, hook lifecycle policy, dependency lock review, workload/storage policy, replica-set topology, and extension-slot review are satisfied"
   receipts:
-    - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/install-gate.yaml"
     - "revisions/existing-secret-replicaset/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/existing-secret-replicaset/r001/receipts/render-receipt.yaml"
     - "revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml"

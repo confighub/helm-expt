@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "mongodb-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+    objectCount: 8
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 9
+    uploadedManifestFiles: 9
+    separatedSecretFiles: 1
+    semanticObjectMatches: "8/8"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||mongodb"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run mongodb:compare"

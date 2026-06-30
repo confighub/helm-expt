@@ -8,8 +8,8 @@ spec:
     -
       default: true
       description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0"
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
     -
       description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.1.0"
       externalRequires:

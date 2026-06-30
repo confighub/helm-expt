@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/rabbitmq-16.0.14.tgz"
-    sha256: "42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22"
+    sha256: "bf046d286d243fe21caa45e150b2a540893840ffb0ac61c6b4cbf4e6cb41961a"
   package:
     name: "bitnami-rabbitmq"
     path: "packages/bitnami/rabbitmq/16.0.14"
@@ -28,11 +28,11 @@ spec:
         sha256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
         bytes: 14722
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
         bytes: 15265
       -
@@ -41,22 +41,22 @@ spec:
         bytes: 2538
       -
         path: "installer.yaml"
-        sha256: "1b5646c814422fd1b52d00499a48c2c8a7de18ab49aff59eb76d747118a7cc80"
-        bytes: 1271
+        sha256: "ba9df7f65a1a8aa2b1ced56599c0f3350c5a0527a15da94bdf71121557e92fc8"
+        bytes: 1265
     version: "16.0.14"
   setupChecks:
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||rabbitmq"
-      base: "generated-passwords"
-      command: "cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
       cubInstallObjectCountIncludingSupport: 11
       helmReleaseObjectCount: 10
       semanticObjectMatches: "10/10"
       separatedSecretCount: 2
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
+      variant: "static-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||rabbitmq"

@@ -6,8 +6,8 @@ metadata:
 spec:
   bases:
     -
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
       default: true
       description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0"
     -

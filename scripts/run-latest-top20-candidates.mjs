@@ -25,7 +25,7 @@ const candidates = [
     latestVersion: "19.1.0",
     script: "scripts/mongodb-proof.mjs",
     output: "mongodb-19.1.0",
-    variants: "generated-passwords;existing-secret-replicaset",
+    variants: "static-passwords;existing-secret-replicaset",
   },
   {
     chart: "bitnami/nginx",
@@ -41,7 +41,7 @@ const candidates = [
     latestVersion: "18.7.0",
     script: "scripts/postgresql-proof.mjs",
     output: "postgresql-18.7.0",
-    variants: "generated-passwords;existing-secret",
+    variants: "static-passwords;existing-secret",
   },
   {
     chart: "bitnami/redis",

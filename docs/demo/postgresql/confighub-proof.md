@@ -6,13 +6,13 @@ This proof lane shows the current ConfigHub path for `bitnami/postgresql@18.6.7`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `generated-passwords`.
+The selected happy-path install variant is `static-passwords`.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `generated-passwords` | yes | postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7 |
+| `static-passwords` | yes | postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7 |
 | `existing-secret` | no | postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7 |
 
 ## Acceptance Contract

@@ -1,0 +1,1043 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: bitnami-postgresql-18.7.0-static-passwords-live-parity-20260605
+spec:
+  chart: bitnami/postgresql
+  version: 18.7.0
+  base: static-passwords
+  result: pass
+  observedAt: '2026-06-15T00:44:01Z'
+  package:
+    path: packages/bitnami/postgresql/18.7.0
+  recipe:
+    path: recipes/bitnami/postgresql/18.7.0
+  variantRevision: recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-postgresql-mqehpy4s-226c
+    kubeContext: kind-helm-expt-parity-postgresql-mqehpy4s-226c
+    namespace: postgresql
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: postgresql-helm
+      configHubKubectlApply: postgresql-apply
+      configHubOciArgo: postgresql-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-postgresql-mqehpy4s-226c --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-postgresql-mqehpy4s-226c"...
+
+        Deleting cluster "helm-expt-parity-postgresql-mqehpy4s-226c" ...
+
+        Deleted nodes: ["helm-expt-parity-postgresql-mqehpy4s-226c-control-plane"]
+
+        Deleting Space "helm-expt-parity-postgresql-mqehpy4s-226c-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
+        --version 18.7.0 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords-18-7-0/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1
+      objectCount: 7
+      liveHelmManifestSHA256: 6acd6caba2990e2f655b6a427deb64eab5a009508a273ec67a928f1a918ce720
+      liveHelmManifestObjectCount: 7
+      namespace: postgresql-helm
+      runtime:
+        result: pass
+        workloads: statefulset.apps/postgresql   1/1   37s
+        pods: postgresql-0   1/1   Running   0     37s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+        --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+        --non-interactive --namespace postgresql-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: 0e28dc172c582d22865b32686c67da958a344923af72cb6a5887ef65e9a2f016
+      objectCount: 8
+      namespace: postgresql-apply
+      manifestNamespaces:
+      - postgresql-apply
+      runtimeNamespaces: &id001
+      - postgresql-apply
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# postgresql-apply
+
+          statefulset.apps/postgresql   1/1   20s'
+        pods: '# postgresql-apply
+
+          postgresql-0   1/1   Running   0     20s'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces:
+        - postgresql-apply
+        retainedNamespaces: []
+        clusterScopedResources:
+          result: not-needed
+          objectCount: 0
+        protectedNamespaceResources:
+          result: not-needed
+          namespaces: []
+          objectCount: 0
+          preservedPreExistingObjects: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+      controller: Argo CD OCI
+      app: postgresql-parity
+      manifestSHA256: 0d6d3585d1be2a8dfa90afb780a9ad162a8a7c536256f4c4b24d404b1552e561
+      objectCount: 8
+      namespace: postgresql-oci
+      manifestNamespaces:
+      - postgresql-oci
+      runtimeNamespaces: &id002
+      - postgresql-oci
+      ociRevision: sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-postgresql-oci-postgresql.yaml
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: postgresql-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci
+              targetRevision: latest
+          revision: sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T00:52:46Z'
+          status: Healthy
+        summary:
+          images:
+          - registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T00:52:20Z'
+          finishedAt: '2026-06-15T00:52:23Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 7
+          syncResultStatusCounts:
+            Synced: 7
+        history:
+        - id: 0
+          revision: sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+          deployedAt: '2026-06-15T00:52:23Z'
+          deployStartedAt: '2026-06-15T00:52:20Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: postgresql-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: postgresql-oci
+          name: postgresql
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: postgresql-oci
+          name: postgresql-hl
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: postgresql-oci
+          name: postgresql
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: StatefulSet
+          namespace: postgresql-oci
+          name: postgresql
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: networking.k8s.io
+          kind: NetworkPolicy
+          namespace: postgresql-oci
+          name: postgresql
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: policy
+          kind: PodDisruptionBudget
+          namespace: postgresql-oci
+          name: postgresql
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         postgresql-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-postgresql-mqehpy4s-226c-cluster:argoproj.io/Application:argocd/postgresql-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ e683709d-df09-433e-9ce2-bf96103c673c\n              confighub.com/UnitSlug:\
+              \ postgresql-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-06-15T00:52:19Z\n\
+              \  Generation:          8\n  Resource Version:    1761\n  UID:     \
+              \            66bf32d2-1b7a-4cf4-9212-f1fad4d3a3f4\nSpec:\n  Destination:\n\
+              \    Namespace:  postgresql-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T00:52:46Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-06-15T00:52:20Z\n    Deployed At:        2026-06-15T00:52:23Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \    Source:\n      Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T00:52:23Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \        Source:\n          Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-06-15T00:52:20Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/postgresql-oci\
+              \ serverside-applied\n        Name:        postgresql-oci\n        Namespace:\
+              \   postgresql-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       networking.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        NetworkPolicy\n\
+              \        Message:     networkpolicy.networking.k8s.io/postgresql serverside-applied\n\
+              \        Name:        postgresql\n        Namespace:   postgresql-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       policy\n        Hook Phase:  Running\n\
+              \        Kind:        PodDisruptionBudget\n        Message:     poddisruptionbudget.policy/postgresql\
+              \ serverside-applied\n        Name:        postgresql\n        Namespace:\
+              \   postgresql-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        ServiceAccount\n        Message:\
+              \     serviceaccount/postgresql serverside-applied\n        Name:  \
+              \      postgresql\n        Namespace:   postgresql-oci\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       \n        Hook Phase:  Running\n        Kind:\
+              \        Service\n        Message:     service/postgresql serverside-applied\n\
+              \        Name:        postgresql\n        Namespace:   postgresql-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        Service\n        Message:     service/postgresql-hl\
+              \ serverside-applied\n        Name:        postgresql-hl\n        Namespace:\
+              \   postgresql-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       apps\n      \
+              \  Hook Phase:  Running\n        Images:\n          registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653\n\
+              \        Kind:        StatefulSet\n        Message:     statefulset.apps/postgresql\
+              \ serverside-applied\n        Name:        postgresql\n        Namespace:\
+              \   postgresql-oci\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n      Revision:      sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \      Source:\n        Path:              ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T00:52:23Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       postgresql-oci\n    Status:     Synced\n    Version:\
+              \    v1\n    Kind:       Service\n    Name:       postgresql\n    Namespace:\
+              \  postgresql-oci\n    Status:     Synced\n    Version:    v1\n    Kind:\
+              \       Service\n    Name:       postgresql-hl\n    Namespace:  postgresql-oci\n\
+              \    Status:     Synced\n    Version:    v1\n    Kind:       ServiceAccount\n\
+              \    Name:       postgresql\n    Namespace:  postgresql-oci\n    Status:\
+              \     Synced\n    Version:    v1\n    Group:      apps\n    Kind:  \
+              \     StatefulSet\n    Name:       postgresql\n    Namespace:  postgresql-oci\n\
+              \    Status:     Synced\n    Version:    v1\n    Group:      networking.k8s.io\n\
+              \    Kind:       NetworkPolicy\n    Name:       postgresql\n    Namespace:\
+              \  postgresql-oci\n    Status:     Syn"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                          MESSAGE
+
+              28s         Normal   OperationStarted     application/postgresql-parity   Initiated
+              automated sync to ''sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0''
+
+              28s         Normal   ResourceUpdated      application/postgresql-parity   Updated
+              sync status:  -> OutOfSync
+
+              28s         Normal   ResourceUpdated      application/postgresql-parity   Updated
+              health status:  -> Healthy
+
+              25s         Normal   OperationCompleted   application/postgresql-parity   Sync
+              operation to sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+              succeeded
+
+              24s         Normal   ResourceUpdated      application/postgresql-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              24s         Normal   ResourceUpdated      application/postgresql-parity   Updated
+              health status: Healthy -> Progressing
+
+              2s          Normal   ResourceUpdated      application/postgresql-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 7
+              artifact:
+                path: argocd-core-child.json
+                sha256: 0c7bbf3e5d34e0bbc02d0b3317b0242738251f4c1aa8a3fa728b3518f7c7b568
+                bytes: 12037
+              output: "{\n  \"metadata\": {\n    \"name\": \"postgresql-parity\",\n\
+                \    \"namespace\": \"argocd\",\n    \"uid\": \"66bf32d2-1b7a-4cf4-9212-f1fad4d3a3f4\"\
+                ,\n    \"resourceVersion\": \"1776\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-06-15T00:52:19Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster:argoproj.io/Application:argocd/postgresql-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"e683709d-df09-433e-9ce2-bf96103c673c\",\n      \"confighub.com/UnitSlug\"\
+                : \"postgresql-parity-app\"\n    },\n    \"managedFields\": [\n  \
+                \    {\n        \"manager\": \"argocd-controller\",\n        \"operation\"\
+                : \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-06-15T00:52:19Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T00:52:56Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"postgresql-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"postgresql-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"postgresql-oci\",\n     \
+                \   \"name\": \"postgresql\",\n        \"status\": \"Synced\",\n \
+                \       \"health\": {\n          \"status\": \"Healthy\"\n       \
+                \ }\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"postgresql-oci\",\n     \
+                \   \"name\": \"postgresql-hl\",\n        \"status\": \"Synced\",\n\
+                \        \"health\": {\n          \"status\": \"Healthy\"\n      \
+                \  }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
+                kind\": \"ServiceAccount\",\n        \"namespace\": \"postgresql-oci\"\
+                ,\n        \"name\": \"postgresql\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"StatefulSet\",\n        \"namespace\"\
+                : \"postgresql-oci\",\n        \"name\": \"postgresql\",\n       \
+                \ \"status\": \"Synced\",\n        \"health\": {\n          \"status\"\
+                : \"Healthy\",\n          \"message\": \"partitioned roll out complete:\
+                \ 1 new pods have been updated...\"\n        }\n      },\n      {\n\
+                \        \"group\": \"networking.k8s.io\",\n        \"version\": \"\
+                v1\",\n        \"kind\": \"NetworkPolicy\",\n        \"namespace\"\
+                : \"postgresql-oci\",\n   "
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 49cdad964ad4a78d8f7d068a5325678b7522bbf97f2bdec5f49e4aef43c59685
+                bytes: 1825
+              output: "Name:               argocd/postgresql-parity\nProject:    \
+                \        default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          postgresql-oci\nURL:                http://localhost:60161/applications/postgresql-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-postgresql\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                  STATUS \
+                \ HEALTH   AGE    MESSAGE                                        \
+                \                REASON\nPodDisruptionBudget/postgresql          \
+                \   Synced  Healthy  42s    poddisruptionbudget.policy/postgresql\
+                \ serverside-applied       PodDisruptionBudget has SufficientPods\n\
+                Namespace/postgresql-oci                   Synced           6m35s\
+                \                                                                \
+                \ \nService/postgresql                         Synced  Healthy  42s\
+                \    service/postgresql serverside-applied                       \
+                \   \nService/postgresql-hl                      Synced  Healthy \
+                \ 42s    service/postgresql-hl serverside-applied                \
+                \       \nServiceAccount/postgresql                  Synced      \
+                \     42s    serviceaccount/postgresql serverside-applied        \
+                \           \nStatefulSet/postgresql                     Synced  Healthy\
+                \  42s    statefulset.apps/postgresql serverside-applied         \
+                \        partitioned roll out complete: 1 new pods have been updated...\n\
+                \u251C\u2500PersistentVolumeClaim/data-postgresql-0          Healthy\
+                \  42s                                                           \
+                \        \n\u251C\u2500Pod/postgresql-0                          \
+                \       Healthy  42s                                             \
+                \                      \n\u2514\u2500ControllerRevision/postgresql-6cb9b578\
+                \                    42s                                         \
+                \                          \nNetworkPolicy/postgresql            \
+                \       Synced           42s    networkpolicy.networking.k8s.io/postgresql\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              postgresql-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/postgresql-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"postgresql-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci
+              targetRevision: latest
+          revision: sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+          status: Synced
+        health:
+          lastTransitionTime: '2026-06-15T00:45:13Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-06-15T00:52:16Z'
+          finishedAt: '2026-06-15T00:52:19Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+          deployedAt: '2026-06-15T00:52:19Z'
+          deployStartedAt: '2026-06-15T00:52:16Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-postgresql-mqehpy4s-226c-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: postgresql-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-06-15T00:44:58Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        11\n  Resource Version:  1697\n  UID:        \
+              \       455bb156-7865-4cf2-b819-389a01143862\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-06-15T00:45:13Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T00:52:16Z\n\
+              \    Deployed At:        2026-06-15T00:52:19Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \    Source:\n      Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-06-15T00:52:19Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \        Source:\n          Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-06-15T00:52:16Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/postgresql-parity serverside-applied\n\
+              \        Name:        postgresql-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \      Source:\n        Path:              ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T00:52:20Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       postgresql-parity\n    Namespace:  argocd\n    Status:     Synced\n\
+              \    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:  Directory\n\
+              \  Summary:\n  Sync:\n    Compared To:\n      Destination:\n       \
+              \ Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  ResourceUpdated     7m52s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     7m52s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  ResourceUpdated   \
+              \  5m49s  argocd-application-controller  Updated sync status: Unknown\
+              \ -> Synced\n  Normal  OperationStarted    49s    argocd-application-controller\
+              \  Initiated automated sync to 'sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0'\n\
+              \  Normal  ResourceUpdated     49s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  46s    argocd-application-controller  Sync operation to sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\
+              \ succeeded\n  Normal  ResourceUpdated     45s    argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                          MESSAGE
+
+              7m52s       Normal   ResourceUpdated      application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Updated
+              sync status:  -> Unknown
+
+              7m52s       Normal   ResourceUpdated      application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Updated
+              health status:  -> Healthy
+
+              5m49s       Normal   ResourceUpdated      application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Updated
+              sync status: Unknown -> Synced
+
+              49s         Normal   OperationStarted     application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Initiated
+              automated sync to ''sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0''
+
+              49s         Normal   ResourceUpdated      application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              46s         Normal   OperationCompleted   application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Sync
+              operation to sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0
+              succeeded
+
+              45s         Normal   ResourceUpdated      application/helm-expt-parity-postgresql-mqehpy4s-226c-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: ab857795afde5f6b3b62f8ac60e928b7fb7d004b90ee474cef65590662284180
+                bytes: 10708
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"455bb156-7865-4cf2-b819-389a01143862\"\
+                ,\n    \"resourceVersion\": \"1804\",\n    \"generation\": 12,\n \
+                \   \"creationTimestamp\": \"2026-06-15T00:44:58Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-06-15T00:44:58Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
+                : {},\n              \"f:status\": {}\n            },\n          \
+                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
+                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \"f:revision\": {},\n             \
+                \     \"f:source\": {\n                    \"f:path\": {},\n     \
+                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
+                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
+                \                }\n              },\n              \"f:startedAt\"\
+                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
+                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
+                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
+                \              \"f:comparedTo\": {\n                \"f:destination\"\
+                : {\n                  \"f:namespace\": {},\n                  \"\
+                f:server\": {}\n                },\n                \"f:source\":\
+                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              },\n              \"f:revision\": {}\n       \
+                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
+                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-06-15T00:53:14Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub."
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 7fd2d47c08ec6edb616a39335d0aeb1ccbbe427993d9ee3ebacb7f963625e821
+                bytes: 1160
+              output: "Name:               argocd/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:60277/applications/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-postgresql-mqehpy4s-226c-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \             STATUS  HEALTH  AGE    MESSAGE                     \
+                \                                                                \
+                \  REASON\nApplication/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\
+                \  Synced          8m25s  application.argoproj.io/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\
+                \ serverside-applied  \nApplication/postgresql-parity            \
+                \                      Synced          64s    application.argoproj.io/postgresql-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-postgresql-mqehpy4s-226c-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              postgresql-parity\",\n      \"namespace\": \"argocd\",\n      \"ready\"\
+              : true,\n      \"stage\": \"healthy\",\n      \"message\": \"successfully\
+              \ synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/postgresql-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:4fb60aff1fd939e9b2634a7771438e1b4cbc4713d4e5de2f96e5461cffa4f9e0\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-postgresql-mqehpy4s-226c-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"postgresql-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# postgresql-oci
+
+          statefulset.apps/postgresql   1/1   60s'
+        pods: '# postgresql-oci
+
+          postgresql-0   1/1   Running   0     60s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||postgresql
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||postgresql
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4030296e969daaa881ca65b0740e402ac6166e4ff517bb98972482911dd4a3c0
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 7
+      configHubObjectCount: 8
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||postgresql
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 4030296e969daaa881ca65b0740e402ac6166e4ff517bb98972482911dd4a3c0
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-06-15T00:44:58Z'
+    finishedAt: '2026-06-15T00:45:42Z'
+    elapsedSeconds: 44.08
+    timeoutSeconds: 900
+    command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
+      --version 18.7.0 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords-18-7-0/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-06-15T00:45:53Z'
+    finishedAt: '2026-06-15T00:45:53Z'
+    elapsedSeconds: 0.652
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+      --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+      --non-interactive --namespace postgresql-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-06-15T00:45:54Z'
+    finishedAt: '2026-06-15T00:45:54Z'
+    elapsedSeconds: 0.133
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqehpy4s-226c.kubeconfig
+      --context kind-helm-expt-parity-postgresql-mqehpy4s-226c apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords-18-7-0/direct-apply-manifest.yaml
+    objectCount: 7
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-06-15T00:45:54Z'
+    finishedAt: '2026-06-15T00:46:14Z'
+    elapsedSeconds: 20.327
+    timeoutSeconds: 300
+    namespaces: postgresql-apply
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-06-15T00:46:29Z'
+    finishedAt: '2026-06-15T00:46:30Z'
+    elapsedSeconds: 0.529
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+      --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+      --non-interactive --namespace postgresql-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-06-15T00:46:30Z'
+    finishedAt: '2026-06-15T00:47:02Z'
+    elapsedSeconds: 32.125
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+      --space helm-expt-parity-postgresql-mqehpy4s-226c-postgresql --target helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci
+    objectCount: 8
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-06-15T00:47:02Z'
+    finishedAt: '2026-06-15T00:47:03Z'
+    elapsedSeconds: 0.588
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-06-15T00:47:03Z'
+    finishedAt: '2026-06-15T00:52:05Z'
+    elapsedSeconds: 302.619
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-postgresql-mqehpy4s-226c-postgresql
+      --unit <7 unit(s)> --wait --timeout 5m
+    unitCount: 7
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-06-15T00:52:05Z'
+    finishedAt: '2026-06-15T00:52:06Z'
+    elapsedSeconds: 0.96
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-postgresql-mqehpy4s-226c-cluster
+      postgresql-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-static-passwords-18-7-0/argo-application.json
+      --target helm-expt-parity-postgresql-mqehpy4s-226c-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-06-15T00:52:06Z'
+    finishedAt: '2026-06-15T00:52:07Z'
+    elapsedSeconds: 1.122
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-postgresql-mqehpy4s-226c-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-06-15T00:52:07Z'
+    finishedAt: '2026-06-15T00:52:48Z'
+    elapsedSeconds: 40.286
+    timeoutSeconds: 420
+    waitedSeconds: 40
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-06-15T00:53:23Z'
+    finishedAt: '2026-06-15T00:53:23Z'
+    elapsedSeconds: 0.097
+    timeoutSeconds: 180
+    namespaces: postgresql-oci
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-postgresql-mqehpy4s-226c\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqehpy4s-226c.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-postgresql-mqehpy4s-226c\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-postgresql-mqehpy4s-226c\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-postgresql-mqehpy4s-226c\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqehpy4s-226c.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo C"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"postgresql\" does not exist. Installing it now.\nNAME: postgresql\n\
+      LAST DEPLOYED: Mon Jun 15 01:45:05 2026\nNAMESPACE: postgresql-helm\nSTATUS:\
+      \ deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\
+      CHART NAME: postgresql\nCHART VERSION: 18.7.0\nAPP VERSION: 18.4.0\n\n\u26A0\
+      \ WARNING: Since August 28th, 2025, only a limited subset of images/charts are\
+      \ available for free.\n    Subscribe to Bitnami Secure Images to receive continued\
+      \ support and security updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nPostgreSQL can\
+      \ be accessed via port 5432 on the following DNS names from within your cluster:\n\
+      \n    postgresql.postgresql-helm.svc.cluster.local - Read/Write connection\n\
+      \nTo get the password for \"postgres\" run:\n\n    export POSTGRES_PASSWORD=$(kubectl\
+      \ get secret --namespace postgresql-helm postgresql -o jsonpath=\"{.data.postgres-password}\"\
+      \ | base64 -d)\n\nTo connect to you"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# postgresql-apply
+
+      statefulset.apps/postgresql   1/1   20s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 40s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: postgresql-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: postgresql-oci

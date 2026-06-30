@@ -8,7 +8,7 @@ spec:
   maintainedNotes:
     - "Chart.yaml marks this chart version deprecated, and the proof records that status."
     - "Default chart rendering is nondeterministic unless adminPassword is bound before render."
-    - "generated-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically."
+    - "static-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-ingress variant does not render a Secret and instead declares grafana/grafana-admin as a target fact."
     - "existing-secret-ingress variant adds explicit UI ingress host and ingress class."
     - "Datasource, dashboard, plugin, sidecar, and Secret/env injection slots are powerful extension surfaces; promoted variants keep them empty."

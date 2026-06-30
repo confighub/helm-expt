@@ -7,7 +7,7 @@ spec:
   version: "19.0.7"
   maintainedNotes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
-    - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
+    - "static-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
     - "The mongodb-replica-set-key target fact must be valid MongoDB keyfile material; a generic password-like string can pass presence checks but fail runtime bootstrap."
     - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."

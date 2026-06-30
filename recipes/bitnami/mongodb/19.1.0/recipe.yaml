@@ -20,5 +20,5 @@ spec:
       - "--namespace"
       - "mongodb"
   variants:
-    - "variants/generated-passwords/variant.yaml"
+    - "variants/static-passwords/variant.yaml"
     - "variants/existing-secret-replicaset/variant.yaml"

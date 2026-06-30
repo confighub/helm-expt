@@ -25,9 +25,9 @@ bitnami/elasticsearch,22.1.6,ha,blocked,pass,remote-image: image pull failed or 
 bitnami/elasticsearch,22.1.6,legacy,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-elasticsearch-legacy/receipt.yaml
 bitnami/memcached,8.5.5,default,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-memcached-default/receipt.yaml
 bitnami/mongodb,19.1.0,existing-secret-replicaset,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
-bitnami/mongodb,19.1.0,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
+bitnami/mongodb,19.1.0,static-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml
 bitnami/mysql,14.0.3,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml
-bitnami/mysql,14.0.3,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml
+bitnami/mysql,14.0.3,static-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-static-passwords/receipt.yaml
 bitnami/nginx,25.0.0,existing-tls-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml
 bitnami/nginx,25.0.0,http-clusterip,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml
 bitnami/opensearch,2.0.10,default,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-opensearch-default/receipt.yaml
@@ -36,9 +36,9 @@ bitnami/opensearch,2.0.10,legacy,blocked,defect,parity: semantic object diff,,se
 bitnami/phpmyadmin,20.0.0,default,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-phpmyadmin-default/receipt.yaml
 bitnami/phpmyadmin,20.0.0,legacy,blocked,defect,parity: semantic object diff,,semantic object parity defect,runs/live-kind-parity/bitnami-phpmyadmin-legacy/receipt.yaml
 bitnami/postgresql,18.7.0,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml
-bitnami/postgresql,18.7.0,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml
+bitnami/postgresql,18.7.0,static-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-postgresql-static-passwords/receipt.yaml
 bitnami/rabbitmq,16.0.14,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml
-bitnami/rabbitmq,16.0.14,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml
+bitnami/rabbitmq,16.0.14,static-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-rabbitmq-static-passwords/receipt.yaml
 bitnami/redis,27.0.0,default,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-default/receipt.yaml
 bitnami/redis,27.0.0,reuse-existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml
 bitnami/spark,10.0.3,default,blocked,pass,remote-image: image pull failed or pinned image is unavailable (parity passed),,semantic parity passed; target or lifecycle behavior needs review,runs/live-kind-parity/bitnami-spark-default/receipt.yaml
@@ -80,7 +80,7 @@ gitlab/gitlab-runner,0.89.0,default,watch,pass,helm-runtime: upstream not ready 
 grafana/alloy,1.8.2,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-alloy-default/receipt.yaml
 grafana/alloy,1.8.2,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-alloy-no-crds/receipt.yaml
 grafana/grafana,10.5.15,existing-secret-ingress,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml
-grafana/grafana,10.5.15,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml
+grafana/grafana,10.5.15,static-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-grafana-static-passwords/receipt.yaml
 grafana/loki,7.0.0,simple-scalable-minio,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml
 grafana/loki,7.0.0,single-binary-filesystem,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml
 grafana/promtail,6.17.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/grafana-promtail-default/receipt.yaml

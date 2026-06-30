@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/mysql"
     chartVersion: "14.0.3"
     packagePath: "packages/bitnami/mysql/14.0.3"
-    variant: "generated-passwords"
+    variant: "static-passwords"
   changeset:
     slug: "mysql-safe-ops-20260527"
     createResult: "pass"

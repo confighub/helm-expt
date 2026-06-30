@@ -9,7 +9,7 @@ spec:
   command: "cub variant create prod-us-east helm-grafana-confighub-proof --environment Prod --region us-east --target observability-targets/prod-us-east --namespace grafana-prod --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' --unit-delete-gate production-review --unit-destroy-gate production-review"
   sourceSpace: "helm-grafana-confighub-proof"
   downstreamSpace: "Grafana-prod-us-east"
-  sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml"
+  sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml"
   renderedObjectSetSHA256: "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d"
   sourceUnits: 10
   clonedUnitsExpected: 10

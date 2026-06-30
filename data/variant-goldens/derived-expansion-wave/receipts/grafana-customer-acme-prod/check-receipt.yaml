@@ -6,7 +6,7 @@ metadata:
 spec:
   executionMode: "golden-target-not-live-execution"
   supportOutcome: "missing-live-execution-receipt"
-  sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml"
+  sourceRevision: "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml"
   derivedVariant: "customer-acme-prod"
   checks:
     -

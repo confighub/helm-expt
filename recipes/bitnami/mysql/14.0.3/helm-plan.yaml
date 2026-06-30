@@ -8,24 +8,24 @@ spec:
     chart: "bitnami/mysql"
     version: "14.0.3"
     variants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     helmObjectsByVariant:
-      generated-passwords: 8
+      static-passwords: 8
       existing-secret: 7
     cubInstallObjectsByVariant:
-      generated-passwords: 9
+      static-passwords: 9
       existing-secret: 8
     helmMatchByVariant:
-      generated-passwords: "8/8"
+      static-passwords: "8/8"
       existing-secret: "7/7"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, and extension-slot review are satisfied"
   receipts:
-    - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/install-gate.yaml"
     - "revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/existing-secret/r001/receipts/render-receipt.yaml"
     - "revisions/existing-secret/r001/receipts/scan-receipt.yaml"

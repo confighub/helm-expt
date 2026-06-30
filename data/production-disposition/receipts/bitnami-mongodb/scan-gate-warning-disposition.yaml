@@ -17,8 +17,8 @@ spec:
       claim: The external scan workdown records three MongoDB findings, all for pdb-unhealthy-pod-eviction-policy across the supported bases.
     - path: data/scan-disposition-workdown/workdown.csv
       claim: The generated scan disposition workdown routes bitnami/mongodb to accept-or-patch-pdb-policy rather than image-pin, security-hardening, endpoint, or privileged-infrastructure work.
-    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/scan-receipt.yaml
-      claim: The generated-passwords local rendered-object scan has zero high or critical findings and records the remaining warnings explicitly.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/scan-receipt.yaml
+      claim: The static-passwords local rendered-object scan has zero high or critical findings and records the remaining warnings explicitly.
     - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml
       claim: The existing-secret-replicaset local rendered-object scan has zero high or critical findings and records the remaining warnings explicitly.
     - path: data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml
@@ -32,7 +32,7 @@ spec:
     - path: data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml
       claim: Storage and rollback boundaries are accepted as production review input.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-replicaset
   acceptedWarnings:
     - pdb-unhealthy-pod-eviction-policy

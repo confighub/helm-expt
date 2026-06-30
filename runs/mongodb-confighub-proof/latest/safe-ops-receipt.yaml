@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/mongodb"
     chartVersion: "19.0.7"
     packagePath: "packages/bitnami/mongodb/19.0.7"
-    variant: "generated-passwords"
+    variant: "static-passwords"
   changeset:
     slug: "mongodb-safe-ops-20260527"
     createResult: "pass"

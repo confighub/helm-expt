@@ -16,9 +16,9 @@ spec:
     chart: "bitnami/mongodb"
     chartVersion: "19.0.7"
     bases:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret-replicaset"
-    selectedBase: "generated-passwords"
+    selectedBase: "static-passwords"
     docVerified: true
     targetFactRequirements:
       -
@@ -30,13 +30,13 @@ spec:
             namespace: "mongodb"
             suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
   render:
-    command: "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir .tmp/confighub-proof/mongodb-generated-passwords --non-interactive --namespace mongodb"
+    command: "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base static-passwords --work-dir .tmp/confighub-proof/mongodb-static-passwords --non-interactive --namespace mongodb"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
     facts:
       targetFactChecks:
-        base: "generated-passwords"
+        base: "static-passwords"
         mode: "not-required"
         result: "pass"
       targetFacts:
@@ -50,7 +50,7 @@ spec:
         requiredValues:
           []
   rerender:
-    command: "cub installer render --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
+    command: "cub installer render --work-dir .tmp/confighub-proof/mongodb-static-passwords"
     result: "pass"
     manifestCount: 8
     separatedSecretCount: 1
@@ -59,11 +59,11 @@ spec:
     sha256: "8898fd34364167b0b8bb70c7c7b9b7a9ed078ed818f2b411af6f170427996662"
     byteIdenticalAcrossTwoLocalBundles: true
   vet:
-    command: "cub installer vet --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
+    command: "cub installer vet --work-dir .tmp/confighub-proof/mongodb-static-passwords"
     result: "pass"
     note: "Package declares no validators (spec.validators is empty)."
   upload:
-    command: "cub installer upload --work-dir .tmp/confighub-proof/mongodb-generated-passwords --space helm-mongodb-confighub-proof --component MongoDB --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MongoDB --unit-label HelmChart=bitnami-mongodb --unit-label HelmChartVersion=19.0.7 --unit-label Variant=generated-passwords --unit-label Proof=mongodb-confighub-proof --retry"
+    command: "cub installer upload --work-dir .tmp/confighub-proof/mongodb-static-passwords --space helm-mongodb-confighub-proof --component MongoDB --layer App --environment Demo --owner ConfigHubHelm --variant static-passwords --unit-label Component=MongoDB --unit-label HelmChart=bitnami-mongodb --unit-label HelmChartVersion=19.0.7 --unit-label Variant=static-passwords --unit-label Proof=mongodb-confighub-proof --retry"
     result: "pass"
     workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
     space: "helm-mongodb-confighub-proof"
@@ -74,9 +74,9 @@ spec:
       - "v1/Secret mongodb/mongodb"
   plan:
     preUpload:
-      command: "cub installer plan --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
+      command: "cub installer plan --work-dir .tmp/confighub-proof/mongodb-static-passwords"
       result: "expected-missing-upload-state"
-    command: "cub installer plan --work-dir .tmp/confighub-proof/mongodb-generated-passwords"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/mongodb-static-passwords"
     result: "pass"
     summary: "No changes.\nImages in helm-mongodb-confighub-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
   serverSideVariant:

@@ -8,24 +8,24 @@ spec:
     chart: "bitnami/rabbitmq"
     version: "16.0.14"
     variants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     helmObjectsByVariant:
-      generated-passwords: 10
+      static-passwords: 10
       existing-secret: 9
     cubInstallObjectsByVariant:
-      generated-passwords: 11
+      static-passwords: 11
       existing-secret: 10
     helmMatchByVariant:
-      generated-passwords: "10/10"
+      static-passwords: "10/10"
       existing-secret: "9/9"
     scanGate: "warn-production-blocked"
     nextAction: "publish only after generated fact or target fact binding, dependency lock review, StatefulSet/PVC policy, clustering policy, and extension-slot review are satisfied"
   receipts:
-    - "revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
-    - "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+    - "revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/render-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/scan-receipt.yaml"
+    - "revisions/static-passwords/r001/receipts/install-gate.yaml"
     - "revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/existing-secret/r001/receipts/render-receipt.yaml"
     - "revisions/existing-secret/r001/receipts/scan-receipt.yaml"

@@ -43,7 +43,7 @@ spec:
       - "local-test"
     productionReadiness: "production-review-ready"
     supportedVariants:
-      - "generated-passwords"
+      - "static-passwords"
       - "existing-secret"
     candidateVariants:
       []
@@ -67,12 +67,12 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22"
+    deterministicBundleSHA256: "bf046d286d243fe21caa45e150b2a540893840ffb0ac61c6b4cbf4e6cb41961a"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
-        name: "generated-passwords"
-        path: "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords"
         default: true
         description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
       -
@@ -82,8 +82,8 @@ spec:
         description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
   variants:
     -
-      name: "generated-passwords"
-      variant: "recipes/bitnami/rabbitmq/16.0.14/variants/generated-passwords/variant.yaml"
+      name: "static-passwords"
+      variant: "recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml"
       namespace: "rabbitmq"
       releaseName: "rabbitmq"
       valuesProfile: "recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml"
@@ -96,12 +96,12 @@ spec:
         {}
       targetFactSummary: "none"
       packageBase:
-        name: "generated-passwords"
-        path: "packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords"
+        name: "static-passwords"
+        path: "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords"
         default: true
         description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
       setupCheck:
-        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"
@@ -110,13 +110,13 @@ spec:
           - "v1|Namespace||rabbitmq"
       revisions:
         -
-          name: "generated-passwords-r001"
+          name: "static-passwords-r001"
           revision: "r001"
-          variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml"
+          variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml"
           digest: "cae600fba031e510fe5c5f8f33b2a610cfbf4ade184c52040affb1e6365fd14c"
           renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
-          renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml"
-          objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          renderedObjects: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/object-inventory.yaml"
           objectCount: 10
           helmObjectCount: 10
           cubInstallObjectCountIncludingSupport: 11
@@ -125,22 +125,22 @@ spec:
           receipts:
             render:
               kind: "RenderReceipt"
-              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/render-receipt.yaml"
               result: "recorded"
               renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
             helmEquivalence:
               kind: "HelmEquivalenceReceipt"
-              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml"
               result: "pass"
               renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
             scan:
               kind: "ScanReceipt"
-              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/scan-receipt.yaml"
               result: "warn"
               renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
             installGate:
               kind: "InstallGate"
-              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              path: "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
     -

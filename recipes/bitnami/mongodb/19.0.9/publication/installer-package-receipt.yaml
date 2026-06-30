@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mongodb/19.0.9 -o <tmp>/mongodb-19.0.9.tgz"
-    sha256: "a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7"
+    sha256: "2bdbf3fe7d26b797d2a9d3ca1729cb2bb7f58070eddba42b70a81c3e13749de1"
   package:
     name: "bitnami-mongodb"
     path: "packages/bitnami/mongodb/19.0.9"
@@ -28,11 +28,11 @@ spec:
         sha256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
         bytes: 22648
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
         bytes: 11300
       -
@@ -41,22 +41,22 @@ spec:
         bytes: 2442
       -
         path: "installer.yaml"
-        sha256: "a39acc86f0f2e2b0ff63b93960046b77193051c9eb05eb01e907fe1c5099e228"
-        bytes: 1333
+        sha256: "38f84b346650855a209eea745874658b8bdd1a226ca1efcd17a466ae54b35680"
+        bytes: 1327
     version: "19.0.9"
   setupChecks:
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mongodb"
-      base: "generated-passwords"
-      command: "cub installer setup --pull packages/bitnami/mongodb/19.0.9 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/bitnami/mongodb/19.0.9 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
       cubInstallObjectCountIncludingSupport: 9
       helmReleaseObjectCount: 8
       semanticObjectMatches: "8/8"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
+      variant: "static-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||mongodb"

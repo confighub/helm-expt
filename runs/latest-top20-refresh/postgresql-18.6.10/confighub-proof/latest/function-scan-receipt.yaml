@@ -13,7 +13,7 @@ spec:
     chart: "bitnami/postgresql"
     chartVersion: "18.6.10"
     packagePath: "data/latest-top20-refresh/candidates/postgresql-18.6.10/packages/bitnami/postgresql/18.6.10"
-    variant: "generated-passwords"
+    variant: "static-passwords"
     configHubUnitCount: 7
   unitRevisionBindings:
     -

@@ -12,12 +12,12 @@ spec:
   supportedScopes:
     - "local-test"
   supportedVariants:
-    - "generated-passwords"
+    - "static-passwords"
     - "existing-secret"
   productionReadiness: "production-review-ready"
   notes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword, auth.password, and auth.replicationPassword are bound before render."
-    - "generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically."
+    - "static-passwords variant persists all three password fields as generated facts and renders the Secret deterministically."
     - "existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production."
@@ -49,11 +49,11 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "The generated-passwords variant binds all generated password fields before render so Helm output is deterministic."
+      detectedPainPoint: "The static-passwords variant binds all generated password fields before render so Helm output is deterministic."
       evidence:
         - "auth.rootPassword + auth.password + auth.replicationPassword"
       configHubHome: "generated-fact"
@@ -76,7 +76,7 @@ spec:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
       disposition: "handled-by-lifecycle-policy"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled-for-render"
     -
       id: "stateful-workload"
@@ -85,7 +85,7 @@ spec:
         - "apps/v1|StatefulSet|mysql|mysql"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "pvc-policy"
@@ -94,7 +94,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "tpl"
@@ -103,7 +103,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "handled-by-variant"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "controlled-by-empty-defaults"
     -
       id: "installer-support-object"
@@ -112,7 +112,7 @@ spec:
         - "v1|Namespace||mysql"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
@@ -123,7 +123,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"

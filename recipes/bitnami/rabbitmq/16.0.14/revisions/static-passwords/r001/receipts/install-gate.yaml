@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "rabbitmq-static-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for static-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "Any future hook-producing values need explicit lifecycle policy before production"
+    - "RabbitMQ StatefulSet and volumeClaimTemplates need storage, upgrade, and rollback policy"
+    - "uses persisted generated facts for auth.password and auth.erlangCookie and renders chart Secrets deterministically"

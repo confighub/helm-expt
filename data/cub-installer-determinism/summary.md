@@ -18,10 +18,10 @@ None — every rendered package was byte-identical across two runs.
 | --- | --- | --- | --- |
 | bitnami/nginx/24.0.2@http-clusterip | deterministic | 6 | 6 file(s) byte-identical across two runs |
 | bitnami/redis@default | deterministic | 14 | 14 file(s) byte-identical across two runs |
-| bitnami/mysql@generated-passwords | deterministic | 8 | 8 file(s) byte-identical across two runs |
-| bitnami/mongodb@generated-passwords | deterministic | 8 | 8 file(s) byte-identical across two runs |
-| bitnami/rabbitmq@generated-passwords | deterministic | 9 | 9 file(s) byte-identical across two runs |
-| bitnami/postgresql@generated-passwords | deterministic | 7 | 7 file(s) byte-identical across two runs |
+| bitnami/mysql@static-passwords | deterministic | 8 | 8 file(s) byte-identical across two runs |
+| bitnami/mongodb@static-passwords | deterministic | 8 | 8 file(s) byte-identical across two runs |
+| bitnami/rabbitmq@static-passwords | deterministic | 9 | 9 file(s) byte-identical across two runs |
+| bitnami/postgresql@static-passwords | deterministic | 7 | 7 file(s) byte-identical across two runs |
 | bitnami/apache@default | deterministic | 6 | 6 file(s) byte-identical across two runs |
 | bitnami/memcached@default | deterministic | 6 | 6 file(s) byte-identical across two runs |
 | bitnami/zookeeper@default | deterministic | 8 | 8 file(s) byte-identical across two runs |

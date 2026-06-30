@@ -10,13 +10,13 @@ spec:
     namespace: "mongodb"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret-replicaset"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "no-open-image-digest-gap"
   decidedAt: "2026-06-09"
-  claim: "The rendered MongoDB bases use digest-pinned Bitnami MongoDB image references in the current proof corpus. There is no open image-digest work item for the selected generated-passwords support scope."
+  claim: "The rendered MongoDB bases use digest-pinned Bitnami MongoDB image references in the current proof corpus. There is no open image-digest work item for the selected static-passwords support scope."
   renderedImageSummary:
     renderedSubjects: 2
     subjectsNeedingResolution: 0
@@ -28,7 +28,7 @@ spec:
       rows: 3
       uniqueImages: 1
       renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
-    generated-passwords:
+    static-passwords:
       rows: 2
       uniqueImages: 1
       renderedObjectSetSHA256: "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf"

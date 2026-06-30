@@ -27,25 +27,25 @@ spec:
       files: 14
     -
       pkg: "bitnami/mysql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "deterministic"
       detail: "8 file(s) byte-identical across two runs"
       files: 8
     -
       pkg: "bitnami/mongodb"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "deterministic"
       detail: "8 file(s) byte-identical across two runs"
       files: 8
     -
       pkg: "bitnami/rabbitmq"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "deterministic"
       detail: "9 file(s) byte-identical across two runs"
       files: 9
     -
       pkg: "bitnami/postgresql"
-      base: "generated-passwords"
+      base: "static-passwords"
       status: "deterministic"
       detail: "7 file(s) byte-identical across two runs"
       files: 7

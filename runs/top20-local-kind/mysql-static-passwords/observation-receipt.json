@@ -1,0 +1,56 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "mysql-static-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-live-tail",
+      "context": "kind-helm-expt-live-tail",
+      "namespace": "mysql"
+    },
+    "observedAt": "2026-05-28T08:27:17.311Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/mysql",
+    "chartVersion": "14.0.3",
+    "rank": 16,
+    "variant": "static-passwords",
+    "renderedObjectCount": 8,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "a3c2bc26d398dd5da54fcd0e4c91b12a081453767f9f6d04302337a3a739c023"
+      },
+      {
+        "name": "statefulset-mysql-rollout",
+        "result": "pass",
+        "object": "statefulset/mysql",
+        "evidencePath": "statefulset-mysql-rollout.txt",
+        "evidenceSHA256": "66426f32d1a7ba534c53bb88c0789523f98d82675df3a1b9fa25ad3cbeb36187"
+      },
+      {
+        "name": "pvc-bound",
+        "result": "pass",
+        "count": 1,
+        "evidencePath": "pvc-status.json",
+        "evidenceSHA256": "a24a8e2d1718f18f71dcb6b266c5328bd0c10d92f8996baa2258c797e372ee28"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "81a5bdcd7ab606232ab8bc8960507e881405a40004569cf80ff7dffba6768f79"
+    }
+  }
+}

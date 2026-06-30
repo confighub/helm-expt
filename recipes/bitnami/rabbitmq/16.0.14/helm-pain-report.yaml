@@ -12,13 +12,13 @@ spec:
   supportedScopes:
     - "local-test"
   supportedVariants:
-    - "generated-passwords"
+    - "static-passwords"
     - "existing-secret"
   productionReadiness: "production-review-ready"
   notes:
     - "Default chart rendering is nondeterministic unless auth.password is bound before render."
     - "Default chart rendering is also nondeterministic unless auth.erlangCookie is bound before render."
-    - "generated-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
+    - "static-passwords variant persists auth.password and auth.erlangCookie as generated facts and renders chart Secrets deterministically."
     - "existing-secret variant does not render the credential Secret and instead declares rabbitmq/rabbitmq-auth and rabbitmq/rabbitmq-erlang-cookie as target facts."
     - "existing-secret variant still renders rabbitmq-config because configuration is chart-owned in both promoted variants."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
@@ -51,11 +51,11 @@ spec:
         - "control-points.yaml"
       configHubHome: "capability-profile"
       disposition: "handled-by-capability-profile"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/render-receipt.yaml"
       supportedVariantStatus: "handled"
     -
       id: "generated-facts"
-      detectedPainPoint: "The generated-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic."
+      detectedPainPoint: "The static-passwords variant binds the generated password and Erlang cookie before render so Helm output is deterministic."
       evidence:
         - "auth.password + auth.erlangCookie"
       configHubHome: "generated-fact"
@@ -78,7 +78,7 @@ spec:
         - "no-hooks"
       configHubHome: "lifecycle-policy"
       disposition: "handled-by-lifecycle-policy"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "not-present-in-promoted-render"
     -
       id: "stateful-workload"
@@ -87,7 +87,7 @@ spec:
         - "apps/v1|StatefulSet|rabbitmq|rabbitmq"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "pvc-policy"
@@ -96,7 +96,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "operate-policy"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
       id: "tpl"
@@ -105,7 +105,7 @@ spec:
         - "control-points.yaml"
       configHubHome: "extension-slot"
       disposition: "handled-by-variant"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "controlled-by-empty-defaults"
     -
       id: "installer-support-object"
@@ -114,7 +114,7 @@ spec:
         - "v1|Namespace||rabbitmq"
       configHubHome: "recipe"
       disposition: "absorbed-into-recipe"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "handled"
     -
       id: "scan-gate"
@@ -125,7 +125,7 @@ spec:
         - "install gates"
       configHubHome: "scan-gate"
       disposition: "handled-by-scan-or-gate"
-      linkedReceipt: "revisions/generated-passwords/r001/receipts/install-gate.yaml"
+      linkedReceipt: "revisions/static-passwords/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "warn-production-blocked"
     -
       id: "value-model-diagnostics"

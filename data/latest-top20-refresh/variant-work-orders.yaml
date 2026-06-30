@@ -32,7 +32,7 @@ spec:
         requiredWork:
           - create recipes/bitnami/mongodb/19.0.9
           - create packages/bitnami/mongodb/19.0.9
-          - preserve generated-passwords and existing-secret-replicaset variants
+          - preserve static-passwords and existing-secret-replicaset variants
           - rerun generated-fact, target-fact, storage, scan/gate, ConfigHub proof, and live e2e lanes
       - chart: bitnami/nginx
         currentVersion: 24.0.2
@@ -48,7 +48,7 @@ spec:
         requiredWork:
           - create recipes/bitnami/postgresql/18.6.10
           - create packages/bitnami/postgresql/18.6.10
-          - preserve generated-passwords and existing-secret variants
+          - preserve static-passwords and existing-secret variants
           - rerun generated-fact, target-fact, storage, scan/gate, ConfigHub proof, and live e2e lanes
       - chart: prometheus-community/kube-prometheus-stack
         currentVersion: 85.3.3

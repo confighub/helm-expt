@@ -462,7 +462,7 @@
     {
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
-      "variant": "generated-passwords",
+      "variant": "static-passwords",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
       "result": "warn",
@@ -471,7 +471,7 @@
       "checkCounts": {
         "pdb-unhealthy-pod-eviction-policy": 1
       },
-      "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedPath": "recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
       "renderedSHA256": "ce99d9a7867d5cb7ea0f0f983d092600ec1bb24ce50e969d1032bdbf937e8fdf",
       "recipePath": "recipes/bitnami/mongodb/19.0.7",
       "findings": [
@@ -518,7 +518,7 @@
     {
       "chart": "bitnami/mysql",
       "version": "14.0.3",
-      "variant": "generated-passwords",
+      "variant": "static-passwords",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
       "result": "warn",
@@ -527,7 +527,7 @@
       "checkCounts": {
         "pdb-unhealthy-pod-eviction-policy": 1
       },
-      "renderedPath": "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedPath": "recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml",
       "renderedSHA256": "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380",
       "recipePath": "recipes/bitnami/mysql/14.0.3",
       "findings": [
@@ -630,7 +630,7 @@
     {
       "chart": "bitnami/postgresql",
       "version": "18.6.7",
-      "variant": "generated-passwords",
+      "variant": "static-passwords",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
       "result": "warn",
@@ -639,7 +639,7 @@
       "checkCounts": {
         "pdb-unhealthy-pod-eviction-policy": 1
       },
-      "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedPath": "recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml",
       "renderedSHA256": "db49bd6d27e0deaed0b9e314f0527bc2d9468b7be10f9bbdaad14593f0b65a6b",
       "recipePath": "recipes/bitnami/postgresql/18.6.7",
       "findings": [
@@ -686,7 +686,7 @@
     {
       "chart": "bitnami/rabbitmq",
       "version": "16.0.14",
-      "variant": "generated-passwords",
+      "variant": "static-passwords",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
       "result": "warn",
@@ -695,7 +695,7 @@
       "checkCounts": {
         "pdb-unhealthy-pod-eviction-policy": 1
       },
-      "renderedPath": "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedPath": "recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml",
       "renderedSHA256": "81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31",
       "recipePath": "recipes/bitnami/rabbitmq/16.0.14",
       "findings": [
@@ -998,7 +998,7 @@
     {
       "chart": "grafana/grafana",
       "version": "10.5.15",
-      "variant": "generated-passwords",
+      "variant": "static-passwords",
       "scanner": "kube-linter",
       "scannerVersion": "0.8.3",
       "result": "warn",
@@ -1009,7 +1009,7 @@
         "unset-cpu-requirements": 1,
         "unset-memory-requirements": 1
       },
-      "renderedPath": "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml",
+      "renderedPath": "recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml",
       "renderedSHA256": "893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d",
       "recipePath": "recipes/grafana/grafana/10.5.15",
       "findings": [

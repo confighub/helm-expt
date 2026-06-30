@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | generated-passwords, existing-secret |
+| Supported variants | static-passwords, existing-secret |
 | Candidate variants | none |
 | Control points | capability-profile, dependency-lock, generated-facts, hook-policy, installer-support-object, pvc-policy, source-lock, stateful-workload, target-facts, tpl |
 
@@ -59,24 +59,24 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| generated-passwords | [recipes/bitnami/rabbitmq/16.0.14/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords) | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | none |
+| static-passwords | [recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml](variants/static-passwords/variant.yaml) | [packages/bitnami/rabbitmq/16.0.14/bases/static-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/static-passwords) | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml](revisions/static-passwords/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | none |
 | existing-secret | [recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml](variants/existing-secret/variant.yaml) | [packages/bitnami/rabbitmq/16.0.14/bases/existing-secret](../../../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret) | [recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml](revisions/existing-secret/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | required Secret rabbitmq/rabbitmq-auth keys rabbitmq-password; required Secret rabbitmq/rabbitmq-erlang-cookie keys rabbitmq-erlang-cookie |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| generated-passwords | [packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/generated-passwords) | yes | rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14 |
+| static-passwords | [packages/bitnami/rabbitmq/16.0.14/bases/static-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/static-passwords) | yes | rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14 |
 | existing-secret | [packages/bitnami/rabbitmq/16.0.14/bases/existing-secret](../../../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret) | no | rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
-| generated-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/render-receipt.yaml](revisions/generated-passwords/r001/receipts/render-receipt.yaml) |
-| generated-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
-| generated-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](revisions/generated-passwords/r001/receipts/scan-receipt.yaml) |
-| generated-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/receipts/install-gate.yaml](revisions/generated-passwords/r001/receipts/install-gate.yaml) |
+| static-passwords | r001 | render | RenderReceipt | recorded | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/render-receipt.yaml](revisions/static-passwords/r001/receipts/render-receipt.yaml) |
+| static-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
+| static-passwords | r001 | scan | ScanReceipt | warn | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/scan-receipt.yaml](revisions/static-passwords/r001/receipts/scan-receipt.yaml) |
+| static-passwords | r001 | installGate | InstallGate | warn | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/receipts/install-gate.yaml](revisions/static-passwords/r001/receipts/install-gate.yaml) |
 | existing-secret | r001 | render | RenderReceipt | recorded | [recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/render-receipt.yaml](revisions/existing-secret/r001/receipts/render-receipt.yaml) |
 | existing-secret | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml) |
 | existing-secret | r001 | scan | ScanReceipt | warn | [recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/receipts/scan-receipt.yaml](revisions/existing-secret/r001/receipts/scan-receipt.yaml) |

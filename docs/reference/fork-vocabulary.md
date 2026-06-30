@@ -7,7 +7,7 @@ catalog charts, not invented.
 Every chart today has exactly **2 bases** (a `default:true` + one fork), but the names are ad-hoc.
 The same *dimension* is named many ways, so a user can't predict the menu:
 
-- **default role** is named **6 ways**: `default` (×11), `generated-passwords` (×5 secret charts), `single-binary-filesystem` (loki), `http-clusterip` (nginx), `local-persistent` (tempo), `default-control-plane` (consul).
+- **default role** is named **6 ways**: `default` (×11), `static-passwords` (×5 secret charts), `single-binary-filesystem` (loki), `http-clusterip` (nginx), `local-persistent` (tempo), `default-control-plane` (consul).
 - **existing-secret** is named **5 ways** across 7 charts: `reuse-existing-secret`, `existing-secret`, `existing-secret-replicaset`, `existing-secret-ingress`, `secure-mesh-existing-secrets`.
 - **ingress** is named 3 ways: `ui-ingress`, `existing-tls-ingress`, `…-ingress`.
 - **no-crds** vs **crds**: 3 charts ship `no-crds`, cert-manager ships the inverse `crds-enabled`.
@@ -31,11 +31,11 @@ canonical dimension(s), not a bespoke string.
 | chart | default base (current) | fork (current) | → canonical |
 |---|---|---|---|
 | redis | `default` | `reuse-existing-secret` | existing-secret |
-| postgresql | `generated-passwords` | `existing-secret` | existing-secret |
-| rabbitmq | `generated-passwords` | `existing-secret` | existing-secret |
-| mysql | `generated-passwords` | `existing-secret` | existing-secret |
-| mongodb | `generated-passwords` | `existing-secret-replicaset` | existing-secret + ha |
-| grafana | `generated-passwords` | `existing-secret-ingress` | existing-secret + ingress-tls |
+| postgresql | `static-passwords` | `existing-secret` | existing-secret |
+| rabbitmq | `static-passwords` | `existing-secret` | existing-secret |
+| mysql | `static-passwords` | `existing-secret` | existing-secret |
+| mongodb | `static-passwords` | `existing-secret-replicaset` | existing-secret + ha |
+| grafana | `static-passwords` | `existing-secret-ingress` | existing-secret + ingress-tls |
 | consul | `default-control-plane` | `secure-mesh-existing-secrets` | existing-secret (+ mesh) |
 | external-secrets | `default` | `no-crds` | no-crds ✓ |
 | argo-cd | `default` | `no-crds` | no-crds ✓ |
@@ -54,7 +54,7 @@ canonical dimension(s), not a bespoke string.
 ## What the data shows
 - **No chart has a `parameterized` base yet** — the doctrine's explicit fill-surface is net-new across the catalog.
 - **The catalog is under-forked:** every chart has only 2 bases; the doctrine allows `default + parameterized + ≤4 forks`. Most charts have obvious additional standard forks they don't yet ship (e.g. the secret charts could all offer `ingress-tls` and `ha`).
-- **Secret-chart defaults are the F3 hazard:** all 5 `generated-passwords` defaults are the silently-broken-over-GitOps case. Under the doctrine their *honest* default either declares the required secret fill or ships `existing-secret` as the recommended base.
+- **Secret-chart defaults are the F3 hazard:** all 5 `static-passwords` defaults are the silently-broken-over-GitOps case. Under the doctrine their *honest* default either declares the required secret fill or ships `existing-secret` as the recommended base.
 
 ## Migration recommendation
 1. Adopt the canonical dimension names; keep bespoke shape names only as descriptive suffixes where they add meaning (e.g. `ha` for vault, with `raft` an implementation detail, not the fork name).

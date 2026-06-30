@@ -10,13 +10,13 @@ spec:
     namespace: "mysql"
     deliveryPath: "confighub-oci"
     gitopsController: "argo"
-  supportedBaseCandidate: "generated-passwords"
+  supportedBaseCandidate: "static-passwords"
   variantsCovered:
     - "existing-secret"
-    - "generated-passwords"
+    - "static-passwords"
   decision: "mutable-image-exception-accepted-for-target-scope"
   decidedAt: "2026-06-09"
-  claim: "The rendered MySQL bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the generated-passwords public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
+  claim: "The rendered MySQL bases still contain mutable image tags, but each rendered image reference has digest-resolution evidence. For the static-passwords public proof scope, the mutable tags are accepted as a target-scoped exception while stricter environments remain free to require digest-pinned bases or image overrides."
   renderedImageSummary:
     renderedSubjects: 2
     subjectsNeedingResolution: 2
@@ -30,11 +30,11 @@ spec:
       sourceImageReviewRows: 2
       uniqueImages: 1
       receiptPath: "data/image-digest-workdown/receipts/bitnami-mysql/existing-secret/image-digest-resolution.yaml"
-    generated-passwords:
+    static-passwords:
       renderedObjectSetSHA256: "04e856bfa75859dc9d8e45c61d49ad566494a7f66c257da9113ad26ca1696380"
       sourceImageReviewRows: 2
       uniqueImages: 1
-      receiptPath: "data/image-digest-workdown/receipts/bitnami-mysql/generated-passwords/image-digest-resolution.yaml"
+      receiptPath: "data/image-digest-workdown/receipts/bitnami-mysql/static-passwords/image-digest-resolution.yaml"
   acceptedException:
     reason: "The public proof target uses the upstream Bitnami legacy MySQL image tag. The receipt set records the registry digest that tag resolved to at decision time."
     operatorAction: "For stricter production environments, create a digest-pinned base or image override policy before support expansion."
@@ -54,7 +54,7 @@ spec:
       path: "data/image-digest-workdown/receipts/bitnami-mysql/existing-secret/image-digest-resolution.yaml"
       claim: "Records registry digest resolution for the existing-secret rendered object set."
     -
-      path: "data/image-digest-workdown/receipts/bitnami-mysql/generated-passwords/image-digest-resolution.yaml"
-      claim: "Records registry digest resolution for the generated-passwords rendered object set."
+      path: "data/image-digest-workdown/receipts/bitnami-mysql/static-passwords/image-digest-resolution.yaml"
+      claim: "Records registry digest resolution for the static-passwords rendered object set."
   remainingSupportBlockers:
     - "Record scan/PDB acceptance, lifecycle boundary, generated fact ownership, and fresh target-scoped ConfigHub OCI/GitOps evidence."

@@ -31,8 +31,8 @@ receipt targets: 30
 | prometheus-staging-eu-west | Prometheus/default | staging-eu-west | Staging | eu-west | monitoring-targets/staging-eu-west |
 | nginx-prod-us-east | NGINX/http-clusterip | prod-us-east | Prod | us-east | web-targets/prod-us-east |
 | nginx-customer-acme-prod | NGINX/http-clusterip | customer-acme-prod | Prod | us-west | web-targets/customer-acme-prod |
-| grafana-prod-us-east | Grafana/generated-passwords | prod-us-east | Prod | us-east | observability-targets/prod-us-east |
-| grafana-customer-acme-prod | Grafana/generated-passwords | customer-acme-prod | Prod | us-east | observability-targets/customer-acme-prod |
+| grafana-prod-us-east | Grafana/static-passwords | prod-us-east | Prod | us-east | observability-targets/prod-us-east |
+| grafana-customer-acme-prod | Grafana/static-passwords | customer-acme-prod | Prod | us-east | observability-targets/customer-acme-prod |
 | vault-regulated-prod-us-east | Vault/default | regulated-prod-us-east | Prod | us-east | security-targets/regulated-prod-us-east |
 | vault-staging-us-east | Vault/default | staging-us-east | Staging | us-east | security-targets/staging-us-east |
 

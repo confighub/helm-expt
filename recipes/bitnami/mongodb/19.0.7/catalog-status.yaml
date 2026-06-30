@@ -11,7 +11,7 @@ spec:
     - local-test
   productionReadiness: "production-review-ready"
   supportedVariants:
-    - "generated-passwords"
+    - "static-passwords"
     - "existing-secret-replicaset"
   candidateVariants:
     []
@@ -22,7 +22,8 @@ spec:
     productReviewRequired: false
   notes:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
-    - "generated-passwords is the simplest install path and records generated Secret separation."
+    - "static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it does not generate or separate any credential."
+    - "⚠ static-passwords is for demos and local-test only: the committed password is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret-replicaset to bring your own Secret for anything real."
     - "existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied."
     - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
     - "Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target."

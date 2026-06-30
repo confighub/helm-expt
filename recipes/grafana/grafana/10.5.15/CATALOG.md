@@ -17,7 +17,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Support level | supported-for-declared-scopes |
 | Supported scopes | local-test |
 | Production readiness | production-review-ready |
-| Supported variants | generated-passwords, existing-secret-ingress |
+| Supported variants | static-passwords, existing-secret-ingress |
 | Candidate variants | none |
 | Control points | capability-profile, chart-deprecation, cluster-rbac, dependency-lock, deployment-workload, extension-slots, generated-facts, installer-support-object, source-lock, target-facts, ui-ingress-policy |
 
@@ -60,24 +60,24 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| generated-passwords | [recipes/grafana/grafana/10.5.15/variants/generated-passwords/variant.yaml](variants/generated-passwords/variant.yaml) | [packages/grafana/grafana/10.5.15/bases/generated-passwords](../../../../packages/grafana/grafana/10.5.15/bases/generated-passwords) | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/variant-revision.yaml](revisions/generated-passwords/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
+| static-passwords | [recipes/grafana/grafana/10.5.15/variants/static-passwords/variant.yaml](variants/static-passwords/variant.yaml) | [packages/grafana/grafana/10.5.15/bases/static-passwords](../../../../packages/grafana/grafana/10.5.15/bases/static-passwords) | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml](revisions/static-passwords/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | none |
 | existing-secret-ingress | [recipes/grafana/grafana/10.5.15/variants/existing-secret-ingress/variant.yaml](variants/existing-secret-ingress/variant.yaml) | [packages/grafana/grafana/10.5.15/bases/existing-secret-ingress](../../../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml](revisions/existing-secret-ingress/r001/variant-revision.yaml) | 9 | 10 | 9/9 | pass | warn | warn | required Secret grafana/grafana-admin keys admin-user,admin-password |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| generated-passwords | [packages/grafana/grafana/10.5.15/bases/generated-passwords](../../../../packages/grafana/grafana/10.5.15/bases/generated-passwords) | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
+| static-passwords | [packages/grafana/grafana/10.5.15/bases/static-passwords](../../../../packages/grafana/grafana/10.5.15/bases/static-passwords) | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
 | existing-secret-ingress | [packages/grafana/grafana/10.5.15/bases/existing-secret-ingress](../../../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) | no | grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15 |
 
 ## Receipts
 
 | Variant | Revision | Receipt | Kind | Result | Path |
 | --- | --- | --- | --- | --- | --- |
-| generated-passwords | r001 | render | RenderReceipt | recorded | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/render-receipt.yaml](revisions/generated-passwords/r001/receipts/render-receipt.yaml) |
-| generated-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
-| generated-passwords | r001 | scan | ScanReceipt | warn | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/scan-receipt.yaml](revisions/generated-passwords/r001/receipts/scan-receipt.yaml) |
-| generated-passwords | r001 | installGate | InstallGate | warn | [recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/receipts/install-gate.yaml](revisions/generated-passwords/r001/receipts/install-gate.yaml) |
+| static-passwords | r001 | render | RenderReceipt | recorded | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/render-receipt.yaml](revisions/static-passwords/r001/receipts/render-receipt.yaml) |
+| static-passwords | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml](revisions/static-passwords/r001/receipts/helm-equivalence-receipt.yaml) |
+| static-passwords | r001 | scan | ScanReceipt | warn | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/scan-receipt.yaml](revisions/static-passwords/r001/receipts/scan-receipt.yaml) |
+| static-passwords | r001 | installGate | InstallGate | warn | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/receipts/install-gate.yaml](revisions/static-passwords/r001/receipts/install-gate.yaml) |
 | existing-secret-ingress | r001 | render | RenderReceipt | recorded | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/render-receipt.yaml](revisions/existing-secret-ingress/r001/receipts/render-receipt.yaml) |
 | existing-secret-ingress | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml](revisions/existing-secret-ingress/r001/receipts/helm-equivalence-receipt.yaml) |
 | existing-secret-ingress | r001 | scan | ScanReceipt | warn | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml](revisions/existing-secret-ingress/r001/receipts/scan-receipt.yaml) |

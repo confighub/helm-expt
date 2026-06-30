@@ -7,7 +7,7 @@ spec:
   version: "19.0.9"
   maintainedNotes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
-    - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
+    - "static-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
     - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
     - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
     - "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag."

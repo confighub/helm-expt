@@ -136,7 +136,7 @@ waves.
 **Severity:** HIGH — *silent*: Argo **and** cub-scout report `Synced` while the
 workload sits in `CreateContainerConfigError`. ~6/20 charts affected.
 
-**Symptom.** Charts whose default base renders a Secret (the `generated-passwords`
+**Symptom.** Charts whose default base renders a Secret (the `static-passwords`
 bases + redis `default`) deploy via OCI→Argo to a pod stuck in
 `CreateContainerConfigError`. Verified live on grafana: pod needs `secret
 'grafana'` (admin-user/admin-password, `Optional: false`); no such secret in the

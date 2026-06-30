@@ -6,13 +6,13 @@ This proof lane shows the current ConfigHub path for `grafana/grafana@10.5.15`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `generated-passwords`.
+The selected happy-path install variant is `static-passwords`.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `generated-passwords` | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
+| `static-passwords` | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
 | `existing-secret-ingress` | no | grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15 |
 
 ## Acceptance Contract

@@ -18,8 +18,8 @@ const chart = {
 
 const variants = [
   {
-    name: "generated-passwords",
-    base: "generated-passwords",
+    name: "static-passwords",
+    base: "static-passwords",
     displayName: "generated passwords",
     valuesFile: "effective-values.yaml",
     valuesText: `adminPassword: confighub-grafana-admin-password
@@ -91,7 +91,7 @@ runProofCli({
   expectedDeprecated: true,
   valueModel: {
     checkedValues: [
-      { path: "adminPassword", variant: "generated-passwords", disposition: "generated-fact-bound", reason: "default chart uses random admin password generation; this variant persists the generated value before render" },
+      { path: "adminPassword", variant: "static-passwords", disposition: "generated-fact-bound", reason: "default chart uses random admin password generation; this variant persists the generated value before render" },
       { path: "admin.existingSecret / admin.userKey / admin.passwordKey", variant: "existing-secret-ingress", disposition: "target-fact-bound", reason: "externalizes Grafana admin credentials into a declared target Secret" },
       { path: "ingress.enabled / ingress.hosts / ingress.ingressClassName", variant: "existing-secret-ingress", disposition: "ui-exposure-bound", reason: "UI exposure is only added by an explicit variant with host and ingress class captured" },
       { path: "persistence.enabled", variant: "all", disposition: "deployment-storage-disabled", reason: "promoted variants keep persistence disabled; PVC-backed Grafana becomes a later variant" },
@@ -105,7 +105,7 @@ runProofCli({
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares no subchart dependencies; the empty closure is recorded explicitly." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
-    { category: "generated-facts", status: "variant-controlled", evidence: "adminPassword", note: "The generated-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic." },
+    { category: "generated-facts", status: "variant-controlled", evidence: "adminPassword", note: "The static-passwords variant binds the generated Grafana admin password before render so Helm output is deterministic." },
     { category: "target-facts", status: "variant-controlled", evidence: "admin.existingSecret", note: "The existing-secret-ingress variant declares the target Secret instead of rendering one." },
     { category: "deployment-workload", status: "scan-and-review", object: "apps/v1|Deployment|grafana|grafana" },
     { category: "ui-ingress-policy", status: "variant-controlled", object: "networking.k8s.io/v1|Ingress|grafana|grafana" },
@@ -118,7 +118,7 @@ runProofCli({
     maintainedNotes: [
       "Chart.yaml marks this chart version deprecated, and the proof records that status.",
       "Default chart rendering is nondeterministic unless adminPassword is bound before render.",
-      "generated-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically.",
+      "static-passwords variant persists adminPassword as a generated fact and renders the Secret deterministically.",
       "existing-secret-ingress variant does not render a Secret and instead declares grafana/grafana-admin as a target fact.",
       "existing-secret-ingress variant adds explicit UI ingress host and ingress class.",
       "Datasource, dashboard, plugin, sidecar, and Secret/env injection slots are powerful extension surfaces; promoted variants keep them empty.",
@@ -145,7 +145,7 @@ runProofCli({
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "this chart version is marked deprecated upstream, and the proof records that risk explicitly;",
       "default chart rendering is nondeterministic until the admin password is bound;",
-      "the generated-passwords variant persists adminPassword before render;",
+      "the static-passwords variant persists adminPassword before render;",
       "the existing-secret-ingress variant uses a declared target Secret, does not render a Secret, and adds explicit UI ingress exposure;",
       "generated fact, target fact, RBAC, UI ingress, deployment, sidecar, provisioning, and Secret/env extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -238,8 +238,8 @@ runProofCli({
       check(identities.includes("rbac.authorization.k8s.io/v1|ClusterRoleBinding||grafana-clusterrolebinding"), `${variant.name} ClusterRoleBinding missing`);
       check(identities.includes("rbac.authorization.k8s.io/v1|Role|grafana|grafana"), `${variant.name} Role missing`);
       check(identities.includes("rbac.authorization.k8s.io/v1|RoleBinding|grafana|grafana"), `${variant.name} RoleBinding missing`);
-      if (variant.name === "generated-passwords") {
-        check(identities.includes("v1|Secret|grafana|grafana"), "generated-passwords Secret missing");
+      if (variant.name === "static-passwords") {
+        check(identities.includes("v1|Secret|grafana|grafana"), "static-passwords Secret missing");
       }
       if (variant.name === "existing-secret-ingress") {
         check(!secretIdentities.length, "existing-secret-ingress must not render a Secret");

@@ -7,7 +7,7 @@ spec:
   version: "14.0.3"
   maintainedNotes:
     - "Default chart rendering is nondeterministic unless auth.rootPassword, auth.password, and auth.replicationPassword are bound before render."
-    - "generated-passwords variant persists all three password fields as generated facts and renders the Secret deterministically."
+    - "static-passwords variant persists all three password fields as generated facts and renders the Secret deterministically."
     - "existing-secret variant does not render a Secret and instead declares mysql/mysql-auth as a target fact."
     - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
     - "Supported bases render no hook objects, and future hook-producing paths must map to lifecycle policy before production."

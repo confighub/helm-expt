@@ -17,20 +17,20 @@ spec:
       claim: bitnami/mongodb has source hook count 0 in the retained source scan for the MongoDB chart line.
     - path: recipes/bitnami/mongodb/19.0.7/control-points.yaml
       claim: The recipe records hook-policy with policy no-hooks for the supported bases.
-    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/rendered/object-inventory.yaml
-      claim: The generated-passwords rendered object inventory contains no hook objects.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/object-inventory.yaml
+      claim: The static-passwords rendered object inventory contains no hook objects.
     - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml
       claim: The existing-secret-replicaset rendered object inventory contains no hook objects.
-    - path: recipes/bitnami/mongodb/19.0.7/revisions/generated-passwords/r001/receipts/install-gate.yaml
-      claim: The generated-passwords install gate records the no-hooks lifecycle boundary explicitly.
+    - path: recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/receipts/install-gate.yaml
+      claim: The static-passwords install gate records the no-hooks lifecycle boundary explicitly.
     - path: recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/receipts/install-gate.yaml
       claim: The existing-secret-replicaset install gate records the no-hooks lifecycle boundary explicitly.
-    - path: runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
-      claim: The generated-passwords base passes strict two-cluster live parity without hook objects.
+    - path: runs/live-kind-parity/bitnami-mongodb-static-passwords/receipt.yaml
+      claim: The static-passwords base passes strict two-cluster live parity without hook objects.
     - path: runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
       claim: The existing-secret-replicaset base passes semantic object parity without hook objects; runtime readiness remains review-needed.
   affectedVariants:
-    - generated-passwords
+    - static-passwords
     - existing-secret-replicaset
   remainingProductionBlockers: []
   nextDecision: If a future MongoDB chart version or values profile introduces hooks, route that behavior through a lifecycle policy or a target controller observation lane before production.

@@ -8,8 +8,8 @@ spec:
     -
       default: true
       description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
-      name: "generated-passwords"
-      path: "bases/generated-passwords"
+      name: "static-passwords"
+      path: "bases/static-passwords"
     -
       description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
       externalRequires:

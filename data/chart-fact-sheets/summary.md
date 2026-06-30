@@ -33,9 +33,9 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## bitnami/mongodb@19.0.7
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: generated-passwords:supported:fresh-target-evidence-passed
+- **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `generated-passwords`
+- **Recommended base:** `static-passwords`
 - **You must provide/decide:** a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -45,9 +45,9 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## bitnami/mysql@14.0.3
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: generated-passwords:supported:fresh-target-evidence-passed
+- **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `generated-passwords`
+- **Recommended base:** `static-passwords`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -69,9 +69,9 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## bitnami/postgresql@18.6.7
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: generated-passwords:supported:fresh-target-evidence-passed
+- **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `generated-passwords`
+- **Recommended base:** `static-passwords`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -81,9 +81,9 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## bitnami/rabbitmq@16.0.14
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: generated-passwords:supported:fresh-target-evidence-passed
+- **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `generated-passwords`
+- **Recommended base:** `static-passwords`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -117,7 +117,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## grafana/grafana@10.5.15
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: generated-passwords:superseded:not-production-supported-because-source-chart-is-deprecated
+- **Support (claim):** yes-public-catalog; production decision: static-passwords:superseded:not-production-supported-because-source-chart-is-deprecated
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `existing-secret-ingress`
 - **You must provide/decide:** nothing beyond a cluster and namespace

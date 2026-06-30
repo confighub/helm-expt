@@ -1,13 +1,13 @@
 chart,version,catalog_status,selected_bases,current_runtime_evidence,gitops_oci_status,controllers,next_action
 argo-cd/argo-cd,9.5.15,catalog-supported,default;no-crds,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-bitnami/mongodb,19.0.7,catalog-supported,generated-passwords;existing-secret-replicaset,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-bitnami/mysql,14.0.3,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/mongodb,19.0.7,catalog-supported,static-passwords;existing-secret-replicaset,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/mysql,14.0.3,catalog-supported,static-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 bitnami/nginx,24.0.2,catalog-supported,http-clusterip;existing-tls-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-bitnami/postgresql,18.6.7,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-bitnami/rabbitmq,16.0.14,catalog-supported,generated-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/postgresql,18.6.7,catalog-supported,static-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+bitnami/rabbitmq,16.0.14,catalog-supported,static-passwords;existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 bitnami/redis,25.5.3,catalog-supported,default;reuse-existing-secret,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 external-secrets/external-secrets,2.5.0,catalog-supported,default;no-crds,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
-grafana/grafana,10.5.15,catalog-supported,generated-passwords;existing-secret-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
+grafana/grafana,10.5.15,catalog-supported,static-passwords;existing-secret-ingress,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 grafana/loki,7.0.0,catalog-supported,single-binary-filesystem;simple-scalable-minio,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 grafana/tempo,1.24.4,catalog-supported,local-persistent;s3-query-observability,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt
 hashicorp/consul,2.0.0,catalog-supported,default-control-plane;secure-mesh-existing-secrets,local-kind-observed,planned,Argo CD OCI;Flux OCI,extend top20 local-kind evidence to declared GitOps/OCI controller receipt

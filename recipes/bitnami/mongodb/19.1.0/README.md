@@ -4,14 +4,14 @@ This is the promoted proof slice for the MongoDB public Helm chart.
 
 Variants:
 
-- `generated-passwords`: MongoDB root password bound as a generated fact; 8 Helm objects, 9 cub installer objects including Namespace.
+- `static-passwords`: MongoDB root password bound as a generated fact; 8 Helm objects, 9 cub installer objects including Namespace.
 - `existing-secret-replicaset`: target Secret supplies MongoDB credentials and replica-set key; 10 Helm objects, 11 cub installer objects including Namespace.
 
 What this proves:
 
 - regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - default chart rendering is nondeterministic until the generated root password is bound;
-- the generated-passwords variant persists auth.rootPassword before render;
+- the static-passwords variant persists auth.rootPassword before render;
 - the existing-secret-replicaset variant uses a declared target Secret, does not render a Secret, and changes topology to replica set;
 - the replica-set target fact must satisfy MongoDB keyfile requirements, not merely exist;
 - both supported bases pin the MongoDB image digest instead of rendering a mutable latest tag;

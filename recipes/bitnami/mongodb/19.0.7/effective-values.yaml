@@ -1,7 +1,7 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "EffectiveValues"
 metadata:
-  name: "bitnami-mongodb-19.0.7-generated-passwords"
+  name: "bitnami-mongodb-19.0.7-static-passwords"
 spec:
   files:
     -

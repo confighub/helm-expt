@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/postgresql/18.6.10 -o <tmp>/postgresql-18.6.10.tgz"
-    sha256: "a1d9539aaa29ecc6204893c54fb7496c733bb20bd18c6bc18fcd17cfd78a940d"
+    sha256: "e163cfdbc854349f7f9374b19d192c805f0c146daaafda0129d491eacd03dfea"
   package:
     name: "bitnami-postgresql"
     path: "packages/bitnami/postgresql/18.6.10"
@@ -28,11 +28,11 @@ spec:
         sha256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
         bytes: 9112
       -
-        path: "bases/generated-passwords/kustomization.yaml"
+        path: "bases/static-passwords/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
         bytes: 99
       -
-        path: "bases/generated-passwords/upstream.yaml"
+        path: "bases/static-passwords/upstream.yaml"
         sha256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
         bytes: 9715
       -
@@ -41,22 +41,22 @@ spec:
         bytes: 2311
       -
         path: "installer.yaml"
-        sha256: "411ffe0fb00c1e5db7d65a86d7485e1367b2cd0d2aa2841e1dea95ab111e2cbc"
-        bytes: 1252
+        sha256: "01a2d5917db19ba5e0f081368323dc6929f7aca94653400f79e37770d4693549"
+        bytes: 1246
     version: "18.6.10"
   setupChecks:
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"
-      base: "generated-passwords"
-      command: "cub installer setup --pull packages/bitnami/postgresql/18.6.10 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+      base: "static-passwords"
+      command: "cub installer setup --pull packages/bitnami/postgresql/18.6.10 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
       cubInstallObjectCountIncludingSupport: 8
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 1
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "generated-passwords"
+      variant: "static-passwords"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||postgresql"

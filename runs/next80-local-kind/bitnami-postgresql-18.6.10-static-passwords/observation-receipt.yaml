@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-postgresql-18.6.10-static-passwords-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-pg18610"
+    context: "kind-claude-helm-expt-codex-pg18610"
+    namespace: "postgresql"
+  observedAt: "2026-06-11T13:05:05.057Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "static-passwords"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "c94d9c9f1678d2a06f2e5410a76d2c61776eda2645f3609f0a15bd539d8e2b95"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||postgresql"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|postgresql|postgresql"

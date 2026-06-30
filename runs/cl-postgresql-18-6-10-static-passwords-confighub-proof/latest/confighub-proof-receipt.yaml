@@ -1,0 +1,112 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "cl-postgresql-18-6-10-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.80"
+  package:
+    path: "packages/bitnami/postgresql/18.6.10"
+    name: "bitnami-postgresql"
+    chart: "bitnami/postgresql"
+    chartVersion: "18.6.10"
+    bases:
+      - "static-passwords"
+      - "existing-secret"
+    selectedBase: "static-passwords"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "existing-secret"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret postgresql/postgresql-auth key postgres-password"
+            namespace: "postgresql"
+            suggestedSource: "kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>"
+  render:
+    command: "cub installer setup --pull packages/bitnami/postgresql/18.6.10 --base static-passwords --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords --non-interactive --namespace postgresql"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 1
+    facts:
+      targetFactChecks:
+        base: "static-passwords"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredObjectStores:
+          []
+        requiredSecrets:
+          []
+        requiredTopology: null
+        requiredValues:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords"
+    result: "pass"
+    manifestCount: 7
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package packages/bitnami/postgresql/18.6.10 -o .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords-archives/cl-postgresql-18-6-10-a.tgz"
+    sha256: "a1d9539aaa29ecc6204893c54fb7496c733bb20bd18c6bc18fcd17cfd78a940d"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords --space helm-cl-postgresql-18-6-10-static-passwords-confighub-proof --component Postgresql18610 --layer App --environment Demo --owner ConfigHubHelm --variant static-passwords --unit-label Component=Postgresql18610 --unit-label HelmChart=bitnami-postgresql --unit-label HelmChartVersion=18.6.10 --unit-label Variant=static-passwords --unit-label Proof=cl-postgresql-18-6-10-static-passwords-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-cl-postgresql-18-6-10-static-passwords-confighub-proof"
+    unitCount: 8
+    kubernetesUnitCount: 7
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret postgresql/postgresql"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords"
+    result: "pass"
+    summary: "No changes.\nImages in helm-cl-postgresql-18-6-10-static-passwords-confighub-proof (post-render):\n      StatefulSet/postgresql [postgresql] registry-1.docker.io/bitnami/postgresql@sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
+  serverSideVariant:
+    command: "cub variant create staging helm-cl-postgresql-18-6-10-static-passwords-confighub-proof --environment Staging --region local --namespace postgresql --space-pattern template:Postgresql18610-static-passwords-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-cl-postgresql-18-6-10-static-passwords-confighub-proof"
+    downstreamSpace: "Postgresql18610-static-passwords-staging"
+    clonedUnitCount: 8
+    namespace: "postgresql"
+  serverSidePromotion:
+    receipt: "variant-promotion-receipt.yaml"
+    result: "pass"
+    reason: "server-side promotion passed through a changeset"
+    changedUnitCaughtUp: "pass"
+    addedUnitCloned: "pass"
+    deletionHandling: "not-tested"
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "statefulset-postgresql-postgresql"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-cl-postgresql-18-6-10-static-passwords-confighub-proof"
+      - "Postgresql18610-static-passwords-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

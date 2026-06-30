@@ -23,9 +23,9 @@ Ready for root-path promotion work: 0 / 7
 | Chart | Current supported version | Candidate version | Variants | Candidate artifacts | Catalog promotion | Readiness |
 | --- | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `default`, `no-crds` | complete | root-path-present | root-path-promoted-review-required |
-| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `generated-passwords`, `existing-secret-replicaset` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `static-passwords`, `existing-secret-replicaset` | complete | root-path-present | root-path-promoted-review-required |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | `http-clusterip`, `existing-tls-ingress` | complete | root-path-present | root-path-promoted-review-required |
-| `bitnami/postgresql` | `18.6.7` | `18.7.0` | `generated-passwords`, `existing-secret` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/postgresql` | `18.6.7` | `18.7.0` | `static-passwords`, `existing-secret` | complete | root-path-present | root-path-promoted-review-required |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | `default`, `reuse-existing-secret` | complete | root-path-present | root-path-promoted-review-required |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `default`, `no-crds` | complete | root-path-present | root-path-promoted-review-required |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `default`, `server-only-ephemeral` | complete | root-path-present | root-path-promoted-review-required |
