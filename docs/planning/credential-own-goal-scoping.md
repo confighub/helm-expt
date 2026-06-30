@@ -46,6 +46,19 @@ The `rabbitmq` case is slightly worse: the **erlang cookie** (the cluster-member
 
 Changing the rendered Secret re-renders those bases and re-records their receipts, which ripples into the matrix / frontier / audit surfaces (the recording cascade). Execution is a catalog-generation change with verification work, scoped per chart/version (~9 package versions in the table above).
 
+## Execution brief — chosen fix: rename + warn (decided 2026-06-30)
+
+The chosen fix is the smallest one that stops the contradiction: **rename + warn now.** The weak default stays for now; defaulting to `existing-secret` and adding real per-install generation are deferred follow-ons.
+
+**This is a generation-lane change, not a hand edit.** `generated-passwords` is referenced in ~489 files (recipes 182, generated data 243, scripts 21, packages 9, site 8, docs 22, tests 3) and is hardcoded in several generator scripts. Change source + scripts, then regenerate, then re-verify — do **not** hand-edit generated output.
+
+1. **Name:** `generated-passwords` → `static-passwords` (parallels the sibling `existing-secret`; says "fixed, not generated").
+2. **Rename in source:** the recipe `variants/generated-passwords/` and `revisions/generated-passwords/` dirs for all 5 charts / 9 versions, plus every generator script that hardcodes the literal — confirmed in `scripts/generate-catalog-status.mjs`, `scripts/run-latest-top20-candidates.mjs`, `scripts/generate-rabbitmq-production-support-artifacts.mjs`; sweep all of `scripts/` for the string.
+3. **Fix the false claim in the generator:** `scripts/generate-catalog-status.mjs` (≈ lines 36/57/68/78/98) calls it *"the simplest install path [that] records generated Secret separation"* — the word "generated" is the lie. Replace with honest text, e.g. *"static-passwords ships a fixed, shared demo password — the same on every install, readable from the manifest; use existing-secret to bring your own."*
+4. **Add the warning (the "warn"):** in the base description and the generated chart-page / catalog surfaces, a loud caveat — *"⚠ Ships a fixed, shared password identical on every install and readable from the manifest. Demos/dev only. Use existing-secret for anything real."*
+5. **Regenerate + verify:** run the catalog/data/site/docs generators, then `site:verify`, `catalog:maps:verify`, `docs:verify`, `chart-claim-integrity:verify`, `doc-freshness:verify`, and the matrix/frontier regeneration. Expect the recording cascade; keep the CORE consistent.
+6. **Out of scope (deferred):** changing which base is the default; real per-install generation. Those are the next PRs.
+
 ## Not done here
 
-No recipe or package files were modified. This is analysis only, to support a per-chart decision before any execution.
+No recipe, package, or script files were modified. This document is scoping plus an execution plan only — the rename itself is a generation-lane change for the loop to run.
