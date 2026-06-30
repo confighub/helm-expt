@@ -726,7 +726,7 @@ em{font-style:italic;color:var(--ink);}
 
   <div class="fstage">
     <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
-    <h3>The recipe — your source of truth</h3>
+    <h3>The recipe: your source of truth</h3>
     <p>A recipe is the chart and version, the values you chose, the base you picked, and the locks, kept in git. It's the one place your intent lives. Nothing is rendered yet.</p>
   </div>
 
@@ -1656,11 +1656,11 @@ em{font-style:italic;color:var(--ink);}
 <main>
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
-  <pre><code># plain Helm — one step · prometheus → monitoring
+  <pre><code># plain Helm, one step · prometheus → monitoring
 $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
-# ConfigHub — render the reviewed package, then apply
+# ConfigHub: render the reviewed package, then apply
 $ cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 $ kubectl apply -f ./prom/out/manifests</code></pre>
@@ -1761,11 +1761,11 @@ function serverlessHtml(catalog) {
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
+        <pre class="terminal-body"><code><span class="term-comment"># plain Helm, one step</span>
 <span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
     --version 25.5.3 -n redis --create-namespace
 
-<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
+<span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
 <span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \\
     --base default --work-dir ./out --non-interactive
 <span class="term-prompt">$</span> kubectl create namespace redis

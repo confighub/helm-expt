@@ -563,11 +563,11 @@
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
+        <pre class="terminal-body"><code><span class="term-comment"># plain Helm, one step</span>
 <span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
     --version 25.5.3 -n redis --create-namespace
 
-<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
+<span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
 <span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \
     --base default --work-dir ./out --non-interactive
 <span class="term-prompt">$</span> kubectl create namespace redis
@@ -620,6 +620,6 @@
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:53:09.872Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:59:28.976Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
 </body>
 </html>
