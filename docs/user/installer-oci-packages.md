@@ -2,8 +2,13 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-The public catalog should let a user try a chart without cloning this repo.
-That is why each chart version now has an installer package OCI ref.
+The catalog should let a user try a chart without cloning this repo. That is
+why each chart version now has an installer package OCI ref.
+
+Current status: the refs below are published in Google Artifact Registry and
+have publication receipts, but they still require registry read auth. The local
+setup path does not require a ConfigHub account. A public no-auth mirror is the
+next access step.
 
 The user-facing command is:
 
@@ -42,7 +47,7 @@ An installer package is the catalog artifact for one chart version. It contains:
 
 The package does not replace Helm charts. The catalog starts from ordinary Helm
 charts, then publishes reviewed package artifacts so users can pull the ready
-presets directly.
+presets directly once they have access to the package registry.
 
 ## Two OCI Things, Not One
 
@@ -58,17 +63,34 @@ after ConfigHub has recorded and managed the rendered objects.
 
 ## Publication Status
 
-The generated package catalog records both the intended public ref and the
+The generated package catalog records both the intended package ref and the
 publication status:
 
 - `published-receipt` means a publication receipt is committed for that ref.
-- `assigned-ref` means the catalog has assigned the public ref, but no
+  It does not by itself mean anonymous pull access is enabled.
+- `assigned-ref` means the catalog has assigned the package ref, but no
   publication receipt is committed yet.
 
 Until a row has a publication receipt, maintainers can still use the local
-source package path under `packages/...` from a repo checkout. Public users
-should follow rows that have a published package, or treat an unpublished row
-as a preview of the intended public address.
+source package path under `packages/...` from a repo checkout. Users who are
+pulling from OCI should follow rows that have a published package, or treat an
+unpublished row as a preview of the intended address.
+
+## Public Pull Access
+
+Publishing and public pull access are separate. The current catalog refs have
+publication receipts in Google Artifact Registry, but anonymous pulls are still
+blocked by the registry policy. There are two clean ways to finish the public
+path:
+
+- allow anonymous read access on the Google Artifact Registry repository, or use
+  a project where that policy is allowed;
+- publish the same packages to a public GHCR mirror using credentials with
+  package write permission, then make the container packages public.
+
+Until one of those is done, examples that use the current GAR refs require
+registry read auth. They still do not require a ConfigHub account for local
+setup.
 
 ## Where To Find The Refs
 

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-30 (commit `da87eec88`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-06-30 (commit `806ef4819`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 215 |
-| Fresh (no linked source newer than the doc) | 28 |
-| **Review-due** | 49 |
+| Fresh (no linked source newer than the doc) | 27 |
+| **Review-due** | 50 |
 | No linked evidence sources (cannot auto-trigger) | 138 |
 
 ## Review queue
@@ -37,7 +37,7 @@ most recently changed triggers.
 | --- | --- | --- | ---: | --- |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 20 | `data/chart-use-guide/summary.md (2026-06-30)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-24)`<br>`data/production-disposition/next-actions.csv (2026-06-24)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 19 | `data/top20-base-readiness/base-readiness.csv (2026-06-30)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-24)`<br>`data/top100-coverage/summary.md (2026-06-24)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 19 | `CATALOG.md (2026-06-30)`<br>`data/README.md (2026-06-30)`<br>`data/csv-index.csv (2026-06-30)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 19 | `CATALOG.md (2026-06-30)`<br>`data/status-dashboard/top20-status.csv (2026-06-30)`<br>`data/README.md (2026-06-30)` |
 | [docs/user/serious-chart-proof.md](../../docs/user/serious-chart-proof.md) | user | 2026-06-11 | 19 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-30)`<br>`data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md (2026-06-23)`<br>`data/webhook-cert-lifecycle/summary.md (2026-06-17)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 18 | `data/outcome-coverage/summary.md (2026-06-29)` |
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-06-11 | 18 | `data/image-digest-workdown/summary.md (2026-06-29)` |
@@ -74,9 +74,10 @@ most recently changed triggers.
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-06-21 | 3 | `tests/README.md (2026-06-23)` |
 | [docs/planning/user-journey-test-pathways-plan.md](../../docs/planning/user-journey-test-pathways-plan.md) | planning | 2026-06-21 | 3 | `tests/README.md (2026-06-23)` |
 | [docs/user/pathway-route-hooks-transparently.md](../../docs/user/pathway-route-hooks-transparently.md) | user | 2026-06-21 | 3 | `tests/README.md (2026-06-23)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-29 | 2 | `CATALOG.md (2026-06-30)`<br>`data/chart-use-guide/summary.md (2026-06-30)`<br>`data/status-dashboard/summary.md (2026-06-30)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-29 | 2 | `CATALOG.md (2026-06-30)`<br>`data/status-dashboard/top20-status.csv (2026-06-30)`<br>`recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md (2026-06-30)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-06-21 | 2 | `tests/README.md (2026-06-23)`<br>`tests/doctrine.md (2026-06-22)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-06-21 | 2 | `tests/README.md (2026-06-23)`<br>`tests/doctrine.md (2026-06-22)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-06-30 | 1 | `CATALOG.md (2026-06-30)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 1 | `tests/persona-ux-strategy.md (2026-06-22)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 1 | `tests/persona-ux-strategy.md (2026-06-22)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |

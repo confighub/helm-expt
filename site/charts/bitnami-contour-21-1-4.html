@@ -407,7 +407,7 @@
       <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Current package refs are published in Google Artifact Registry and require registry read auth until a public mirror is enabled. No ConfigHub account is needed for the local setup path.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -429,6 +429,7 @@
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
+        <p>Current package refs are published in Google Artifact Registry and require registry read auth until a public mirror is enabled. No ConfigHub account is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base default --work-dir .tmp/demo/bitnami-contour-21-1-4-default --non-interactive --namespace default</code></p>
         <h3>You should see something like this</h3>
@@ -656,6 +657,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T14:40:46.515Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

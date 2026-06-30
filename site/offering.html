@@ -464,7 +464,7 @@
     <p style="margin-top:14px;font-size:.95rem"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./how-it-works.html">Read how it works</a></p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T14:40:46.515Z UTC · source: committed helm-expt evidence for this offering page.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this offering page.</p>
     <section aria-labelledby="problem">
       <h2 id="problem">The Problem We Are Solving</h2>
       <p>Helm users can usually install something. The harder problem changes by audience: a new user cannot see what will land until after the install; an app team ends up with values-file sprawl and forks; a platform reviewer cannot prove blast radius, approvals, delivery, and live convergence at fleet scale.</p>
@@ -495,7 +495,7 @@
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
       <p>A public catalog of maintained Helm-derived packages, plus a free ConfigHub account that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
-      <p>The free lane: browse, inspect, template, and install public chart bases with no account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <p>The free lane: browse, inspect, template, and install catalog chart bases without a ConfigHub account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -520,7 +520,7 @@
       <p>Each stage asks for more trust and gives more value. Direct Helm paths answer immediate render or upload questions; the public catalog adds maintained bases and proof; ConfigHub-managed workflows add private inputs, teams, approvals, variants, and operations.</p>
       <div class="card"><table>
         <thead><tr><th>Path</th><th>Use it when</th><th>Command or surface</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Quick render</td><td>See what a chart renders without ConfigHub state.</td><td>cub helm template</td><td>Free/direct</td></tr><tr><td>One-shot upload</td><td>Load one Helm render into ConfigHub Units quickly.</td><td>cub helm install</td><td>ConfigHub account</td></tr><tr><td>Public catalog package</td><td>Use a maintained base with render parity, receipts, scans, and proof.</td><td>cub installer setup --pull oci://... --base &lt;base&gt;</td><td>Free for public packages</td></tr><tr><td>Reviewed ConfigHub base</td><td>Upload a reviewed rendered base before variants or approvals.</td><td>cub installer upload</td><td>ConfigHub account</td></tr><tr><td>Derived operations</td><td>Create environment, region, customer, or target variants after upload.</td><td>cub variant create</td><td>ConfigHub-managed</td></tr></tbody>
+        <tbody><tr><td>Quick render</td><td>See what a chart renders without ConfigHub state.</td><td>cub helm template</td><td>Free/direct</td></tr><tr><td>One-shot upload</td><td>Load one Helm render into ConfigHub Units quickly.</td><td>cub helm install</td><td>ConfigHub account</td></tr><tr><td>Catalog package</td><td>Use a maintained base with render parity, receipts, scans, and proof.</td><td>cub installer setup --pull oci://... --base &lt;base&gt;</td><td>No ConfigHub account for local setup; registry auth may still be required</td></tr><tr><td>Reviewed ConfigHub base</td><td>Upload a reviewed rendered base before variants or approvals.</td><td>cub installer upload</td><td>ConfigHub account</td></tr><tr><td>Derived operations</td><td>Create environment, region, customer, or target variants after upload.</td><td>cub variant create</td><td>ConfigHub-managed</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -548,7 +548,7 @@
 
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
-      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
+      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
       <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir .tmp/redis \
@@ -557,7 +557,7 @@
       <div class="split">
         <section class="card">
           <h3>Low-friction public use</h3>
-          <ul><li><strong>Browse public catalog:</strong> See chart versions, base variants, proof status, pain reports, and known gaps.</li><li><strong>Inspect and template:</strong> Use cub helm template and rendered-object views before committing to ConfigHub state.</li><li><strong>Use public packages:</strong> Run cub installer setup --pull oci://... --base &lt;base&gt; for supported public bases.</li><li><strong>Pull public artifacts:</strong> Use public package or OCI artifacts where available without uploading private repo or production state.</li><li><strong>Verify locally:</strong> Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine.</li><li><strong>Inspect proof:</strong> Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot.</li></ul>
+          <ul><li><strong>Browse public catalog:</strong> See chart versions, base variants, proof status, pain reports, and known gaps.</li><li><strong>Inspect and template:</strong> Use cub helm template and rendered-object views before committing to ConfigHub state.</li><li><strong>Use catalog packages:</strong> Run cub installer setup --pull oci://... --base &lt;base&gt; for supported catalog bases.</li><li><strong>Pull package artifacts:</strong> Use package or OCI artifacts where available without uploading private repo or production state.</li><li><strong>Verify locally:</strong> Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine.</li><li><strong>Inspect proof:</strong> Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot.</li></ul>
         </section>
         <section class="card">
           <h3>ConfigHub-managed use</h3>

@@ -22,7 +22,7 @@ Public entry points:
 - [Generative GitOps fit](./docs/user/generative-gitops-fit.md): what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
-- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the public package refs users pull with `cub installer setup --pull oci://...`.
+- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the package refs users pull with `cub installer setup --pull oci://...`; the current Google Artifact Registry refs require registry read auth until a public mirror is enabled.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
 - [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
@@ -57,7 +57,7 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | --- | --- | --- | --- |
 | 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
 | 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
-| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No, for public packages |
+| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account; current GAR refs still need registry read auth |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 

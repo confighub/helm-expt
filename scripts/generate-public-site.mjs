@@ -79,6 +79,8 @@ const UNKNOWN_ACTION_LABELS = {
 };
 const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
+const INSTALLER_OCI_AUTH_NOTE =
+  "Current package refs are published in Google Artifact Registry and require registry read auth until a public mirror is enabled. No ConfigHub account is needed for the local setup path.";
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -619,6 +621,7 @@ stringData:
 <span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
         </div>
       </div>
+      <p class="quiet-line">${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
       <p><a href="./try.html">Open the full try-now walkthrough</a></p>
     </section>
 
@@ -1001,7 +1004,7 @@ function legacyDashboardHtml(catalog) {
   const firstTimeRows = [
     ["Browse first", "Open the catalog, chart pages, proof status, and known gaps before trusting an install path.", "Free"],
     ["Inspect a render", "Use cub helm template when you only need to see the Kubernetes objects a chart produces.", "Free"],
-    ["Try a public package", "Use cub installer setup for a maintained public base with rendered objects, receipts, scans, and local verification.", "Free or low-friction"],
+    ["Try a catalog package", "Use cub installer setup for a maintained catalog base with rendered objects, receipts, scans, and local verification.", "Free or low-friction"],
     ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for variants, diffs, and later teams or approvals.", "Free account"],
     ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Free account, paid at scale"],
   ];
@@ -1069,7 +1072,7 @@ function legacyDashboardHtml(catalog) {
       <div class="door">
         <span class="kicker">Run it</span>
         <h3><a href="./try.html">Try the catalog in 5 minutes</a></h3>
-        <p>Render, review, and apply Redis from the public catalog - locally, no account.</p>
+        <p>Render, review, and apply Redis from the catalog locally. No ConfigHub account is needed for this path.</p>
         <pre><code>cub installer setup \\
   --pull ${REDIS_INSTALLER_OCI_REF} \\
   --base default --work-dir .tmp/redis \\
@@ -1443,8 +1446,8 @@ function legacyOfferingHtml(catalog) {
   const freeRows = [
     ["Browse public catalog", "See chart versions, base variants, proof status, pain reports, and known gaps."],
     ["Inspect and template", "Use cub helm template and rendered-object views before committing to ConfigHub state."],
-    ["Use public packages", "Run cub installer setup --pull oci://... --base <base> for supported public bases."],
-    ["Pull public artifacts", "Use public package or OCI artifacts where available without uploading private repo or production state."],
+    ["Use catalog packages", "Run cub installer setup --pull oci://... --base <base> for supported catalog bases."],
+    ["Pull package artifacts", "Use package or OCI artifacts where available without uploading private repo or production state."],
     ["Verify locally", "Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine."],
     ["Inspect proof", "Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot."],
   ];
@@ -1473,7 +1476,7 @@ function legacyOfferingHtml(catalog) {
   const pathRows = [
     ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
     ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
-    ["Public catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "Free for public packages"],
+    ["Catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "No ConfigHub account for local setup; registry auth may still be required"],
     ["Reviewed ConfigHub base", "Upload a reviewed rendered base before variants or approvals.", "cub installer upload", "ConfigHub account"],
     ["Derived operations", "Create environment, region, customer, or target variants after upload.", "cub variant create", "ConfigHub-managed"],
   ];
@@ -1522,7 +1525,7 @@ function legacyOfferingHtml(catalog) {
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
       <p>A public catalog of maintained Helm-derived packages, plus a free ConfigHub account that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
-      <p>The free lane: browse, inspect, template, and install public chart bases with no account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <p>The free lane: browse, inspect, template, and install catalog chart bases without a ConfigHub account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -1563,7 +1566,7 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
-      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
+      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
       <pre>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
   --base default \\
   --work-dir .tmp/redis \\
@@ -1677,7 +1680,7 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">On any throwaway cluster (a quick dev cluster such as kind: install a chart, change a setting, then upgrade) and your change stays. That last part is the thing Helm can't do. No account to start. You run <code>helm install</code> and <code>cub installer</code> side by side and read the same result.</p>
+    <p class="lead">On any throwaway cluster (a quick dev cluster such as kind: install a chart, change a setting, then upgrade) and your change stays. That last part is the thing Helm can't do. No ConfigHub account to start. You run <code>helm install</code> and <code>cub installer</code> side by side and read the same result.</p>
     <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
   </div>
 </header>
@@ -1705,6 +1708,7 @@ $ kubectl apply -f ./prom/out/manifests</code></pre>
 $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
+  <div class="callout"><p><strong>Registry access today.</strong> ${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p></div>
 
   <h2>2 · Change it after install — and it stays</h2>
   <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
@@ -1712,7 +1716,7 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
   <div class="two">
     <div class="box">
       <h3>Free: your settings stay</h3>
-      <p class="tag">no account</p>
+      <p class="tag">no ConfigHub account</p>
       <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --set-image server=prom/prometheus:v3.1
 # upgrade to a newer chart version
@@ -1748,7 +1752,7 @@ stringData:
     --source=cub-render --revision=v1</code></pre>
 
   <h2>What we checked</h2>
-  <p>With no account, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything.</p>
+  <p>With no ConfigHub account, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. The current Google Artifact Registry package refs still need registry read auth until a public mirror is enabled.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>
@@ -1762,7 +1766,7 @@ $ npm run redis:verify-install:render -- \\
     --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
-  <p class="closing-line">Get Started needs no account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
+  <p class="closing-line">Get Started needs no ConfigHub account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
 </main>
 <footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
@@ -1788,7 +1792,7 @@ function serverlessHtml(catalog) {
         <p class="eyebrow">Serverless mode</p>
         <h1>Install without an account</h1>
         <p class="lead">Serverless mode is the no-account proof path. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
-        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no account</span></div>
+        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no ConfigHub account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
@@ -1810,6 +1814,7 @@ function serverlessHtml(catalog) {
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
       <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
+      <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -2558,7 +2563,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "What is free and what needs ConfigHub?",
           answer:
-            "Public catalog browsing, local render checks, and public package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
+            "Public catalog browsing, local render checks, and catalog package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
           links: [["Apps", "./journey.html"], ["Upgrade", "./private/"]],
         },
         {
@@ -2814,7 +2819,7 @@ function hooksHtml() {
 
 function privateHtml(catalog) {
   const tierRows = [
-    ["Public Helm site", "Browse chart pages, try public packages, inspect objects, and run public verification checks.", "No account needed."],
+    ["Public Helm site", "Browse chart pages, try catalog packages, inspect objects, and run public verification checks.", "No ConfigHub account needed."],
     ["Self-sign-up SaaS", "Store team configurations, manage versions, review diffs, and connect delivery workflows.", "Hosted ConfigHub account."],
     ["Standalone enterprise product", "Run ConfigHub for private charts, internal platforms, policy, audit, and production operations.", "Enterprise deployment and support."],
     ["Private catalog support", "Bring private charts, wrapper charts, platform values, customer overlays, and internal stacks.", "Commercial feature."],
@@ -4130,7 +4135,7 @@ function chartPageHtml(catalog, entry) {
       <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
-        ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, "The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata."],
+        ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, `The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. ${INSTALLER_OCI_AUTH_NOTE}`],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this chart preset. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
         ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],
@@ -4149,6 +4154,7 @@ function chartPageHtml(catalog, entry) {
       <div class="card">
         <h3>Package image</h3>
         <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)}</span></p>
+        <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
         <h3>You should see something like this</h3>
@@ -5755,7 +5761,7 @@ Open \`site/operations.html\` for Ops: scans, gates, delivery, observation, adop
 upgrades, rollback, bulk patching, and fleet questions.
 Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/operations.html\`.
 Open \`site/docs.html\` for the public documentation hub.
-Open \`../docs/user/installer-oci-packages.md\` for the public package OCI refs
+Open \`../docs/user/installer-oci-packages.md\` for the catalog package OCI refs
 that users pull with \`cub installer setup --pull oci://...\`.
 Open \`site/verification.html\` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
