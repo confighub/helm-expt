@@ -508,10 +508,10 @@
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
-          <h3>How is config delivered - and what about OCI and credentials?</h3>
+          <h3>How is config delivered, and what about OCI and credentials?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux - never printed, logged, or passed on a command line. Argo, Flux, and cub-direct all pull the same bundle and run a routed hook - proven by a committed receipt.</p>
+        <p>ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux: never printed, logged, or passed on a command line. Argo, Flux, and cub-direct all pull the same bundle and run a routed hook, proven by a committed receipt.</p>
         <p class="faq-links"><a href="../docs/user/cub-deployment-path.md">Deployment path</a> · <a href="../docs/user/gitops-adopter-guide.md">GitOps adopter guide</a></p>
       </article>
         <article class="faq-card answered">
@@ -519,7 +519,7 @@
           <h3>How do upgrades and rollback work?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert - with irreversible migration steps flagged as explicit routes, never run silently.</p>
+        <p>An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert, with irreversible migration steps flagged as explicit routes, never run silently.</p>
         <p class="faq-links"><a href="../docs/user/day2-upgrade-rollback.md">Day-2: upgrade &amp; rollback</a> · <a href="../docs/user/why-synced-is-not-working.md">Why synced is not working</a></p>
       </article>
         <article class="faq-card answered">
@@ -532,7 +532,7 @@
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
-          <h3>I already run Argo or Flux - what changes?</h3>
+          <h3>I already run Argo or Flux. What changes?</h3>
           <span class="faq-status">answered</span>
         </div>
         <p>You keep your controller. The only change is the source: instead of a git repo of Helm values re-rendered downstream, you point it at one OCI bundle ConfigHub publishes from reviewed Units. Hooks become explicit routes, not silent sync-phase steps.</p>

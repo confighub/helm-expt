@@ -563,11 +563,11 @@
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm — one step</span>
+        <pre class="terminal-body"><code><span class="term-comment"># plain Helm, one step</span>
 <span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
     --version 25.5.3 -n redis --create-namespace
 
-<span class="term-comment"># ConfigHub — render the reviewed package, then apply</span>
+<span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
 <span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \
     --base default --work-dir ./out --non-interactive
 <span class="term-prompt">$</span> kubectl create namespace redis
@@ -575,12 +575,12 @@
 <span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
       </div>
     </div>
-    <p class="caption">Both bring up Redis in the same namespace. Same outcome — that is parity.</p>
+    <p class="caption">Both bring up Redis in the same namespace. Same outcome. That is parity.</p>
   </header>
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo — nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -600,7 +600,7 @@
     </section>
 
     <section class="narrow-section" aria-labelledby="gitops">
-      <h2 id="gitops">The other delivery — GitOps via OCI</h2>
+      <h2 id="gitops">The other delivery: GitOps via OCI</h2>
       <p>Already running Argo or Flux from an OCI registry? Push the rendered output and let your controller pull it in.</p>
       <div class="terminal-card">
         <div class="terminal-title">redis → OCI</div>
@@ -620,6 +620,6 @@
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:09:23.903Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:59:28.976Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
 </body>
 </html>

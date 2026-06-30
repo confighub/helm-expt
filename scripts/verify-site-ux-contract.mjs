@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["The recipe — your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
+    terms: ["The recipe: your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
 ];
 
