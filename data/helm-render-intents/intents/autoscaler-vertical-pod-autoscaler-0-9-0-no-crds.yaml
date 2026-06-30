@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    revision: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: no-crds"
       - "render intent: data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds.yaml"
       - "rendered revision: recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "package base: packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

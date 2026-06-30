@@ -69,6 +69,7 @@
         "chart",
         "baseVariant",
         "renderInputs",
+        "renderOutput",
         "evidence",
         "lifecycle",
         "targetFacts",
@@ -142,6 +143,30 @@
               "additionalProperties": true
             },
             "hookPolicy": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "renderOutput": {
+          "type": "object",
+          "required": [
+            "renderedObjects",
+            "objectInventory",
+            "revision",
+            "packageBase"
+          ],
+          "properties": {
+            "renderedObjects": {
+              "type": "string"
+            },
+            "objectInventory": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "string"
+            },
+            "packageBase": {
               "type": "string"
             }
           },

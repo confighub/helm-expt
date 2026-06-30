@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    revision: "recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-cd/9.5.17/bases/no-crds"
   evidence:
     renderParity: "yes"
     confighubScanOps: "todo"
@@ -66,6 +71,7 @@ spec:
       - "base variant: no-crds"
       - "render intent: data/helm-render-intents/intents/argo-cd-argo-cd-9-5-17-no-crds.yaml"
       - "rendered revision: recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "package base: packages/argo-cd/argo-cd/9.5.17/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

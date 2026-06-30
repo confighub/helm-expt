@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/velero/velero/12.0.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/velero/velero/12.0.1/bases/default"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: default"
       - "render intent: data/helm-render-intents/intents/velero-velero-12-0-1-default.yaml"
       - "rendered revision: recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml"
       - "package base: packages/velero/velero/12.0.1/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

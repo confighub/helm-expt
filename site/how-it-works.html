@@ -483,7 +483,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
-    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
   </div>
 </header>
 <main>
@@ -517,7 +517,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
-  <p>Each chart ships a recommended <strong>default</strong> base plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>Each chart ships a recommended <strong>default</strong> chart preset plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
@@ -531,6 +531,13 @@ em{font-style:italic;color:var(--ink);}
 
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
   <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → render variant) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>For any chart preset, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
+  <table class="gtable">
+    <tr><th>What to open</th><th>What it tells you</th></tr>
+    <tr><td><code>rendered/release-objects.yaml</code></td><td>The Kubernetes objects captured from one reviewed render. This is the output, not the whole model.</td></tr>
+    <tr><td><code>HelmRenderIntent</code></td><td>The chart version, values profile, namespace, release name, capability profile, source lock, rendered output path, evidence links, and known route facts.</td></tr>
+    <tr><td>Chart extras and routes</td><td>How this chart handles hooks, CRDs, setup jobs, generated Secrets, target prerequisites, GitOps handoff, blockers, or per-target decisions.</td></tr>
+  </table>
 
   <div class="fstage">
     <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
@@ -541,7 +548,8 @@ em{font-style:italic;color:var(--ink);}
   <div class="fstage star">
     <span class="ftag">RENDER</span><span class="codetag">F2 · base → render variant</span>
     <h3>Render: inputs first, then the frozen objects</h3>
-    <p>A <strong>base variant</strong> is a named render choice (default, no-crds, ha…). Its <strong>render intent</strong> records the inputs for that choice: chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered. It's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new base; change only the operating context → no re-render.</p>
+    <p>A <strong>base variant</strong> is the repo term for a <a href="./charts/index.html#presets">preset chart configuration</a>: a named render choice such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new chart preset; change only the operating context → no re-render.</p>
+    <p><strong>Example:</strong> Redis <code>default</code> has a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a>. The full rendered YAML output is <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the generated package users can try. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
   </div>
 
   <div class="fstage">
@@ -553,7 +561,8 @@ em{font-style:italic;color:var(--ink);}
   <div class="fstage">
     <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
     <h3>Route: the work Helm leaves at the edges</h3>
-    <p>Anything that doesn't survive a config-only render (hooks, CRDs, webhooks, generated facts, target prerequisites, setup jobs) becomes a <strong>named route</strong>, not hidden engine behaviour. Each route is observed, routed, marked target-specific, or refused. The reason this matters, in the doctrine's words: <em>render config-only and say nothing about where those behaviours went, and the user is more lost than with Helm, not less.</em></p>
+    <p>Helm can do more than produce ordinary YAML. A chart may install CRDs first, run setup jobs, create webhook certificates, generate Secrets, or expect a cloud account, StorageClass, IngressClass, namespace, or existing Secret to be ready.</p>
+    <p>We help you make the right choice for each chart, then track that choice with recorded inputs, generated output, tests, and receipts. For each chart preset, the catalog records the decision: include the CRDs, offer a no-CRDs preset because the cluster owns them, run a tested setup step, require an existing Secret or target fact, or mark the path blocked when there is no safe default. A route is that recorded choice and evidence boundary. It is not automatic execution unless the route says so and the evidence proves it.</p>
   </div>
 
   <div class="fstage star">
@@ -565,9 +574,9 @@ em{font-style:italic;color:var(--ink);}
   <h3>The three kinds of variant: Variants, in one picture</h3>
   <table class="gtable">
     <tr><th>Kind</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Base variant</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new base.</td><td>Yes, and it's checked against Helm</td><td>the recipe</td></tr>
-    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base: the exact objects.</td><td>No, it's already rendered</td><td>the recipe</td></tr>
-    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
+    <tr><td><strong>Base variant / chart preset</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new chart preset.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
+    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base — the exact objects.</td><td>No — it's already rendered</td><td>the recipe</td></tr>
+    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base — per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
   </table>
   <p class="quiet-line">Any of these can be <strong>managed</strong>: that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fourth kind.</p>
 
@@ -575,8 +584,8 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
     <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
-    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers: no re-render drift between review and runtime.</td></tr>
-    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm did imperatively still has to happen somewhere, or be deliberately skipped. If we hid that, you'd be more lost than with Helm.</td></tr>
+    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers — no re-render drift between review and runtime.</td></tr>
+    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per chart preset.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
     <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
     <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
@@ -603,17 +612,17 @@ em{font-style:italic;color:var(--ink);}
   <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
   <div class="decide"><p><strong>When to go back to Helm.</strong> If a chart isn't in the catalog, plain <code>cub helm template</code> / <code>cub helm install</code> is the right one-shot. Just record the inputs (chart, version, values, namespace) so the next upgrade is reproducible.</p></div>
 
-  <h2>7 · How verification works</h2>
-  <p>Every chart-variant carries a <strong>proof bundle</strong>, the receipts that back each claim:</p>
+  <h2>7 · How to check the claims</h2>
+  <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>
   <table class="gtable">
-    <tr><th>Receipt</th><th>What it proves</th></tr>
-    <tr><td><code>render-receipt</code></td><td>The exact inputs and the checksum of the rendered object set, and that two local renders matched (<code>deterministicAcrossTwoLocalRenders: true</code>).</td></tr>
-    <tr><td><code>helm-equivalence-receipt</code></td><td>The cub render equals plain <code>helm template</code>, object for object, after declared normalizations.</td></tr>
-    <tr><td><code>scan-receipt</code></td><td>A security scan of the rendered objects, with findings by severity.</td></tr>
-    <tr><td><code>install-gate</code></td><td>A checksum-bound decision on where it's safe to install (local-test / review / production).</td></tr>
-    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Every object's identity, and the digest chain (recipe → variant → values → renderer → rendered objects).</td></tr>
+    <tr><th>Check file</th><th>Question it answers</th></tr>
+    <tr><td><code>render-receipt</code></td><td>Did the same inputs produce the same Kubernetes objects twice?</td></tr>
+    <tr><td><code>helm-equivalence-receipt</code></td><td>Does the cub render match plain <code>helm template</code> for this chart preset?</td></tr>
+    <tr><td><code>scan-receipt</code></td><td>What security findings were found in the rendered objects?</td></tr>
+    <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
+    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
   </table>
-  <p>The model has four steps, <strong>recipe → render → record → route</strong>: lock the inputs as a recipe, render them to the exact objects, record the evidence with them, and route everything Helm leaves at the edges. Live results are reported as a <strong>disposition</strong>, per lane, per variant, never one blanket tick:</p>
+  <p>The model has four steps — <strong>recipe → render → record → route</strong>: lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Live results are reported one lane at a time, not as one blanket success mark:</p>
   <div class="counts">
     <div class="count pass"><b>961</b><span>pass</span></div>
     <div class="count watch"><b>116</b><span>watch</span></div>
@@ -621,7 +630,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>87</b><span>not yet run</span></div>
     <div class="count"><b>1484</b><span>not applicable</span></div>
   </div>
-  <p><strong>watch</strong> isn't pass; <strong>blocked</strong> isn't hidden; <strong>not-applicable</strong> is counted on its own. And you can check any of it three ways:</p>
+  <p><strong>watch</strong> means read the warning first. <strong>blocked</strong> means do not use that path yet. <strong>not applicable</strong> is counted separately because some checks do not make sense for every chart. You can check the evidence three ways:</p>
   <table class="gtable">
     <tr><th>Way to check</th><th>Needs a cluster?</th><th>What it confirms</th></tr>
     <tr><td>Run the render check yourself (<code>npm run &lt;chart&gt;:verify-install:render</code>)</td><td>No</td><td>Your own render matches the catalog's recorded contract.</td></tr>
@@ -670,13 +679,15 @@ spec:
   <h3>AI-assisted changes, with control</h3>
   <p>AI is the fastest way to make a change after install, and the most dangerous if you can't see what it did. Because the config is just files, an agent edits the actual rendered files, and you check before anything ships: the exact diff, a scan for secrets and bad settings, an approval step. If a bad value gets through, you can undo it later. The change is tracked, not lost. The AI proposes; you review and approve; the cluster only sees what passed.</p>
 
-  <h2>11 · The honesty rules</h2>
+  <h2>11 · What the status words mean</h2>
+  <p>This page is not a blanket promise that every chart, controller, hook, or cluster path is ready. It shows what has been checked, what still needs work, and what a user should do next.</p>
   <table class="gtable">
-    <tr><th>Rule</th><th>What it means on the site</th></tr>
-    <tr><td>Never quiet</td><td>Every routed step is shown; routes stay <code>automatic: false</code> until they've earned it.</td></tr>
-    <tr><td>No green wall</td><td>Dispositions are counted separately (pass · watch · blocked · not-run · n/a), not lumped into one number.</td></tr>
-    <tr><td>Proven vs in progress</td><td>Argo-from-OCI is proven; Flux-from-OCI and the no-controller path are in progress until the receipts exist.</td></tr>
-    <tr><td>When Helm is better, we say so</td><td>If Helm is still the better path for a chart today, the chart page says it.</td></tr>
+    <tr><th>Status or label</th><th>What it means</th></tr>
+    <tr><td><code>pass</code></td><td>The named check has committed evidence. Open the receipt if you need to see exactly what was tested.</td></tr>
+    <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
+    <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another chart preset, use Helm directly, or add the missing setup work.</td></tr>
+    <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
+    <tr><td>GitOps delivery</td><td>Argo from OCI has end-to-end receipts. Flux from OCI and no-controller paths stay labelled in progress until they have the same proof.</td></tr>
   </table>
   <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
 </main>

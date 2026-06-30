@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
+    revision: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: existing-tls-ingress"
       - "render intent: data/helm-render-intents/intents/bitnami-nginx-25-0-0-existing-tls-ingress.yaml"
       - "rendered revision: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
       - "package base: packages/bitnami/nginx/25.0.0/bases/existing-tls-ingress"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

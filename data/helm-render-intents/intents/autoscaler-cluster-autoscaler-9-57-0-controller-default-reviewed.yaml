@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+    revision: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: controller-default-reviewed"
       - "render intent: data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml"
       - "rendered revision: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
       - "package base: packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

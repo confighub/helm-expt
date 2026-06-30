@@ -370,8 +370,10 @@
   <header>
     <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">AI Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>vm/victoria-logs-single</h1>
-    <p>Everything we know about this Helm chart is on this page: how to run it, which variants exist, what we have proven, and what still needs work.</p>
-    <p>The point is not just to install the chart. It is to choose the first safe base, read the exact objects, catch prerequisites or classic errors, and know which evidence backs the current claim.</p>
+    <p>Everything we know about this Helm chart is on this page: how to run it, which preset chart configurations exist, what we have proven, and what still needs work.</p>
+    <p>Start by choosing a <a href="./index.html#presets">preset chart configuration</a>. A chart preset is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
+    <p>This page does not claim every values combination for this chart. It shows the supported chart presets we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
+    <p>Use this page to choose the first useful chart preset, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=victoria-logs-single&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">proof-grade / machine-proof-only page for vm/victoria-logs-single@0.12.5.</p>
@@ -381,15 +383,15 @@
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       <div class="grid">
-        <div class="metric"><strong>default</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>1</strong><span>Candidate base variants</span></div>
+        <div class="metric"><strong>default</strong><span>Recommended first chart preset</span></div>
+        <div class="metric"><strong>1</strong><span>Candidate chart presets</span></div>
         <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
         <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
       </div>
       <p>The mechanism works, but the current base is too default-shaped to be a good user offer.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>0.12.5</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate bases</td><td>default</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>0.12.5</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate chart presets</td><td>default</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -400,19 +402,30 @@
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">Recipe, Render, Record, Route</h2>
-      <p>The chart page has two layers. The user-facing layer is the <strong>render intent</strong>: the compact record of this chart version, base variant, namespace, values profile, capability profile, package base, and evidence lanes. Underneath, the full chain runs recipe → base variant → render intent → render variant → package base → ConfigHub Units → managed variants and receipts.</p>
+      <h2 id="render-record-route">What A Chart Preset Records</h2>
+      <p>Each <a href="./index.html#presets">preset chart configuration</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the <a href="../../recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
+      <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
+      <div class="card"><table>
+        <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
+        <tbody><tr><td>Kubernetes objects</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="grid">
-        <div class="card"><h3>Render</h3><p>Choose a base variant and turn the Helm chart into the exact Kubernetes objects for that install shape.</p></div>
-        <div class="card"><h3>Record</h3><p>Keep the render inputs, source lock, package base, proof lanes, and <a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">default render intent</a> together so people and agents can rerun or compare the same baseline.</p></div>
-        <div class="card"><h3>Route</h3><p>Do not hide hooks, CRDs, setup jobs, external Secrets, target facts, or webhook certificates. They become named routes, checks, variants, blockers, or handoff notes.</p></div>
+        <div class="card"><h3>Choose preset config</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, <a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">default render intent</a>, full YAML output, package base, proof lanes, and route context together.</p></div>
+        <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a preset, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a></p>
     </section>
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>default</strong> unless a card below explains that another base is a better first path. If a card says review or preparation is needed, treat that as a visible limit rather than a ready install.</p>
+      <p>Start with <strong>default</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull packages/vm/victoria-logs-single/0.12.5 --base default --work-dir .tmp/demo/vm-victoria-logs-single-0-12-5-default --non-interactive --namespace default</code></p>
@@ -427,8 +440,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Chart Options</h2>
-      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable bases. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <h2 id="matrix-options">Chart Presets And Options</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable chart presets. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.86rem">2 matrix rows for vm/victoria-logs-single@0.12.5 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
@@ -474,7 +487,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <div class="lane-strip" aria-label="Proof lanes for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
-        <p class="row-links"><a href="../../recipes/vm/victoria-logs-single/0.12.5/CATALOG.md">catalog</a> · <a href="../../recipes/vm/victoria-logs-single/0.12.5/variants/default/variant.yaml">variant</a> · <a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">render intent</a> · <a href="../../packages/vm/victoria-logs-single/0.12.5/bases/default">package base</a> · <a href="../../runs/victoria-logs-single-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://victoriametrics.github.io/helm-charts" rel="noopener">source repo</a></p>
+        <p class="row-links"><a href="../../recipes/vm/victoria-logs-single/0.12.5/CATALOG.md">catalog</a> · <a href="../../recipes/vm/victoria-logs-single/0.12.5/variants/default/variant.yaml">variant</a> · <a href="../../recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">render intent</a> · <a href="../../packages/vm/victoria-logs-single/0.12.5/bases/default">package base</a> · <a href="../../runs/victoria-logs-single-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://victoriametrics.github.io/helm-charts" rel="noopener">source repo</a></p>
       </article></div>
     </section>
 
@@ -562,9 +575,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">Hooks And Other Actions</h2>
-      <p>Some Helm charts need work before, during, or after apply: CRDs, setup jobs, webhook certificates, migrations, or checks. This section shows whether this chart has a known route for that work. If no route is shown, that does not prove the upstream chart has no hooks; it only means the public catalog has no chart-specific action to show yet.</p>
-      <p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the chart preset, split it into a separate preset, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-preset action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
     </section>
 
     <section aria-labelledby="production">
@@ -586,7 +600,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/CATALOG.md">recipes/vm/victoria-logs-single/0.12.5/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/recipe.yaml">recipes/vm/victoria-logs-single/0.12.5/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/vm/victoria-logs-single/0.12.5">packages/vm/victoria-logs-single/0.12.5</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml">recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/CATALOG.md">recipes/vm/victoria-logs-single/0.12.5/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml">data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml">recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/recipe.yaml">recipes/vm/victoria-logs-single/0.12.5/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/vm/victoria-logs-single/0.12.5">packages/vm/victoria-logs-single/0.12.5</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml">recipes/vm/victoria-logs-single/0.12.5/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../../data/master-catalog-matrix/summary.md">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/object-inventory.yaml"
+    revision: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
+    packageBase: "packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: ui-ingress"
       - "render intent: data/helm-render-intents/intents/longhorn-longhorn-1-11-2-ui-ingress.yaml"
       - "rendered revision: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
       - "package base: packages/longhorn/longhorn/1.11.2/bases/ui-ingress"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

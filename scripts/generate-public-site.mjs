@@ -618,6 +618,8 @@ stringData:
     <section aria-labelledby="limits">
       <h2 id="limits">Try It Now with our Helm Ops Catalog</h2>
       <p>The Helm Ops Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
+      <p>Every chart preset should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for hooks, CRDs, setup work, target prerequisites, and other chart extras.</p>
+      <p>For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output. The chart page and render intent explain the inputs, checks, and route context around that output. Redis has no hook route; charts with hooks or CRDs show that work in their chart extras and route records.</p>
       <p>Hooks, CRDs, setup jobs, webhook certificates, generated Secrets, and cloud accounts do not disappear. Our Helm Ops Catalog turns them into named routes, checks, variants, or handoff notes so teams can manage them deliberately.</p>
       <p>Some charts need extra setup before they run. Our Helm Ops Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
@@ -675,7 +677,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
-    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
   </div>
 </header>
 <main>
@@ -709,7 +711,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
-  <p>Each chart ships a recommended <strong>default</strong> base plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>Each chart ships a recommended <strong>default</strong> chart preset plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
@@ -723,6 +725,13 @@ em{font-style:italic;color:var(--ink);}
 
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
   <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → render variant) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>For any chart preset, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
+  <table class="gtable">
+    <tr><th>What to open</th><th>What it tells you</th></tr>
+    <tr><td><code>rendered/release-objects.yaml</code></td><td>The Kubernetes objects captured from one reviewed render. This is the output, not the whole model.</td></tr>
+    <tr><td><code>HelmRenderIntent</code></td><td>The chart version, values profile, namespace, release name, capability profile, source lock, rendered output path, evidence links, and known route facts.</td></tr>
+    <tr><td>Chart extras and routes</td><td>How this chart handles hooks, CRDs, setup jobs, generated Secrets, target prerequisites, GitOps handoff, blockers, or per-target decisions.</td></tr>
+  </table>
 
   <div class="fstage">
     <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
@@ -733,7 +742,8 @@ em{font-style:italic;color:var(--ink);}
   <div class="fstage star">
     <span class="ftag">RENDER</span><span class="codetag">F2 · base → render variant</span>
     <h3>Render: inputs first, then the frozen objects</h3>
-    <p>A <strong>base variant</strong> is a named render choice (default, no-crds, ha…). Its <strong>render intent</strong> records the inputs for that choice: chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered. It's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new base; change only the operating context → no re-render.</p>
+    <p>A <strong>base variant</strong> is the repo term for a <a href="./charts/index.html#presets">preset chart configuration</a>: a named render choice such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new chart preset; change only the operating context → no re-render.</p>
+    <p><strong>Example:</strong> Redis <code>default</code> has a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a>. The full rendered YAML output is <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the generated package users can try. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
   </div>
 
   <div class="fstage">
@@ -745,7 +755,8 @@ em{font-style:italic;color:var(--ink);}
   <div class="fstage">
     <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
     <h3>Route: the work Helm leaves at the edges</h3>
-    <p>Anything that doesn't survive a config-only render (hooks, CRDs, webhooks, generated facts, target prerequisites, setup jobs) becomes a <strong>named route</strong>, not hidden engine behaviour. Each route is observed, routed, marked target-specific, or refused. The reason this matters, in the doctrine's words: <em>render config-only and say nothing about where those behaviours went, and the user is more lost than with Helm, not less.</em></p>
+    <p>Helm can do more than produce ordinary YAML. A chart may install CRDs first, run setup jobs, create webhook certificates, generate Secrets, or expect a cloud account, StorageClass, IngressClass, namespace, or existing Secret to be ready.</p>
+    <p>We help you make the right choice for each chart, then track that choice with recorded inputs, generated output, tests, and receipts. For each chart preset, the catalog records the decision: include the CRDs, offer a no-CRDs preset because the cluster owns them, run a tested setup step, require an existing Secret or target fact, or mark the path blocked when there is no safe default. A route is that recorded choice and evidence boundary. It is not automatic execution unless the route says so and the evidence proves it.</p>
   </div>
 
   <div class="fstage star">
@@ -757,9 +768,9 @@ em{font-style:italic;color:var(--ink);}
   <h3>The three kinds of variant: Variants, in one picture</h3>
   <table class="gtable">
     <tr><th>Kind</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Base variant</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new base.</td><td>Yes, and it's checked against Helm</td><td>the recipe</td></tr>
-    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base: the exact objects.</td><td>No, it's already rendered</td><td>the recipe</td></tr>
-    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
+    <tr><td><strong>Base variant / chart preset</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new chart preset.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
+    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base — the exact objects.</td><td>No — it's already rendered</td><td>the recipe</td></tr>
+    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base — per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
   </table>
   <p class="quiet-line">Any of these can be <strong>managed</strong>: that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fourth kind.</p>
 
@@ -767,8 +778,8 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
     <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
-    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers: no re-render drift between review and runtime.</td></tr>
-    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm did imperatively still has to happen somewhere, or be deliberately skipped. If we hid that, you'd be more lost than with Helm.</td></tr>
+    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers — no re-render drift between review and runtime.</td></tr>
+    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per chart preset.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
     <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
     <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
@@ -795,17 +806,17 @@ em{font-style:italic;color:var(--ink);}
   <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
   <div class="decide"><p><strong>When to go back to Helm.</strong> If a chart isn't in the catalog, plain <code>cub helm template</code> / <code>cub helm install</code> is the right one-shot. Just record the inputs (chart, version, values, namespace) so the next upgrade is reproducible.</p></div>
 
-  <h2>7 · How verification works</h2>
-  <p>Every chart-variant carries a <strong>proof bundle</strong>, the receipts that back each claim:</p>
+  <h2>7 · How to check the claims</h2>
+  <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>
   <table class="gtable">
-    <tr><th>Receipt</th><th>What it proves</th></tr>
-    <tr><td><code>render-receipt</code></td><td>The exact inputs and the checksum of the rendered object set, and that two local renders matched (<code>deterministicAcrossTwoLocalRenders: true</code>).</td></tr>
-    <tr><td><code>helm-equivalence-receipt</code></td><td>The cub render equals plain <code>helm template</code>, object for object, after declared normalizations.</td></tr>
-    <tr><td><code>scan-receipt</code></td><td>A security scan of the rendered objects, with findings by severity.</td></tr>
-    <tr><td><code>install-gate</code></td><td>A checksum-bound decision on where it's safe to install (local-test / review / production).</td></tr>
-    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Every object's identity, and the digest chain (recipe → variant → values → renderer → rendered objects).</td></tr>
+    <tr><th>Check file</th><th>Question it answers</th></tr>
+    <tr><td><code>render-receipt</code></td><td>Did the same inputs produce the same Kubernetes objects twice?</td></tr>
+    <tr><td><code>helm-equivalence-receipt</code></td><td>Does the cub render match plain <code>helm template</code> for this chart preset?</td></tr>
+    <tr><td><code>scan-receipt</code></td><td>What security findings were found in the rendered objects?</td></tr>
+    <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
+    <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
   </table>
-  <p>The model has four steps, <strong>recipe → render → record → route</strong>: lock the inputs as a recipe, render them to the exact objects, record the evidence with them, and route everything Helm leaves at the edges. Live results are reported as a <strong>disposition</strong>, per lane, per variant, never one blanket tick:</p>
+  <p>The model has four steps — <strong>recipe → render → record → route</strong>: lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Live results are reported one lane at a time, not as one blanket success mark:</p>
   <div class="counts">
     <div class="count pass"><b>961</b><span>pass</span></div>
     <div class="count watch"><b>116</b><span>watch</span></div>
@@ -813,7 +824,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>87</b><span>not yet run</span></div>
     <div class="count"><b>1484</b><span>not applicable</span></div>
   </div>
-  <p><strong>watch</strong> isn't pass; <strong>blocked</strong> isn't hidden; <strong>not-applicable</strong> is counted on its own. And you can check any of it three ways:</p>
+  <p><strong>watch</strong> means read the warning first. <strong>blocked</strong> means do not use that path yet. <strong>not applicable</strong> is counted separately because some checks do not make sense for every chart. You can check the evidence three ways:</p>
   <table class="gtable">
     <tr><th>Way to check</th><th>Needs a cluster?</th><th>What it confirms</th></tr>
     <tr><td>Run the render check yourself (<code>npm run &lt;chart&gt;:verify-install:render</code>)</td><td>No</td><td>Your own render matches the catalog's recorded contract.</td></tr>
@@ -862,13 +873,15 @@ spec:
   <h3>AI-assisted changes, with control</h3>
   <p>AI is the fastest way to make a change after install, and the most dangerous if you can't see what it did. Because the config is just files, an agent edits the actual rendered files, and you check before anything ships: the exact diff, a scan for secrets and bad settings, an approval step. If a bad value gets through, you can undo it later. The change is tracked, not lost. The AI proposes; you review and approve; the cluster only sees what passed.</p>
 
-  <h2>11 · The honesty rules</h2>
+  <h2>11 · What the status words mean</h2>
+  <p>This page is not a blanket promise that every chart, controller, hook, or cluster path is ready. It shows what has been checked, what still needs work, and what a user should do next.</p>
   <table class="gtable">
-    <tr><th>Rule</th><th>What it means on the site</th></tr>
-    <tr><td>Never quiet</td><td>Every routed step is shown; routes stay <code>automatic: false</code> until they've earned it.</td></tr>
-    <tr><td>No green wall</td><td>Dispositions are counted separately (pass · watch · blocked · not-run · n/a), not lumped into one number.</td></tr>
-    <tr><td>Proven vs in progress</td><td>Argo-from-OCI is proven; Flux-from-OCI and the no-controller path are in progress until the receipts exist.</td></tr>
-    <tr><td>When Helm is better, we say so</td><td>If Helm is still the better path for a chart today, the chart page says it.</td></tr>
+    <tr><th>Status or label</th><th>What it means</th></tr>
+    <tr><td><code>pass</code></td><td>The named check has committed evidence. Open the receipt if you need to see exactly what was tested.</td></tr>
+    <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
+    <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another chart preset, use Helm directly, or add the missing setup work.</td></tr>
+    <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
+    <tr><td>GitOps delivery</td><td>Argo from OCI has end-to-end receipts. Flux from OCI and no-controller paths stay labelled in progress until they have the same proof.</td></tr>
   </table>
   <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
 </main>
@@ -1656,7 +1669,9 @@ em{font-style:italic;color:var(--ink);}
 <main>
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
-  <pre><code># plain Helm, one step · prometheus → monitoring
+  <p>The <code>--base default</code> choice is a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
+  <p>In the catalog, the full rendered YAML output is always a real file. For this Prometheus example, open <a href="../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. Then use the chart page and render intent to see the Helm inputs, checks, and any route decisions for hooks, CRDs, setup jobs, or target prerequisites.</p>
+  <pre><code># plain Helm — one step · prometheus → monitoring
 $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
@@ -1676,8 +1691,9 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at a package: a chart we've already reviewed and rendered, kept in the public catalog. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p></div>
 
-  <h2>2 · Change it after install, and it stays</h2>
-  <p>Once it's running you'll want to tweak something: more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <h2>2 · Change it after install — and it stays</h2>
+  <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#presets">chart preset</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
   <div class="two">
     <div class="box">
       <h3>Free: your settings stay</h3>
@@ -1835,7 +1851,7 @@ function docsHtml(catalog) {
   const startRows = [
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
-    ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Find the safest current starting point for a chart."],
+    ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use chart preset and read its values, output, hooks, CRDs, setup work, and evidence."],
     ["Use your own application", `<a href="./journey.html">AI Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
     ["Check a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm check that matches the claim instead of treating every test as the same thing."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
@@ -1846,7 +1862,8 @@ function docsHtml(catalog) {
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
-    ["Choose a chart", "Browse public chart pages, current bases, known risks, and first-use advice.", "./charts/index.html"],
+    ["Choose a chart", "Browse public chart pages, ready-to-use chart presets, known risks, and first-use advice.", "./charts/index.html"],
+    ["Helm chart presets and values", "Why the catalog supports useful chart-specific presets instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
     ["AI Apps", "Bring your own applications, existing GitOps apps, rendered YAML, live namespaces, and AI-suggested changes under review.", "./journey.html"],
@@ -1863,7 +1880,7 @@ function docsHtml(catalog) {
     ["GitOps adopter guide", "How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Secrets, credentials, scan points, and what should never be printed or copied casually.", "../docs/user/security-end-to-end.md"],
     ["Day-2 upgrade and rollback", "How to review and rehearse an upgrade, then observe what happened.", "../docs/user/day2-upgrade-rollback.md"],
-    ["Helm render intents", "The record for a catalog base: chart version, values, namespace, release name, lifecycle routes, target prerequisites, and evidence links.", "../docs/user/helm-render-intents.md"],
+    ["Helm render intents", "The record behind a catalog preset: chart version, values, namespace, release name, lifecycle routes, target prerequisites, and evidence links.", "../docs/user/helm-render-intents.md"],
     ["Coming from Helm", "How common Helm flags map to cub inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["AI-assisted changes", "Let AI suggest a change, then review exact files, diffs, checks, and approval records.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "Sort a failure into render, target, lifecycle, runtime, or unsupported behavior.", "../docs/user/broken-chart-triage.md"],
@@ -1897,7 +1914,7 @@ function docsHtml(catalog) {
     ${topNav(".")}
     <h1>Docs/FAQ</h1>
     <p class="lead">These pages are for technical users who want to try ConfigHub, understand how it works, and check the claims for themselves.</p>
-    <p>Use this page as a map. For a first run, open Get Started. To understand the model, open How it works. To check whether a claim is backed by tests, open Verification. For exact status on one chart, use the Helm Ops Catalog and the matrix.</p>
+    <p>Use this page as a map. For a first run, open Get Started. To choose a supported chart shape, open the Helm Ops Catalog and pick a chart preset. To understand the model, open How it works. To check whether a claim is backed by tests, open Verification.</p>
     ${humanLinks([["Get Started", "./try.html"], ["How it works", "./how-it-works.html"], ["Verification", "./verification.html"], ["FAQ", "./hard-questions.html"]])}
   </header>
   <main>
@@ -1908,6 +1925,19 @@ function docsHtml(catalog) {
         ["Task", "Open", "Why"],
         ...startRows,
       ], { rawSecondColumn: true })}
+    </section>
+
+    <section aria-labelledby="chart-evidence">
+      <h2 id="chart-evidence">How To Read Chart Evidence</h2>
+      <p>Start from the public chart page. Do not start from a generated package folder unless you already know what you are looking for.</p>
+      ${markdownLikeTable([
+        ["Step", "Open", "What you learn"],
+        ["1", "Chart page", "Which preset chart configurations are supported and what still needs work."],
+        ["2", "Full rendered YAML", "The Kubernetes objects captured from one preset. This is the output of the render."],
+        ["3", "Render intent", "The Helm chart version, values, namespace, release name, capability profile, source lock, output path, and evidence links."],
+        ["4", "Hooks, CRDs, and setup work", "The route decisions for chart behavior that is not just static YAML."],
+        ["5", "Verification", "The commands and receipts that back a claim."],
+      ])}
     </section>
 
     <section aria-labelledby="agent-notes">
@@ -2266,23 +2296,44 @@ function hardQuestionsHtml(catalog) {
     {
       title: "Start Here",
       rows: [
-        {
-          status: "answered",
-          question: "Is this just Helm with extra paperwork?",
-          answer:
-            "No. Helm still renders. The catalog turns selected render paths into durable cub installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
-          links: [["Choosing commands", "../docs/user/choosing-commands.md"], ["Browse charts", "./charts/index.html"]],
-        },
-        {
-          status: "answered",
-          question: "Do I have to rewrite my charts?",
-          answer:
-            "No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.",
-          links: [["Why this exists", "../docs/user/why-this-exists.md"], ["Creating variants", "../docs/user/creating-variants.md"]],
-        },
-        {
-          status: "answered",
-          question: "Does it only work for easy charts?",
+	        {
+	          status: "answered",
+	          question: "Is this just Helm with extra paperwork?",
+	          answer:
+	            "No. You keep Helm charts. The catalog adds ready-to-use chart presets, recorded render inputs, generated output, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
+	          links: [["Choosing commands", "../docs/user/choosing-commands.md"], ["Browse charts", "./charts/index.html"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "Do I have to rewrite my charts?",
+	          answer:
+	            "No. We do not ask you to abandon Helm charts for a new chart language. We help you make better choices with the charts you already use.",
+	          links: [["Why this exists", "../docs/user/why-this-exists.md"], ["Creating variants", "../docs/user/creating-variants.md"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "Do you support every Helm values combination?",
+	          answer:
+	            "No. Helm charts can expose too many combinations to test or explain as one claim. Most real cases can be handled with chart-specific presets and patterns: named values and render inputs for common operating choices such as default, no-CRDs, existing Secret, server-only, HA, and internal service.",
+	          links: [["Helm presets and values", "../docs/user/helm-presets-and-values.md"], ["Helm render intents", "../docs/user/helm-render-intents.md"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "Isn't that case-specific?",
+	          answer:
+	            "Yes. Helm charts are case-specific, so the catalog records case-specific chart presets, checks, and notes instead of hiding them behind one generic claim. AI helps propose and maintain those chart presets across chart versions; tests and receipts decide what is accepted.",
+	          links: [["Helm Ops Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "What is a chart preset?",
+	          answer:
+	            "A chart preset is a supported Helm configuration for one chart version. It records the values and render inputs, captures the Kubernetes YAML, and names the chart extras that need attention. In repo data, a chart preset is called a base variant.",
+	          links: [["Preset explanation", "./charts/index.html#presets"], ["Creating variants", "../docs/user/creating-variants.md"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "Does it only work for easy charts?",
           answer:
             "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
           links: [["Serious chart proof", "../docs/user/serious-chart-proof.md"], ["kube-prometheus-stack page", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"]],
@@ -2302,13 +2353,13 @@ function hardQuestionsHtml(catalog) {
     {
       title: "How It Works",
       rows: [
-        {
-          status: "answered",
-          question: "How does it actually work, end to end?",
-          answer:
-            "Four moves: render the chart into the exact objects (the recipe), route everything that is not in the recipe (hooks, CRD installs) as explicit named steps, deliver the recipe once as an OCI bundle that Argo, Flux, or kubectl all pull, and observe it live with receipts. Nothing privileged runs silently.",
-          links: [["How it works", "../docs/user/how-it-works.md"], ["The data model", "../docs/user/confighub-data-model.md"]],
-        },
+	        {
+	          status: "answered",
+	          question: "How does it actually work, end to end?",
+	          answer:
+	            "Pick a chart, choose a chart preset, record the values and render inputs, capture the YAML, handle chart extras, deliver the result, and observe it live. Hooks, CRDs, setup jobs, Secrets, and target assumptions are separate decisions; they are not treated as solved unless evidence says so.",
+	          links: [["How it works", "../docs/user/how-it-works.md"], ["The data model", "../docs/user/confighub-data-model.md"]],
+	        },
         {
           status: "answered",
           question: "How is config delivered, and what about OCI and credentials?",
@@ -2349,13 +2400,20 @@ function hardQuestionsHtml(catalog) {
     {
       title: "Hooks, Secrets, And Targets",
       rows: [
-        {
-          status: "answered",
-          question: "What happens to Helm hooks?",
-          answer:
-            "Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.",
-          links: [["Hooks and actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
-        },
+	        {
+	          status: "answered",
+	          question: "What happens to Helm hooks?",
+	          answer:
+	            "Hooks are not treated as ordinary static YAML. For each chart, the catalog should say what happens: run a setup step, use a GitOps action where evidence exists, require a target decision, block the path, or refuse it. A known route is not the same as automatic execution.",
+	          links: [["Hooks and actions", "./charts/index.html#actions"], ["What happens to chart hooks", "../docs/user/chart-hooks-what-happens.md"]],
+	        },
+	        {
+	          status: "answered",
+	          question: "What about CRDs?",
+	          answer:
+	            "CRDs need an ownership decision. Some chart presets include them. Some chart presets leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.",
+	          links: [["Helm quirks", "./quirks.html"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
+	        },
         {
           status: "answered",
           question: "Where do Secrets and credentials live?",
@@ -2419,8 +2477,8 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "Can I bring my own values files or overlays?",
           answer:
-            "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
-          links: [["Custom overlays", "../docs/user/custom-overlays.md"], ["Change routing before OCI", "../docs/user/change-routing-before-oci.md"]],
+            "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new chart preset or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
+          links: [["Helm chart presets and values", "../docs/user/helm-presets-and-values.md"], ["Custom overlays", "../docs/user/custom-overlays.md"], ["Change routing before OCI", "../docs/user/change-routing-before-oci.md"]],
         },
         {
           status: "answered",
@@ -2433,7 +2491,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "Which path should I take?",
           answer:
-            "Use the public catalog when a reviewed base exists. Use plain Helm when the chart still needs a better base or limitation decision. Create a new installer base when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.",
+            "Use the public catalog when a reviewed chart preset exists. Use plain Helm when the chart still needs a better preset or limitation decision. Create a new chart preset when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.",
           links: [["Choose your path", "../docs/user/choose-your-path.md"], ["Chart-use guide", "../data/chart-use-guide/summary.md"]],
         },
         {
@@ -2713,7 +2771,7 @@ function hooksWhoRunsSection(catalog) {
   return `
     <section aria-labelledby="whoruns">
       <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
-      <p>Per chart and per built variant, in plain words. Render parity delivers the objects; each hook becomes a <strong>visible, named, recorded</strong> lifecycle step instead of a hidden Helm hook. It can be run by your delivery pipeline, such as a GitOps PreSync/PostSync step, a cub action, or an opt-in check. The public product does not auto-execute these yet (<code>automatic: false</code>); automatic execution with receipts is tracked in <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per route</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
+      <p>Per chart and per built variant, in plain words. Render parity delivers the objects. Hooks still need an owner. This view lists each hook as a lifecycle step, then says whether it belongs to your delivery pipeline, a GitOps action where evidence exists, a cub action, an opt-in check, or a current blocker. The public product does not auto-execute these yet (<code>automatic: false</code>); automatic execution with receipts is tracked in <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>. <a href="../data/lifecycle-routes-by-variant/by-variant.html">Open the standalone colored view</a> · <a href="../data/gitops-route-emission/emission.html">the GitOps step (Argo/Flux) per route</a> · <a href="../data/lifecycle-routes-by-variant/summary.md">data</a>.</p>
       ${withVariants.map(chartBlock).join("\n")}
       <h3>Charts without a per-variant difference yet</h3>
       <p>These have hook routes but no built variant that changes the hook behavior (a single base, or candidate/blocked with no built variants).</p>
@@ -2858,7 +2916,7 @@ function journeyHtml(catalog) {
     ["Release and check it", "Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports."],
   ];
   const entryRows = [
-    ["Catalog chart", "Pick a chart page, choose a base, and render the files.", "Trying a public chart first."],
+    ["Catalog chart", "Pick a chart page, choose a chart preset, and render the files.", "Trying a public chart first."],
     ["Existing Argo or Flux app", "Read the source, target, rendered objects, and current status.", "Teams that already use GitOps."],
     ["Rendered YAML", "Import the files and show which objects ConfigHub would manage.", "Applications already rendered by CI or Helm."],
     ["Live cluster", "Inventory what is running before making any change.", "Teams that need to understand an existing namespace."],
@@ -2887,7 +2945,7 @@ function journeyHtml(catalog) {
     <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
     <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
     <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
-    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. The suggestion becomes a concrete file diff, gets checked, and only then moves toward release. When the application is upgraded, ConfigHub keeps those changes in the next version.</p>
+    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. If the suggestion changes what Helm renders, it becomes a chart preset or preset update. If it changes an already-rendered object, it becomes a reviewed ConfigHub diff. When the application is upgraded, ConfigHub keeps the approved changes in the next version.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
@@ -2944,8 +3002,8 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
       <h2 id="examples">Examples</h2>
       ${markdownLikeTable([
         ["Example", "What ConfigHub helps with"],
-        ["Redis app", "One public chart can be rendered, checked, changed for each environment, and released again."],
-        ["Prometheus or kube-prometheus-stack", "A chart with CRDs, webhooks, and prerequisites can be checked before it becomes part of an application release."],
+        ["Redis app", "One public chart can be rendered from a chart preset, checked, changed for each environment, and released again."],
+        ["Prometheus or kube-prometheus-stack", "A chart with CRDs, webhooks, and prerequisites can use presets that say what the target must provide before release."],
         ["Platform services", "Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them."],
         ["Your service plus chart services", "Your own service can sit beside a database, queue, cache, or monitoring chart."],
         ["Existing app", "An application already in a cluster can be inventoried first, then brought under review when you are ready."],
@@ -3201,7 +3259,7 @@ function existingAppsHtml(catalog) {
 function aiHtml(catalog) {
   const catalogRows = [
     ["Read chart behavior", "AI helps inspect chart docs, values, templates, hooks, CRDs, defaults, and prerequisites so the catalog starts from the right questions."],
-    ["Draft base variants", "AI can suggest useful install shapes, such as default, existing Secret, no-CRDs, dev, or production-like bases. The generator and receipts decide what is accepted."],
+    ["Draft chart presets", "AI can suggest useful chart-specific presets, such as default, existing Secret, no-CRDs, server-only, HA, or production-like choices. The generator and receipts decide what is accepted."],
     ["Generate checks", "AI helps draft tests, summaries, and verifier commands. A page is not treated as true until committed data and verification commands back it."],
     ["Triage failures", "AI helps sort a failure into render input, target prerequisite, lifecycle route, runtime health, or unsupported chart behavior."],
     ["Explain evidence", "AI helps turn receipts, diffs, and generated data into plain English for chart pages and docs."],
@@ -3226,8 +3284,9 @@ function aiHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>AI And The Catalog</h1>
-    <p>AI is useful here because Helm charts are too large to inspect by hand, one value at a time. We use agents to help read charts, propose useful bases, write checks, and explain evidence.</p>
+    <p>AI is useful here because Helm charts are too large to inspect by hand, one value at a time. We use agents to help read charts, propose useful <a href="./charts/index.html#presets">preset chart configurations</a>, write checks, and explain evidence.</p>
     <p>The rule is strict: AI can suggest, but tests and receipts decide. A catalog claim is not true because an agent wrote it; it is true when the rendered objects, generated data, and verification commands back it.</p>
+    <p>This is also why the catalog uses chart presets instead of claiming every values combination. AI can help maintain chart-specific choices across versions; verification decides which choices are ready to show users.</p>
   </header>
   <main>
     <section aria-labelledby="catalog">
@@ -3243,6 +3302,7 @@ function aiHtml(catalog) {
     <section aria-labelledby="user-agents">
       <h2 id="user-agents">When Users Bring AI</h2>
       <p>AI can also help a user propose Helm values, patches, variants, or fixes. ConfigHub makes that safer by turning the suggestion into exact Kubernetes objects, diffs, known extras, checks, and approvals before it reaches a cluster.</p>
+      <p>If the suggestion changes what Helm renders, it should become a recorded <a href="./charts/index.html#presets">chart preset</a> or preset update. If it edits an already-rendered object, it should become a reviewed ConfigHub change. Either way, the user sees the diff before release.</p>
       <p>The reviewed config remains the source of truth. AI explains and proposes; ConfigHub records and verifies.</p>
     </section>
 
@@ -3581,7 +3641,7 @@ function firstPathCell(entry, row) {
   let note = "Open the chart page for the command and option cards.";
   if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
   else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
-  else if (row?.row_kind === "base") note = "Recommended base variant to try first.";
+  else if (row?.row_kind === "base") note = "Recommended chart preset to try first.";
   return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(note)}</span>`;
 }
 
@@ -3654,6 +3714,16 @@ function githubPackageUrlForEntry(entry, row) {
   return "";
 }
 
+function renderedObjectsPathFromRevision(revisionPath) {
+  if (!revisionPath) return "";
+  return revisionPath.replace(/variant-revision\.yaml$/, "rendered/release-objects.yaml");
+}
+
+function githubRenderedObjectsUrlForRow(row) {
+  const renderedPath = renderedObjectsPathFromRevision(row?.variant_revision_path);
+  return renderedPath ? `https://github.com/confighub/helm-expt/blob/main/${renderedPath}` : "";
+}
+
 function githubRecipeUrlForEntry(entry, row) {
   if (row?.github_recipe_url) return row.github_recipe_url;
   const recipeRoot = entry.recipe_path?.replace(/\/recipe\.yaml$/, "");
@@ -3662,9 +3732,11 @@ function githubRecipeUrlForEntry(entry, row) {
 
 function yamlLinksCell(entry, row) {
   const packageUrl = githubPackageUrlForEntry(entry, row);
+  const renderedUrl = githubRenderedObjectsUrlForRow(row);
   const recipeUrl = githubRecipeUrlForEntry(entry, row);
   const links = [];
-  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">generated YAML</a>`);
+  if (renderedUrl) links.push(`<a href="${escapeHtml(renderedUrl)}" rel="noopener">full YAML</a>`);
+  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">package base</a>`);
   if (recipeUrl) links.push(`<a href="${escapeHtml(recipeUrl)}" rel="noopener">recipe</a>`);
   return links.length ? links.join("<br>") : "Open chart page.";
 }
@@ -3731,16 +3803,35 @@ function chartIndexHtml(catalog) {
   <header>
     ${topNav("..")}
     <h1>Helm Ops Catalog</h1>
-    <p>A kind of Helm's kitchen for all your Helm charts and off-menu choices.</p>
-    <p>This is a directory of ${escapeHtml(String(catalog.top100UserReadiness.length))} Helm charts and how each behaves in ConfigHub. Use it to answer one practical question: what is the safest first path for this chart?</p>
+    <p class="lead">Start here. Pick a Helm chart, then choose a ready-to-use <a href="#presets">preset chart configuration</a> for how you want to run it.</p>
+    <p>A preset chart configuration is a named Helm configuration we support and test: default, no-CRDs, existing Secret, server-only, HA, internal service, and similar operating patterns. In the repo data, a chart preset is called a base variant.</p>
+    <p>This is the main catalog offer. We are not trying to generate every possible Helm values combination. Most real cases can be handled with chart-specific presets and patterns. That is enough when the choices are recorded, tested, and maintained.</p>
+    <p>AI helps with the maintenance work: reading chart behavior, proposing useful chart presets, updating them across chart versions, and checking the rendered output. The catalog evidence decides what lands.</p>
+    <p>Each chart preset has a full rendered YAML output file, usually named <code>release-objects.yaml</code>. The chart page links that file, then links the render intent, revision, package base, routes, and receipts that explain where it came from and what still needs attention.</p>
+    <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
   </header>
   <main>
+    <section aria-labelledby="presets">
+      <h2 id="presets">Preset Chart Configurations, Not Every Values Combination</h2>
+      <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides preset chart configurations for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that chart preset.</p>
+      <p>If your values file changes what Helm renders, it can become another chart preset. If it only fills or refines already-rendered objects after upload, it belongs in a derived ConfigHub variant. If it needs a cluster, Secret, CRD owner, cloud account, or hook-like setup step, the chart page should say so before you install.</p>
+      <p>Read each preset in this order: full YAML output first, render context second, hooks/CRDs/setup work third. The YAML shows what Kubernetes would receive; the context and routes explain how that output was produced and what has to happen around it.</p>
+      ${markdownLikeTable([
+        ["Public word", "Repo word", "Meaning"],
+        ["Preset chart configuration", "Base variant", "A named Helm render choice such as default, no-CRDs, existing Secret, HA, or server-only."],
+        ["Full rendered YAML output", "rendered/release-objects.yaml", "The Kubernetes objects produced by one chart preset. This is the manifest file you can open and read."],
+        ["Render context", "Render intent, revision, routes, receipts", "The inputs, checksums, hook/CRD decisions, target facts, and evidence around that YAML output."],
+        ["Chart extras", "Routes, target facts, lifecycle rows", "CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and existing cluster resources that need a decision."],
+      ])}
+      <p>The model is deliberately chart-specific. A useful chart preset for Redis is different from a useful chart preset for Argo CD or kube-prometheus-stack. That is why the catalog stores evidence per chart, version, preset, lane, and target scope. For the deeper reference, read <a href="../../docs/user/helm-presets-and-values.md">Helm Chart Presets And Values</a>.</p>
+    </section>
+
     <section aria-labelledby="charts">
       <h2 id="charts">Chart Directory</h2>
       <div class="card">
         <h3>How to read this table</h3>
-        <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first base to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated YAML.</p>
+        <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first chart preset to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated output.</p>
         <p>This is not a leaderboard. A watch or blocked row can be the most useful answer when it names a prerequisite, lifecycle route, or target decision.</p>
       </div>
       <div class="card">
@@ -3755,7 +3846,7 @@ function chartIndexHtml(catalog) {
         <p class="mono" id="chart-filter-count" style="font-size:.86rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First path</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>YAML and recipe</th></tr></thead>
+        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First chart preset</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Evidence/output</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -3791,9 +3882,10 @@ ${chartRowsHtml}
     </section>
 
     <section aria-labelledby="actions">
-      <h2 id="actions">Hooks and other actions in ConfigHub deployments</h2>
-      <p>Some Helm charts use hooks or other lifecycle steps. We show those steps instead of hiding them.</p>
-      <p>A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is useful guidance; it is not an automatic execution claim unless the route says so and evidence proves it.</p>
+      <h2 id="actions">Hooks, CRDs, And Other Chart Extras</h2>
+      <p>Helm charts often include work outside the main rendered objects: CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and resources that must already exist in the target cluster.</p>
+      <p>We help you make the right choice for how to customize and adapt each chart, then track that choice with recorded inputs, generated output, tests, and receipts. The chart-specific answer may be: keep CRDs in the chart preset, offer a no-CRDs preset, run a tested setup step, use a GitOps action where evidence exists, require an existing Secret or target resource, or block the path when there is no safe default.</p>
+      <p>A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is a named piece of work and its evidence boundary. It is not an automatic execution claim unless the route says so and evidence proves it.</p>
       ${markdownLikeTable([
         ["Disposition", "Rows", "Meaning"],
         ...dispositionRows,
@@ -3899,10 +3991,15 @@ function chartPageHtml(catalog, entry) {
   const firstRenderIntentLink = firstRenderIntent?.intent_path
     ? `<a href="../../${escapeHtml(firstRenderIntent.intent_path)}">${escapeHtml(firstRenderIntent.base)} render intent</a>`
     : `<a href="../../data/helm-render-intents/summary.md">render-intent summary</a>`;
+  const firstRenderedObjectsPath = firstRenderIntent?.rendered_objects_path || renderedObjectsPathFromRevision(firstRunnableRow?.variant_revision_path);
+  const firstRenderedObjectsLink = firstRenderedObjectsPath
+    ? `<a href="../../${escapeHtml(firstRenderedObjectsPath)}">full rendered YAML</a>`
+    : `<a href="../../data/helm-render-intents/summary.md">render-output summary</a>`;
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
     ["Helm render intents", "data/helm-render-intents/summary.md"],
     ["First render intent", firstRenderIntent?.intent_path ?? ""],
+    ["Full rendered YAML", firstRenderedObjectsPath ?? ""],
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
     ["Helm pain report", entry.helm_pain_report],
@@ -3960,8 +4057,10 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
-    <p>Everything we know about this Helm chart is on this page: how to run it, which variants exist, what we have proven, and what still needs work.</p>
-    <p>The point is not just to install the chart. It is to choose the first safe base, read the exact objects, catch prerequisites or classic errors, and know which evidence backs the current claim.</p>
+    <p>Everything we know about this Helm chart is on this page: how to run it, which preset chart configurations exist, what we have proven, and what still needs work.</p>
+    <p>Start by choosing a <a href="./index.html#presets">preset chart configuration</a>. A chart preset is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
+    <p>This page does not claim every values combination for this chart. It shows the supported chart presets we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
+    <p>Use this page to choose the first useful chart preset, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
@@ -3971,8 +4070,8 @@ function chartPageHtml(catalog, entry) {
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       <div class="grid">
-        <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base</span></div>
-        <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first chart preset</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate chart presets" : "Supported chart presets"}</span></div>
         <div class="metric"><strong>${escapeHtml(entry.start_base_readiness || "see bases")}</strong><span>Start-base status</span></div>
         <div class="metric"><strong>${escapeHtml(production?.production_support ?? entry.production_readiness)}</strong><span>Production disposition</span></div>
       </div>
@@ -3982,26 +4081,33 @@ function chartPageHtml(catalog, entry) {
         ["Catalog level", catalogLayerLabel(entry)],
         ["Chart version", entry.version],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
-        [entry.proof_surface === "next80-proof-grade" ? "Candidate bases" : "Supported bases", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
+        [entry.proof_surface === "next80-proof-grade" ? "Candidate chart presets" : "Supported chart presets", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
         ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">Recipe, Render, Record, Route</h2>
-      <p>The chart page has two layers. The user-facing layer is the <strong>render intent</strong>: the compact record of this chart version, base variant, namespace, values profile, capability profile, package base, and evidence lanes. Underneath, the full chain runs recipe → base variant → render intent → render variant → package base → ConfigHub Units → managed variants and receipts.</p>
+      <h2 id="render-record-route">What A Chart Preset Records</h2>
+      <p>Each <a href="./index.html#presets">preset chart configuration</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the ${firstRenderedObjectsLink} to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
+      <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
+      ${markdownLikeTable([
+        ["Key", "Where to look first", "What it means"],
+        ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this chart preset. It is the output of the render."],
+        ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
+        ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],
+      ], { rawSecondColumn: true })}
       <div class="grid">
-        <div class="card"><h3>Render</h3><p>Choose a base variant and turn the Helm chart into the exact Kubernetes objects for that install shape.</p></div>
-        <div class="card"><h3>Record</h3><p>Keep the render inputs, source lock, package base, proof lanes, and ${firstRenderIntentLink} together so people and agents can rerun or compare the same baseline.</p></div>
-        <div class="card"><h3>Route</h3><p>Do not hide hooks, CRDs, setup jobs, external Secrets, target facts, or webhook certificates. They become named routes, checks, variants, blockers, or handoff notes.</p></div>
+        <div class="card"><h3>Choose preset config</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, ${firstRenderIntentLink}, full YAML output, package base, proof lanes, and route context together.</p></div>
+        <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a preset, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a></p>
     </section>
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a card below explains that another base is a better first path. If a card says review or preparation is needed, treat that as a visible limit rather than a ready install.</p>
+      <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
@@ -4016,8 +4122,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 ${teaching ? `\n    ${teaching}\n` : ""}
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Chart Options</h2>
-      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable bases. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <h2 id="matrix-options">Chart Presets And Options</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable chart presets. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
@@ -4069,8 +4175,9 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     </section>
 
     <section aria-labelledby="lifecycle">
-      <h2 id="lifecycle">Hooks And Other Actions</h2>
-      <p>Some Helm charts need work before, during, or after apply: CRDs, setup jobs, webhook certificates, migrations, or checks. This section shows whether this chart has a known route for that work. If no route is shown, that does not prove the upstream chart has no hooks; it only means the public catalog has no chart-specific action to show yet.</p>
+      <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the chart preset, split it into a separate preset, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry)
         : lifecycleRows.length
@@ -4088,7 +4195,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
                   ["Modeled action area", "Current status"],
                   ...dispositionActionRows,
                 ], { rawSecondColumn: true })
-              : "<p>No ConfigHub action route is attached to this chart page yet. That is not a claim that the upstream chart has no Helm hooks. It means the public catalog has no per-variant route to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
+              : "<p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-preset action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
     </section>
 
     <section aria-labelledby="production">
@@ -4404,6 +4511,7 @@ function matrixRowLinks(row) {
   };
   maybe("catalog", row.recipe_catalog_path);
   maybe("variant", row.variant_path);
+  maybe("full YAML", renderedObjectsPathFromRevision(row.variant_revision_path));
   if (row.row_kind === "base" && row.chart && row.version && row.variant) {
     maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
   }

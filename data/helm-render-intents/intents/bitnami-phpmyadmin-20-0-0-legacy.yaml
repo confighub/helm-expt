@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/object-inventory.yaml"
+    revision: "recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/phpmyadmin/20.0.0/bases/legacy"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: legacy"
       - "render intent: data/helm-render-intents/intents/bitnami-phpmyadmin-20-0-0-legacy.yaml"
       - "rendered revision: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/rendered/release-objects.yaml"
       - "package base: packages/bitnami/phpmyadmin/20.0.0/bases/legacy"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

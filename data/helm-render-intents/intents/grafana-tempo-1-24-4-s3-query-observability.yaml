@@ -31,6 +31,11 @@ spec:
         - "monitoring.coreos.com/v1"
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
+    revision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -67,6 +72,7 @@ spec:
       - "base variant: s3-query-observability"
       - "render intent: data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
       - "rendered revision: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
       - "package base: packages/grafana/tempo/1.24.4/bases/s3-query-observability"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

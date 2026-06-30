@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"
+    revision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+    packageBase: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -77,6 +82,7 @@ spec:
       - "base variant: ha-raft-ui"
       - "render intent: data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
       - "rendered revision: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
       - "package base: packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

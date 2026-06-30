@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/object-inventory.yaml"
+    revision: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: single-binary-filesystem"
       - "render intent: data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml"
       - "rendered revision: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
       - "package base: packages/grafana/loki/7.0.0/bases/single-binary-filesystem"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/object-inventory.yaml"
+    revision: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
+    packageBase: "packages/grafana/loki/7.0.0/bases/simple-scalable-minio"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: simple-scalable-minio"
       - "render intent: data/helm-render-intents/intents/grafana-loki-7-0-0-simple-scalable-minio.yaml"
       - "rendered revision: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml"
       - "package base: packages/grafana/loki/7.0.0/bases/simple-scalable-minio"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

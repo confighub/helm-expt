@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/argo-cd/argo-rollouts/2.40.9/bases/default"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: default"
       - "render intent: data/helm-render-intents/intents/argo-cd-argo-rollouts-2-40-9-default.yaml"
       - "rendered revision: recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml"
       - "package base: packages/argo-cd/argo-rollouts/2.40.9/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

@@ -4,11 +4,17 @@
 
 This page explains how the catalog records a Helm render.
 
+If you are reading the public website, the first word you see is **preset**.
+In this repo, that same supported chart choice is usually called a **base
+variant**. A preset/base variant is a named way to render one chart version,
+such as `default`, `no-crds`, `reuse-existing-secret`, `server-only`, or `ha`.
+
 Start with these questions:
 
 ```text
 For this chart, which named Helm render did we use?
 What exact Kubernetes objects did it produce?
+What extra work does the chart need around those objects?
 Can ConfigHub keep managing those objects after that?
 ```
 
@@ -29,21 +35,26 @@ The terms mean:
 
 | Term | Plain meaning | Example |
 | --- | --- | --- |
-| Base variant | A named way to render a Helm chart. | Redis `default`, Redis `reuse-existing-secret`, Argo CD `no-crds` |
+| Preset / base variant | A named way to render a Helm chart. `Preset` is the public word; `base variant` is the repo word. | Redis `default`, Redis `reuse-existing-secret`, Argo CD `no-crds` |
 | Render intent | The inputs needed to repeat that render. | chart version, values file, namespace, release name, capabilities, source lock |
-| Render variant | The captured Kubernetes output from that render. | the `variant-revision` file and the matching `packages/.../bases/...` directory |
+| Render variant | The captured output from that render. The full YAML is `rendered/release-objects.yaml`; the revision file binds it to inputs and checksums. | Redis `release-objects.yaml` plus `variant-revision.yaml` |
 | Managed variant | A ConfigHub version made after the rendered objects are uploaded. | dev, staging, prod, per-region, per-customer |
+
+Do not stop at `release-objects.yaml` when you need the full record. That file
+is the Kubernetes object output. The render intent, revision, lifecycle routes,
+target facts, receipts, and chart page explain the Helm inputs and any hook,
+CRD, setup-job, Secret, or target-prerequisite work around that output.
 
 ## Render Variant Examples
 
 These examples are current catalog rows:
 
-| Component | Base variant | Render intent | Captured render variant |
-| --- | --- | --- | --- |
-| Redis 25.5.3 | `default` | [`bitnami-redis-25-5-3-default.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml) | [`revisions/default/r001/variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [`packages/.../bases/default`](../../packages/bitnami/redis/25.5.3/bases/default) |
-| Redis 25.5.3 | `reuse-existing-secret` | [`bitnami-redis-25-5-3-reuse-existing-secret.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [`revisions/reuse-existing-secret/r001/variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [`packages/.../bases/reuse-existing-secret`](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) |
-| Argo CD 9.5.17 | `no-crds` | [`argo-cd-argo-cd-9-5-17-no-crds.yaml`](../../data/helm-render-intents/intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [`revisions/no-crds/r001/variant-revision.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [`packages/.../bases/no-crds`](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) |
-| Prometheus 29.8.0 | `server-only-ephemeral` | [`prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml`](../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [`revisions/server-only-ephemeral/r001/variant-revision.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [`packages/.../bases/server-only-ephemeral`](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) |
+| Component | Preset / base variant | Render intent | Full rendered YAML | Context and checks |
+| --- | --- | --- | --- | --- |
+| Redis 25.5.3 | `default` | [`bitnami-redis-25-5-3-default.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml) | [`release-objects.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [`packages/.../bases/default`](../../packages/bitnami/redis/25.5.3/bases/default) |
+| Redis 25.5.3 | `reuse-existing-secret` | [`bitnami-redis-25-5-3-reuse-existing-secret.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [`release-objects.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [`packages/.../bases/reuse-existing-secret`](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) |
+| Argo CD 9.5.17 | `no-crds` | [`argo-cd-argo-cd-9-5-17-no-crds.yaml`](../../data/helm-render-intents/intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [`release-objects.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [`packages/.../bases/no-crds`](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) |
+| Prometheus 29.8.0 | `server-only-ephemeral` | [`prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml`](../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [`release-objects.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [`packages/.../bases/server-only-ephemeral`](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) |
 
 The `default` and `reuse-existing-secret` Redis rows are different base
 variants because they ask Helm to render different security choices. Each one
@@ -70,10 +81,11 @@ certificates, namespaces, cloud identity, external Secrets, or setup jobs.
 A render intent records:
 
 - which chart and version are used;
-- which base variant is being rendered;
+- which preset/base variant is being rendered;
 - which values profile, namespace, release name, capability profile, and source
   lock are part of the render;
-- where the captured render variant is stored;
+- where the full rendered YAML is stored;
+- where the revision/checksum record is stored;
 - which evidence lanes exist for the row;
 - which lifecycle routes and target prerequisites are known.
 
@@ -114,6 +126,6 @@ A render intent is not a production promise. It does not say every live lane is
 green. It does not make hooks automatic. It does not create ConfigHub server
 state by itself.
 
-It says something narrower: this Helm base variant has a real catalog path, and
-the inputs, captured output, evidence links, and known extra work are recorded
-in one machine-readable object.
+It says something narrower: this Helm preset/base variant has a real catalog
+path, and the inputs, captured output, evidence links, and known extra work are
+recorded in one machine-readable object.

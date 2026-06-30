@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
+    revision: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+    packageBase: "packages/bitnami/spark/10.0.3/bases/ha"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: ha"
       - "render intent: data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
       - "rendered revision: recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
       - "package base: packages/bitnami/spark/10.0.3/bases/ha"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

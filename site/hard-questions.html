@@ -464,7 +464,7 @@
           <h3>Is this just Helm with extra paperwork?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. Helm still renders. The catalog turns selected render paths into durable cub installer packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
+        <p>No. You keep Helm charts. The catalog adds ready-to-use chart presets, recorded render inputs, generated output, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
         <p class="faq-links"><a href="../docs/user/choosing-commands.md">Choosing commands</a> · <a href="./charts/index.html">Browse charts</a></p>
       </article>
         <article class="faq-card answered">
@@ -472,8 +472,32 @@
           <h3>Do I have to rewrite my charts?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.</p>
+        <p>No. We do not ask you to abandon Helm charts for a new chart language. We help you make better choices with the charts you already use.</p>
         <p class="faq-links"><a href="../docs/user/why-this-exists.md">Why this exists</a> · <a href="../docs/user/creating-variants.md">Creating variants</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Do you support every Helm values combination?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>No. Helm charts can expose too many combinations to test or explain as one claim. Most real cases can be handled with chart-specific presets and patterns: named values and render inputs for common operating choices such as default, no-CRDs, existing Secret, server-only, HA, and internal service.</p>
+        <p class="faq-links"><a href="../docs/user/helm-presets-and-values.md">Helm presets and values</a> · <a href="../docs/user/helm-render-intents.md">Helm render intents</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>Isn't that case-specific?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>Yes. Helm charts are case-specific, so the catalog records case-specific chart presets, checks, and notes instead of hiding them behind one generic claim. AI helps propose and maintain those chart presets across chart versions; tests and receipts decide what is accepted.</p>
+        <p class="faq-links"><a href="./charts/index.html">Helm Ops Catalog</a> · <a href="./ai.html">AI and the catalog</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What is a chart preset?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>A chart preset is a supported Helm configuration for one chart version. It records the values and render inputs, captures the Kubernetes YAML, and names the chart extras that need attention. In repo data, a chart preset is called a base variant.</p>
+        <p class="faq-links"><a href="./charts/index.html#presets">Preset explanation</a> · <a href="../docs/user/creating-variants.md">Creating variants</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
@@ -503,7 +527,7 @@
           <h3>How does it actually work, end to end?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Four moves: render the chart into the exact objects (the recipe), route everything that is not in the recipe (hooks, CRD installs) as explicit named steps, deliver the recipe once as an OCI bundle that Argo, Flux, or kubectl all pull, and observe it live with receipts. Nothing privileged runs silently.</p>
+        <p>Pick a chart, choose a chart preset, record the values and render inputs, capture the YAML, handle chart extras, deliver the result, and observe it live. Hooks, CRDs, setup jobs, Secrets, and target assumptions are separate decisions; they are not treated as solved unless evidence says so.</p>
         <p class="faq-links"><a href="../docs/user/how-it-works.md">How it works</a> · <a href="../docs/user/confighub-data-model.md">The data model</a></p>
       </article>
         <article class="faq-card answered">
@@ -557,8 +581,16 @@
           <h3>What happens to Helm hooks?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Hooks are not treated as ordinary static YAML. A hook or hook-like behavior must be observed, routed, marked per-target, blocked, or refused. A known route tells a human, agent, or product surface what must happen. It is not the same as automatic execution.</p>
+        <p>Hooks are not treated as ordinary static YAML. For each chart, the catalog should say what happens: run a setup step, use a GitOps action where evidence exists, require a target decision, block the path, or refuse it. A known route is not the same as automatic execution.</p>
         <p class="faq-links"><a href="./charts/index.html#actions">Hooks and actions</a> · <a href="../docs/user/chart-hooks-what-happens.md">What happens to chart hooks</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>What about CRDs?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>CRDs need an ownership decision. Some chart presets include them. Some chart presets leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.</p>
+        <p class="faq-links"><a href="./quirks.html">Helm quirks</a> · <a href="../docs/user/target-prerequisites.md">Target prerequisites</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
@@ -633,8 +665,8 @@
           <h3>Can I bring my own values files or overlays?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new installer base or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.</p>
-        <p class="faq-links"><a href="../docs/user/custom-overlays.md">Custom overlays</a> · <a href="../docs/user/change-routing-before-oci.md">Change routing before OCI</a></p>
+        <p>Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new chart preset or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.</p>
+        <p class="faq-links"><a href="../docs/user/helm-presets-and-values.md">Helm chart presets and values</a> · <a href="../docs/user/custom-overlays.md">Custom overlays</a> · <a href="../docs/user/change-routing-before-oci.md">Change routing before OCI</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
@@ -649,7 +681,7 @@
           <h3>Which path should I take?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Use the public catalog when a reviewed base exists. Use plain Helm when the chart still needs a better base or limitation decision. Create a new installer base when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
+        <p>Use the public catalog when a reviewed chart preset exists. Use plain Helm when the chart still needs a better preset or limitation decision. Create a new chart preset when Helm inputs change. Create a derived ConfigHub variant when the change is post-render. Ask for managed help when private charts, teams, approvals, fleet operations, or production responsibility enter the path.</p>
         <p class="faq-links"><a href="../docs/user/choose-your-path.md">Choose your path</a> · <a href="../data/chart-use-guide/summary.md">Chart-use guide</a></p>
       </article>
         <article class="faq-card answered">

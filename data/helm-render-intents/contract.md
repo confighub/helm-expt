@@ -7,7 +7,7 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 ## What It Claims
 
 - The row is a real base variant, not a candidate row.
-- The chart, version, recipe, source lock, variant file, rendered revision, and package base are named.
+- The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
 - Lifecycle routes and target-prerequisite actions are attached when committed data exists.
 

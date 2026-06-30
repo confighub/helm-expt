@@ -623,6 +623,8 @@ stringData:
     <section aria-labelledby="limits">
       <h2 id="limits">Try It Now with our Helm Ops Catalog</h2>
       <p>The Helm Ops Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
+      <p>Every chart preset should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for hooks, CRDs, setup work, target prerequisites, and other chart extras.</p>
+      <p>For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output. The chart page and render intent explain the inputs, checks, and route context around that output. Redis has no hook route; charts with hooks or CRDs show that work in their chart extras and route records.</p>
       <p>Hooks, CRDs, setup jobs, webhook certificates, generated Secrets, and cloud accounts do not disappear. Our Helm Ops Catalog turns them into named routes, checks, variants, or handoff notes so teams can manage them deliberately.</p>
       <p>Some charts need extra setup before they run. Our Helm Ops Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>

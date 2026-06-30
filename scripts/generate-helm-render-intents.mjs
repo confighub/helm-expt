@@ -137,6 +137,12 @@ function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
         capabilityProfile: variantSpec.capabilityProfile ?? {},
         hookPolicy: variantSpec.hookPolicy ?? "",
       },
+      renderOutput: {
+        renderedObjects: renderedObjectsPath(row.variant_revision_path),
+        objectInventory: objectInventoryPath(row.variant_revision_path),
+        revision: row.variant_revision_path || "",
+        packageBase: row.package_base_path || "",
+      },
       evidence: {
         renderParity: lane(row.lane_render_parity),
         confighubScanOps: lane(row.lane_confighub_scan_ops),
@@ -174,6 +180,7 @@ function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
           `base variant: ${row.variant}`,
           `render intent: data/helm-render-intents/intents/${name}.yaml`,
           `rendered revision: ${row.variant_revision_path || "(missing)"}`,
+          `full rendered YAML: ${renderedObjectsPath(row.variant_revision_path) || "(missing)"}`,
           `package base: ${row.package_base_path || "(missing)"}`,
           "ConfigHub Units: created when the package is uploaded",
           "managed variants: created after upload with cub variant create/promote",
@@ -228,6 +235,16 @@ function normalizePath(path) {
   return out.join("/");
 }
 
+function renderedObjectsPath(revisionPath) {
+  if (!revisionPath) return "";
+  return revisionPath.replace(/variant-revision\.yaml$/, "rendered/release-objects.yaml");
+}
+
+function objectInventoryPath(revisionPath) {
+  if (!revisionPath) return "";
+  return revisionPath.replace(/variant-revision\.yaml$/, "rendered/object-inventory.yaml");
+}
+
 function renderCsv(intents) {
   const headers = [
     "name",
@@ -237,6 +254,7 @@ function renderCsv(intents) {
     "catalog_layer",
     "recipe_path",
     "variant_path",
+    "rendered_objects_path",
     "package_base_path",
     "intent_path",
     "render_parity",
@@ -261,6 +279,7 @@ function renderCsv(intents) {
       recipe_path: intent.spec.renderInputs.recipe,
       variant_path: intent.spec.renderInputs.variant,
       package_base_path: intent.spec.renderInputs.packageBase,
+      rendered_objects_path: intent.spec.renderOutput.renderedObjects,
       intent_path: `data/helm-render-intents/intents/${intent.metadata.name}.yaml`,
       render_parity: intent.spec.evidence.renderParity,
       confighub_scan_ops: intent.spec.evidence.confighubScanOps,
@@ -333,12 +352,12 @@ function summaryMd(intents, matrixRows, candidates) {
   const examples = renderVariantExamples(intents);
   if (examples.length) {
     o.push("## Render Variant Examples", "");
-    o.push("A render variant is the captured output of one base render. In the current repo, the captured output is stored as a `variant-revision` plus a package base.");
+    o.push("A render variant is the captured output of one base render. Open `rendered/release-objects.yaml` for the full Kubernetes YAML. That file is the object output, not the whole record. The render intent, `variant-revision`, lifecycle routes, target facts, and receipts explain the inputs, checksums, hooks, CRDs, setup work, and prerequisites around that output.");
     o.push("");
-    o.push("| Component | Base variant | Render intent | Captured render variant | Why it exists |");
-    o.push("| --- | --- | --- | --- | --- |");
+    o.push("| Component | Base variant | Render intent | Full rendered YAML | Other render records | Why it exists |");
+    o.push("| --- | --- | --- | --- | --- | --- |");
     for (const example of examples) {
-      o.push(`| ${example.component} | \`${example.base}\` | [${example.name}](./intents/${example.name}.yaml) | [revision](../../${example.revision}) and [package base](../../${example.packageBase}) | ${example.reason} |`);
+      o.push(`| ${example.component} | \`${example.base}\` | [${example.name}](./intents/${example.name}.yaml) | [release-objects.yaml](../../${example.renderedObjects}) | [revision](../../${example.revision}) and [package base](../../${example.packageBase}) | ${example.reason} |`);
     }
     o.push("");
   }
@@ -383,8 +402,9 @@ function renderVariantExamples(intents) {
         ...item,
         component: `${intent.spec.chart.name} ${intent.spec.chart.version}`,
         base: intent.spec.baseVariant,
-        revision: intent.spec.renderInputs.revision,
-        packageBase: intent.spec.renderInputs.packageBase,
+        renderedObjects: intent.spec.renderOutput.renderedObjects,
+        revision: intent.spec.renderOutput.revision,
+        packageBase: intent.spec.renderOutput.packageBase,
       };
     })
     .filter(Boolean);
@@ -400,7 +420,7 @@ A \`HelmRenderIntent\` is a generated config object for one real base variant in
 ## What It Claims
 
 - The row is a real base variant, not a candidate row.
-- The chart, version, recipe, source lock, variant file, rendered revision, and package base are named.
+- The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
 - Lifecycle routes and target-prerequisite actions are attached when committed data exists.
 

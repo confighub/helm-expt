@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
+    revision: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+    packageBase: "packages/nats/surveyor/0.20.9/bases/default-reviewed"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -89,6 +94,7 @@ spec:
       - "base variant: default-reviewed"
       - "render intent: data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
       - "rendered revision: recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
       - "package base: packages/nats/surveyor/0.20.9/bases/default-reviewed"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

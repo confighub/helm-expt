@@ -479,7 +479,9 @@ em{font-style:italic;color:var(--ink);}
 <main>
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
-  <pre><code># plain Helm, one step · prometheus → monitoring
+  <p>The <code>--base default</code> choice is a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
+  <p>In the catalog, the full rendered YAML output is always a real file. For this Prometheus example, open <a href="../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. Then use the chart page and render intent to see the Helm inputs, checks, and any route decisions for hooks, CRDs, setup jobs, or target prerequisites.</p>
+  <pre><code># plain Helm — one step · prometheus → monitoring
 $ helm install prom prometheus-community/prometheus --version 29.8.0 \
     -n monitoring --create-namespace
 
@@ -499,8 +501,9 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at a package: a chart we've already reviewed and rendered, kept in the public catalog. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p></div>
 
-  <h2>2 · Change it after install, and it stays</h2>
-  <p>Once it's running you'll want to tweak something: more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <h2>2 · Change it after install — and it stays</h2>
+  <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#presets">chart preset</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
   <div class="two">
     <div class="box">
       <h3>Free: your settings stay</h3>

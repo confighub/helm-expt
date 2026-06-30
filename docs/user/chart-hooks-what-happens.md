@@ -2,20 +2,44 @@
 
 **UNOFFICIAL/EXPERIMENTAL.**
 
-Short answer: the catalog renders your chart's objects **without running its Helm
-hooks**, and records — for each hook or hook-like behavior — a *route*: where it
-goes, who runs it, and what evidence exists. A route being **known** is not the
-same as it being **run for you**. Today nothing is executed automatically; the
-catalog makes the plan legible and checkable, for you and for an agent.
+Short answer: the catalog renders your chart's objects **without running its
+Helm hooks**. Then, for each chart, it records what still has to happen.
+
+That may be a setup step, a CRD ownership choice, a GitOps action where evidence
+exists, a target-specific decision, a blocker, or a refusal. The answer is
+chart-specific because Helm hooks are chart-specific.
+
+A recorded route is not the same as automatic execution. Today nothing in the
+public catalog executes hooks automatically. The value is that the work is
+named, checked, and attached to the preset instead of being hidden inside Helm.
+
+## The Practical Choices
+
+For a supported chart preset, the catalog should say which of these choices
+applies:
+
+| Choice | Meaning |
+| --- | --- |
+| Keep it in the preset | The rendered objects and checks are enough for this supported path. |
+| Split the preset | For example, provide both `default` and `no-crds` so users can choose who owns CRDs. |
+| Run a setup step | The chart needs work before or after apply, and the step has evidence for this chart. |
+| Use a GitOps action | Argo, Flux, or another delivery tool can run the work where we have tested that path. |
+| Require a target fact | The user must provide a Secret, StorageClass, hosted zone, CRD owner, cloud account, or similar input. |
+| Block or refuse | The catalog does not claim the path works until the missing evidence or unsafe behavior is resolved. |
+
+These choices are how the catalog handles most real cases. It does not need one
+generic hook mechanism that treats every chart the same way. It needs accurate
+chart-specific answers, recorded inputs, generated output, and receipts where
+support is claimed.
 
 ## What a route tells you
 
-- **Where it goes** — a lifecycle phase: `pre-render`, `preflight`, `pre-apply`,
+- **Where it goes** - a lifecycle phase: `pre-render`, `preflight`, `pre-apply`,
   `post-apply`, `observe`, or `refuse`.
-- **Who runs it** — you, your cluster/controller, or (not yet) the product.
-- **Whether it's automatic** — `automatic` stays `false` until the product runs
+- **Who runs it** - you, your cluster/controller, or (not yet) the product.
+- **Whether it's automatic** - `automatic` stays `false` until the product runs
   the route and a receipt proves it. So far it is `false` for every route.
-- **What's needed next** — the target facts to supply, and the evidence required
+- **What's needed next** - the target facts to supply, and the evidence required
   before the route can be called supported.
 
 Each behavior carries a disposition: `observed` (route plus a live receipt),
@@ -32,16 +56,20 @@ each chart's routes, disposition, `automatic: false`, and whether a skill applie
 [data/per-chart-hooks/](../../data/per-chart-hooks/summary.md) (colored cards in
 `by-chart.html`).
 
-## What you actually do
+## What You Actually Do
 
-1. **Read the chart's routes.** If a behavior is `observed`, it has a receipt
-   for the supported scope. If it is `routed`, `blocked`, or `per-target`, the
-   route is named but you (or your GitOps controller) set it up — the catalog
-   tells you the phase, the action kind, and the facts to supply.
-2. **Supply the required target facts** (Secrets, CRDs, storage, and so on).
-3. **Run the named action** (a preflight job, a CRD apply, a post-apply check).
-   The catalog gives a *placeholder* command, not a verified one.
-4. The behavior becomes `observed` for your scope once you capture a receipt.
+1. **Choose the chart preset.** Start from the chart page, not a generated
+   package folder.
+2. **Read the chart extras.** Look for hooks, CRDs, setup jobs, webhooks,
+   generated Secrets, and target facts.
+3. **Check the disposition.** `observed` has a receipt for the supported scope.
+   `routed`, `blocked`, or `per-target` means the work is named but still needs
+   setup, target input, or more evidence.
+4. **Supply the required target facts** such as Secrets, CRDs, storage, hosted
+   zones, or cloud accounts.
+5. **Run only the actions that are supported for that chart and target.** A
+   placeholder command is not a support claim.
+6. The behavior becomes `observed` for your scope once there is a receipt.
 
 ## Worked examples
 
@@ -74,10 +102,12 @@ exactly that, with the blocker and the evidence required to advance.
 ## The honest boundary
 
 A known route is not an executed one. `automatic` is `false` for every route
-today. The value now is **legibility**: you — or an agent — can see where each
-hidden behavior goes and what it needs, instead of reverse-engineering Helm.
-Making the product *execute* observed/routed steps is separate, continuing work
-([#688](https://github.com/confighub/helm-expt/issues/688)).
+today. The value now is clear chart-specific guidance: you, a reviewer, or an
+agent can see where each hidden behavior goes and what it needs, instead of
+reverse-engineering Helm during an install.
+
+Making the product execute observed or routed steps is separate, continuing
+work ([#688](https://github.com/confighub/helm-expt/issues/688)).
 
 ## See also
 

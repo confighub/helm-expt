@@ -1,11 +1,13 @@
-# Choosing Base Variants, Derived Variants, And Delivery Changes
+# Choosing Presets, Derived Variants, And Delivery Changes
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This document explains which changes belong in a `cub installer` base variant,
-which changes belong in a derived ConfigHub variant, and which checks or
-bindings must be completed before publishing an OCI artifact for Kubernetes
-delivery.
+This document explains where a Helm change belongs before delivery.
+
+The public word is **preset**. The repo word is **base variant**. Use a preset
+when the change asks Helm to render a different shape. Use a derived ConfigHub
+variant when the rendered shape is already right and you are changing the
+operating context after render.
 
 For the short guide to creating variants through human, AI assistant, and bulk
 flows, see
@@ -17,13 +19,17 @@ Before delivery, ask three questions in order.
 
 ### 1. Does This Change Helm Render Inputs Or Object Shape?
 
-If yes, use a `cub installer` base variant.
+If yes, use a catalog preset / `cub installer` base variant.
 
-Base variants are render-time install shapes. They are created from Helm chart
+Presets are render-time install shapes. They are created from Helm chart
 inputs, values, overlays, capability profiles, target facts, generated facts,
 and lifecycle policy. They produce a new reviewed rendered object set.
 
-Use a base variant for:
+The catalog does not claim to support every values combination. It supports
+useful chart-specific presets and records the values, generated output, and
+evidence for each one.
+
+Use a preset for:
 
 - enabling or disabling chart components;
 - changing storage, ingress, TLS, RBAC, CRDs, webhooks, args, env, object count,
@@ -54,7 +60,7 @@ prometheus/server-only-ephemeral
 ```
 
 `server-only-ephemeral` disables bundled components and persistence. Those
-objects disappear from the render, so it is a base variant.
+objects disappear from the render, so it is a preset/base variant.
 
 ### 2. Does This Refine A Reviewed Object Set After Render?
 
@@ -108,7 +114,7 @@ be captured before the artifact is published or applied.
 
 Before OCI delivery, settle:
 
-- selected base variant;
+- selected preset/base variant;
 - any derived ConfigHub variant that changes target, fields, facts, labels,
   gates, links, checks, or delivery policy for this deployment;
 - effective values and overlay digests;
@@ -132,12 +138,12 @@ controller in the target cluster.
 
 | User request | Route | Why |
 | --- | --- | --- |
-| "Use this values file." | Base variant unless proven to fill already-rendered fields only. | Values commonly change Helm template branches, object shape, or object count. |
-| "Disable Alertmanager in Prometheus." | Base variant. | Object set changes. |
+| "Use this values file." | Preset/base variant unless proven to fill already-rendered fields only. | Values commonly change Helm template branches, object shape, or object count. |
+| "Disable Alertmanager in Prometheus." | Preset/base variant. | Object set changes. |
 | "Promote this reviewed Prometheus install to prod-us-east." | Derived ConfigHub variant. | The install shape stays the same; production fields, facts, gates, links, and policy are reviewed after clone. |
-| "Use an existing Redis Secret." | Base variant if Secret mode changes object shape; derived variant only when the base already exposes the reference. | Secret material stays outside public proof, but object references must be explicit. |
+| "Use an existing Redis Secret." | Preset/base variant if Secret mode changes object shape; derived variant only when the base already exposes the reference. | Secret material stays outside public proof, but object references must be explicit. |
 | "Change namespace, target, environment, or region labels." | Derived ConfigHub variant. | These can be cloned, filled, linked, checked, and receipted without rerendering Helm when the base exposes the right fields. |
-| "Add a Kustomize patch that changes a Deployment field." | Usually base variant or approved recipe overlay; derived only for a narrow approved post-render field. | Broad patches belong in the reviewed rendered artifact; narrow fills need MutationSources and receipts. |
+| "Add a Kustomize patch that changes a Deployment field." | Usually preset/base variant or approved recipe overlay; derived only for a narrow approved post-render field. | Broad patches belong in the reviewed rendered artifact; narrow fills need MutationSources and receipts. |
 | "Set approval gates, target facts, and observation freshness." | Derived ConfigHub variant before delivery. | Delivery and operation policy. |
 | "Run a Helm post-install hook." | Lifecycle policy plus hook/lifecycle receipt. | Hook execution depends on the target cluster. |
 | "Point Argo CD or Flux at the artifact." | Delivery configuration. | The component object set is already published; GitOps consumes it. |
@@ -149,7 +155,7 @@ object set. Do not rely on an untracked GitOps patch, manual cluster edit, or
 post-render script to make it correct after publication.
 
 If a change requires Helm to render different objects, send it back to the
-`cub installer` base path and publish a new artifact. If a change is an
+`cub installer` preset/base path and publish a new artifact. If a change is an
 approved post-render refinement of the reviewed object set, make it a derived
 ConfigHub variant and publish or apply that reviewed variant.
 
@@ -158,8 +164,7 @@ ConfigHub variant and publish or apply that reviewed variant.
 The product should explain the route plainly:
 
 ```text
-This changes Helm render inputs or object shape, so it needs a new installer
-base.
+This changes Helm render inputs or object shape, so it needs a new chart preset.
 ```
 
 or:

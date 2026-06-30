@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    revision: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"
+    packageBase: "packages/traefik/traefik/40.2.0/bases/no-crds"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: no-crds"
       - "render intent: data/helm-render-intents/intents/traefik-traefik-40-2-0-no-crds.yaml"
       - "rendered revision: recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
       - "package base: packages/traefik/traefik/40.2.0/bases/no-crds"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

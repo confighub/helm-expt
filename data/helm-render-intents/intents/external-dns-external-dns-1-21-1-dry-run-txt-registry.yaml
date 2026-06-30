@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/object-inventory.yaml"
+    revision: "recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
+    packageBase: "packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: dry-run-txt-registry"
       - "render intent: data/helm-render-intents/intents/external-dns-external-dns-1-21-1-dry-run-txt-registry.yaml"
       - "rendered revision: recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/rendered/release-objects.yaml"
       - "package base: packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

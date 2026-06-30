@@ -30,6 +30,11 @@ spec:
         []
       kubeVersion: "1.30.0"
     hookPolicy: "no-hooks"
+  renderOutput:
+    renderedObjects: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/object-inventory.yaml"
+    revision: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+    packageBase: "packages/jetstack/trust-manager/v0.22.1/bases/default"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -66,6 +71,7 @@ spec:
       - "base variant: default"
       - "render intent: data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml"
       - "rendered revision: recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+      - "full rendered YAML: recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
       - "package base: packages/jetstack/trust-manager/v0.22.1/bases/default"
       - "ConfigHub Units: created when the package is uploaded"
       - "managed variants: created after upload with cub variant create/promote"

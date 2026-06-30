@@ -1,49 +1,73 @@
-# GitOps adopter guide (Argo, Flux, and the one OCI bundle)
+# GitOps Adopter Guide
 
-**UNOFFICIAL/EXPERIMENTAL.** For teams already running Argo CD or Flux: what changes — and
-what doesn't — when you deliver through ConfigHub's OCI bundle.
+**UNOFFICIAL/EXPERIMENTAL.**
+
+For teams already running Argo CD or Flux: what changes and what stays the same
+when ConfigHub publishes the reviewed objects as an OCI bundle.
 
 ## What stays the same
 
-You keep your controller. Argo stays Argo; Flux stays Flux. They pull and reconcile exactly
-as they do today. **No new runtime in the apply path.**
+You keep your controller. Argo stays Argo. Flux stays Flux. They pull and
+reconcile as they do today.
 
-## What changes — the source
+ConfigHub is not asking you to replace your GitOps controller. It changes the
+source that the controller reads.
 
-Instead of pointing the controller at a git repo of Helm values (re-rendered downstream,
-with drift between tools), you point it at **one OCI bundle** ConfigHub publishes from
-reviewed Units. Every controller pulls the **same bytes** — no per-tool re-render.
-([cub-deployment-path](cub-deployment-path.md))
+## What changes: the source
+
+Instead of pointing the controller at a git repo of Helm values that each tool
+re-renders, you point it at **one OCI bundle** published from reviewed ConfigHub
+Units. Every controller pulls the same generated objects. There is no per-tool
+Helm re-render in the GitOps controller path.
+
+See [cub-deployment-path](cub-deployment-path.md).
 
 ## Argo CD
 
-An `Application` whose `source.repoURL` is the OCI URL (`oci://.../oci`), path `./<space>`.
-Synced / Healthy as usual. **Proven** end-to-end (render → ConfigHub → OCI → Argo → runtime).
+An Argo `Application` can point at the OCI URL and a path inside the bundle.
+Argo still reports sync and health as usual. The catalog records which
+chart/preset rows have evidence for the render, ConfigHub upload, OCI handoff,
+Argo sync, and live result.
 
 ## Flux
 
-An `OCIRepository` at the same URL + a `Kustomization`. Same bundle, same credentials (the
-copied secret). **Proven** — committed receipt (`runs/oci-hook-delivery-proof/receipt.yaml`):
-Flux pulled the same OCI bundle and ran the routed hook.
+Flux can use an `OCIRepository` plus a `Kustomization` for the same bundle. Flux
+has its own Helm path when you use Flux Helm resources. The ConfigHub OCI path
+is different: Flux pulls generated objects from the bundle.
+
+Any extra work around the chart, such as hooks or setup jobs, still needs a
+documented action, check, target fact, blocker, or refusal. Do not assume Flux
+will automatically recreate Helm hook behavior in this path.
 
 ## No controller (cub-direct)
 
-`oras` / `kubectl` can pull and apply the same bundle — it isn't Argo/Flux-specific. Handy
-for a one-shot apply or a CI step. **Proven** — same receipt: `oras pull` of the same
-artifact + `kubectl apply` ran the routed hook with no controller.
+`oras` and `kubectl` can pull and apply the same generated bundle when you do
+not want a controller. This is useful for a one-shot apply or a CI step, but it
+also means you must be more explicit about ordering, pruning, CRDs, and setup
+work.
 
 ## vs. raw Helm-through-Argo
 
-Argo's native Helm support re-renders the chart *inside* Argo, with hooks as Argo
-PreSync/PostSync. The cub path renders **once** (proven parity) and routes hooks
-**explicitly** — so what Argo applies is reviewed config-as-data, and hooks aren't silent
-sync-phase surprises. ([chart-hooks-what-happens](chart-hooks-what-happens.md))
+Argo's native Helm support re-renders the chart inside Argo. The ConfigHub path
+renders first, records the inputs, and sends the reviewed objects to GitOps.
+That gives you one clear review point before delivery.
+
+This does not make every Helm hook automatic. Hooks and hook-like work are
+handled per chart: observed, routed, target-specific, blocked, or refused. See
+[chart-hooks-what-happens](chart-hooks-what-happens.md).
 
 ## Hooks under GitOps
 
-A Helm hook becomes an **explicit route**, not an inherited Argo/Flux hook. You can still
-automate it — wire your own PostSync/test step — but **knowingly**, with a receipt.
-([pathway-route-hooks-transparently](pathway-route-hooks-transparently.md))
+A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook.
+For one chart the right answer may be a preflight check. For another it may be
+an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The
+catalog should say which answer applies and what evidence exists.
 
-→ deeper: [how-it-works](how-it-works.md) · [cub-deployment-path](cub-deployment-path.md) ·
-[chart-hooks-what-happens](chart-hooks-what-happens.md) · [doctrine](../../tests/doctrine.md)
+See [pathway-route-hooks-transparently](pathway-route-hooks-transparently.md).
+
+## See Also
+
+- [How It Works](how-it-works.md)
+- [Deployment Path](cub-deployment-path.md)
+- [What Happens To Chart Hooks](chart-hooks-what-happens.md)
+- [Doctrine](../../tests/doctrine.md)
