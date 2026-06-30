@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConfigHub Helm Ops — alternative draft</title>
+<link rel="stylesheet" href="./style.css">
+<style>
+.alt-banner{background:#0b6bcb;color:#fff;text-align:center;padding:8px 12px;font-weight:700;font-size:.9rem;}
+.cap-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0 8px;}
+.cap{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);}
+.cap h3{margin:0 0 6px;font-size:1.06rem;}
+.cap .verb{color:var(--accent);}
+.cap .tag{font-size:.74rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);margin-left:6px;}
+.cap p{margin:0;font-size:.95rem;}
+em{font-style:italic;color:var(--ink);}
+@media(max-width:760px){.cap-grid{grid-template-columns:1fr;}.journey-flow{grid-template-columns:1fr!important;}.journey-arrow{display:none;}}
+</style>
+</head>
+<body>
+<div class="alt-banner">EXPERIMENTAL — redesign preview. The live pages are unchanged.</div>
+<div class="site-chrome">
+  <div class="experiment-banner">UNOFFICIAL / EXPERIMENTAL PREVIEW</div>
+  <nav class="topbar">
+    <a class="brand" href="./index.html">ConfigHub Helm Ops</a>
+    <span class="navlinks">
+      <a href="./try.html">Get Started</a>
+      <a href="./how-it-works.html">How it works</a>
+      <a href="https://confighub.github.io/helm-expt/site/charts/index.html">Catalog</a>
+      <a href="https://confighub.github.io/helm-expt/site/docs.html">Docs</a>
+    </span>
+  </nav>
+</div>
+<header class="hero">
+  <div class="hero-copy">
+    <h1>Helm Ops made simple</h1>
+    <p class="lead">Helm installs charts well. Changing them safely is the hard part: every setting has to go through values up front, and the next upgrade overwrites whatever you edited. We fix that — and you keep your Helm charts and your GitOps.</p>
+    <div class="hero-actions">
+      <a class="button primary" href="./try.html">Get started free</a>
+      <a class="button secondary" href="./how-it-works.html">How it works</a>
+    </div>
+  </div>
+  <div class="cap-grid">
+    <div class="cap"><h3><span class="verb">Preview</span><span class="tag">free · no account</span></h3><p>See exactly what a chart installs — the precise objects, captured and hash-pinned, plus every hook, CRD, and footgun — before it touches your cluster.</p></div>
+    <div class="cap"><h3><span class="verb">Change</span><span class="tag">the part Helm can't</span></h3><p>Edit anything after you install — even a setting the chart never let you set — and the next upgrade keeps it. With Helm, an upgrade wipes edits like that. By hand or with an AI agent.</p></div>
+    <div class="cap"><h3><span class="verb">Operate</span><span class="tag">fleet</span></h3><p>Run many customized installs as one fleet — variants, promotions, dev/staging/prod — without re-templating each one.</p></div>
+  </div>
+  <div class="home-terminal">
+    <pre><code># install a reviewed chart — no account
+$ cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --namespace app
+
+# change a field the chart never exposed — by hand or with an AI agent
+$ edit app/out/manifests/statefulset-redis-master.yaml
+
+# upgrade to a newer chart version — your edit is still there
+$ cub installer setup --pull packages/bitnami/redis/25.5.4 --merge-external-source</code></pre>
+  </div>
+  <p class="closing-line">Open source. Start with a couple of charts, no account; add ConfigHub when one chart becomes many.</p>
+</header>
+<main>
+  <h2>How we help</h2>
+  <p>Try it first on a couple of charts, add GitOps if you like, and bring in ConfigHub when one chart becomes many. Preview and install are genuinely free — no account.</p>
+  <div class="journey-flow">
+    <a class="journey-step" href="./try.html"><span class="kicker">Preview · free</span><h3>Pre-flight checks</h3><p>Render a chart, read the exact objects, hooks, CRDs, and footguns, and catch what you'd change — before anything reaches the cluster.</p><span class="go">Get started →</span></a>
+    <span class="journey-arrow">→</span>
+    <a class="journey-step" href="https://confighub.github.io/helm-expt/site/charts/index.html"><span class="kicker">Preview · free</span><h3>Helm Ops Catalog</h3><p>The top 100 charts with reviewed renders, named variants, and a per-chart map of hooks, CRDs, setup jobs, and known risks.</p><span class="go">Open the catalog →</span></a>
+    <span class="journey-arrow">→</span>
+    <a class="journey-step" href="https://confighub.github.io/helm-expt/site/variants.html"><span class="kicker">Change · account</span><h3>Change &amp; keep</h3><p>Edit the rendered config — any field — and keep it through upgrades. Make versions for dev, staging, prod, per region from one base.</p><span class="go">What are variants? →</span></a>
+    <span class="journey-arrow">→</span>
+    <a class="journey-step" href="https://confighub.github.io/helm-expt/site/journey.html"><span class="kicker">Operate · account</span><h3>Run the fleet</h3><p>Bring your own apps alongside catalog charts; promote, stage, and release across environments with review and receipts.</p><span class="go">Apps &amp; releases →</span></a>
+  </div>
+  <h2>Why this beats "just use Helm"</h2>
+  <p>With Helm, you set every field through the template up front, and the next upgrade wipes anything you changed by hand. We render the chart once, let you change anything afterward — even a field the chart never let you set — and put your change back on every upgrade. That's the one thing Helm can't do. <a href="./how-it-works.html">See the four stages, F1 to F4.</a></p>
+  <p class="quiet-line">And we tell you what Helm won't: every chart page lists the hooks, CRDs, prerequisites, and an honest pass / watch / blocked status — including where you'd still go back to Helm today. The honesty is the point.</p>
+</main>
+<footer>
+  <p class="quiet-line">Alternative draft for review. Existing homepage unchanged. UNOFFICIAL / EXPERIMENTAL.</p>
+</footer>
+</body>
+</html>
