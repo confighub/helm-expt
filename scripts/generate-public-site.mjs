@@ -530,11 +530,11 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm is a fine packaging system, but using it in app delivery operations can be unpredictable. We are here to help you fix this. This site introduces new AI-friendly Helm tools, and our Catalog of standard Helm charts with best practice customisations. We use ConfigHub for advanced functions and you can get started without using it at all.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. Open source, and you can start without an account.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Preview your installs</p>
-        <p>Use APIs to fix config values in broken deployments</p>
-        <p>Manage highly user-customised application fleets without upgrade pains</p>
+        <p>Preview your installs, with every hook, CRD, prerequisite, and footgun mapped</p>
+        <p>Change any field after install, and keep it through upgrades</p>
+        <p>Run many customised installs as one fleet, without the upgrade pain</p>
       </div>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
