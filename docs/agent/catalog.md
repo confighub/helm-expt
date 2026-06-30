@@ -2,8 +2,8 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-The first AX pass does not redesign the catalog. Treat the catalog and chart
-pages as evidence to read, not as pages to rewrite.
+This guide does not redesign the catalog. Treat the catalog and chart pages as
+evidence to read, not as pages to rewrite.
 
 ## What Not To Touch In This Pass
 
@@ -26,7 +26,7 @@ separate catalog task.
 | Can I use this chart today? | `data/chart-use-guide/summary.md` |
 | Where are this chart's evidence files? | `data/chart-evidence-router/summary.md` and `data/chart-evidence-router/router.csv` |
 | What is the broad row status? | `data/master-catalog-matrix/matrix.html` or `data/master-catalog-matrix/matrix.csv` |
-| What compact render config exists for a real base? | `data/helm-render-intents/summary.md` and `data/helm-render-intents/intents.csv` |
+| What render-intent file exists for a real base? | `data/helm-render-intents/summary.md` and `data/helm-render-intents/intents.csv` |
 | Which claims are backed or refused? | `data/claims-register/summary.md` |
 | What known gaps affect the row? | `data/model-gap-workdown/summary.md`, `data/target-prerequisite-workdown/summary.md`, and `data/live-parity-decisions/summary.md` |
 
@@ -42,7 +42,7 @@ Then open the smallest matching source:
 
 - chart-use row for the short recommendation;
 - evidence-router row for paths to receipts and decisions;
-- render-intent row for the compact base config;
+- render-intent row for the base config;
 - matrix row for lane status.
 
 ## Read A Render Intent
@@ -55,10 +55,10 @@ rg -n "bitnami/redis|redis" data/helm-render-intents/intents.csv
 
 Then open the matching YAML under `data/helm-render-intents/intents/`.
 
-A render intent is not a production promise. It records the chart version,
-base, values profile, namespace, release name, capability profile, source lock,
-known lifecycle routes, target prerequisites, and evidence links for a real
-base row.
+A render intent records the chart version, base, values profile, namespace,
+release name, capability profile, source lock, lifecycle routes, target
+prerequisites, and evidence links for a real base row. It is not a production
+promise.
 
 ## How To Report Catalog Findings
 
@@ -72,4 +72,3 @@ When summarizing a chart, include:
 - next action and source file.
 
 Do not claim more than the source row claims.
-

@@ -1842,7 +1842,7 @@ function docsHtml(catalog) {
     ["GitOps adopter guide", "How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
     ["Security end to end", "Secrets, credentials, scan points, and what should never be printed or copied casually.", "../docs/user/security-end-to-end.md"],
     ["Day-2 upgrade and rollback", "How to review and rehearse an upgrade, then observe what happened.", "../docs/user/day2-upgrade-rollback.md"],
-    ["Helm render intents", "The compact record for a catalog base: chart version, values, namespace, release name, and known extras.", "../docs/user/helm-render-intents.md"],
+    ["Helm render intents", "The record for a catalog base: chart version, values, namespace, release name, lifecycle routes, target prerequisites, and evidence links.", "../docs/user/helm-render-intents.md"],
     ["Coming from Helm", "How common Helm flags map to cub inputs.", "../docs/user/helm-to-cub-migration.md"],
     ["AI-assisted changes", "Let AI suggest a change, then review exact files, diffs, checks, and approval records.", "../docs/user/ai-assisted-helm-changes.md"],
     ["Broken chart triage", "Sort a failure into render, target, lifecycle, runtime, or unsupported behavior.", "../docs/user/broken-chart-triage.md"],
@@ -1891,7 +1891,7 @@ function docsHtml(catalog) {
 
     <section aria-labelledby="agent-notes">
       <h2 id="agent-notes">Working In This Repository?</h2>
-      <p>If you are an AI agent or maintainer changing <code>helm-expt</code>, use the repo notes instead of the public site. They list task recipes, recovery steps, verification commands, catalog read-only rules, and the doctrine for keeping human and agent docs aligned.</p>
+      <p>If you are an AI agent or maintainer changing <code>helm-expt</code>, use the repo notes instead of the public site. They list repo commands, recovery steps, verification commands, catalog read-only rules, and the human/agent docs rule.</p>
       <p><a href="../docs/agent/README.md">Open Agent And Operator Notes</a></p>
     </section>
 

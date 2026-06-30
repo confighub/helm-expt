@@ -2,8 +2,9 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This audit records the AX decision for `helm-expt`: keep the public website and
-human docs readable, and put agent/operator instructions in repo Markdown.
+This audit records the documentation decision for `helm-expt`: keep the public
+website and human docs readable, and put agent/operator instructions in repo
+Markdown.
 
 ## Scope
 
@@ -30,20 +31,19 @@ Out of scope for this pass:
 
 ## Findings
 
-### Human surfaces should stay human
+### Keep Human Pages For Humans
 
-The public website and `docs/user` pages are easier to improve when they tell a
-human story. Adding command-routing blocks for agents would make those pages
-noisier and would repeat material already present in `tests/npm-scripts.md` and
-the generated data index.
+The public website and `docs/user` pages should explain the product and the
+user tasks. Agent command routing belongs elsewhere because it repeats material
+already present in `tests/npm-scripts.md` and the generated data index.
 
 Decision: keep detailed agent instructions out of website pages and do not add
-agent sections to the catalog. The website may include a quiet pointer from
-Docs/FAQ to `docs/agent/README.md`.
+agent sections to the catalog. The website may include a Docs/FAQ link to
+`docs/agent/README.md`.
 
 ### Agents need a deterministic start point
 
-The repo already has useful material, but agents have to discover it from many
+The repo already has the needed material, but it is spread across several
 places:
 
 - `docs/README.md` maps manual docs;
@@ -52,22 +52,22 @@ places:
 - `docs/user/verification.md` explains proof concepts;
 - `knowledge/wiki/agent-operating-guide.md` gives older high-level rules.
 
-Decision: add `docs/agent/README.md` as the stable start page and keep links to
-the authoritative human and generated sources.
+Decision: add `docs/agent/README.md` as the start page and link from there to
+the human docs, generated data, and command lists.
 
 ### Generated evidence is too large for cold starts
 
 `data/`, `recipes/`, `packages/`, and `site/charts/` are large. Agents that
 open them directly can lose the thread and overclaim from one row.
 
-Decision: add a read-only catalog guide that tells agents which generated
-front doors to use first and what not to edit in the first AX pass.
+Decision: add a read-only catalog guide that tells agents which generated files
+to read first and which files not to edit.
 
 ### Verifier choice is the main operational risk
 
-The repo has many npm scripts. The biggest AX risk is running too broad a gate,
-running live evidence accidentally, or treating a product command as a proof
-command.
+The repo has many npm scripts. The main operational risks are running a broad
+gate when a narrow verifier would do, running live evidence by accident, or
+treating a product command as a proof command.
 
 Decision: add task recipes, recovery rules, and a verification command map
 under `docs/agent/`.
@@ -93,14 +93,13 @@ in `docs/README.md`.
 - Added this audit.
 - Added an agent-experience worklog.
 - Updated the Markdown verifier to allow `docs/agent`.
-- Linked the agent docs from repo Markdown and from a quiet Docs/FAQ website
-  pointer.
+- Linked the agent docs from repo Markdown and from Docs/FAQ on the website.
 
 ## Future Work
 
 - Improve common verifier failure messages so each one prints the recovery
   command directly.
-- Add an AX lint check for ambiguous public claims and stale command examples.
+- Add a docs lint check for ambiguous public claims and stale command examples.
 - Keep recording real agent mistakes in the worklog.
 - Revisit catalog AX later as a separate project if agents still struggle after
   the repo Markdown layer is in place.

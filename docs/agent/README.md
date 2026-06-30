@@ -2,15 +2,14 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This directory is the operating manual for agents and maintainers working in
-this repository. It is deliberately separate from the public website. The site
-and `docs/user` stay human-readable; this directory gives command recipes,
-recovery steps, and repo-specific vocabulary.
+This directory tells agents and maintainers how to work in this repository. It
+is separate from the public website. The site and `docs/user` explain the
+product; this directory lists repo commands, recovery steps, and repo terms.
 
 ## Doctrine
 
-- Keep the public website human-first.
-- Keep website docs narrative and useful to people.
+- Keep the public website written for people evaluating or using the product.
+- Keep website docs focused on user tasks and product behavior.
 - Put agent and operator instructions in repo Markdown, mainly here.
 - Do not change catalog pages or generated chart pages as part of the AX pass.
 - Treat catalog data as evidence. If a row is `watch`, `blocked`, or `refused`,
@@ -26,10 +25,10 @@ recovery steps, and repo-specific vocabulary.
 | Recover from stale generated files, broken links, or failed checks. | [Recovery](./recovery.md) |
 | Decide which proof command matches a claim. | [Verification For Agents](./verification.md) |
 | Inspect catalog evidence without changing the catalog. | [Catalog Read-Only Guide](./catalog.md) |
-| Keep human and agent docs aligned without duplicating them. | [Human And Agent Documentation Doctrine](./human-agent-doctrine.md) |
+| Keep human and agent docs consistent without copying the same text. | [Human And Agent Documentation Doctrine](./human-agent-doctrine.md) |
 | Decode repo-specific terms. | [Terms](./terms.md) |
 
-## High-Signal Entry Points
+## Entry Points
 
 Use these before reading older planning prose:
 

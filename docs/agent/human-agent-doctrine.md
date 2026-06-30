@@ -3,7 +3,7 @@
 **UNOFFICIAL/EXPERIMENTAL**
 
 `helm-expt` has two documentation audiences. Human pages explain the product and
-the problem. Agent pages explain how to operate the repo without guessing.
+the problem. Agent pages explain which repo files and commands to use.
 
 The two layers must stay aligned, but they should not become copies of each
 other.
@@ -12,8 +12,8 @@ other.
 
 | Layer | Owns | Should not own |
 | --- | --- | --- |
-| Public website | Human story, product value, first routes, catalog browsing, proof signposts. | Long command recipes, repo recovery steps, internal maintenance rules. |
-| `docs/user` | Human-readable product and proof explanations. | Agent checklists or every generated-data path. |
+| Public website | Product value, first routes, catalog browsing, proof signposts. | Long command recipes, repo recovery steps, internal maintenance rules. |
+| `docs/user` | Product and proof explanations for technical users. | Agent checklists or every generated-data path. |
 | `docs/agent` | Task recipes, recovery steps, verifier choice, repo vocabulary, read-only catalog rules. | Marketing copy, broad product narrative, or new claims. |
 | `tests/npm-scripts.md` | Full npm command runbook. | Public-facing value story. |
 | `data/`, `recipes/`, `packages/` | Generated evidence and generated package docs. | Manual narrative edits. |
@@ -49,13 +49,13 @@ When an agent-facing page changes:
 | Recovery from failures | Human docs only when user-visible | `docs/agent/recovery.md` |
 | Catalog status | Public catalog and `data/README.md` | `docs/agent/catalog.md` |
 | Vocabulary | `docs/user/confighub-data-model.md` and `docs/user/helm-render-intents.md` | `docs/agent/terms.md` |
-| AX doctrine | Public site only links to it | this file and `docs/planning/agent-experience-audit.md` |
+| Human/agent split | Public site only links to it | this file and `docs/planning/agent-experience-audit.md` |
 
 ## Website Rule
 
-The website may direct agents and maintainers to `docs/agent/README.md`, but it
-should not become the agent manual. Keep that pointer quiet and place it in
-Docs/FAQ, not the top navigation.
+The website may link agents and maintainers to `docs/agent/README.md`, but it
+should not become the agent manual. Put the link in Docs/FAQ, not the top
+navigation.
 
 ## Review Checklist
 
@@ -66,4 +66,3 @@ Before committing a docs change, ask:
 - Did I add an agent instruction to a human page when a link would do?
 - Did I hand-edit generated evidence instead of the generator or source data?
 - Did I run the narrow verifier for the changed surface?
-

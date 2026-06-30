@@ -17,7 +17,7 @@ This is a compact glossary for agents. Human explanations live in
 | Base variant | A Helm-rendered shape. Use it when chart version, values, CRDs, storage, Secret strategy, components, or lifecycle behavior change the rendered objects. |
 | Render variant | The captured output for one base variant render: exact Kubernetes objects plus the `variant-revision` and package base that store them in this repo. |
 | Derived ConfigHub variant | A post-render ConfigHub version made from an uploaded base. Use it for environment, region, customer, target, gates, labels, and scoped file changes after render. |
-| Render intent | A compact generated object for one real base row: chart, version, base, render inputs, source lock, known extras, and evidence links. |
+| Render intent | A generated object for one real base row: chart, version, base, render inputs, source lock, lifecycle routes, target prerequisites, and evidence links. |
 | Unit | ConfigHub's versioned object record for desired Kubernetes configuration. |
 | Space | A ConfigHub container for Units. |
 | Target | The cluster or delivery destination where Units are applied or observed. |
