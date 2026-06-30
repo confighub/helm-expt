@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-apache-11.4.29
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29
+  package:
+    path: packages/bitnami/apache/11.4.29
+    sha256: 6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0
+  commands:
+    package: "cub installer package packages/bitnami/apache/11.4.29 -o <tmp>/bitnami-apache-11.4.29.tgz"
+    push: "cub installer push <tmp>/bitnami-apache-11.4.29.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --json"
+  outputs:
+    package: |
+      Bundled bitnami-apache@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Cn0bUk/bitnami-apache-11.4.29.tgz
+        files:  6
+        size:   2183 bytes
+        digest: sha256:6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29
+        manifest: sha256:00d1fe619e9dd8e6ba062ab02a3459c925451a39249e7f94f8088981bde81eb8
+        layer:    sha256:6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0 (2183 bytes, 6 files)
+    inspectJSONSHA256: f2b89319778e5602f9e5cca7f47c2726c3a5d7dd1b63ba96dc3473b8c6d71d46

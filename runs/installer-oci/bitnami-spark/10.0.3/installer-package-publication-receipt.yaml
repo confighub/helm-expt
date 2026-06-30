@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-spark-10.0.3
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3
+  package:
+    path: packages/bitnami/spark/10.0.3
+    sha256: d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353
+  commands:
+    package: "cub installer package packages/bitnami/spark/10.0.3 -o <tmp>/bitnami-spark-10.0.3.tgz"
+    push: "cub installer push <tmp>/bitnami-spark-10.0.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3 --json"
+  outputs:
+    package: |
+      Bundled bitnami-spark@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-9V3Zms/bitnami-spark-10.0.3.tgz
+        files:  8
+        size:   2612 bytes
+        digest: sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3
+        manifest: sha256:2810aff98a5b4b4e2f95a4c750da22d283b1534bf9e166e6207a5db940b70ac9
+        layer:    sha256:d046d56813f566163a2282f39a667dc1dd628d0bf97f9731228a9684ee8ba353 (2612 bytes, 8 files)
+    inspectJSONSHA256: fa01ed0b18899a9f4a6001b71730b8f6d0a4fe521ed3aa1d105f08a59fa661a2

@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: coredns-coredns-1.45.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2
+  package:
+    path: packages/coredns/coredns/1.45.2
+    sha256: 795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e
+  commands:
+    package: "cub installer package packages/coredns/coredns/1.45.2 -o <tmp>/coredns-coredns-1.45.2.tgz"
+    push: "cub installer push <tmp>/coredns-coredns-1.45.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2 --json"
+  outputs:
+    package: |
+      Bundled coredns-coredns@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-tnKtSk/coredns-coredns-1.45.2.tgz
+        files:  4
+        size:   1793 bytes
+        digest: sha256:795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2
+        manifest: sha256:6c7db8f14b174c03f96a64de8baaa5c49654c029eadb1f864ac235949a667290
+        layer:    sha256:795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e (1793 bytes, 4 files)
+    inspectJSONSHA256: 0e37f2b38c0f59823f3202a34d93631e9ade70aefdb70444ae335cf3416a5715

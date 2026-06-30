@@ -35,7 +35,7 @@ editing. Do not revert user work.
 Product commands do work for a user:
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default
 helm install ...
 kubectl apply ...
 ```

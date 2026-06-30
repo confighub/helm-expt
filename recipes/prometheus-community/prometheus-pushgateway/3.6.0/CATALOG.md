@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/prometheus-community/prometheus-pushgateway/3.6.0/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/prometheus-community/prometheus-pushgateway/3.6.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/prometheus-pushgateway/3.6.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0` |
 | Installer package source | [packages/prometheus-community/prometheus-pushgateway/3.6.0](../../../../packages/prometheus-community/prometheus-pushgateway/3.6.0) |
 | Installer package receipt | [recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/prometheus-pushgateway/3.6.0/artifact-index.yaml](artifact-index.yaml) |
@@ -78,7 +78,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

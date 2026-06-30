@@ -64,7 +64,7 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/apache/11.4.29"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/bitnami-apache:11.4.29"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29"
     installer: "packages/bitnami/apache/11.4.29/installer.yaml"
     receipt: "recipes/bitnami/apache/11.4.29/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "6839bbcec6efc88163ea9be5fd3497ed20b9085b78d3aef4b5f1047caa0036a0"
@@ -101,7 +101,7 @@ spec:
         default: true
         description: "bitnami/apache default variant rendered from bitnami/apache@11.4.29"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-apache:11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -163,7 +163,7 @@ spec:
         default: false
         description: "bitnami/apache legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/apache@11.4.29"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-apache:11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

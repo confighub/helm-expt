@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: argo-cd-argo-rollouts-2.40.9
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9
+  package:
+    path: packages/argo-cd/argo-rollouts/2.40.9
+    sha256: ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39
+  commands:
+    package: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o <tmp>/argo-cd-argo-rollouts-2.40.9.tgz"
+    push: "cub installer push <tmp>/argo-cd-argo-rollouts-2.40.9.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9 --json"
+  outputs:
+    package: |
+      Bundled argo-cd-argo-rollouts@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-8xNqb2/argo-cd-argo-rollouts-2.40.9.tgz
+        files:  6
+        size:   47712 bytes
+        digest: sha256:ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9
+        manifest: sha256:3c5ce38388c8ba364e305f9ecebbb9e605e37891cab52aafa4320bd86baf8b95
+        layer:    sha256:ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39 (47712 bytes, 6 files)
+    inspectJSONSHA256: d77d50f0335880ff357d527bbd3eae283657469f0997ce90ab4e7fc88c49b096

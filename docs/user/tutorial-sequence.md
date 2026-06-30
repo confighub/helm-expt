@@ -126,7 +126,7 @@ reuse the same work directory to reconcile the existing upload.
 
 ```sh
 cub installer setup \
-  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --non-interactive \
@@ -221,7 +221,7 @@ kubectl --context <your-context> -n redis create secret generic redis-existing-s
   --dry-run=client -o yaml | kubectl --context <your-context> apply -f -
 
 cub installer setup \
-  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base reuse-existing-secret \
   --work-dir .tmp/demo/redis-reuse-existing-secret \
   --non-interactive \
@@ -276,7 +276,7 @@ Run the server-only base:
 
 ```sh
 cub installer setup \
-  --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
   --base server-only-ephemeral \
   --work-dir .tmp/demo/prometheus-server-only \
   --non-interactive \
@@ -716,7 +716,7 @@ Upload or select the reviewed base first:
 
 ```sh
 cub installer setup \
-  --pull oci://ghcr.io/confighub/helm-expt/bitnami-nginx:24.0.2 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
   --base http-clusterip \
   --work-dir .tmp/demo/nginx-http \
   --non-interactive \

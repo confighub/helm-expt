@@ -61,7 +61,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/minio-operator/operator/7.1.1"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/minio-operator-operator:7.1.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1"
     installer: "packages/minio-operator/operator/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/operator/7.1.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c"
@@ -93,7 +93,7 @@ spec:
         default: true
         description: "minio-operator/operator default variant rendered from minio-operator/operator@7.1.1"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/minio-operator-operator:7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

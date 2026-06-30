@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: descheduler-descheduler-0.36.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0
+  package:
+    path: packages/descheduler/descheduler/0.36.0
+    sha256: ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490
+  commands:
+    package: "cub installer package packages/descheduler/descheduler/0.36.0 -o <tmp>/descheduler-descheduler-0.36.0.tgz"
+    push: "cub installer push <tmp>/descheduler-descheduler-0.36.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0 --json"
+  outputs:
+    package: |
+      Bundled descheduler-descheduler@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-SJkVdj/descheduler-descheduler-0.36.0.tgz
+        files:  4
+        size:   1865 bytes
+        digest: sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0
+        manifest: sha256:22b67a5f3fe2870e573cb9c6d42db3c8ed8eabb576b9ef37f66b3c67075137d6
+        layer:    sha256:ade98781bd54405308961ca0d1b29646d425e6e3624819cee5c095418ea30490 (1865 bytes, 4 files)
+    inspectJSONSHA256: d8714e77a5130a2d4c1e2287b926e417fd96a7be48a62e4058c0864e5a72e1ce

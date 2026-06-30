@@ -17,7 +17,7 @@ pullable, so a first run is fast and green).
 
 ```sh
 cub installer setup \
-  --pull oci://ghcr.io/confighub/helm-expt/sealed-secrets-sealed-secrets:2.18.6 \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6 \
   --base default \
   --work-dir .tmp/firstrun \
   --non-interactive \

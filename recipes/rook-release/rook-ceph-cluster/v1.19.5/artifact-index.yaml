@@ -62,7 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "d9d5ab0731d9a46eb5131128d2ee144f0982728a17fdf9776c6cac2e2238c99d"
@@ -144,7 +144,7 @@ spec:
         default: true
         description: "rook-release/rook-ceph-cluster default variant rendered from rook-release/rook-ceph-cluster@v1.19.5"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 27
         cubInstallObjectCountIncludingSupport: 28
         semanticObjectMatches: "27/27"

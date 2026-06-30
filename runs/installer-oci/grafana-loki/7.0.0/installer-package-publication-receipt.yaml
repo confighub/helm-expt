@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-loki-7.0.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0
+  package:
+    path: packages/grafana/loki/7.0.0
+    sha256: 811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126
+  commands:
+    package: "cub installer package packages/grafana/loki/7.0.0 -o <tmp>/grafana-loki-7.0.0.tgz"
+    push: "cub installer push <tmp>/grafana-loki-7.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --json"
+  outputs:
+    package: |
+      Bundled grafana-loki@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-zYEe7H/grafana-loki-7.0.0.tgz
+        files:  6
+        size:   12698 bytes
+        digest: sha256:811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0
+        manifest: sha256:5eeb2d625eb6c41397d47c9358b29a41f5b8d79e8dab76f9a8647197123fa773
+        layer:    sha256:811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126 (12698 bytes, 6 files)
+    inspectJSONSHA256: bee16fab3f832d795fd9246b5a6572ab1d8b1ab2140ea1169dbb7d1e2bd4a9dc

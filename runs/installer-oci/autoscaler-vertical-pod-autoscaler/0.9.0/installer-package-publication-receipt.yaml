@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: autoscaler-vertical-pod-autoscaler-0.9.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0
+  package:
+    path: packages/autoscaler/vertical-pod-autoscaler/0.9.0
+    sha256: 482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd
+  commands:
+    package: "cub installer package packages/autoscaler/vertical-pod-autoscaler/0.9.0 -o <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz"
+    push: "cub installer push <tmp>/autoscaler-vertical-pod-autoscaler-0.9.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --json"
+  outputs:
+    package: |
+      Bundled autoscaler-vertical-pod-autoscaler@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-KkafMj/autoscaler-vertical-pod-autoscaler-0.9.0.tgz
+        files:  7
+        size:   11311 bytes
+        digest: sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0
+        manifest: sha256:89a68f0ed8a4eb1a5567d5cc2d0396e1b7bd5501637e35abd1a4f08691c6fc44
+        layer:    sha256:482f2f7c7d96a783c3a09253269c8c82643e4f86f8bdc8ad47dd913ad24a2bdd (11311 bytes, 7 files)
+    inspectJSONSHA256: e8c08a6f212981314a3311f22804bd8c2ed1c486fe235883342e83ea1ad72e23

@@ -22,8 +22,8 @@ if (args.includes("--help")) {
 Publishes installer package source directories to their assigned OCI refs and
 writes runs/installer-oci/<slug>/<tag>/installer-package-publication-receipt.yaml.
 
-Requires registry credentials with package write permission, for example a GHCR
-token with write:packages for ghcr.io/confighub/helm-expt.
+Requires registry credentials with package write permission for the configured
+installer OCI registry.
 `);
   process.exit(0);
 }

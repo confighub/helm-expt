@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-contour-21.1.4
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
+  package:
+    path: packages/bitnami/contour/21.1.4
+    sha256: ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a
+  commands:
+    package: "cub installer package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21.1.4.tgz"
+    push: "cub installer push <tmp>/bitnami-contour-21.1.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --json"
+  outputs:
+    package: |
+      Bundled bitnami-contour@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-cDTXxV/bitnami-contour-21.1.4.tgz
+        files:  8
+        size:   157300 bytes
+        digest: sha256:ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
+        manifest: sha256:5012a38fa06db0ec75d5069cb6fd20514268a191be30031402a00fdc0e4ff137
+        layer:    sha256:ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a (157300 bytes, 8 files)
+    inspectJSONSHA256: 08a48b3b3b937d19ec865766691ba092bfee36dc671e47c9d86b8965b1b89254

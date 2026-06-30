@@ -8,7 +8,7 @@ That is why each chart version now has an installer package OCI ref.
 The user-facing command is:
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/<repo>-<chart>:<version> \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/<repo>-<chart>:<version> \
   --base <preset> \
   --work-dir ./out \
   --non-interactive
@@ -17,7 +17,7 @@ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/<repo>-<chart>:<ver
 For example:
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir ./out \
   --non-interactive \

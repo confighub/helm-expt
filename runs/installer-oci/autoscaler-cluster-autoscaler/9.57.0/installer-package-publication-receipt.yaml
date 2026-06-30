@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: autoscaler-cluster-autoscaler-9.57.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0
+  package:
+    path: packages/autoscaler/cluster-autoscaler/9.57.0
+    sha256: 3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2
+  commands:
+    package: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9.57.0.tgz"
+    push: "cub installer push <tmp>/autoscaler-cluster-autoscaler-9.57.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --json"
+  outputs:
+    package: |
+      Bundled autoscaler-cluster-autoscaler@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-2C4dOk/autoscaler-cluster-autoscaler-9.57.0.tgz
+        files:  7
+        size:   2918 bytes
+        digest: sha256:3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0
+        manifest: sha256:2024c48b8dc5e19932a91c11c36baf2c9f694b5200158a45f6f4b142063fe352
+        layer:    sha256:3f68f62ea9623093ef3b172b12cb7002cd444b2de0c9ed7e9c47e64b94cb06c2 (2918 bytes, 7 files)
+    inspectJSONSHA256: a8cfb9b3d04591595a7967ae6631f70bfe4cc8caabb8448f2711447a5692fee1

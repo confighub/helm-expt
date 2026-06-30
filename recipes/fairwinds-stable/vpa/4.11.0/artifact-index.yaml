@@ -66,7 +66,7 @@ spec:
     nextAction: "review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path"
   installerPackage:
     path: "packages/fairwinds-stable/vpa/4.11.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/fairwinds-stable-vpa:4.11.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
@@ -115,7 +115,7 @@ spec:
         default: true
         description: "fairwinds-stable/vpa default variant rendered from fairwinds-stable/vpa@4.11.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/fairwinds-stable-vpa:4.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 28
         cubInstallObjectCountIncludingSupport: 29
         semanticObjectMatches: "28/28"
@@ -208,7 +208,7 @@ spec:
         default: false
         description: "fairwinds-stable/vpa no-crds variant rendered from fairwinds-stable/vpa@4.11.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/fairwinds-stable-vpa:4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 26
         cubInstallObjectCountIncludingSupport: 27
         semanticObjectMatches: "26/26"

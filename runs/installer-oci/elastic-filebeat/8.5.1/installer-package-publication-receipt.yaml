@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: elastic-filebeat-8.5.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
+  package:
+    path: packages/elastic/filebeat/8.5.1
+    sha256: 32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c
+  commands:
+    package: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8.5.1.tgz"
+    push: "cub installer push <tmp>/elastic-filebeat-8.5.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1 --json"
+  outputs:
+    package: |
+      Bundled elastic-filebeat@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-izv6Ia/elastic-filebeat-8.5.1.tgz
+        files:  6
+        size:   2334 bytes
+        digest: sha256:32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
+        manifest: sha256:93197486cded19c0db04edf8c76615e7f66259e9722af2970e15b14b31860fc9
+        layer:    sha256:32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c (2334 bytes, 6 files)
+    inspectJSONSHA256: a622b847ba3534ef0d1a196fc343394b5a302dd459e61d7862476c8db287c9d7

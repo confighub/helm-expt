@@ -1,5 +1,6 @@
 export const DEFAULT_INSTALLER_OCI_REGISTRY =
-  process.env.HELM_EXPT_INSTALLER_OCI_REGISTRY || "oci://ghcr.io/confighub/helm-expt";
+  process.env.HELM_EXPT_INSTALLER_OCI_REGISTRY ||
+  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt";
 
 export function installerOciName(chart) {
   return String(chart || "")

@@ -64,7 +64,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/argo-cd/argocd-image-updater/1.2.2"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/argo-cd-argocd-image-updater:1.2.2"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2"
     installer: "packages/argo-cd/argocd-image-updater/1.2.2/installer.yaml"
     receipt: "recipes/argo-cd/argocd-image-updater/1.2.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f70d38a4c6aeef745a46bc7a8c679b566ce8540aecf2bcf1ba30e883a7e8f718"
@@ -96,7 +96,7 @@ spec:
         default: true
         description: "argo-cd/argocd-image-updater default variant rendered from argo-cd/argocd-image-updater@1.2.2"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argocd-image-updater:1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

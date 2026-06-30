@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: argo-cd-argo-workflows-1.0.14
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14
+  package:
+    path: packages/argo-cd/argo-workflows/1.0.14
+    sha256: d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2
+  commands:
+    package: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
+    push: "cub installer push <tmp>/argo-cd-argo-workflows-1.0.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --json"
+  outputs:
+    package: |
+      Bundled argo-cd-argo-workflows@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-UFMFUb/argo-cd-argo-workflows-1.0.14.tgz
+        files:  9
+        size:   55284 bytes
+        digest: sha256:d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14
+        manifest: sha256:e619d545894a25364b2f0c167d7c32944b5a3d773e94b6376404f120c0aebf5d
+        layer:    sha256:d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2 (55284 bytes, 9 files)
+    inspectJSONSHA256: f2a1a32c3212c5dd4993252bad265599a9b69a0185471313a6b0b7d957c9a679

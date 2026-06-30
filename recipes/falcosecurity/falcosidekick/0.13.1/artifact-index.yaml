@@ -62,7 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/falcosecurity/falcosidekick/0.13.1"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/falcosecurity-falcosidekick:0.13.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1"
     installer: "packages/falcosecurity/falcosidekick/0.13.1/installer.yaml"
     receipt: "recipes/falcosecurity/falcosidekick/0.13.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047"
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "falcosecurity/falcosidekick default variant rendered from falcosecurity/falcosidekick@0.13.1"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/falcosecurity-falcosidekick:0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

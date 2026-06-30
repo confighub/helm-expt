@@ -49,7 +49,7 @@ for exact base-variant evidence.
 | Value model | [recipes/sealed-secrets/sealed-secrets/2.18.6/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/sealed-secrets/sealed-secrets/2.18.6/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/sealed-secrets/sealed-secrets/2.18.6/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/sealed-secrets-sealed-secrets:2.18.6` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6` |
 | Installer package source | [packages/sealed-secrets/sealed-secrets/2.18.6](../../../../packages/sealed-secrets/sealed-secrets/2.18.6) |
 | Installer package receipt | [recipes/sealed-secrets/sealed-secrets/2.18.6/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/sealed-secrets/sealed-secrets/2.18.6/artifact-index.yaml](artifact-index.yaml) |
@@ -84,7 +84,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/sealed-secrets-sealed-secrets:2.18.6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

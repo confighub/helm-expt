@@ -64,7 +64,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/vm/victoria-logs-single/0.12.5"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/vm-victoria-logs-single:0.12.5"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5"
     installer: "packages/vm/victoria-logs-single/0.12.5/installer.yaml"
     receipt: "recipes/vm/victoria-logs-single/0.12.5/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406"
@@ -96,7 +96,7 @@ spec:
         default: true
         description: "vm/victoria-logs-single default variant rendered from vm/victoria-logs-single@0.12.5"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/vm-victoria-logs-single:0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

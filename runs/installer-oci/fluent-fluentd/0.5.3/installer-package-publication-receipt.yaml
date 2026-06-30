@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: fluent-fluentd-0.5.3
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3
+  package:
+    path: packages/fluent/fluentd/0.5.3
+    sha256: 73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9
+  commands:
+    package: "cub installer package packages/fluent/fluentd/0.5.3 -o <tmp>/fluent-fluentd-0.5.3.tgz"
+    push: "cub installer push <tmp>/fluent-fluentd-0.5.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3 --json"
+  outputs:
+    package: |
+      Bundled fluent-fluentd@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-gt0Mhq/fluent-fluentd-0.5.3.tgz
+        files:  4
+        size:   6829 bytes
+        digest: sha256:73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3
+        manifest: sha256:4391d452fd6c66b8d2bfc6ccba87b75e64426b9e3b7111b38c12bddff8e7b376
+        layer:    sha256:73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9 (6829 bytes, 4 files)
+    inspectJSONSHA256: 54d6e357f92d6c07e095509f7daaac5b537b26488bdfb6541fc3dffff3f70fd1

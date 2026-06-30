@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: gitlab-gitlab-runner-0.89.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0
+  package:
+    path: packages/gitlab/gitlab-runner/0.89.0
+    sha256: e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e
+  commands:
+    package: "cub installer package packages/gitlab/gitlab-runner/0.89.0 -o <tmp>/gitlab-gitlab-runner-0.89.0.tgz"
+    push: "cub installer push <tmp>/gitlab-gitlab-runner-0.89.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0 --json"
+  outputs:
+    package: |
+      Bundled gitlab-gitlab-runner@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PZz4hZ/gitlab-gitlab-runner-0.89.0.tgz
+        files:  4
+        size:   2750 bytes
+        digest: sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0
+        manifest: sha256:31a92cd5e1829614a92d6c3178e919d2937c35a3828bb2374b26ac427cce646a
+        layer:    sha256:e14db565ea0b5e569dcb29d5854158da33e0c003bb46a61af64596dc14232d4e (2750 bytes, 4 files)
+    inspectJSONSHA256: 94ee4392add2a1f2f6332b6b04c50fd807739a82f91b846593aa542fcba880da

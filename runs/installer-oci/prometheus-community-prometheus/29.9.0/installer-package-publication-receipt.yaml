@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-29.9.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
+  package:
+    path: packages/prometheus-community/prometheus/29.9.0
+    sha256: 05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus/29.9.0 -o <tmp>/prometheus-community-prometheus-29.9.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-29.9.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0 --json"
+  outputs:
+    package: |
+      Bundled prometheus@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mYLjOE/prometheus-community-prometheus-29.9.0.tgz
+        files:  6
+        size:   6286 bytes
+        digest: sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
+        manifest: sha256:e68a4d9604798ee51833670ba84c20ebe4c7f8eea17d9f35cb8a7e64a4c434cc
+        layer:    sha256:05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9 (6286 bytes, 6 files)
+    inspectJSONSHA256: 2cea754620813670f59d858857b1e8eddfafe443e7a362fc8fd567ead9b2d727

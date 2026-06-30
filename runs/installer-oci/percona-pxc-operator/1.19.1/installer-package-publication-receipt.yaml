@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: percona-pxc-operator-1.19.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
+  package:
+    path: packages/percona/pxc-operator/1.19.1
+    sha256: e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d
+  commands:
+    package: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
+    push: "cub installer push <tmp>/percona-pxc-operator-1.19.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1 --json"
+  outputs:
+    package: |
+      Bundled percona-pxc-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-i4puxo/percona-pxc-operator-1.19.1.tgz
+        files:  6
+        size:   29642 bytes
+        digest: sha256:e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
+        manifest: sha256:090267d4ea51a084e05460befda01e161b5a8bd7b6c2808477af3678f9b83baa
+        layer:    sha256:e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d (29642 bytes, 6 files)
+    inspectJSONSHA256: ee1ac1318976bd99d31608b040a718de04e73124ac6129b4f33e2db826e92a1c

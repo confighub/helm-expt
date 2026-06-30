@@ -25,7 +25,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5
 The ConfigHub way — render the reviewed package, then apply it:
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./out --non-interactive
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./out --non-interactive
 kubectl create namespace redis
 kubectl apply -f ./out/secrets -n redis
 kubectl apply -f ./out/manifests -n redis

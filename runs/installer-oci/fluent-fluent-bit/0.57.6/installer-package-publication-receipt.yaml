@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: fluent-fluent-bit-0.57.6
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6
+  package:
+    path: packages/fluent/fluent-bit/0.57.6
+    sha256: 927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d
+  commands:
+    package: "cub installer package packages/fluent/fluent-bit/0.57.6 -o <tmp>/fluent-fluent-bit-0.57.6.tgz"
+    push: "cub installer push <tmp>/fluent-fluent-bit-0.57.6.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6 --json"
+  outputs:
+    package: |
+      Bundled fluent-fluent-bit@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-gXQYL3/fluent-fluent-bit-0.57.6.tgz
+        files:  4
+        size:   1764 bytes
+        digest: sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6
+        manifest: sha256:e1103f03d2e7894562c2cb5ec1fc305712fe83cc4d7f47eb7bef3d9186730ebf
+        layer:    sha256:927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d (1764 bytes, 4 files)
+    inspectJSONSHA256: a56361dba4e6cb62e8848aac62ec22e78f10807eb75f1137c6375af4619a80f3

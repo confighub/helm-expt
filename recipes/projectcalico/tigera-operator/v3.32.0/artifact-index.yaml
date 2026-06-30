@@ -62,7 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/projectcalico/tigera-operator/v3.32.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/projectcalico-tigera-operator:v3.32.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
     installer: "packages/projectcalico/tigera-operator/v3.32.0/installer.yaml"
     receipt: "recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076"
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/projectcalico-tigera-operator:v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

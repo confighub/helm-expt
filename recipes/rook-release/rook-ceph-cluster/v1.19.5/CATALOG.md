@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Target prerequisite plan | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/rook-release/rook-ceph-cluster/v1.19.5/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/rook-release-rook-ceph-cluster:v1.19.5` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5` |
 | Installer package source | [packages/rook-release/rook-ceph-cluster/v1.19.5](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5) |
 | Installer package receipt | [recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/rook-release/rook-ceph-cluster/v1.19.5/artifact-index.yaml](artifact-index.yaml) |
@@ -79,7 +79,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

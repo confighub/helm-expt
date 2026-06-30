@@ -50,7 +50,7 @@ for exact base-variant evidence.
 | Runtime review | [recipes/nats/surveyor/0.20.9/runtime-review.yaml](runtime-review.yaml) |
 | Catalog status | [recipes/nats/surveyor/0.20.9/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/nats/surveyor/0.20.9/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/nats-surveyor:0.20.9` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9` |
 | Installer package source | [packages/nats/surveyor/0.20.9](../../../../packages/nats/surveyor/0.20.9) |
 | Installer package receipt | [recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/nats/surveyor/0.20.9/artifact-index.yaml](artifact-index.yaml) |
@@ -85,7 +85,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/nats-surveyor:0.20.9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

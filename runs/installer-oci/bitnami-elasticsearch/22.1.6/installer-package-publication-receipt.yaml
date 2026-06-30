@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-elasticsearch-22.1.6
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6
+  package:
+    path: packages/bitnami/elasticsearch/22.1.6
+    sha256: ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c
+  commands:
+    package: "cub installer package packages/bitnami/elasticsearch/22.1.6 -o <tmp>/bitnami-elasticsearch-22.1.6.tgz"
+    push: "cub installer push <tmp>/bitnami-elasticsearch-22.1.6.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --json"
+  outputs:
+    package: |
+      Bundled bitnami-elasticsearch@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-iLXTum/bitnami-elasticsearch-22.1.6.tgz
+        files:  8
+        size:   5733 bytes
+        digest: sha256:ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6
+        manifest: sha256:3322a7fd40b1592166e8dd6156793de0aa33acb39d94b0c2b309f63d3fc758f9
+        layer:    sha256:ddaff1408f909e3a6b00a0d9ec86b7634b293957078c485b185beaf6e239947c (5733 bytes, 8 files)
+    inspectJSONSHA256: 6136d8b049f3dd85b16be39fdf8ea131e85de7213cad1eeb1ddcb40d0640c006

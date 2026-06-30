@@ -62,7 +62,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/percona/pg-operator/3.0.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/percona-pg-operator:3.0.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0"
     installer: "packages/percona/pg-operator/3.0.0/installer.yaml"
     receipt: "recipes/percona/pg-operator/3.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f35783bc9bec8ca739768c54c7fe382b4bcd6308955a83d3a0affab78f270604"
@@ -99,7 +99,7 @@ spec:
         default: true
         description: "percona/pg-operator default variant rendered from percona/pg-operator@3.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/percona-pg-operator:3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 12
         cubInstallObjectCountIncludingSupport: 13
         semanticObjectMatches: "12/12"
@@ -161,7 +161,7 @@ spec:
         default: false
         description: "percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/percona-pg-operator:3.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

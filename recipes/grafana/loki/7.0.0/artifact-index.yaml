@@ -66,7 +66,7 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/grafana/loki/7.0.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0"
     installer: "packages/grafana/loki/7.0.0/installer.yaml"
     receipt: "recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "811e4991d8fc6afad30e30b87ebd1a56fe15a9c331882c99bd0221cee2bd9126"
@@ -103,7 +103,7 @@ spec:
         default: true
         description: "loki single binary filesystem variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"
@@ -165,7 +165,7 @@ spec:
         default: false
         description: "loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir <tmp> --non-interactive --namespace loki"
         helmReleaseObjectCount: 33
         cubInstallObjectCountIncludingSupport: 34
         semanticObjectMatches: "33/33"

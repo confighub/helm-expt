@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: longhorn-longhorn-1.11.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2
+  package:
+    path: packages/longhorn/longhorn/1.11.2
+    sha256: b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea
+  commands:
+    package: "cub installer package packages/longhorn/longhorn/1.11.2 -o <tmp>/longhorn-longhorn-1.11.2.tgz"
+    push: "cub installer push <tmp>/longhorn-longhorn-1.11.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --json"
+  outputs:
+    package: |
+      Bundled longhorn-longhorn@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-OmWV3s/longhorn-longhorn-1.11.2.tgz
+        files:  6
+        size:   32269 bytes
+        digest: sha256:b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2
+        manifest: sha256:a6fcbe3cb5728a096f61c52fc8a0a4034a9511b0bbfb8a9cfedf91313a3a4064
+        layer:    sha256:b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea (32269 bytes, 6 files)
+    inspectJSONSHA256: bdee4b4b73df0e370f939d01327ffcfa2cbcf77df71e4135d6b0b0267ff92c92

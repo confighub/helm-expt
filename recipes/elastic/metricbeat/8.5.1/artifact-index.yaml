@@ -62,7 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/elastic/metricbeat/8.5.1"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/elastic-metricbeat:8.5.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1"
     installer: "packages/elastic/metricbeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/metricbeat/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6"
@@ -94,7 +94,7 @@ spec:
         default: true
         description: "elastic/metricbeat default variant rendered from elastic/metricbeat@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-metricbeat:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"

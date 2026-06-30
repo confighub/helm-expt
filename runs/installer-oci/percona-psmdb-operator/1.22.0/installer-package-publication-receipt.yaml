@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: percona-psmdb-operator-1.22.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0
+  package:
+    path: packages/percona/psmdb-operator/1.22.0
+    sha256: 29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8
+  commands:
+    package: "cub installer package packages/percona/psmdb-operator/1.22.0 -o <tmp>/percona-psmdb-operator-1.22.0.tgz"
+    push: "cub installer push <tmp>/percona-psmdb-operator-1.22.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0 --json"
+  outputs:
+    package: |
+      Bundled percona-psmdb-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-O9ABOY/percona-psmdb-operator-1.22.0.tgz
+        files:  6
+        size:   62579 bytes
+        digest: sha256:29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0
+        manifest: sha256:2046ee5ee356eee258b199e2e540a73a288263242488102d4eed03baf0995722
+        layer:    sha256:29e16c7492a6e7b679cc4d756ea198c719da6cf787f61b75d8264592f47583d8 (62579 bytes, 6 files)
+    inspectJSONSHA256: 66d5ee969f4eb4455203519723d9380bae5e8f50a0ce1edc966046219b9f87e5

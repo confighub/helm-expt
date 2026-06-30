@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-mongodb-19.0.9
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9
+  package:
+    path: packages/bitnami/mongodb/19.0.9
+    sha256: a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7
+  commands:
+    package: "cub installer package packages/bitnami/mongodb/19.0.9 -o <tmp>/bitnami-mongodb-19.0.9.tgz"
+    push: "cub installer push <tmp>/bitnami-mongodb-19.0.9.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9 --json"
+  outputs:
+    package: |
+      Bundled bitnami-mongodb@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-ANVVDG/bitnami-mongodb-19.0.9.tgz
+        files:  7
+        size:   5481 bytes
+        digest: sha256:a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9
+        manifest: sha256:ee9833f2a263d5c5ba35f6c941073aad8a4c1ddf5dfd7d9fc56b420fea4f5669
+        layer:    sha256:a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7 (5481 bytes, 7 files)
+    inspectJSONSHA256: 8ab2bfd1a74cf931cf1bb109b98ab01fd10645293f73487a233c8ad6f58c69bd

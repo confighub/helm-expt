@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nats-nats-2.14.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0
+  package:
+    path: packages/nats/nats/2.14.0
+    sha256: 61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b
+  commands:
+    package: "cub installer package packages/nats/nats/2.14.0 -o <tmp>/nats-nats-2.14.0.tgz"
+    push: "cub installer push <tmp>/nats-nats-2.14.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0 --json"
+  outputs:
+    package: |
+      Bundled nats-nats@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-gxYngl/nats-nats-2.14.0.tgz
+        files:  6
+        size:   2122 bytes
+        digest: sha256:61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0
+        manifest: sha256:0e463d67359b59da9f1a7415c462d64f1437497115cc697d0f552b03289b3f11
+        layer:    sha256:61a48732e9ae3cd77b6c4f5649eb506a2ea99ec528787138eed297ae5c3f685b (2122 bytes, 6 files)
+    inspectJSONSHA256: a6d5f476380942e807afef1a1e22b0b430ed024fabde541c646930bacb32ff13

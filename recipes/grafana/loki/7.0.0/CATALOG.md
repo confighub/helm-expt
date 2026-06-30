@@ -51,7 +51,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/grafana/loki/7.0.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/grafana/loki/7.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/grafana/loki/7.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0` |
 | Installer package source | [packages/grafana/loki/7.0.0](../../../../packages/grafana/loki/7.0.0) |
 | Installer package receipt | [recipes/grafana/loki/7.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/grafana/loki/7.0.0/artifact-index.yaml](artifact-index.yaml) |
@@ -86,7 +86,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

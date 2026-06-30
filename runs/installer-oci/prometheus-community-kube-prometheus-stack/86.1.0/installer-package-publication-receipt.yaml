@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-86.1.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
+  package:
+    path: packages/prometheus-community/kube-prometheus-stack/86.1.0
+    sha256: 172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb
+  commands:
+    package: "cub installer package packages/prometheus-community/kube-prometheus-stack/86.1.0 -o <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --json"
+  outputs:
+    package: |
+      Bundled kube-prometheus-stack-kube-prometheus-stack@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-3JCQtP/prometheus-community-kube-prometheus-stack-86.1.0.tgz
+        files:  7
+        size:   546715 bytes
+        digest: sha256:172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
+        manifest: sha256:ef046b85acd21028f67256312f766176ed49ba59061e0eaf9e06a5b947ca45c2
+        layer:    sha256:172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb (546715 bytes, 7 files)
+    inspectJSONSHA256: 3a29e83423cc379c34fb528815ad6ccced33fbe37f480e9d1231aa76736eec4a

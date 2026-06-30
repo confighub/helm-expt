@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: argo-cd-argo-events-2.4.21
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21
+  package:
+    path: packages/argo-cd/argo-events/2.4.21
+    sha256: 305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848
+  commands:
+    package: "cub installer package packages/argo-cd/argo-events/2.4.21 -o <tmp>/argo-cd-argo-events-2.4.21.tgz"
+    push: "cub installer push <tmp>/argo-cd-argo-events-2.4.21.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21 --json"
+  outputs:
+    package: |
+      Bundled argo-cd-argo-events@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-biIBPc/argo-cd-argo-events-2.4.21.tgz
+        files:  6
+        size:   2552 bytes
+        digest: sha256:305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21
+        manifest: sha256:a7ff1505149539d2e66d3df74352131956a10112984792bf54499808e4f45ac2
+        layer:    sha256:305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848 (2552 bytes, 6 files)
+    inspectJSONSHA256: a49a2a10e115ec7bed5dbac838a709775be2de0961b78e54778733366b3ae3ae

@@ -19,7 +19,7 @@ configurations.
 Registry prefix:
 
 ~~~text
-oci://ghcr.io/confighub/helm-expt
+oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
 ~~~
 
 ## Counts
@@ -28,25 +28,25 @@ oci://ghcr.io/confighub/helm-expt
 | --- | ---: |
 | Installer packages | 110 |
 | Public catalog packages | 100 |
-| Package refs with publication receipts | 0 |
-| Assigned refs without publication receipts yet | 110 |
+| Package refs with publication receipts | 110 |
+| Assigned refs without publication receipts yet | 0 |
 
 ## Public Examples
 
 | Chart | Package OCI ref | First command |
 | --- | --- | --- |
-| aqua/trivy-operator@0.32.1 | `oci://ghcr.io/confighub/helm-expt/aqua-trivy-operator:0.32.1` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/aqua-trivy-operator:0.32.1 --base default --work-dir .tmp/demo/aqua-trivy-operator-0-32-1-default --non-interactive --namespace default` |
-| argo-cd/argo-cd@9.5.15 | `oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.15` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir .tmp/demo/argo-cd-argo-cd-9-5-15-default --non-interactive --namespace argocd` |
-| argo-cd/argo-events@2.4.21 | `oci://ghcr.io/confighub/helm-expt/argo-cd-argo-events:2.4.21` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-events:2.4.21 --base default --work-dir .tmp/demo/argo-cd-argo-events-2-4-21-default --non-interactive --namespace default` |
-| argo-cd/argo-rollouts@2.40.9 | `oci://ghcr.io/confighub/helm-expt/argo-cd-argo-rollouts:2.40.9` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-rollouts:2.40.9 --base default --work-dir .tmp/demo/argo-cd-argo-rollouts-2-40-9-default --non-interactive --namespace default` |
-| argo-cd/argo-workflows@1.0.14 | `oci://ghcr.io/confighub/helm-expt/argo-cd-argo-workflows:1.0.14` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-workflows:1.0.14 --base default --work-dir .tmp/demo/argo-cd-argo-workflows-1-0-14-default --non-interactive --namespace default` |
-| argo-cd/argocd-image-updater@1.2.2 | `oci://ghcr.io/confighub/helm-expt/argo-cd-argocd-image-updater:1.2.2` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argocd-image-updater:1.2.2 --base default --work-dir .tmp/demo/argo-cd-argocd-image-updater-1-2-2-default --non-interactive --namespace default` |
-| autoscaler/cluster-autoscaler@9.57.0 | `oci://ghcr.io/confighub/helm-expt/autoscaler-cluster-autoscaler:9.57.0` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base default --work-dir .tmp/demo/autoscaler-cluster-autoscaler-9-57-0-default --non-interactive --namespace default` |
-| autoscaler/vertical-pod-autoscaler@0.9.0 | `oci://ghcr.io/confighub/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base default --work-dir .tmp/demo/autoscaler-vertical-pod-autoscaler-0-9-0-default --non-interactive --namespace default` |
-| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | `oci://ghcr.io/confighub/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --base default --work-dir .tmp/demo/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default` |
-| bitnami/apache@11.4.29 | `oci://ghcr.io/confighub/helm-expt/bitnami-apache:11.4.29` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-apache:11.4.29 --base default --work-dir .tmp/demo/bitnami-apache-11-4-29-default --non-interactive --namespace default` |
-| bitnami/contour@21.1.4 | `oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4 --base default --work-dir .tmp/demo/bitnami-contour-21-1-4-default --non-interactive --namespace default` |
-| bitnami/elasticsearch@22.1.6 | `oci://ghcr.io/confighub/helm-expt/bitnami-elasticsearch:22.1.6` | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-elasticsearch:22.1.6 --base default --work-dir .tmp/demo/bitnami-elasticsearch-22-1-6-default --non-interactive --namespace default` |
+| aqua/trivy-operator@0.32.1 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1 --base default --work-dir .tmp/demo/aqua-trivy-operator-0-32-1-default --non-interactive --namespace default` |
+| argo-cd/argo-cd@9.5.15 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir .tmp/demo/argo-cd-argo-cd-9-5-15-default --non-interactive --namespace argocd` |
+| argo-cd/argo-events@2.4.21 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21 --base default --work-dir .tmp/demo/argo-cd-argo-events-2-4-21-default --non-interactive --namespace default` |
+| argo-cd/argo-rollouts@2.40.9 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9 --base default --work-dir .tmp/demo/argo-cd-argo-rollouts-2-40-9-default --non-interactive --namespace default` |
+| argo-cd/argo-workflows@1.0.14 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base default --work-dir .tmp/demo/argo-cd-argo-workflows-1-0-14-default --non-interactive --namespace default` |
+| argo-cd/argocd-image-updater@1.2.2 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2 --base default --work-dir .tmp/demo/argo-cd-argocd-image-updater-1-2-2-default --non-interactive --namespace default` |
+| autoscaler/cluster-autoscaler@9.57.0 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0 --base default --work-dir .tmp/demo/autoscaler-cluster-autoscaler-9-57-0-default --non-interactive --namespace default` |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0 --base default --work-dir .tmp/demo/autoscaler-vertical-pod-autoscaler-0-9-0-default --non-interactive --namespace default` |
+| aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --base default --work-dir .tmp/demo/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default --non-interactive --namespace default` |
+| bitnami/apache@11.4.29 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29 --base default --work-dir .tmp/demo/bitnami-apache-11-4-29-default --non-interactive --namespace default` |
+| bitnami/contour@21.1.4 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base default --work-dir .tmp/demo/bitnami-contour-21-1-4-default --non-interactive --namespace default` |
+| bitnami/elasticsearch@22.1.6 | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6` | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6 --base default --work-dir .tmp/demo/bitnami-elasticsearch-22-1-6-default --non-interactive --namespace default` |
 
 ## Files
 

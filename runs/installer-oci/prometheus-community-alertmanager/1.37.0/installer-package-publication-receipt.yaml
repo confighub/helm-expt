@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-alertmanager-1.37.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0
+  package:
+    path: packages/prometheus-community/alertmanager/1.37.0
+    sha256: beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e
+  commands:
+    package: "cub installer package packages/prometheus-community/alertmanager/1.37.0 -o <tmp>/prometheus-community-alertmanager-1.37.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-alertmanager-1.37.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0 --json"
+  outputs:
+    package: |
+      Bundled prometheus-community-alertmanager@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-oCJCmh/prometheus-community-alertmanager-1.37.0.tgz
+        files:  6
+        size:   1647 bytes
+        digest: sha256:beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0
+        manifest: sha256:e3c02df30d1666fc9b8b7ca669d43cb70d3fb05c54d76e2720632dc5efe18da2
+        layer:    sha256:beec8632d1ef811a83b81ea07825946022bb2ade2129b3727d18bce2c5ccc47e (1647 bytes, 6 files)
+    inspectJSONSHA256: 7aaa191df76c94d0c4feef11fe72b611443c9b3bad09d75a79336b5aa4abeafc

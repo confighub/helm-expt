@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: minio-operator-operator-7.1.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1
+  package:
+    path: packages/minio-operator/operator/7.1.1
+    sha256: 030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c
+  commands:
+    package: "cub installer package packages/minio-operator/operator/7.1.1 -o <tmp>/minio-operator-operator-7.1.1.tgz"
+    push: "cub installer push <tmp>/minio-operator-operator-7.1.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1 --json"
+  outputs:
+    package: |
+      Bundled minio-operator-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-TJmwxk/minio-operator-operator-7.1.1.tgz
+        files:  4
+        size:   15432 bytes
+        digest: sha256:030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1
+        manifest: sha256:c1bfea10ba182a727725356a04c4ed0a9a1b8170240353057a69ed4222e0a6a3
+        layer:    sha256:030f54948db823e7cfce72fbcfabcbf331c14562d1efa4e06006866094c8895c (15432 bytes, 4 files)
+    inspectJSONSHA256: 9d9b0ea94c55cbed16fcef93a25603bb90de7b3f80b9059b70657748bf42a92c

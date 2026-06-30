@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: runix-pgadmin4-1.62.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0
+  package:
+    path: packages/runix/pgadmin4/1.62.0
+    sha256: a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2
+  commands:
+    package: "cub installer package packages/runix/pgadmin4/1.62.0 -o <tmp>/runix-pgadmin4-1.62.0.tgz"
+    push: "cub installer push <tmp>/runix-pgadmin4-1.62.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0 --json"
+  outputs:
+    package: |
+      Bundled runix-pgadmin4@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-fZJ6H5/runix-pgadmin4-1.62.0.tgz
+        files:  4
+        size:   1444 bytes
+        digest: sha256:a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0
+        manifest: sha256:6d98d52691e4588aab491ca6479cdec7a2ba13cf3a6cd5422cbf08eb5e5142e6
+        layer:    sha256:a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2 (1444 bytes, 4 files)
+    inspectJSONSHA256: 49018db21bfa80e874e559428ddfd19c2949b52d81908dc875f9593b1e1b2457

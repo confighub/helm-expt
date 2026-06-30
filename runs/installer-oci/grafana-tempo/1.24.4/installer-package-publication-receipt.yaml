@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-tempo-1.24.4
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4
+  package:
+    path: packages/grafana/tempo/1.24.4
+    sha256: ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3
+  commands:
+    package: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/grafana-tempo-1.24.4.tgz"
+    push: "cub installer push <tmp>/grafana-tempo-1.24.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --json"
+  outputs:
+    package: |
+      Bundled grafana-tempo@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-YGCpVY/grafana-tempo-1.24.4.tgz
+        files:  7
+        size:   4155 bytes
+        digest: sha256:ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4
+        manifest: sha256:c123a58541d53e1954ce8eaacabcb6264aa3d47ea240108c5f886f7f015fbd3d
+        layer:    sha256:ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3 (4155 bytes, 7 files)
+    inspectJSONSHA256: 9c2241495a7348a17cb36858d5bfcbc882a4db5c2283213b992b8929c5cc6c52

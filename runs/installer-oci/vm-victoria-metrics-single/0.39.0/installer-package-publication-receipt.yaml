@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: vm-victoria-metrics-single-0.39.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0
+  package:
+    path: packages/vm/victoria-metrics-single/0.39.0
+    sha256: 15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946
+  commands:
+    package: "cub installer package packages/vm/victoria-metrics-single/0.39.0 -o <tmp>/vm-victoria-metrics-single-0.39.0.tgz"
+    push: "cub installer push <tmp>/vm-victoria-metrics-single-0.39.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0 --json"
+  outputs:
+    package: |
+      Bundled vm-victoria-metrics-single@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-S84WoQ/vm-victoria-metrics-single-0.39.0.tgz
+        files:  6
+        size:   1445 bytes
+        digest: sha256:15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0
+        manifest: sha256:f77ea77d8eb57c2f364141cdbf10da3036b9ec7f40f2608c8d9b7bf03b422a40
+        layer:    sha256:15166a816f890ec5192b218d282989e81d45afa1cfeadeb3d414c8416ba56946 (1445 bytes, 6 files)
+    inspectJSONSHA256: d2c1eb8fceac68b52146ee9c258586dfd3e9a07928a75c1ecc8bf3fe7924e7c8

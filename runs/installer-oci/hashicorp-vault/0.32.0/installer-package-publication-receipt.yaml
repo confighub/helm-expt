@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: hashicorp-vault-0.32.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0
+  package:
+    path: packages/hashicorp/vault/0.32.0
+    sha256: bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654
+  commands:
+    package: "cub installer package packages/hashicorp/vault/0.32.0 -o <tmp>/hashicorp-vault-0.32.0.tgz"
+    push: "cub installer push <tmp>/hashicorp-vault-0.32.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --json"
+  outputs:
+    package: |
+      Bundled hashicorp-vault@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-MndLvj/hashicorp-vault-0.32.0.tgz
+        files:  9
+        size:   5758 bytes
+        digest: sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0
+        manifest: sha256:96a955c472baefbe4afc17021e861bf98976cbaeb33f10f1589bba4d730901f3
+        layer:    sha256:bda474fba0b628af687c22cab27c3f0f8c17db543d39b7fc4b67db1ee27bc654 (5758 bytes, 9 files)
+    inspectJSONSHA256: e7d3785359102a5cf18d3c59fc1a1daa2dce8ef16544233a133aab202426f274

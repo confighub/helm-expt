@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1
+  package:
+    path: packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+    sha256: 9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624
+  commands:
+    package: "cub installer package packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 -o <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz"
+    push: "cub installer push <tmp>/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1 --json"
+  outputs:
+    package: |
+      Bundled aws-ebs-csi-driver-aws-ebs-csi-driver@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-e2O5n4/aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1.tgz
+        files:  4
+        size:   4485 bytes
+        digest: sha256:9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1
+        manifest: sha256:1c389a08781eecad0f67d1a41c5a1226de5891b96d9ec7e1bf34f14946756d52
+        layer:    sha256:9ca191f2dd963b333198c82c2cf0e91629d4f79c6ad4dccf5d464afaa7e05624 (4485 bytes, 4 files)
+    inspectJSONSHA256: 2502bf25a731e934c0535fbe15be5dfaebb480adc22cd2af3ed3516e0b3a5b8f

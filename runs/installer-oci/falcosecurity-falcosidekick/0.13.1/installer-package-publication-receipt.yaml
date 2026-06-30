@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: falcosecurity-falcosidekick-0.13.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1
+  package:
+    path: packages/falcosecurity/falcosidekick/0.13.1
+    sha256: f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047
+  commands:
+    package: "cub installer package packages/falcosecurity/falcosidekick/0.13.1 -o <tmp>/falcosecurity-falcosidekick-0.13.1.tgz"
+    push: "cub installer push <tmp>/falcosecurity-falcosidekick-0.13.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1 --json"
+  outputs:
+    package: |
+      Bundled falcosecurity-falcosidekick@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-GnImnB/falcosecurity-falcosidekick-0.13.1.tgz
+        files:  4
+        size:   4743 bytes
+        digest: sha256:f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1
+        manifest: sha256:3f6737c13e9d850683ee9d3f9944e08eca634b4e85876b8dfaf18552ae34bae9
+        layer:    sha256:f4aef20f7e695a5fc58795613158b54bda2fd086357d8d7cf353caab4a612047 (4743 bytes, 4 files)
+    inspectJSONSHA256: a762f9a4b423e1363356807b4c5a4038a4cd7111b6d917a2e49b0ddcdfb3b821

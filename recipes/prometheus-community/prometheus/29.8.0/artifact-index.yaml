@@ -65,7 +65,7 @@ spec:
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/prometheus-community/prometheus/29.8.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0"
     installer: "packages/prometheus-community/prometheus/29.8.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus/29.8.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ac86e0bf7ec6ab8d8e8c66298fb32791be696756480116fe833a4459e5bcc9e1"
@@ -102,7 +102,7 @@ spec:
         default: true
         description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -164,7 +164,7 @@ spec:
         default: false
         description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

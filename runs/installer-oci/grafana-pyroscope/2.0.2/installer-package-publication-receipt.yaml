@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-pyroscope-2.0.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2
+  package:
+    path: packages/grafana/pyroscope/2.0.2
+    sha256: 993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04
+  commands:
+    package: "cub installer package packages/grafana/pyroscope/2.0.2 -o <tmp>/grafana-pyroscope-2.0.2.tgz"
+    push: "cub installer push <tmp>/grafana-pyroscope-2.0.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2 --json"
+  outputs:
+    package: |
+      Bundled grafana-pyroscope@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-aJgXEv/grafana-pyroscope-2.0.2.tgz
+        files:  8
+        size:   15808 bytes
+        digest: sha256:993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2
+        manifest: sha256:20ca7d206be312dc1730ae8b96a4d175a736af66f44416d62accd94ae153f083
+        layer:    sha256:993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04 (15808 bytes, 8 files)
+    inspectJSONSHA256: e9c243ab2bb6279248fa9c3445c346a9e0d82ce1871c154e24769d6799ec63e6

@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: linkerd-linkerd-crds-1.8.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0
+  package:
+    path: packages/linkerd/linkerd-crds/1.8.0
+    sha256: 770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42
+  commands:
+    package: "cub installer package packages/linkerd/linkerd-crds/1.8.0 -o <tmp>/linkerd-linkerd-crds-1.8.0.tgz"
+    push: "cub installer push <tmp>/linkerd-linkerd-crds-1.8.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0 --json"
+  outputs:
+    package: |
+      Bundled linkerd-linkerd-crds@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Q81wPL/linkerd-linkerd-crds-1.8.0.tgz
+        files:  4
+        size:   87801 bytes
+        digest: sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0
+        manifest: sha256:8d8bc4eda1159e55ef8ece33e6b6369ae2fe7b83e4b820d6bc4ac06ed3f6908c
+        layer:    sha256:770b6955ef2813a73f01b4641cfe80c890918cefeb0f0b29d546e63d9a3c5b42 (87801 bytes, 4 files)
+    inspectJSONSHA256: ce36fa89603a2c67c5720c8c4ba9fbaefc77dbecd905c354f704e65c3202c5a8

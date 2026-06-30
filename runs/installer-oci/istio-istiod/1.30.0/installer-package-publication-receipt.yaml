@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: istio-istiod-1.30.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0
+  package:
+    path: packages/istio/istiod/1.30.0
+    sha256: 4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e
+  commands:
+    package: "cub installer package packages/istio/istiod/1.30.0 -o <tmp>/istio-istiod-1.30.0.tgz"
+    push: "cub installer push <tmp>/istio-istiod-1.30.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0 --json"
+  outputs:
+    package: |
+      Bundled istio-istiod@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-qRLpR0/istio-istiod-1.30.0.tgz
+        files:  4
+        size:   16379 bytes
+        digest: sha256:4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0
+        manifest: sha256:8440c4bc0ca77062fc84290a5ebc637986ce614f486e36a6f12204517e2a37e7
+        layer:    sha256:4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e (16379 bytes, 4 files)
+    inspectJSONSHA256: 82058c2e454da2c0cd26a329e66e0b3cd905f13d94ca516a165ebf4d644aa842

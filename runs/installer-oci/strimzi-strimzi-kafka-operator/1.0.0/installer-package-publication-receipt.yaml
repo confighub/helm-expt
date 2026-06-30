@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: strimzi-strimzi-kafka-operator-1.0.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0
+  package:
+    path: packages/strimzi/strimzi-kafka-operator/1.0.0
+    sha256: fa58a5630e9116cbddbd678f38d00055b0dc4e65514a092a2ca5cd58a374e73e
+  commands:
+    package: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
+    push: "cub installer push <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0 --json"
+  outputs:
+    package: |
+      Bundled strimzi-strimzi-kafka-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-zuLev6/strimzi-strimzi-kafka-operator-1.0.0.tgz
+        files:  6
+        size:   83508 bytes
+        digest: sha256:fa58a5630e9116cbddbd678f38d00055b0dc4e65514a092a2ca5cd58a374e73e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0
+        manifest: sha256:b78fe896b17ef928e73f52a2484a74435d6da662a8cb9f19ebadcd2d504037a3
+        layer:    sha256:fa58a5630e9116cbddbd678f38d00055b0dc4e65514a092a2ca5cd58a374e73e (83508 bytes, 6 files)
+    inspectJSONSHA256: 1fde3ee2140ad5926ad8d1ba3c4223955f308a3b90c158a31dd5bb8a17d8aa2d

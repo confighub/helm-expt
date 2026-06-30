@@ -63,7 +63,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fluent/fluent-bit/0.57.6"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/fluent-fluent-bit:0.57.6"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6"
     installer: "packages/fluent/fluent-bit/0.57.6/installer.yaml"
     receipt: "recipes/fluent/fluent-bit/0.57.6/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "927d51336074709b3466f6ec458392d5b590073ff38953c4b7a524e65a63a90d"
@@ -95,7 +95,7 @@ spec:
         default: true
         description: "fluent/fluent-bit default variant rendered from fluent/fluent-bit@0.57.6"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/fluent-fluent-bit:0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

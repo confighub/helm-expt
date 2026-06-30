@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: vm-victoria-logs-single-0.12.5
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5
+  package:
+    path: packages/vm/victoria-logs-single/0.12.5
+    sha256: 7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406
+  commands:
+    package: "cub installer package packages/vm/victoria-logs-single/0.12.5 -o <tmp>/vm-victoria-logs-single-0.12.5.tgz"
+    push: "cub installer push <tmp>/vm-victoria-logs-single-0.12.5.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5 --json"
+  outputs:
+    package: |
+      Bundled vm-victoria-logs-single@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-UYX78G/vm-victoria-logs-single-0.12.5.tgz
+        files:  4
+        size:   1359 bytes
+        digest: sha256:7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5
+        manifest: sha256:15d4d5b47e14d461542c255e19a98d383fba221f8c04b6fae2a450cb5084c315
+        layer:    sha256:7f78b08d88a7500bb6a629d439bea515895dc0f4e21575b000226d9146885406 (1359 bytes, 4 files)
+    inspectJSONSHA256: fdb18f71c294646cf1d9599c8cc25b7b73a7f4e273413d0b2ae40ccfb85139d5

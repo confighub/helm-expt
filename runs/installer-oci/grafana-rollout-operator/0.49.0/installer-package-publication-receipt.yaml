@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-rollout-operator-0.49.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
+  package:
+    path: packages/grafana/rollout-operator/0.49.0
+    sha256: 737c8335b42cf355d2c43e18763abaddeaf33ab7d0ea19686cb68556eb4fcf1d
+  commands:
+    package: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
+    push: "cub installer push <tmp>/grafana-rollout-operator-0.49.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0 --json"
+  outputs:
+    package: |
+      Bundled grafana-rollout-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-FTjkMk/grafana-rollout-operator-0.49.0.tgz
+        files:  6
+        size:   3061 bytes
+        digest: sha256:737c8335b42cf355d2c43e18763abaddeaf33ab7d0ea19686cb68556eb4fcf1d
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
+        manifest: sha256:00689dbfe08cf6feb61b50dec4c881c4b96bf24dc7e19eeed120954a9dabb848
+        layer:    sha256:737c8335b42cf355d2c43e18763abaddeaf33ab7d0ea19686cb68556eb4fcf1d (3061 bytes, 6 files)
+    inspectJSONSHA256: 7648c2cef3bd27a01193b5cef17c6b4114797e524eb5b0de8ab4e20cf9b6b84e

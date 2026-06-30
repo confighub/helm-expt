@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: external-dns-external-dns-1.21.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1
+  package:
+    path: packages/external-dns/external-dns/1.21.1
+    sha256: e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f
+  commands:
+    package: "cub installer package packages/external-dns/external-dns/1.21.1 -o <tmp>/external-dns-external-dns-1.21.1.tgz"
+    push: "cub installer push <tmp>/external-dns-external-dns-1.21.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1 --json"
+  outputs:
+    package: |
+      Bundled external-dns-external-dns@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-4r9Fur/external-dns-external-dns-1.21.1.tgz
+        files:  8
+        size:   2888 bytes
+        digest: sha256:e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1
+        manifest: sha256:0b2ebd9e293d1f1f0046860eef01bc55357f20b5be76b8ed24ac06cafd16dffd
+        layer:    sha256:e988e84b50eb145af6d13f9159c6fb77a02e020b6f55ec6b847e82ad75362a7f (2888 bytes, 8 files)
+    inspectJSONSHA256: 0edf9c4995886a7461afe8ebc0fcc46f87343c89f29c220e972c3aacc0bfd449

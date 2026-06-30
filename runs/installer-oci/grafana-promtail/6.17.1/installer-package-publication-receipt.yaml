@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-promtail-6.17.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1
+  package:
+    path: packages/grafana/promtail/6.17.1
+    sha256: 9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62
+  commands:
+    package: "cub installer package packages/grafana/promtail/6.17.1 -o <tmp>/grafana-promtail-6.17.1.tgz"
+    push: "cub installer push <tmp>/grafana-promtail-6.17.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1 --json"
+  outputs:
+    package: |
+      Bundled grafana-promtail@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-oI1Gw7/grafana-promtail-6.17.1.tgz
+        files:  4
+        size:   2098 bytes
+        digest: sha256:9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1
+        manifest: sha256:0f9215d2537e1febbe70ccb2c75186ac90cbffeb30b2cb72bd9853010ad808e2
+        layer:    sha256:9188545be328ef5274745f362eede9cf1610a38ca13ade9a254f613a5bee4f62 (2098 bytes, 4 files)
+    inspectJSONSHA256: 3e0ce7658e4c6001228ea27fa8080215b6a1c1054cd63ef07f0ca52bd297c335

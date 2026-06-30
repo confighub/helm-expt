@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: gatekeeper-gatekeeper-3.22.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2
+  package:
+    path: packages/gatekeeper/gatekeeper/3.22.2
+    sha256: fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e
+  commands:
+    package: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
+    push: "cub installer push <tmp>/gatekeeper-gatekeeper-3.22.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --json"
+  outputs:
+    package: |
+      Bundled gatekeeper-gatekeeper@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-P89jBl/gatekeeper-gatekeeper-3.22.2.tgz
+        files:  7
+        size:   18291 bytes
+        digest: sha256:fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2
+        manifest: sha256:c2ec627fd5f1ba62322b87cf2c72874fcb1f7b006e9eca30a614c611362e4015
+        layer:    sha256:fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e (18291 bytes, 7 files)
+    inspectJSONSHA256: 4d6f91ca7a43e5d9706ee40d63c40f28c4900bc85526841167c6872657447dc7

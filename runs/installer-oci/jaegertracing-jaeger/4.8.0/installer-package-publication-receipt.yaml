@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: jaegertracing-jaeger-4.8.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0
+  package:
+    path: packages/jaegertracing/jaeger/4.8.0
+    sha256: da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac
+  commands:
+    package: "cub installer package packages/jaegertracing/jaeger/4.8.0 -o <tmp>/jaegertracing-jaeger-4.8.0.tgz"
+    push: "cub installer push <tmp>/jaegertracing-jaeger-4.8.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0 --json"
+  outputs:
+    package: |
+      Bundled jaegertracing-jaeger@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-LytBdz/jaegertracing-jaeger-4.8.0.tgz
+        files:  4
+        size:   1401 bytes
+        digest: sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0
+        manifest: sha256:aed0f8ab81ae2d06db0e997f0386a315abd8d038931a2394074b15d3e79d3511
+        layer:    sha256:da2ec9e5ab08908c8b005218dbc023e8621325ed6aa1915823259253430a2aac (1401 bytes, 4 files)
+    inspectJSONSHA256: f196f6ca234397159c4d47d19f42d3cb8d02731253b05076e34f5d2d34a2cabd

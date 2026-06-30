@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: external-secrets-external-secrets-2.5.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0
+  package:
+    path: packages/external-secrets/external-secrets/2.5.0
+    sha256: 22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60
+  commands:
+    package: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-external-secrets-2.5.0.tgz"
+    push: "cub installer push <tmp>/external-secrets-external-secrets-2.5.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --json"
+  outputs:
+    package: |
+      Bundled external-secrets-external-secrets@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-1iQM6a/external-secrets-external-secrets-2.5.0.tgz
+        files:  7
+        size:   147821 bytes
+        digest: sha256:22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0
+        manifest: sha256:b5949bdc7b2910c28f95f00bb62e63247cdd5ec2bddc122eb79030bd635381a4
+        layer:    sha256:22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60 (147821 bytes, 7 files)
+    inspectJSONSHA256: 79e95878d194418dacfe3bb3decce3179e267f9372c9a39f077ae0e10078e4d8

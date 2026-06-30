@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: rook-release-rook-ceph-v1.19.5
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5
+  package:
+    path: packages/rook-release/rook-ceph/v1.19.5
+    sha256: 21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4
+  commands:
+    package: "cub installer package packages/rook-release/rook-ceph/v1.19.5 -o <tmp>/rook-release-rook-ceph-v1.19.5.tgz"
+    push: "cub installer push <tmp>/rook-release-rook-ceph-v1.19.5.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5 --json"
+  outputs:
+    package: |
+      Bundled rook-release-rook-ceph@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-xRKrrn/rook-release-rook-ceph-v1.19.5.tgz
+        files:  4
+        size:   307389 bytes
+        digest: sha256:21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5
+        manifest: sha256:be3ed69bf93bab0b215a1df6f3cde284610466b2a702a9ab3d73684840f255cf
+        layer:    sha256:21cc5c0af466f0342c024d0383b7104a86840cc8263da5a7e0b6f3d34ce5f0c4 (307389 bytes, 4 files)
+    inspectJSONSHA256: 0d994231d65e6e3dc074c521d0a15cd98bef92164fb1afd9f8d95fedc842288b

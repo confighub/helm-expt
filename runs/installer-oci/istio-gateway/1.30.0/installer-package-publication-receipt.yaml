@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: istio-gateway-1.30.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0
+  package:
+    path: packages/istio/gateway/1.30.0
+    sha256: 2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270
+  commands:
+    package: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1.30.0.tgz"
+    push: "cub installer push <tmp>/istio-gateway-1.30.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0 --json"
+  outputs:
+    package: |
+      Bundled istio-gateway@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-m61WL9/istio-gateway-1.30.0.tgz
+        files:  6
+        size:   1768 bytes
+        digest: sha256:2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0
+        manifest: sha256:9a6e0a7ef1f1b19b8686efc0e386cea39443df3c63fdba3400abe2757d89191a
+        layer:    sha256:2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270 (1768 bytes, 6 files)
+    inspectJSONSHA256: 189018496142cf2ab615c97e916e937608df1dfcecef103cbdcc0b16e87497bd

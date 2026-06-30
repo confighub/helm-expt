@@ -63,7 +63,7 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
     installer: "packages/prometheus-community/kube-prometheus-stack/86.1.0/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb"
@@ -111,7 +111,7 @@ spec:
         default: true
         description: "kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@86.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 124
         cubInstallObjectCountIncludingSupport: 125
         semanticObjectMatches: "124/124"
@@ -275,7 +275,7 @@ spec:
         default: false
         description: "kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@86.1.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --base no-crds --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 114
         cubInstallObjectCountIncludingSupport: 115
         semanticObjectMatches: "114/114"

@@ -65,7 +65,7 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.15"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.15"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15"
     installer: "packages/argo-cd/argo-cd/9.5.15/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.15/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1c92bbdfa7350676f2be13c8e42a4688ea0d1812cbbb867e577799be1e41d610"
@@ -112,7 +112,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.15"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -212,7 +212,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.15"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

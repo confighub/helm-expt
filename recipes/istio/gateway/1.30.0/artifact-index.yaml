@@ -60,7 +60,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/istio/gateway/1.30.0"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/istio-gateway:1.30.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0"
     installer: "packages/istio/gateway/1.30.0/installer.yaml"
     receipt: "recipes/istio/gateway/1.30.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "2235b01ac2590d4fdc8a99da29bd735cd053470a01e230cefea14d79ffee2270"
@@ -97,7 +97,7 @@ spec:
         default: true
         description: "istio/gateway default variant rendered from istio/gateway@1.30.0"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/istio-gateway:1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -159,7 +159,7 @@ spec:
         default: false
         description: "istio/gateway controller-default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/istio-gateway:1.30.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

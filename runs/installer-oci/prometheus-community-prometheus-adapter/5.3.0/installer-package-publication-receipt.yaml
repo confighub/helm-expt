@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-adapter-5.3.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0
+  package:
+    path: packages/prometheus-community/prometheus-adapter/5.3.0
+    sha256: 320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus-adapter/5.3.0 -o <tmp>/prometheus-community-prometheus-adapter-5.3.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-adapter-5.3.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0 --json"
+  outputs:
+    package: |
+      Bundled prometheus-community-prometheus-adapter@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-M39d78/prometheus-community-prometheus-adapter-5.3.0.tgz
+        files:  8
+        size:   2657 bytes
+        digest: sha256:320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0
+        manifest: sha256:3a5fc2f9114c01e344f146ed3ffa1036e1e66fe244ed42b36b5457d6a09ab88c
+        layer:    sha256:320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea (2657 bytes, 8 files)
+    inspectJSONSHA256: 6e43ebbd229cdfbfa2b52d19a810f5a077b62386000172a7380676f154f79941

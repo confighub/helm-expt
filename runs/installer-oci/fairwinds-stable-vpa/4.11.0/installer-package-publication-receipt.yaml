@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: fairwinds-stable-vpa-4.11.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0
+  package:
+    path: packages/fairwinds-stable/vpa/4.11.0
+    sha256: c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6
+  commands:
+    package: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
+    push: "cub installer push <tmp>/fairwinds-stable-vpa-4.11.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0 --json"
+  outputs:
+    package: |
+      Bundled fairwinds-stable-vpa@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mE35Oi/fairwinds-stable-vpa-4.11.0.tgz
+        files:  7
+        size:   8584 bytes
+        digest: sha256:c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0
+        manifest: sha256:4c1081b3ea3e133c69d999aa196b6254b6fb1c145a5999c7948c332848cdf748
+        layer:    sha256:c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6 (8584 bytes, 7 files)
+    inspectJSONSHA256: 71f92cd458bef9304f4683e925465f99ca37cc052f0dd99ab927cdd5e72efcfe

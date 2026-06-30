@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-node-exporter-4.55.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0
+  package:
+    path: packages/prometheus-community/prometheus-node-exporter/4.55.0
+    sha256: f833c703c0bae8f7c426211f8216662c049e2d8e664cb25bf48f89533bd006e0
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4.55.0.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-node-exporter-4.55.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0 --json"
+  outputs:
+    package: |
+      Bundled prometheus-community-prometheus-node-exporter@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-9o8jnq/prometheus-community-prometheus-node-exporter-4.55.0.tgz
+        files:  7
+        size:   2916 bytes
+        digest: sha256:f833c703c0bae8f7c426211f8216662c049e2d8e664cb25bf48f89533bd006e0
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0
+        manifest: sha256:1a340145e229376a418094aa133661bbf732774a7b9061af5984d6750a6a8086
+        layer:    sha256:f833c703c0bae8f7c426211f8216662c049e2d8e664cb25bf48f89533bd006e0 (2916 bytes, 7 files)
+    inspectJSONSHA256: c5c59ec13cc64badce91721bf578154b2a856dac77eb7950735ba52167fefa0a

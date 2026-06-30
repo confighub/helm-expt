@@ -1716,7 +1716,7 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
       <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --set-image server=prom/prometheus:v3.1
 # upgrade to a newer chart version
-$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0
+$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
 # your image change is carried forward</code></pre>
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
@@ -1727,7 +1727,7 @@ $ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-commun
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
 # upgrade, keeping your hand edit
-$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0 --merge-external-source</code></pre>
+$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0 --merge-external-source</code></pre>
       <p>Change any line in the files, even one the chart never let you set, and the <span class="win">upgrade keeps it</span>.</p>
     </div>
   </div>

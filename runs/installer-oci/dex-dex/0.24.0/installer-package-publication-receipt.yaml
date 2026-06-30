@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: dex-dex-0.24.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0
+  package:
+    path: packages/dex/dex/0.24.0
+    sha256: 61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1
+  commands:
+    package: "cub installer package packages/dex/dex/0.24.0 -o <tmp>/dex-dex-0.24.0.tgz"
+    push: "cub installer push <tmp>/dex-dex-0.24.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0 --json"
+  outputs:
+    package: |
+      Bundled dex-dex@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-kmNkaE/dex-dex-0.24.0.tgz
+        files:  4
+        size:   1368 bytes
+        digest: sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0
+        manifest: sha256:06640fa3203bc4e5e6d195c7802d899e3d23812546e67b8b13ad3285c19cf3e8
+        layer:    sha256:61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1 (1368 bytes, 4 files)
+    inspectJSONSHA256: a45d8ffb8e7c14b6f7f122ead3792c63bea969d09deb4cf2afb8b219d9b01b11

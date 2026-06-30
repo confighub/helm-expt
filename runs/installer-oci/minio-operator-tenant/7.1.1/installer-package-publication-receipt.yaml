@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: minio-operator-tenant-7.1.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1
+  package:
+    path: packages/minio-operator/tenant/7.1.1
+    sha256: 410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019
+  commands:
+    package: "cub installer package packages/minio-operator/tenant/7.1.1 -o <tmp>/minio-operator-tenant-7.1.1.tgz"
+    push: "cub installer push <tmp>/minio-operator-tenant-7.1.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1 --json"
+  outputs:
+    package: |
+      Bundled minio-operator-tenant@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-RPsIjY/minio-operator-tenant-7.1.1.tgz
+        files:  5
+        size:   2301 bytes
+        digest: sha256:410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1
+        manifest: sha256:6a95ccc8d47f138aa37717bac8cede858cd8abf6de431ca34aa1b3b6df21f8ec
+        layer:    sha256:410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019 (2301 bytes, 5 files)
+    inspectJSONSHA256: e0e243df4bbca7313720c0f0f94592e4e5a6f3b7411c165f243d79b4b13e6bce

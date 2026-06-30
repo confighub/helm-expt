@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: elastic-logstash-8.5.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1
+  package:
+    path: packages/elastic/logstash/8.5.1
+    sha256: 83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3
+  commands:
+    package: "cub installer package packages/elastic/logstash/8.5.1 -o <tmp>/elastic-logstash-8.5.1.tgz"
+    push: "cub installer push <tmp>/elastic-logstash-8.5.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1 --json"
+  outputs:
+    package: |
+      Bundled elastic-logstash@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-iUk4xK/elastic-logstash-8.5.1.tgz
+        files:  7
+        size:   2384 bytes
+        digest: sha256:83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1
+        manifest: sha256:7b0ea06aa627f8274346b8ef0291deaf4122f39c9fd69d65918638da56c5bba0
+        layer:    sha256:83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3 (2384 bytes, 7 files)
+    inspectJSONSHA256: b3c9b2eae95f580c3c2300813c627c4f790b008f510d2f770801d5d8a9dcb82d

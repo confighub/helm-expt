@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: open-telemetry-opentelemetry-operator-0.114.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
+  package:
+    path: packages/open-telemetry/opentelemetry-operator/0.114.0
+    sha256: 321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a
+  commands:
+    package: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
+    push: "cub installer push <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --json"
+  outputs:
+    package: |
+      Bundled open-telemetry-opentelemetry-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-VgcNK0/open-telemetry-opentelemetry-operator-0.114.0.tgz
+        files:  7
+        size:   42298 bytes
+        digest: sha256:321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
+        manifest: sha256:e3df29f2b2e18333ba4bffbffd44cd3157778129a8a5756298f6107d6b1960c0
+        layer:    sha256:321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a (42298 bytes, 7 files)
+    inspectJSONSHA256: 1202a8d9b932b5b023534c029821d5b3129ab7231da1c0d01db2154c9113bf9e

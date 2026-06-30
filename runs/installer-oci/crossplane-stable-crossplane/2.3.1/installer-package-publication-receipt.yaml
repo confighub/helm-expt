@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: crossplane-stable-crossplane-2.3.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1
+  package:
+    path: packages/crossplane-stable/crossplane/2.3.1
+    sha256: 243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016
+  commands:
+    package: "cub installer package packages/crossplane-stable/crossplane/2.3.1 -o <tmp>/crossplane-stable-crossplane-2.3.1.tgz"
+    push: "cub installer push <tmp>/crossplane-stable-crossplane-2.3.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1 --json"
+  outputs:
+    package: |
+      Bundled crossplane-stable-crossplane@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-EyMgj7/crossplane-stable-crossplane-2.3.1.tgz
+        files:  4
+        size:   3433 bytes
+        digest: sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1
+        manifest: sha256:30e96f70a8712be2d38e1c372bad9a13b200ca9faaa8ed360225419c82970e8f
+        layer:    sha256:243510bb37b6cd6117298450387d7966f5637b30ebcae192ab3b9848d072d016 (3433 bytes, 4 files)
+    inspectJSONSHA256: 5b714dadbbb5631faccbb9ab7cf862f85535dfc46ac79df2c94fed41251d27c5

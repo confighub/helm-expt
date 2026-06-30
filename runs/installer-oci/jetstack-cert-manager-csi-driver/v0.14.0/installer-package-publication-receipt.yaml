@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: jetstack-cert-manager-csi-driver-v0.14.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0
+  package:
+    path: packages/jetstack/cert-manager-csi-driver/v0.14.0
+    sha256: 3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951
+  commands:
+    package: "cub installer package packages/jetstack/cert-manager-csi-driver/v0.14.0 -o <tmp>/jetstack-cert-manager-csi-driver-v0.14.0.tgz"
+    push: "cub installer push <tmp>/jetstack-cert-manager-csi-driver-v0.14.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0 --json"
+  outputs:
+    package: |
+      Bundled jetstack-cert-manager-csi-driver@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-m5al7j/jetstack-cert-manager-csi-driver-v0.14.0.tgz
+        files:  4
+        size:   1760 bytes
+        digest: sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0
+        manifest: sha256:6730151163271c3c2725b8aebb311cb10da69e9ce18850f19d7a58245f24050c
+        layer:    sha256:3791114cef219f7dcb44933aa4129c7e87e63f856a87186f22af9918ec0a0951 (1760 bytes, 4 files)
+    inspectJSONSHA256: dd584c6404d25ecaffafe26b7328404f450926a06185e24e07295ecd075622fb

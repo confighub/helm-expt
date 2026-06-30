@@ -52,7 +52,7 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` |
+| Installer package OCI | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` |
 | Installer package source | [packages/prometheus-community/kube-prometheus-stack/85.3.3](../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3) |
 | Installer package receipt | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/artifact-index.yaml](artifact-index.yaml) |
@@ -87,7 +87,7 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
 Use the variant table above to choose the package base. The `oci://` ref is

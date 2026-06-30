@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: opencost-opencost-2.5.21
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21
+  package:
+    path: packages/opencost/opencost/2.5.21
+    sha256: 1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47
+  commands:
+    package: "cub installer package packages/opencost/opencost/2.5.21 -o <tmp>/opencost-opencost-2.5.21.tgz"
+    push: "cub installer push <tmp>/opencost-opencost-2.5.21.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21 --json"
+  outputs:
+    package: |
+      Bundled opencost-opencost@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-xvsrIE/opencost-opencost-2.5.21.tgz
+        files:  4
+        size:   2884 bytes
+        digest: sha256:1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21
+        manifest: sha256:8a1adece2f7201cb8cad2fd71d0a41dffa233a1ca0a0820796eb9e45821de1e8
+        layer:    sha256:1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47 (2884 bytes, 4 files)
+    inspectJSONSHA256: 4703d225bde31ca4b0ea4cb073bb774dc6ccd11c486118aa46cc7c55ef5d4a7c

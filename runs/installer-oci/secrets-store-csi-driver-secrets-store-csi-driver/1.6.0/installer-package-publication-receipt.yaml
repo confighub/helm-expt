@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: secrets-store-csi-driver-secrets-store-csi-driver-1.6.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0
+  package:
+    path: packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+    sha256: 3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed
+  commands:
+    package: "cub installer package packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 -o <tmp>/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz"
+    push: "cub installer push <tmp>/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --json"
+  outputs:
+    package: |
+      Bundled secrets-store-csi-driver@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-Ygjr1g/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0.tgz
+        files:  6
+        size:   4045 bytes
+        digest: sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0
+        manifest: sha256:1236dfd4a74b23aa9f6eddef75614f9063f6e28adbf16fc2c7ae7a7379155726
+        layer:    sha256:3ad024cf7279287f499854f611cb2d83d60bf6abc925848ca96d4bdb4f9768ed (4045 bytes, 6 files)
+    inspectJSONSHA256: e1112d56213ed23cdc514aeab336198d565d240b0b0abb0701189bdd07c2a995

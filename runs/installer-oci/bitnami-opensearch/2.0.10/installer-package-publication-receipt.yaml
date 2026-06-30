@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: bitnami-opensearch-2.0.10
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10
+  package:
+    path: packages/bitnami/opensearch/2.0.10
+    sha256: b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8
+  commands:
+    package: "cub installer package packages/bitnami/opensearch/2.0.10 -o <tmp>/bitnami-opensearch-2.0.10.tgz"
+    push: "cub installer push <tmp>/bitnami-opensearch-2.0.10.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10 --json"
+  outputs:
+    package: |
+      Bundled bitnami-opensearch@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-mvOh5M/bitnami-opensearch-2.0.10.tgz
+        files:  8
+        size:   5814 bytes
+        digest: sha256:b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10
+        manifest: sha256:581a8813dfe2e51fa47680158a1a464d7d26ff2c13589cddacb17e143b2f554b
+        layer:    sha256:b15fbb41eddd653417df842cd76a6126ba0fc486be50de0b4dd51a056ca448d8 (5814 bytes, 8 files)
+    inspectJSONSHA256: 9481aae5304463c051d4abca4cbe742b8455846241b08064111d6f1080a1beb6

@@ -63,7 +63,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/bitnami/memcached/8.5.5"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/bitnami-memcached:8.5.5"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5"
     installer: "packages/bitnami/memcached/8.5.5/installer.yaml"
     receipt: "recipes/bitnami/memcached/8.5.5/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "60da1ada3bc125fae54ba7c330bcc9fb7074793ee7b9a6f0ee38594fa39a61d9"
@@ -95,7 +95,7 @@ spec:
         default: true
         description: "bitnami/memcached default variant rendered from bitnami/memcached@8.5.5"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-memcached:8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

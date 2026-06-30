@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: elastic-metricbeat-8.5.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1
+  package:
+    path: packages/elastic/metricbeat/8.5.1
+    sha256: 99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6
+  commands:
+    package: "cub installer package packages/elastic/metricbeat/8.5.1 -o <tmp>/elastic-metricbeat-8.5.1.tgz"
+    push: "cub installer push <tmp>/elastic-metricbeat-8.5.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1 --json"
+  outputs:
+    package: |
+      Bundled elastic-metricbeat@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PYkVt2/elastic-metricbeat-8.5.1.tgz
+        files:  4
+        size:   3597 bytes
+        digest: sha256:99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1
+        manifest: sha256:7c48e0cb343ee0b62dddcf021d5d3c3a422fe83d3304761a8682212df46204cf
+        layer:    sha256:99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6 (3597 bytes, 4 files)
+    inspectJSONSHA256: 22d513ddedfb70e81a095283a5e4ad2c4447eddd501fe01d76b75e74f0beea1d

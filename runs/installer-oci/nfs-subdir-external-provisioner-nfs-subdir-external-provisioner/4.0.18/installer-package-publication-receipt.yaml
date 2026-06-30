@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18
+  package:
+    path: packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+    sha256: c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de
+  commands:
+    package: "cub installer package packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 -o <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz"
+    push: "cub installer push <tmp>/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --json"
+  outputs:
+    package: |
+      Bundled nfs-subdir-external-provisioner-nfs-subdir-external-provisioner@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-p7XGsc/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18.tgz
+        files:  4
+        size:   1288 bytes
+        digest: sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18
+        manifest: sha256:7c28f9242e8913ddf0d434100eb0abdfb33b014b40665ad6256590d82211d4d3
+        layer:    sha256:c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de (1288 bytes, 4 files)
+    inspectJSONSHA256: ca224f64fdc826d6368bad60ad25af2764ca01772af6646123ee3b139196df34

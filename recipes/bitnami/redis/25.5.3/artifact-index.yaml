@@ -64,7 +64,7 @@ spec:
     nextAction: "choose whether default is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/redis/25.5.3"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
     installer: "packages/bitnami/redis/25.5.3/installer.yaml"
     receipt: "recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f55e4ae30adbbf1de140a3c5529051659d6f2f59a2285e480bc3ee3b3b1b92f7"
@@ -104,7 +104,7 @@ spec:
         default: true
         description: "Redis default variant rendered from bitnami/redis@25.5.3"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -175,7 +175,7 @@ spec:
         default: false
         description: "Redis variant that uses an existing Secret target fact"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

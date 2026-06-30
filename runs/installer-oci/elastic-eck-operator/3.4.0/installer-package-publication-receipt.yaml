@@ -1,0 +1,25 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: elastic-eck-operator-3.4.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0
+  package:
+    path: packages/elastic/eck-operator/3.4.0
+    sha256: cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d
+  commands:
+    package: "cub installer package packages/elastic/eck-operator/3.4.0 -o <tmp>/elastic-eck-operator-3.4.0.tgz"
+    push: "cub installer push <tmp>/elastic-eck-operator-3.4.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0 --json"
+  outputs:
+    package: |
+      Bundled elastic-eck-operator@
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-VFHZaB/elastic-eck-operator-3.4.0.tgz
+        files:  8
+        size:   271285 bytes
+        digest: sha256:cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0
+        manifest: sha256:1d7d273176ce8f810a9fa00fb5154a1d7cb514dbf57515e57850b5b99432a60f
+        layer:    sha256:cd2b877729df1a9078e0613afd43eebbc5093cb4040dc975d6ba6295155d073d (271285 bytes, 8 files)
+    inspectJSONSHA256: 096a80a8dfeda574e491a3d1745cd961cadfb82f10b9d50a1026e2e7a5b41ba3

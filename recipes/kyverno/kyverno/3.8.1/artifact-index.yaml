@@ -67,7 +67,7 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/kyverno/kyverno/3.8.1"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/kyverno-kyverno:3.8.1"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1"
     installer: "packages/kyverno/kyverno/3.8.1/installer.yaml"
     receipt: "recipes/kyverno/kyverno/3.8.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "57cfb3d1704a91e6c91f22eaf9ca936bd8ef23e823f9a3161eb5f045321fea2e"
@@ -104,7 +104,7 @@ spec:
         default: true
         description: "kyverno/kyverno default variant rendered from kyverno/kyverno@3.8.1"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/kyverno-kyverno:3.8.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 69
         cubInstallObjectCountIncludingSupport: 70
         semanticObjectMatches: "69/69"
@@ -364,7 +364,7 @@ spec:
         default: false
         description: "kyverno/kyverno no-crds variant rendered from kyverno/kyverno@3.8.1"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/kyverno-kyverno:3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 47
         cubInstallObjectCountIncludingSupport: 48
         semanticObjectMatches: "47/47"

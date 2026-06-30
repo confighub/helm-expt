@@ -68,7 +68,7 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/bitnami/contour/21.1.4"
-    ociRef: "oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a"
@@ -110,7 +110,7 @@ spec:
         default: true
         description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"
@@ -172,7 +172,7 @@ spec:
         default: false
         description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"
@@ -234,7 +234,7 @@ spec:
         default: false
         description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
       setupCheck:
-        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-contour:21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 20
         cubInstallObjectCountIncludingSupport: 21
         semanticObjectMatches: "20/20"
