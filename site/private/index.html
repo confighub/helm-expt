@@ -451,31 +451,23 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">AI Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
-    <h1>Private catalogs and managed operations.</h1>
-    <p class="tagline">The public catalog proves the path. Managed ConfigHub is for the harder problem: private inputs, many environments, approvals, production scope, fleet operations, and audit history.</p>
-    <p>You may already render private Helm charts in CI and commit the YAML. ConfigHub keeps those renders as governed data instead: recorded inputs, exact objects, variants, approvals, receipts, GitOps handoff, and live observations.</p>
+    <h1>Upgrade to ConfigHub</h1>
+    <p class="lead">If you like ConfigHub, please use the commercial edition. It is available as a standalone enterprise product and as a self-sign-up SaaS.</p>
+    <p>Below you will find some of the current and intended benefits of the commercial product for users of this Helm site.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-29T07:35:15.016Z UTC · source: committed helm-expt evidence for this private page.</p>
-    <section aria-labelledby="public-value">
-      <h2 id="public-value">Why Use The Free Public Catalog?</h2>
-      <p>Public Helm charts are flexible, but the rendered result is often opaque. The free catalog gives a Helm user the supported base choices, exact objects, checked limits, and known gaps before they install or promote anything.</p>
-      <p>The managed tier starts when the question changes from “can I see this chart?” to “can my team operate many chart configurations safely over time?”</p>
-      <div class="grid">
-        <div class="metric"><strong>100/100</strong><span>Public catalog pages</span></div>
-        <div class="metric"><strong>20/100</strong><span>Top100 ready-to-try</span></div>
-        <div class="metric"><strong>199/199</strong><span>Render parity rows</span></div>
-        <div class="metric"><strong>135/199</strong><span>Live parity rows</span></div>
-        <div class="metric"><strong>17/20</strong><span>Supported decisions</span></div>
-      </div>
-      <p>Anonymous or low-friction use is better than browsing Helm charts alone because the catalog answers: which base do I start with, what objects does it create, what pain points are absorbed, what must my target provide, and what proof exists today?</p>
+    <section aria-labelledby="why-upgrade">
+      <h2 id="why-upgrade">Why Upgrade?</h2>
+      <p>The public Helm site helps you try standard charts and understand what ConfigHub is doing. The commercial product is for private work: your charts, your applications, your teams, your approvals, and your production history.</p>
+      <p>Use it when one chart becomes many configurations, when several people need to review a release, or when you need a durable record of what changed and why.</p>
     </section>
 
     <section aria-labelledby="tiers">
-      <h2 id="tiers">Tier Shape</h2>
+      <h2 id="tiers">Available Options</h2>
       <div class="card"><table>
-        <thead><tr><th>Tier</th><th>User value</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Anonymous public</td><td>Browse catalog, inspect supported variants, open proof, pull/download public artifacts where available.</td><td>Static pages and public artifacts only; no private inputs, no managed compute, rate-limited artifact access.</td></tr><tr><td>Low-friction free</td><td>Run public catalog packages, verify local receipts, optionally create a small public sandbox render.</td><td>Account/rate limits when server resources, signatures, or stored receipts are used.</td></tr><tr><td>Catalog subscription</td><td>Refresh cadence, CVE turnaround, hardened variants, digest inventory, attestation pack, old-version support.</td><td>Paid SLA over public catalog artifacts and variants.</td></tr><tr><td>Private catalog</td><td>Private charts, wrapper charts, platform values, customer overlays, internal stacks, private OCI sources.</td><td>Managed import pipeline; not an anonymous/public-catalog guarantee.</td></tr><tr><td>ConfigHub Server</td><td>Teams, policies, approvals, changesets, variants, promotions, GitOps/OCI, observations, fleet queries, audit.</td><td>SaaS or enterprise/on-prem product surface.</td></tr></tbody>
+        <thead><tr><th>Option</th><th>What it gives you</th><th>Access</th></tr></thead>
+        <tbody><tr><td>Public Helm site</td><td>Browse chart pages, try public packages, inspect objects, and run public verification checks.</td><td>No account needed.</td></tr><tr><td>Self-sign-up SaaS</td><td>Store team configurations, manage versions, review diffs, and connect delivery workflows.</td><td>Hosted ConfigHub account.</td></tr><tr><td>Standalone enterprise product</td><td>Run ConfigHub for private charts, internal platforms, policy, audit, and production operations.</td><td>Enterprise deployment and support.</td></tr><tr><td>Private catalog support</td><td>Bring private charts, wrapper charts, platform values, customer overlays, and internal stacks.</td><td>Commercial feature.</td></tr><tr><td>Production operations</td><td>Use approvals, changesets, GitOps handoff, observations, fleet queries, and audit history.</td><td>Commercial feature.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -486,11 +478,11 @@
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">ConfigHub Path</h2>
-      <p>This page is the private and managed boundary reference. The step-by-step path a user actually walks - inspect, serverless try-out with no account, first sign-up, ConfigHub Server try-out, day-2 operations, and where paid begins - is on the <a href="../journey.html">Apps page</a>, with the exact command at each stage.</p>
+      <h2 id="journey">What The Commercial Product Helps With</h2>
+      <p>Start with the free site when you want to inspect public charts. Move to ConfigHub when you want to keep those configurations, share them with a team, and manage releases over time.</p>
       <div class="card"><table>
-        <thead><tr><th>Stage</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Curious user</td><td>Use cub helm template or the public site to inspect what a chart produces.</td></tr><tr><td>Fast ConfigHub adoption</td><td>Use cub helm install to load a rendered chart into ConfigHub Units quickly.</td></tr><tr><td>Supported public catalog</td><td>Use cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for curated bases with receipts.</td></tr><tr><td>Trust-building proof</td><td>Run kind/live parity commands to compare regular Helm with cub installer and ConfigHub delivery.</td></tr><tr><td>Ops</td><td>Use ConfigHub variants, diffs, scans, changesets, approvals, OCI/GitOps, observations, upgrades, and rollbacks.</td></tr></tbody>
+        <thead><tr><th>Need</th><th>How ConfigHub helps</th></tr></thead>
+        <tbody><tr><td>Teams and shared work</td><td>Store chart configurations where teammates can find, review, and reuse them.</td></tr><tr><td>Private application delivery</td><td>Use ConfigHub with your own charts, Kubernetes files, platform services, and release process.</td></tr><tr><td>Environment versions</td><td>Manage development, staging, production, region, and customer versions without copying values files by hand.</td></tr><tr><td>Upgrade review</td><td>Compare old and new rendered objects before a release reaches production.</td></tr><tr><td>Audit and support</td><td>Keep a record of inputs, diffs, approvals, delivery, observations, and receipts.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -498,15 +490,14 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>That journey keeps the fast Helm paths as useful ancestors. <code>cub helm template</code> and <code>cub helm install</code> are quick actions. <code>cub installer</code> packages are durable product artifacts. ConfigHub applications are where teams, approvals, variants, and promotion become useful; operations are where day-1/day-2 work becomes durable.</p>
     </section>
 
     <section aria-labelledby="commercial">
-      <h2 id="commercial">Commercial Workloads</h2>
-      <p>The managed tier is for hard operational value, not merely rendering. The useful paid work is private data, production scope, fleet operations, lifecycle actions, old-version support, and audit evidence.</p>
+      <h2 id="commercial">Current And Intended Benefits</h2>
+      <p>These are the main areas where the commercial product is meant to add value for Helm users.</p>
       <div class="card"><table>
-        <thead><tr><th>Lane</th><th>Managed value</th></tr></thead>
-        <tbody><tr><td>Hooks and actions</td><td>Inventory and route hook-like lifecycle work publicly; paid support can provide target-scoped lifecycle execution, Argo jobs, preflight, or operator review.</td></tr><tr><td>Stacks</td><td>Multiple recipes plus a custom app become one managed platform: for example monitoring, AI/RAG stacks, AICR, NIM, or customer platforms.</td></tr><tr><td>Bulk operations</td><td>Bulk scan, patch, approve, promote, and observe across a fleet.</td></tr><tr><td>Legacy patches</td><td>Maintain or patch older chart versions when upstream moved or broke compatibility.</td></tr><tr><td>Security and audit</td><td>Signed artifacts, scan diffs, digest inventory, refresh SLAs, evidence packs, policy gates, and audit history.</td></tr></tbody>
+        <thead><tr><th>Area</th><th>Benefit</th></tr></thead>
+        <tbody><tr><td>Private Helm catalogs</td><td>Use the same catalog model for charts and settings that cannot be public.</td></tr><tr><td>Application fleets</td><td>Manage many customer, region, or environment versions from recorded inputs and exact diffs.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td>Make the extra Helm work visible so it can be checked, ordered, assigned, or automated.</td></tr><tr><td>Bulk operations</td><td>Scan, patch, approve, promote, and observe many applications together.</td></tr><tr><td>Security and audit</td><td>Keep signed artifacts, scan diffs, digest inventory, policy gates, and audit history.</td></tr><tr><td>Older chart versions</td><td>Keep supporting older versions when upstream changes break your current deployment.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -516,9 +507,9 @@
       </style>
     </section>
 
-    <section aria-labelledby="limits">
-      <h2 id="limits">What Not To Sell Too Early</h2>
-      <p>Do not sell universal Helm compatibility, universal hook execution, universal field provenance, or signature-as-safety. Sell the staged model: clear bases, explicit prerequisites, visible proof, target-scoped support, and managed operations where the public catalog stops.</p>
+    <section aria-labelledby="more">
+      <h2 id="more">More Detail</h2>
+      <p>These project notes describe the current support model, the commercial plan, and the claim boundaries behind this page.</p>
       <div class="grid">
         <div class="card"><h3>Support tiers</h3><p><a href="../../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
         <div class="card"><h3>Commercial model</h3><p><a href="../../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
@@ -527,6 +518,6 @@
       </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Commercial claims require product, support, key, policy, and SLA decisions beyond the public proof corpus.</footer>
+  <footer>Generated from helm-expt proof data. Commercial features depend on product, support, policy, and SLA decisions beyond the public proof corpus.</footer>
 </body>
 </html>

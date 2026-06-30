@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Five Stages", "Get Started", "Verification", "AI and the catalog", "Existing apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Docs/FAQ", "Start Here", "Five Stages", "Technical Guides", "Verification And Evidence", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -129,7 +129,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/journey.html",
-    headerTerms: ["The free path is for trying public charts", "your apps, your custom versions", "staging to production"],
+    headerTerms: ["running your own applications", "concrete file diff", "keep those changes"],
   },
   {
     file: "site/operations.html",
