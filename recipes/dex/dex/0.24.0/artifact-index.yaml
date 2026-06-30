@@ -63,6 +63,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/dex/dex/0.24.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/dex-dex:0.24.0"
     installer: "packages/dex/dex/0.24.0/installer.yaml"
     receipt: "recipes/dex/dex/0.24.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "61f72819c33fc6b8c388808c061dc9686cbd6d96432fce8fe2b3eb319e968ab1"
@@ -94,7 +95,7 @@ spec:
         default: true
         description: "dex/dex default variant rendered from dex/dex@0.24.0"
       setupCheck:
-        command: "cub installer setup --pull packages/dex/dex/0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/dex-dex:0.24.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 8
         cubInstallObjectCountIncludingSupport: 9
         semanticObjectMatches: "8/8"

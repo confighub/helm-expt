@@ -83,6 +83,7 @@ function readme(rows) {
     ["I want to know which operating skill/playbook applies to a chart.", "data/chart-skills/summary.md; data/chart-skills/skills.csv; data/chart-skills/skills.json"],
     ["I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.", "data/lifecycle-route-actions/summary.md; data/lifecycle-route-actions/actions.csv; data/lifecycle-route-actions/actions.json"],
     ["I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached.", "data/helm-render-intents/summary.md; data/helm-render-intents/intents.csv; data/helm-render-intents/intents.json"],
+    ["I want the installer package OCI ref users should pull for each chart/version.", "data/installer-oci-packages/summary.md; data/installer-oci-packages/packages.csv; data/installer-oci-packages/packages.json"],
     ["I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/kind-parity-decisions/summary.md; data/kind-parity-decisions/decisions.csv; data/kind-parity-decisions/decisions.json"],
     ["I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/live-parity-decisions/summary.md; data/live-parity-decisions/decisions.csv; data/live-parity-decisions/decisions.json"],
     ["I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim).", "data/live-run-blocks/summary.md; data/live-run-blocks/run-blocks.csv; data/live-run-blocks/run-blocks.json"],
@@ -329,6 +330,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-fact-sheets/")) return "user/front-door";
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/helm-render-intents/")) return "user/front-door";
+  if (path.startsWith("data/installer-oci-packages/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";
   if (path.startsWith("data/live-matrix-burndown/")) return "user/front-door";
@@ -446,6 +448,7 @@ function roleFor(path) {
   if (path === "data/chart-skills/skills.csv") return "one row per chart: which docs/skills/ operating playbooks apply (advisory), the top skill, and the matched chart-fact signals";
   if (path === "data/lifecycle-route-actions/actions.csv") return "one row per hook/lifecycle route projected into an action packet: lifecycle phase, action kind, disposition, required target facts, evidence required, and whether the product runs it automatically (false today)";
   if (path === "data/helm-render-intents/intents.csv") return "one row per real base variant with chart/version/base, render inputs, evidence lanes, lifecycle route status, target-prerequisite action count, and source repository URL";
+  if (path === "data/installer-oci-packages/packages.csv") return "one row per installer package with chart/version, package path, public package OCI ref, bases, setup command, and publication receipt status";
   if (path === "data/kind-parity-decisions/decisions.csv") return "one row per non-pass two-cluster kind-parity row: residue category, who fixes it (user/catalog/review), whether it is usable today, plain user decision, and next action";
   if (path === "data/live-parity-decisions/decisions.csv") return "one row per non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) row: residue category, who fixes it, whether it is usable today, plain user decision, next action, and support artifact";
   if (path === "data/live-run-blocks/run-blocks.csv") return "one row per ready-to-run todo live row grouped into a run block: block id/goal, exact command, lane cells, predicted residue family + target profile (derived from committed evidence, never a claim) with basis and confidence, serial-safety notes, and why it matters for 99%";
@@ -524,6 +527,7 @@ function familyRole(family) {
     "chart-skills": "advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why",
     "lifecycle-route-actions": "hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag",
     "helm-render-intents": "ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached",
+    "installer-oci-packages": "public installer package OCI refs and consumer setup commands for chart packages",
     "kind-parity-decisions": "product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action",
     "live-parity-decisions": "product-readable decisions for non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) rows: residue category, who owns the fix, usable-today answer, next action, and support artifact",
     "live-run-blocks": "read-only run-block plan for the ready-to-run todo rows: small ordered blocks (G/P before K, hard charts first) with a derived (never claimed) predicted residue family and target profile per row",
@@ -647,6 +651,7 @@ function commandMap() {
     "chart-skills": { generate: "npm run chart-skills", verify: "npm run chart-skills:verify" },
     "lifecycle-route-actions": { generate: "npm run lifecycle:route-actions", verify: "npm run lifecycle:route-actions:verify" },
     "helm-render-intents": { generate: "npm run helm-render-intents", verify: "npm run helm-render-intents:verify" },
+    "installer-oci-packages": { generate: "npm run installer-oci:catalog", verify: "npm run installer-oci:catalog:verify" },
     "kind-parity-decisions": { generate: "npm run kind-parity:decisions", verify: "npm run kind-parity:decisions:verify" },
     "live-parity-decisions": { generate: "npm run live-parity:decisions", verify: "npm run live-parity:decisions:verify" },
     "live-run-blocks": { generate: "npm run live-run-blocks", verify: "npm run live-run-blocks:verify" },

@@ -65,6 +65,7 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/argo-cd/argo-cd/9.5.17"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.17"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42"
@@ -111,7 +112,7 @@ spec:
         default: true
         description: "argo-cd default variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.17 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.17 --base default --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 49
         cubInstallObjectCountIncludingSupport: 50
         semanticObjectMatches: "49/49"
@@ -211,7 +212,7 @@ spec:
         default: false
         description: "argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.17"
       setupCheck:
-        command: "cub installer setup --pull packages/argo-cd/argo-cd/9.5.17 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-cd:9.5.17 --base no-crds --work-dir <tmp> --non-interactive --namespace argocd"
         helmReleaseObjectCount: 46
         cubInstallObjectCountIncludingSupport: 47
         semanticObjectMatches: "46/46"

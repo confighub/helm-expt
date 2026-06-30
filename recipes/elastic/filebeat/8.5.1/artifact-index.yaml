@@ -63,6 +63,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/filebeat/8.5.1"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/elastic-filebeat:8.5.1"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c"
@@ -99,7 +100,7 @@ spec:
         default: true
         description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-filebeat:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -161,7 +162,7 @@ spec:
         default: false
         description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-filebeat:8.5.1 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

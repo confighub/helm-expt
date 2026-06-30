@@ -49,7 +49,8 @@ for exact base-variant evidence.
 | Value model | [recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-workflows/1.0.14/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package | [packages/argo-cd/argo-workflows/1.0.14](../../../../packages/argo-cd/argo-workflows/1.0.14) |
+| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/argo-cd-argo-workflows:1.0.14` |
+| Installer package source | [packages/argo-cd/argo-workflows/1.0.14](../../../../packages/argo-cd/argo-workflows/1.0.14) |
 | Installer package receipt | [recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/argo-cd/argo-workflows/1.0.14/artifact-index.yaml](artifact-index.yaml) |
 
@@ -89,10 +90,11 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-workflows:1.0.14 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
-Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub installer setup` output and explains every
-intentional difference, such as the Namespace support object or separated
-Secrets.
+Use the variant table above to choose the package base. The `oci://` ref is
+the public package users pull; the `packages/...` path is the repo source path
+used by maintainers and proof scripts. The proof path compares regular Helm
+output with real `cub installer setup` output and explains every intentional
+difference, such as the Namespace support object or separated Secrets.

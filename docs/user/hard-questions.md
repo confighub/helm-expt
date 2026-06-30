@@ -26,10 +26,13 @@ Use `cub installer` packages when you want a maintained base with receipts and
 proof:
 
 ```sh
-cub installer setup --pull <package> --base <base>
+cub installer setup --pull <installer OCI ref> --base <base>
 ```
 
-See [Choosing Commands](./choosing-commands.md).
+Public catalog pages show the installer package OCI ref for each chart version,
+so a real command uses `--pull oci://...`, not a checkout-local path. See
+[Choosing Commands](./choosing-commands.md) and
+[Installer Package OCI Refs](./installer-oci-packages.md).
 
 ## Do I have to rewrite my charts?
 

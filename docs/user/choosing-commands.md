@@ -12,7 +12,7 @@ other.
 | --- | --- |
 | See what a Helm chart renders, without ConfigHub state. | `cub helm template` |
 | Quickly load one Helm render into ConfigHub Units. | `cub helm install` |
-| Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` |
+| Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
 | Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run -o mutations`, then `cub variant promote` |
@@ -61,7 +61,7 @@ full catalog model on day one.
 | --- | --- | --- |
 | Inspect | `cub helm template` | Render the chart locally and see the Kubernetes objects. |
 | Adopt quickly | `cub helm install` | Load one rendered Helm result into ConfigHub Units. |
-| Use a maintained catalog entry | `cub installer setup --pull <package> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
+| Use a maintained catalog entry | `cub installer setup --pull <installer OCI ref> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
 | Operate | `cub installer upload`, `cub variant create`, `cub variant promote`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
 
 Existing apps enter through the same model without a recipe rewrite:
@@ -126,6 +126,9 @@ Use this when you want the maintained recipe/package path.
 
 In helm-expt, a `cub installer` package is the catalog artifact. It has named
 base variants, rendered objects, receipts, checks, and a support story.
+Public users pull the package with its `oci://` ref. Maintainers may use the
+local `packages/...` source path from a repo checkout when they are running
+proof scripts or editing the package.
 
 Good for:
 
@@ -214,7 +217,7 @@ path, future chart refreshes, and catalog-grade proof.
 | --- | --- |
 | "Show me what this chart produces." | `cub helm template` |
 | "Load this chart into ConfigHub right now." | `cub helm install` |
-| "Use the supported Redis catalog entry." | `cub installer setup --pull packages/bitnami/redis/25.5.3 --base default` |
+| "Use the supported Redis catalog entry." | `cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
 | "Create prod-us-east from this reviewed Prometheus base." | `cub variant create` over the uploaded ConfigHub Space |

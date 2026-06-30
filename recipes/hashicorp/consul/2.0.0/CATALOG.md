@@ -54,7 +54,8 @@ for exact base-variant evidence.
 | Weirdness and mitigations | [recipes/hashicorp/consul/2.0.0/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/hashicorp/consul/2.0.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml](helm-pain-report.yaml) |
-| Installer package | [packages/hashicorp/consul/2.0.0](../../../../packages/hashicorp/consul/2.0.0) |
+| Installer package OCI | `oci://ghcr.io/confighub/helm-expt/hashicorp-consul:2.0.0` |
+| Installer package source | [packages/hashicorp/consul/2.0.0](../../../../packages/hashicorp/consul/2.0.0) |
 | Installer package receipt | [recipes/hashicorp/consul/2.0.0/publication/installer-package-receipt.yaml](publication/installer-package-receipt.yaml) |
 | Machine index | [recipes/hashicorp/consul/2.0.0/artifact-index.yaml](artifact-index.yaml) |
 
@@ -88,10 +89,11 @@ for exact base-variant evidence.
 ## Current Install Shape
 
 ```sh
-cub installer setup --pull packages/hashicorp/consul/2.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull oci://ghcr.io/confighub/helm-expt/hashicorp-consul:2.0.0 --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 ```
 
-Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real `cub installer setup` output and explains every
-intentional difference, such as the Namespace support object or separated
-Secrets.
+Use the variant table above to choose the package base. The `oci://` ref is
+the public package users pull; the `packages/...` path is the repo source path
+used by maintainers and proof scripts. The proof path compares regular Helm
+output with real `cub installer setup` output and explains every intentional
+difference, such as the Namespace support object or separated Secrets.

@@ -67,6 +67,7 @@ another chart preset.
 | Source lock | The chart and dependencies can be traced. |
 | Render intent | The compact machine-readable record of the render inputs. |
 | Render variant | The captured Kubernetes objects produced by the chart preset. |
+| Installer package OCI ref | The public package address users pull with `cub installer setup --pull oci://...`. |
 | Package base | The generated package users can inspect and try. |
 | Evidence lanes | The checks, receipts, scans, and live observations for the row. |
 | Chart extras | Hooks, CRDs, setup jobs, generated facts, target facts, and other work outside plain YAML. |

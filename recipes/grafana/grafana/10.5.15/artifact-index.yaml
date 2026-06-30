@@ -65,6 +65,7 @@ spec:
     nextAction: "resolve image digests for each affected variant before production OCI support"
   installerPackage:
     path: "packages/grafana/grafana/10.5.15"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/grafana-grafana:10.5.15"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"
     receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9"
@@ -101,7 +102,7 @@ spec:
         default: true
         description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-grafana:10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -170,7 +171,7 @@ spec:
         default: false
         description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/grafana/10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-grafana:10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

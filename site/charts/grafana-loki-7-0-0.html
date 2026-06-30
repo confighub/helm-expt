@@ -377,7 +377,7 @@
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=loki&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">catalog-supported page for grafana/loki@7.0.0.</p>
-    <pre>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</pre>
+    <pre>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -391,7 +391,7 @@
       <p>Use the public catalog entry, then check the exact base and lane before making a production claim.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>catalog-supported</td></tr><tr><td>Chart version</td><td>7.0.0</td></tr><tr><td>Latest upstream seen</td><td>7.0.0</td></tr><tr><td>Supported chart presets</td><td>single-binary-filesystem;simple-scalable-minio</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>loki</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>catalog-supported</td></tr><tr><td>Chart version</td><td>7.0.0</td></tr><tr><td>Installer package OCI</td><td>oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0</td></tr><tr><td>OCI publication status</td><td>assigned public ref; publication receipt not committed yet</td></tr><tr><td>Latest upstream seen</td><td>7.0.0</td></tr><tr><td>Supported chart presets</td><td>single-binary-filesystem;simple-scalable-minio</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>loki</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -407,7 +407,7 @@
       <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Kubernetes objects</td><td><a href="../../recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml">single-binary-filesystem render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml">single-binary-filesystem render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -427,8 +427,10 @@
       <h2 id="run-this">How To Try This Chart</h2>
       <p>Start with <strong>single-binary-filesystem</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
+        <h3>Package image</h3>
+        <p><code>oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0</code><br><span style="color:var(--muted);font-size:.9rem">assigned public ref; publication receipt not committed yet</span></p>
         <h3>Recommended first command</h3>
-        <p><code>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</code></p>
+        <p><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</code></p>
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -477,7 +479,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/grafana/loki/7.0.0 --base simple-scalable-minio --work-dir .tmp/demo/grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base simple-scalable-minio --work-dir .tmp/demo/grafana-loki-7-0-0-simple-scalable-minio --non-interactive --namespace loki</code></dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
@@ -499,7 +501,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir .tmp/demo/grafana-loki-7-0-0-single-binary-filesystem --non-interactive --namespace loki</code></dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
@@ -544,7 +546,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
-        <tbody><tr><td>User status</td><td>ready-to-try</td></tr><tr><td>Can I use it?</td><td>yes-public-catalog</td></tr><tr><td>First base</td><td>single-binary-filesystem</td></tr><tr><td>Current proof</td><td>catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>covered</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>ready-to-try</td></tr><tr><td>Can I use it?</td><td>yes-public-catalog</td></tr><tr><td>First base</td><td>single-binary-filesystem</td></tr><tr><td>Installer package OCI</td><td>oci://ghcr.io/confighub/helm-expt/grafana-loki:7.0.0</td></tr><tr><td>Current proof</td><td>catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>covered</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -631,7 +633,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/grafana/loki/7.0.0/CATALOG.md">recipes/grafana/loki/7.0.0/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml">data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml">recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/grafana/loki/7.0.0/recipe.yaml">recipes/grafana/loki/7.0.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/grafana/loki/7.0.0">packages/grafana/loki/7.0.0</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/grafana/loki/7.0.0/helm-pain-report.yaml">recipes/grafana/loki/7.0.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/grafana-loki/support-decision.yaml">data/production-support-decisions/grafana-loki/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/grafana/loki/7.0.0/CATALOG.md">recipes/grafana/loki/7.0.0/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml">data/helm-render-intents/intents/grafana-loki-7-0-0-single-binary-filesystem.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml">recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/grafana/loki/7.0.0/recipe.yaml">recipes/grafana/loki/7.0.0/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/grafana/loki/7.0.0">packages/grafana/loki/7.0.0</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../../data/installer-oci-packages/summary.md">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/grafana/loki/7.0.0/helm-pain-report.yaml">recipes/grafana/loki/7.0.0/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/grafana-loki/support-decision.yaml">data/production-support-decisions/grafana-loki/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -641,6 +643,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T09:43:03.156Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T13:33:06.114Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

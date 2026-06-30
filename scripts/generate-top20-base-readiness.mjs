@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { installerOciRef } from "./lib/installer-oci.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "top20-base-readiness");
@@ -79,7 +80,7 @@ function buildReport() {
         live_rerun_readiness: rerun?.rerun_readiness ?? liveCollection.readiness,
         live_rerun_next_step: rerun?.next_step_type ?? liveCollection.nextStep,
         live_rerun_command: rerun?.rerun_command ?? liveCollection.command,
-        command: `cub installer setup --pull ${production.package_path} --base ${base} --work-dir <tmp> --non-interactive --namespace ${variant.namespace}`,
+        command: `cub installer setup --pull ${installerOciRef(production.chart, production.version)} --base ${base} --work-dir <tmp> --non-interactive --namespace ${variant.namespace}`,
         target_facts: variant.targetFactSummary || "none",
         render_parity: baseRow.render_parity,
         in_confighub: baseRow.in_confighub,

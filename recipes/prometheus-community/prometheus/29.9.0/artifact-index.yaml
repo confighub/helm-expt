@@ -65,6 +65,7 @@ spec:
     nextAction: ""
   installerPackage:
     path: "packages/prometheus-community/prometheus/29.9.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0"
     installer: "packages/prometheus-community/prometheus/29.9.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus/29.9.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
@@ -101,7 +102,7 @@ spec:
         default: true
         description: "prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.9.0"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -163,7 +164,7 @@ spec:
         default: false
         description: "prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.9.0"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

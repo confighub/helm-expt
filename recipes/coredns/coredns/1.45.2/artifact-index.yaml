@@ -63,6 +63,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/coredns/coredns/1.45.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/coredns-coredns:1.45.2"
     installer: "packages/coredns/coredns/1.45.2/installer.yaml"
     receipt: "recipes/coredns/coredns/1.45.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "795878a5ee157ca65dab8859d5dcb51dffeb6ef89b0979cdc6497a06b600a87e"
@@ -94,7 +95,7 @@ spec:
         default: true
         description: "coredns/coredns default variant rendered from coredns/coredns@1.45.2"
       setupCheck:
-        command: "cub installer setup --pull packages/coredns/coredns/1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/coredns-coredns:1.45.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

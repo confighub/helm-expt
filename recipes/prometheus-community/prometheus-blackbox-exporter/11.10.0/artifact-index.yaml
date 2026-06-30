@@ -62,6 +62,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0"
     installer: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3eb5efd08840b14d24050f793f65e86ea13fbf6ef09986298f9f76e2c142e040"
@@ -98,7 +99,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-blackbox-exporter default variant rendered from prometheus-community/prometheus-blackbox-exporter@11.10.0"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"
@@ -160,7 +161,7 @@ spec:
         default: false
         description: "prometheus-community/prometheus-blackbox-exporter cluster-metrics-readonly useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

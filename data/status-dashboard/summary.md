@@ -23,8 +23,8 @@ Which detailed CSV should I open next?
 | outcome coverage | variant-rich maintained chart rows | 77/110 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | chart use | public catalog answers | 20/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | chart use | proof-ready but not public catalog answers | 37/100 | partial | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | better base variant needed answers | 35/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
-| chart use | limitation decision needed answers | 7/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | better base variant needed answers | 33/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
+| chart use | limitation decision needed answers | 9/100 | gap | [data/chart-use-guide/chart-use-guide.csv](../../data/chart-use-guide/chart-use-guide.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 89/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
@@ -386,8 +386,8 @@ review, needs a better base variant, or needs a limitation decision first.
 | --- | ---: | --- |
 | yes-public-catalog | 20 | Public catalog entry exists. Choose a base and check the proof lane you need. |
 | not-yet-public-catalog-proof-ready | 37 | Proof exists and variants look useful, but catalog promotion review is not done. |
-| not-yet-user-ready | 35 | The current proof is too default-shaped; design a useful base variant first. |
-| decision-needed-first | 7 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
+| not-yet-user-ready | 33 | The current proof is too default-shaped; design a useful base variant first. |
+| decision-needed-first | 9 | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
 
 Use [chart-use-guide/summary.md](../chart-use-guide/summary.md) for one row per
 top-100 chart and the next command or file to open.

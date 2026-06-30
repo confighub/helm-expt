@@ -64,6 +64,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/grafana/rollout-operator/0.49.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/grafana-rollout-operator:0.49.0"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "737c8335b42cf355d2c43e18763abaddeaf33ab7d0ea19686cb68556eb4fcf1d"
@@ -100,7 +101,7 @@ spec:
         default: true
         description: "grafana/rollout-operator default variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/rollout-operator/0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-rollout-operator:0.49.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 15
         cubInstallObjectCountIncludingSupport: 16
         semanticObjectMatches: "15/15"
@@ -162,7 +163,7 @@ spec:
         default: false
         description: "grafana/rollout-operator no-crds variant rendered from grafana/rollout-operator@0.49.0"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/rollout-operator/0.49.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-rollout-operator:0.49.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

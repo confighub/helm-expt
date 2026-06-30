@@ -486,7 +486,7 @@ $ helm install prom prometheus-community/prometheus --version 29.8.0 \
     -n monitoring --create-namespace
 
 # ConfigHub: render the reviewed package, then apply
-$ cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
+$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 $ kubectl apply -f ./prom/out/manifests</code></pre>
 
@@ -499,7 +499,7 @@ $ kubectl apply -f ./prom/out/manifests</code></pre>
   <pre><code>$ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objects
 $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
-  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at a package: a chart we've already reviewed and rendered, kept in the public catalog. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p></div>
+  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
 
   <h2>2 · Change it after install — and it stays</h2>
   <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
@@ -508,10 +508,10 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
     <div class="box">
       <h3>Free: your settings stay</h3>
       <p class="tag">no account</p>
-      <pre><code>$ cub installer setup --pull .../prometheus/29.8.0 \
+      <pre><code>$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
     --set-image server=prom/prometheus:v3.1
 # upgrade to a newer chart version
-$ cub installer setup --pull .../prometheus/29.9.0
+$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0
 # your image change is carried forward</code></pre>
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
@@ -522,7 +522,7 @@ $ cub installer setup --pull .../prometheus/29.9.0
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
 # upgrade, keeping your hand edit
-$ cub installer setup --pull .../29.9.0 --merge-external-source</code></pre>
+$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0 --merge-external-source</code></pre>
       <p>Change any line in the files, even one the chart never let you set, and the <span class="win">upgrade keeps it</span>.</p>
     </div>
   </div>
@@ -560,6 +560,6 @@ $ npm run redis:verify-install:render -- \
   <p class="closing-line">Get Started needs no account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer><p class="generated"><b>Generated at:</b> 2026-06-30T09:43:03.156Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+<footer><p class="generated"><b>Generated at:</b> 2026-06-30T13:33:06.114Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>

@@ -601,7 +601,7 @@ stringData:
         </div>
         <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
           <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 <span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
         </div>

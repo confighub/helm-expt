@@ -377,7 +377,7 @@
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=redis&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">catalog-supported page for bitnami/redis@25.5.3.</p>
-    <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</pre>
+    <pre>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -391,7 +391,7 @@
       <p>Use the public catalog entry, then check the exact base and lane before making a production claim.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>catalog-supported</td></tr><tr><td>Chart version</td><td>25.5.3</td></tr><tr><td>Latest upstream seen</td><td>27.0.0 (update candidate)</td></tr><tr><td>Supported chart presets</td><td>default;reuse-existing-secret</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>redis</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>catalog-supported</td></tr><tr><td>Chart version</td><td>25.5.3</td></tr><tr><td>Installer package OCI</td><td>oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3</td></tr><tr><td>OCI publication status</td><td>assigned public ref; publication receipt not committed yet</td></tr><tr><td>Latest upstream seen</td><td>27.0.0 (update candidate)</td></tr><tr><td>Supported chart presets</td><td>default;reuse-existing-secret</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>redis</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -407,7 +407,7 @@
       <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Kubernetes objects</td><td><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -427,8 +427,10 @@
       <h2 id="run-this">How To Try This Chart</h2>
       <p>Start with <strong>default</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
+        <h3>Package image</h3>
+        <p><code>oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3</code><br><span style="color:var(--muted);font-size:.9rem">assigned public ref; publication receipt not committed yet</span></p>
         <h3>Recommended first command</h3>
-        <p><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></p>
+        <p><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></p>
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -443,7 +445,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
         <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
       </div>
       <p><a href="../try.html">Open the current Get Started page</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
@@ -488,7 +490,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2a honest default base</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
@@ -510,7 +512,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir .tmp/demo/bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir .tmp/demo/bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
@@ -599,7 +601,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
-        <tbody><tr><td>User status</td><td>ready-to-try</td></tr><tr><td>Can I use it?</td><td>yes-public-catalog</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Current proof</td><td>catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>covered</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>ready-to-try</td></tr><tr><td>Can I use it?</td><td>yes-public-catalog</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3</td></tr><tr><td>Current proof</td><td>catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>covered</td></tr><tr><td>User must provide</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td></tr><tr><td>Next action</td><td>record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -686,7 +688,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="files">Files To Inspect</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/redis/25.5.3/CATALOG.md">recipes/bitnami/redis/25.5.3/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/redis/25.5.3/recipe.yaml">recipes/bitnami/redis/25.5.3/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/redis/25.5.3/helm-pain-report.yaml">recipes/bitnami/redis/25.5.3/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/bitnami-redis/support-decision.yaml">data/production-support-decisions/bitnami-redis/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../../recipes/bitnami/redis/25.5.3/CATALOG.md">recipes/bitnami/redis/25.5.3/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../../data/helm-render-intents/summary.md">data/helm-render-intents/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/bitnami/redis/25.5.3/recipe.yaml">recipes/bitnami/redis/25.5.3/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../../data/installer-oci-packages/summary.md">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/bitnami/redis/25.5.3/helm-pain-report.yaml">recipes/bitnami/redis/25.5.3/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../../data/production-disposition/summary.md">data/production-disposition/summary.md</a></td></tr><tr><td>Support decision</td><td><a href="../../data/production-support-decisions/bitnami-redis/support-decision.yaml">data/production-support-decisions/bitnami-redis/support-decision.yaml</a></td></tr><tr><td>Base readiness</td><td><a href="../../data/top20-base-readiness/summary.md">data/top20-base-readiness/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../../data/chart-skills/summary.md">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../../data/chart-evidence-router/summary.md">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../../docs/user/current-proof-status.md">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -696,6 +698,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T09:43:03.156Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T13:33:06.114Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>

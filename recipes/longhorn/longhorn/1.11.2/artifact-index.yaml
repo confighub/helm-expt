@@ -65,6 +65,7 @@ spec:
     nextAction: "choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support"
   installerPackage:
     path: "packages/longhorn/longhorn/1.11.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/longhorn-longhorn:1.11.2"
     installer: "packages/longhorn/longhorn/1.11.2/installer.yaml"
     receipt: "recipes/longhorn/longhorn/1.11.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "b204441cb21bc29ac21ba5fa10c45f8ac8176c4d13b375edd2129d01481c58ea"
@@ -101,7 +102,7 @@ spec:
         default: true
         description: "Longhorn default storage control plane variant rendered from longhorn/longhorn@1.11.2"
       setupCheck:
-        command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
         helmReleaseObjectCount: 41
         cubInstallObjectCountIncludingSupport: 42
         semanticObjectMatches: "41/41"
@@ -163,7 +164,7 @@ spec:
         default: false
         description: "Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2"
       setupCheck:
-        command: "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/longhorn-longhorn:1.11.2 --base ui-ingress --work-dir <tmp> --non-interactive --namespace longhorn-system"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"

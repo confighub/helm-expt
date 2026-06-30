@@ -31,8 +31,10 @@ cd helm-expt
 git status --short --branch
 ```
 
-If you already have a checkout, run from the repository root. The package paths
-in this page are relative to that directory.
+If you already have a checkout, run from the repository root for the optional
+`npm run ...` proof checks. The `cub installer setup --pull oci://...` commands
+pull public installer packages and do not require a repo-local `packages/...`
+path.
 
 ## Prerequisites
 
@@ -124,7 +126,7 @@ reuse the same work directory to reconcile the existing upload.
 
 ```sh
 cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
+  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --non-interactive \
@@ -219,7 +221,7 @@ kubectl --context <your-context> -n redis create secret generic redis-existing-s
   --dry-run=client -o yaml | kubectl --context <your-context> apply -f -
 
 cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
+  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
   --base reuse-existing-secret \
   --work-dir .tmp/demo/redis-reuse-existing-secret \
   --non-interactive \
@@ -274,7 +276,7 @@ Run the server-only base:
 
 ```sh
 cub installer setup \
-  --pull packages/prometheus-community/prometheus/29.8.0 \
+  --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
   --base server-only-ephemeral \
   --work-dir .tmp/demo/prometheus-server-only \
   --non-interactive \
@@ -714,7 +716,7 @@ Upload or select the reviewed base first:
 
 ```sh
 cub installer setup \
-  --pull packages/bitnami/nginx/24.0.2 \
+  --pull oci://ghcr.io/confighub/helm-expt/bitnami-nginx:24.0.2 \
   --base http-clusterip \
   --work-dir .tmp/demo/nginx-http \
   --non-interactive \

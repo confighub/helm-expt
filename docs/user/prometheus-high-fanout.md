@@ -73,7 +73,7 @@ Render one base:
 
 ```sh
 cub installer setup \
-  --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 \
+  --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 \
   --base no-crds \
   --work-dir .tmp/demo/kps-no-crds \
   --non-interactive \

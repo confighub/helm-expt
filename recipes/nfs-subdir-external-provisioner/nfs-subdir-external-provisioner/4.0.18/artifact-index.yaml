@@ -60,6 +60,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18"
     installer: "packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/installer.yaml"
     receipt: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c34aaf40e578bf4557a032c6869ac3f3001d1489b23d140f972c7b3004e5f6de"
@@ -91,7 +92,7 @@ spec:
         default: true
         description: "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner default variant rendered from nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18"
       setupCheck:
-        command: "cub installer setup --pull packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

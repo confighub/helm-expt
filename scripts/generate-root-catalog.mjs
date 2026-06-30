@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 
 import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { installerOciRef } from "./lib/installer-oci.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputPath = join(repoRoot, "CATALOG.md");
@@ -61,7 +62,9 @@ function buildMarkdown() {
     "```",
     "",
     "The root catalog is the entry point. The per-chart `CATALOG.md` is the",
-    "evidence folder. The `packages/` path is what `cub installer setup` uses.",
+    "evidence folder. The `oci://` package ref is what users pass to",
+    "`cub installer setup --pull`. The `packages/` path is the repo source",
+    "for maintainers and proof scripts.",
     "",
     "## Folder Map",
     "",
@@ -146,6 +149,7 @@ function buildEntry(indexPath, readinessByKey) {
     recipe: spec.recipe?.path ?? "",
     helmPainReport: spec.recipe?.helmPainReport ?? "",
     package: spec.installerPackage?.path ?? "",
+    packageOciRef: spec.installerPackage?.ociRef ?? installerOciRef(chart, version),
     status: spec.catalogStatus?.status ?? "",
     supportLevel: spec.catalogStatus?.supportLevel ?? "",
     productionReadiness: spec.catalogStatus?.productionReadiness ?? "",
@@ -166,14 +170,15 @@ function chartSection(entry) {
     `Strongest evidence: ${entry.proofSummary.strongestEvidence || "see per-chart catalog"}`,
     `Proof lanes: ${proofLaneText(entry.proofSummary.proofLanes)}`,
     `Hard gap: ${entry.proofSummary.hardGap || "-"}`,
-    `Package: ${link(entry.package, entry.package)}`,
+    `Installer package OCI: \`${entry.packageOciRef}\``,
+    `Source package: ${link(entry.package, entry.package)}`,
     `Per-chart catalog: ${link("CATALOG.md", entry.catalog)}`,
     ...(entry.helmPainReport ? [`Helm pain report: ${link("helm-pain-report.yaml", entry.helmPainReport)}`] : []),
     "",
     "Start here:",
     "",
     "```sh",
-    `cub installer setup --pull ${entry.package} --base ${entry.startVariant} --work-dir <tmp> --non-interactive --namespace ${entry.namespace}`,
+    `cub installer setup --pull ${entry.packageOciRef} --base ${entry.startVariant} --work-dir <tmp> --non-interactive --namespace ${entry.namespace}`,
     "```",
     "",
     "Variants:",
@@ -207,7 +212,7 @@ function variantSection(variant, startVariant) {
 
 function liveTestedTable(entries) {
   return markdownTable(
-    ["Chart", "Start With", "Start Base Status", "Evidence", "Hard Gap", "Variants", "Package", "Catalog"],
+    ["Chart", "Start With", "Start Base Status", "Evidence", "Hard Gap", "Variants", "Installer OCI", "Catalog"],
     entries.map((entry) => [
       `${entry.chart}@${entry.version}`,
       entry.startVariant,
@@ -215,7 +220,7 @@ function liveTestedTable(entries) {
       entry.proofSummary.strongestEvidence || "-",
       entry.proofSummary.hardGap || "-",
       entry.variants.map((variant) => variant.name).join(", "),
-      link(entry.package, entry.package),
+      `\`${entry.packageOciRef}\``,
       link("CATALOG.md", entry.catalog),
     ]),
   );
@@ -294,13 +299,14 @@ function entrylessCatalogPath(variantPath) {
 
 function summaryTable(entries) {
   return markdownTable(
-    ["Chart", "Status", "Bucket", "Evidence", "Start With", "Hard Gap", "Catalog"],
+    ["Chart", "Status", "Bucket", "Evidence", "Start With", "Package OCI", "Hard Gap", "Catalog"],
     entries.map((entry) => [
       `${entry.chart}@${entry.version}`,
       entry.status,
       entry.proofSummary.adoptionBucket || "-",
       entry.proofSummary.strongestEvidence || "-",
       entry.startVariant,
+      `\`${entry.packageOciRef}\``,
       entry.proofSummary.hardGap || "-",
       link("CATALOG.md", entry.catalog),
     ]),

@@ -64,6 +64,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/argo-cd/argo-events/2.4.21"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/argo-cd-argo-events:2.4.21"
     installer: "packages/argo-cd/argo-events/2.4.21/installer.yaml"
     receipt: "recipes/argo-cd/argo-events/2.4.21/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "305f63669cfe2d1fb456b90bb025043320cb214ec3e023db16547106b6454848"
@@ -100,7 +101,7 @@ spec:
         default: true
         description: "argo-cd/argo-events default variant rendered from argo-cd/argo-events@2.4.21"
       setupCheck:
-        command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-events:2.4.21 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"
@@ -162,7 +163,7 @@ spec:
         default: false
         description: "argo-cd/argo-events no-crds variant rendered from argo-cd/argo-events@2.4.21"
       setupCheck:
-        command: "cub installer setup --pull packages/argo-cd/argo-events/2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/argo-cd-argo-events:2.4.21 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

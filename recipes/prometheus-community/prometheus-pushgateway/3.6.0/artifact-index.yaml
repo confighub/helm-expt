@@ -61,6 +61,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/prometheus-community/prometheus-pushgateway/3.6.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0"
     installer: "packages/prometheus-community/prometheus-pushgateway/3.6.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-pushgateway/3.6.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "11684fe4f6cce5d4a032e5c1ddbbba4dde86fd5e12c933dc411add7ee38020a2"
@@ -92,7 +93,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-pushgateway default variant rendered from prometheus-community/prometheus-pushgateway@3.6.0"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-pushgateway/3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

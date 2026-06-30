@@ -62,6 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fluent/fluentd/0.5.3"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/fluent-fluentd:0.5.3"
     installer: "packages/fluent/fluentd/0.5.3/installer.yaml"
     receipt: "recipes/fluent/fluentd/0.5.3/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "73e36b924e73bb87db5c7c1fbac81cb593724cbde6618c7cd6c20aef3a2ce8c9"
@@ -93,7 +94,7 @@ spec:
         default: true
         description: "fluent/fluentd default variant rendered from fluent/fluentd@0.5.3"
       setupCheck:
-        command: "cub installer setup --pull packages/fluent/fluentd/0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/fluent-fluentd:0.5.3 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

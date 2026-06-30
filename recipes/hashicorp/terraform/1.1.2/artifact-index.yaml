@@ -62,6 +62,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/hashicorp/terraform/1.1.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/hashicorp-terraform:1.1.2"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "737667648f89276c77a2268dd67e52b33ed27b88add655c7aea2232f12ab8ef0"
@@ -98,7 +99,7 @@ spec:
         default: true
         description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
       setupCheck:
-        command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/hashicorp-terraform:1.1.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -160,7 +161,7 @@ spec:
         default: false
         description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
       setupCheck:
-        command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/hashicorp-terraform:1.1.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 4
         cubInstallObjectCountIncludingSupport: 5
         semanticObjectMatches: "4/4"

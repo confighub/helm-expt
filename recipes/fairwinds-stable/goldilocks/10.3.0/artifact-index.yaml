@@ -65,6 +65,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/fairwinds-stable/goldilocks/10.3.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/fairwinds-stable-goldilocks:10.3.0"
     installer: "packages/fairwinds-stable/goldilocks/10.3.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1ccb876ce49d490494141334c674ec6da4f46accbea5f1bdda5f59a20454b68a"
@@ -96,7 +97,7 @@ spec:
         default: true
         description: "fairwinds-stable/goldilocks default variant rendered from fairwinds-stable/goldilocks@10.3.0"
       setupCheck:
-        command: "cub installer setup --pull packages/fairwinds-stable/goldilocks/10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/fairwinds-stable-goldilocks:10.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 9
         cubInstallObjectCountIncludingSupport: 10
         semanticObjectMatches: "9/9"

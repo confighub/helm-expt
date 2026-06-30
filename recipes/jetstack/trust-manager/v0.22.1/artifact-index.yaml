@@ -66,6 +66,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/jetstack/trust-manager/v0.22.1"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/jetstack-trust-manager:v0.22.1"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62"
@@ -144,7 +145,7 @@ spec:
         default: true
         description: "jetstack/trust-manager default variant rendered from jetstack/trust-manager@v0.22.1"
       setupCheck:
-        command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/jetstack-trust-manager:v0.22.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 14
         cubInstallObjectCountIncludingSupport: 15
         semanticObjectMatches: "14/14"
@@ -257,7 +258,7 @@ spec:
         default: false
         description: "jetstack/trust-manager no-crds variant rendered from jetstack/trust-manager@v0.22.1"
       setupCheck:
-        command: "cub installer setup --pull packages/jetstack/trust-manager/v0.22.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/jetstack-trust-manager:v0.22.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

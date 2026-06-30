@@ -64,7 +64,7 @@ instead of being treated as one opaque production mutation.
 The public lane is for low-friction use of public chart bases:
 
 - browse chart versions, base variants, proof status, pain reports, and gaps;
-- run `cub installer setup --pull <package> --base <base>`;
+- run `cub installer setup --pull <installer OCI ref> --base <base>`;
 - inspect rendered objects, receipts, scans, and current proof status;
 - verify locally with the repo's proof and live-test commands.
 

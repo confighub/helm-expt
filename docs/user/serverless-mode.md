@@ -25,7 +25,7 @@ helm install redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5
 The ConfigHub way — render the reviewed package, then apply it:
 
 ```sh
-cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir ./out --non-interactive
+cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./out --non-interactive
 kubectl create namespace redis
 kubectl apply -f ./out/secrets -n redis
 kubectl apply -f ./out/manifests -n redis
@@ -33,13 +33,12 @@ kubectl apply -f ./out/manifests -n redis
 
 Both bring up the same Redis in the same namespace. Same outcome — that is **parity**.
 
-> **What is `--pull packages/…`?** Everything here lives in this repo — nothing is fetched
-> from outside. We review each chart as a *recipe* (`recipes/<helm-repo>/<chart>/<version>/`:
-> its values, variants, and version locks), then publish that recipe as an installer
-> *package* under `packages/<helm-repo>/<chart>/<version>/` — the chart's reviewed,
-> pre-rendered form plus a short `installer.yaml` naming its *bases* (install shapes).
-> `--pull` tells cub which package to load: a local path (as above), an `oci://…` address,
-> or a `.tgz`. `--base` picks the shape.
+> **What is `--pull oci://...`?** It is the installer package for the chart
+> version. We review each Helm chart as a recipe, publish the reviewed package
+> as an OCI artifact, and give it named bases for supported install shapes. The
+> public catalog shows that OCI ref. Maintainers can still use the local
+> `packages/<helm-repo>/<chart>/<version>/` source path from a repo checkout,
+> but public users should pull the package ref.
 
 ## How it works — Helm hides one step, cub shows it
 
@@ -47,9 +46,9 @@ Both bring up the same Redis in the same namespace. Same outcome — that is **p
 objects once they are already running. The ConfigHub path does the same in two steps you
 can watch:
 
-1. **Render.** `cub installer setup` writes the exact objects to `./out/manifests` — plain
-   files, readable before anything reaches the cluster. (It does not re-run Helm; the package
-   already holds the chart's reviewed render.)
+1. **Render.** `cub installer setup` pulls the reviewed package and writes the
+   exact objects to `./out/manifests` — plain files, readable before anything
+   reaches the cluster.
 2. **Apply.** `kubectl apply` installs them.
 
 The gap between the two is the point. There you can hold the render up against Helm's own
@@ -91,9 +90,9 @@ say them out loud.
   object before the namespace that holds it exists, so create the namespace first (as above).
   A controller like Argo or Flux orders this for you — one of several small rough edges of
   [applying by hand](./known-gaps-we-surface.md).
-- **`cub installer push` is not this.** That command ships the *un-rendered installer
-  package*, which no controller can apply. The OCI path above pushes the *rendered* result —
-  what Argo and Flux actually understand.
+- **There are two OCI paths.** The installer package OCI is what
+  `cub installer setup --pull` uses. The delivery OCI path above pushes the
+  rendered result, which Argo and Flux can apply.
 
 And one boundary: this is proven on a plain chart. A chart with hooks, admission webhooks, or
 its own CRDs needs more than a render — it needs its lifecycle steps, and its page tells you

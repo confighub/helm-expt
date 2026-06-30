@@ -68,6 +68,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/open-telemetry/opentelemetry-operator/0.114.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
     installer: "packages/open-telemetry/opentelemetry-operator/0.114.0/installer.yaml"
     receipt: "recipes/open-telemetry/opentelemetry-operator/0.114.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a"
@@ -140,7 +141,7 @@ spec:
         default: true
         description: "open-telemetry/opentelemetry-operator default variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
       setupCheck:
-        command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"
@@ -282,7 +283,7 @@ spec:
         default: false
         description: "open-telemetry/opentelemetry-operator no-crds variant rendered from open-telemetry/opentelemetry-operator@0.114.0"
       setupCheck:
-        command: "cub installer setup --pull packages/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/open-telemetry-opentelemetry-operator:0.114.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

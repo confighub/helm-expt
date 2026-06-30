@@ -22,6 +22,7 @@ Public entry points:
 - [Generative GitOps fit](./docs/user/generative-gitops-fit.md): what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
+- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the public package refs users pull with `cub installer setup --pull oci://...`.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
 - [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
@@ -56,7 +57,7 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | --- | --- | --- | --- |
 | 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
 | 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
-| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` | No, for public packages |
+| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No, for public packages |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
@@ -69,8 +70,8 @@ observed later with receipts.
 
 Free and low-friction use should cover browsing the catalog, inspecting
 rendered objects, running `cub helm template`, trying public `cub installer`
-packages, pulling public artifacts, and verifying signatures, digests, and
-local receipts. Paid or managed use begins when the work involves private or
+packages from their `oci://` refs, and verifying signatures, digests, and local
+receipts. Paid or managed use begins when the work involves private or
 custom catalogs, teams, policies, approvals, bulk operations, promotions,
 GitOps/OCI operations, full stacks, patch services, upgrade services, or
 production support.
@@ -86,8 +87,9 @@ Four questions, answered up front:
 
 - **What can I try without signing up?** Browse the
   [catalog](./CATALOG.md) and [site](./site/index.html), render any chart with
-  `cub helm template`, run `cub installer setup` on public packages, and run
-  the repo verifiers locally. See [the offering](./docs/user/offering.md).
+  `cub helm template`, run `cub installer setup --pull oci://...` on public
+  packages, and run the repo verifiers locally. See
+  [the offering](./docs/user/offering.md).
 - **When do I need ConfigHub?** When you want rendered objects stored as Units,
   derived environment/customer/target variants, approvals, private inputs, or
   fleet operations. See [Product Support Tiers](./docs/user/product-support-tiers.md).
@@ -115,6 +117,7 @@ Core flow:
 ```text
 Helm chart
 -> cub installer recipe/package
+-> installer package OCI ref for users to pull
 -> named base variants that select or change the Helm-rendered object set
 -> exact rendered Kubernetes objects
 -> optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
@@ -306,7 +309,7 @@ Use the shortest command that answers the question you are asking:
 | See what a chart renders, without ConfigHub state. | `cub helm template` |
 | Load one Helm render into ConfigHub Units quickly. | `cub helm install` |
 | Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | `cub gitops discover/import`, `cub unit import`, or a managed import workflow |
-| Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` |
+| Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Create an environment, region, customer, or target variant after upload. | `cub variant create` |
 
@@ -724,7 +727,7 @@ The demo uses real commands, including:
 
 ```sh
 cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
+  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --non-interactive \
@@ -757,6 +760,7 @@ The key Redis proof files are:
 ```text
 recipes/bitnami/redis/25.5.3/CATALOG.md
 packages/bitnami/redis/25.5.3/installer.yaml
+data/installer-oci-packages/summary.md
 recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
 recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
 runs/redis-local-kind/latest/observation-receipt.yaml
@@ -785,9 +789,9 @@ recipes/<repo>/<chart>/<version>/CATALOG.md
 ```
 
 The root `CATALOG.md` is the shelf: charts first, variants underneath, with the
-recommended first variant and `cub installer setup` package path visible. Then
-open the per-chart `CATALOG.md` for the chart source, recipe, rendered objects,
-receipts, scans, and current support status.
+recommended first variant and installer package OCI ref visible. Then open the
+per-chart `CATALOG.md` for the chart source, recipe, rendered objects,
+source package path, receipts, scans, and current support status.
 
 The main folders are:
 

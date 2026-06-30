@@ -568,7 +568,7 @@
     --version 25.5.3 -n redis --create-namespace
 
 <span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \
+<span class="term-prompt">$</span> cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
     --base default --work-dir ./out --non-interactive
 <span class="term-prompt">$</span> kubectl create namespace redis
 <span class="term-prompt">$</span> kubectl apply -f ./out/secrets -n redis
@@ -580,7 +580,7 @@
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -615,11 +615,11 @@
       <h2 id="edges">The edges, kept in plain sight</h2>
       <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path catches. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> is not this OCI path.</strong> That command ships the un-rendered installer package. The OCI path above pushes the rendered result that Argo and Flux understand.</p>
+      <p><strong><code>cub installer push</code> is the package-publish path.</strong> It ships the installer package that users pull with <code>cub installer setup --pull oci://...</code>. That is different from the rendered GitOps bundle above, which Argo and Flux can apply directly.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T09:43:03.156Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T13:33:06.114Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>

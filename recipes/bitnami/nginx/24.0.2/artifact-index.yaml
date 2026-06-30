@@ -66,6 +66,7 @@ spec:
     nextAction: "choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first"
   installerPackage:
     path: "packages/bitnami/nginx/24.0.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/bitnami-nginx:24.0.2"
     installer: "packages/bitnami/nginx/24.0.2/installer.yaml"
     receipt: "recipes/bitnami/nginx/24.0.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
@@ -102,7 +103,7 @@ spec:
         default: true
         description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2"
       setupCheck:
-        command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-nginx:24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"
@@ -179,7 +180,7 @@ spec:
         default: false
         description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2"
       setupCheck:
-        command: "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-nginx:24.0.2 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

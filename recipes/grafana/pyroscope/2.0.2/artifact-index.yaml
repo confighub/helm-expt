@@ -69,6 +69,7 @@ spec:
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:
     path: "packages/grafana/pyroscope/2.0.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/grafana-pyroscope:2.0.2"
     installer: "packages/grafana/pyroscope/2.0.2/installer.yaml"
     receipt: "recipes/grafana/pyroscope/2.0.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "993552c3be87a9fa2aa9f2d1d644caab64b0a4a0ca6c1c844e9814910bfabd04"
@@ -110,7 +111,7 @@ spec:
         default: true
         description: "grafana/pyroscope default variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-pyroscope:2.0.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -172,7 +173,7 @@ spec:
         default: false
         description: "grafana/pyroscope ha variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-pyroscope:2.0.2 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 18
         cubInstallObjectCountIncludingSupport: 19
         semanticObjectMatches: "18/18"
@@ -234,7 +235,7 @@ spec:
         default: false
         description: "grafana/pyroscope no-crds variant rendered from grafana/pyroscope@2.0.2"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/pyroscope/2.0.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-pyroscope:2.0.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 17
         cubInstallObjectCountIncludingSupport: 18
         semanticObjectMatches: "17/17"

@@ -66,6 +66,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/gatekeeper/gatekeeper/3.22.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/gatekeeper-gatekeeper:3.22.2"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e"
@@ -102,7 +103,7 @@ spec:
         default: true
         description: "gatekeeper/gatekeeper default variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/gatekeeper-gatekeeper:3.22.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 30
         cubInstallObjectCountIncludingSupport: 31
         semanticObjectMatches: "30/30"
@@ -351,7 +352,7 @@ spec:
         default: false
         description: "gatekeeper/gatekeeper no-crds variant rendered from gatekeeper/gatekeeper@3.22.2"
       setupCheck:
-        command: "cub installer setup --pull packages/gatekeeper/gatekeeper/3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/gatekeeper-gatekeeper:3.22.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 13
         cubInstallObjectCountIncludingSupport: 14
         semanticObjectMatches: "13/13"

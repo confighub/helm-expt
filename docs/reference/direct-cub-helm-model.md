@@ -97,7 +97,7 @@ The paths can be used in sequence:
 | --- | --- | --- |
 | Inspect | `cub helm template` | What Kubernetes objects the chart renders under chosen inputs. |
 | Adopt quickly | `cub helm install` | What those objects look like as ConfigHub Units. |
-| Standardize | `cub installer setup --pull <package> --base <base>` | Whether a maintained recipe/base already covers the intended use case. |
+| Standardize | `cub installer setup --pull <installer OCI ref> --base <base>` | Whether a maintained recipe/base already covers the intended use case. |
 | Operate | `cub installer upload`, `cub variant create`, ConfigHub checks, changesets, approvals, OCI/GitOps, observations | How the reviewed objects are managed, varied, promoted, delivered, and observed. |
 
 Existing Argo CD, Flux, KRM, and rendered-manifest estates should enter through
@@ -127,7 +127,7 @@ fast ConfigHub user
   -> get ConfigHub Units now
 
 supported catalog user
-  -> cub installer setup --pull <package> --base <base>
+  -> cub installer setup --pull <installer OCI ref> --base <base>
   -> use a reviewed recipe/base variant with receipts
 
 promotion or production user

@@ -64,6 +64,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/grafana/alloy/1.8.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/grafana-alloy:1.8.2"
     installer: "packages/grafana/alloy/1.8.2/installer.yaml"
     receipt: "recipes/grafana/alloy/1.8.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "ca3141104f9da7a56a4b5ac332ea2018dd73309c7bf448e99221fd2b4c92a725"
@@ -100,7 +101,7 @@ spec:
         default: true
         description: "grafana/alloy default variant rendered from grafana/alloy@1.8.2"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-alloy:1.8.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"
@@ -162,7 +163,7 @@ spec:
         default: false
         description: "grafana/alloy no-crds variant rendered from grafana/alloy@1.8.2"
       setupCheck:
-        command: "cub installer setup --pull packages/grafana/alloy/1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/grafana-alloy:1.8.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

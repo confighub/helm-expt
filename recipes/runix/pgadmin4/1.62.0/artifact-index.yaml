@@ -64,6 +64,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/runix/pgadmin4/1.62.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/runix-pgadmin4:1.62.0"
     installer: "packages/runix/pgadmin4/1.62.0/installer.yaml"
     receipt: "recipes/runix/pgadmin4/1.62.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "a7ebe7db9ddd892a94b0038baf48ab9900c59f3f959a55a59599fb248724aef2"
@@ -95,7 +96,7 @@ spec:
         default: true
         description: "runix/pgadmin4 default variant rendered from runix/pgadmin4@1.62.0"
       setupCheck:
-        command: "cub installer setup --pull packages/runix/pgadmin4/1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/runix-pgadmin4:1.62.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 5
         cubInstallObjectCountIncludingSupport: 6
         semanticObjectMatches: "5/5"

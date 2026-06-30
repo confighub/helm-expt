@@ -62,6 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/opencost/opencost/2.5.21"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/opencost-opencost:2.5.21"
     installer: "packages/opencost/opencost/2.5.21/installer.yaml"
     receipt: "recipes/opencost/opencost/2.5.21/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "1a2e3a5b840d37e61e62ed20879cd39aa5254168e58db07e15e5fabc345f2b47"
@@ -93,7 +94,7 @@ spec:
         default: true
         description: "opencost/opencost default variant rendered from opencost/opencost@2.5.21"
       setupCheck:
-        command: "cub installer setup --pull packages/opencost/opencost/2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/opencost-opencost:2.5.21 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

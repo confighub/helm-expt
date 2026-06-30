@@ -65,6 +65,7 @@ spec:
     nextAction: "Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion."
   installerPackage:
     path: "packages/prometheus-community/prometheus-adapter/5.3.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-adapter:5.3.0"
     installer: "packages/prometheus-community/prometheus-adapter/5.3.0/installer.yaml"
     receipt: "recipes/prometheus-community/prometheus-adapter/5.3.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "320271ebf91bcbb6d8e68b02b42436129a439c7098588c81ba21e1c34b7ccdea"
@@ -106,7 +107,7 @@ spec:
         default: true
         description: "prometheus-community/prometheus-adapter default variant rendered from prometheus-community/prometheus-adapter@5.3.0"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-adapter/5.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-adapter:5.3.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -168,7 +169,7 @@ spec:
         default: false
         description: "prometheus-community/prometheus-adapter APIService v1 capability-profile base for Kubernetes targets that serve apiregistration.k8s.io/v1"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-adapter/5.3.0 --base apiservice-v1-capability --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-adapter:5.3.0 --base apiservice-v1-capability --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"
@@ -230,7 +231,7 @@ spec:
         default: false
         description: "prometheus-community/prometheus-adapter cluster-metrics-readonly useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull packages/prometheus-community/prometheus-adapter/5.3.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus-adapter:5.3.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

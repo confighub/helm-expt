@@ -66,6 +66,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/cloudnative-pg/cloudnative-pg/0.28.2"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2"
     installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
     receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "c47b2fef36ba4a4335808a7cfb0d9144d10aaa3274a276797a0497276dbbca29"
@@ -102,7 +103,7 @@ spec:
         default: true
         description: "cloudnative-pg/cloudnative-pg default variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
       setupCheck:
-        command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 21
         cubInstallObjectCountIncludingSupport: 22
         semanticObjectMatches: "21/21"
@@ -266,7 +267,7 @@ spec:
         default: false
         description: "cloudnative-pg/cloudnative-pg no-crds variant rendered from cloudnative-pg/cloudnative-pg@0.28.2"
       setupCheck:
-        command: "cub installer setup --pull packages/cloudnative-pg/cloudnative-pg/0.28.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 11
         cubInstallObjectCountIncludingSupport: 12
         semanticObjectMatches: "11/11"

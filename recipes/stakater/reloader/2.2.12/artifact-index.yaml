@@ -63,6 +63,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/stakater/reloader/2.2.12"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/stakater-reloader:2.2.12"
     installer: "packages/stakater/reloader/2.2.12/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "297319c4ea7e71667cd75127d176028807d144f20ccf5aca05c7ad85cac46a75"
@@ -99,7 +100,7 @@ spec:
         default: true
         description: "stakater/reloader default variant rendered from stakater/reloader@2.2.12"
       setupCheck:
-        command: "cub installer setup --pull packages/stakater/reloader/2.2.12 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/stakater-reloader:2.2.12 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"
@@ -161,7 +162,7 @@ spec:
         default: false
         description: "stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull packages/stakater/reloader/2.2.12 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/stakater-reloader:2.2.12 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 6
         cubInstallObjectCountIncludingSupport: 7
         semanticObjectMatches: "6/6"

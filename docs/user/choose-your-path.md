@@ -21,7 +21,7 @@ If you are new here, try this order:
 | --- | --- | --- | --- |
 | Quick render | You only want to see the Kubernetes objects a chart produces. | `cub helm template` | No ConfigHub state. |
 | One-shot upload | You want one Helm render loaded as ConfigHub Units now. | `cub helm install` | Needs a ConfigHub account. |
-| Public catalog package | You want a maintained public base with render parity, receipts, scans, and proof. | `cub installer setup --pull <package> --base <base>` | Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state. |
+| Public catalog package | You want a maintained public base with render parity, receipts, scans, and proof. | `cub installer setup --pull <installer OCI ref> --base <base>` | Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state. |
 | Reviewed ConfigHub base | You want the catalog render stored as Units before creating variants or approvals. | `cub installer upload` | Needs a ConfigHub account. |
 | Derived operations | You want dev/prod/customer/target variants, gates, links, policies, scans, promotions, observations, or bulk work. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | ConfigHub-managed workflow. |
 | Existing app adoption | You already have Argo, Flux, KRM, rendered manifests, or live resources. | See [Adopting Existing Apps](./adopting-existing-apps.md). | Usually managed import; private state belongs in ConfigHub. |
@@ -34,15 +34,16 @@ The public lane is useful before a team commits to a platform workflow:
   status, and known gaps;
 - render and inspect public charts with `cub helm template`;
 - render and inspect public catalog packages with `cub installer`;
-- pull public package artifacts where available;
+- pull public installer package OCI refs where available;
 - verify available signatures, digests, rendered objects, and local receipts;
 - run repo verifiers such as `npm run site:verify`, `npm run docs:verify`, and
   chart-specific package or render checks;
 - inspect receipts, rendered objects, pain reports, and top-100 chart guidance.
 
-This lane is for public charts and public package artifacts. It does not make
-private values, private overlays, team approvals, fleet operations, or
-production support free.
+This lane is for public charts and public package artifacts. Use
+[Installer Package OCI Refs](./installer-oci-packages.md) when you need the
+exact package address for a chart. The public lane does not make private values,
+private overlays, team approvals, fleet operations, or production support free.
 
 ## ConfigHub-Managed Lane
 

@@ -50,7 +50,7 @@ Run it:
 
 ```sh
 cub installer setup \
-  --pull packages/prometheus-community/prometheus/29.8.0 \
+  --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.8.0 \
   --base server-only-ephemeral \
   --work-dir .tmp/prometheus-server-only \
   --non-interactive \

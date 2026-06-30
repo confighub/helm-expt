@@ -35,7 +35,7 @@ editing. Do not revert user work.
 Product commands do work for a user:
 
 ```sh
-cub installer setup --pull packages/bitnami/redis/25.5.3 --base default
+cub installer setup --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 --base default
 helm install ...
 kubectl apply ...
 ```
@@ -113,4 +113,3 @@ Useful starting points:
 - [Verification Lanes](../user/verification-lanes.md)
 - [NPM Test And Verification Scripts](../../tests/npm-scripts.md)
 - [helm-expt live parity skill](../skills/live-parity.md)
-

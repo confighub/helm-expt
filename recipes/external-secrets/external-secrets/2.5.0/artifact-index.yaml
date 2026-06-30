@@ -64,6 +64,7 @@ spec:
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:
     path: "packages/external-secrets/external-secrets/2.5.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/external-secrets-external-secrets:2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60"
@@ -112,7 +113,7 @@ spec:
         default: true
         description: "external-secrets default variant rendered from external-secrets/external-secrets@2.5.0"
       setupCheck:
-        command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/external-secrets-external-secrets:2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 42
         cubInstallObjectCountIncludingSupport: 43
         semanticObjectMatches: "42/42"
@@ -394,7 +395,7 @@ spec:
         default: false
         description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"
       setupCheck:
-        command: "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/external-secrets-external-secrets:2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
         helmReleaseObjectCount: 19
         cubInstallObjectCountIncludingSupport: 20
         semanticObjectMatches: "19/19"

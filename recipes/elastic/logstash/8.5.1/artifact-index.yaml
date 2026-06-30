@@ -63,6 +63,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/elastic/logstash/8.5.1"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/elastic-logstash:8.5.1"
     installer: "packages/elastic/logstash/8.5.1/installer.yaml"
     receipt: "recipes/elastic/logstash/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "83975cfa57b676362b21dc888072d70ae569ab4503ca2e72d170d8e5a19e2bd3"
@@ -99,7 +100,7 @@ spec:
         default: true
         description: "elastic/logstash default variant rendered from elastic/logstash@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-logstash:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -167,7 +168,7 @@ spec:
         default: false
         description: "elastic/logstash ha variant rendered from elastic/logstash@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull packages/elastic/logstash/8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-logstash:8.5.1 --base ha --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

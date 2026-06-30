@@ -65,6 +65,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/haproxytech/kubernetes-ingress/1.52.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/haproxytech-kubernetes-ingress:1.52.0"
     installer: "packages/haproxytech/kubernetes-ingress/1.52.0/installer.yaml"
     receipt: "recipes/haproxytech/kubernetes-ingress/1.52.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "3ca92559aab90884de3ab47d16970bab11f25951ca605a076b940cbbe1760a0f"
@@ -96,7 +97,7 @@ spec:
         default: true
         description: "haproxytech/kubernetes-ingress default variant rendered from haproxytech/kubernetes-ingress@1.52.0"
       setupCheck:
-        command: "cub installer setup --pull packages/haproxytech/kubernetes-ingress/1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/haproxytech-kubernetes-ingress:1.52.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 7
         cubInstallObjectCountIncludingSupport: 8
         semanticObjectMatches: "7/7"

@@ -67,6 +67,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/velero/velero/12.0.1"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/velero-velero:12.0.1"
     installer: "packages/velero/velero/12.0.1/installer.yaml"
     receipt: "recipes/velero/velero/12.0.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "4aee03aca286f427e63a4c5604f03e0a649acc0a89c245e24b7017cb4fd15058"
@@ -103,7 +104,7 @@ spec:
         default: true
         description: "velero/velero default variant rendered from velero/velero@12.0.1"
       setupCheck:
-        command: "cub installer setup --pull packages/velero/velero/12.0.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/velero-velero:12.0.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"
@@ -165,7 +166,7 @@ spec:
         default: false
         description: "velero/velero no-crds variant rendered from velero/velero@12.0.1"
       setupCheck:
-        command: "cub installer setup --pull packages/velero/velero/12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/velero-velero:12.0.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 10
         cubInstallObjectCountIncludingSupport: 11
         semanticObjectMatches: "10/10"

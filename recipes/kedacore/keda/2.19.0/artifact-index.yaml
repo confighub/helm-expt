@@ -67,6 +67,7 @@ spec:
     nextAction: "run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt"
   installerPackage:
     path: "packages/kedacore/keda/2.19.0"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/kedacore-keda:2.19.0"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"
     receipt: "recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "850da6e9804c46cb6742812b986c0d9e76efa6f88198321ad10b0bae7813f59d"
@@ -103,7 +104,7 @@ spec:
         default: true
         description: "kedacore/keda default variant rendered from kedacore/keda@2.19.0"
       setupCheck:
-        command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/kedacore-keda:2.19.0 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 29
         cubInstallObjectCountIncludingSupport: 30
         semanticObjectMatches: "29/29"
@@ -165,7 +166,7 @@ spec:
         default: false
         description: "kedacore/keda no-crds variant rendered from kedacore/keda@2.19.0"
       setupCheck:
-        command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/kedacore-keda:2.19.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 23
         cubInstallObjectCountIncludingSupport: 24
         semanticObjectMatches: "23/23"

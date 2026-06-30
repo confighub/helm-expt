@@ -62,6 +62,7 @@ spec:
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:
     path: "packages/elastic/kibana/8.5.1"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/elastic-kibana:8.5.1"
     installer: "packages/elastic/kibana/8.5.1/installer.yaml"
     receipt: "recipes/elastic/kibana/8.5.1/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "d5b3718e4dfcbd0e0aa19b7e9924711311eb4904ca20d321a188f2d1044a92d9"
@@ -93,7 +94,7 @@ spec:
         default: true
         description: "elastic/kibana default variant rendered from elastic/kibana@8.5.1"
       setupCheck:
-        command: "cub installer setup --pull packages/elastic/kibana/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/elastic-kibana:8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 2
         cubInstallObjectCountIncludingSupport: 3
         semanticObjectMatches: "2/2"

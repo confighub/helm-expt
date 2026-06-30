@@ -42,7 +42,7 @@ Run:
 
 ```sh
 cub installer setup \
-  --pull packages/bitnami/redis/25.5.3 \
+  --pull oci://ghcr.io/confighub/helm-expt/bitnami-redis:25.5.3 \
   --base default \
   --work-dir .tmp/demo/redis-default \
   --non-interactive \

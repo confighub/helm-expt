@@ -61,6 +61,7 @@ spec:
     nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/nats/surveyor/0.20.9"
+    ociRef: "oci://ghcr.io/confighub/helm-expt/nats-surveyor:0.20.9"
     installer: "packages/nats/surveyor/0.20.9/installer.yaml"
     receipt: "recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml"
     deterministicBundleSHA256: "d95148e94506b160a3caf87bc4ff9c666795f2d8c0a0bb0b5177aa54d741a9d6"
@@ -97,7 +98,7 @@ spec:
         default: true
         description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
       setupCheck:
-        command: "cub installer setup --pull packages/nats/surveyor/0.20.9 --base default --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/nats-surveyor:0.20.9 --base default --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"
@@ -159,7 +160,7 @@ spec:
         default: false
         description: "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"
       setupCheck:
-        command: "cub installer setup --pull packages/nats/surveyor/0.20.9 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        command: "cub installer setup --pull oci://ghcr.io/confighub/helm-expt/nats-surveyor:0.20.9 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
         helmReleaseObjectCount: 3
         cubInstallObjectCountIncludingSupport: 4
         semanticObjectMatches: "3/3"

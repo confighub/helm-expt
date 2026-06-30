@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
+import { installerOciRef } from "./lib/installer-oci.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
@@ -62,6 +63,7 @@ const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-productio
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
+const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
@@ -75,6 +77,8 @@ const UNKNOWN_ACTION_LABELS = {
   "stage-secret": "stage the required Secret",
   "unknown-preflight": "run the preflight checks",
 };
+const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
+const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -217,6 +221,9 @@ function buildSite(generatedAt) {
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
   const helmRenderIntents = existsSync(helmRenderIntentsPath) ? parseCsv(readFileSync(helmRenderIntentsPath, "utf8")) : [];
+  check(existsSync(installerOciCatalogPath), "data/installer-oci-packages/packages.csv is missing; run npm run installer-oci:catalog");
+  const installerOciPackages = parseCsv(readFileSync(installerOciCatalogPath, "utf8"));
+  const installerOciByKey = new Map(installerOciPackages.map((row) => [`${row.chart}|${row.version}`, row]));
   const lifecycleRouteActionSummary = {
     total: lifecycleRouteActions.length,
     automatic: lifecycleRouteActions.filter((action) => action.automatic === true || action.automatic === "true").length,
@@ -243,8 +250,14 @@ function buildSite(generatedAt) {
         start_base_readiness: bestBase?.user_readiness ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.user_readiness ?? "",
         start_command: bestBase?.command ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.command ?? "",
       };
+      const installerOci = installerOciByKey.get(`${entry.chart}|${entry.version}`);
       return {
         ...withStartFields,
+        installer_oci_ref: installerOci?.installer_oci_ref ?? installerOciRef(entry.chart, entry.version),
+        installer_oci_publication_status: installerOci?.publication_status ?? "assigned-ref",
+        installer_oci_publication_receipt: installerOci?.publication_receipt ?? "",
+        installer_oci_default_base: installerOci?.default_base ?? startVariant,
+        installer_oci_bases: installerOci?.bases ?? "",
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
       };
     });
@@ -310,6 +323,7 @@ function buildSite(generatedAt) {
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
       lifecycleRouteActions: "data/lifecycle-route-actions/actions.json",
       lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
+      installerOciPackages: "data/installer-oci-packages/packages.csv",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
       masterCatalogMatrix: "data/master-catalog-matrix/matrix.csv",
@@ -375,6 +389,7 @@ function buildSite(generatedAt) {
     lifecycleRoutes,
     lifecycleRouteActionSummary,
     helmRenderIntents,
+    installerOciPackages,
     lifecycleByVariant,
     matrixDisposition,
     chartSkills: publicChartSkills,
@@ -599,7 +614,7 @@ stringData:
         </div>
         <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
           <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
+          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 <span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
         </div>
@@ -743,7 +758,7 @@ em{font-style:italic;color:var(--ink);}
     <span class="ftag">RENDER</span><span class="codetag">F2 · base → render variant</span>
     <h3>Render: inputs first, then the frozen objects</h3>
     <p>A <strong>base variant</strong> is the repo term for a <a href="./charts/index.html#presets">preset chart configuration</a>: a named render choice such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new chart preset; change only the operating context → no re-render.</p>
-    <p><strong>Example:</strong> Redis <code>default</code> has a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a>. The full rendered YAML output is <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the generated package users can try. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
+    <p><strong>Example:</strong> Redis <code>default</code> has a package users pull, <code>${REDIS_INSTALLER_OCI_REF}</code>; a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> that records the Helm inputs; and a full rendered YAML output, <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repo source for that preset. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
   </div>
 
   <div class="fstage">
@@ -790,7 +805,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>You want to…</th><th>Recommended path</th></tr>
     <tr><td>Just see the objects</td><td>Render and read them. No account, no cluster.</td></tr>
-    <tr><td>Install one chart</td><td>Start at the chart's <code>default</code> base: <code>cub installer setup --pull &lt;package&gt; --base default</code>.</td></tr>
+    <tr><td>Install one chart</td><td>Start at the chart's <code>default</code> base: <code>cub installer setup --pull &lt;installer OCI ref&gt; --base default</code>.</td></tr>
     <tr><td>Run a database / anything with a password</td><td>Use the <code>existing-secret</code> base and supply the Secret yourself. Don't ship a generated one over GitOps.</td></tr>
     <tr><td>Change something after install</td><td>Make a <strong>derived variant</strong>. It keeps your change through upgrades, no re-render.</td></tr>
     <tr><td>Run dev / staging / prod</td><td>One base → many derived variants (per environment, region, customer). The base stays single; the instances live in ConfigHub.</td></tr>
@@ -1056,7 +1071,7 @@ function legacyDashboardHtml(catalog) {
         <h3><a href="./try.html">Try the catalog in 5 minutes</a></h3>
         <p>Render, review, and apply Redis from the public catalog - locally, no account.</p>
         <pre><code>cub installer setup \\
-  --pull packages/bitnami/redis/25.5.3 \\
+  --pull ${REDIS_INSTALLER_OCI_REF} \\
   --base default --work-dir .tmp/redis \\
   --non-interactive --namespace redis</code></pre>
         <span class="go"><a href="./try.html">All three try paths →</a></span>
@@ -1428,7 +1443,7 @@ function legacyOfferingHtml(catalog) {
   const freeRows = [
     ["Browse public catalog", "See chart versions, base variants, proof status, pain reports, and known gaps."],
     ["Inspect and template", "Use cub helm template and rendered-object views before committing to ConfigHub state."],
-    ["Use public packages", "Run cub installer setup --pull <package> --base <base> for supported public bases."],
+    ["Use public packages", "Run cub installer setup --pull oci://... --base <base> for supported public bases."],
     ["Pull public artifacts", "Use public package or OCI artifacts where available without uploading private repo or production state."],
     ["Verify locally", "Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine."],
     ["Inspect proof", "Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot."],
@@ -1458,7 +1473,7 @@ function legacyOfferingHtml(catalog) {
   const pathRows = [
     ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
     ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
-    ["Public catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull <package> --base <base>", "Free for public packages"],
+    ["Public catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "Free for public packages"],
     ["Reviewed ConfigHub base", "Upload a reviewed rendered base before variants or approvals.", "cub installer upload", "ConfigHub account"],
     ["Derived operations", "Create environment, region, customer, or target variants after upload.", "cub variant create", "ConfigHub-managed"],
   ];
@@ -1549,7 +1564,7 @@ function legacyOfferingHtml(catalog) {
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
       <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
-      <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+      <pre>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
   --base default \\
   --work-dir .tmp/redis \\
   --non-interactive \\
@@ -1676,7 +1691,7 @@ $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
 # ConfigHub: render the reviewed package, then apply
-$ cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \\
+$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 $ kubectl apply -f ./prom/out/manifests</code></pre>
 
@@ -1689,7 +1704,7 @@ $ kubectl apply -f ./prom/out/manifests</code></pre>
   <pre><code>$ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objects
 $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
-  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at a package: a chart we've already reviewed and rendered, kept in the public catalog. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p></div>
+  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
 
   <h2>2 · Change it after install — and it stays</h2>
   <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
@@ -1698,10 +1713,10 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
     <div class="box">
       <h3>Free: your settings stay</h3>
       <p class="tag">no account</p>
-      <pre><code>$ cub installer setup --pull .../prometheus/29.8.0 \\
+      <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --set-image server=prom/prometheus:v3.1
 # upgrade to a newer chart version
-$ cub installer setup --pull .../prometheus/29.9.0
+$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0
 # your image change is carried forward</code></pre>
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
@@ -1712,7 +1727,7 @@ $ cub installer setup --pull .../prometheus/29.9.0
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
 # upgrade, keeping your hand edit
-$ cub installer setup --pull .../29.9.0 --merge-external-source</code></pre>
+$ cub installer setup --pull oci://ghcr.io/confighub/helm-expt/prometheus-community-prometheus:29.9.0 --merge-external-source</code></pre>
       <p>Change any line in the files, even one the chart never let you set, and the <span class="win">upgrade keeps it</span>.</p>
     </div>
   </div>
@@ -1782,7 +1797,7 @@ function serverlessHtml(catalog) {
     --version 25.5.3 -n redis --create-namespace
 
 <span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull packages/bitnami/redis/25.5.3 \\
+<span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base default --work-dir ./out --non-interactive
 <span class="term-prompt">$</span> kubectl create namespace redis
 <span class="term-prompt">$</span> kubectl apply -f ./out/secrets -n redis
@@ -1794,7 +1809,7 @@ function serverlessHtml(catalog) {
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
-      <p>It points cub at a package: a reviewed chart/version/base with recorded inputs, rendered objects, and proof links. That is what makes the no-account path more than a one-off render. It lives here in this repo. Nothing is downloaded. <code>--pull</code> also takes an <code>oci://</code> address or a <code>.tgz</code>.</p>
+      <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -1829,7 +1844,7 @@ function serverlessHtml(catalog) {
       <h2 id="edges">The edges, kept in plain sight</h2>
       <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path catches. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> is not this OCI path.</strong> That command ships the un-rendered installer package. The OCI path above pushes the rendered result that Argo and Flux understand.</p>
+      <p><strong><code>cub installer push</code> is the package-publish path.</strong> It ships the installer package that users pull with <code>cub installer setup --pull oci://...</code>. That is different from the rendered GitOps bundle above, which Argo and Flux can apply directly.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
@@ -1842,7 +1857,7 @@ function serverlessHtml(catalog) {
 
 function docsHtml(catalog) {
   const stageRows = [
-    ["1. Preview", "Render a chart and read the files before anything reaches a cluster.", "<code>cub installer setup --pull &lt;package&gt;</code>", "No"],
+    ["1. Preview", "Render a chart and read the files before anything reaches a cluster.", "<code>cub installer setup --pull &lt;installer OCI ref&gt;</code>", "No"],
     ["2. Compare", "Install the same chart with Helm and with cub on a throwaway cluster.", "<a href=\"./try.html\">Get Started</a>", "No"],
     ["3. Record", "Keep the chart version, values, rendered files, and known extra work together.", "<a href=\"./how-it-works.html\">How it works</a>", "No for public catalog packages"],
     ["4. Manage", "Make versions for development, staging, production, regions, or customers.", "<a href=\"./variants.html\">Variants</a>", "Yes"],
@@ -1863,6 +1878,7 @@ function docsHtml(catalog) {
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
     ["Choose a chart", "Browse public chart pages, ready-to-use chart presets, known risks, and first-use advice.", "./charts/index.html"],
+    ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Helm chart presets and values", "Why the catalog supports useful chart-specific presets instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
@@ -1897,6 +1913,7 @@ function docsHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
+    ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Verification landing page", "Choose the right npm proof command.", "./verification.html"],
     ["Deep proof page", "Detailed proof lanes for reviewers who want the full evidence trail.", "./proof.html"],
@@ -3099,7 +3116,7 @@ Variants:
 
     <section aria-labelledby="flow">
       <h2 id="flow">The Basic Flow</h2>
-      <pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/redis
+      <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir .tmp/redis
 cub installer upload --work-dir .tmp/redis --space helm-redis-default
 cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
@@ -3635,6 +3652,19 @@ function publicCatalogVersionCell(entry, sourceRow) {
   return `<a href="${escapeHtml(href)}" rel="noopener"${title}>${escapeHtml(label)}</a>`;
 }
 
+function installerOciRefForEntry(entry) {
+  return entry.installer_oci_ref || installerOciRef(entry.chart, entry.version);
+}
+
+function installerOciStatusText(entry) {
+  if (entry.installer_oci_publication_status === "published-receipt") return "publication receipt recorded";
+  return "assigned public ref; publication receipt not committed yet";
+}
+
+function installerOciCell(entry) {
+  return `<code>${escapeHtml(installerOciRefForEntry(entry))}</code><br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(installerOciStatusText(entry))}</span>`;
+}
+
 function firstPathCell(entry, row) {
   const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
   const page = `./${chartPageFileName(entry)}#matrix-options`;
@@ -3734,9 +3764,9 @@ function yamlLinksCell(entry, row) {
   const packageUrl = githubPackageUrlForEntry(entry, row);
   const renderedUrl = githubRenderedObjectsUrlForRow(row);
   const recipeUrl = githubRecipeUrlForEntry(entry, row);
-  const links = [];
+  const links = [installerOciCell(entry)];
   if (renderedUrl) links.push(`<a href="${escapeHtml(renderedUrl)}" rel="noopener">full YAML</a>`);
-  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">package base</a>`);
+  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">source package base</a>`);
   if (recipeUrl) links.push(`<a href="${escapeHtml(recipeUrl)}" rel="noopener">recipe</a>`);
   return links.length ? links.join("<br>") : "Open chart page.";
 }
@@ -3808,6 +3838,7 @@ function chartIndexHtml(catalog) {
     <p>This is the main catalog offer. We are not trying to generate every possible Helm values combination. Most real cases can be handled with chart-specific presets and patterns. That is enough when the choices are recorded, tested, and maintained.</p>
     <p>AI helps with the maintenance work: reading chart behavior, proposing useful chart presets, updating them across chart versions, and checking the rendered output. The catalog evidence decides what lands.</p>
     <p>Each chart preset has a full rendered YAML output file, usually named <code>release-objects.yaml</code>. The chart page links that file, then links the render intent, revision, package base, routes, and receipts that explain where it came from and what still needs attention.</p>
+    <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected preset locally.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
   </header>
@@ -3846,7 +3877,7 @@ function chartIndexHtml(catalog) {
         <p class="mono" id="chart-filter-count" style="font-size:.86rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First chart preset</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Evidence/output</th></tr></thead>
+        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First chart preset</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Package OCI and evidence</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -3944,6 +3975,8 @@ function chartPageHtml(catalog, entry) {
     matrixRows.find((row) => row.row_kind !== "source");
   const firstRunnableCommand = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry) : "No runnable row recorded yet.";
   const firstRunnableCommandText = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry, { html: false }) : "No runnable row recorded yet.";
+  const installerPackageOciRef = installerOciRefForEntry(entry);
+  const installerPackageStatus = installerOciStatusText(entry);
   const firstRunnableReason = cleanPageActionText(
     firstRunnableRow?.active_proof_reason ||
     firstRunnableRow?.variant_promotion_reason ||
@@ -4002,6 +4035,7 @@ function chartPageHtml(catalog, entry) {
     ["Full rendered YAML", firstRenderedObjectsPath ?? ""],
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
+    ["Installer OCI package catalog", "data/installer-oci-packages/summary.md"],
     ["Helm pain report", entry.helm_pain_report],
     ["Production disposition", "data/production-disposition/summary.md"],
     ["Support decision", support?.path ?? ""],
@@ -4039,6 +4073,7 @@ function chartPageHtml(catalog, entry) {
     ["User status", evidenceRoute?.user_status || userReadiness?.user_status || "not recorded"],
     ["Can I use it?", evidenceRoute?.chart_use_answer || "check the supported base and production boundary"],
     ["First base", evidenceRoute?.first_base || entry.start_variant],
+    ["Installer package OCI", installerPackageOciRef],
     ["Current proof", evidenceRoute?.current_proof || entry.proof_status || "see proof lanes"],
     ["Coverage", evidenceRoute?.coverage_status || "see coverage evidence"],
     ["User must provide", evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "check target facts and base readiness"],
@@ -4080,6 +4115,8 @@ function chartPageHtml(catalog, entry) {
         ["Question", "Answer"],
         ["Catalog level", catalogLayerLabel(entry)],
         ["Chart version", entry.version],
+        ["Installer package OCI", installerPackageOciRef],
+        ["OCI publication status", installerPackageStatus],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
         [entry.proof_surface === "next80-proof-grade" ? "Candidate chart presets" : "Supported chart presets", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
         ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
@@ -4093,6 +4130,7 @@ function chartPageHtml(catalog, entry) {
       <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
+        ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, "The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata."],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this chart preset. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
         ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],
@@ -4109,6 +4147,8 @@ function chartPageHtml(catalog, entry) {
       <h2 id="run-this">How To Try This Chart</h2>
       <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
+        <h3>Package image</h3>
+        <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)}</span></p>
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
         <h3>You should see something like this</h3>
@@ -4252,7 +4292,7 @@ function chartTeachingHtml(entry) {
       <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
         <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
       </div>
       <p><a href="../try.html">Open the current Get Started page</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
@@ -4265,7 +4305,7 @@ function chartTeachingHtml(entry) {
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/prometheus --version 29.8.0 --namespace monitoring --create-namespace</code></pre><p>You should see Helm create a Prometheus release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir .tmp/demo/prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} --base server-only-ephemeral --work-dir .tmp/demo/prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
         <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/prometheus-server-only --space helm-prometheus-server-only</code></pre><p>You should see Prometheus Units in ConfigHub. Derived variants can start from that uploaded base.</p></div>
       </div>
       <p><a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
@@ -4458,8 +4498,9 @@ function matrixRowRunPath(row, entry, options = {}) {
 }
 
 function installerSetupCommand(packagePath, variant, entry, row) {
+  void packagePath;
   const namespace = entry.namespace ? ` --namespace ${entry.namespace}` : "";
-  return `cub installer setup --pull ${packagePath} --base ${variant} --work-dir ${demoWorkDir(entry, row)} --non-interactive${namespace}`;
+  return `cub installer setup --pull ${installerOciRefForEntry(entry)} --base ${variant} --work-dir ${demoWorkDir(entry, row)} --non-interactive${namespace}`;
 }
 
 function demoWorkDir(entry, row) {
@@ -4563,7 +4604,8 @@ function chartCard(entry) {
             <dt>Start status</dt><dd>${escapeHtml(entry.start_base_readiness || "see base-readiness table")}</dd>
             <dt>Variants</dt><dd>${escapeHtml(entry.supported_variants || entry.candidate_variants)}</dd>
             <dt>Chart page</dt><dd><a href="./charts/${escapeHtml(chartPageFileName(entry))}">Open public chart page</a></dd>
-            <dt>Package</dt><dd><a href="../${escapeHtml(entry.package_path)}">${escapeHtml(entry.package_path)}</a></dd>
+            <dt>Package OCI</dt><dd><code>${escapeHtml(installerOciRefForEntry(entry))}</code></dd>
+            <dt>Source package</dt><dd><a href="../${escapeHtml(entry.package_path)}">${escapeHtml(entry.package_path)}</a></dd>
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>
           </dl>
         </article>`;
@@ -4809,7 +4851,7 @@ function commandRoutes() {
     },
     {
       goal: "Use a maintained catalog entry with supported bases and proof.",
-      command: "cub installer setup --pull <package> --base <base>",
+      command: "cub installer setup --pull oci://... --base <base>",
       path: "maintained-catalog-base",
     },
     {
@@ -5713,6 +5755,8 @@ Open \`site/operations.html\` for Ops: scans, gates, delivery, observation, adop
 upgrades, rollback, bulk patching, and fleet questions.
 Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/operations.html\`.
 Open \`site/docs.html\` for the public documentation hub.
+Open \`../docs/user/installer-oci-packages.md\` for the public package OCI refs
+that users pull with \`cub installer setup --pull oci://...\`.
 Open \`site/verification.html\` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open \`site/known-gaps.html\` for current watch findings the project surfaces deliberately.

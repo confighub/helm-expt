@@ -11,6 +11,7 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
+import { installerOciRef } from "./lib/installer-oci.mjs";
 
 const args = process.argv.slice(2);
 const verify = args.includes("--verify");
@@ -82,6 +83,7 @@ function buildChartCatalog(root, context) {
     `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
   const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
   const chartKey = `${chartRef}@${version}`;
+  const packageOciRef = installerOciRef(chartRef, version);
   const proofSummary = proofSummaryFor(chartKey, context);
   const packagePath = packageReceipt.spec?.package?.path;
   check(packagePath, `${relativeRepo(root)} publication receipt missing package path`);
@@ -106,6 +108,7 @@ function buildChartCatalog(root, context) {
       root,
       variantRel,
       packagePath,
+      packageOciRef,
       packageBases,
       packageBaseNames,
       setupChecks,
@@ -158,6 +161,7 @@ function buildChartCatalog(root, context) {
       proofSummary,
       installerPackage: {
         path: packagePath,
+        ociRef: packageOciRef,
         installer: relativeRepo(installerPath),
         receipt: relativeRepo(join(root, "publication", "installer-package-receipt.yaml")),
         deterministicBundleSHA256: packageReceipt.spec?.deterministicBundle?.sha256 ?? "",
@@ -179,7 +183,7 @@ function buildChartCatalog(root, context) {
   };
 }
 
-function buildVariantIndex({ root, variantRel, packagePath, packageBases, packageBaseNames, setupChecks }) {
+function buildVariantIndex({ root, variantRel, packagePath, packageOciRef, packageBases, packageBaseNames, setupChecks }) {
   const variantPath = join(root, variantRel);
   check(existsSync(variantPath), `${relativeRepo(root)} references missing variant ${variantRel}`);
   const variant = readYaml(variantPath);
@@ -215,7 +219,7 @@ function buildVariantIndex({ root, variantRel, packagePath, packageBases, packag
       description: base?.description ?? "",
     },
     setupCheck: {
-      command: setupCheck.command ?? "",
+      command: `cub installer setup --pull ${packageOciRef} --base ${variantName} --work-dir <tmp> --non-interactive --namespace ${variant.spec?.namespace ?? ""}`,
       helmReleaseObjectCount: setupCheck.helmReleaseObjectCount ?? "",
       cubInstallObjectCountIncludingSupport: setupCheck.cubInstallObjectCountIncludingSupport ?? "",
       semanticObjectMatches: setupCheck.semanticObjectMatches ?? "",
@@ -418,7 +422,8 @@ for exact base-variant evidence.
 | Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
 ${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
-${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package | ${linkFrom(root, packageInfo.path)} |
+${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package OCI | \`${packageInfo.ociRef}\` |
+| Installer package source | ${linkFrom(root, packageInfo.path)} |
 | Installer package receipt | ${linkFrom(root, packageInfo.receipt)} |
 | Machine index | ${linkFrom(root, relativeRepo(join(root, "artifact-index.yaml")))} |
 
@@ -437,13 +442,14 @@ ${receiptTable(root, variants)}
 ## Current Install Shape
 
 \`\`\`sh
-cub installer setup --pull ${packageInfo.path} --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
+cub installer setup --pull ${packageInfo.ociRef} --base <variant> --work-dir <tmp> --non-interactive --namespace <namespace>
 \`\`\`
 
-Use the variant table above to choose the package base. The proof path compares
-regular Helm output with real \`cub installer setup\` output and explains every
-intentional difference, such as the Namespace support object or separated
-Secrets.
+Use the variant table above to choose the package base. The \`oci://\` ref is
+the public package users pull; the \`packages/...\` path is the repo source path
+used by maintainers and proof scripts. The proof path compares regular Helm
+output with real \`cub installer setup\` output and explains every intentional
+difference, such as the Namespace support object or separated Secrets.
 `;
 }
 
