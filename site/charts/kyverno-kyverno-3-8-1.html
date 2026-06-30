@@ -662,7 +662,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-<h4>no-crds - needs 22 CRDs supplied first</h4><div class="card"><table>
+<h4>no-crds: needs 22 CRDs supplied first</h4><div class="card"><table>
         <thead><tr><th>Hook (route)</th><th>After you deploy, who runs it?</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>hook-delete-policy (delete-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)</td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>-</td></tr><tr><td>hook-weight-ordering (preserve-ordering)</td><td>Your applier - applies objects in order, automatically</td><td>reduced - CRD-first ordering is not needed in a base that installs no CRDs</td></tr><tr><td>target-facts (target-facts-or-preflight)</td><td>Prerequisite - supply once (Secret / CRD / storage), like values</td><td>strengthened - this base needs 22 CRDs supplied before deploy (the default base installs them for you)</td></tr></tbody>
       </table></div>
@@ -703,6 +703,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:09:23.903Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T08:53:09.872Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>
