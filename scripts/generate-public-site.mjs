@@ -554,7 +554,7 @@ stringData:
     <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
     <div class="start-block" aria-labelledby="start">
       <h2 id="start">How we help</h2>
-      <p>Try it first with a couple of charts and add GitOps if you like. Then add ConfigHub server when one chart becomes many: shared configurations, variants, apps, and releases.</p>
+      <p>Try it first with a couple of charts and add GitOps if you like. A free ConfigHub account lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
         ${journeySteps.map(([number, title, body, href, linkText]) => `<a class="journey-step" href="${escapeHtml(href)}">
           <span class="kicker">${escapeHtml(number)}</span>
@@ -609,7 +609,7 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>ConfigHub adds a store and domain model, so you share and manage the many custom chart configurations your team actually runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
+      <p>A basic ConfigHub account is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="home-list">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
@@ -974,8 +974,8 @@ function legacyDashboardHtml(catalog) {
     ["Browse first", "Open the catalog, chart pages, proof status, and known gaps before trusting an install path.", "Free"],
     ["Inspect a render", "Use cub helm template when you only need to see the Kubernetes objects a chart produces.", "Free"],
     ["Try a public package", "Use cub installer setup for a maintained public base with rendered objects, receipts, scans, and local verification.", "Free or low-friction"],
-    ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for teams, approvals, or variants.", "Managed"],
-    ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Managed or paid"],
+    ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for variants, diffs, and later teams or approvals.", "Free account"],
+    ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Free account, paid at scale"],
   ];
   const userValueRows = [
     ["Pick a safe starting point", "Choose a reviewed base variant instead of guessing through a large values file."],
@@ -1493,8 +1493,8 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
-      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, policies, scans, GitOps/OCI delivery, fleet operations, and production receipts.</p>
-      <p>The free public lane helps users browse, inspect, template, install supported public chart bases, pull public artifacts, and verify available signatures, digests, and receipts. The paid lane is for private charts, custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, and production support.</p>
+      <p>A public catalog of maintained Helm-derived packages, plus a free ConfigHub account that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
+      <p>The free lane: browse, inspect, template, and install public chart bases with no account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -1535,7 +1535,7 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
-      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. Use a ConfigHub account when you want managed state, private inputs, or production workflows.</p>
+      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a public package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
       <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
   --base default \\
   --work-dir .tmp/redis \\
@@ -1690,8 +1690,8 @@ $ cub installer setup --pull .../prometheus/29.9.0
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
     <div class="box">
-      <h3>With an account: any edit stays</h3>
-      <p class="tag">account</p>
+      <h3>With a free account: any edit stays</h3>
+      <p class="tag">free account</p>
       <pre><code>$ cub installer upload --space my-app
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
@@ -1734,7 +1734,7 @@ $ npm run redis:verify-install:render -- \\
   <p class="closing-line">Get Started needs no account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
+<footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>
 `;
@@ -1818,7 +1818,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path; connected ConfigHub workflows start when desired state needs to be shared and managed.</p></footer>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>
 `;
