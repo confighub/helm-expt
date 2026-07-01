@@ -516,6 +516,7 @@ function html(catalog) {
 }
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
+  const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
   const journeySteps = [
     ["First", "Pre-flight checks", "No account, no cluster: see every hook, CRD, prerequisite, and footgun a chart carries, and fix what you would change before anything reaches the cluster.", "./try.html", "Get Started"],
     ["Second", "Helm Ops Catalog", "We maintain a public catalog of standard charts with known good variants, risk advice, and support for hooks, CRDs, setup jobs, and other Helm extras.", "./charts/index.html", "Go to Catalog"],
@@ -547,7 +548,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. Open source, and you can start without an account.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
         <p>Preview your installs, with every hook, CRD, prerequisite, and footgun mapped</p>
         <p>Change any field after install, and keep it through upgrades</p>
@@ -1694,6 +1695,7 @@ $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
 # ConfigHub: render the reviewed package, then apply
+# No ConfigHub account or Google registry login is needed for public catalog packages.
 $ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 $ kubectl apply -f ./prom/out/manifests</code></pre>
@@ -3777,6 +3779,8 @@ function yamlLinksCell(entry, row) {
 }
 
 function chartIndexHtml(catalog) {
+  const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
+  const publishedPackageCount = catalog.installerOciPackages.filter((row) => row.publication_status === "published-receipt").length;
   const chartRowsHtml = catalog.catalogEntries
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -3844,6 +3848,7 @@ function chartIndexHtml(catalog) {
     <p>AI helps with the maintenance work: reading chart behavior, proposing useful chart presets, updating them across chart versions, and checking the rendered output. The catalog evidence decides what lands.</p>
     <p>Each chart preset has a full rendered YAML output file, usually named <code>release-objects.yaml</code>. The chart page links that file, then links the render intent, revision, package base, routes, and receipts that explain where it came from and what still needs attention.</p>
     <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected preset locally.</p>
+    <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
   </header>

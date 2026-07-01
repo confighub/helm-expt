@@ -486,6 +486,7 @@ $ helm install prom prometheus-community/prometheus --version 29.8.0 \
     -n monitoring --create-namespace
 
 # ConfigHub: render the reviewed package, then apply
+# No ConfigHub account or Google registry login is needed for public catalog packages.
 $ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
     --base default --work-dir ./prom --non-interactive --namespace monitoring
 $ kubectl apply -f ./prom/out/manifests</code></pre>
