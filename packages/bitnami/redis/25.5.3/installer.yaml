@@ -6,22 +6,22 @@ metadata:
 spec:
   bases:
     -
-      default: true
-      description: "Redis default variant rendered from bitnami/redis@25.5.3"
+      description: "Redis static password demo variant rendered from bitnami/redis@25.5.3"
       name: "default"
       path: "bases/default"
     -
-      description: "Redis variant that uses an existing Secret target fact"
+      description: "Redis existing Secret default variant rendered from bitnami/redis@25.5.3"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret redis/redis-existing-secret key redis-password"
           namespace: "redis"
-          suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+          suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=\"$(openssl rand -base64 32)\""
       name: "reuse-existing-secret"
       path: "bases/reuse-existing-secret"
+      default: true
   collector:
-    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
+    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

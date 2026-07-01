@@ -2600,10 +2600,10 @@ function hardQuestionsHtml(catalog) {
       title: "Known Footguns We Surface",
       rows: [
         {
-          status: "watch",
+          status: "answered",
           question: "Do default bases generate fresh passwords?",
           answer:
-            "Not always. The default-credential check found fixed placeholder credentials in five sampled default bases, including bases whose names imply generated passwords. That is useful for deterministic demos, but it stays watch until naming, warnings, and production routes make the behavior impossible to miss.",
+            "No. The safer catalog path is to keep credential material outside the render. For credential-bearing charts, the package default is now the existing-Secret base: it renders no shared password and gives you a command for creating fresh Secret material before apply. Fixed-password demo bases are explicit, non-default choices.",
           links: [["Default credential check", "../data/default-credential-check/summary.md"], ["Security end to end", "../docs/user/security-end-to-end.md"]],
         },
         {
@@ -3968,6 +3968,19 @@ function evidenceDepthSummary(lanes) {
   return parts.join(" ") || "No lane evidence recorded yet.";
 }
 
+function packageRequirementsForEntry(entry) {
+  if (!entry.package_path) return [];
+  const installerPath = join(repoRoot, entry.package_path, "installer.yaml");
+  if (!existsSync(installerPath)) return [];
+  const installer = readYaml(installerPath);
+  const bases = installer.spec?.bases ?? [];
+  const base =
+    bases.find((candidate) => candidate.name === entry.start_variant) ??
+    bases.find((candidate) => candidate.default) ??
+    bases[0];
+  return Array.isArray(base?.externalRequires) ? base.externalRequires : [];
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -4033,6 +4046,16 @@ function chartPageHtml(catalog, entry) {
   const firstRenderedObjectsLink = firstRenderedObjectsPath
     ? `<a href="../../${escapeHtml(firstRenderedObjectsPath)}">full rendered YAML</a>`
     : `<a href="../../data/helm-render-intents/summary.md">render-output summary</a>`;
+  const packageRequirements = packageRequirementsForEntry(entry);
+  const packageRequirementRows = packageRequirements.map((requirement) => [
+    requirement.name || requirement.kind || "required target input",
+    requirement.suggestedSource
+      ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
+      : "Create or confirm this before apply.",
+  ]);
+  const packageRequirementTableRows = packageRequirementRows.length
+    ? packageRequirementRows
+    : [["None recorded for the recommended preset.", "No separate setup command recorded."]];
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
     ["Helm render intents", "data/helm-render-intents/summary.md"],
@@ -4136,6 +4159,7 @@ function chartPageHtml(catalog, entry) {
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
         ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, `The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. ${INSTALLER_OCI_AUTH_NOTE}`],
+        ["Required before apply", packageRequirementTableRows.map(([name, source]) => `${escapeHtml(name)}${source ? `<br>${source}` : ""}`).join("<br>"), "External resources the recommended preset expects, such as an existing Secret, namespace, CRD, or target fact."],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this chart preset. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
         ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],

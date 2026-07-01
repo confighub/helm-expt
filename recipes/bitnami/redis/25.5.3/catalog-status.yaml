@@ -22,6 +22,7 @@ spec:
     productReviewRequired: false
   notes:
     - "First deliberately supported catalog entry."
-    - "⚠ The default base ships a fixed, shared demo password baked into the rendered Secret (base64 confighub-redis-password) — identical on every install and readable from the manifest. It is for demos and local-test only; use reuse-existing-secret to bring your own Secret for anything real."
+    - "reuse-existing-secret is the package default. It renders no Redis Secret and requires redis/redis-existing-secret key redis-password before apply."
+    - "The base named default is kept as an explicit demo path. It ships a fixed, shared demo password baked into the rendered Secret (base64 confighub-redis-password) — identical on every install and readable from the manifest."
     - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
     - "Both variants are Helm-equivalent through cub installer setup."

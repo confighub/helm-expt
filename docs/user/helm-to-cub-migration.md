@@ -40,7 +40,7 @@ user is trying something normal from Helm.
 | `--values values.yaml` or `-f values.yaml` | cub has no values-file flag. Choose, edit, or author a base variant instead of passing a Helm values file at runtime. |
 | `--set-string image.tag=7.4` | Use `--set-image` when the package declares images; otherwise make the image change in the base. |
 | `--input replicaCount=2` but the input is not declared | The hard error is intentional. Confirm the input exists, or edit the base so the change is visible as config. |
-| A default base bakes a placeholder password | Treat it as a demo placeholder. Use the existing-secret or reuse-existing-secret base and stage your own Secret. |
+| A base bakes a placeholder password | Treat it as a demo placeholder. The safer default is an existing-secret or reuse-existing-secret base; stage your own Secret before apply. |
 
 Source: [managed setup guidance](../../data/managed-setup-guidance/summary.md).
 

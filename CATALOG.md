@@ -62,23 +62,23 @@ The `Start Base Status` column uses the same generated readiness labels.
 
 | Chart | Start With | Start Base Status | Evidence | Hard Gap | Variants | Installer OCI | Catalog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bitnami/redis@25.5.3 | default | render-only | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
+| bitnami/redis@25.5.3 | reuse-existing-secret | render-only | live-helm-vs-confighub-parity | - | default, reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
 | metrics-server/metrics-server@3.13.0 | default | start-here | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, external-tls-ca | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0` | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | start-here | live-helm-vs-confighub-parity | - | default, admission-disabled, internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1` | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
 | jetstack/cert-manager@v1.20.2 | crds-enabled | start-here | live-helm-vs-confighub-parity | - | default, crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2` | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
 | external-secrets/external-secrets@2.5.0 | default | start-here | live-helm-vs-confighub-parity | - | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0` | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
 | argo-cd/argo-cd@9.5.15 | default | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | static-passwords | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
-| bitnami/rabbitmq@16.0.14 | static-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | existing-secret | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| bitnami/rabbitmq@16.0.14 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | default, no-crds | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
 | grafana/loki@7.0.0 | single-binary-filesystem | start-here | live-helm-vs-confighub-parity | - | single-binary-filesystem, simple-scalable-minio | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0` | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
 | longhorn/longhorn@1.11.2 | default | start-here | live-helm-vs-confighub-parity | - | default, ui-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2` | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
-| bitnami/mysql@14.0.3 | static-passwords | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
+| bitnami/mysql@14.0.3 | existing-secret | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | static-passwords, existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
 | grafana/grafana@10.5.15 | existing-secret-ingress | start-here | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15` | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
 | hashicorp/vault@0.32.0 | default | start-here | live-helm-vs-confighub-parity | - | dev-mode, default, ha-raft-ui | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0` | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | start-here | live-helm-vs-confighub-parity | - | default, sync-secret-rotation | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0` | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral | render-only | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default, server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
-| bitnami/mongodb@19.0.7 | static-passwords | render-only | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset | render-only | live-helm-vs-confighub-parity | - | static-passwords, existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
 | bitnami/nginx@24.0.2 | http-clusterip | render-only | live-helm-vs-confighub-parity | existing-secret (chart ships no Secret toggle) | http-clusterip, existing-tls-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2` | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
 | grafana/tempo@1.24.4 | local-persistent | start-here | live-helm-vs-confighub-parity | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | local-persistent, s3-query-observability | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4` | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
 | hashicorp/consul@2.0.0 | default-control-plane | start-here | live-helm-vs-confighub-parity | ha (curated proof lane - bespoke teaching needed) | default-control-plane, secure-mesh-existing-secrets | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0` | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
@@ -113,14 +113,14 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/redis/25.5.3/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis
 ```
 
 Variants:
 
-##### default (recommended first)
+##### default
 
-When to use: Redis default variant rendered from bitnami/redis@25.5.3
+When to use: Redis static password demo variant rendered from bitnami/redis@25.5.3
 Readiness: render-only
 Namespace: redis
 Target facts: none
@@ -130,9 +130,9 @@ Rendered objects: [recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/
 Helm equivalence: 14/14 objects matched
 Receipts: [per-chart receipts](recipes/bitnami/redis/25.5.3/CATALOG.md)
 
-##### reuse-existing-secret
+##### reuse-existing-secret (recommended first)
 
-When to use: Redis variant that uses an existing Secret target fact
+When to use: Redis existing Secret default variant rendered from bitnami/redis@25.5.3
 Readiness: render-only
 Namespace: redis
 Target facts: required Secret redis/redis-existing-secret keys redis-password
@@ -401,14 +401,14 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/postgresql/18.6.7/helm
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql
 ```
 
 Variants:
 
-##### static-passwords (recommended first)
+##### static-passwords
 
-When to use: postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7
+When to use: postgresql static password demo variant rendered from bitnami/postgresql@18.6.7
 Readiness: render-only
 Namespace: postgresql
 Target facts: none
@@ -418,9 +418,9 @@ Rendered objects: [recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/
 Helm equivalence: 7/7 objects matched
 Receipts: [per-chart receipts](recipes/bitnami/postgresql/18.6.7/CATALOG.md)
 
-##### existing-secret
+##### existing-secret (recommended first)
 
-When to use: postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7
+When to use: postgresql existing Secret default variant rendered from bitnami/postgresql@18.6.7
 Readiness: render-only
 Namespace: postgresql
 Target facts: required Secret postgresql/postgresql-auth keys postgres-password
@@ -447,14 +447,14 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/rabbitmq/16.0.14/helm-
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq
 ```
 
 Variants:
 
-##### static-passwords (recommended first)
+##### static-passwords
 
-When to use: rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14
+When to use: rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14
 Readiness: start-here
 Namespace: rabbitmq
 Target facts: none
@@ -464,9 +464,9 @@ Rendered objects: [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r
 Helm equivalence: 10/10 objects matched
 Receipts: [per-chart receipts](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md)
 
-##### existing-secret
+##### existing-secret (recommended first)
 
-When to use: rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14
+When to use: rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14
 Readiness: start-here
 Namespace: rabbitmq
 Target facts: required Secret rabbitmq/rabbitmq-auth keys rabbitmq-password; required Secret rabbitmq/rabbitmq-erlang-cookie keys rabbitmq-erlang-cookie
@@ -631,14 +631,14 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mysql/14.0.3/helm-pain
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base static-passwords --work-dir <tmp> --non-interactive --namespace mysql
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base existing-secret --work-dir <tmp> --non-interactive --namespace mysql
 ```
 
 Variants:
 
-##### static-passwords (recommended first)
+##### static-passwords
 
-When to use: mysql generated passwords variant rendered from bitnami/mysql@14.0.3
+When to use: mysql static password demo variant rendered from bitnami/mysql@14.0.3
 Readiness: start-here
 Namespace: mysql
 Target facts: none
@@ -648,9 +648,9 @@ Rendered objects: [recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/
 Helm equivalence: 8/8 objects matched
 Receipts: [per-chart receipts](recipes/bitnami/mysql/14.0.3/CATALOG.md)
 
-##### existing-secret
+##### existing-secret (recommended first)
 
-When to use: mysql existing Secret variant rendered from bitnami/mysql@14.0.3
+When to use: mysql existing Secret default variant rendered from bitnami/mysql@14.0.3
 Readiness: start-here
 Namespace: mysql
 Target facts: required Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password
@@ -684,7 +684,7 @@ Variants:
 
 ##### static-passwords
 
-When to use: grafana generated passwords variant rendered from grafana/grafana@10.5.15
+When to use: grafana static password demo variant rendered from grafana/grafana@10.5.15
 Readiness: start-here
 Namespace: grafana
 Target facts: none
@@ -696,7 +696,7 @@ Receipts: [per-chart receipts](recipes/grafana/grafana/10.5.15/CATALOG.md)
 
 ##### existing-secret-ingress (recommended first)
 
-When to use: grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15
+When to use: grafana existing Secret default variant rendered from grafana/grafana@10.5.15
 Readiness: start-here
 Namespace: grafana
 Target facts: required Secret grafana/grafana-admin keys admin-user,admin-password
@@ -873,14 +873,14 @@ Helm pain report: [helm-pain-report.yaml](recipes/bitnami/mongodb/19.0.7/helm-pa
 Start here:
 
 ```sh
-cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb
 ```
 
 Variants:
 
-##### static-passwords (recommended first)
+##### static-passwords
 
-When to use: mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7
+When to use: mongodb static password demo variant rendered from bitnami/mongodb@19.0.7
 Readiness: render-only
 Namespace: mongodb
 Target facts: none
@@ -890,9 +890,9 @@ Rendered objects: [recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r00
 Helm equivalence: 8/8 objects matched
 Receipts: [per-chart receipts](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 
-##### existing-secret-replicaset
+##### existing-secret-replicaset (recommended first)
 
-When to use: mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7
+When to use: mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7
 Readiness: render-only
 Namespace: mongodb
 Target facts: required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key
@@ -1052,23 +1052,23 @@ need catalog promotion review before support is claimed.
 
 | Chart | Status | Bucket | Evidence | Start With | Package OCI | Hard Gap | Catalog |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| bitnami/redis@25.5.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | - | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
+| bitnami/redis@25.5.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | - | [CATALOG.md](recipes/bitnami/redis/25.5.3/CATALOG.md) |
 | metrics-server/metrics-server@3.13.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/metrics-server/metrics-server/3.13.0/CATALOG.md) |
 | ingress-nginx/ingress-nginx@4.15.1 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | internal-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1` | - | [CATALOG.md](recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md) |
 | jetstack/cert-manager@v1.20.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | crds-enabled | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2` | - | [CATALOG.md](recipes/jetstack/cert-manager/v1.20.2/CATALOG.md) |
 | external-secrets/external-secrets@2.5.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0` | - | [CATALOG.md](recipes/external-secrets/external-secrets/2.5.0/CATALOG.md) |
 | argo-cd/argo-cd@9.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.15/CATALOG.md) |
-| bitnami/postgresql@18.6.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
-| bitnami/rabbitmq@16.0.14 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
+| bitnami/postgresql@18.6.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/postgresql/18.6.7/CATALOG.md) |
+| bitnami/rabbitmq@16.0.14 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/rabbitmq/16.0.14/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@85.3.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) |
 | grafana/loki@7.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | single-binary-filesystem | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0` | - | [CATALOG.md](recipes/grafana/loki/7.0.0/CATALOG.md) |
 | longhorn/longhorn@1.11.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2` | - | [CATALOG.md](recipes/longhorn/longhorn/1.11.2/CATALOG.md) |
-| bitnami/mysql@14.0.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
+| bitnami/mysql@14.0.3 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/bitnami/mysql/14.0.3/CATALOG.md) |
 | grafana/grafana@10.5.15 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-ingress | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15` | - | [CATALOG.md](recipes/grafana/grafana/10.5.15/CATALOG.md) |
 | hashicorp/vault@0.32.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0` | - | [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0` | - | [CATALOG.md](recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md) |
 | prometheus-community/prometheus@29.8.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | server-only-ephemeral | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/prometheus-community/prometheus/29.8.0/CATALOG.md) |
-| bitnami/mongodb@19.0.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
+| bitnami/mongodb@19.0.7 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.7/CATALOG.md) |
 | bitnami/nginx@24.0.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
 | grafana/tempo@1.24.4 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | local-persistent | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
 | hashicorp/consul@2.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default-control-plane | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
@@ -1085,15 +1085,15 @@ need catalog promotion review before support is claimed.
 | bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
 | bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
 | bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
-| bitnami/mongodb@19.0.9 | catalog-candidate | - | - | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
-| bitnami/mongodb@19.1.0 | catalog-candidate | - | - | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0` | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
+| bitnami/mongodb@19.0.9 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9` | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
+| bitnami/mongodb@19.1.0 | catalog-candidate | - | - | existing-secret-replicaset | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0` | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
 | bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4` | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
 | bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0` | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
 | bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10` | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
 | bitnami/phpmyadmin@20.0.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
-| bitnami/postgresql@18.6.10 | catalog-candidate | - | - | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10` | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
-| bitnami/postgresql@18.7.0 | catalog-candidate | - | - | static-passwords | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0` | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
-| bitnami/redis@27.0.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0` | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
+| bitnami/postgresql@18.6.10 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10` | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
+| bitnami/postgresql@18.7.0 | catalog-candidate | - | - | existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0` | - | [CATALOG.md](recipes/bitnami/postgresql/18.7.0/CATALOG.md) |
+| bitnami/redis@27.0.0 | catalog-candidate | - | - | reuse-existing-secret | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0` | - | [CATALOG.md](recipes/bitnami/redis/27.0.0/CATALOG.md) |
 | bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
 | bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2` | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |

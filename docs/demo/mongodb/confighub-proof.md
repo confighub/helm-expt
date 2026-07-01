@@ -6,14 +6,14 @@ This proof lane shows the current ConfigHub path for `bitnami/mongodb@19.0.7`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `static-passwords`.
+The selected proof install variant is `static-passwords`. The package default is now `existing-secret-replicaset`, which uses an existing Secret instead of the static demo password.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `static-passwords` | yes | mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7 |
-| `existing-secret-replicaset` | no | mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7 |
+| `static-passwords` | no | mongodb static password demo variant rendered from bitnami/mongodb@19.0.7 |
+| `existing-secret-replicaset` | yes | mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7 |
 
 ## Acceptance Contract
 

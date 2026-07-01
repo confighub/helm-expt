@@ -68,19 +68,19 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15"
     installer: "packages/grafana/grafana/10.5.15/installer.yaml"
     receipt: "recipes/grafana/grafana/10.5.15/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d7ae862f221952ba312e507f322f3d163bc325b96ab6438d5583a221fe4c284a"
+    deterministicBundleSHA256: "8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
         name: "static-passwords"
         path: "packages/grafana/grafana/10.5.15/bases/static-passwords"
-        default: true
-        description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+        default: false
+        description: "grafana static password demo variant rendered from grafana/grafana@10.5.15"
       -
         name: "existing-secret-ingress"
         path: "packages/grafana/grafana/10.5.15/bases/existing-secret-ingress"
-        default: false
-        description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
+        default: true
+        description: "grafana existing Secret default variant rendered from grafana/grafana@10.5.15"
   variants:
     -
       name: "static-passwords"
@@ -99,8 +99,8 @@ spec:
       packageBase:
         name: "static-passwords"
         path: "packages/grafana/grafana/10.5.15/bases/static-passwords"
-        default: true
-        description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+        default: false
+        description: "grafana static password demo variant rendered from grafana/grafana@10.5.15"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --base static-passwords --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9
@@ -168,8 +168,8 @@ spec:
       packageBase:
         name: "existing-secret-ingress"
         path: "packages/grafana/grafana/10.5.15/bases/existing-secret-ingress"
-        default: false
-        description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
+        default: true
+        description: "grafana existing Secret default variant rendered from grafana/grafana@10.5.15"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --base existing-secret-ingress --work-dir <tmp> --non-interactive --namespace grafana"
         helmReleaseObjectCount: 9

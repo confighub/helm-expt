@@ -3,13 +3,13 @@
 //   - Customize friction (#1009): Helm idioms (`--set`, `--values`, `--input X`) are rejected by
 //     cub with a generic "unknown flag/input" and ZERO guidance (0/72 guided). The managed layer
 //     turns each real cub error into a plain migration hint -> guided, not opaque.
-//   - Shared placeholder password (#1012): the `default` base bakes a password Secret that is a
-//     shared placeholder. The managed layer detects the baked password key (NEVER decodes/prints
-//     the value) and points to the `reuse-existing-secret` base + the determinism tension.
+//   - Shared placeholder password (#1012): the unsafe shape is a base that bakes a password Secret
+//     as a shared placeholder. The managed layer detects baked password keys (NEVER decodes/prints
+//     the value), and the safer package default points to the existing-secret base.
 // The determinism tension is the real reason cub can't just "generate a random password" like
 // Helm: a deterministic render (the #1011 win) and a random-per-install secret are mutually
 // exclusive from one render — so the honest answer is "supply/reference your own secret"
-// (reuse-existing-secret), and rename the misleading `generated-passwords` base.
+// (reuse-existing-secret), and keep fixed-password demo bases out of the default path.
 // Offline (local packages, no network, no cluster). Result `pass` = guidance + warnings generated.
 //
 // Usage:
@@ -134,7 +134,7 @@ function runProof() {
   });
   const warned = secretFindings.filter((s) => s.bakesPassword).length;
 
-  const ok = guidedCount === guided.filter((g) => g.cubError !== "(rendered — accepted)").length && warned > 0;
+  const ok = guidedCount === guided.filter((g) => g.cubError !== "(rendered — accepted)").length && warned === 0;
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ManagedSetupGuidanceReceipt",
@@ -142,12 +142,12 @@ function runProof() {
     spec: {
       observedAt: stamp,
       result: ok ? "pass" : "watch",
-      claim: "The two non-delivery adoption findings are manageable at the setup edge. Customize friction (#1009): every Helm idiom cub rejects (`unknown flag: --set`, `unknown input`) maps to a plain migration hint — opaque becomes guided. Shared placeholder password (#1012): the default base bakes a shared placeholder password Secret; the managed layer detects the baked key (without decoding the value) and points to the reuse-existing-secret base. The determinism tension is why cub cannot just generate a random password like Helm — a deterministic render and a random-per-install secret are mutually exclusive — so the honest fix is supply/reference your own secret, and rename the misleading generated-passwords base.",
+      claim: "The two non-delivery adoption findings are manageable at the setup edge. Customize friction (#1009): every Helm idiom cub rejects (`unknown flag: --set`, `unknown input`) maps to a plain migration hint. Shared placeholder password (#1012): the safer package default uses the existing-secret base, so a normal setup does not bake the shared demo password. The suggested Secret commands generate fresh values before apply.",
       customizeGuidance: { totalIdioms: guided.length, guided: guidedCount, samples: guided },
       secretGuidance: { charts: secretFindings, warned, note: "Secret VALUES are never decoded or printed — only password key names/counts are read, to honor the credential-handling constraint." },
-      determinismTension: "cub's deterministic render (#1011, a real win) and Helm's random-per-install password are mutually exclusive from one render. So the secret answer is reuse-existing-secret (supply/reference your own), not generate-random-in-render. The `generated-passwords` base name promises what determinism forbids and should be renamed.",
+      determinismTension: "cub's deterministic render (#1011) and Helm's random-per-install password are different safety models. The package answer is reuse-existing-secret: create or supply the Secret before apply, keep the Secret material outside the rendered chart, and make fixed-password demo bases explicit.",
       conclusion: ok
-        ? "Both non-delivery findings are managed: opaque Helm-idiom rejections become guided migration hints, and the baked placeholder password is detected and routed to reuse-existing-secret. With the delivery applier (managed-cub-direct), all five adoption findings now have a concrete 'manage it'."
+        ? "Both non-delivery findings are managed: opaque Helm-idiom rejections become guided migration hints, and the normal setup path no longer bakes the shared placeholder password. With the delivery applier (managed-cub-direct), all five adoption findings now have a concrete 'manage it'."
         : "Guidance/warnings incomplete; see parts.",
     },
   };

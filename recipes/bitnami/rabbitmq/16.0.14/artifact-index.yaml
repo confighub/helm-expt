@@ -67,19 +67,19 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
     installer: "packages/bitnami/rabbitmq/16.0.14/installer.yaml"
     receipt: "recipes/bitnami/rabbitmq/16.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bf046d286d243fe21caa45e150b2a540893840ffb0ac61c6b4cbf4e6cb41961a"
+    deterministicBundleSHA256: "fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
         name: "static-passwords"
         path: "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords"
-        default: true
-        description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+        default: false
+        description: "rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14"
       -
         name: "existing-secret"
         path: "packages/bitnami/rabbitmq/16.0.14/bases/existing-secret"
-        default: false
-        description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
+        default: true
+        description: "rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14"
   variants:
     -
       name: "static-passwords"
@@ -98,8 +98,8 @@ spec:
       packageBase:
         name: "static-passwords"
         path: "packages/bitnami/rabbitmq/16.0.14/bases/static-passwords"
-        default: true
-        description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+        default: false
+        description: "rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base static-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
         helmReleaseObjectCount: 10
@@ -172,8 +172,8 @@ spec:
       packageBase:
         name: "existing-secret"
         path: "packages/bitnami/rabbitmq/16.0.14/bases/existing-secret"
-        default: false
-        description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
+        default: true
+        description: "rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir <tmp> --non-interactive --namespace rabbitmq"
         helmReleaseObjectCount: 9

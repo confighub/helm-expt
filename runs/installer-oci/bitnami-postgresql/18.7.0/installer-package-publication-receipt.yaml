@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0
   package:
     path: packages/bitnami/postgresql/18.7.0
-    sha256: 325bb171918958666a38e2e441599f48ab7b8e02278f168d3a745f5b111a50d2
+    sha256: 6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92
   commands:
     package: "cub installer package packages/bitnami/postgresql/18.7.0 -o <tmp>/bitnami-postgresql-18.7.0.tgz"
     push: "cub installer push <tmp>/bitnami-postgresql-18.7.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled bitnami-postgresql@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-YQbESW/bitnami-postgresql-18.7.0.tgz
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-dgEdSK/bitnami-postgresql-18.7.0.tgz
         files:  7
-        size:   3785 bytes
-        digest: sha256:325bb171918958666a38e2e441599f48ab7b8e02278f168d3a745f5b111a50d2
+        size:   3807 bytes
+        digest: sha256:6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0
-        manifest: sha256:1913c1de48c181102dd3e42147682ff9d6393f54faff6f8dcb24cdacbe670413
-        layer:    sha256:325bb171918958666a38e2e441599f48ab7b8e02278f168d3a745f5b111a50d2 (3785 bytes, 7 files)
-    inspectJSONSHA256: f5b3239bab4f0190a68811a53d0c74d0d3f5cb5a3daf59bab1b343f8c4cf7744
+        manifest: sha256:92ef63e4264bad114e4a63c03d603b021246894b9bc4dc9c3465469bd8eb3f35
+        layer:    sha256:6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92 (3807 bytes, 7 files)
+    inspectJSONSHA256: 1a79a67df81c4f54fe5a66d7e87647e4bbbeabfba585a13be80312888637f860

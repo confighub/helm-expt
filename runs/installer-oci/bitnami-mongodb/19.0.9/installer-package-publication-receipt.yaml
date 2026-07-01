@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9
   package:
     path: packages/bitnami/mongodb/19.0.9
-    sha256: a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7
+    sha256: 18c26cb9c65939ad531fc100cf292ae30632839d2faa2c93c5a7ac68c3204b2f
   commands:
     package: "cub installer package packages/bitnami/mongodb/19.0.9 -o <tmp>/bitnami-mongodb-19.0.9.tgz"
     push: "cub installer push <tmp>/bitnami-mongodb-19.0.9.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled bitnami-mongodb@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-ANVVDG/bitnami-mongodb-19.0.9.tgz
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-yEhAwL/bitnami-mongodb-19.0.9.tgz
         files:  7
-        size:   5481 bytes
-        digest: sha256:a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7
+        size:   5502 bytes
+        digest: sha256:18c26cb9c65939ad531fc100cf292ae30632839d2faa2c93c5a7ac68c3204b2f
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9
-        manifest: sha256:ee9833f2a263d5c5ba35f6c941073aad8a4c1ddf5dfd7d9fc56b420fea4f5669
-        layer:    sha256:a83c41ef599eda4906080bec2e551f574d8d4d6d81e81bd0fe557285817c00a7 (5481 bytes, 7 files)
-    inspectJSONSHA256: 8ab2bfd1a74cf931cf1bb109b98ab01fd10645293f73487a233c8ad6f58c69bd
+        manifest: sha256:6b4061223db0662d18c357bdfdf358600fa15e477525944de571a4738b222683
+        layer:    sha256:18c26cb9c65939ad531fc100cf292ae30632839d2faa2c93c5a7ac68c3204b2f (5502 bytes, 7 files)
+    inspectJSONSHA256: 6352fdf64fde4fb29cbb2250d831851b0aac74c00edf43a425d2ec6d2d8b5333

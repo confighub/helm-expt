@@ -5,8 +5,9 @@
 // that apply to IT and the exact remediation.
 //
 // Two kinds of caveat:
-//   - PER-CHART (vary by chart): baked shared placeholder password (#1012), CRDs that need
-//     first-ordering on cub-direct (#1015). Detected offline from each package's default base.
+//   - PER-CHART (vary by chart): default bases that still bake shared placeholder passwords
+//     (#1012), CRDs that need first-ordering on cub-direct (#1015). Detected offline from each
+//     package's default base.
 //   - UNIVERSAL (every chart, cub-direct path): customize via --input not --set (#1009),
 //     upgrades don't auto-prune (#1013), server-side-apply conflicts on a manual edit (#1017).
 //     Stated once; all are handled by a controller or the managed applier (#1019/#1020).
@@ -184,11 +185,11 @@ ${uni}
 
 ## Per-chart caveats (these vary by chart)
 
-**${pw.length}/${rows.length} charts** bake a shared placeholder password in their default setup; **${crd.length}/${rows.length} charts** ship CRDs that need first-ordering on cub-direct. Full data for all ${rows.length} charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
+**${pw.length}/${rows.length} charts** still bake a shared placeholder password in their default setup; **${crd.length}/${rows.length} charts** ship CRDs that need first-ordering on cub-direct. Full data for all ${rows.length} charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
 
 ### Shared placeholder password (#1012) — ${pw.length} charts
 
-The default base bakes a password Secret that is **the same for everyone**. cub can't simply generate a random one like Helm: a deterministic render and a random-per-install secret are mutually exclusive — so the fix is to **supply/reference your own** Secret.
+If a chart appears here, its default base bakes a password Secret that is **the same for everyone**. The safer package shape is an existing-Secret base: create or supply the Secret before apply, keep the Secret material outside the rendered chart, and make any fixed-password demo base explicit.
 
 | Chart | Default base | Password keys | Fix |
 | --- | --- | --- | --- |

@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ManagedSetupGuidanceReceipt"
 metadata:
-  name: "managed-setup-guidance-2026-06-21"
+  name: "managed-setup-guidance-2026-06-30"
 spec:
-  observedAt: "2026-06-21T19:41:55.590Z"
+  observedAt: "2026-06-30T20:35:50.113Z"
   result: "pass"
-  claim: "The two non-delivery adoption findings are manageable at the setup edge. Customize friction (#1009): every Helm idiom cub rejects (`unknown flag: --set`, `unknown input`) maps to a plain migration hint — opaque becomes guided. Shared placeholder password (#1012): the default base bakes a shared placeholder password Secret; the managed layer detects the baked key (without decoding the value) and points to the reuse-existing-secret base. The determinism tension is why cub cannot just generate a random password like Helm — a deterministic render and a random-per-install secret are mutually exclusive — so the honest fix is supply/reference your own secret, and rename the misleading static-passwords base."
+  claim: "The two non-delivery adoption findings are manageable at the setup edge. Customize friction (#1009): every Helm idiom cub rejects (`unknown flag: --set`, `unknown input`) maps to a plain migration hint. Shared placeholder password (#1012): the safer package default uses the existing-secret base, so a normal setup does not bake the shared demo password. The suggested Secret commands generate fresh values before apply."
   customizeGuidance:
     totalIdioms: 5
     guided: 5
@@ -34,19 +34,19 @@ spec:
     charts:
       -
         chart: "bitnami"
-        defaultBase: "default"
-        bakesPassword: true
-        passwordKeyCount: 1
+        defaultBase: "reuse-existing-secret"
+        bakesPassword: false
+        passwordKeyCount: 0
         reuseBase: "reuse-existing-secret"
-        warning: "The default base (`default`) bakes a password Secret (1 password key(s)) — a shared placeholder, identical for everyone. Use the `reuse-existing-secret` base and supply your own Secret, or replace the placeholder before prod."
+        warning: "No baked password Secret in the default base (`reuse-existing-secret`)."
       -
         chart: "bitnami"
-        defaultBase: "static-passwords"
-        bakesPassword: true
-        passwordKeyCount: 2
+        defaultBase: "existing-secret"
+        bakesPassword: false
+        passwordKeyCount: 0
         reuseBase: "existing-secret"
-        warning: "The default base (`static-passwords`) bakes a password Secret (2 password key(s)) — a shared placeholder, identical for everyone. Use the `existing-secret` base and supply your own Secret, or replace the placeholder before prod."
-    warned: 2
+        warning: "No baked password Secret in the default base (`existing-secret`)."
+    warned: 0
     note: "Secret VALUES are never decoded or printed — only password key names/counts are read, to honor the credential-handling constraint."
-  determinismTension: "cub's deterministic render (#1011, a real win) and Helm's random-per-install password are mutually exclusive from one render. So the secret answer is reuse-existing-secret (supply/reference your own), not generate-random-in-render. The `static-passwords` base name promises what determinism forbids and should be renamed."
-  conclusion: "Both non-delivery findings are managed: opaque Helm-idiom rejections become guided migration hints, and the baked placeholder password is detected and routed to reuse-existing-secret. With the delivery applier (managed-cub-direct), all five adoption findings now have a concrete 'manage it'."
+  determinismTension: "cub's deterministic render (#1011) and Helm's random-per-install password are different safety models. The package answer is reuse-existing-secret: create or supply the Secret before apply, keep the Secret material outside the rendered chart, and make fixed-password demo bases explicit."
+  conclusion: "Both non-delivery findings are managed: opaque Helm-idiom rejections become guided migration hints, and the normal setup path no longer bakes the shared placeholder password. With the delivery applier (managed-cub-direct), all five adoption findings now have a concrete 'manage it'."

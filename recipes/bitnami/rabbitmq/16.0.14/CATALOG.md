@@ -66,8 +66,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| static-passwords | [packages/bitnami/rabbitmq/16.0.14/bases/static-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/static-passwords) | yes | rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14 |
-| existing-secret | [packages/bitnami/rabbitmq/16.0.14/bases/existing-secret](../../../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret) | no | rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14 |
+| static-passwords | [packages/bitnami/rabbitmq/16.0.14/bases/static-passwords](../../../../packages/bitnami/rabbitmq/16.0.14/bases/static-passwords) | no | rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14 |
+| existing-secret | [packages/bitnami/rabbitmq/16.0.14/bases/existing-secret](../../../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret) | yes | rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14 |
 
 ## Receipts
 

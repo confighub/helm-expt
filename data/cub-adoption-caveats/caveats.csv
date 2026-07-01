@@ -12,14 +12,14 @@ bitnami/apache,11.4.29,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/contour,21.1.4,default,no,,,,yes,5,,customize;prune;ssa-conflict
 bitnami/elasticsearch,22.1.6,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/memcached,8.5.5,default,no,,,,no,0,,customize;prune;ssa-conflict
-bitnami/mongodb,19.1.0,static-passwords,yes,mongodb-root-password,existing-secret-replicaset,kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>,no,0,,customize;prune;ssa-conflict
-bitnami/mysql,14.0.3,static-passwords,yes,mysql-password;mysql-root-password,existing-secret,kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=<value> --from-literal=mysql-password=<value> --from-literal=mysql-replication-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/mongodb,19.1.0,existing-secret-replicaset,no,,existing-secret-replicaset,"kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=""$(openssl rand -base64 32)"" --from-literal=mongodb-replica-set-key=""$(openssl rand -base64 48)""",no,0,,customize;prune;ssa-conflict
+bitnami/mysql,14.0.3,existing-secret,no,,existing-secret,"kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password=""$(openssl rand -base64 32)"" --from-literal=mysql-password=""$(openssl rand -base64 32)"" --from-literal=mysql-replication-password=""$(openssl rand -base64 32)""",no,0,,customize;prune;ssa-conflict
 bitnami/nginx,25.0.0,http-clusterip,no,,existing-tls-ingress,kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>,no,0,,customize;prune;ssa-conflict
 bitnami/opensearch,2.0.10,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/phpmyadmin,20.0.0,default,no,,,,no,0,,customize;prune;ssa-conflict
-bitnami/postgresql,18.7.0,static-passwords,yes,postgres-password,existing-secret,kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>,no,0,,customize;prune;ssa-conflict
-bitnami/rabbitmq,16.0.14,static-passwords,yes,rabbitmq-password,existing-secret,kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=<value>,no,0,,customize;prune;ssa-conflict
-bitnami/redis,27.0.0,default,yes,redis-password,reuse-existing-secret,kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>,no,0,,customize;prune;ssa-conflict
+bitnami/postgresql,18.7.0,existing-secret,no,,existing-secret,"kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=""$(openssl rand -base64 32)""",no,0,,customize;prune;ssa-conflict
+bitnami/rabbitmq,16.0.14,existing-secret,no,,existing-secret,"kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=""$(openssl rand -base64 32)""",no,0,,customize;prune;ssa-conflict
+bitnami/redis,27.0.0,reuse-existing-secret,no,,reuse-existing-secret,"kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=""$(openssl rand -base64 32)""",no,0,,customize;prune;ssa-conflict
 bitnami/spark,10.0.3,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/zookeeper,13.8.7,default,no,,,,no,0,,customize;prune;ssa-conflict
 cloudnative-pg/cloudnative-pg,0.28.2,default,no,,no-crds,kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,10,no-crds,customize;prune;ssa-conflict
@@ -43,7 +43,7 @@ fluent/fluentd,0.5.3,default,no,,,,no,0,,customize;prune;ssa-conflict
 gatekeeper/gatekeeper,3.22.2,default,no,,,,yes,17,no-crds,customize;prune;ssa-conflict
 gitlab/gitlab-runner,0.89.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 grafana/alloy,1.8.2,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict
-grafana/grafana,10.5.15,static-passwords,yes,admin-password,existing-secret-ingress,kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=<value> --from-literal=admin-password=<value>,no,0,,customize;prune;ssa-conflict
+grafana/grafana,10.5.15,existing-secret-ingress,no,,existing-secret-ingress,"kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=admin --from-literal=admin-password=""$(openssl rand -base64 32)""",no,0,,customize;prune;ssa-conflict
 grafana/loki,7.0.0,single-binary-filesystem,no,,,,no,0,,customize;prune;ssa-conflict
 grafana/promtail,6.17.1,default,no,,,,no,0,,customize;prune;ssa-conflict
 grafana/pyroscope,2.0.2,default,no,,,,yes,1,no-crds,customize;prune;ssa-conflict

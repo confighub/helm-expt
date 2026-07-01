@@ -67,8 +67,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| static-passwords | [packages/grafana/grafana/10.5.15/bases/static-passwords](../../../../packages/grafana/grafana/10.5.15/bases/static-passwords) | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
-| existing-secret-ingress | [packages/grafana/grafana/10.5.15/bases/existing-secret-ingress](../../../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) | no | grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15 |
+| static-passwords | [packages/grafana/grafana/10.5.15/bases/static-passwords](../../../../packages/grafana/grafana/10.5.15/bases/static-passwords) | no | grafana static password demo variant rendered from grafana/grafana@10.5.15 |
+| existing-secret-ingress | [packages/grafana/grafana/10.5.15/bases/existing-secret-ingress](../../../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) | yes | grafana existing Secret default variant rendered from grafana/grafana@10.5.15 |
 
 ## Receipts
 

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14
   package:
     path: packages/bitnami/rabbitmq/16.0.14
-    sha256: 42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22
+    sha256: fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9
   commands:
     package: "cub installer package packages/bitnami/rabbitmq/16.0.14 -o <tmp>/bitnami-rabbitmq-16.0.14.tgz"
     push: "cub installer push <tmp>/bitnami-rabbitmq-16.0.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled bitnami-rabbitmq@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-JqWcGJ/bitnami-rabbitmq-16.0.14.tgz
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-7FQMEV/bitnami-rabbitmq-16.0.14.tgz
         files:  7
-        size:   5291 bytes
-        digest: sha256:42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22
+        size:   5314 bytes
+        digest: sha256:fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14
-        manifest: sha256:3640b55ecbc96f4534963c68eef1fe0b2cc2d892014a65b6bfb9659c9e3de064
-        layer:    sha256:42887c216015befac045652b1e0615e54f1eebaeb313c7f57f6293ee225f5b22 (5291 bytes, 7 files)
-    inspectJSONSHA256: 6726a1882ca779178794d315a2d6470e88fcc30552eae91929a20e745ff530a0
+        manifest: sha256:c2034843e8552af31412d9c92fc845df511d1413dae17a782630079e656c87a0
+        layer:    sha256:fc497e6797de38d185395ed4c59127454d25bf65eeb68e28b81983766d31e3c9 (5314 bytes, 7 files)
+    inspectJSONSHA256: f39445fbdebc4e569200d85ce688221f70a3b2cb8503a2532b550f40e8f4c42b

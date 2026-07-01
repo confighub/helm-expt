@@ -34,9 +34,8 @@ operating-policy dispositions plus a final target-scoped support decision.
 ## Catalog Mitigations
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
-- static-passwords is the simplest install path, but ships a fixed, shared demo password baked into the rendered Secret (base64) — identical on every install and readable from the manifest; it also freezes the RabbitMQ erlang cluster cookie, so every install trusts the same shared cluster secret; it does not generate or separate any credential.
-- ⚠ static-passwords is for demos and local-test only: the committed password and erlang cookie is the same on every install and anyone with the manifest can base64-decode it. Use existing-secret to bring your own Secret for anything real.
-- existing-secret is supported when the declared RabbitMQ Secret target facts are satisfied.
+- existing-secret is the package default. It renders no RabbitMQ password or Erlang cookie Secret and is supported when the declared RabbitMQ Secret target facts are satisfied.
+- static-passwords is kept as an explicit demo path. It ships a fixed, shared demo password and RabbitMQ Erlang cookie baked into rendered Secrets (base64) — identical on every install and readable from the manifest.
 - Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
 - Target production review must choose storage class, RabbitMQ recovery policy, and backup/restore mechanism before use.
 

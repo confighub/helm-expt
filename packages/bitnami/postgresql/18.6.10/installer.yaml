@@ -6,24 +6,24 @@ metadata:
 spec:
   bases:
     -
-      default: true
-      description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
+      description: "postgresql static password demo variant rendered from bitnami/postgresql@18.6.10"
       name: "static-passwords"
       path: "bases/static-passwords"
     -
-      description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
+      description: "postgresql existing Secret default variant rendered from bitnami/postgresql@18.6.10"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret postgresql/postgresql-auth key postgres-password"
           namespace: "postgresql"
-          suggestedSource: "kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>"
+          suggestedSource: "kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=\"$(openssl rand -base64 32)\""
       name: "existing-secret"
       path: "bases/existing-secret"
+      default: true
   collector:
-    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
+    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."
   transformers:
     -

@@ -71,19 +71,19 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7"
     installer: "packages/bitnami/mongodb/19.0.7/installer.yaml"
     receipt: "recipes/bitnami/mongodb/19.0.7/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a73dd4afff91a507ad09386883cdc687677c2bde25b31f3adfb933214c7756de"
+    deterministicBundleSHA256: "be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
         name: "static-passwords"
         path: "packages/bitnami/mongodb/19.0.7/bases/static-passwords"
-        default: true
-        description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7"
+        default: false
+        description: "mongodb static password demo variant rendered from bitnami/mongodb@19.0.7"
       -
         name: "existing-secret-replicaset"
         path: "packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset"
-        default: false
-        description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7"
+        default: true
+        description: "mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7"
   variants:
     -
       name: "static-passwords"
@@ -102,8 +102,8 @@ spec:
       packageBase:
         name: "static-passwords"
         path: "packages/bitnami/mongodb/19.0.7/bases/static-passwords"
-        default: true
-        description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7"
+        default: false
+        description: "mongodb static password demo variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base static-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 8
@@ -171,8 +171,8 @@ spec:
       packageBase:
         name: "existing-secret-replicaset"
         path: "packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset"
-        default: false
-        description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7"
+        default: true
+        description: "mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
         helmReleaseObjectCount: 10

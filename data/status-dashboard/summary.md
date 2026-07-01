@@ -449,12 +449,12 @@ spreadsheet.
 | Chart | Recommended base | Base readiness | Strongest evidence | Render | ConfigHub | Local live | GitOps live | Live parity | Hard gap |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | argo-cd/argo-cd@9.5.15 | default (start-here) | start-here:1; render-only:1 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/mongodb@19.0.7 | static-passwords (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
-| bitnami/mysql@14.0.3 | static-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/mongodb@19.0.7 | existing-secret-replicaset (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
+| bitnami/mysql@14.0.3 | existing-secret (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/nginx@24.0.2 | http-clusterip (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| bitnami/postgresql@18.6.7 | static-passwords (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/rabbitmq@16.0.14 | static-passwords (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| bitnami/redis@25.5.3 | default (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
+| bitnami/postgresql@18.6.7 | existing-secret (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/rabbitmq@16.0.14 | existing-secret (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/redis@25.5.3 | reuse-existing-secret (render-only) | render-only:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | grafana/grafana@10.5.15 | existing-secret-ingress (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |

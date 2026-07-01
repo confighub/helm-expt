@@ -68,19 +68,19 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0"
     installer: "packages/bitnami/postgresql/18.7.0/installer.yaml"
     receipt: "recipes/bitnami/postgresql/18.7.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "01891b0a7a01aac8cfbcbb64569d918da4c4c524c5ae8fc7e01a5b4eb58acc8b"
+    deterministicBundleSHA256: "6665da5ce36305d6d3a2efda4821cbbdbc68874e702ef3a43b62d81112f4fb92"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
         name: "static-passwords"
         path: "packages/bitnami/postgresql/18.7.0/bases/static-passwords"
-        default: true
-        description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.7.0"
+        default: false
+        description: "postgresql static password demo variant rendered from bitnami/postgresql@18.7.0"
       -
         name: "existing-secret"
         path: "packages/bitnami/postgresql/18.7.0/bases/existing-secret"
-        default: false
-        description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.7.0"
+        default: true
+        description: "postgresql existing Secret default variant rendered from bitnami/postgresql@18.7.0"
   variants:
     -
       name: "static-passwords"
@@ -99,8 +99,8 @@ spec:
       packageBase:
         name: "static-passwords"
         path: "packages/bitnami/postgresql/18.7.0/bases/static-passwords"
-        default: true
-        description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.7.0"
+        default: false
+        description: "postgresql static password demo variant rendered from bitnami/postgresql@18.7.0"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0 --base static-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 7
@@ -167,8 +167,8 @@ spec:
       packageBase:
         name: "existing-secret"
         path: "packages/bitnami/postgresql/18.7.0/bases/existing-secret"
-        default: false
-        description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.7.0"
+        default: true
+        description: "postgresql existing Secret default variant rendered from bitnami/postgresql@18.7.0"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
         helmReleaseObjectCount: 6

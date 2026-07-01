@@ -66,8 +66,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| static-passwords | [packages/bitnami/postgresql/18.6.7/bases/static-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/static-passwords) | yes | postgresql generated passwords variant rendered from bitnami/postgresql@18.6.7 |
-| existing-secret | [packages/bitnami/postgresql/18.6.7/bases/existing-secret](../../../../packages/bitnami/postgresql/18.6.7/bases/existing-secret) | no | postgresql existing Secret variant rendered from bitnami/postgresql@18.6.7 |
+| static-passwords | [packages/bitnami/postgresql/18.6.7/bases/static-passwords](../../../../packages/bitnami/postgresql/18.6.7/bases/static-passwords) | no | postgresql static password demo variant rendered from bitnami/postgresql@18.6.7 |
+| existing-secret | [packages/bitnami/postgresql/18.6.7/bases/existing-secret](../../../../packages/bitnami/postgresql/18.6.7/bases/existing-secret) | yes | postgresql existing Secret default variant rendered from bitnami/postgresql@18.6.7 |
 
 ## Receipts
 
