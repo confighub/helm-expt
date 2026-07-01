@@ -22,6 +22,12 @@ Registry prefix:
 oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
 ~~~
 
+Public read access is enabled for this Artifact Registry repository. Users can
+run `cub installer inspect` and `cub installer setup --pull` against these
+refs without a ConfigHub account, a Google Cloud account, or a local repo clone.
+Maintainers still need registry write credentials to publish or replace
+packages.
+
 ## Counts
 
 | Count | Value |
@@ -58,4 +64,5 @@ oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
 `assigned-ref` means the repo knows the public ref that should be pushed, but
 does not have a committed publication receipt for that package yet.
 `published-receipt` means a receipt records a package push and inspect for
-that ref.
+that ref. The current repository grants anonymous read access to published
+public catalog refs.

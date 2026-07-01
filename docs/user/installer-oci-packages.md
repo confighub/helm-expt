@@ -5,10 +5,11 @@
 The catalog should let a user try a chart without cloning this repo. That is
 why each chart version now has an installer package OCI ref.
 
-Current status: the refs below are published in Google Artifact Registry and
-have publication receipts, but they still require registry read auth. The local
-setup path does not require a ConfigHub account. A public no-auth mirror is the
-next access step.
+Current status: the catalog records 110 published installer package OCI refs.
+100 are public catalog chart packages; the extra refs are retained chart-version
+packages used by refresh and comparison work. The refs are published in Google
+Artifact Registry with public read access. The local setup path does not require
+a ConfigHub account, a Google registry login, or a clone of this repo.
 
 The user-facing command is:
 
@@ -23,7 +24,7 @@ For example:
 
 ```sh
 cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  --base default \
+  --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
   --namespace redis
@@ -67,7 +68,8 @@ The generated package catalog records both the intended package ref and the
 publication status:
 
 - `published-receipt` means a publication receipt is committed for that ref.
-  It does not by itself mean anonymous pull access is enabled.
+  Public catalog refs are also readable anonymously from the current Artifact
+  Registry repository.
 - `assigned-ref` means the catalog has assigned the package ref, but no
   publication receipt is committed yet.
 
@@ -78,19 +80,40 @@ unpublished row as a preview of the intended address.
 
 ## Public Pull Access
 
-Publishing and public pull access are separate. The current catalog refs have
-publication receipts in Google Artifact Registry, but anonymous pulls are still
-blocked by the registry policy. There are two clean ways to finish the public
-path:
+Publishing and public pull access are separate. For this catalog, both are now
+in place:
 
-- allow anonymous read access on the Google Artifact Registry repository, or use
-  a project where that policy is allowed;
-- publish the same packages to a public GHCR mirror using credentials with
-  package write permission, then make the container packages public.
+- the 110 package refs have publication receipts;
+- the Google Artifact Registry repository grants `roles/artifactregistry.reader`
+  to `allUsers`;
+- the project-level organization policy allows that public read binding for this
+  public package project.
 
-Until one of those is done, examples that use the current GAR refs require
-registry read auth. They still do not require a ConfigHub account for local
-setup.
+That means a user can run `cub installer inspect` or `cub installer setup
+--pull` against the public catalog refs without Google Cloud credentials. Write
+access is still private: maintainers need registry credentials to publish or
+replace packages.
+
+The registry setting is deliberately narrow: the `helm-expt` Artifact Registry
+repository grants `roles/artifactregistry.reader` to `allUsers`. The project has
+a project-level organization-policy override that permits that public read
+binding. This does not grant anonymous write access, and it does not make other
+project resources public.
+
+Anonymous read was checked with empty local auth state:
+
+```sh
+tmpd=$(mktemp -d); tmpc=$(mktemp -d)
+
+DOCKER_CONFIG="$tmpd" CLOUDSDK_CONFIG="$tmpc" GOOGLE_APPLICATION_CREDENTIALS= \
+  cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    --base reuse-existing-secret \
+    --work-dir ./out \
+    --non-interactive \
+    --namespace redis
+
+rm -rf "$tmpd" "$tmpc"
+```
 
 ## Where To Find The Refs
 

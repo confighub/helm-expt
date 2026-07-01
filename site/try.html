@@ -500,7 +500,7 @@ $ kubectl apply -f ./prom/out/manifests</code></pre>
 $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
   <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
-  <div class="callout"><p><strong>Registry access today.</strong> Current package refs are published in Google Artifact Registry and require registry read auth until a public mirror is enabled. No ConfigHub account is needed for the local setup path.</p></div>
+  <div class="callout"><p><strong>Registry access today.</strong> Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p></div>
 
   <h2>2 · Change it after install — and it stays</h2>
   <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
@@ -544,7 +544,7 @@ stringData:
     --source=cub-render --revision=v1</code></pre>
 
   <h2>What we checked</h2>
-  <p>With no ConfigHub account, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. The current Google Artifact Registry package refs still need registry read auth until a public mirror is enabled.</p>
+  <p>With no ConfigHub account or Google registry login, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. Public catalog package refs are readable anonymously from Google Artifact Registry.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>

@@ -80,7 +80,7 @@ const UNKNOWN_ACTION_LABELS = {
 const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const INSTALLER_OCI_AUTH_NOTE =
-  "Current package refs are published in Google Artifact Registry and require registry read auth until a public mirror is enabled. No ConfigHub account is needed for the local setup path.";
+  "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -1476,7 +1476,7 @@ function legacyOfferingHtml(catalog) {
   const pathRows = [
     ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
     ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
-    ["Catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "No ConfigHub account for local setup; registry auth may still be required"],
+    ["Catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "No ConfigHub account or registry login for public package pulls"],
     ["Reviewed ConfigHub base", "Upload a reviewed rendered base before variants or approvals.", "cub installer upload", "ConfigHub account"],
     ["Derived operations", "Create environment, region, customer, or target variants after upload.", "cub variant create", "ConfigHub-managed"],
   ];
@@ -1752,7 +1752,7 @@ stringData:
     --source=cub-render --revision=v1</code></pre>
 
   <h2>What we checked</h2>
-  <p>With no ConfigHub account, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. The current Google Artifact Registry package refs still need registry read auth until a public mirror is enabled.</p>
+  <p>With no ConfigHub account or Google registry login, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. Public catalog package refs are readable anonymously from Google Artifact Registry.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>

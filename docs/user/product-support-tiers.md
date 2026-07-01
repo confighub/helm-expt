@@ -82,9 +82,10 @@ client-side signature verification
 no private repo, org, or production-state upload required
 ```
 
-The user should not need to create an org, upload private data, or onboard to
-ConfigHub to try Redis. The gateway can still require authenticated
-pulls, quotas, and signatures.
+The user does not need to create an org, upload private data, or onboard to
+ConfigHub to try Redis. Public catalog package pulls are anonymous today.
+Private catalogs, managed support, or higher-abuse-risk gateways can still add
+authentication, quotas, and signatures.
 
 Practical access model:
 
@@ -92,16 +93,15 @@ Practical access model:
 | --- | --- | --- |
 | Browse catalog | anonymous web access | CDN/WAF/IP rate limits, crawler controls |
 | Copy first command | anonymous session cookie is OK for web UX | cookie only protects the website, not OCI clients |
-| Pull public OCI artifact | read-only public pull token, device-code login, or email one-time-link token | registry auth, quotas, revocation, abuse detection |
+| Pull public OCI artifact | anonymous `cub installer setup --pull oci://...` | Artifact Registry grants public read; writes remain private |
 | Verify artifact | client checks digest/signature from public catalog | signature and digest proof, no trust in transport alone |
-| Use Argo CD / Flux | user creates a Kubernetes pull Secret from the read-only token | controller can authenticate to OCI without a browser cookie |
+| Use Argo CD / Flux | public catalog bundles can be pulled without a registry Secret; private bundles still need one | public-read for catalog, explicit credentials for private delivery |
 | Create private variants or production records | full ConfigHub account/org | managed variants, approvals, receipts, scans, audit, support |
 
 Why not only a browser cookie? It helps the web flow, but OCI clients and
-GitOps controllers usually need registry credentials or a Kubernetes pull
-Secret. So the low-friction path can start anonymously in the browser, but the
-actual artifact pull should use a scoped, read-only credential when ConfigHub is
-paying for the gateway.
+GitOps controllers do not use the browser session. For the public catalog, the
+registry itself is public-read. For private packages, use a scoped registry
+credential or Kubernetes pull Secret.
 
 This tier is for first contact and trust building. It should answer:
 

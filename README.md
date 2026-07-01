@@ -22,7 +22,7 @@ Public entry points:
 - [Generative GitOps fit](./docs/user/generative-gitops-fit.md): what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
-- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the package refs users pull with `cub installer setup --pull oci://...`; the current Google Artifact Registry refs require registry read auth until a public mirror is enabled.
+- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the public package refs users pull with `cub installer setup --pull oci://...`; no ConfigHub account or Google registry login is needed for read-only public catalog use.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
 - [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
@@ -57,7 +57,7 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | --- | --- | --- | --- |
 | 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
 | 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
-| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account; current GAR refs still need registry read auth |
+| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account or registry login for public package pulls |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
@@ -164,16 +164,15 @@ public chart
 -> local verification receipt
 ```
 
-If ConfigHub provides the public OCI gateway, public pulls may still be
-authenticated, rate-limited, and signature-verified so the service is not an
-unauthenticated firehose. Full signup becomes useful when the user wants
-private charts, private overlays, derived ConfigHub variants, production
-approvals, managed receipts, or fleet operations.
+The public catalog packages are published to Google Artifact Registry with
+anonymous read access on the `helm-expt` repository. Full signup becomes useful
+when the user wants private charts, private overlays, derived ConfigHub
+variants, production approvals, managed receipts, or fleet operations.
 
-In practice: browse the catalog anonymously; use a lightweight read-only pull
-token for public OCI artifacts; verify signatures and digests locally; create a
-full ConfigHub account only when you want ConfigHub to manage private or
-production state.
+In practice: browse the catalog anonymously; pull public package artifacts
+without a Google registry login; verify receipts locally; create a full
+ConfigHub account only when you want ConfigHub to manage private or production
+state.
 
 ## Why
 
@@ -728,15 +727,15 @@ The demo uses real commands, including:
 ```sh
 cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
+  --base reuse-existing-secret \
+  --work-dir .tmp/demo/redis-reuse-existing-secret \
   --non-interactive \
   --namespace redis
 
 npm run redis:compare
 npm run verify
-npm run redis:verify-install:render -- --base default --work-dir .tmp/demo/redis-default --namespace redis
-npm run redis:verify-install:confighub -- --base default --space <your-space>
+npm run redis:verify-install:render -- --base reuse-existing-secret --work-dir .tmp/demo/redis-reuse-existing-secret --namespace redis
+npm run redis:verify-install:confighub -- --base reuse-existing-secret --space <your-space>
 ```
 
 The full ConfigHub upload command is in `docs/demo/redis/demo-script.md`; it is
