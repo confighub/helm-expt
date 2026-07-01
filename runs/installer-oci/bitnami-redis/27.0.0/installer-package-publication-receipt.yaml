@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0
   package:
     path: packages/bitnami/redis/27.0.0
-    sha256: 136a0476ef396582a164614e184b6f8339b53f625df55f41787aa6a9c40801ac
+    sha256: 8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449
   commands:
     package: "cub installer package packages/bitnami/redis/27.0.0 -o <tmp>/bitnami-redis-27.0.0.tgz"
     push: "cub installer push <tmp>/bitnami-redis-27.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled bitnami-redis@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-3NWNcM/bitnami-redis-27.0.0.tgz
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-cHIa1n/bitnami-redis-27.0.0.tgz
         files:  7
-        size:   5937 bytes
-        digest: sha256:136a0476ef396582a164614e184b6f8339b53f625df55f41787aa6a9c40801ac
+        size:   5949 bytes
+        digest: sha256:8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0
-        manifest: sha256:97074cbf8d40e228f3506a958d9f54ca8f3906e1608bc32b520da8f55dbfb726
-        layer:    sha256:136a0476ef396582a164614e184b6f8339b53f625df55f41787aa6a9c40801ac (5937 bytes, 7 files)
-    inspectJSONSHA256: 991284993b32f8c5ce48a2138e3221a4c6bd75d0f0015e10ca9bd4da27af8931
+        manifest: sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780
+        layer:    sha256:8bf6e99d898e618f1a01330c7b26d7d3b8f0ef0c280f8a4d827ea96a26653449 (5949 bytes, 7 files)
+    inspectJSONSHA256: 6247dbb0142983ad1413fa5d0a20dd23a7c10d2fa9f2a4fe32addee2b792ddbf

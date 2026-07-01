@@ -66,8 +66,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| static-passwords | [packages/bitnami/mysql/14.0.3/bases/static-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/static-passwords) | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
-| existing-secret | [packages/bitnami/mysql/14.0.3/bases/existing-secret](../../../../packages/bitnami/mysql/14.0.3/bases/existing-secret) | no | mysql existing Secret variant rendered from bitnami/mysql@14.0.3 |
+| static-passwords | [packages/bitnami/mysql/14.0.3/bases/static-passwords](../../../../packages/bitnami/mysql/14.0.3/bases/static-passwords) | no | mysql static password demo variant rendered from bitnami/mysql@14.0.3 |
+| existing-secret | [packages/bitnami/mysql/14.0.3/bases/existing-secret](../../../../packages/bitnami/mysql/14.0.3/bases/existing-secret) | yes | mysql existing Secret default variant rendered from bitnami/mysql@14.0.3 |
 
 ## Receipts
 

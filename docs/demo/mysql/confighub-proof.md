@@ -6,14 +6,14 @@ This proof lane shows the current ConfigHub path for `bitnami/mysql@14.0.3`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `static-passwords`.
+The selected proof install variant is `static-passwords`. The package default is now `existing-secret`, which uses an existing Secret instead of the static demo password.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `static-passwords` | yes | mysql generated passwords variant rendered from bitnami/mysql@14.0.3 |
-| `existing-secret` | no | mysql existing Secret variant rendered from bitnami/mysql@14.0.3 |
+| `static-passwords` | no | mysql static password demo variant rendered from bitnami/mysql@14.0.3 |
+| `existing-secret` | yes | mysql existing Secret default variant rendered from bitnami/mysql@14.0.3 |
 
 ## Acceptance Contract
 

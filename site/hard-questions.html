@@ -777,12 +777,12 @@
     <section aria-labelledby="known-footguns-we-surface">
       <h2 id="known-footguns-we-surface">Known Footguns We Surface</h2>
       <div class="faq-list">
-        <article class="faq-card watch">
+        <article class="faq-card answered">
         <div class="faq-head">
           <h3>Do default bases generate fresh passwords?</h3>
-          <span class="faq-status">watch</span>
+          <span class="faq-status">answered</span>
         </div>
-        <p>Not always. The default-credential check found fixed placeholder credentials in five sampled default bases, including bases whose names imply generated passwords. That is useful for deterministic demos, but it stays watch until naming, warnings, and production routes make the behavior impossible to miss.</p>
+        <p>No. The safer catalog path is to keep credential material outside the render. For credential-bearing charts, the package default is now the existing-Secret base: it renders no shared password and gives you a command for creating fresh Secret material before apply. Fixed-password demo bases are explicit, non-default choices.</p>
         <p class="faq-links"><a href="../data/default-credential-check/summary.md">Default credential check</a> · <a href="../docs/user/security-end-to-end.md">Security end to end</a></p>
       </article>
         <article class="faq-card watch">

@@ -6,24 +6,24 @@ metadata:
 spec:
   bases:
     -
-      default: true
-      description: "grafana generated passwords variant rendered from grafana/grafana@10.5.15"
+      description: "grafana static password demo variant rendered from grafana/grafana@10.5.15"
       name: "static-passwords"
       path: "bases/static-passwords"
     -
-      description: "grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15"
+      description: "grafana existing Secret default variant rendered from grafana/grafana@10.5.15"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret grafana/grafana-admin keys admin-user,admin-password"
           namespace: "grafana"
-          suggestedSource: "kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=<value> --from-literal=admin-password=<value>"
+          suggestedSource: "kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=admin --from-literal=admin-password=\"$(openssl rand -base64 32)\""
       name: "existing-secret-ingress"
       path: "bases/existing-secret-ingress"
+      default: true
   collector:
-    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
+    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."
   transformers:
     -

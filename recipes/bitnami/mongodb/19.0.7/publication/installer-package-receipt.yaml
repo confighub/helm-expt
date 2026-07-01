@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/mongodb/19.0.7 -o <tmp>/mongodb-19.0.7.tgz"
-    sha256: "a73dd4afff91a507ad09386883cdc687677c2bde25b31f3adfb933214c7756de"
+    sha256: "be877c3e95f1ac35191e6c4bb0eefcd456aef55ab44d613ad75c0a35f50f9923"
   package:
     name: "bitnami-mongodb"
     path: "packages/bitnami/mongodb/19.0.7"
@@ -41,8 +41,8 @@ spec:
         bytes: 2456
       -
         path: "installer.yaml"
-        sha256: "c3c39952a0ed27136fc6cd651bf03d9f42a5800c014611efe99342d60d7922b5"
-        bytes: 1327
+        sha256: "784e85aed8526e9d70826699aeee2ce95c991b09ea1e6aa2fa6d4b8387fe1a98"
+        bytes: 1370
     version: "19.0.7"
   setupChecks:
     -

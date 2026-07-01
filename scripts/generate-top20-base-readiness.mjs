@@ -14,6 +14,15 @@ const outputs = {
   startHere: join(outputRoot, "start-here.md"),
 };
 
+const saferCredentialDefaults = new Map([
+  ["bitnami/mongodb@19.0.7", "existing-secret-replicaset"],
+  ["bitnami/mysql@14.0.3", "existing-secret"],
+  ["bitnami/postgresql@18.6.7", "existing-secret"],
+  ["bitnami/rabbitmq@16.0.14", "existing-secret"],
+  ["bitnami/redis@25.5.3", "reuse-existing-secret"],
+  ["grafana/grafana@10.5.15", "existing-secret-ingress"],
+]);
+
 if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.csv);
@@ -63,7 +72,10 @@ function buildReport() {
       const readiness = readinessFor(baseRow, lifecycle, supportArtifact);
       const supportedBase = supportedBaseByChart.get(chartKey);
       const easiestBase = easiestBaseByChart.get(chartKey);
-      const recommendedFirst = supportedBase
+      const saferCredentialDefault = saferCredentialDefaults.get(chartKey);
+      const recommendedFirst = saferCredentialDefault
+        ? base === saferCredentialDefault
+        : supportedBase
         ? base === supportedBase
         : easiestBase
           ? base === easiestBase

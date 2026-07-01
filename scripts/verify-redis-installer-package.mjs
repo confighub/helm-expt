@@ -87,11 +87,16 @@ function verifyPackage() {
   const bases = installer.spec?.bases ?? [];
   check(bases.length === 2, "package must declare exactly two bases");
   check(bases.filter((base) => base.default === true).length === 1, "package must declare exactly one default base");
+  check(
+    bases.find((base) => base.default === true)?.name === "reuse-existing-secret",
+    "reuse-existing-secret must be the package default so an unqualified setup ships no Redis Secret",
+  );
   for (const variant of variants) {
     const base = bases.find((candidate) => candidate.name === variant.base);
     check(Boolean(base), `missing base ${variant.base}`);
     check(base.path === `bases/${variant.base}`, `base ${variant.base} path mismatch`);
     if (variant.name === "reuse-existing-secret") {
+      check(base.default === true, "reuse-existing-secret base must be default");
       const requirements = base.externalRequires ?? [];
       check(requirements.length === 1, "reuse-existing-secret base must declare one target-fact precondition");
       const requirement = requirements[0];
@@ -101,8 +106,13 @@ function verifyPackage() {
         "reuse-existing-secret requirement must name the Redis Secret target fact",
       );
       check(requirement.namespace === "redis", "reuse-existing-secret requirement namespace mismatch");
+      check(
+        requirement.suggestedSource?.includes("openssl rand"),
+        "reuse-existing-secret suggestedSource must show per-install password generation",
+      );
     } else {
-      check((base.externalRequires ?? []).length === 0, "default base must not require the existing Redis Secret");
+      check(base.default !== true, "static Redis demo base must not be the package default");
+      check((base.externalRequires ?? []).length === 0, "static Redis demo base must not require the existing Redis Secret");
     }
     check(existsSync(join(packageRoot, base.path, "kustomization.yaml")), `base ${variant.base} missing kustomization`);
     check(existsSync(join(packageRoot, base.path, "upstream.yaml")), `base ${variant.base} missing upstream.yaml`);

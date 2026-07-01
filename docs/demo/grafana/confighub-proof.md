@@ -6,14 +6,14 @@ This proof lane shows the current ConfigHub path for `grafana/grafana@10.5.15`
 using real commands only: `cub installer`, `cub variant`, `cub unit`,
 `cub function`, and `cub changeset`.
 
-The selected happy-path install variant is `static-passwords`.
+The selected proof install variant is `static-passwords`. The package default is now `existing-secret-ingress`, which uses an existing Secret instead of the static demo password.
 
 ## Package Bases
 
 | Base | Default | Description |
 | --- | --- | --- |
-| `static-passwords` | yes | grafana generated passwords variant rendered from grafana/grafana@10.5.15 |
-| `existing-secret-ingress` | no | grafana existing Secret with ingress variant rendered from grafana/grafana@10.5.15 |
+| `static-passwords` | no | grafana static password demo variant rendered from grafana/grafana@10.5.15 |
+| `existing-secret-ingress` | yes | grafana existing Secret default variant rendered from grafana/grafana@10.5.15 |
 
 ## Acceptance Contract
 

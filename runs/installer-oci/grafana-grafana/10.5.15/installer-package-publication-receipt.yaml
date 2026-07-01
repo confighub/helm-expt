@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15
   package:
     path: packages/grafana/grafana/10.5.15
-    sha256: f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9
+    sha256: 8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed
   commands:
     package: "cub installer package packages/grafana/grafana/10.5.15 -o <tmp>/grafana-grafana-10.5.15.tgz"
     push: "cub installer push <tmp>/grafana-grafana-10.5.15.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled grafana-grafana@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-CmWU9i/grafana-grafana-10.5.15.tgz
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-TYcdIB/grafana-grafana-10.5.15.tgz
         files:  7
-        size:   3531 bytes
-        digest: sha256:f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9
+        size:   3543 bytes
+        digest: sha256:8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15
-        manifest: sha256:ac74714db309e3aeda2f9b8167f29b096460be09ca03693c851982cbd442df46
-        layer:    sha256:f63f67e9c48f503bbbc36452905876c4a64ffa0bb0abf123ae2cb020286df0a9 (3531 bytes, 7 files)
-    inspectJSONSHA256: be556757bad9c2095d5fc9f60664e1c19ade85204e56a24d223828942dd9d926
+        manifest: sha256:860611c13c788188a1ee1abb02e0a2a51d1b876b584ae179540cd3b57404d47f
+        layer:    sha256:8b30df5ee79a265b613e696b16450bd304557454a2faea12a4cc779784fa11ed (3543 bytes, 7 files)
+    inspectJSONSHA256: f856f1db46403ee859269a3788c3b86259437e4eb3ec08ac070069442146d3a5

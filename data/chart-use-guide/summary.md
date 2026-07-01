@@ -34,12 +34,12 @@ base variant and proof lane.
 | Chart | Recommended base | Evidence | First action |
 | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
-| `bitnami/mongodb@19.0.7` | `static-passwords (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
-| `bitnami/mysql@14.0.3` | `static-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/mongodb@19.0.7` | `existing-secret-replicaset (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/mysql@14.0.3` | `existing-secret` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `bitnami/nginx@24.0.2` | `http-clusterip (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
-| `bitnami/postgresql@18.6.7` | `static-passwords (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
-| `bitnami/rabbitmq@16.0.14` | `static-passwords` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
-| `bitnami/redis@25.5.3` | `default (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/postgresql@18.6.7` | `existing-secret (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/rabbitmq@16.0.14` | `existing-secret` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
+| `bitnami/redis@25.5.3` | `reuse-existing-secret (render-only)` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `external-secrets/external-secrets@2.5.0` | `default` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `grafana/grafana@10.5.15` | `existing-secret-ingress` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |
 | `grafana/loki@7.0.0` | `single-binary-filesystem` | `live-helm-vs-confighub-parity` | Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command. |

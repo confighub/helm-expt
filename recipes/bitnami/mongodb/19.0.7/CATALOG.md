@@ -67,8 +67,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| static-passwords | [packages/bitnami/mongodb/19.0.7/bases/static-passwords](../../../../packages/bitnami/mongodb/19.0.7/bases/static-passwords) | yes | mongodb generated passwords variant rendered from bitnami/mongodb@19.0.7 |
-| existing-secret-replicaset | [packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset](../../../../packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset) | no | mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7 |
+| static-passwords | [packages/bitnami/mongodb/19.0.7/bases/static-passwords](../../../../packages/bitnami/mongodb/19.0.7/bases/static-passwords) | no | mongodb static password demo variant rendered from bitnami/mongodb@19.0.7 |
+| existing-secret-replicaset | [packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset](../../../../packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset) | yes | mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7 |
 
 ## Receipts
 

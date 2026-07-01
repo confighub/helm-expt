@@ -67,19 +67,19 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
     installer: "packages/bitnami/redis/25.5.3/installer.yaml"
     receipt: "recipes/bitnami/redis/25.5.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "f55e4ae30adbbf1de140a3c5529051659d6f2f59a2285e480bc3ee3b3b1b92f7"
+    deterministicBundleSHA256: "1a84bda79a870b6249d0f42582d434b2983e557006f4faba0d250fb47197ac40"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
         name: "default"
         path: "packages/bitnami/redis/25.5.3/bases/default"
-        default: true
-        description: "Redis default variant rendered from bitnami/redis@25.5.3"
+        default: false
+        description: "Redis static password demo variant rendered from bitnami/redis@25.5.3"
       -
         name: "reuse-existing-secret"
         path: "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret"
-        default: false
-        description: "Redis variant that uses an existing Secret target fact"
+        default: true
+        description: "Redis existing Secret default variant rendered from bitnami/redis@25.5.3"
   variants:
     -
       name: "default"
@@ -101,8 +101,8 @@ spec:
       packageBase:
         name: "default"
         path: "packages/bitnami/redis/25.5.3/bases/default"
-        default: true
-        description: "Redis default variant rendered from bitnami/redis@25.5.3"
+        default: false
+        description: "Redis static password demo variant rendered from bitnami/redis@25.5.3"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 14
@@ -172,8 +172,8 @@ spec:
       packageBase:
         name: "reuse-existing-secret"
         path: "packages/bitnami/redis/25.5.3/bases/reuse-existing-secret"
-        default: false
-        description: "Redis variant that uses an existing Secret target fact"
+        default: true
+        description: "Redis existing Secret default variant rendered from bitnami/redis@25.5.3"
       setupCheck:
         command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
         helmReleaseObjectCount: 13

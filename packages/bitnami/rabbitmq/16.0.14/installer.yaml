@@ -6,27 +6,27 @@ metadata:
 spec:
   bases:
     -
-      default: true
-      description: "rabbitmq generated passwords variant rendered from bitnami/rabbitmq@16.0.14"
+      description: "rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14"
       name: "static-passwords"
       path: "bases/static-passwords"
     -
-      description: "rabbitmq existing Secret variant rendered from bitnami/rabbitmq@16.0.14"
+      description: "rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "Secret rabbitmq/rabbitmq-auth key rabbitmq-password"
           namespace: "rabbitmq"
-          suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=<value>"
+          suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password=\"$(openssl rand -base64 32)\""
         -
           kind: "ClusterFeature"
           name: "Secret rabbitmq/rabbitmq-erlang-cookie key rabbitmq-erlang-cookie"
           namespace: "rabbitmq"
-          suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-erlang-cookie --from-literal=rabbitmq-erlang-cookie=<value>"
+          suggestedSource: "kubectl -n rabbitmq create secret generic rabbitmq-erlang-cookie --from-literal=rabbitmq-erlang-cookie=\"$(openssl rand -base64 48)\""
       name: "existing-secret"
       path: "bases/existing-secret"
+      default: true
   collector:
-    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
+    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

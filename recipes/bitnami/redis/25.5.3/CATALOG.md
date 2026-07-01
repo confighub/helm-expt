@@ -67,8 +67,8 @@ for exact base-variant evidence.
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
-| default | [packages/bitnami/redis/25.5.3/bases/default](../../../../packages/bitnami/redis/25.5.3/bases/default) | yes | Redis default variant rendered from bitnami/redis@25.5.3 |
-| reuse-existing-secret | [packages/bitnami/redis/25.5.3/bases/reuse-existing-secret](../../../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) | no | Redis variant that uses an existing Secret target fact |
+| default | [packages/bitnami/redis/25.5.3/bases/default](../../../../packages/bitnami/redis/25.5.3/bases/default) | no | Redis static password demo variant rendered from bitnami/redis@25.5.3 |
+| reuse-existing-secret | [packages/bitnami/redis/25.5.3/bases/reuse-existing-secret](../../../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) | yes | Redis existing Secret default variant rendered from bitnami/redis@25.5.3 |
 
 ## Receipts
 
