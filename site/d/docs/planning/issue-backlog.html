@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Issue Backlog · ConfigHub Helm Ops</title>
+  <meta name="description" content="Issue Backlog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/issue-backlog.html">
+  <meta property="og:title" content="Issue Backlog · ConfigHub Helm Ops">
+  <meta property="og:description" content="Issue Backlog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/issue-backlog.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Issue Backlog</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/issue-backlog.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This document indexes the GitHub issues and merged proof surfaces that must not be lost in the planning docs. GitHub remains the execution tracker; this file keeps reviewers aligned with the written plan.</p>
+<p>For current priority and workstream shape, start with <a href="roadmap.html">Roadmap</a>. This file is the issue mirror that supports that roadmap.</p>
+<p>Last synced with planning docs: 2026-06-23.</p>
+<h2 id="rule">Rule</h2>
+<pre><code>P0 issues are gates for the scope they name.
+P1 issues strengthen the proof after P0.
+P2 issues preserve important design depth without blocking the first proof.</code></pre>
+<p>Issue closure should be outcome-based:</p>
+<pre><code>Name the chart choices, variants, or lanes covered.
+Commit the receipt, matrix row, generated report, or verified doc that proves
+the outcome.
+Add or update the verifier that fails if the evidence becomes stale.
+Do not close an issue because a command, tutorial, or proposal merely exists.</code></pre>
+<p>The catalog-wide target is that every supported Helm chart default and declared main choice becomes reproducible, ConfigHub-reviewable, live-cluster verified, and tied to receipts. If a lane is still missing, track it as missing backlog instead of converting the issue into a broad &quot;verified&quot; claim.</p>
+<p>The original P0 proof gates are now closed and verified by the harness. Issue #76 is closed as the import-path definition and proof-contract issue:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>#76 Define Helm import path from cub helm template / cub helm install to cub installer recipes.</code></pre>
+<p>The downstream product command is still future work, but it should be tracked as implementation work rather than keeping the definition issue open. The current command story is:</p>
+<table><thead><tr><th>Command</th><th>Product role</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>Fast local render and Helm baseline.</td></tr>
+<tr><td><code>cub helm install</code></td><td>Fast one-shot render into ConfigHub Units.</td></tr>
+<tr><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Existing Argo CD and Flux app adoption.</td></tr>
+<tr><td><code>cub unit import</code></td><td>KRM YAML, rendered manifest, or Kubernetes resource adoption.</td></tr>
+<tr><td><code>cub installer</code> recipe/package</td><td>Maintained catalog artifact with named bases, receipts, scans, and live evidence.</td></tr>
+<tr><td>future <code>cub installer import helm</code></td><td>Bridge from fast Helm command paths to maintained recipe/package candidates.</td></tr></tbody></table>
+<p>The public proof remains valid without that future bridge because the repo currently builds and verifies the same artifact chain through generators and proof scripts.</p>
+<p>Do not maintain issue counts by hand here. Use GitHub labels for counts, and use this file only for the issue groups that affect doctrine, roadmap, or product claims.</p>
+<h2 id="current-canonical-trackers-added-or-confirmed-2026-06-16">Current Canonical Trackers Added Or Confirmed 2026-06-16</h2>
+<table><thead><tr><th>Tracker</th><th>Scope</th><th>Why it matters</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/948">#948</a> live ConfigHub variant promotion proof</td><td>P0, promotion, GitOps, day-2</td><td>M4-style governed delivery is not the same as full variant promotion. This issue owns the upstream live evidence for <code>cub variant create</code> / <code>cub variant promote</code> across representative catalog entries.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/949">#949</a> Helm remediation and lifecycle intelligence</td><td>P1, commercial support lanes</td><td>Tracks the commercial packaging lanes from the Desktop planning sweep: private diagnostics, legacy patch support, lifecycle intelligence, AICR/NIM/Kargo-style integrations, bulk operations, and evidence packs.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/23">#23</a> low-friction standalone <code>cub installer</code> path</td><td>P1, public entry wedge</td><td>Tracks the no-login or low-friction public catalog path, signed catalog index, scoped pull credentials, and in-cluster receipt idea.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/248">#248</a> live parity follow-up</td><td>runtime and lifecycle residues</td><td>Tracks runtime, prerequisite, lifecycle, controller health, and policy work for current non-pass live rows.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/682">#682</a> promotion changeset path</td><td>ConfigHub/cub implementation dependency</td><td>Tracks the current <code>cub variant promote --changeset</code> blocker where newly cloned Units cannot yet join the changeset cleanly. This can hold promotion proof at watch-grade until fixed upstream.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/753">#753</a> user-readable burn-down</td><td>matrix and decision UX</td><td>Keeps non-live work focused on making G/P/K lanes, watch/blocked decisions, and rerun queues understandable without touching live lanes.</td></tr>
+<tr><td>PR <a href="https://github.com/confighub/helm-expt/pull/947">#947</a> target-prerequisite action packets</td><td>merged proof/data surface</td><td>Added <code>data/target-prerequisite-actions/</code> and <a href="../user/target-prerequisites-before-rerun.html">Target Prerequisites Before Rerun</a>. This is now the practical route from &quot;row is blocked/watch&quot; to &quot;what must be staged before rerun&quot;.</td></tr></tbody></table>
+<h2 id="current-canonical-trackers-added-or-confirmed-2026-06-23">Current Canonical Trackers Added Or Confirmed 2026-06-23</h2>
+<table><thead><tr><th>Tracker</th><th>Scope</th><th>Why it matters</th></tr></thead><tbody><tr><td>PR <a href="https://github.com/confighub/helm-expt/pull/1024">#1024</a> chart-page claim-integrity audit and gate</td><td>merged static release gate</td><td>Added the adversarial chart-page audit and <code>chart-claim-integrity:verify</code>. The errors axis is now closed: generated chart pages must not make claims contradicted by their cited receipts.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/1025">#1025</a> renderer claim fixes</td><td>closed generator work</td><td>Tracked the systemic false-green renderer fixes: derive lane colour from receipt result, carry receipt disclaimers, qualify cross-version evidence, and show scoped support decisions.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/1026">#1026</a> chart-page clarity fixes</td><td>closed generator work</td><td>Tracked the chart-card omissions and clarity fixes around empty action sections, boilerplate wording, and confusing placeholders.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/1027">#1027</a> unresolved next-action placeholders</td><td>closed generator work</td><td>Generalized the chart-page next-action cleanup so unresolved <code>&lt;action&gt;: unknown</code> values render as plain user actions.</td></tr>
+<tr><td>PR <a href="https://github.com/confighub/helm-expt/pull/1028">#1028</a> chart-page placeholder lint</td><td>merged static release gate</td><td>Added the <code>site:ux:verify</code> guard so future generated chart pages cannot leak unresolved next-action placeholders or raw work-dir placeholders.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/1029">#1029</a> roadmap cleanup follow-up</td><td>P1 planning and release-gate hygiene</td><td>Tracks the next cleanup pass: split the giant <code>npm run verify</code> command into named suites and archive or clearly demote stale planning snapshots.</td></tr></tbody></table>
+<h2 id="current-canonical-trackers-added-or-confirmed-2026-06-24">Current Canonical Trackers Added Or Confirmed 2026-06-24</h2>
+<table><thead><tr><th>Tracker</th><th>Scope</th><th>Why it matters</th></tr></thead><tbody><tr><td>Upstream ConfigHub <a href="https://github.com/confighubai/confighub/issues/3393">#3393</a> <code>cub helm install</code> should record install arguments</td><td>render-input capture, upgrade safety</td><td>A one-shot Helm import is not durable unless namespace, values, <code>--set</code> flags, chart version, and other render inputs are recorded. This is required before <code>cub helm install</code> can safely support repeatable upgrade or reinstall flows.</td></tr>
+<tr><td>Upstream ConfigHub <a href="https://github.com/confighubai/confighub/issues/4369">#4369</a> rendering model</td><td>renderer integration, Argo/Flux alignment</td><td>Argo CD and Flux already carry Helm render inputs in their own manifests. ConfigHub should use or model those inputs explicitly rather than creating a hidden parallel install path. This keeps helm-expt aligned with existing GitOps users.</td></tr></tbody></table>
+<h2 id="current-operational-issue-groups">Current Operational Issue Groups</h2>
+<table><thead><tr><th>Group</th><th>Main issues</th><th>Roadmap role</th></tr></thead><tbody><tr><td>Namespace and render-shape correctness</td><td><a href="https://github.com/confighub/helm-expt/issues/96">#96</a>, <a href="https://github.com/confighub/helm-expt/issues/774">#774</a></td><td>Prevents misleading support claims when namespace flags or subject references do not rewrite every required field.</td></tr>
+<tr><td>Image and artifact durability</td><td><a href="https://github.com/confighub/helm-expt/issues/99">#99</a>, <a href="https://github.com/confighub/helm-expt/issues/880">#880</a></td><td>Production OCI support needs digest evidence or explicit image policy decisions; stale upstream images remain support blockers.</td></tr>
+<tr><td>Top-100 support expansion</td><td><a href="https://github.com/confighub/helm-expt/issues/106">#106</a>, <a href="https://github.com/confighub/helm-expt/issues/113">#113</a>, <a href="https://github.com/confighub/helm-expt/issues/114">#114</a></td><td>Tracks useful bases, existing-secret gaps, template-baked CRDs, and support decisions beyond the top-20.</td></tr>
+<tr><td>Derived variants and promotions</td><td><a href="https://github.com/confighub/helm-expt/issues/143">#143</a>-<a href="https://github.com/confighub/helm-expt/issues/153">#153</a>, <a href="https://github.com/confighub/helm-expt/issues/948">#948</a></td><td>Keeps base variants, derived ConfigHub variants, release/OCI handoff, UI, and live promotion proof in one product lane.</td></tr>
+<tr><td>Live lane hardening</td><td><a href="https://github.com/confighub/helm-expt/issues/248">#248</a>, <a href="https://github.com/confighub/helm-expt/issues/714">#714</a>, <a href="https://github.com/confighub/helm-expt/issues/882">#882</a></td><td>Improves the live test/user-operability loop: progress evidence, non-pass classification, and timeout behavior.</td></tr>
+<tr><td>ConfigHub/server blockers surfaced by the corpus</td><td><a href="https://github.com/confighub/helm-expt/issues/645">#645</a>, <a href="https://github.com/confighub/helm-expt/issues/682">#682</a></td><td>These are not chart semantics; they are product dependencies exposed by helm-expt. Keep the issue in helm-expt and cross-link upstream implementation only when needed.</td></tr>
+<tr><td>Chart-specific model gaps</td><td><a href="https://github.com/confighub/helm-expt/issues/838">#838</a>, <a href="https://github.com/confighub/helm-expt/issues/841">#841</a>, <a href="https://github.com/confighub/helm-expt/issues/842">#842</a>, <a href="https://github.com/confighub/helm-expt/issues/856">#856</a>, <a href="https://github.com/confighub/helm-expt/issues/861">#861</a>, <a href="https://github.com/confighub/helm-expt/issues/863">#863</a>, <a href="https://github.com/confighub/helm-expt/issues/865">#865</a>, <a href="https://github.com/confighub/helm-expt/issues/867">#867</a>, <a href="https://github.com/confighub/helm-expt/issues/876">#876</a>, <a href="https://github.com/confighub/helm-expt/issues/878">#878</a></td><td>These keep individual watch/blocked rows honest until the route becomes pass, per-target, refused, or n/a.</td></tr>
+<tr><td>Public UX, claim integrity, and website polish</td><td><a href="https://github.com/confighub/helm-expt/issues/679">#679</a>, <a href="https://github.com/confighub/helm-expt/issues/753">#753</a>, <a href="https://github.com/confighub/helm-expt/issues/949">#949</a>, <a href="https://github.com/confighub/helm-expt/pull/1024">#1024</a>, <a href="https://github.com/confighub/helm-expt/issues/1025">#1025</a>, <a href="https://github.com/confighub/helm-expt/issues/1026">#1026</a>, <a href="https://github.com/confighub/helm-expt/issues/1027">#1027</a>, <a href="https://github.com/confighub/helm-expt/pull/1028">#1028</a></td><td>Keeps public pages, matrix reading, first-run walkthroughs, chart-page claims, and placeholder-free chart cards aligned with the proof state.</td></tr></tbody></table>
+<h2 id="capability-roadmap">Capability Roadmap</h2>
+<p>The active roadmap now separates existing <code>cub</code> / ConfigHub capabilities from missing product verbs. These lanes should become GitHub issues when they move from roadmap shape to implementation work.</p>
+<p>Existing ConfigHub capabilities to use now:</p>
+<table><thead><tr><th>Lane</th><th>Existing verbs</th><th>Roadmap home</th></tr></thead><tbody><tr><td>Installer proof</td><td><code>cub installer doc/setup/render/package/push/sign/verify/vet/plan/upload/inspect/list</code></td><td>P0.4, P1.1</td></tr>
+<tr><td>Server variants and promotion</td><td><code>cub variant create</code>, <code>cub variant promote</code>, <code>cub variant upload</code></td><td>#143, #144, #145, #150, #948</td></tr>
+<tr><td>Review and diff</td><td><code>cub unit diff</code>, <code>cub revision data/list</code>, <code>cub unit data/tree/list</code></td><td>P1.6</td></tr>
+<tr><td>Safe operations</td><td><code>cub changeset create/list/update</code>, <code>cub unit approve/apply/destroy/cancel</code></td><td>P1.7</td></tr>
+<tr><td>Scanning and misconfig</td><td><code>cub function vet</code>, <code>cub function get/set</code>, <code>cub run ...</code></td><td>P1.8</td></tr>
+<tr><td>Target and live facts</td><td><code>cub target create/get/list</code>, <code>cub k8s collect</code>, <code>cub k8s source</code>, <code>cub unit livestate/livedata/refresh</code></td><td>P1.3, P1.4</td></tr>
+<tr><td>GitOps adoption</td><td><code>cub gitops discover/import</code></td><td>#12, #151, #153</td></tr>
+<tr><td>Existing KRM/resource adoption</td><td><code>cub unit import</code>, <code>cub unit tree/list/diff</code>, <code>cub k8s source</code></td><td>#151, #153</td></tr>
+<tr><td>Metadata model</td><td><code>cub tag</code>, <code>cub attribute</code>, <code>cub filter</code>, <code>cub view</code>, <code>cub link</code></td><td>#146, #149</td></tr></tbody></table>
+<p>Missing product verbs:</p>
+<table><thead><tr><th>Priority</th><th>Ask</th></tr></thead><tbody><tr><td>P0 ask</td><td><code>cub installer import helm</code></td></tr>
+<tr><td>P0 ask</td><td><code>cub installer analyze</code></td></tr>
+<tr><td>P0 ask</td><td>implemented <code>cub installer preflight</code></td></tr>
+<tr><td>P0 ask</td><td><code>cub installer compare</code> or <code>cub installer prove</code></td></tr>
+<tr><td>P1 ask</td><td><code>cub installer scan</code></td></tr>
+<tr><td>P1 ask</td><td><code>cub variant list/diff/update</code> and clearer UX around existing <code>cub variant create/promote/upload</code></td></tr>
+<tr><td>P1 ask</td><td><code>cub variant release</code> or another explicit variant-to-OCI handoff verb</td></tr>
+<tr><td>P1 ask</td><td><code>cub observe</code> or <code>cub target observe</code></td></tr>
+<tr><td>P2 ask</td><td><code>cub catalog search/show/install</code></td></tr></tbody></table>
+<h2 id="configuration-as-data-and-derived-variant-issues-added-2026-06-04">Configuration-As-Data And Derived-Variant Issues Added 2026-06-04</h2>
+<p>Configuration-as-data work is now represented as helm-expt execution work, with derived ConfigHub variants pulled forward instead of treated as an appendix.</p>
+<table><thead><tr><th>Issue</th><th>Lane</th><th>Why it matters now</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/143">#143</a> Make <code>cub variant create</code> the explicit derived-variant substrate</td><td>Current CLI truth</td><td>Keeps docs and tutorials aligned with the current command surface.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/144">#144</a> Build a derived-variant expansion wave across top-20 and wave-2 charts</td><td>Derived variants</td><td>Fixes the gap that the repo does not yet use enough derived variants.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/145">#145</a> Prove promotion and environment management with derived ConfigHub variants</td><td>Promotion</td><td>Highest-value derived-variant lane inside helm-expt.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/146">#146</a> Add fleet inventory and CMDB views over catalog artifacts and ConfigHub Units</td><td>Inventory</td><td>Shows the value of queryable rendered desired state.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/147">#147</a> Prove fleet-scale mutation and codemod workflows over ConfigHub Units</td><td>Fleet operations</td><td>Turns rendered Units into safe bulk operations, not YAML search/replace.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/148">#148</a> Add policy, compliance, and security posture reports over rendered desired state</td><td>Policy/security</td><td>Rolls scan/gate evidence into a useful posture view.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/149">#149</a> Add dependency graph and impact analysis for variants and upgrades</td><td>Impact analysis</td><td>Uses upstream links, targets, and variants to answer &quot;what changes?&quot;</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/150">#150</a> Add Creator and agentic intent flow over <code>cub variant create</code></td><td>AI/Creator UX</td><td>Keeps the human story simple while mapping to current CLI primitives.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/151">#151</a> Define variant release and OCI handoff semantics</td><td>Release/GitOps</td><td>Captures release vs tag, gates, validation, and OCI publication questions.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/152">#152</a> Define Promotion UI expectations for clean variant diffs</td><td>Promotion UI</td><td>Makes derived-variant review understandable to humans.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/153">#153</a> Reposition GitOps tutorial around Argo/OCI and bridge-independent proof</td><td>GitOps</td><td>Keeps Tutorial 6 aligned with the Argo/OCI direction and descoped bridge paths.</td></tr></tbody></table>
+<h2 id="completed-redis-proof-gates">Completed Redis Proof Gates</h2>
+<p>These P0s are complete for the Redis proof slice and should stay closed unless the evidence regresses:</p>
+<table><thead><tr><th>Issue</th><th>Evidence</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/8">#8</a> Prove Helm equivalence for Redis and classify every ConfigHub difference</td><td><code>npm run redis:compare</code>, Helm equivalence receipts, and namespace/secret classifications.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/9">#9</a> Bind rendered-object scans and install gates to exact manifest digests</td><td>Redis scan receipts and install gates are digest-bound and verified by <code>npm run verify</code>.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/10">#10</a> Create complete Redis HelmPlan and ChartDossier artifacts</td><td><code>recipes/bitnami/redis/25.5.3/</code>, durable installer package, upload/OCI receipt.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/26">#26</a> Prove simple UX is easier, safer, and correct versus Helm</td><td><code>docs/demo/redis/</code> demo script, transcript, UX acceptance note, and ConfigHub proof transcript with real <code>cub installer</code>, <code>cub variant create</code>, and ConfigHub review verbs.</td></tr></tbody></table>
+<h2 id="current-harness-proof-slice">Current Harness Proof Slice</h2>
+<p>The scale-out harness now exists across:</p>
+<pre><code>recipes/
+packages/
+runs/
+data/adversarial10/
+data/top500-catalog-analysis/
+data/production-disposition/</code></pre>
+<p>It closes the original proof gates <a href="https://github.com/confighub/helm-expt/issues/24">#24</a>, <a href="https://github.com/confighub/helm-expt/issues/25">#25</a>, and <a href="https://github.com/confighub/helm-expt/issues/4">#4</a>:</p>
+<ul><li>100 proof-grade recipe/package artifacts;</li><li>20 top-chart catalog entries with bespoke variants;</li><li>20/20 local kind live/e2e receipts;</li><li>20/20 ConfigHub proof receipt sets;</li><li>20 catalog-supported Helm pain reports;</li><li>80 generated full default proofs;</li><li>adversarial10 and next80 tamper-detection self-tests;</li><li>top-500 catalog analysis outputs;</li><li>production disposition and legacy patch review outputs;</li><li>verifier and negative golden checks through <code>npm run verify</code>.</li></ul>
+<p>The next harness step is not &quot;prove that anything exists.&quot; It is to make how the harness works easier to explain and productize. The compact explanation lives in <a href="../user/how-the-harness-works.html">How The Harness Works</a>.</p>
+<h2 id="hook-lifecycle-risk-lane">Hook / Lifecycle Risk Lane</h2>
+<p>The top-500 source scan found 54 hook-using charts among 495 scanned charts. A first-pass risk estimate classifies 42 as likely problematic, 6 as needs-review, and 6 as probably benign/test-only. This should remain visible in planning because hook execution is cluster-dependent and cannot be hidden inside normal render equivalence.</p>
+<p>Current planning home:</p>
+<pre><code>docs/user/hook-lifecycle-strategy.md</code></pre>
+<p>Current implementation evidence:</p>
+<pre><code>data/hook-lifecycle/summary.md
+data/lifecycle-observations/cert-manager-eso/summary.md
+npm run hooks:lifecycle:verify
+npm run lifecycle:cert-manager-eso:verify</code></pre>
+<p>The hook queue is still inventory and required-receipt planning. The cert-manager / External Secrets lane proves a lifecycle-observation pattern for CRD ownership, webhook readiness, controller-populated data, and server dry-run checks. It does not prove all hook-using charts.</p>
+<p>Execution work still needed:</p>
+<pre><code>Add hook risk buckets and lifecycle dispositions to top-500 catalog analysis.
+Add hook/lifecycle receipt expectations for catalog-supported hook charts.
+Add safe Argo/GitOps lifecycle translation proof for at least one hook-heavy chart.</code></pre>
+<p>Do not make this a P0 gate for all public-catalog work. Make it a production support gate for hook-using charts.</p>
+<h2 id="current-promoted-chart-proofs">Current Promoted Chart Proofs</h2>
+<p>Rows promoted from readiness evidence into full proof slices:</p>
+<table><thead><tr><th>Chart</th><th>Evidence</th><th>Status</th></tr></thead><tbody><tr><td><code>bitnami/redis@25.5.3</code></td><td><code>recipes/bitnami/redis/25.5.3/</code>, <code>packages/bitnami/redis/25.5.3/</code></td><td>First complete proof slice with ConfigHub upload/OCI evidence.</td></tr>
+<tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td><code>recipes/metrics-server/metrics-server/3.13.0/</code>, <code>packages/metrics-server/metrics-server/3.13.0/</code></td><td>First promoted adversarial row: default and <code>external-tls-ca</code> variants, target Secret fact, APIService/RBAC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td><code>recipes/ingress-nginx/ingress-nginx/4.15.1/</code>, <code>packages/ingress-nginx/ingress-nginx/4.15.1/</code></td><td>Second promoted adversarial row: default and <code>admission-disabled</code> variants, admission webhook/hook lifecycle/RBAC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td><code>recipes/jetstack/cert-manager/v1.20.2/</code>, <code>packages/jetstack/cert-manager/v1.20.2/</code></td><td>Third promoted adversarial row: default and <code>crds-enabled</code> variants, CRD lifecycle/webhook/hook/RBAC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td><code>recipes/external-secrets/external-secrets/2.5.0/</code>, <code>packages/external-secrets/external-secrets/2.5.0/</code></td><td>Fourth promoted adversarial row: default and <code>no-crds</code> variants, capability/CRD/dependency/webhook/Secret/RBAC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td><code>recipes/argo-cd/argo-cd/9.5.15/</code>, <code>packages/argo-cd/argo-cd/9.5.15/</code></td><td>Fifth promoted adversarial row: default and <code>no-crds</code> variants, CRD/hook/dependency/Secret/StatefulSet/GitOps/RBAC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>bitnami/postgresql@18.6.7</code></td><td><code>recipes/bitnami/postgresql/18.6.7/</code>, <code>packages/bitnami/postgresql/18.6.7/</code></td><td>Sixth promoted adversarial row: <code>generated-passwords</code> and <code>existing-secret</code> variants, generated fact/target fact/hook/dependency/StatefulSet/PVC gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>bitnami/rabbitmq@16.0.14</code></td><td><code>recipes/bitnami/rabbitmq/16.0.14/</code>, <code>packages/bitnami/rabbitmq/16.0.14/</code></td><td>Seventh promoted adversarial row: <code>generated-passwords</code> and <code>existing-secret</code> variants, password/Erlang-cookie generated facts, target Secret facts, dependency/StatefulSet/PVC/clustering gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td><code>recipes/prometheus-community/kube-prometheus-stack/85.3.3/</code>, <code>packages/prometheus-community/kube-prometheus-stack/85.3.3/</code></td><td>Eighth promoted adversarial row: <code>default</code> and <code>no-crds</code> variants, generated Grafana credential, 10 CRDs, umbrella dependencies, admission webhook/RBAC/extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>grafana/loki@7.0.0</code></td><td><code>recipes/grafana/loki/7.0.0/</code>, <code>packages/grafana/loki/7.0.0/</code></td><td>Ninth promoted adversarial row: blocked default render, <code>single-binary-filesystem</code> and <code>simple-scalable-minio</code> variants, storage/schema/object-store gates, dependency/RBAC/StatefulSet/PVC/extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>longhorn/longhorn@1.11.2</code></td><td><code>recipes/longhorn/longhorn/1.11.2/</code>, <code>packages/longhorn/longhorn/1.11.2/</code></td><td>Tenth promoted adversarial row: <code>default</code> and <code>ui-ingress</code> variants, 22 CRDs, pre-upgrade hook/admission-recovery/RBAC/privileged-storage/StorageClass/UI ingress gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>bitnami/mysql@14.0.3</code></td><td><code>recipes/bitnami/mysql/14.0.3/</code>, <code>packages/bitnami/mysql/14.0.3/</code></td><td>Eleventh promoted adversarial row: <code>generated-passwords</code> and <code>existing-secret</code> variants, root/user/replication generated facts, target Secret facts, dependency/hook/StatefulSet/PVC/extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>grafana/grafana@10.5.15</code></td><td><code>recipes/grafana/grafana/10.5.15/</code>, <code>packages/grafana/grafana/10.5.15/</code></td><td>Twelfth promoted adversarial row: chart-deprecation marker, <code>generated-passwords</code> and <code>existing-secret-ingress</code> variants, generated admin credential, target Secret facts, UI ingress, RBAC/deployment/provisioning/sidecar/Secret extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td><code>recipes/hashicorp/vault/0.32.0/</code>, <code>packages/hashicorp/vault/0.32.0/</code></td><td>Thirteenth full public-chart proof row: <code>default</code> and <code>ha-raft-ui</code> variants, TLS posture, injector webhook, StatefulSet/HA Raft, init/unseal operate policy, service exposure, RBAC/Secret/env extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/</code>, <code>packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/</code></td><td>Fourteenth full public-chart proof row: <code>default</code> and <code>sync-secret-rotation</code> variants, SecretProviderClass CRDs, CSIDriver, Linux DaemonSet/hostPath, cluster RBAC, sync Secret/rotation/provider-health gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td><code>recipes/prometheus-community/prometheus/29.8.0/</code>, <code>packages/prometheus-community/prometheus/29.8.0/</code></td><td>Fifteenth full public-chart proof row: <code>default</code> and <code>server-only-ephemeral</code> variants, bundled dependencies, scrape ConfigMap, server PVC/storage, component selection, cluster RBAC, remote read/write/exposure extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>bitnami/mongodb@19.0.7</code></td><td><code>recipes/bitnami/mongodb/19.0.7/</code>, <code>packages/bitnami/mongodb/19.0.7/</code></td><td>Sixteenth full public-chart proof row: <code>generated-passwords</code> and <code>existing-secret-replicaset</code> variants, generated root password, target Secret, replica-set/arbiter StatefulSets, storage/PDB/NetworkPolicy/extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>bitnami/nginx@24.0.2</code></td><td><code>recipes/bitnami/nginx/24.0.2/</code>, <code>packages/bitnami/nginx/24.0.2/</code></td><td>Seventeenth full public-chart proof row: <code>http-clusterip</code> and <code>existing-tls-ingress</code> variants, default generated TLS mitigation, target TLS Secrets, ingress, NetworkPolicy, PDB, service exposure, static-site/metrics/raw-template extension gates, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>grafana/tempo@1.24.4</code></td><td><code>recipes/grafana/tempo/1.24.4/</code>, <code>packages/grafana/tempo/1.24.4/</code></td><td>Eighteenth full public-chart proof row: deprecated chart marker, <code>local-persistent</code> and <code>s3-query-observability</code> variants, local/S3 storage, target S3 credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy, StatefulSet runtime risk, deterministic <code>cub installer</code> package/setup proof.</td></tr>
+<tr><td><code>hashicorp/consul@2.0.0</code></td><td><code>recipes/hashicorp/consul/2.0.0/</code>, <code>packages/hashicorp/consul/2.0.0/</code></td><td>Nineteenth full public-chart proof row and twentieth target chart: <code>default-control-plane</code> and <code>secure-mesh-existing-secrets</code> variants, 28 CRDs, cluster RBAC, injector webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress, lifecycle Job, rendered Secret, deterministic <code>cub installer</code> package/setup proof.</td></tr></tbody></table>
+<h2 id="execution-order">Execution Order</h2>
+<p>The review made the first implementation slice explicit:</p>
+<ol><li><a href="https://github.com/confighub/helm-expt/issues/24">#24</a> <b>Schema and verifier first.</b> Without this, artifacts and spreadsheets are decorative.</li><li><b>Redis complete proof.</b> Redis now has the first complete proof slice. Keep it green while the next issues scale the pattern.</li><li><b>Five-minute UX proof.</b> The first demo script exists under <code>docs/demo/redis/</code>. Keep refining the UX without inventing non-existent commands.</li><li><b>Close the missing determinism/freshness gates</b>: <a href="https://github.com/confighub/helm-expt/issues/29">#29</a>, <a href="https://github.com/confighub/helm-expt/issues/28">#28</a>, <a href="https://github.com/confighub/helm-expt/issues/30">#30</a>, and <a href="https://github.com/confighub/helm-expt/issues/27">#27</a>.</li><li><a href="https://github.com/confighub/helm-expt/issues/25">#25</a> <b>Top-N adversarial harness.</b> The next milestone is 20 full public-chart proofs, not just a readiness spreadsheet. Only scale after the artifact chain and UX proof work. Use <a href="../corpus/known-adversarial-charts.html">known-adversarial-charts.md</a> to choose public charts that exercise CRDs, hooks, generated facts, capabilities, <code>tpl</code>, raw manifests, RBAC/webhooks/APIService, and stateful behavior.</li></ol>
+<h2 id="closed-p0-proof-gates">Closed P0 Proof Gates</h2>
+<p>These issues are closed. Keep them listed because they define what the current proof corpus must continue to satisfy.</p>
+<table><thead><tr><th>Issue</th><th>Area</th><th>Why it was a gate</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/24">#24</a> Add artifact schema and receipt verifier</td><td>Proof integrity</td><td>Reviewers need machine verification that artifacts, hashes, and receipts are consistent.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/4">#4</a> Emit a HelmPlan pain report for each analyzed chart</td><td>HelmPlan</td><td>Every chart needs a visible pain/mitigation report before it can be trusted.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/5">#5</a> Produce EffectiveValues@sha with value precedence and provenance</td><td>Values / provenance</td><td>Helm users need to know which inputs actually produced the result.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/6">#6</a> Detect dead, unknown, or ignored Helm values where possible</td><td>Values / safety</td><td>Silent ignored values are a core Helm pain point.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/7">#7</a> Add value-to-rendered-field explanation for key chart settings</td><td>Explainability</td><td>The proof must show why rendered objects differ between variants.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/29">#29</a> Define capability profile catalog for Helm proofs</td><td>Capability profiles</td><td>Top charts branch on Kubernetes/API capabilities; profiles must be finite and digest-bound.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/28">#28</a> Define generated fact receipt schema</td><td>Generated facts</td><td>Passwords, certs, UUIDs, and time values must be generated once and bound into revisions.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/30">#30</a> Add upgrade and rollback simulation receipts</td><td>Day-2 proof</td><td>First install is not enough; upgrades and rollback need digest-bound proof.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/27">#27</a> Define observation freshness SLO for workerless proof</td><td>Observation</td><td>Workerless ConfigHub is credible only if freshness is explicit and machine-checkable.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/25">#25</a> Build top-N adversarial chart run harness</td><td>Scale proof</td><td>20/100/500 chart claims require a repeatable generated run, not manual analysis.</td></tr></tbody></table>
+<h2 id="p1-strong-next-proof">P1 Strong Next Proof</h2>
+<table><thead><tr><th>Issue</th><th>Area</th><th>Why it matters</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/11">#11</a> Add ConsequencePreview for rendered variant revisions</td><td>Review UX</td><td>Shows effects, not just YAML noise.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/12">#12</a> Generate GitOpsCompatibilityReport for Argo CD and Flux paths</td><td>GitOps</td><td>Proves ConfigHub works with existing delivery tools.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/13">#13</a> Add CRDCompatibilityReport for CRD-heavy charts</td><td>CRDs / day-2</td><td>CRD-heavy charts are common and risky.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/14">#14</a> Add CI/PR comment mode for chart analysis results</td><td>Workflow</td><td>Lets teams adopt analysis in existing review flows.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/15">#15</a> Diagnose existing Helm release state and upgrade footguns</td><td>Migration / day-2</td><td>Helps existing Helm users move without blind spots.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/16">#16</a> Generate suggested fixes for common Helm pain findings</td><td>Remediation</td><td>Turns analysis into action.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/143">#143</a> Make <code>cub variant create</code> the explicit derived-variant substrate</td><td>Derived variants / docs</td><td>Prevents docs from inventing command surface and makes the current variant CLI visible.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/144">#144</a> Build a derived-variant expansion wave across top-20 and wave-2 charts</td><td>Derived variants / proof</td><td>Gives derived variants enough real use to be credible.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/145">#145</a> Prove promotion and environment management with derived ConfigHub variants</td><td>Promotion</td><td>Shows reviewed base -&gt; environment/region/customer variants without Helm rerender.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/146">#146</a> Add fleet inventory and CMDB views over catalog artifacts and ConfigHub Units</td><td>Inventory</td><td>Turns queryable desired state into a concrete user-facing value lane.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/147">#147</a> Prove fleet-scale mutation and codemod workflows over ConfigHub Units</td><td>Fleet operations</td><td>Demonstrates controlled bulk changes with checks, gates, and receipts.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/148">#148</a> Add policy, compliance, and security posture reports over rendered desired state</td><td>Policy/security</td><td>Rolls scan/gate evidence into a catalog posture view.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/149">#149</a> Add dependency graph and impact analysis for variants and upgrades</td><td>Impact analysis</td><td>Shows what base, target, or policy changes affect.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/150">#150</a> Add Creator and agentic intent flow over <code>cub variant create</code></td><td>Creator / AX</td><td>Keeps the human and agent story intent-first while mapping to current primitives.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/151">#151</a> Define variant release and OCI handoff semantics</td><td>GitOps / release</td><td>Separates current CLI truth from planned release/tag/OCI behavior.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/152">#152</a> Define Promotion UI expectations for clean variant diffs</td><td>Review UX</td><td>Makes inherited, overridden, upstream-added, and no-op changes legible.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/153">#153</a> Reposition GitOps tutorial around Argo/OCI and bridge-independent proof</td><td>GitOps</td><td>Keeps the tutorial aligned with current Argo/OCI direction.</td></tr></tbody></table>
+<h2 id="p2-design-depth">P2 Design Depth</h2>
+<table><thead><tr><th>Issue</th><th>Area</th><th>Why it matters</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/17">#17</a> Build shared chart dossier and HelmPlan index for curated charts</td><td>Catalog / dossiers</td><td>Enables reusable chart knowledge over time.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/18">#18</a> Add full field-level governance and ownership model</td><td>Governance</td><td>Prevents tool/controller ownership conflicts.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/19">#19</a> Design deep typed secret reference system</td><td>Secrets</td><td>Keeps secret handling safe without hiding needed proof.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/20">#20</a> Model lifecycle contracts for migrations, readiness, and rollback</td><td>Lifecycle</td><td>Captures complex day-2 behavior.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/21">#21</a> Explore typed/enriched value model beyond Helm values</td><td>Value model</td><td>May improve explainability beyond raw values.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/22">#22</a> Design cross-controller consequence engine</td><td>Operations</td><td>Supports deeper multi-controller reasoning.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/23">#23</a> Track pure serverless cub installer as deferred option</td><td>Deferred option</td><td>Preserves the idea without putting it on the current proof path.</td></tr></tbody></table>
+<h2 id="planning-sync-checklist">Planning Sync Checklist</h2>
+<p>When a GitHub issue is added, closed, or reclassified:</p>
+<ul><li>update this file</li><li>update <code>docs/planning/current-handover.md</code> or the relevant archived snapshot if it changes P0 gates</li><li>update <code>docs/planning/agreed-execution-plan.md</code> if it changes doctrine or acceptance</li><li>update <code>docs/planning/independent-review-brief.md</code> if it changes review scope</li></ul>
+<p>Do not let the written plan describe a proof path that ignores open P0 gates. When future P0s are about productization rather than current proof validity, say that explicitly rather than letting reviewers infer the proof corpus is broken.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/issue-backlog.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

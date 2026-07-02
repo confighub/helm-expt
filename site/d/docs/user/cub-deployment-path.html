@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How deployment works on the cub path (ConfigHub → OCI → your controller) · ConfigHub Helm Ops</title>
-  <meta name="description" content="How deployment works on the cub path (ConfigHub → OCI → your controller): chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="How deployment works on the cub path (ConfigHub → OCI → your controller): a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/cub-deployment-path.html">
   <meta property="og:title" content="How deployment works on the cub path (ConfigHub → OCI → your controller) · ConfigHub Helm Ops">
-  <meta property="og:description" content="How deployment works on the cub path (ConfigHub → OCI → your controller): chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="How deployment works on the cub path (ConfigHub → OCI → your controller): a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/cub-deployment-path.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>How deployment works on the cub path (ConfigHub → OCI → your controller)</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="cub-deployment-path.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/cub-deployment-path.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -412,7 +412,7 @@
 <ul><li>cub-lk provisions a <code>confighub-oci-creds</code> secret into the <b>Argo</b> namespace automatically.</li><li>For <b>Flux</b>, the <i>same</i> secret is <b>copied</b> into the flux namespace (by re-namespacing its YAML); <code>OCIRepository.secretRef</code> points at the copy.</li><li><b>Security posture:</b> the credential moves <b>cluster-internally, by copy</b> - it is never printed to a terminal, written to a log, or passed on a command line. If the secret's format isn't what a consumer expects, that consumer reports a named error (an honest failure) - it never silently runs unauthenticated.</li></ul>
 <p><b>2. Application secrets (your app's own Secrets).</b> A <i>different</i> concern from delivery auth. A chart's Secret is either <b>generated</b> (rendered into the bundle) or <b>existing</b> (you pre-provide it - an existing-secret base, or a staged <i>target fact</i>). These belong to the recipe + target facts, not the OCI pull credentials. See <a href="target-prerequisites.html">target-prerequisites.md</a>.</p>
 <h2 id="honest-status-all-three-consumers-proven">Honest status - all three consumers proven</h2>
-<p>All three pull the <b>same</b> ConfigHub OCI bundle and run a routed hook on a throwaway cub-lk rig - committed receipt <code>runs/oci-hook-delivery-proof/receipt.yaml</code> (summary: <a href="../../../../data/oci-hook-delivery-proof/summary.md">../../data/oci-hook-delivery-proof/summary.md</a>):</p>
+<p>All three pull the <b>same</b> ConfigHub OCI bundle and run a routed hook on a throwaway cub-lk rig - committed receipt <code>runs/oci-hook-delivery-proof/receipt.yaml</code> (summary: <a href="../../data/oci-hook-delivery-proof/summary.html">../../data/oci-hook-delivery-proof/summary.md</a>):</p>
 <ul><li><b>Argo CD (OCI <code>Application</code>) - proven.</b> <code>render → ConfigHub → OCI → Argo (Synced / Healthy) → runtime</code>.</li><li><b>Flux (<code>OCIRepository</code> + <code>Kustomization</code>) - proven.</b> Same bundle; the OCI pull secret is copied into flux-system (never printed).</li><li><b>cub-direct (no controller) - managed path proven.</b> The same OCI artifact can be applied without a controller, and the managed applier proof covers CRD ordering, prune, and product-readable server-side-apply conflicts.</li></ul>
 <p>The routed hook ran under each delivery shape (workload applied + hook completed): OCI is genuinely <b>one transport</b>, not three pipelines. For cub-direct, use the managed applier when CRDs, upgrades, or manual live edits are in scope.</p>
 <h2 id="try-it">Try it</h2>

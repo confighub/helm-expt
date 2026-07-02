@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Residue Families - what a non-green row actually means · ConfigHub Helm Ops</title>
+  <meta name="description" content="Residue Families - what a non-green row actually means: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/residue-families.html">
+  <meta property="og:title" content="Residue Families - what a non-green row actually means · ConfigHub Helm Ops">
+  <meta property="og:description" content="Residue Families - what a non-green row actually means: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/residue-families.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Residue Families - what a non-green row actually means</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/residue-families.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>When the master catalog matrix shows a row as <code>watch</code> or <code>blocked</code> instead of <code>pass</code>, the decision surfaces tag it with a <b>residue category</b> - the <i>kind</i> of gap that stopped the row from being green. This page is the plain-English vocabulary for those categories: what each family means for a Helm user, <b>who has to fix it</b>, the <b>next action</b>, and <b>where the rows live</b>.</p>
+<p>It is reference only. The authoritative per-row classifications are generated into the decision surfaces - this page names the families behind them.</p>
+<ul><li>For the matrix itself (lanes, the G/P/K shorthands, the cell states), read <a href="../user/reading-the-matrix.html">reading-the-matrix</a>.</li><li>For the live per-row decisions, read <a href="../../data/live-parity-decisions/summary.html">live-parity-decisions</a> (G/P-lane) and <a href="../../data/kind-parity-decisions/summary.html">kind-parity-decisions</a> (K-lane).</li><li>To pick the next row to work, read <a href="../../data/live-parity-rerun-plan/summary.html">live-parity-rerun-plan</a>.</li></ul>
+<h2 id="how-to-read-a-residue-honestly">How to read a residue, honestly</h2>
+<ul><li>A <b><code>watch</code></b> row is <i>known evidence with a named residue</i>. The semantic Helm-vs-ConfigHub parity already passed - the delivered objects match regular Helm - but a runtime, controller-health, image, or operational condition still needs review. It is <b>not a pass and not a failure</b>.</li><li>A <b><code>blocked</code></b> row did not reach the lane result. Its residue names <i>why</i> and <i>who owns the fix</i>.</li><li>A residue category never turns a <code>watch</code> into a <code>pass</code> or a <code>failure</code>. It explains the gap and routes the fix. <b>Nothing here is automatic or &quot;solved&quot; by tagging it</b> - a family is a decision, not a repair.</li></ul>
+<h2 id="the-families">The families</h2>
+<p>Family names are grouped by theme. The same theme can carry a slightly different category key (and a different owner) in the G/P-lane vs the K-lane, because the two lanes prove different things; both keys are listed.</p>
+<table><thead><tr><th>Family</th><th>What it means for a Helm user</th><th>Who fixes it</th><th>Usable today?</th><th>Lane · category key</th></tr></thead><tbody><tr><td><b>Target prerequisite</b></td><td>The rendered objects matched regular Helm; a named prerequisite (Namespace, Secret, or CRD) is missing on the target. The prerequisite is missing, not the configuration.</td><td>user</td><td>Yes, after you stage the prerequisite</td><td>G/P · <code>target-prerequisite</code> - K · <code>target-prerequisite-crds</code> / <code>-secret</code> / <code>-namespace</code></td></tr>
+<tr><td><b>Remote image</b></td><td>Parity passed, but the chart references a container image the target cannot pull (removed/renamed tag, private or paid registry, rate-limited pull). The workload can't start until the image is reachable.</td><td>catalog or image publisher</td><td>Watch - until the image reference is resolved</td><td>G/P · <code>remote-image</code></td></tr>
+<tr><td><b>Render input</b></td><td>Required Helm input values are missing, so the base renders incomplete or invalid objects. Regular Helm and ConfigHub block on the same validation.</td><td>catalog (G/P: needs a better base) · user (K: supply values)</td><td>No on the default base - until inputs are supplied or a better base is chosen</td><td>G/P · <code>render-input</code> - K · <code>render-input</code></td></tr>
+<tr><td><b>Capability profile</b></td><td>Parity passed, but the base rendered for a Kubernetes capability the target does not serve (e.g. an APIService version a newer cluster dropped). A render-profile / base-selection issue, not a semantic diff.</td><td>catalog</td><td>Depends - use or promote the base rendered for the target's API set</td><td>G/P · <code>capability-profile</code> - K · <code>capability-profile-diff</code></td></tr>
+<tr><td><b>Hook / lifecycle</b></td><td>The chart relies on a Helm hook or controller-populated lifecycle behavior (e.g. a certgen Job) that config-only delivery does not run. Needs a lifecycle route or staged equivalent.</td><td>catalog</td><td>No - until a lifecycle route is decided</td><td>K · <code>hook-lifecycle</code> (see <a href="../../data/lifecycle-route-actions/summary.html">lifecycle-route-actions</a>)</td></tr>
+<tr><td><b>Platform target fit</b></td><td>Parity passed, but the target does not provide the platform shape required by the base (for example AWS/EKS metadata, provider identity, schedulable node count, or load-balancer behavior).</td><td>user or catalog</td><td>Watch - use a target that satisfies the base, or create a target-scoped base</td><td>G/P · <code>target-fit</code></td></tr>
+<tr><td><b>Target runtime</b></td><td>The rendered config matched regular Helm, but the workload did not reach the expected runtime state on the target. Runtime residue to review.</td><td>needs runtime review</td><td>Watch - config correct, runtime unconfirmed</td><td>G/P · <code>target-runtime</code> - K · <code>target-runtime</code></td></tr>
+<tr><td><b>GitOps controller health</b></td><td>Synced through ConfigHub OCI/Argo and converged, parity passed - but Argo's aggregate health reads Progressing, or a resource reads OutOfSync while Healthy.</td><td>needs GitOps controller-health review</td><td>Watch - synced and converged; aggregate health needs explanation</td><td>G/P · <code>gitops-runtime</code></td></tr>
+<tr><td><b>Operate policy</b></td><td>Parity passed, but an operational readiness step (for example init/unseal) is required before the workload is fully ready.</td><td>needs operate review</td><td>Watch - needs an operational step</td><td>G/P · <code>operate-policy</code></td></tr>
+<tr><td><b>Model / semantic gap</b></td><td>The ConfigHub delivery did not match the live Helm result (a semantic/model difference, a missing target fact, or a render difference). Not a user action.</td><td>catalog</td><td>No - needs catalog/model work</td><td>G/P · <code>semantic-model-gap</code> - K · <code>model-gap-render</code> / <code>model-gap-target-fact</code></td></tr></tbody></table>
+<p>Live counts per family change as the live lane runs; read the decision surfaces above for the current rows - this page deliberately does not hard-code numbers.</p>
+<h2 id="remote-image-in-detail-worked-example-contour">Remote image, in detail (worked example: Contour)</h2>
+<p><code>remote-image</code> is the family a Helm user is most likely to hit first, because it looks like a chart failure but is really an image-availability problem on <i>your</i> target.</p>
+<p>Worked example - <b><code>bitnami/contour@21.1.4</code></b> (default and no-crds):</p>
+<ul><li>Regular Helm itself blocks: the pre-install certgen Job can't start because the pinned <code>docker.io/bitnami/contour</code> image is not pullable (<code>ImagePullBackOff</code>).</li><li>ConfigHub direct apply and ConfigHub OCI/Argo <b>preserve semantic parity</b> - the delivered objects match regular Helm - but the row stays <code>watch</code> because the hook-generated TLS Secrets (<code>contourcert</code>, <code>envoycert</code>) are absent and the pods do not become ready. (That second half is a <i>hook/lifecycle</i> residue layered on top - see the hook/lifecycle family.)</li></ul>
+<p>So the row is honest: parity is proven, but the chart can't run on a target that can't pull its image. The same family covers <b>Apache</b>, <b>OpenSearch</b>, and the <b>Istio gateway</b> rows.</p>
+<p>What a user or the catalog can do - <b>none of these is applied automatically</b>:</p>
+<ul><li><b>Catalog refresh</b> - move the base to a currently-published image tag.</li><li><b>Digest pin</b> - pin a digest that is still retained in the registry.</li><li><b>Registry mirror / pull secret</b> - point the target at a mirror, or supply an <code>imagePullSecret</code> for a private/paid registry.</li><li><b>Image override</b> - override the image reference to one your target can pull.</li><li><b>Registry policy</b> - accept a private/paid-registry requirement as a scoped support boundary.</li></ul>
+<p>This is a <b>decision family, not a fix</b>. Tagging a row <code>remote-image</code> does not make the image pullable; it tells you the parity question is already answered and the open question is image retention/access on your target.</p>
+<p>Distinguish it from neighbours: <code>target-runtime</code> means the image pulled but the workload misbehaved; <code>render-input</code> means values were missing before any image mattered; <code>hook/lifecycle</code> means a hook action (not an image) is the gap.</p>
+<h2 id="platform-target-fit-in-detail-worked-example-aws-ebs-csi">Platform target fit, in detail (worked example: AWS EBS CSI)</h2>
+<p>Some charts need a specific <b>platform identity</b> rather than a generic Kubernetes target. The committed AWS EBS CSI receipt is the concrete example:</p>
+<ul><li>Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo all preserve semantic object parity.</li><li>The workloads crash-loop on vanilla kind because the driver cannot read AWS instance metadata (IMDS), cannot find an AWS instance id in node <code>providerID</code>, and has no AWS region.</li><li>Argo pulls and applies the ConfigHub OCI payload, then reports the application as <code>Synced / Degraded</code> because the workload cannot run on that target.</li></ul>
+<p>That is <b>platform target fit</b>, not a render defect. A useful base needs an AWS/EKS-like target profile, or an explicit target-scoped base/refusal for non-AWS clusters. The chart-local support artifact is <a href="../../../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml">target-topology.yaml</a>.</p>
+<h2 id="from-a-non-green-row-to-a-support-decision">From a non-green row to a support decision</h2>
+<p>A residue category answers <i>why a row isn't green</i> and <i>who fixes it</i>. It does <b>not</b> by itself decide whether a chart/base is production-supported. To move a chart/base from <code>watch</code>/<code>todo</code> toward <b>supported</b>, <b>target-scoped support</b>, <b>rejected</b>, or <b>superseded</b>, the residue has to be resolved or explicitly accepted for a named scope, backed by fresh evidence. That decision and its required evidence are recorded separately:</p>
+<ul><li><a href="../user/production-support-decisions.html">production-support-decisions</a> - the product states and how to work the queue.</li><li><a href="../../data/production-disposition/support-decision-contract.html">production support decision contract</a> - the required decision fields (supported base, target scope, delivery path, scan/image/lifecycle decisions, live evidence, support boundary).</li><li><a href="capability-profile-catalog.html">capability-profile-catalog</a> - for the capability-profile family, the named profiles a base can render against.</li></ul>
+<h2 id="boundaries">Boundaries</h2>
+<ul><li>Reference only. The per-row classifications are generated into the decision surfaces; this page names the vocabulary behind them and does not assert any row's state itself.</li><li>A residue family is a routed decision, never an automatic repair, and never a reclassification of a <code>watch</code> as a <code>pass</code>.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/residue-families.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

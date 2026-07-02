@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brief: User-Journey Test Pathways + Hook-Method Validation · ConfigHub Helm Ops</title>
+  <meta name="description" content="Brief: User-Journey Test Pathways + Hook-Method Validation: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/user-journey-test-pathways-brief.html">
+  <meta property="og:title" content="Brief: User-Journey Test Pathways + Hook-Method Validation · ConfigHub Helm Ops">
+  <meta property="og:description" content="Brief: User-Journey Test Pathways + Hook-Method Validation: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/user-journey-test-pathways-brief.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Brief: User-Journey Test Pathways + Hook-Method Validation</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/user-journey-test-pathways-brief.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>Audience:</b> the next helm-expt working session (fresh Opus 4.8 chat). <b>Status:</b> UNOFFICIAL/EXPERIMENTAL planning brief. Do the research pass <i>first</i>; do not build from assumption.</p>
+<blockquote><p><b>Update (2026-06-20) - research pass done; Pathway 1 shipped.</b> The verified research map, the pathway matrix, and the build plan are in the companion <a href="user-journey-test-pathways-plan.html"><code>user-journey-test-pathways-plan.md</code></a>. <b>Read it alongside this brief</b> - it corrects four specifics below that the research pass falsified: (1) several charts named here are <b>source-scan only, not in the catalog</b> (kafka, minio, thanos, airflow, kong, datadog, kubernetes-dashboard, keycloak, gitlab) - do not anchor pathways on them; (2) <b>only <code>cub-scout compare three-way --dry-from</code> is shipped</b> - <code>compare object-set --dry-from</code> / <code>ObjectSetDiffReceipt</code> (the &quot;#498&quot; in §2d) are design/branch-only, not on <code>main</code>; (3) the <b>&quot;62&quot;</b> (§4, §7) is the lifecycle-lane cell count, not a single named field; (4) the persona PRD has <b>6</b> personas (this brief's 5 is a subset). Pathway 1 - &quot;Route a chart's hooks, transparently&quot; - is built: <a href="../user/pathway-route-hooks-transparently.html"><code>pathway-route-hooks-transparently.md</code></a>.</p></blockquote>
+<hr>
+<h2 id="1-mission">1. Mission</h2>
+<p>Two intertwined goals:</p>
+<ol><li><b>Construct standard &quot;test pathways&quot;</b> - real user journeys. A pathway = <b>(user type / persona) × (the key decisions they make) × (a class of charts, especially quirky ones)</b>. Each pathway is a named, runnable walkthrough that answers the question a real user asks: <i>&quot;How do I figure out the way to run THIS chart with cub, and what are my options?&quot;</i></li></ol>
+<ol><li><b>Validate the hook-handling method</b> (convince the team <b>and</b> ourselves): prove that <i>&quot;render parity proves the non-hook object set + hooks are explicit, non-automatic lifecycle routes (visible, runnable, receipted)&quot;</i> works well - via a few <b>worked, live, side-by-side exemplars</b> on quirky hook charts.</li></ol>
+<p>These are the same work: a hook chart's pathway <i>is</i> &quot;how do I run its hook, transparently.&quot; The exemplars double as the most important pathways.</p>
+<p><b>Deeper why.</b> This ultimately tests whether helm-expt <i>proves the Generative GitOps thesis</i> (white-paper draft <code>~/Downloads/DRAFT w-paper Generative GitOps.pdf</code>; durable in-repo versions: <code>docs/user/generative-gitops-fit.md</code>, <code>why-this-exists.md</code>, <code>why-this-does-not-collapse.md</code>). The hook method is the thesis's <b>hardest case</b> - the last hidden imperative step in a Helm install - so convincingly routing hooks (visible, runnable, receipted) is strong evidence for the whole argument. Frame the convince-the-team work against that thesis.</p>
+<hr>
+<h2 id="2-required-research-do-this-first-full-pass">2. Required research (DO THIS FIRST - full pass)</h2>
+<p>Read before building. Verify claims against the <b>generated surfaces / receipts</b>, not prose (prose can be stale vs the data).</p>
+<h3 id="2a-the-model-how-proof-disposition-work">2a. The model - how proof + disposition work</h3>
+<ul><li><code>data/master-catalog-matrix/summary.md</code> + <code>matrix.csv</code> - the row-level source of truth: 396 rows × 110 chart versions; lanes <b>R</b>ender / <b>C</b>onfighub / <b>L</b>ocal-live / lifecycle-<b>Y</b> / <b>G</b>itops-oci / live-<b>P</b>arity / two-cluster-<b>K</b>ind / <b>V</b>ariant-promotion; F1/F2a/F2b/F2c/F3/F4a/F4b layers.</li><li><code>data/disposition-frontier/summary.md</code> - the bar is <b>verified disposition, not green</b> (pass/watch/blocked/refused/n-a, todo only as a named next step). Currently <b>0 genuine todo / 100%</b>.</li><li><code>data/outcome-coverage/base-outcomes.csv</code> - the spine (variant × lanes × outcome level).</li><li><code>docs/user/verification-lanes.md</code>, <code>reading-the-matrix.md</code>, <code>outcomes-and-tests.md</code>, <code>what-we-refuse-to-claim.md</code> - lane semantics + honesty rules.</li><li>Proof lanes: <code>data/variant-promotion/</code> (180 proven post-#682), <code>data/live-helm-confighub-compare/</code> (G/P), <code>data/live-kind-parity/</code> (K), <code>data/cub-scout-diff/</code>.</li></ul>
+<h3 id="2b-quirks-the-chart-classes-to-bucket-pathways-over">2b. Quirks - the chart classes to bucket pathways over</h3>
+<ul><li><code>data/quirk-coverage/</code>, <code>data/quirk-inventory-audit/</code>, <code>data/quirk-work-queue/</code>, <code>data/pain-point-coverage/</code>, <code>data/hard-proof-gaps/</code>, <code>data/adversarial10/</code>, <code>data/torture-suite/</code>.</li><li><code>docs/user/helm-pain-points.md</code>, <code>serious-charts.md</code>, <code>hard-questions.md</code>.</li><li><b>Chart classes</b> (pick 1–2 representative charts each): hook/lifecycle · image-migrated legacy (<code>bitnamilegacy</code> F2b) · version-skew (covered-by; see [[helm-expt-kind-parity-version-skew]]) · CRD/bootstrap · target-prerequisite / external-platform (AWS-EKS etc.) · stateful/credentialed · no-crds.</li></ul>
+<h3 id="2c-hooks-lifecycle-the-method-under-test">2c. Hooks / lifecycle - the method under test</h3>
+<ul><li><code>data/hook-disposition/</code> (top-100 hook dispositions + per-chart <code>evidence/</code>), <code>data/hook-lifecycle/</code> (receipts), <code>data/lifecycle-routes/</code> + <code>data/lifecycle-route-actions/</code> (route schema + <b>25 actions: 15 observed / 7 blocked / 2 routed / 1 per-target; ALL <code>automatic:false</code></b>), <code>data/hook-route-candidates/</code>, <code>data/webhook-cert-lifecycle/</code>, <code>data/secret-lifecycle/</code>.</li><li><code>schemas/lifecycle-route-action.schema.json</code> - the route contract schema.</li><li><code>docs/user/chart-hooks-what-happens.md</code>, <code>hook-lifecycle-strategy.md</code>, <code>docs/planning/where-does-my-hook-go.md</code>.</li><li>Worked proof to build on: observed routes with receipts - e.g. <code>fluent/fluent-bit</code> (<code>explicit-test-check</code> → run-test) and <code>kyverno/kyverno</code> (cleanup-policy), receipts under <code>data/hook-lifecycle/receipts/</code>.</li></ul>
+<h3 id="2d-personas-existing-journey-material-build-on-this-do-not-restart">2d. Personas + existing journey material (BUILD ON THIS - do not restart)</h3>
+<ul><li><code>docs/planning/helm-community-persona-prd.md</code> + <code>helm-community-persona-plan.md</code> - personas.</li><li><code>docs/user/choose-your-path.md</code>, <code>choosing-commands.md</code>, <code>first-run-walkthrough.md</code>, <code>adopting-existing-apps.md</code> (brownfield), <code>creating-variants.md</code>, <code>derived-variant-walkthrough.md</code>, <code>tutorial-sequence.md</code>, <code>cub-variant-command-surface.md</code>.</li><li><b>Already-drafted journey tutorials</b> (reuse/upgrade these): <code>docs/user/ux-proposal-redis-quick-start-tutorial.md</code>, <code>ux-proposal-redis-secret-modes-tutorial.md</code>, <code>ux-proposal-prometheus-base-variant-tutorial.md</code>, <code>ux-proposal-prometheus-promotion-tutorial.md</code>, <code>ux-proposal-externaldns-custom-overlay-tutorial.md</code>, <code>ux-proposal-gitops-runtime-proof-tutorial.md</code>, <code>ux-proposal-bulk-scan-patch-tutorial.md</code>.</li><li>User-story spine: <code>docs/user/generative-gitops-fit.md</code>; site <code>site/journey.html</code>, <code>site/day1-operations.html</code>, <code>site/hooks.html</code>, and the per-row <b>&quot;Options From The Matrix&quot;</b> cards on <code>site/charts/*.html</code> (generator <code>scripts/generate-public-site.mjs</code>).</li><li><b>Day-1 tooling</b> (preview / dry-run / diff): cub-scout at <code>/Users/alexis/code/cub-scout</code> - <code>compare three-way --dry-from</code>, and the new <code>compare object-set --dry-from</code> / <code>ObjectSetDiffReceipt</code> (cub-scout PR #498). <code>docs/user/cub-scout-diff-design.md</code>, <code>reverse-reconcile-design.md</code>.</li></ul>
+<h3 id="2e-planning-context">2e. Planning context</h3>
+<ul><li><code>docs/planning/next-execution-plan.md</code> (the 99% bar), <code>serverless-verified-install-plan.md</code>, <code>agreed-execution-plan.md</code>, <code>robust-sceptic-plan.md</code>, <code>outside-user-test.md</code>, <code>pilot-adversarial-testing.md</code>, <code>upgrade-story-plan.md</code>.</li></ul>
+<hr>
+<h2 id="3-the-user-journey-framework-to-build">3. The user-journey framework to build</h2>
+<p>Spine (from <code>generative-gitops-fit.md</code>): <b>helm serverless → add server → add app (write-green | load-brown) → make changes + variants → day-1 (preview / dry-run / lifecycle / other) → day-2.</b> Cross-cutting: <b>SecOps · platforms · fleets · stacks.</b></p>
+<p>A <b>test pathway</b> = persona × decision-sequence × chart-class:</p>
+<ul><li><b>Personas:</b> platform engineer · app/dev team · SecOps · fleet/multi-env operator · GitOps (Argo/Flux) adopter. (Reconcile with the persona PRD.)</li><li><b>Key decisions:</b> base/variant · write-green vs load-brown · default vs no-crds · existing-secret vs generated · target/platform shape · GitOps backend · <b>post-deploy hook route</b> · promotion/changeset.</li><li><b>Chart classes:</b> §2b.</li></ul>
+<p>Each pathway maps to the matrix lanes + the chart-page cards + the exact day-1 <code>cub</code> / <code>cub-scout</code> commands, stating the <b>honest disposition at each step</b> (including where the proof stops). &quot;Our dry-run has to be better than ArgoCD's&quot; and the journey must work for <i>all</i> charts, not be tied to one.</p>
+<hr>
+<h2 id="4-the-hook-method-validation-challenge-convince-the-team-artifact">4. The hook-method validation challenge (convince-the-team artifact)</h2>
+<p>Build <b>3–4 worked, live, side-by-side exemplars</b> on quirky <b>hook</b> charts. For each:</p>
+<ol><li>render parity proves the non-hook objects;</li><li>the post-deploy hook <b>run as its explicit route on a live kind cluster + verified by a receipt</b>;</li><li>shown next to <i>&quot;what Helm/Argo would have done silently.&quot;</i></li></ol>
+<p>Span hook <b>classes</b>: post-apply Job · test hook · cleanup/delete-policy · CRD-bootstrap · webhook-cert.</p>
+<ul><li><b>Template (proven pattern - copy this shape):</b> <code>scripts/run-flux-lookup-proof.mjs</code><ul><li><code>tests/fixtures/flux-lookup-probe/</code> is the worked-live-exemplar to imitate - a minimal probe chart + a <code>--run</code>/<code>--verify</code> script that exercises it multiple ways on a throwaway kind cluster, then writes a <b>typed receipt</b> (<code>runs/.../receipt.yaml</code>) and a side-by-side <code>summary.md</code> table with a per-leg <code>result</code> (pass/watch). Build each hook exemplar this way: probe-or-real chart → run the route live → receipt + a visible-vs-silent table. Reuse <code>scripts/lib/proof-common.mjs</code> (<code>check</code>/<code>write</code>/<code>writeYaml</code>/<code>readYaml</code>).</li></ul></li><li><b>Argument:</b> silent hook execution (a privileged Job you never saw/approved) is the one place the config-as-data promise leaks; routing hooks (visible + runnable + receipted, <code>automatic:false</code>) is the natural completion of the same thesis. You <i>can</i> still automate via your own GitOps PostSync - <b>knowingly</b>, with an audit trail.</li><li><b>Existing evidence:</b> 15 observed route-actions with receipts; <code>automatic:false</code> everywhere (0/25 claimed automatic) = the honesty that makes it credible.</li><li><b>Honest gap:</b> 62 routed-but-unobserved lifecycle cells + 7 precondition-blocked.</li><li><b>Falsification test:</b> find a hook that <b>cannot</b> be expressed as a route (genuinely needs silent execution). None found yet across the quirk classes - finding one refutes the method; not finding one confirms it. The blocked ones are <i>preconditions</i> (images/CRDs/deps), not &quot;un-routable,&quot; which supports the model.</li></ul>
+<hr>
+<h2 id="5-deliverables">5. Deliverables</h2>
+<ol><li>A persona × decision × chart-class <b>pathway matrix</b> (which pathways, which charts, why).</li><li><b>~4–6 fully-written test pathways</b> (the most important journeys), each runnable end-to-end.</li><li><b>3–4 worked live hook exemplars</b> (side-by-side visible-vs-silent, receipted), spanning hook classes.</li><li>The <b>convince-the-team writeup</b>: the argument + the exemplars + the falsification framing.</li></ol>
+<hr>
+<h2 id="6-operating-constraints-honor-these-learned-the-hard-way">6. Operating constraints (honor these - learned the hard way)</h2>
+<ul><li><b>Workspace:</b> use the standalone clone <code>/Users/alexis/code/helm-expt-claude-clone</code> (the loop owns <code>/Users/alexis/code/helm-expt</code>). <b>SOURCE-ONLY PRs; never self-merge helm-expt PRs</b> (Codex/user merges; cub-scout self-merge OK when authorized). A safety classifier enforces this.</li><li><b>Live runs: serial only</b> (one live/kind job at a time - concurrent starves kind nodes → false blocks). <b>Quota:</b> ConfigHub prod org = <b>Kubara</b>, Unit-quota-limited - use <code>--cleanup-spaces</code>; clean orphans (<code>cub lk down --name &lt;c&gt; --force</code>, then <code>cub space delete &lt;c&gt;-&lt;chart&gt; --recursive-force</code>). Only delete clusters you created (<code>helm-expt-parity-*</code> / <code>hx-*</code>).</li><li><b>Detached runs survive session suspension</b> (the machine/session suspends when the user steps away and kills harness-tracked background tasks; a screen-saver was one trigger). Launch long live runs as <code>( nohup &lt;cmd&gt; &gt; /tmp/x.log 2&gt;&amp;1 &lt; /dev/null &amp; )</code> and watch via a separate <code>run_in_background</code> watcher (or it dies with the session). Make drivers <b>skip-already-fresh</b> so they're resumable.</li><li><b>Recording pipelines</b> (see memory [[helm-expt-live-parity-recording]]): a run only writes a gitignored receipt; to land it you must fold it into the committed summary, then run <code>outcomes:generate</code> → master-matrix / disposition-frontier / matrix-completion-audit / coverage-completion-plan as a <b>fixpoint</b> (loop until <code>:verify</code> gates pass - matrix↔coverage cross-depend), then the leaf generators; force-add receipts (<code>git add -f</code>).</li><li><b>Don't force green / don't overclaim:</b> honest disposition; <code>automatic:false</code> for hooks; watch ≠ pass; promotion-proven ≠ production-proven; verify numbers against committed surfaces.</li><li><b>Codex coordination:</b> Codex absorbs PRs onto main (CLOSED ≠ rejected - verify it landed). Two sessions in one working dir collide - isolate with a <code>git worktree</code> if needed.</li></ul>
+<hr>
+<h2 id="7-current-state-start-here">7. Current state (start here)</h2>
+<p>All merged to main this session:</p>
+<ul><li>Promotion <b>180 proven</b> (#998, on the #682-fixed ConfigHub v0.1.80; <code>cub variant promote --changeset</code> now works for newly-added Units).</li><li>Frontier <b>0 genuine todo / 100% verified disposition</b> (#997: K version-skew covered-by n/a).</li><li>Legacy Bitnami G/P watch + K blocked (#994/#995); Flux <code>lookup()</code> proof (#996); cub-scout object-set-diff Issue A (cub-scout #498).</li></ul>
+<p>The matrix is <b>complete as far as testing takes it.</b> What remains is catalog/lifecycle/ external work - including the <b>62 lifecycle-observed cells</b>, which <i>is</i> the hook-method work in §4. That, plus the user-journey pathways, is this brief.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/user-journey-test-pathways-brief.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Helm Upgrade Crash Example · ConfigHub Helm Ops</title>
-  <meta name="description" content="Helm Upgrade Crash Example: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Helm Upgrade Crash Example: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/helm-upgrade-crash-example.html">
   <meta property="og:title" content="Helm Upgrade Crash Example · ConfigHub Helm Ops">
-  <meta property="og:description" content="Helm Upgrade Crash Example: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Helm Upgrade Crash Example: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/helm-upgrade-crash-example.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Helm Upgrade Crash Example</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="helm-upgrade-crash-example.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/helm-upgrade-crash-example.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -423,7 +423,7 @@ evidence at each stage, instead of one opaque production mutation.</code></pre>
 base: default</code></pre>
 <p>This chart is useful because it includes CRDs, admission webhooks, generated credentials, dependencies, RBAC, and many rendered monitoring objects.</p>
 <p>Current evidence in this repo:</p>
-<table><thead><tr><th>Evidence</th><th>What It Proves</th><th>Link</th></tr></thead><tbody><tr><td>Upgrade seed</td><td><code>85.3.3</code> stays supported; <code>86.1.0</code> is a candidate until upgrade lanes pass.</td><td><a href="../../../../data/refresh-survival/kube-prometheus-stack-upgrade-seed.md">kube-prometheus-stack upgrade seed</a></td></tr>
+<table><thead><tr><th>Evidence</th><th>What It Proves</th><th>Link</th></tr></thead><tbody><tr><td>Upgrade seed</td><td><code>85.3.3</code> stays supported; <code>86.1.0</code> is a candidate until upgrade lanes pass.</td><td><a href="../../data/refresh-survival/kube-prometheus-stack-upgrade-seed.html">kube-prometheus-stack upgrade seed</a></td></tr>
 <tr><td>CRD delta</td><td>10 CRDs in both versions; 6 changed; changes are recorded at schema-path level.</td><td><a href="../../../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml">CRD delta receipt</a></td></tr>
 <tr><td>Live CRD rehearsal</td><td>A fresh API server accepted the old CRDs, accepted the upgraded CRDs, and accepted a monitoring object server-side dry-run after upgrade.</td><td><a href="../../../../runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml">CRD live receipt</a></td></tr>
 <tr><td>Live workload rehearsal</td><td>Plain Helm installed <code>85.3.3</code>, upgraded to <code>86.1.0</code>, and workloads converged again on the tested kind profile.</td><td><a href="../../../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml">workload live receipt</a></td></tr>
@@ -484,7 +484,7 @@ cub unit apply --space &lt;candidate-space&gt; --changeset &lt;upgrade-review&gt
 <tr><td>5. Variant and operation</td><td>Review changesets, approvals, scans, and target-specific gates.</td></tr>
 <tr><td>6. Deliver</td><td>Apply or reconcile through the declared target path.</td></tr>
 <tr><td>7. Observe</td><td>Record live readiness, controller status, drift, rollback, and freshness.</td></tr></tbody></table>
-<p>Use <a href="serious-chart-proof.html">Serious Chart Proof</a> for the kube-prometheus-stack proof path and <a href="../../../../docs/planning/upgrade-story-plan.md">Upgrade Story Plan</a> for the upgrade lane definition.</p>
+<p>Use <a href="serious-chart-proof.html">Serious Chart Proof</a> for the kube-prometheus-stack proof path and <a href="../planning/upgrade-story-plan.html">Upgrade Story Plan</a> for the upgrade lane definition.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/helm-upgrade-crash-example.md</code>. The source file is the authoritative version.</p></footer>

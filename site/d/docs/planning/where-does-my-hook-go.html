@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where Does My Hook Go? · ConfigHub Helm Ops</title>
+  <meta name="description" content="Where Does My Hook Go?: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/where-does-my-hook-go.html">
+  <meta property="og:title" content="Where Does My Hook Go? · ConfigHub Helm Ops">
+  <meta property="og:description" content="Where Does My Hook Go?: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/where-does-my-hook-go.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Where Does My Hook Go?</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/where-does-my-hook-go.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b> - analysis and solution proposal.</p>
+<p><i>...and every other Helm behavior that isn't in the rendered YAML.</i></p>
+<p>This doc starts from one real user question about hooks and works down to a complete model for every Helm behavior that does not survive a config-only render. It is an analysis of the problem we are solving and a detailed solution proposal. It is deliberately broader than hooks: hooks are the first and clearest case of a general gap.</p>
+<p>The canonical per-hook treatment lives in <a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a>. This doc does not replace it. It generalizes it.</p>
+<hr>
+<h2 id="0-the-question-that-started-this">0. The question that started this</h2>
+<blockquote><p>&quot;What I don't understand: if I use a helm chart which has hooks, but I use the ConfigHub version, then how do I learn where to deploy my hook, and how does it get set up for me?&quot;</p></blockquote>
+<p>This is the right question, and it is bigger than hooks. The same two sub-questions apply to every Helm behavior that is not plain rendered configuration:</p>
+<ol><li><b>Where does the behavior go?</b> Helm used to <i>do</i> this at runtime. The ConfigHub version renders desired-state objects. So where did the behavior go, and how do I find out without reading Helm's source?</li><li><b>How does it get set up for me?</b> What does the product do automatically, what must I decide, and what will it deliberately not do?</li></ol>
+<p><b>Short answer for hooks:</b> you learn where your hook goes by reading the chart's <b>disposition</b> in the catalog - one of <i>observed / routed / per-target / refused</i>. <code>observed</code> means the route has live evidence. <code>routed</code> means the route is known and named, but the chart page or receipt must still say whether that route is executed by the current product flow or is a setup step the user must perform. You never reverse-engineer Helm's engine.</p>
+<p>The rest of this doc explains why that is the model, extends it to every other hidden Helm behavior, and is honest about what we still have to build before the answer actually beats &quot;helm just runs.&quot;</p>
+<hr>
+<h2 id="1-the-problem">1. The problem</h2>
+<h3 id="11-two-models-in-collision">1.1 Two models in collision</h3>
+<p>Helm is an <b>imperative engine</b>. <code>helm install</code> does things at runtime that are not in the rendered YAML: it fires hooks, installs CRDs once, reads the live cluster with <code>lookup</code>, generates passwords and certificates, branches on install-vs-upgrade, and can be reshaped by a post-renderer.</p>
+<p>ConfigHub is <b>desired-state</b>. The rendered object set is the artifact. The catalog renders deliberately <b>without hooks</b> (<code>--no-hooks</code> render contract) so that the proof is the desired configuration, not a side effect of running an engine.</p>
+<p>These two models are both correct, but they collide on exactly the behaviors that are not expressible as static rendered YAML.</p>
+<h3 id="12-the-behaviors-do-not-vanish">1.2 The behaviors do not vanish</h3>
+<p>This is the crux. When you &quot;use the ConfigHub version,&quot; every behavior Helm used to perform imperatively still has to happen <b>somewhere</b> - or be deliberately not done. A <code>pre-install</code> migration Job does not stop being necessary because we rendered the chart differently. A generated admin password is still required. The CRDs still have to exist before the custom resources.</p>
+<p>If we render config-only and say nothing about where those behaviors went, the user is <b>more lost than with Helm</b>, not less. Helm at least &quot;just runs.&quot; We rendered twelve manifests and went quiet about the hook. That is a worse experience unless we close the loop explicitly.</p>
+<h3 id="13-why-helm-just-runs-is-the-bar-and-the-trap">1.3 Why &quot;helm just runs&quot; is the bar - and the trap</h3>
+<p>&quot;Helm just runs&quot; is the competitor and the bar. One command, the behaviors happen, you get a running thing. We must respect that convenience.</p>
+<p>But &quot;helm just runs&quot; is also a <b>trap</b>, because it runs by hiding outcomes:</p>
+<ul><li>the hook fails and the release still reports success (silent-green);</li><li>the CRD does not upgrade and the operator quietly drifts;</li><li>the required Secret is missing and the pod waits forever;</li><li>the upgrade renders differently from the install and nobody sees the diff.</li></ul>
+<p>So the bar is not &quot;be as opaque as Helm.&quot; The bar is <b>match Helm's convenience, and replace its opacity with a verified disposition</b> - without charging the user effort for visibility they did not ask for.</p>
+<h3 id="14-the-taxonomy-of-hidden-behaviors-all-the-bases">1.4 The taxonomy of hidden behaviors (all the bases)</h3>
+<p>Hooks are one class. The harness already tracks <b>26 quirk axes</b> (<code>data/quirk-coverage/coverage.csv</code>). Grouped by <i>how a user gets confused</i>:</p>
+<p><b>Tier 1 - silent footguns</b> (green status, broken or surprising result):</p>
+<table><thead><tr><th>Behavior</th><th>The &quot;huh?&quot; moment</th></tr></thead><tbody><tr><td>CRDs / CRD upgrade</td><td>&quot;Applied fine, operator crash-loops&quot; / &quot;my CRD never upgraded&quot;</td></tr>
+<tr><td><code>lookup</code> / <code>getHostByName</code></td><td>&quot;This field is empty/wrong&quot; - render read a cluster I don't have</td></tr>
+<tr><td>Generated facts (passwords, certs, random)</td><td>&quot;Where's my password, and is it stable across re-renders?&quot;</td></tr>
+<tr><td>Target prerequisites (Secret, StorageClass, creds)</td><td>&quot;Applied fine, won't start&quot;</td></tr>
+<tr><td><code>install</code> vs <code>upgrade</code> branching</td><td>&quot;The upgrade did something the install didn't&quot;</td></tr>
+<tr><td>Hooks (phase / delete-policy / weight)</td><td>&quot;Where does my hook go, and did it run?&quot;</td></tr>
+<tr><td><code>required</code> / <code>fail</code> inputs</td><td>&quot;Render just errored&quot;</td></tr>
+<tr><td><code>resource-policy: keep</code></td><td>&quot;I deleted it but it's still there&quot;</td></tr>
+<tr><td>Webhooks / admission mutation</td><td>&quot;What landed isn't what I applied&quot;</td></tr></tbody></table>
+<p><b>Tier 2 - hidden provenance</b> (&quot;where does my thing go / come from?&quot;):</p>
+<table><thead><tr><th>Behavior</th><th>The &quot;huh?&quot; moment</th></tr></thead><tbody><tr><td>Extension slots (<code>tpl</code>, raw manifests, sidecars)</td><td>&quot;Where do I put my custom config/sidecar?&quot;</td></tr>
+<tr><td>Subchart plumbing (<code>import-values</code>, aliases, library charts, <code>global</code>)</td><td>&quot;Where did this value come from / how do I override it?&quot;</td></tr>
+<tr><td><code>post-renderer</code></td><td>&quot;The output doesn't match the templates&quot;</td></tr>
+<tr><td><code>.Files.Get</code></td><td>&quot;A bundled file changed my config and it's not in values&quot;</td></tr></tbody></table>
+<p><b>Tier 3 - render-context honesty</b> (&quot;will the catalog's render match <i>my</i> setup?&quot;):</p>
+<table><thead><tr><th>Behavior</th><th>The &quot;huh?&quot; moment</th></tr></thead><tbody><tr><td>Capability / Helm-version branching</td><td>&quot;The catalog's render isn't valid for my cluster/Helm&quot;</td></tr>
+<tr><td><code>semverCompare</code></td><td>&quot;Render depends on a version I didn't pin&quot;</td></tr>
+<tr><td>Helm flag profile</td><td>&quot;Different flags → different output&quot;</td></tr>
+<tr><td>Non-determinism (<code>now</code>, uuid)</td><td>&quot;Your parity proof can't be real&quot;</td></tr>
+<tr><td><code>values.schema.json</code> / required inputs</td><td>&quot;What must I provide?&quot;</td></tr>
+<tr><td>Dependency lock</td><td>&quot;Which subchart versions did this render assume?&quot;</td></tr></tbody></table>
+<p>The full per-axis catalog with current treatment is in <b>Appendix A</b>.</p>
+<hr>
+<h2 id="2-necessary-vs-sufficient">2. Necessary vs sufficient</h2>
+<p>Informative docs pages, an updated master matrix, and supporting corpus are <b>necessary</b> - they win the trust and legibility argument. They are <b>not sufficient</b> to beat &quot;helm just runs.&quot;</p>
+<p>A page that says <i>&quot;here is the route you must set up yourself&quot;</i> is, from the user's chair, <b>more work than Helm for less convenience</b>. The skeptic reads it as: &quot;so I now do manually what Helm did automatically, and I should be grateful it's documented?&quot; That is a losing trade.</p>
+<p>The product target requires three things beyond docs and the matrix:</p>
+<ol><li><b>Executed routes, not documented routes.</b> A route that can be executed by the product should resolve to an operation the installer or ConfigHub flow performs, not a paragraph. If the disposition is only a paragraph, the docs are the interface and we lose. If it is an operation, the docs are just the explanation.</li><li><b>A one-command happy path</b> that is ~as easy as <code>helm install</code>: resolve prerequisites, run the routed lifecycle steps, report.</li><li><b>Actionable preflight, not diagnostic preflight.</b> A missing CRD/secret should surface as &quot;install it now? [Y/n]&quot; or <code>--install-prerequisites</code>, not as a <code>blocked</code> status that sends you to a doc.</li></ol>
+<p>And one strategic rule:</p>
+<blockquote><p><b>Match Helm on the easy path. Win decisively on the hard path. Never charge the user effort for visibility they did not ask for.</b></p></blockquote>
+<ul><li>Trivial chart (no hooks, no prereqs): <code>helm install</code> is one command and fine. The catalog must <i>match</i> that, not exceed it.</li><li>Hard chart (hooks, CRDs, generated secrets, divergent upgrades, admission mutation): this is where &quot;helm just runs&quot; is actually &quot;helm just <i>appears</i> to run.&quot; This is the entire ballgame. Win it with verified dispositions.</li><li>Day-2 (gates, promotion, fleet): not competing with <code>helm install</code> at all - competing with &quot;helm install + a pile of homegrown scripts.&quot; The extra steps here are the product, and they are wanted.</li></ul>
+<hr>
+<h2 id="3-the-solution-the-disposition-model-generalized">3. The solution: the disposition model, generalized</h2>
+<h3 id="31-the-vocabulary">3.1 The vocabulary</h3>
+<p>Every hidden behavior, for every chart, carries exactly one <b>disposition</b>:</p>
+<table><thead><tr><th>Disposition</th><th>Meaning</th><th>What the user does</th></tr></thead><tbody><tr><td><b>observed</b></td><td>Converted to an explicit lifecycle route <b>and</b> proven by live evidence (a receipt with a runtime result, timestamp, freshness).</td><td>Nothing - it runs and is proven.</td></tr>
+<tr><td><b>routed</b></td><td>The route is known and named. The chart must also say whether the current flow executes it or whether the user must set it up. Live evidence is not yet captured.</td><td>Follows the chart's execution mode; knows it is not yet proven.</td></tr>
+<tr><td><b>per-target</b></td><td>The route depends on the target platform or policy; the catalog <b>names the decision</b> (it may <i>recommend</i> an option, but never silently picks one - see §3.7).</td><td>Makes one explicit choice.</td></tr>
+<tr><td><b>refused</b></td><td>Deliberately not run automatically; the chart <b>says why</b>.</td><td>Does the named manual step knowingly, or accepts the boundary.</td></tr></tbody></table>
+<p>As of <a href="https://github.com/confighub/helm-expt/pull/684">#684</a>, these four words are the <b>published user-facing contract</b> for hooks in <a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a>. This doc adopts the same four words and generalizes them to every quirk class. It also generalizes the canonical hook <i>engineering</i> status vocabulary (<code>inventoried → render-proven → route-selected → lifecycle-observed → blocked</code>). The mapping:</p>
+<ul><li><code>route-selected</code> → <b>routed</b></li><li><code>lifecycle-observed</code> → <b>observed</b></li><li><code>blocked-for-safety</code> → <b>refused</b></li><li><code>blocked-because-target-dependent</code> → <b>per-target</b></li><li><code>inventoried</code> / <code>render-proven</code> are <i>pre-disposition</i> - the behavior is known but has no route yet. These are temporary and must converge to one of the four.</li></ul>
+<p>A <code>blocked</code> that is merely &quot;not yet mapped&quot; is <b>not a final disposition</b>. It is a <code>todo</code> with a named next action, and it counts against the disposition frontier (<code>data/disposition-frontier/</code>).</p>
+<h3 id="32-named-routes">3.2 Named routes</h3>
+<p>A disposition points at a <b>named route</b>, never an ad-hoc explanation. The route catalog (hooks today, generalized):</p>
+<pre><code>preflight-or-presync            run-before-apply setup (Job / PreSync)
+postsync-check-or-observation   after-apply check or live observation
+upgrade-action-with-receipt     upgrade-only lifecycle action + receipt
+preserve-ordering               sync-wave / weight-equivalent sequencing
+preserve-cleanup-policy         keep delete/cleanup semantics
+delete-cleanup-policy           orphan-on-delete / prune policy
+target-facts-or-preflight       value the target must supply (lookup, prereq)
+generated-fact-policy           generated password/cert disclosure + binding
+crd-install / crd-upgrade       CRD-before-CR ordering; separate upgrade path
+capability-envelope             which kube/Helm profiles a render is valid for
+extension-slot-control-point    named place to inject custom config/sidecar
+value-source-map                provenance: where a rendered field came from
+explicit-managed-action         a managed action we run on your behalf
+refusal-with-reason             we will not do this automatically; here is why</code></pre>
+<p>The point: a finite, fixed set of routes. The user learns the routes <b>once</b>, then every chart is read against the same vocabulary.</p>
+<h3 id="33-from-hooks-to-all-the-bases">3.3 From hooks to all the bases</h3>
+<p>The hooks model becomes the template for every quirk class. Each chart row carries a small set of <b>per-quirk dispositions</b>:</p>
+<table><thead><tr><th>Quirk class</th><th>Default route</th><th>Typical disposition</th><th>Who acts</th></tr></thead><tbody><tr><td>Hook (pre/post install)</td><td>preflight-or-presync / postsync-check</td><td>observed / routed</td><td>product target</td></tr>
+<tr><td>Hook (upgrade)</td><td>upgrade-action-with-receipt</td><td>routed</td><td>product target (gated)</td></tr>
+<tr><td>Hook (delete/cleanup)</td><td>delete/preserve-cleanup-policy</td><td>per-target</td><td>product + user</td></tr>
+<tr><td>CRDs</td><td>crd-install (CRD-before-CR)</td><td>observed / per-target</td><td>product or target</td></tr>
+<tr><td>CRD upgrade</td><td>crd-upgrade (separate path)</td><td>per-target / refused</td><td>user-reviewed</td></tr>
+<tr><td><code>lookup</code> / <code>getHostByName</code></td><td>target-facts-or-preflight</td><td>per-target / refused</td><td>user supplies</td></tr>
+<tr><td>Generated facts</td><td>generated-fact-policy</td><td>observed / per-target</td><td>product or user</td></tr>
+<tr><td>Target prerequisites</td><td>target-facts-or-preflight</td><td>per-target</td><td>user (or auto)</td></tr>
+<tr><td>install-vs-upgrade</td><td>upgrade-action-with-receipt</td><td>routed</td><td>product target</td></tr>
+<tr><td>Webhook / admission</td><td>postsync-check-or-observation</td><td>observed</td><td>product</td></tr>
+<tr><td><code>required</code> / <code>fail</code></td><td>required-inputs (typed prompt)</td><td>per-target</td><td>user supplies</td></tr>
+<tr><td><code>resource-policy: keep</code></td><td>delete-cleanup-policy</td><td>routed (disclosed)</td><td>product discloses</td></tr>
+<tr><td>Extension slots</td><td>extension-slot-control-point</td><td>routed</td><td>user fills slot</td></tr>
+<tr><td>Subchart provenance</td><td>value-source-map</td><td>routed</td><td>product discloses</td></tr>
+<tr><td><code>post-renderer</code></td><td>explicit-managed-action / refusal</td><td>routed / refused</td><td>product or refused</td></tr>
+<tr><td>Capability / Helm version</td><td>capability-envelope</td><td>per-target</td><td>product declares</td></tr>
+<tr><td>Non-determinism</td><td>generated-fact-policy + <code>deterministic:false</code></td><td>observed</td><td>product discloses</td></tr></tbody></table>
+<p>This is what &quot;covering all the bases&quot; means: <b>one vocabulary, one route catalog, one badge shape - applied uniformly to every hidden behavior</b>, so a user reads one chart row and knows what is automatic, what they must provide, what depends on their target, and what we refuse to do silently.</p>
+<h3 id="34-the-three-sufficiency-mechanisms">3.4 The three sufficiency mechanisms</h3>
+<p><b>(a) Executed routes.</b> The intended product direction is that routable Tier-1 behaviors become operations:</p>
+<ul><li>preflight/PreSync routes run as a real preflight Job or sync step;</li><li>generated-fact routes capture the value once and bind it (or accept an existing Secret), so it is stable and disclosed;</li><li>CRD routes install CRDs before custom resources, as part of apply;</li><li>the receipt is the proof the route ran.</li></ul>
+<p>If the current product does not execute a route, the chart must say so plainly. If a route can only be documented, its honest disposition is <b>per-target</b>, <b>refused</b>, or a <code>todo</code> with a next action - never a <i>routed</i> that secretly means &quot;you do it&quot; without saying so.</p>
+<p><b>(b) One-command happy path.</b> Today <code>cub installer setup</code> renders and verifies. The gap is auto-satisfying routed prerequisites and running the lifecycle actions in the same flow. Target shape:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>cub installer setup --pull &lt;pkg&gt; --base &lt;base&gt; --namespace &lt;ns&gt; \
+  --install-prerequisites      # resolve Tier-1 blockers in the same command
+# → renders, satisfies prereqs (CRDs/namespace/placeholder secret),
+#   runs routed lifecycle steps, writes receipts, reports dispositions.</code></pre>
+<p><b>(c) Actionable preflight.</b> Turn diagnostic <code>blocked</code> into one-keystroke resolution:</p>
+<pre><code>needs CRD monitoring.coreos.com/Prometheus  →  install it now? [Y/n]
+needs Secret redis-auth (generated)         →  generate and store? [Y/n]
+needs namespace redis                        →  create? [Y/n]</code></pre>
+<p>A blocker the tool can resolve is convenience. A blocker that sends you to a doc is friction. This is the single highest convenience-per-effort win.</p>
+<h3 id="35-where-the-user-reads-it-surfaced-first-never-reverse-engineered">3.5 Where the user reads it (surfaced-first, never reverse-engineered)</h3>
+<pre><code>chart row (matrix.html / chart page)
+   └─ per-quirk disposition badges:  hook ● observed   crd ● per-target   secret ● observed
+        └─ click → route page: exactly where the behavior goes + the decision (if any)
+             └─ receipt: proof it ran (runtime result, timestamp, freshness)</code></pre>
+<p>The invariant: <b>the disposition is read off the chart row first</b>. The user never reverse-engineers Helm's engine, never greps the chart source, never guesses. If a behavior exists and is not on the row, that is a bug in the catalog, not a task for the user.</p>
+<h3 id="36-invariants-that-keep-this-from-collapsing">3.6 Invariants that keep this from collapsing</h3>
+<ol><li><b>Fixed vocabulary.</b> Four dispositions, one finite route catalog. No chart invents its own status.</li><li><b>No silent green.</b> A chart with an un-routed Tier-1 behavior cannot be &quot;production-supported.&quot; Render parity is necessary, never sufficient.</li><li><b><code>--no-hooks</code> render contract.</b> The catalog renders config-only on purpose; hooks and hook-like behaviors become explicit catalog facts, never smuggled into the render proof.</li><li><b>Disposition is required for support.</b> Every Tier-1 behavior a chart has must carry a final disposition (not <code>todo</code>) before that chart/base can claim production support. This is what the disposition frontier measures.</li></ol>
+<h3 id="37-defaults-need-a-legible-off-ramp-humans-and-agents">3.7 Defaults need a legible off-ramp (humans and agents)</h3>
+<p>The happy path is &quot;a default that just works&quot; (§2, §3.4). That is the right convenience move - but a default is only safe if <b>leaving it is just as easy and legible</b>. Otherwise we replace Helm's &quot;nothing is legible&quot; with &quot;only the default is legible,&quot; and the first non-standard need - a different <code>per-target</code> route, a stricter base, overriding a <code>refused</code> default - becomes a cliff.</p>
+<p>Every applied default must therefore be:</p>
+<ol><li><b>Disclosed</b> - at decision time you can see that a default was chosen and what it was. No invisible choices.</li><li><b>Alternatived</b> - the named alternatives are listed next to it, not hidden. (<code>per-target</code> already promises this; generalize it to any auto-chosen route, base, or value.)</li><li><b>Selectable by a human</b> - a discoverable flag / UI control, and docs that show the non-default path as a first-class example, not a footnote.</li><li><b>Selectable by an agent</b> - the route list, the default, the alternatives, each alternative's requirements, and the selection mechanism must be machine-readable and stable, so an agent can enumerate and choose programmatically.</li></ol>
+<p>Point 4 is not optional: the catalog is positioned as agent-ready. If only a human can find the off-ramp (through prose or a UI), every agent is stuck on the default - which defeats the positioning. The off-ramp must be symmetric, and it is an acceptance requirement of Phases 2–3, not a later add-on. Concrete loop actions are in Appendix C, note 4.</p>
+<hr>
+<h2 id="4-worked-example-a-target-experience-for-a-routed-hook">4. Worked example A - target experience for a routed hook</h2>
+<p>A chart has a <code>pre-install</code> migration Job hook. You use the ConfigHub version.</p>
+<ol><li><b>Catalog tells you it exists.</b> The chart row shows <code>hook ● routed</code> with the phase (<code>pre-install</code>) - before you install anything.</li><li><b>The route page tells you where it goes.</b> Route = <code>preflight-or-presync</code>: the migration belongs before the rendered objects apply. No reverse-engineering.</li><li><b>The route page states the execution mode.</b> If the current product flow can run it, the command is shown there. If it needs a decision (for example, the migration needs database credentials), the catalog marks it <i>per-target</i> and names the choice. If it is not executable yet, it remains a <code>todo</code> or <code>refused</code> case rather than pretending to be automatic.</li><li><b>The receipt closes the loop.</b> Once the route has run with live evidence, the disposition flips <code>routed → observed</code>: it ran, here is the result, here is when, here is the freshness.</li></ol>
+<p>Contrast with Helm: it ran the hook, and you do not know what it did or whether it worked unless you go digging. The product goal is the same convenience, plus the truth.</p>
+<h2 id="5-worked-example-b-a-non-hook-chart-same-machinery">5. Worked example B - a non-hook chart (same machinery)</h2>
+<p>A chart with CRDs, a generated admin password, and a <code>lookup</code> for a StorageClass. The chart row shows three badges, read the same way:</p>
+<pre><code>crd ● per-target      route: crd-install - install CRDs now, or target owns them? (default: install)
+secret ● observed     route: generated-fact-policy - password generated once, stored, disclosed
+lookup ● per-target   route: target-facts - supply your StorageClass (default: cluster-default)</code></pre>
+<p>The target product flow resolves all three. The user makes two named choices (who owns CRDs; which StorageClass), the password is handled and disclosed, and every decision has a receipt. The point: <b>hooks were not special.</b> Every hidden behavior is read and resolved through the same four-state, named-route model.</p>
+<hr>
+<h2 id="6-phased-plan">6. Phased plan</h2>
+<p>Each phase names what to build, why, when it is done, and which existing repo asset it extends.</p>
+<p><b>Phase 0 - inventory + disclosure (exists today).</b> <code>data/quirk-coverage/</code>, <code>data/chart-facts/</code>, <code>data/hook-lifecycle/</code>, <code>data/hook-disposition/</code>, <code>data/disposition-frontier/</code>. We can already say what behaviors a chart has and disclose them. <i>Done.</i></p>
+<p><b>Phase 1 - per-quirk disposition on the chart row.</b> Extend the hooks disposition pattern to the Tier-1 quirks (CRDs, lookup, generated-facts, target-prereqs, install-vs-upgrade). Surface a small set of disposition badges on the chart row (matrix/chart page). <i>Done when:</i> every Tier-1 behavior a maintained chart has shows a final disposition badge, sourced from data, gated against staleness. <i>Extends:</i> <code>generate-master-catalog-matrix.mjs</code>, <code>chart-facts.csv</code>.</p>
+<p><b>Phase 2 - actionable preflight.</b> <code>cub installer setup --install-prerequisites</code> offers to create the CRDs / namespace / placeholder-secret a chart's disposition declares. <i>Done when:</i> the common Tier-1 blockers resolve in one command, with a captured transcript (like <code>first-run-walkthrough.md</code>). <i>Extends:</i> the installer plugin + the runner's <code>blocked-prerequisite</code> causality.</p>
+<p><b>Phase 3 - executed routes on the happy path.</b> *observed*/*routed* dispositions run as real operations (preflight/PreSync, generated-fact binding, CRD-before-CR) inside the one-command flow, each writing a receipt. <i>Done when:</i> a hook/CRD/secret chart goes chart→running in one command with receipts, no manual route setup.</p>
+<p><b>Phase 4 - close the visibility gaps.</b> Promote the scanned-but-hidden and not-scanned axes to the front door so no Tier-1/Tier-2 behavior is invisible:</p>
+<ul><li>scanned-not-surfaced → front-door: hook-delete-policy, hook-weight-ordering, <code>semverCompare</code>, <code>.Files.Get</code>, time/uuid functions.</li><li>not-scanned → detected: <code>getHostByName</code>, <code>resource-policy: keep</code>, <code>post-renderer</code>, Helm-version branching, <code>global</code>/<code>import-values</code>.</li></ul>
+<p><i>Done when:</i> coverage.csv has no <code>not-scanned</code> Tier-1/Tier-2 axis and the disposition frontier accounts for each. <i>Extends:</i> the source scanner + <code>quirk-coverage/coverage.csv</code>.</p>
+<p>Sequencing rationale: <b>Tier 1 first</b> - it is where confusion does damage and where &quot;production-supported&quot; being <i>real</i> is at stake. Within Tier 1: CRDs → lookup → generated-facts/target-prereqs.</p>
+<hr>
+<h2 id="7-honest-current-state">7. Honest current state</h2>
+<p>What is real today vs planned (from <code>data/quirk-coverage/coverage.csv</code>):</p>
+<table><thead><tr><th>Visibility</th><th>Axes</th><th>Meaning</th></tr></thead><tbody><tr><td><b>Surfaced</b></td><td>lookup, generated-facts, crds, install-vs-upgrade, dependency-lock, required-or-fail, values-schema, tpl/extension slots</td><td>User can read it today (mostly as a <i>fact/disclosure</i>, not yet an <i>executed route</i>)</td></tr>
+<tr><td><b>Partly tracked</b></td><td>capability-profile, helm-flag-profile, hook-phase</td><td>In newer receipts only; older ones need backfill/classification</td></tr>
+<tr><td><b>Disclosed, incomplete</b></td><td>crd-upgrade-behavior</td><td>Presence tracked; upgrade behavior not fully modeled</td></tr>
+<tr><td><b>Scanned, not surfaced</b></td><td>hook-delete-policy, hook-weight-ordering, semverCompare, files-get, time/uuid</td><td>Scanner sees it; user does not</td></tr>
+<tr><td><b>Not scanned</b></td><td>import-values, getHostByName, resource-policy-keep, post-renderer, helm-version-branching, global-values</td><td>Invisible today</td></tr></tbody></table>
+<p>The uncomfortable conclusion: <b>the docs and matrix work is necessary groundwork, but the thing that actually beats &quot;helm just runs&quot; is a product/CLI gap, not a docs gap</b> - executed routes + one-command + actionable preflight (Phases 2–3).</p>
+<p>The canonical &quot;convenience leaking the wrong way&quot; example is <b>#96</b>: the installer <code>--namespace</code> flag does not rewrite namespace references embedded in the spec. That is exactly the kind of edge that makes the happy path feel less trustworthy than <code>helm install</code>, and it is the class of thing Phase 2 must not reproduce.</p>
+<hr>
+<h2 id="8-open-decisions-for-review">8. Open decisions (for review)</h2>
+<ol><li><b>Vocabulary - resolved by <a href="https://github.com/confighub/helm-expt/pull/684">#684</a>.</b> <i>observed / routed / per-target / refused</i> is now the published user-facing contract in <a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a>; this doc adopts it. The remaining cleanup (data values + the older 5-state engineering list) is <b>Appendix C, note 3</b> and tracked by <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>.</li><li><b>Surface.</b> Do per-quirk disposition badges live on <code>matrix.html</code>, on the per-chart page, or both?</li><li><b>Tier-1 order.</b> Confirm CRDs → lookup → generated-facts/target-prereqs as the Phase-1 order.</li><li><b>Ownership.</b> The installer preflight/executed-route work (Phases 2–3) is product/CLI, not catalog. Who owns it, and what is the smallest end-to-end slice worth a captured walkthrough first? (Proposal: actionable preflight for one Tier-1 chart, e.g. a CRD chart, with a real transcript.)</li><li><b>Refusal honesty.</b> Where a route can only be documented, do we commit to labeling it *per-target*/*refused* rather than letting it masquerade as <i>routed</i>?</li><li><b>The default off-ramp (§3.7).</b> If the happy path is &quot;a default that just works,&quot; confirm the off-ramp (disclosed default + named alternatives + human-selectable + agent-selectable) is a Phase-2/3 acceptance requirement, for both humans and agents.</li></ol>
+<p>The review of #684 and the concrete notes for the loop are in <b>Appendix C</b>.</p>
+<hr>
+<h2 id="appendix-a-full-quirk-class-catalog">Appendix A - full quirk-class catalog</h2>
+<p>All 26 axes (<code>data/quirk-coverage/coverage.csv</code>), with the confusion moment, the disposition the user needs, and current visibility.</p>
+<table><thead><tr><th>Axis</th><th>Danger tier</th><th>Confusion moment</th><th>Target disposition</th><th>Visibility today</th></tr></thead><tbody><tr><td>crds</td><td>1</td><td>&quot;operator crash-loops after a clean apply&quot;</td><td>observed / per-target</td><td>surfaced</td></tr>
+<tr><td>crd-upgrade-behavior</td><td>1</td><td>&quot;my CRD never upgraded&quot;</td><td>per-target / refused</td><td>disclosed, incomplete</td></tr>
+<tr><td>lookup-target-facts</td><td>1</td><td>&quot;this field is empty/wrong&quot;</td><td>per-target / refused</td><td>surfaced</td></tr>
+<tr><td>getHostByName</td><td>1</td><td>&quot;render depends on DNS I don't have&quot;</td><td>refused / per-target</td><td>not scanned</td></tr>
+<tr><td>generated-facts</td><td>1</td><td>&quot;where's my password; is it stable?&quot;</td><td>observed / per-target</td><td>surfaced</td></tr>
+<tr><td>time-uuid-functions</td><td>1</td><td>&quot;your parity proof can't be real&quot;</td><td>observed (<code>deterministic:false</code>)</td><td>scanned, not surfaced</td></tr>
+<tr><td>install-vs-upgrade</td><td>1</td><td>&quot;upgrade did something install didn't&quot;</td><td>routed</td><td>surfaced</td></tr>
+<tr><td>hook-phase</td><td>1</td><td>&quot;where does my hook go; did it run?&quot;</td><td>observed / routed</td><td>partly tracked</td></tr>
+<tr><td>hook-delete-policy</td><td>1</td><td>&quot;cleanup/rerun behaved unexpectedly&quot;</td><td>per-target</td><td>scanned, not surfaced</td></tr>
+<tr><td>hook-weight-ordering</td><td>1</td><td>&quot;things ran in the wrong order&quot;</td><td>routed (sync-wave)</td><td>scanned, not surfaced</td></tr>
+<tr><td>required-or-fail</td><td>1</td><td>&quot;render just errored&quot;</td><td>per-target (typed input)</td><td>surfaced</td></tr>
+<tr><td>resource-policy-keep</td><td>1</td><td>&quot;I deleted it but it's still there&quot;</td><td>routed (disclosed)</td><td>not scanned</td></tr>
+<tr><td>tpl-extension-slots</td><td>2</td><td>&quot;where do I put custom config?&quot;</td><td>routed</td><td>surfaced</td></tr>
+<tr><td>explicit-extension-slot-control-points</td><td>2</td><td>&quot;where's the supported injection point?&quot;</td><td>routed</td><td>surfaced</td></tr>
+<tr><td>import-values</td><td>2</td><td>&quot;where did this value come from?&quot;</td><td>routed (value-source-map)</td><td>not scanned</td></tr>
+<tr><td>dependency-alias</td><td>2</td><td>&quot;which subchart produced this object?&quot;</td><td>routed</td><td>tracked by lock, not front door</td></tr>
+<tr><td>library-chart</td><td>2</td><td>&quot;where is this template defined?&quot;</td><td>routed</td><td>tracked by lock, not front door</td></tr>
+<tr><td>global-values</td><td>2</td><td>&quot;one value changed many objects&quot;</td><td>routed (value-source-map)</td><td>not scanned</td></tr>
+<tr><td>post-renderer</td><td>2</td><td>&quot;output doesn't match the templates&quot;</td><td>routed / refused</td><td>not scanned</td></tr>
+<tr><td>files-get</td><td>2</td><td>&quot;a bundled file changed my config&quot;</td><td>routed</td><td>scanned, not surfaced</td></tr>
+<tr><td>capability-profile</td><td>3</td><td>&quot;render isn't valid for my cluster&quot;</td><td>per-target (envelope)</td><td>partly tracked</td></tr>
+<tr><td>helm-version-branching</td><td>3</td><td>&quot;output varies by Helm version&quot;</td><td>per-target</td><td>not scanned</td></tr>
+<tr><td>helm-flag-profile</td><td>3</td><td>&quot;different flags → different output&quot;</td><td>per-target</td><td>partly tracked</td></tr>
+<tr><td>semver-compare</td><td>3</td><td>&quot;render depends on a version I didn't pin&quot;</td><td>per-target</td><td>scanned, not surfaced</td></tr>
+<tr><td>values-schema</td><td>3</td><td>&quot;what must I provide?&quot;</td><td>per-target (input contract)</td><td>surfaced</td></tr>
+<tr><td>dependency-lock</td><td>3</td><td>&quot;which subchart versions did this assume?&quot;</td><td>routed (pinned)</td><td>surfaced</td></tr></tbody></table>
+<h2 id="appendix-b-vocabulary-and-mapping">Appendix B - vocabulary and mapping</h2>
+<p><b>Dispositions:</b> observed (route + live receipt), routed (route named and execution mode declared, evidence pending), per-target (catalog names the decision; may recommend, never auto-picks), refused (not run automatically; reason given).</p>
+<p><b>Hook-state → disposition mapping:</b> <code>route-selected → routed</code>; <code>lifecycle-observed → observed</code>; <code>blocked-for-safety → refused</code>; <code>blocked-target-dependent → per-target</code>; <code>inventoried</code>/<code>render-proven</code> are pre-disposition and must converge.</p>
+<p><b>Related docs:</b> <a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a> (canonical hooks), <code>data/quirk-coverage/coverage.csv</code> (axis source of truth), <code>data/disposition-frontier/</code> (the 99% instrument), <code>data/chart-facts/chart-facts.csv</code> (per-chart facts), <a href="../user/choose-your-path.html">choose-your-path.md</a> (which surface to use).</p>
+<h2 id="appendix-c-review-of-684-and-notes-for-the-loop">Appendix C - Review of #684 and notes for the loop</h2>
+<p><a href="https://github.com/confighub/helm-expt/pull/684">#684</a> (&quot;Clarify hook routes and expand promotion evidence&quot;) is a strong step. It publishes the user-facing contract (<code>observed / routed / per-target / refused</code>), puts &quot;read the chart row first&quot; in writing, states the no-silent-green production gate (&quot;perfect render parity and still incomplete if the route is only inventoried&quot;), and adds four honest variant-promotion receipts (external-secrets, ingress-nginx, cert-manager, metrics-server) - each marked <code>watch</code>, with explicit <code>not-tested</code> limitations, tracked to <a href="https://github.com/confighub/helm-expt/issues/682">#682</a>. Verifiers green; generated views regenerated together.</p>
+<p>The following are constructive follow-ups, <b>not blockers</b>. They are addressed to the loop.</p>
+<h3 id="note-1-answer-how-does-it-get-set-up-for-me-not-only-where">Note 1 - answer &quot;how does it get set up *for me*&quot;, not only &quot;where&quot;</h3>
+<p><b>What #684 did:</b> the contract names <i>where</i> a hook goes (preflight, post-apply Job, Argo hook, sync wave, ConfigHub check, target prerequisite).</p>
+<p><b>The gap:</b> the prose is passive about <i>who executes the route</i> (&quot;it must be set up as an explicit lifecycle operation&quot;). The original user question had two halves - <i>where does my hook go</i> (answered) and <i>how does it get set up for me</i> (not yet). For <code>routed</code>, the honest current answer is &quot;the route is named, but <b>you</b> set it up.&quot; That is the necessary-vs-sufficient gap (§2): product/CLI work, not a doc fix.</p>
+<p><b>Suggested action:</b> for each route, state whether the catalog executes it or the user does. Where the catalog will execute it, that is Phase 3 (executed routes). Until then, label it honestly so <code>routed</code> never reads as &quot;automatic.&quot;</p>
+<h3 id="note-2-split-refused-final-from-blocked-often-unfinished">Note 2 - split <code>refused</code> (final) from <code>blocked</code> (often unfinished)</h3>
+<p><b>What #684 did:</b> the contract row is &quot;<code>refused</code> or <code>blocked</code> - the public catalog does not run that hook automatically.&quot;</p>
+<p><b>The gap:</b> these differ in a way that matters for the frontier. <code>refused</code> is a deliberate, final decision. <code>blocked</code> can mean (a) unsafe/ambiguous (≈ refused), (b) target-dependent (should be <code>per-target</code>), or (c) <b>not yet mapped</b> - which is a <code>todo</code>, not a final disposition. If <code>blocked</code> reads as intentional, unfinished work hides as a decision and the disposition frontier over-counts completeness.</p>
+<p><b>Suggested action:</b> keep <code>refused</code> = deliberate/final (with the recorded &quot;why&quot;); do not let <code>blocked</code>-as-unmapped count as a complete disposition - route it to <code>per-target</code>, <code>refused</code>, or an explicit <code>todo</code> with a next action.</p>
+<h3 id="note-3-one-machine-readable-vocabulary-retire-the-drift">Note 3 - one machine-readable vocabulary; retire the drift</h3>
+<p><b>What #684 did:</b> published <code>observed / routed / per-target / refused</code> as the user-facing words.</p>
+<p><b>The gap:</b> three vocabularies are now in play:</p>
+<ul><li>the <b>published contract</b>: <code>observed / routed / per-target / refused</code>;</li><li>the doc's older <b>engineering status list</b>: <code>inventoried / render-proven / route-selected / lifecycle-observed / blocked</code>;</li><li>the <b>data</b> in <code>data/master-catalog-matrix/matrix.csv</code> <code>hook_disposition</code>, which currently carries <code>observed</code> (9 rows) and <b><code>candidate-route</code></b> (2 rows) - and <code>candidate-route</code> is not one of the four published words (closest: <code>routed</code>). <code>per-target</code> / <code>refused</code> are defined but not yet applied to any row.</li></ul>
+<p><b>Suggested action:</b> make the data values <i>be</i> the published vocabulary (map <code>candidate-route → routed</code>), or publish the mapping next to the contract table so a reader - and an agent - can join the column to the words without guessing. This is the literal prerequisite for Note 4.</p>
+<h3 id="note-4-a-default-that-just-works-needs-a-legible-off-ramp-humans-agents">Note 4 - a default that just works needs a legible off-ramp (humans + agents)</h3>
+<p><b>Context:</b> the proposed solution - and the spirit of competing with &quot;helm just runs&quot; - is <i>a default that just works</i>: the installer picks a base, runs the routes the current product flow can execute, names the routes it cannot yet execute, and you get a running thing in one command when the chart's disposition allows it.</p>
+<p><b>The requirement:</b> a default is only safe if <b>leaving it is just as easy and legible</b> - for both humans and agents. Otherwise we trade Helm's total opacity for &quot;only the default is legible,&quot; and the first non-standard need is a cliff: a different <code>per-target</code> route, a stricter/hardened base, supplying a non-default value, or knowingly overriding a <code>refused</code> default. This is §3.7. Concretely, for the loop:</p>
+<ul><li><b>Record alternatives, not just the chosen route.</b> Extend the <code>hook_*</code> columns (and the per-quirk disposition data behind them) to carry: the default route, the named alternatives, and each alternative's requirements/consequences.</li><li><b>Define one selection interface, two readers.</b><ul><li><i>Human:</i> a discoverable flag (<code>cub installer setup --route &lt;name&gt;</code> / <code>--base &lt;name&gt;</code> / <code>--set ...</code>) and a first-class &quot;follow a non-default route&quot; walkthrough (sibling to <code>first-run-walkthrough.md</code>).</li><li><i>Agent:</i> a stable machine-readable listing - routes + default + alternatives<ul><li>requirements (e.g. <code>cub installer routes --json</code>, or in package metadata) - so an agent can enumerate and select without scraping prose.</li></ul></li></ul></li><li><b>Make <code>refused</code> overridable-with-acknowledgement</b>, distinct from <code>blocked</code>: the non-default &quot;run it anyway&quot; path should show the recorded reason and require an explicit acknowledgement - a switch a human or agent can flip knowingly. <code>blocked</code>-as-unmapped is not a switch (Note 2).</li><li><b>Depends on Note 3:</b> an agent cannot follow a non-default path if the route values are not a clean, stable enumeration.</li></ul>
+<p><b>Done when:</b> for at least one Tier-1 chart, a human and an agent can each (a) see the default that would be applied, (b) list the alternatives, and (c) select a non-default route - with a captured transcript for each.</p>
+<p><b>Status:</b> a first machine-readable cut of this contract now exists in <a href="../../data/lifecycle-routes/summary.html">data/lifecycle-routes/</a> - every hook/lifecycle row with its route, execution mode, default, alternatives, and human/agent off-ramp, with <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> as the agent listing. See <a href="https://github.com/confighub/helm-expt/issues/688">#688</a>.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/where-does-my-hook-go.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

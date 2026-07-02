@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Docs Reading Order · ConfigHub Helm Ops</title>
+  <meta name="description" content="User Docs Reading Order: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/README.html">
+  <meta property="og:title" content="User Docs Reading Order · ConfigHub Helm Ops">
+  <meta property="og:description" content="User Docs Reading Order: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/README.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>User Docs Reading Order</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/README.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>This page gives the user-facing docs a single serial order. Start with the repo <a href="../../README.html">README</a>, then use this list when you want the guided path through the manual user docs.</p>
+<p>You do not need every document on a first pass. Stop after step 6 if you only want the practical user flow.</p>
+<h2 id="first-10-minutes">First 10 Minutes</h2>
+<p>Use this route when you are trying to understand the product quickly.</p>
+<table><thead><tr><th>Question</th><th>Open</th><th>Why</th></tr></thead><tbody><tr><td>What is this offering?</td><td><a href="offering.html">Offering</a></td><td>The Helm user value story without the full proof corpus.</td></tr>
+<tr><td>Which path should I take?</td><td><a href="choose-your-path.html">Choose Your Path</a></td><td>Direct render, one-shot upload, public catalog, and ConfigHub-managed operations.</td></tr>
+<tr><td>Can I try it now?</td><td><a href="try-now.html">Try Now</a></td><td>A short public package OCI path and the serious-chart check.</td></tr>
+<tr><td>What package do I pull?</td><td><a href="installer-oci-packages.html">Installer Package OCI Refs</a></td><td>The public <code>oci://</code> refs for catalog packages, and how they differ from ConfigHub delivery OCI.</td></tr>
+<tr><td>What should I see after each command?</td><td><a href="expected-results-and-clusters.html">Expected Results And Clusters</a></td><td>Output snippets, cluster choices, bring-your-own Kubernetes, cub-lk, and optional npm proof checks.</td></tr>
+<tr><td>How do chart presets relate to Helm values?</td><td><a href="helm-presets-and-values.html">Helm Chart Presets And Values</a></td><td>Why the catalog offers useful chart-specific presets instead of claiming every values combination.</td></tr>
+<tr><td>How do I verify a claim?</td><td><a href="verification.html">Verification</a></td><td>The landing page for npm proof commands, user-side checks, committed receipts, and live lanes.</td></tr>
+<tr><td>What can AI safely help with?</td><td><a href="ai-assisted-helm-changes.html">AI-Assisted Helm Changes</a></td><td>How AI proposals stay bounded by diff, gate, approval, delivery, and observation.</td></tr>
+<tr><td>What if my chart breaks?</td><td><a href="broken-chart-triage.html">Broken Chart Triage</a></td><td>A practical route from failure to render gap, target prerequisite, lifecycle route, image issue, runtime issue, or model gap.</td></tr>
+<tr><td>What known gaps should I trust you to show?</td><td><a href="known-gaps-we-surface.html">Known Gaps We Surface</a></td><td>Current watch findings such as credentials, prune, CRD ordering, drift coverage, and SSA conflict UX.</td></tr>
+<tr><td>What is the whole catalog status?</td><td><a href="../../../matrix.html">Master matrix</a></td><td>One product/status view across chart versions, bases, variants, lanes, gaps, and next actions.</td></tr>
+<tr><td>What hard questions should I ask?</td><td><a href="../../../hard-questions.html">Hard Questions</a></td><td>Hooks, upgrades, overlays, target prerequisites, false-green sync, and refusal boundaries.</td></tr>
+<tr><td>What can be built on the held data?</td><td><a href="../../data/app-readiness/summary.html">App-readiness proof</a></td><td>A read-only RBAC app over already-rendered objects, showing why explicit config becomes useful data.</td></tr></tbody></table>
+<p>The <a href="choose-your-path.html">Choose Your Path</a> page is the quickest way to decide between direct render, one-shot upload, public catalog packages, and ConfigHub-managed operations. The <a href="tutorial-sequence.html">Tutorial Sequence</a> also links each stage to a companion UX proposal. Those proposal files are product sketches, not extra required reading for the first pass.</p>
+<p>If your first question is &quot;why is this better than <code>cub helm install</code> or <code>cub gitops import</code>?&quot;, read <a href="why-this-exists.html">Why This Exists</a>.</p>
+<table><thead><tr><th>Step</th><th>File</th><th>Read It For</th></tr></thead><tbody><tr><td>1</td><td><a href="offering.html">ConfigHub Helm Catalog Offering</a></td><td>The public value story in one short read.</td></tr>
+<tr><td>2</td><td><a href="generative-gitops-fit.html">Generative GitOps Fit</a></td><td>How this repo maps to the broader generated-config and AI/GitOps thesis.</td></tr>
+<tr><td>2a</td><td><a href="reverse-reconcile-design.html">Reverse-Reconcile Design</a></td><td>The live-to-desired frontier: what is machine-checkable today and what requires a new <code>cub</code> write-back capability.</td></tr>
+<tr><td>2b</td><td><a href="cub-scout-diff-design.html">cub-scout Diff Design</a></td><td>The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery.</td></tr>
+<tr><td>2c</td><td><a href="../../data/app-readiness/summary.html">App-readiness proof</a></td><td>A small read-app over rendered RBAC that shows how held config becomes queryable product data.</td></tr>
+<tr><td>3</td><td><a href="try-now.html">Try Now</a></td><td>The shortest Redis and kube-prometheus-stack paths.</td></tr>
+<tr><td>3a</td><td><a href="expected-results-and-clusters.html">Expected Results And Clusters</a></td><td>What users should see after each step, what cluster they need, and which npm proof checks are optional.</td></tr>
+<tr><td>4</td><td><a href="choose-your-path.html">Choose Your Path</a></td><td>Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations.</td></tr>
+<tr><td>5</td><td><a href="what-you-get.html">What You Get</a></td><td>The product model in one short read.</td></tr>
+<tr><td>6</td><td><a href="helm-presets-and-values.html">Helm Chart Presets And Values</a></td><td>Why public chart presets are the useful support surface, how they map to repo base variants, and why this is not an every-values-combination claim.</td></tr>
+<tr><td>7</td><td><a href="installer-oci-packages.html">Installer Package OCI Refs</a></td><td>The public package refs users pull with <code>cub installer setup --pull oci://...</code>, plus the difference between package OCI and delivery OCI.</td></tr>
+<tr><td>8</td><td><a href="helm-render-intents.html">Helm Render Intents</a></td><td>The compact two-layer model: base variants for render, managed variants after render, with the full proof chain underneath.</td></tr>
+<tr><td>9</td><td><a href="verification.html">Verification</a></td><td>The landing page for npm proof commands, committed evidence, fresh live lanes, and render-record-route.</td></tr>
+<tr><td>10</td><td><a href="choosing-commands.html">Choosing Commands</a></td><td>When to use <code>cub helm template</code>, <code>cub helm install</code>, <code>cub installer</code>, <code>cub variant create</code>, and repo verifiers.</td></tr>
+<tr><td>11</td><td><a href="ai-assisted-helm-changes.html">AI-Assisted Helm Changes</a></td><td>How AI can propose changes without bypassing diffs, gates, approvals, delivery, or observation.</td></tr>
+<tr><td>12</td><td><a href="broken-chart-triage.html">Broken Chart Triage</a></td><td>How to turn a broken chart into a named render, target, lifecycle, image, runtime, or model finding.</td></tr>
+<tr><td>13</td><td><a href="known-gaps-we-surface.html">Known Gaps We Surface</a></td><td>Why current watch findings are visible and how to read them.</td></tr>
+<tr><td>14</td><td><a href="outcomes-and-tests.html">Outcomes And Tests</a></td><td>What the repo promises, which tests prove each promise, and where the CSVs live.</td></tr>
+<tr><td>15</td><td><a href="helm-pain-points.html">Helm Pain Points</a></td><td>Which Helm pains are tracked generally and per chart.</td></tr>
+<tr><td>16</td><td><a href="helm-upgrade-crash-example.html">Helm Upgrade Crash Example</a></td><td>How an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed.</td></tr>
+<tr><td>17</td><td><a href="tutorial-sequence.html">Tutorial Sequence</a></td><td>A short show-and-tell path with commands, checks, and expected results.</td></tr>
+<tr><td>18</td><td><a href="current-proof-status.html">Current Proof Status</a></td><td>What is proven now and which generated summaries are authoritative.</td></tr>
+<tr><td>19</td><td><a href="hard-questions.html">Hard Questions Before You Trust The Catalog</a></td><td>Short answers for skeptical Helm users: hooks, upgrades, overlays, false-green sync, free versus managed, and how to challenge the model.</td></tr>
+<tr><td>20</td><td><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></td><td>Why watchlist rows and blocked strict witnesses are part of the trust model.</td></tr>
+<tr><td>21</td><td><a href="why-synced-is-not-working.html">Why Synced Is Not Working</a></td><td>Why object presence or GitOps sync can still miss broken runtime state.</td></tr>
+<tr><td>22</td><td><a href="target-prerequisites.html">Target Prerequisites</a></td><td>Why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity.</td></tr>
+<tr><td>23</td><td><a href="why-this-does-not-collapse.html">Why This Does Not Collapse</a></td><td>How hooks, quirks, config volume, and blocked rows stay visible instead of becoming hidden risk.</td></tr>
+<tr><td>24</td><td><a href="verify-it-yourself.html">Verify It Yourself</a></td><td>Commands for checking corpus files, rendered installs, parity receipts, and cub-scout receipts.</td></tr>
+<tr><td>25</td><td><a href="production-support-decisions.html">Production Support Decisions</a></td><td>How a review-ready chart becomes production-supported for one target scope.</td></tr>
+<tr><td>26</td><td><a href="chain-of-proof.html">Chain Of Proof</a></td><td>Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation.</td></tr>
+<tr><td>27</td><td><a href="top100-readiness.html">Top-100 Readiness</a></td><td>How to read the top-100 corpus: public catalog, promotion candidates, default-only rows, and limitation decisions.</td></tr>
+<tr><td>28</td><td><a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a></td><td>One generated answer per top-100 chart: use now, promote, improve the base, or decide a limitation first.</td></tr>
+<tr><td>29</td><td><a href="top100-status.html">Top-100 Status</a></td><td>Plain-English answers: what works today, what needs prerequisites or review, and how it differs from plain Helm.</td></tr>
+<tr><td>30</td><td><a href="verification-lanes.html">Verification Lanes</a></td><td>What each proof lane means and what it does not prove.</td></tr>
+<tr><td>31</td><td><a href="live-parity.html">Live Parity</a></td><td>How to read pass, watch, blocked, and rerun rows in the live Helm-vs-ConfigHub lanes.</td></tr>
+<tr><td>32</td><td><a href="large-config-operations.html">Large ConfigHub Operations</a></td><td>How to watch a 100+ Unit upload/apply/GitOps path without collapsing it into a vague hang.</td></tr>
+<tr><td>33</td><td><a href="how-the-harness-works.html">How The Harness Works</a></td><td>The project lifecycle and the value of proofs, uploads, variants, and receipts.</td></tr>
+<tr><td>34</td><td><a href="creating-variants.html">Creating Variants</a></td><td>The base variant versus derived ConfigHub variant distinction.</td></tr>
+<tr><td>35</td><td><a href="cub-variant-command-surface.html">cub Variant Command Surface</a></td><td>The current <code>cub variant create</code> syntax and what is not a current variant command.</td></tr>
+<tr><td>36</td><td><a href="change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a></td><td>The routing rule before OCI or GitOps delivery.</td></tr>
+<tr><td>37</td><td><a href="adopting-existing-apps.html">Adopting Existing Apps</a></td><td>How Argo, Flux, KRM, rendered manifests, and existing apps enter the ConfigHub model.</td></tr>
+<tr><td>38</td><td><a href="custom-overlays.html">Custom Overlay Example</a></td><td>A plain ExternalDNS example for wrapper charts, customer values, target facts, and Creator flow.</td></tr>
+<tr><td>39</td><td><a href="prometheus-overlay-promotion-example.html">Prometheus Promotion Example</a></td><td>A concrete promotion example that keeps the Helm install shape stable.</td></tr>
+<tr><td>40</td><td><a href="prometheus-high-fanout.html">Prometheus High-Fanout Example</a></td><td>Why a small Helm base choice can affect many objects and target prerequisites.</td></tr>
+<tr><td>41</td><td><a href="serious-chart-proof.html">Serious Chart Proof</a></td><td>The concise kube-prometheus-stack proof path: what passes, what is scoped, and what remains.</td></tr>
+<tr><td>42</td><td><a href="extension-slots.html">Extension Slots</a></td><td>How raw manifests, tpl snippets, sidecars, config blocks, and add-on slots are routed.</td></tr>
+<tr><td>43</td><td><a href="nginx-configuration-files.html">NGINX Configuration Files</a></td><td>How NGINX <code>serverBlock</code>, <code>streamServerBlock</code>, <code>extraDeploy</code>, and config-file checks fit the variant model.</td></tr>
+<tr><td>44</td><td><a href="introduction-to-the-harness.html">Introduction To The Harness</a></td><td>The deeper recipe-generation workflow and the table for where Helm pieces belong.</td></tr>
+<tr><td>45</td><td><a href="product-support-tiers.html">Product Support Tiers</a></td><td>Which scenarios fit public catalog, managed import, or commercial support.</td></tr>
+<tr><td>46</td><td><a href="maintenance-sla.html">Maintenance SLA</a></td><td>How catalog entries are refreshed, patched, and supported.</td></tr>
+<tr><td>47</td><td><a href="hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></td><td>Why Helm hooks need explicit lifecycle routes and receipts.</td></tr></tbody></table>
+<p>Detailed doctrine and historical design material now lives under <a href="../../../../docs/reference"><code>docs/reference</code></a> so it does not look like the first-run user flow. Use it when you need the deeper model:</p>
+<table><thead><tr><th>Reference</th><th>Read It For</th></tr></thead><tbody><tr><td><a href="../reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></td><td>The doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations.</td></tr>
+<tr><td><a href="chain-of-proof.html">Chain Of Proof</a></td><td>The user-facing boundary map for render proof, ConfigHub proof, delivery proof, and live proof.</td></tr>
+<tr><td><a href="../reference/direct-cub-helm-model.html">Direct Cub Helm Model</a></td><td>Detailed reference for <code>cub helm template</code>, <code>cub helm install</code>, and the durable catalog path.</td></tr>
+<tr><td><a href="../reference/customization-algorithm.html">Customization Algorithm</a></td><td>The detailed routing algorithm for values, overlays, wrapper charts, and post-render variants.</td></tr>
+<tr><td><a href="../reference/catalog-doctrine.html">Catalog Doctrine</a></td><td>The catalog model for defaults, parameterized bases, standard forks, and derived fills.</td></tr>
+<tr><td><a href="../reference/customization-decision-tree.html">Customization Decision Tree</a></td><td>The design-level decision tree behind the customization flow.</td></tr>
+<tr><td><a href="../reference/fork-vocabulary.html">Fork Vocabulary</a></td><td>Canonical naming for base variant dimensions.</td></tr>
+<tr><td><a href="../reference/per-chart-recipes.html">Per-Chart Recipes</a></td><td>The recommended target recipe and variant surface for top-20 charts.</td></tr>
+<tr><td><a href="../reference/complete-corresponding-model.html">Complete Corresponding Model</a></td><td>The completeness contract behind the larger ConfigHub replaces-Helm claim.</td></tr></tbody></table>
+<p>The order is intentionally user-first:</p>
+<pre><code>try it
+understand the proof path
+create variants
+route customizations
+read worked examples
+then inspect reference doctrine only when needed</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/README.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

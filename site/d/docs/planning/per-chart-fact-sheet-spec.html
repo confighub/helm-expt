@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Per-Chart Fact-Sheet Spec · ConfigHub Helm Ops</title>
+  <meta name="description" content="Per-Chart Fact-Sheet Spec: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/per-chart-fact-sheet-spec.html">
+  <meta property="og:title" content="Per-Chart Fact-Sheet Spec · ConfigHub Helm Ops">
+  <meta property="og:description" content="Per-Chart Fact-Sheet Spec: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/per-chart-fact-sheet-spec.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Per-Chart Fact-Sheet Spec</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/per-chart-fact-sheet-spec.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b> - design spec for the public per-chart page.</p>
+<p>This is the detailed spec for the website Chart Page in <a href="dedicated-website-plan.html">dedicated-website-plan.md</a> §3: the section list, the exact data source each field pulls from, and a <b>solid / partial / needs-more-testing</b> status per item so the build renders what is real first and labels the rest honestly.</p>
+<p>It is the union of per-chart surfaces already produced under <code>data/</code>. The backbone that already joins most of it per chart is <code>data/chart-evidence-router/router.csv</code>.</p>
+<h2 id="the-core-principle-two-columns-not-one">The core principle: two columns, not one</h2>
+<p>A user needs <b>level of support</b> (the claim) next to <b>evidence depth</b> (the substantiation + freshness) - never one without the other. &quot;Supported for scope X&quot; is only trustworthy beside &quot;proven on lanes A,B; C is watch; D untested, as of &lt;date&gt;.&quot; Evidence depth is the honesty that beats &quot;helm just runs&quot;: not just <i>works</i>, but <i>how much we have proven and where the edge of evidence is</i>.</p>
+<p>Status legend: <b>solid</b> = data exists and is stable, render now. <b>partial</b> = data exists but coverage is uneven across charts. <b>needs-more-testing</b> = depends on live lanes / fresh evidence; render with freshness and a &quot;what more testing adds&quot; note.</p>
+<h2 id="a-identity-origin">A. Identity &amp; origin</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Chart / version / source digest</td><td>which chart, pinned to what</td><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;ver&gt;/source-lock.yaml</code>; matrix <code>source_lock_path</code></td><td>solid</td></tr>
+<tr><td>Upstream currency</td><td>is this current vs upstream</td><td><code>data/refresh-survival/refreshes.csv</code></td><td>partial (top-20)</td></tr>
+<tr><td>Dependency provenance</td><td>chart-own vs vendored subcharts; where objects come from</td><td><code>data/remote-dependency-closure/top100.csv</code>; <code>recipes/.../dependency-lock.yaml</code></td><td>partial</td></tr>
+<tr><td>Image pinning</td><td>digest-pinned vs mutable (reproducibility/security)</td><td><code>data/image-digest-workdown/</code></td><td>partial</td></tr></tbody></table>
+<h2 id="b-support-level-the-claim">B. Support level (the claim)</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Catalog tier / adoption bucket</td><td>use now / promote / needs-variant / limitation-first</td><td>matrix <code>catalog_tier</code>,<code>adoption_bucket</code>; <code>data/chart-use-guide/chart-use-guide.csv</code></td><td>solid</td></tr>
+<tr><td>Production decision + target scope</td><td>supported where, for what</td><td><code>data/production-support-decisions/decisions.csv</code></td><td>partial (top-20)</td></tr></tbody></table>
+<h2 id="c-evidence-depth-the-substantiation-the-with-more-testing-column">C. Evidence depth (the substantiation) - the &quot;with more testing?&quot; column</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Lane results (render / in-ConfigHub / local-live / GitOps-OCI / live Helm-vs-ConfigHub / two-cluster)</td><td>how much is proven</td><td>matrix <code>lane_*</code>; <code>data/outcome-coverage/base-outcomes.csv</code></td><td>partial → needs-more-testing (live lanes)</td></tr>
+<tr><td>Freshness</td><td>how fresh the evidence is</td><td>receipt timestamps; <code>generated-at</code>; matrix evidence-version cols</td><td>needs-more-testing</td></tr>
+<tr><td>What's <code>todo</code>/<code>watch</code>/<code>blocked</code> = what more testing would add</td><td>the edge of evidence</td><td>matrix lane statuses; <code>data/disposition-frontier/</code></td><td>solid (the gap is measured)</td></tr></tbody></table>
+<h2 id="d-variants-bases">D. Variants / bases</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Available bases + recommended first</td><td>which shape to use</td><td><code>data/top20-base-readiness/base-readiness.csv</code>; <code>data/variant-path-coverage/</code></td><td>solid (top-20) / partial (beyond)</td></tr>
+<tr><td>Derived variants</td><td>target-bound clones</td><td><code>data/outcome-coverage/derived-variant-outcomes.csv</code></td><td>partial</td></tr></tbody></table>
+<h2 id="e-quirks-hidden-behaviors-and-their-dispositions">E. Quirks &amp; hidden behaviors, and their dispositions</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Hook / lifecycle routes (route, execution mode, default, off-ramps, safe-to-automate)</td><td>where hooks/hidden behavior go, who runs them</td><td><code>data/lifecycle-routes/routes.json</code></td><td>solid contract; <b>partial coverage</b> (hook source covers 13 charts)</td></tr>
+<tr><td>Quirk features present</td><td>what hidden behaviors exist</td><td><code>data/chart-facts/chart-facts.csv</code>; matrix <code>quirk_features</code></td><td>solid</td></tr>
+<tr><td>Quirk-axis treatment</td><td>how each quirk class is handled</td><td><code>data/quirk-coverage/coverage.csv</code></td><td>solid (per-axis)</td></tr></tbody></table>
+<h2 id="f-mitigations">F. Mitigations</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Known pain &amp; how the catalog handled it</td><td>the rough edges and the route taken</td><td><code>recipes/.../helm-pain-report.yaml</code>; <code>recipes/.../weirdness-and-mitigations.md</code></td><td>partial (per-chart coverage uneven)</td></tr></tbody></table>
+<h2 id="g-what-you-must-provide-or-decide">G. What you must provide or decide</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Target facts / prerequisites</td><td>what you must supply before apply</td><td><code>data/top20-base-readiness</code> (target facts); chart-facts <code>required_values</code>; lifecycle-routes <code>target-facts</code> routes</td><td>partial</td></tr>
+<tr><td>Per-target decisions</td><td>what you must choose (catalog names it, doesn't guess)</td><td>lifecycle-routes <code>per-target</code> rows; <code>data/production-support-decisions</code> target scope</td><td>partial</td></tr></tbody></table>
+<h2 id="h-help-next-step">H. Help &amp; next step</h2>
+<table><thead><tr><th>Field</th><th>User learns</th><th>Data source</th><th>Status</th></tr></thead><tbody><tr><td>Applicable skill(s)</td><td>is there a playbook for this chart</td><td><code>data/chart-skills/skills.json</code></td><td>solid (advisory)</td></tr>
+<tr><td>Try-it command + next action</td><td>how to start</td><td>matrix <code>start_command</code>/<code>next_action</code>; <code>data/chart-use-guide/</code></td><td>solid</td></tr>
+<tr><td>Claims vs explicit non-claims</td><td>the trust boundary</td><td><code>data/claims-register/claims.csv</code>; <code>docs/user/what-we-refuse-to-claim.md</code></td><td>solid</td></tr></tbody></table>
+<h2 id="build-sequencing">Build sequencing</h2>
+<ol><li><b>Render the solid items now</b> - identity, support level, variants, quirks &amp; dispositions (lifecycle-routes is already on the chart page), skills (after the chart-skills mapping lands), claims, try-it.</li><li><b>Add evidence depth with freshness</b> - lanes + the <code>todo</code>/<code>watch</code>/<code>blocked</code> edge, dated. This is the column that makes the support claim trustworthy.</li><li><b>Fill mitigations and prerequisites where coverage exists</b>, and mark the rest <code>needs-more-testing</code> rather than hiding it.</li></ol>
+<p>Honest defaults: never imply automatic execution unless <code>execution_mode = product-executes</code> with evidence; never show a support level without its evidence depth; show &quot;none recorded&quot; explicitly rather than omitting a section.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/per-chart-fact-sheet-spec.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Agent And Operator Notes · ConfigHub Helm Ops</title>
-  <meta name="description" content="Agent And Operator Notes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Agent And Operator Notes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/agent/README.html">
   <meta property="og:title" content="Agent And Operator Notes · ConfigHub Helm Ops">
-  <meta property="og:description" content="Agent And Operator Notes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Agent And Operator Notes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/agent/README.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Agent And Operator Notes</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="README.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -401,15 +401,15 @@
 <h2 id="doctrine">Doctrine</h2>
 <ul><li>Keep the public website written for people evaluating or using the product.</li><li>Keep website docs focused on user tasks and product behavior.</li><li>Put agent and operator instructions in repo Markdown, mainly here.</li><li>Do not change catalog pages or generated chart pages as part of the AX pass.</li><li>Treat catalog data as evidence. If a row is <code>watch</code>, <code>blocked</code>, or <code>refused</code>, do not make it green with prose.</li><li>Use the narrowest verifier that matches the file or claim you changed.</li><li>Run live lanes only when explicitly needed, and run them serially.</li></ul>
 <h2 id="start-with-the-task">Start With The Task</h2>
-<table><thead><tr><th>Task</th><th>Open</th></tr></thead><tbody><tr><td>Choose the right command for a repo task.</td><td><a href="../../../../docs/agent/tasks.md">Task Recipes</a></td></tr>
-<tr><td>Recover from stale generated files, broken links, or failed checks.</td><td><a href="../../../../docs/agent/recovery.md">Recovery</a></td></tr>
-<tr><td>Decide which proof command matches a claim.</td><td><a href="../../../../docs/agent/verification.md">Verification For Agents</a></td></tr>
-<tr><td>Inspect catalog evidence without changing the catalog.</td><td><a href="../../../../docs/agent/catalog.md">Catalog Read-Only Guide</a></td></tr>
-<tr><td>Keep human and agent docs consistent without copying the same text.</td><td><a href="../../../../docs/agent/human-agent-doctrine.md">Human And Agent Documentation Doctrine</a></td></tr>
-<tr><td>Decode repo-specific terms.</td><td><a href="../../../../docs/agent/terms.md">Terms</a></td></tr></tbody></table>
+<table><thead><tr><th>Task</th><th>Open</th></tr></thead><tbody><tr><td>Choose the right command for a repo task.</td><td><a href="tasks.html">Task Recipes</a></td></tr>
+<tr><td>Recover from stale generated files, broken links, or failed checks.</td><td><a href="recovery.html">Recovery</a></td></tr>
+<tr><td>Decide which proof command matches a claim.</td><td><a href="verification.html">Verification For Agents</a></td></tr>
+<tr><td>Inspect catalog evidence without changing the catalog.</td><td><a href="catalog.html">Catalog Read-Only Guide</a></td></tr>
+<tr><td>Keep human and agent docs consistent without copying the same text.</td><td><a href="human-agent-doctrine.html">Human And Agent Documentation Doctrine</a></td></tr>
+<tr><td>Decode repo-specific terms.</td><td><a href="terms.html">Terms</a></td></tr></tbody></table>
 <h2 id="entry-points">Entry Points</h2>
 <p>Use these before reading older planning prose:</p>
-<ul><li><a href="../../../../docs/README.md">Documentation Map</a></li><li><a href="../../../../docs/user/README.md">User Docs Reading Order</a></li><li><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></li><li><a href="../../data/README.html">Generated Data Index</a></li><li><a href="../user/helm-render-intents.html">Helm Render Intents</a></li><li><a href="../user/what-we-refuse-to-claim.html">What We Refuse To Claim</a></li><li><a href="../../../../docs/agent/human-agent-doctrine.md">Human And Agent Documentation Doctrine</a></li></ul>
+<ul><li><a href="../README.html">Documentation Map</a></li><li><a href="../user/README.html">User Docs Reading Order</a></li><li><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></li><li><a href="../../data/README.html">Generated Data Index</a></li><li><a href="../user/helm-render-intents.html">Helm Render Intents</a></li><li><a href="../user/what-we-refuse-to-claim.html">What We Refuse To Claim</a></li><li><a href="human-agent-doctrine.html">Human And Agent Documentation Doctrine</a></li></ul>
 <h2 id="basic-operating-rules">Basic Operating Rules</h2>
 <ol><li>Check <code>git status --short --branch</code> before editing.</li><li>Do not touch <code>site/</code>, <code>site/charts/</code>, <code>recipes/</code>, <code>packages/</code>, or generated <code>data/</code> unless the user explicitly asks for that generated surface.</li><li>When a generated file is stale, update the generator or source data, then regenerate the owned output. Do not hand-edit generated output.</li><li>When editing Markdown, run <code>npm run docs:verify</code>.</li><li>When editing CLI examples, also run the relevant command-surface verifier: <code>npm run installer:command-surface:verify</code> or <code>npm run variant:command-surface:verify</code>.</li><li>Before claiming a proof lane changed, point to the receipt or verifier that changed it.</li></ol>
     </article>

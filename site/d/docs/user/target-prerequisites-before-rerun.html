@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Target Prerequisites Before Rerun · ConfigHub Helm Ops</title>
-  <meta name="description" content="Target Prerequisites Before Rerun: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Target Prerequisites Before Rerun: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites-before-rerun.html">
   <meta property="og:title" content="Target Prerequisites Before Rerun · ConfigHub Helm Ops">
-  <meta property="og:description" content="Target Prerequisites Before Rerun: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Target Prerequisites Before Rerun: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites-before-rerun.html">
   <style>
@@ -391,14 +391,14 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Target Prerequisites Before Rerun</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="target-prerequisites-before-rerun.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/target-prerequisites-before-rerun.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>When a matrix row is <code>watch</code> or <code>blocked</code> because a <b>target prerequisite</b> is missing - not because the catalog model is wrong - this is the bridge from &quot;the matrix says watch/blocked&quot; to &quot;what should I do before retrying?&quot;.</p>
-<p>The per-row plan is generated in <a href="../../../../data/target-prerequisite-actions/summary.md">target-prerequisite-actions</a>: one <b>action packet</b> per row, each with what to stage, the inputs it needs, the evidence to look for afterwards, and the exact rerun command. The underlying classification is in <a href="../../../../data/target-prerequisite-workdown/summary.md">target-prerequisite-workdown</a>; catalog-model gaps (a different problem) are in <a href="../../../../data/model-gap-workdown/summary.md">model-gap-workdown</a>.</p>
+<p>The per-row plan is generated in <a href="../../data/target-prerequisite-actions/summary.html">target-prerequisite-actions</a>: one <b>action packet</b> per row, each with what to stage, the inputs it needs, the evidence to look for afterwards, and the exact rerun command. The underlying classification is in <a href="../../data/target-prerequisite-workdown/summary.html">target-prerequisite-workdown</a>; catalog-model gaps (a different problem) are in <a href="../../data/model-gap-workdown/summary.html">model-gap-workdown</a>.</p>
 <h2 id="the-action-kinds">The action kinds</h2>
 <table><thead><tr><th>Action</th><th>What you do</th><th>Who owns it</th></tr></thead><tbody><tr><td><code>create-namespace</code></td><td>Create the named Namespace on the target before apply.</td><td>you (user-stage)</td></tr>
 <tr><td><code>stage-secret</code></td><td>Create the named Secret(s) in the target namespace before apply.</td><td>you (user-stage)</td></tr>
@@ -410,7 +410,7 @@
 <h2 id="how-to-read-a-packet">How to read a packet</h2>
 <ol><li>Find your chart/base row. The <code>prerequisite_name</code> is the concrete object when it was extractable from the committed receipt (e.g. <code>Secret elasticsearch-master-certs</code>, <code>Namespace istio-system</code>), or <code>unknown</code> when it was not - we do not guess.</li><li>Do the <code>action_kind</code> using the <code>required_inputs</code>.</li><li>Confirm the <code>evidence_required</code> exists (the named object is present, the CRDs are Established, the endpoint is reachable…).</li><li>Run the <code>rerun_command</code>. A row whose semantic parity already passed only needs the prerequisite staged - the rerun should then move it to <code>pass</code>.</li></ol>
 <h2 id="what-this-is-not">What this is not</h2>
-<p>Every packet is <code>automatic: false</code>. This is a <b>preflight plan</b>, not automated execution and not evidence that the row is fixed - the row stays <code>watch</code>/<code>blocked</code> until a fresh receipt proves it after you stage the prerequisite. And nothing here claims a target prerequisite is the catalog's job to supply; where it is, the <a href="../../../../data/model-gap-workdown/summary.md">model-gap-workdown</a> carries it instead.</p>
+<p>Every packet is <code>automatic: false</code>. This is a <b>preflight plan</b>, not automated execution and not evidence that the row is fixed - the row stays <code>watch</code>/<code>blocked</code> until a fresh receipt proves it after you stage the prerequisite. And nothing here claims a target prerequisite is the catalog's job to supply; where it is, the <a href="../../data/model-gap-workdown/summary.html">model-gap-workdown</a> carries it instead.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/target-prerequisites-before-rerun.md</code>. The source file is the authoritative version.</p></footer>

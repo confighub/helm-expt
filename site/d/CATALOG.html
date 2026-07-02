@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Helm Catalog · ConfigHub Helm Ops</title>
+  <meta name="description" content="ConfigHub Helm Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/CATALOG.html">
+  <meta property="og:title" content="ConfigHub Helm Catalog · ConfigHub Helm Ops">
+  <meta property="og:description" content="ConfigHub Helm Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/CATALOG.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <h1>ConfigHub Helm Catalog</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../CATALOG.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This is the top-level catalog for choosing a chart and a variant.</p>
+<p>Use this page when you want to answer:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>What can I install?
+Which variant should I start with?
+Which variant needs existing Secrets or other target facts?
+Where is the executable cub installer package?
+Where are the proof receipts?</code></pre>
+<h2 id="how-to-read-this-catalog">How To Read This Catalog</h2>
+<pre><code>chart
+  variant
+    cub installer package base
+    rendered objects
+    receipts and checks</code></pre>
+<p>The root catalog is the entry point. The per-chart <code>CATALOG.md</code> is the evidence folder. The <code>oci://</code> package ref is what users pass to <code>cub installer setup --pull</code>. The <code>packages/</code> path is the repo source for maintainers and proof scripts.</p>
+<h2 id="folder-map">Folder Map</h2>
+<pre><code>CATALOG.md
+  Top-level chart and variant index.
+
+recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/CATALOG.md
+  Per-chart recipe, variants, rendered objects, receipts, and status.
+
+packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/
+  Executable cub installer package with one base per variant.
+
+runs/
+  Receipts from live, ConfigHub, scan, and safe-ops proof runs.
+
+data/
+  Aggregate catalog, production disposition, top-500, and review data.</code></pre>
+<h2 id="live-tested-catalog-entries">Live-Tested Catalog Entries</h2>
+<p>These 20 charts have local kind live/e2e receipts and ConfigHub upload, scan, and safe-ops proof receipts. Start with the first variant unless a different variant matches your intent.</p>
+<p>For exact base-variant readiness, including prerequisites and runtime review rows, see <a href="data/top20-base-readiness/summary.html">Top-20 Base Variant Readiness</a>. The <code>Start Base Status</code> column uses the same generated readiness labels.</p>
+<h3 id="at-a-glance">At A Glance</h3>
+<table><thead><tr><th>Chart</th><th>Start With</th><th>Start Base Status</th><th>Evidence</th><th>Hard Gap</th><th>Variants</th><th>Installer OCI</th><th>Catalog</th></tr></thead><tbody><tr><td>bitnami/redis@25.5.3</td><td>reuse-existing-secret</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, reuse-existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code></td><td><a href="recipes/bitnami/redis/25.5.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>existing-secret (chart ships no Secret toggle)</td><td>default, external-tls-ca</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0</code></td><td><a href="recipes/metrics-server/metrics-server/3.13.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, admission-disabled, internal-clusterip</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1</code></td><td><a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, crds-enabled</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2</code></td><td><a href="recipes/jetstack/cert-manager/v1.20.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, no-crds</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0</code></td><td><a href="recipes/external-secrets/external-secrets/2.5.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>default, no-crds</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15</code></td><td><a href="recipes/argo-cd/argo-cd/9.5.15/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/postgresql@18.6.7</td><td>existing-secret</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>static-passwords, existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7</code></td><td><a href="recipes/bitnami/postgresql/18.6.7/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/rabbitmq@16.0.14</td><td>existing-secret</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>static-passwords, existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14</code></td><td><a href="recipes/bitnami/rabbitmq/16.0.14/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>existing-secret (chart ships no Secret toggle)</td><td>default, no-crds</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code></td><td><a href="recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>single-binary-filesystem, simple-scalable-minio</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0</code></td><td><a href="recipes/grafana/loki/7.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, ui-ingress</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2</code></td><td><a href="recipes/longhorn/longhorn/1.11.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mysql@14.0.3</td><td>existing-secret</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>static-passwords, existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3</code></td><td><a href="recipes/bitnami/mysql/14.0.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>existing-secret-ingress</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>static-passwords, existing-secret-ingress</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15</code></td><td><a href="recipes/grafana/grafana/10.5.15/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>dev-mode, default, ha-raft-ui</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0</code></td><td><a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>default, sync-secret-rotation</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0</code></td><td><a href="recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>default, server-only-ephemeral</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0</code></td><td><a href="recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mongodb@19.0.7</td><td>existing-secret-replicaset</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>-</td><td>static-passwords, existing-secret-replicaset</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7</code></td><td><a href="recipes/bitnami/mongodb/19.0.7/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>render-only</td><td>live-helm-vs-confighub-parity</td><td>existing-secret (chart ships no Secret toggle)</td><td>http-clusterip, existing-tls-ingress</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</code></td><td><a href="recipes/bitnami/nginx/24.0.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>ha (tempo single-binary chart; HA is the separate tempo-distributed chart)</td><td>local-persistent, s3-query-observability</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4</code></td><td><a href="recipes/grafana/tempo/1.24.4/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>start-here</td><td>live-helm-vs-confighub-parity</td><td>ha (curated proof lane - bespoke teaching needed)</td><td>default-control-plane, secure-mesh-existing-secrets</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0</code></td><td><a href="recipes/hashicorp/consul/2.0.0/CATALOG.html">CATALOG.md</a></td></tr></tbody></table>
+<h3 id="start-base-status-labels">Start Base Status Labels</h3>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>start-here</td><td>Best first catalog path today for the declared scope.</td></tr>
+<tr><td>try-with-proof</td><td>Useful base with proof, but not every lane is complete.</td></tr>
+<tr><td>lifecycle-observed</td><td>Lifecycle behavior has a committed observation receipt.</td></tr>
+<tr><td>prerequisite-observed</td><td>Target prerequisites are explicit and have observation evidence.</td></tr>
+<tr><td>runtime-watch</td><td>Render/parity evidence exists, but runtime behavior needs review or rerun.</td></tr>
+<tr><td>runtime-review-needed</td><td>Runtime readiness needs inspection before broader claims.</td></tr>
+<tr><td>target-prerequisite-needed</td><td>The target must provide a prerequisite such as CRDs, Secrets, or storage.</td></tr></tbody></table>
+<h3 id="chart-details">Chart Details</h3>
+<h4 id="bitnamiredis2553">bitnami/redis@25.5.3</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code> Source package: <a href="../../packages/bitnami/redis/25.5.3">packages/bitnami/redis/25.5.3</a> Per-chart catalog: <a href="recipes/bitnami/redis/25.5.3/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/redis/25.5.3/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir &lt;tmp&gt; --non-interactive --namespace redis</code></pre>
+<p>Variants:</p>
+<h5 id="default">default</h5>
+<p>When to use: Redis static password demo variant rendered from bitnami/redis@25.5.3 Readiness: render-only Namespace: redis Target facts: none Package base: <a href="../../packages/bitnami/redis/25.5.3/bases/default">packages/bitnami/redis/25.5.3/bases/default</a> Variant file: <a href="../../recipes/bitnami/redis/25.5.3/variants/default/variant.yaml">recipes/bitnami/redis/25.5.3/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 14/14 objects matched Receipts: <a href="recipes/bitnami/redis/25.5.3/CATALOG.html">per-chart receipts</a></p>
+<h5 id="reuse-existing-secret-recommended-first">reuse-existing-secret (recommended first)</h5>
+<p>When to use: Redis existing Secret default variant rendered from bitnami/redis@25.5.3 Readiness: render-only Namespace: redis Target facts: required Secret redis/redis-existing-secret keys redis-password Package base: <a href="../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret">packages/bitnami/redis/25.5.3/bases/reuse-existing-secret</a> Variant file: <a href="../../recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml">recipes/bitnami/redis/25.5.3/variants/reuse-existing-secret/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml</a> Helm equivalence: 13/13 objects matched Receipts: <a href="recipes/bitnami/redis/25.5.3/CATALOG.html">per-chart receipts</a></p>
+<h4 id="metrics-servermetrics-server3130">metrics-server/metrics-server@3.13.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: existing-secret (chart ships no Secret toggle) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0</code> Source package: <a href="../../packages/metrics-server/metrics-server/3.13.0">packages/metrics-server/metrics-server/3.13.0</a> Per-chart catalog: <a href="recipes/metrics-server/metrics-server/3.13.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first">default (recommended first)</h5>
+<p>When to use: metrics-server default variant rendered from metrics-server/metrics-server@3.13.0 Readiness: start-here Namespace: kube-system Target facts: none Package base: <a href="../../packages/metrics-server/metrics-server/3.13.0/bases/default">packages/metrics-server/metrics-server/3.13.0/bases/default</a> Variant file: <a href="../../recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml">recipes/metrics-server/metrics-server/3.13.0/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml">recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/metrics-server/metrics-server/3.13.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="external-tls-ca">external-tls-ca</h5>
+<p>When to use: metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0 Readiness: start-here Namespace: kube-system Target facts: required Secret kube-system/metrics-server-tls keys tls.crt,tls.key; required Value apiService.caBundle (pre-render) Package base: <a href="../../packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca">packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca</a> Variant file: <a href="../../recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml">recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml</a> Rendered objects: <a href="../../recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml">recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/metrics-server/metrics-server/3.13.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="ingress-nginxingress-nginx4151">ingress-nginx/ingress-nginx@4.15.1</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 3/3; ConfigHub 3/3; local live 3/3; GitOps live 3/3; live parity 3/3 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1</code> Source package: <a href="../../packages/ingress-nginx/ingress-nginx/4.15.1">packages/ingress-nginx/ingress-nginx/4.15.1</a> Per-chart catalog: <a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base internal-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace ingress-nginx</code></pre>
+<p>Variants:</p>
+<h5 id="default-1">default</h5>
+<p>When to use: ingress-nginx default variant rendered from ingress-nginx/ingress-nginx@4.15.1 Readiness: start-here Namespace: ingress-nginx Target facts: required Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca Package base: <a href="../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/default">packages/ingress-nginx/ingress-nginx/4.15.1/bases/default</a> Variant file: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 11/11 objects matched Receipts: <a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">per-chart receipts</a></p>
+<h5 id="admission-disabled">admission-disabled</h5>
+<p>When to use: ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1 Readiness: start-here Namespace: ingress-nginx Target facts: none Package base: <a href="../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled">packages/ingress-nginx/ingress-nginx/4.15.1/bases/admission-disabled</a> Variant file: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/variants/admission-disabled/variant.yaml</a> Rendered objects: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">per-chart receipts</a></p>
+<h5 id="internal-clusterip-recommended-first">internal-clusterip (recommended first)</h5>
+<p>When to use: ingress-nginx internal ClusterIP controller variant rendered from ingress-nginx/ingress-nginx@4.15.1 Readiness: start-here Namespace: ingress-nginx Target facts: none Package base: <a href="../../packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip">packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip</a> Variant file: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/variants/internal-clusterip/variant.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/variants/internal-clusterip/variant.yaml</a> Rendered objects: <a href="../../recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml">recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">per-chart receipts</a></p>
+<h4 id="jetstackcert-managerv1202">jetstack/cert-manager@v1.20.2</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2</code> Source package: <a href="../../packages/jetstack/cert-manager/v1.20.2">packages/jetstack/cert-manager/v1.20.2</a> Per-chart catalog: <a href="recipes/jetstack/cert-manager/v1.20.2/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base crds-enabled --work-dir &lt;tmp&gt; --non-interactive --namespace cert-manager</code></pre>
+<p>Variants:</p>
+<h5 id="default-2">default</h5>
+<p>When to use: cert-manager default variant rendered from jetstack/cert-manager@v1.20.2 Readiness: start-here Namespace: cert-manager Target facts: required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io Package base: <a href="../../packages/jetstack/cert-manager/v1.20.2/bases/default">packages/jetstack/cert-manager/v1.20.2/bases/default</a> Variant file: <a href="../../recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml">recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml">recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 42/42 objects matched Receipts: <a href="recipes/jetstack/cert-manager/v1.20.2/CATALOG.html">per-chart receipts</a></p>
+<h5 id="crds-enabled-recommended-first">crds-enabled (recommended first)</h5>
+<p>When to use: cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.20.2 Readiness: start-here Namespace: cert-manager Target facts: none Package base: <a href="../../packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled">packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled</a> Variant file: <a href="../../recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml">recipes/jetstack/cert-manager/v1.20.2/variants/crds-enabled/variant.yaml</a> Rendered objects: <a href="../../recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml">recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml</a> Helm equivalence: 48/48 objects matched Receipts: <a href="recipes/jetstack/cert-manager/v1.20.2/CATALOG.html">per-chart receipts</a></p>
+<h4 id="external-secretsexternal-secrets250">external-secrets/external-secrets@2.5.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0</code> Source package: <a href="../../packages/external-secrets/external-secrets/2.5.0">packages/external-secrets/external-secrets/2.5.0</a> Per-chart catalog: <a href="recipes/external-secrets/external-secrets/2.5.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace external-secrets</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first-1">default (recommended first)</h5>
+<p>When to use: external-secrets default variant rendered from external-secrets/external-secrets@2.5.0 Readiness: start-here Namespace: external-secrets Target facts: required Secret external-secrets/external-secrets-webhook Package base: <a href="../../packages/external-secrets/external-secrets/2.5.0/bases/default">packages/external-secrets/external-secrets/2.5.0/bases/default</a> Variant file: <a href="../../recipes/external-secrets/external-secrets/2.5.0/variants/default/variant.yaml">recipes/external-secrets/external-secrets/2.5.0/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml">recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 42/42 objects matched Receipts: <a href="recipes/external-secrets/external-secrets/2.5.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="no-crds">no-crds</h5>
+<p>When to use: external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0 Readiness: start-here Namespace: external-secrets Target facts: required Secret external-secrets/external-secrets-webhook; required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io Package base: <a href="../../packages/external-secrets/external-secrets/2.5.0/bases/no-crds">packages/external-secrets/external-secrets/2.5.0/bases/no-crds</a> Variant file: <a href="../../recipes/external-secrets/external-secrets/2.5.0/variants/no-crds/variant.yaml">recipes/external-secrets/external-secrets/2.5.0/variants/no-crds/variant.yaml</a> Rendered objects: <a href="../../recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml">recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml</a> Helm equivalence: 19/19 objects matched Receipts: <a href="recipes/external-secrets/external-secrets/2.5.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="argo-cdargo-cd9515">argo-cd/argo-cd@9.5.15</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 2/2; live parity 2/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15</code> Source package: <a href="../../packages/argo-cd/argo-cd/9.5.15">packages/argo-cd/argo-cd/9.5.15</a> Per-chart catalog: <a href="recipes/argo-cd/argo-cd/9.5.15/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace argocd</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first-2">default (recommended first)</h5>
+<p>When to use: argo-cd default variant rendered from argo-cd/argo-cd@9.5.15 Readiness: start-here Namespace: argocd Target facts: required Secret argocd/argocd-redis keys auth Package base: <a href="../../packages/argo-cd/argo-cd/9.5.15/bases/default">packages/argo-cd/argo-cd/9.5.15/bases/default</a> Variant file: <a href="../../recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml">recipes/argo-cd/argo-cd/9.5.15/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml">recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 49/49 objects matched Receipts: <a href="recipes/argo-cd/argo-cd/9.5.15/CATALOG.html">per-chart receipts</a></p>
+<h5 id="no-crds-1">no-crds</h5>
+<p>When to use: argo-cd CRDs disabled variant rendered from argo-cd/argo-cd@9.5.15 Readiness: render-only Namespace: argocd Target facts: required Secret argocd/argocd-redis keys auth; required CRD applications.argoproj.io; required CRD applicationsets.argoproj.io; required CRD appprojects.argoproj.io Package base: <a href="../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds">packages/argo-cd/argo-cd/9.5.15/bases/no-crds</a> Variant file: <a href="../../recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml">recipes/argo-cd/argo-cd/9.5.15/variants/no-crds/variant.yaml</a> Rendered objects: <a href="../../recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml">recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml</a> Helm equivalence: 46/46 objects matched Receipts: <a href="recipes/argo-cd/argo-cd/9.5.15/CATALOG.html">per-chart receipts</a></p>
+<h4 id="bitnamipostgresql1867">bitnami/postgresql@18.6.7</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7</code> Source package: <a href="../../packages/bitnami/postgresql/18.6.7">packages/bitnami/postgresql/18.6.7</a> Per-chart catalog: <a href="recipes/bitnami/postgresql/18.6.7/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir &lt;tmp&gt; --non-interactive --namespace postgresql</code></pre>
+<p>Variants:</p>
+<h5 id="static-passwords">static-passwords</h5>
+<p>When to use: postgresql static password demo variant rendered from bitnami/postgresql@18.6.7 Readiness: render-only Namespace: postgresql Target facts: none Package base: <a href="../../packages/bitnami/postgresql/18.6.7/bases/static-passwords">packages/bitnami/postgresql/18.6.7/bases/static-passwords</a> Variant file: <a href="../../recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml">recipes/bitnami/postgresql/18.6.7/variants/static-passwords/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/rendered/release-objects.yaml</a> Helm equivalence: 7/7 objects matched Receipts: <a href="recipes/bitnami/postgresql/18.6.7/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-secret-recommended-first">existing-secret (recommended first)</h5>
+<p>When to use: postgresql existing Secret default variant rendered from bitnami/postgresql@18.6.7 Readiness: render-only Namespace: postgresql Target facts: required Secret postgresql/postgresql-auth keys postgres-password Package base: <a href="../../packages/bitnami/postgresql/18.6.7/bases/existing-secret">packages/bitnami/postgresql/18.6.7/bases/existing-secret</a> Variant file: <a href="../../recipes/bitnami/postgresql/18.6.7/variants/existing-secret/variant.yaml">recipes/bitnami/postgresql/18.6.7/variants/existing-secret/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml">recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml</a> Helm equivalence: 6/6 objects matched Receipts: <a href="recipes/bitnami/postgresql/18.6.7/CATALOG.html">per-chart receipts</a></p>
+<h4 id="bitnamirabbitmq16014">bitnami/rabbitmq@16.0.14</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14</code> Source package: <a href="../../packages/bitnami/rabbitmq/16.0.14">packages/bitnami/rabbitmq/16.0.14</a> Per-chart catalog: <a href="recipes/bitnami/rabbitmq/16.0.14/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base existing-secret --work-dir &lt;tmp&gt; --non-interactive --namespace rabbitmq</code></pre>
+<p>Variants:</p>
+<h5 id="static-passwords-1">static-passwords</h5>
+<p>When to use: rabbitmq static password demo variant rendered from bitnami/rabbitmq@16.0.14 Readiness: start-here Namespace: rabbitmq Target facts: none Package base: <a href="../../packages/bitnami/rabbitmq/16.0.14/bases/static-passwords">packages/bitnami/rabbitmq/16.0.14/bases/static-passwords</a> Variant file: <a href="../../recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml">recipes/bitnami/rabbitmq/16.0.14/variants/static-passwords/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml</a> Helm equivalence: 10/10 objects matched Receipts: <a href="recipes/bitnami/rabbitmq/16.0.14/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-secret-recommended-first-1">existing-secret (recommended first)</h5>
+<p>When to use: rabbitmq existing Secret default variant rendered from bitnami/rabbitmq@16.0.14 Readiness: start-here Namespace: rabbitmq Target facts: required Secret rabbitmq/rabbitmq-auth keys rabbitmq-password; required Secret rabbitmq/rabbitmq-erlang-cookie keys rabbitmq-erlang-cookie Package base: <a href="../../packages/bitnami/rabbitmq/16.0.14/bases/existing-secret">packages/bitnami/rabbitmq/16.0.14/bases/existing-secret</a> Variant file: <a href="../../recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml">recipes/bitnami/rabbitmq/16.0.14/variants/existing-secret/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml">recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/bitnami/rabbitmq/16.0.14/CATALOG.html">per-chart receipts</a></p>
+<h4 id="prometheus-communitykube-prometheus-stack8533">prometheus-community/kube-prometheus-stack@85.3.3</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: existing-secret (chart ships no Secret toggle) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code> Source package: <a href="../../packages/prometheus-community/kube-prometheus-stack/85.3.3">packages/prometheus-community/kube-prometheus-stack/85.3.3</a> Per-chart catalog: <a href="recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first-3">default (recommended first)</h5>
+<p>When to use: kube-prometheus-stack default with Grafana password bound variant rendered from prometheus-community/kube-prometheus-stack@85.3.3 Readiness: render-only Namespace: monitoring Target facts: required Secret monitoring/kube-prometheus-stack-admission keys cert,key Package base: <a href="../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default">packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default</a> Variant file: <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml">recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml">recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 124/124 objects matched Receipts: <a href="recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">per-chart receipts</a></p>
+<h5 id="no-crds-2">no-crds</h5>
+<p>When to use: kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3 Readiness: render-only Namespace: monitoring Target facts: required Secret monitoring/kube-prometheus-stack-admission keys cert,key; required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com Package base: <a href="../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds">packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds</a> Variant file: <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml">recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml</a> Rendered objects: <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml">recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml</a> Helm equivalence: 114/114 objects matched Receipts: <a href="recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">per-chart receipts</a></p>
+<h4 id="grafanaloki700">grafana/loki@7.0.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0</code> Source package: <a href="../../packages/grafana/loki/7.0.0">packages/grafana/loki/7.0.0</a> Per-chart catalog: <a href="recipes/grafana/loki/7.0.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/grafana/loki/7.0.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0 --base single-binary-filesystem --work-dir &lt;tmp&gt; --non-interactive --namespace loki</code></pre>
+<p>Variants:</p>
+<h5 id="single-binary-filesystem-recommended-first">single-binary-filesystem (recommended first)</h5>
+<p>When to use: loki single binary filesystem variant rendered from grafana/loki@7.0.0 Readiness: start-here Namespace: loki Target facts: none Package base: <a href="../../packages/grafana/loki/7.0.0/bases/single-binary-filesystem">packages/grafana/loki/7.0.0/bases/single-binary-filesystem</a> Variant file: <a href="../../recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml">recipes/grafana/loki/7.0.0/variants/single-binary-filesystem/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml">recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml</a> Helm equivalence: 19/19 objects matched Receipts: <a href="recipes/grafana/loki/7.0.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="simple-scalable-minio">simple-scalable-minio</h5>
+<p>When to use: loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0 Readiness: start-here Namespace: loki Target facts: none Package base: <a href="../../packages/grafana/loki/7.0.0/bases/simple-scalable-minio">packages/grafana/loki/7.0.0/bases/simple-scalable-minio</a> Variant file: <a href="../../recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml">recipes/grafana/loki/7.0.0/variants/simple-scalable-minio/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml">recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml</a> Helm equivalence: 33/33 objects matched Receipts: <a href="recipes/grafana/loki/7.0.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="longhornlonghorn1112">longhorn/longhorn@1.11.2</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2</code> Source package: <a href="../../packages/longhorn/longhorn/1.11.2">packages/longhorn/longhorn/1.11.2</a> Per-chart catalog: <a href="recipes/longhorn/longhorn/1.11.2/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace longhorn-system</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first-4">default (recommended first)</h5>
+<p>When to use: Longhorn default storage control plane variant rendered from longhorn/longhorn@1.11.2 Readiness: start-here Namespace: longhorn-system Target facts: none Package base: <a href="../../packages/longhorn/longhorn/1.11.2/bases/default">packages/longhorn/longhorn/1.11.2/bases/default</a> Variant file: <a href="../../recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml">recipes/longhorn/longhorn/1.11.2/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml">recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 41/41 objects matched Receipts: <a href="recipes/longhorn/longhorn/1.11.2/CATALOG.html">per-chart receipts</a></p>
+<h5 id="ui-ingress">ui-ingress</h5>
+<p>When to use: Longhorn UI ingress enabled variant rendered from longhorn/longhorn@1.11.2 Readiness: start-here Namespace: longhorn-system Target facts: none Package base: <a href="../../packages/longhorn/longhorn/1.11.2/bases/ui-ingress">packages/longhorn/longhorn/1.11.2/bases/ui-ingress</a> Variant file: <a href="../../recipes/longhorn/longhorn/1.11.2/variants/ui-ingress/variant.yaml">recipes/longhorn/longhorn/1.11.2/variants/ui-ingress/variant.yaml</a> Rendered objects: <a href="../../recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml">recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml</a> Helm equivalence: 42/42 objects matched Receipts: <a href="recipes/longhorn/longhorn/1.11.2/CATALOG.html">per-chart receipts</a></p>
+<h4 id="bitnamimysql1403">bitnami/mysql@14.0.3</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3</code> Source package: <a href="../../packages/bitnami/mysql/14.0.3">packages/bitnami/mysql/14.0.3</a> Per-chart catalog: <a href="recipes/bitnami/mysql/14.0.3/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3 --base existing-secret --work-dir &lt;tmp&gt; --non-interactive --namespace mysql</code></pre>
+<p>Variants:</p>
+<h5 id="static-passwords-2">static-passwords</h5>
+<p>When to use: mysql static password demo variant rendered from bitnami/mysql@14.0.3 Readiness: start-here Namespace: mysql Target facts: none Package base: <a href="../../packages/bitnami/mysql/14.0.3/bases/static-passwords">packages/bitnami/mysql/14.0.3/bases/static-passwords</a> Variant file: <a href="../../recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml">recipes/bitnami/mysql/14.0.3/variants/static-passwords/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml</a> Helm equivalence: 8/8 objects matched Receipts: <a href="recipes/bitnami/mysql/14.0.3/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-secret-recommended-first-2">existing-secret (recommended first)</h5>
+<p>When to use: mysql existing Secret default variant rendered from bitnami/mysql@14.0.3 Readiness: start-here Namespace: mysql Target facts: required Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password Package base: <a href="../../packages/bitnami/mysql/14.0.3/bases/existing-secret">packages/bitnami/mysql/14.0.3/bases/existing-secret</a> Variant file: <a href="../../recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml">recipes/bitnami/mysql/14.0.3/variants/existing-secret/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml">recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml</a> Helm equivalence: 7/7 objects matched Receipts: <a href="recipes/bitnami/mysql/14.0.3/CATALOG.html">per-chart receipts</a></p>
+<h4 id="grafanagrafana10515">grafana/grafana@10.5.15</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15</code> Source package: <a href="../../packages/grafana/grafana/10.5.15">packages/grafana/grafana/10.5.15</a> Per-chart catalog: <a href="recipes/grafana/grafana/10.5.15/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/grafana/grafana/10.5.15/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15 --base existing-secret-ingress --work-dir &lt;tmp&gt; --non-interactive --namespace grafana</code></pre>
+<p>Variants:</p>
+<h5 id="static-passwords-3">static-passwords</h5>
+<p>When to use: grafana static password demo variant rendered from grafana/grafana@10.5.15 Readiness: start-here Namespace: grafana Target facts: none Package base: <a href="../../packages/grafana/grafana/10.5.15/bases/static-passwords">packages/grafana/grafana/10.5.15/bases/static-passwords</a> Variant file: <a href="../../recipes/grafana/grafana/10.5.15/variants/static-passwords/variant.yaml">recipes/grafana/grafana/10.5.15/variants/static-passwords/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/grafana/grafana/10.5.15/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-secret-ingress-recommended-first">existing-secret-ingress (recommended first)</h5>
+<p>When to use: grafana existing Secret default variant rendered from grafana/grafana@10.5.15 Readiness: start-here Namespace: grafana Target facts: required Secret grafana/grafana-admin keys admin-user,admin-password Package base: <a href="../../packages/grafana/grafana/10.5.15/bases/existing-secret-ingress">packages/grafana/grafana/10.5.15/bases/existing-secret-ingress</a> Variant file: <a href="../../recipes/grafana/grafana/10.5.15/variants/existing-secret-ingress/variant.yaml">recipes/grafana/grafana/10.5.15/variants/existing-secret-ingress/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml">recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml</a> Helm equivalence: 9/9 objects matched Receipts: <a href="recipes/grafana/grafana/10.5.15/CATALOG.html">per-chart receipts</a></p>
+<h4 id="hashicorpvault0320">hashicorp/vault@0.32.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 3/3; ConfigHub 3/3; local live 2/3; GitOps live 2/3; live parity 2/3 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0</code> Source package: <a href="../../packages/hashicorp/vault/0.32.0">packages/hashicorp/vault/0.32.0</a> Per-chart catalog: <a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</code></pre>
+<p>Variants:</p>
+<h5 id="dev-mode">dev-mode</h5>
+<p>When to use: vault dev server without init/unseal variant rendered from hashicorp/vault@0.32.0 Readiness: start-here Namespace: vault Target facts: none Package base: <a href="../../packages/hashicorp/vault/0.32.0/bases/dev-mode">packages/hashicorp/vault/0.32.0/bases/dev-mode</a> Variant file: <a href="../../recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml">recipes/hashicorp/vault/0.32.0/variants/dev-mode/variant.yaml</a> Rendered objects: <a href="../../recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml">recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml</a> Helm equivalence: 11/11 objects matched Receipts: <a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="default-recommended-first-5">default (recommended first)</h5>
+<p>When to use: vault default server with injector variant rendered from hashicorp/vault@0.32.0 Readiness: start-here Namespace: vault Target facts: none Package base: <a href="../../packages/hashicorp/vault/0.32.0/bases/default">packages/hashicorp/vault/0.32.0/bases/default</a> Variant file: <a href="../../recipes/hashicorp/vault/0.32.0/variants/default/variant.yaml">recipes/hashicorp/vault/0.32.0/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml">recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 12/12 objects matched Receipts: <a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="ha-raft-ui">ha-raft-ui</h5>
+<p>When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0 Readiness: runtime-watch Namespace: vault Target facts: topology minSchedulableNodes=3 Package base: <a href="../../packages/hashicorp/vault/0.32.0/bases/ha-raft-ui">packages/hashicorp/vault/0.32.0/bases/ha-raft-ui</a> Variant file: <a href="../../recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml">recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml</a> Rendered objects: <a href="../../recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml">recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml</a> Helm equivalence: 18/18 objects matched Receipts: <a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="secrets-store-csi-driversecrets-store-csi-driver160">secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0</code> Source package: <a href="../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0">packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0</a> Per-chart catalog: <a href="recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></pre>
+<p>Variants:</p>
+<h5 id="default-recommended-first-6">default (recommended first)</h5>
+<p>When to use: secrets-store-csi-driver default Linux driver variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 Readiness: start-here Namespace: kube-system Target facts: none Package base: <a href="../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default">packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default</a> Variant file: <a href="../../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/default/variant.yaml">recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml">recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 10/10 objects matched Receipts: <a href="recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="sync-secret-rotation">sync-secret-rotation</h5>
+<p>When to use: secrets-store-csi-driver sync Secret and rotation variant rendered from secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 Readiness: start-here Namespace: kube-system Target facts: none Package base: <a href="../../packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation">packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/sync-secret-rotation</a> Variant file: <a href="../../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/sync-secret-rotation/variant.yaml">recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/variants/sync-secret-rotation/variant.yaml</a> Rendered objects: <a href="../../recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml">recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml</a> Helm equivalence: 12/12 objects matched Receipts: <a href="recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="prometheus-communityprometheus2980">prometheus-community/prometheus@29.8.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0</code> Source package: <a href="../../packages/prometheus-community/prometheus/29.8.0">packages/prometheus-community/prometheus/29.8.0</a> Per-chart catalog: <a href="recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 --base server-only-ephemeral --work-dir &lt;tmp&gt; --non-interactive --namespace monitoring</code></pre>
+<p>Variants:</p>
+<h5 id="default-3">default</h5>
+<p>When to use: prometheus default monitoring stack variant rendered from prometheus-community/prometheus@29.8.0 Readiness: render-only Namespace: monitoring Target facts: none Package base: <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/default">packages/prometheus-community/prometheus/29.8.0/bases/default</a> Variant file: <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/default/variant.yaml">recipes/prometheus-community/prometheus/29.8.0/variants/default/variant.yaml</a> Rendered objects: <a href="../../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml</a> Helm equivalence: 23/23 objects matched Receipts: <a href="recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="server-only-ephemeral-recommended-first">server-only-ephemeral (recommended first)</h5>
+<p>When to use: prometheus server only without persistence variant rendered from prometheus-community/prometheus@29.8.0 Readiness: render-only Namespace: monitoring Target facts: none Package base: <a href="../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral">packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral</a> Variant file: <a href="../../recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml">recipes/prometheus-community/prometheus/29.8.0/variants/server-only-ephemeral/variant.yaml</a> Rendered objects: <a href="../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml">recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml</a> Helm equivalence: 6/6 objects matched Receipts: <a href="recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">per-chart receipts</a></p>
+<h4 id="bitnamimongodb1907">bitnami/mongodb@19.0.7</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: - Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7</code> Source package: <a href="../../packages/bitnami/mongodb/19.0.7">packages/bitnami/mongodb/19.0.7</a> Per-chart catalog: <a href="recipes/bitnami/mongodb/19.0.7/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7 --base existing-secret-replicaset --work-dir &lt;tmp&gt; --non-interactive --namespace mongodb</code></pre>
+<p>Variants:</p>
+<h5 id="static-passwords-4">static-passwords</h5>
+<p>When to use: mongodb static password demo variant rendered from bitnami/mongodb@19.0.7 Readiness: render-only Namespace: mongodb Target facts: none Package base: <a href="../../packages/bitnami/mongodb/19.0.7/bases/static-passwords">packages/bitnami/mongodb/19.0.7/bases/static-passwords</a> Variant file: <a href="../../recipes/bitnami/mongodb/19.0.7/variants/static-passwords/variant.yaml">recipes/bitnami/mongodb/19.0.7/variants/static-passwords/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/rendered/release-objects.yaml</a> Helm equivalence: 8/8 objects matched Receipts: <a href="recipes/bitnami/mongodb/19.0.7/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-secret-replicaset-recommended-first">existing-secret-replicaset (recommended first)</h5>
+<p>When to use: mongodb existing Secret default variant rendered from bitnami/mongodb@19.0.7 Readiness: render-only Namespace: mongodb Target facts: required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key Package base: <a href="../../packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset">packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset</a> Variant file: <a href="../../recipes/bitnami/mongodb/19.0.7/variants/existing-secret-replicaset/variant.yaml">recipes/bitnami/mongodb/19.0.7/variants/existing-secret-replicaset/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml">recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml</a> Helm equivalence: 10/10 objects matched Receipts: <a href="recipes/bitnami/mongodb/19.0.7/CATALOG.html">per-chart receipts</a></p>
+<h4 id="bitnaminginx2402">bitnami/nginx@24.0.2</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: render-only Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 2/2; GitOps live 2/2; live parity 2/2 Hard gap: existing-secret (chart ships no Secret toggle) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</code> Source package: <a href="../../packages/bitnami/nginx/24.0.2">packages/bitnami/nginx/24.0.2</a> Per-chart catalog: <a href="recipes/bitnami/nginx/24.0.2/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 --base http-clusterip --work-dir &lt;tmp&gt; --non-interactive --namespace nginx</code></pre>
+<p>Variants:</p>
+<h5 id="http-clusterip-recommended-first">http-clusterip (recommended first)</h5>
+<p>When to use: nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2 Readiness: render-only Namespace: nginx Target facts: none Package base: <a href="../../packages/bitnami/nginx/24.0.2/bases/http-clusterip">packages/bitnami/nginx/24.0.2/bases/http-clusterip</a> Variant file: <a href="../../recipes/bitnami/nginx/24.0.2/variants/http-clusterip/variant.yaml">recipes/bitnami/nginx/24.0.2/variants/http-clusterip/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml">recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml</a> Helm equivalence: 5/5 objects matched Receipts: <a href="recipes/bitnami/nginx/24.0.2/CATALOG.html">per-chart receipts</a></p>
+<h5 id="existing-tls-ingress">existing-tls-ingress</h5>
+<p>When to use: nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2 Readiness: render-only Namespace: nginx Target facts: required Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt; required Secret nginx/nginx-ingress-tls keys tls.crt,tls.key Package base: <a href="../../packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress">packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress</a> Variant file: <a href="../../recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml">recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml</a> Rendered objects: <a href="../../recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml">recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml</a> Helm equivalence: 6/6 objects matched Receipts: <a href="recipes/bitnami/nginx/24.0.2/CATALOG.html">per-chart receipts</a></p>
+<h4 id="grafanatempo1244">grafana/tempo@1.24.4</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 1/2; live parity 1/2 Hard gap: ha (tempo single-binary chart; HA is the separate tempo-distributed chart) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4</code> Source package: <a href="../../packages/grafana/tempo/1.24.4">packages/grafana/tempo/1.24.4</a> Per-chart catalog: <a href="recipes/grafana/tempo/1.24.4/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/grafana/tempo/1.24.4/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4 --base local-persistent --work-dir &lt;tmp&gt; --non-interactive --namespace tempo</code></pre>
+<p>Variants:</p>
+<h5 id="local-persistent-recommended-first">local-persistent (recommended first)</h5>
+<p>When to use: tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4 Readiness: start-here Namespace: tempo Target facts: none Package base: <a href="../../packages/grafana/tempo/1.24.4/bases/local-persistent">packages/grafana/tempo/1.24.4/bases/local-persistent</a> Variant file: <a href="../../recipes/grafana/tempo/1.24.4/variants/local-persistent/variant.yaml">recipes/grafana/tempo/1.24.4/variants/local-persistent/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml">recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml</a> Helm equivalence: 4/4 objects matched Receipts: <a href="recipes/grafana/tempo/1.24.4/CATALOG.html">per-chart receipts</a></p>
+<h5 id="s3-query-observability">s3-query-observability</h5>
+<p>When to use: tempo S3 query and observability variant rendered from grafana/tempo@1.24.4 Readiness: runtime-watch Namespace: tempo Target facts: required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render) Package base: <a href="../../packages/grafana/tempo/1.24.4/bases/s3-query-observability">packages/grafana/tempo/1.24.4/bases/s3-query-observability</a> Variant file: <a href="../../recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml">recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml</a> Rendered objects: <a href="../../recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml">recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml</a> Helm equivalence: 8/8 objects matched Receipts: <a href="recipes/grafana/tempo/1.24.4/CATALOG.html">per-chart receipts</a></p>
+<h4 id="hashicorpconsul200">hashicorp/consul@2.0.0</h4>
+<p>Status: catalog-supported Production readiness: production-review-ready Start base readiness: start-here Strongest evidence: live-helm-vs-confighub-parity Proof lanes: render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 1/2; live parity 1/2 Hard gap: ha (curated proof lane - bespoke teaching needed) Installer package OCI: <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0</code> Source package: <a href="../../packages/hashicorp/consul/2.0.0">packages/hashicorp/consul/2.0.0</a> Per-chart catalog: <a href="recipes/hashicorp/consul/2.0.0/CATALOG.html">CATALOG.md</a> Helm pain report: <a href="../../recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml">helm-pain-report.yaml</a></p>
+<p>Start here:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0 --base default-control-plane --work-dir &lt;tmp&gt; --non-interactive --namespace consul</code></pre>
+<p>Variants:</p>
+<h5 id="default-control-plane-recommended-first">default-control-plane (recommended first)</h5>
+<p>When to use: consul default control plane variant rendered from hashicorp/consul@2.0.0 Readiness: start-here Namespace: consul Target facts: none Package base: <a href="../../packages/hashicorp/consul/2.0.0/bases/default-control-plane">packages/hashicorp/consul/2.0.0/bases/default-control-plane</a> Variant file: <a href="../../recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml">recipes/hashicorp/consul/2.0.0/variants/default-control-plane/variant.yaml</a> Rendered objects: <a href="../../recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml">recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml</a> Helm equivalence: 68/68 objects matched Receipts: <a href="recipes/hashicorp/consul/2.0.0/CATALOG.html">per-chart receipts</a></p>
+<h5 id="secure-mesh-existing-secrets">secure-mesh-existing-secrets</h5>
+<p>When to use: consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0 Readiness: runtime-watch Namespace: consul Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token; topology minSchedulableNodes=3 Package base: <a href="../../packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets">packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets</a> Variant file: <a href="../../recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml">recipes/hashicorp/consul/2.0.0/variants/secure-mesh-existing-secrets/variant.yaml</a> Rendered objects: <a href="../../recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml">recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml</a> Helm equivalence: 97/97 objects matched Receipts: <a href="recipes/hashicorp/consul/2.0.0/CATALOG.html">per-chart receipts</a></p>
+<h2 id="full-proof-index-110-entries">Full Proof Index (110 Entries)</h2>
+<p>The rows below include the live-tested top 20, proof-grade recipe/package artifacts, and any retained newer chart-version candidates. <code>catalog-supported</code> means reviewed variants for the declared scope. <code>catalog-candidate</code> means a newer or richer candidate is visible for review but is not the supported catalog version. <code>proof-grade</code> means machine-verified artifacts that still need catalog promotion review before support is claimed.</p>
+<table><thead><tr><th>Chart</th><th>Status</th><th>Bucket</th><th>Evidence</th><th>Start With</th><th>Package OCI</th><th>Hard Gap</th><th>Catalog</th></tr></thead><tbody><tr><td>bitnami/redis@25.5.3</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>reuse-existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code></td><td>-</td><td><a href="recipes/bitnami/redis/25.5.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>metrics-server/metrics-server@3.13.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/metrics-server/metrics-server/3.13.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>internal-clusterip</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1</code></td><td>-</td><td><a href="recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jetstack/cert-manager@v1.20.2</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>crds-enabled</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2</code></td><td>-</td><td><a href="recipes/jetstack/cert-manager/v1.20.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>external-secrets/external-secrets@2.5.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0</code></td><td>-</td><td><a href="recipes/external-secrets/external-secrets/2.5.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-cd@9.5.15</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/argo-cd/argo-cd/9.5.15/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/postgresql@18.6.7</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/bitnami/postgresql/18.6.7/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/rabbitmq@16.0.14</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/bitnami/rabbitmq/16.0.14/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/loki@7.0.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>single-binary-filesystem</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0</code></td><td>-</td><td><a href="recipes/grafana/loki/7.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>longhorn/longhorn@1.11.2</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2</code></td><td>-</td><td><a href="recipes/longhorn/longhorn/1.11.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mysql@14.0.3</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/bitnami/mysql/14.0.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>existing-secret-ingress</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15</code></td><td>-</td><td><a href="recipes/grafana/grafana/10.5.15/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0</code></td><td>-</td><td><a href="recipes/hashicorp/vault/0.32.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0</code></td><td>-</td><td><a href="recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus@29.8.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>server-only-ephemeral</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mongodb@19.0.7</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>existing-secret-replicaset</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7</code></td><td>-</td><td><a href="recipes/bitnami/mongodb/19.0.7/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/nginx@24.0.2</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>http-clusterip</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/nginx/24.0.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/tempo@1.24.4</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>local-persistent</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4</code></td><td>ha (tempo single-binary chart; HA is the separate tempo-distributed chart)</td><td><a href="recipes/grafana/tempo/1.24.4/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>hashicorp/consul@2.0.0</td><td>catalog-supported</td><td>try-from-public-catalog</td><td>live-helm-vs-confighub-parity</td><td>default-control-plane</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0</code></td><td>ha (curated proof lane - bespoke teaching needed)</td><td><a href="recipes/hashicorp/consul/2.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>aqua/trivy-operator@0.32.1</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1</code></td><td>-</td><td><a href="recipes/aqua/trivy-operator/0.32.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-cd@9.5.17</td><td>catalog-candidate</td><td>-</td><td>-</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17</code></td><td>-</td><td><a href="recipes/argo-cd/argo-cd/9.5.17/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-events@2.4.21</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21</code></td><td>-</td><td><a href="recipes/argo-cd/argo-events/2.4.21/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-rollouts@2.40.9</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9</code></td><td>-</td><td><a href="recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argo-workflows@1.0.14</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14</code></td><td>-</td><td><a href="recipes/argo-cd/argo-workflows/1.0.14/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>argo-cd/argocd-image-updater@1.2.2</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td><td><a href="recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>autoscaler/cluster-autoscaler@9.57.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0</code></td><td>-</td><td><a href="recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>autoscaler/vertical-pod-autoscaler@0.9.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0</code></td><td>-</td><td><a href="recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1</code></td><td>-</td><td><a href="recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/apache@11.4.29</td><td>proof-grade</td><td>limitation-decision-first</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/apache/11.4.29/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/contour@21.1.4</td><td>proof-grade</td><td>limitation-decision-first</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/contour/21.1.4/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/elasticsearch@22.1.6</td><td>proof-grade</td><td>limitation-decision-first</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/elasticsearch/22.1.6/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/memcached@8.5.5</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/memcached/8.5.5/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mongodb@19.0.9</td><td>catalog-candidate</td><td>-</td><td>-</td><td>existing-secret-replicaset</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.9</code></td><td>-</td><td><a href="recipes/bitnami/mongodb/19.0.9/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/mongodb@19.1.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>existing-secret-replicaset</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.1.0</code></td><td>-</td><td><a href="recipes/bitnami/mongodb/19.1.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/nginx@24.0.4</td><td>catalog-candidate</td><td>-</td><td>-</td><td>http-clusterip</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.4</code></td><td>-</td><td><a href="recipes/bitnami/nginx/24.0.4/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/nginx@25.0.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>http-clusterip</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0</code></td><td>-</td><td><a href="recipes/bitnami/nginx/25.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/opensearch@2.0.10</td><td>proof-grade</td><td>promote-after-review</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10</code></td><td>-</td><td><a href="recipes/bitnami/opensearch/2.0.10/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/phpmyadmin@20.0.0</td><td>proof-grade</td><td>limitation-decision-first</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/phpmyadmin/20.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/postgresql@18.6.10</td><td>catalog-candidate</td><td>-</td><td>-</td><td>existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.10</code></td><td>-</td><td><a href="recipes/bitnami/postgresql/18.6.10/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/postgresql@18.7.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.7.0</code></td><td>-</td><td><a href="recipes/bitnami/postgresql/18.7.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/redis@27.0.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>reuse-existing-secret</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0</code></td><td>-</td><td><a href="recipes/bitnami/redis/27.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/spark@10.0.3</td><td>proof-grade</td><td>limitation-decision-first</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/spark/10.0.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>bitnami/zookeeper@13.8.7</td><td>proof-grade</td><td>limitation-decision-first</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/bitnami/zookeeper/13.8.7/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>cloudnative-pg/cloudnative-pg@0.28.2</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2</code></td><td>-</td><td><a href="recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>coredns/coredns@1.45.2</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2</code></td><td>-</td><td><a href="recipes/coredns/coredns/1.45.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>crossplane-stable/crossplane@2.3.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1</code></td><td>-</td><td><a href="recipes/crossplane-stable/crossplane/2.3.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>descheduler/descheduler@0.36.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0</code></td><td>-</td><td><a href="recipes/descheduler/descheduler/0.36.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>dex/dex@0.24.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0</code></td><td>-</td><td><a href="recipes/dex/dex/0.24.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>elastic/eck-operator@3.4.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0</code></td><td>-</td><td><a href="recipes/elastic/eck-operator/3.4.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>elastic/filebeat@8.5.1</td><td>proof-grade</td><td>promote-after-review</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1</code></td><td>-</td><td><a href="recipes/elastic/filebeat/8.5.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>elastic/kibana@8.5.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1</code></td><td>-</td><td><a href="recipes/elastic/kibana/8.5.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>elastic/logstash@8.5.1</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1</code></td><td>-</td><td><a href="recipes/elastic/logstash/8.5.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>elastic/metricbeat@8.5.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1</code></td><td>-</td><td><a href="recipes/elastic/metricbeat/8.5.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>external-dns/external-dns@1.21.1</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1</code></td><td>-</td><td><a href="recipes/external-dns/external-dns/1.21.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>fairwinds-stable/goldilocks@10.3.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>fairwinds-stable/vpa@4.11.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0</code></td><td>-</td><td><a href="recipes/fairwinds-stable/vpa/4.11.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>falcosecurity/falco@9.0.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0</code></td><td>-</td><td><a href="recipes/falcosecurity/falco/9.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>falcosecurity/falcosidekick@0.13.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1</code></td><td>-</td><td><a href="recipes/falcosecurity/falcosidekick/0.13.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6</code></td><td>-</td><td><a href="recipes/fluent/fluent-bit/0.57.6/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>fluent/fluentd@0.5.3</td><td>proof-grade</td><td>needs-useful-variant</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3</code></td><td>-</td><td><a href="recipes/fluent/fluentd/0.5.3/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>gatekeeper/gatekeeper@3.22.2</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2</code></td><td>-</td><td><a href="recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>gitlab/gitlab-runner@0.89.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0</code></td><td>-</td><td><a href="recipes/gitlab/gitlab-runner/0.89.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/alloy@1.8.2</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2</code></td><td>-</td><td><a href="recipes/grafana/alloy/1.8.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/promtail@6.17.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1</code></td><td>-</td><td><a href="recipes/grafana/promtail/6.17.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/pyroscope@2.0.2</td><td>proof-grade</td><td>limitation-decision-first</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/grafana/pyroscope/2.0.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>grafana/rollout-operator@0.49.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0</code></td><td>-</td><td><a href="recipes/grafana/rollout-operator/0.49.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>haproxytech/kubernetes-ingress@1.52.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0</code></td><td>-</td><td><a href="recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>hashicorp/terraform@1.1.2</td><td>proof-grade</td><td>promote-after-review</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2</code></td><td>-</td><td><a href="recipes/hashicorp/terraform/1.1.2/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>istio/gateway@1.30.0</td><td>proof-grade</td><td>promote-after-review</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0</code></td><td>-</td><td><a href="recipes/istio/gateway/1.30.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>istio/istiod@1.30.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0</code></td><td>-</td><td><a href="recipes/istio/istiod/1.30.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>proof-grade</td><td>promote-after-review</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0</code></td><td>-</td><td><a href="recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jaegertracing/jaeger@4.8.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/jaegertracing/jaeger/4.8.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jetstack/cert-manager-csi-driver@v0.14.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0</code></td><td>-</td><td><a href="recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>jetstack/trust-manager@v0.22.1</td><td>proof-grade</td><td>promote-after-review</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1</code></td><td>-</td><td><a href="recipes/jetstack/trust-manager/v0.22.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>kedacore/keda@2.19.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0</code></td><td>-</td><td><a href="recipes/kedacore/keda/2.19.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>kyverno/kyverno-policies@3.8.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0</code></td><td>-</td><td><a href="recipes/kyverno/kyverno-policies/3.8.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>proof-grade</td><td>limitation-decision-first</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/kyverno/kyverno/3.8.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>linkerd/linkerd-crds@1.8.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0</code></td><td>-</td><td><a href="recipes/linkerd/linkerd-crds/1.8.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>minio-operator/operator@7.1.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td><td><a href="recipes/minio-operator/operator/7.1.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>minio-operator/tenant@7.1.1</td><td>proof-grade</td><td>needs-useful-variant</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1</code></td><td>-</td><td><a href="recipes/minio-operator/tenant/7.1.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>nats/nack@0.34.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</code></td><td>-</td><td><a href="recipes/nats/nack/0.34.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>nats/nats@2.14.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0</code></td><td>-</td><td><a href="recipes/nats/nats/2.14.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>nats/surveyor@0.20.9</td><td>proof-grade</td><td>promote-after-review</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9</code></td><td>-</td><td><a href="recipes/nats/surveyor/0.20.9/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18</code></td><td>-</td><td><a href="recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>open-telemetry/opentelemetry-operator@0.114.0</td><td>proof-grade</td><td>promote-after-review</td><td>two-cluster-kind-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0</code></td><td>-</td><td><a href="recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>opencost/opencost@2.5.21</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21</code></td><td>-</td><td><a href="recipes/opencost/opencost/2.5.21/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>percona/pg-operator@3.0.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0</code></td><td>-</td><td><a href="recipes/percona/pg-operator/3.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>percona/psmdb-operator@1.22.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0</code></td><td>-</td><td><a href="recipes/percona/psmdb-operator/1.22.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>percona/pxc-operator@1.19.1</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1</code></td><td>-</td><td><a href="recipes/percona/pxc-operator/1.19.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>projectcalico/tigera-operator@v3.32.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0</code></td><td>-</td><td><a href="recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/alertmanager@1.37.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0</code></td><td>-</td><td><a href="recipes/prometheus-community/alertmanager/1.37.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@86.1.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0</code></td><td>-</td><td><a href="recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/kube-state-metrics@7.4.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0</code></td><td>-</td><td><a href="recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus-adapter@5.3.0</td><td>proof-grade</td><td>not-ready</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus-blackbox-exporter@11.10.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus-node-exporter@4.55.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus-operator-crds@29.0.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus-pushgateway@3.6.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>prometheus-community/prometheus@29.9.0</td><td>catalog-candidate</td><td>-</td><td>-</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0</code></td><td>-</td><td><a href="recipes/prometheus-community/prometheus/29.9.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>rook-release/rook-ceph-cluster@v1.19.5</td><td>proof-grade</td><td>needs-useful-variant</td><td>local-kubernetes-live</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</code></td><td>-</td><td><a href="recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>rook-release/rook-ceph@v1.19.5</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5</code></td><td>no-crds (template-baked CRDs; no clean chart toggle yet)</td><td><a href="recipes/rook-release/rook-ceph/v1.19.5/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>runix/pgadmin4@1.62.0</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0</code></td><td>-</td><td><a href="recipes/runix/pgadmin4/1.62.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>sealed-secrets/sealed-secrets@2.18.6</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6</code></td><td>-</td><td><a href="recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>stakater/reloader@2.2.12</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12</code></td><td>-</td><td><a href="recipes/stakater/reloader/2.2.12/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>strimzi/strimzi-kafka-operator@1.0.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0</code></td><td>-</td><td><a href="recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>traefik/traefik@40.2.0</td><td>proof-grade</td><td>limitation-decision-first</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0</code></td><td>existing-secret (chart ships no Secret toggle)</td><td><a href="recipes/traefik/traefik/40.2.0/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>velero/velero@12.0.1</td><td>proof-grade</td><td>promote-after-review</td><td>in-confighub-proof</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1</code></td><td>-</td><td><a href="recipes/velero/velero/12.0.1/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>vm/victoria-logs-single@0.12.5</td><td>proof-grade</td><td>needs-useful-variant</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5</code></td><td>-</td><td><a href="recipes/vm/victoria-logs-single/0.12.5/CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>vm/victoria-metrics-single@0.39.0</td><td>proof-grade</td><td>promote-after-review</td><td>live-helm-vs-confighub-parity</td><td>default</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0</code></td><td>-</td><td><a href="recipes/vm/victoria-metrics-single/0.39.0/CATALOG.html">CATALOG.md</a></td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>CATALOG.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

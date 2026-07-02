@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Prompts · ConfigHub Helm Ops</title>
+  <meta name="description" content="Review Prompts: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/review-prompts.html">
+  <meta property="og:title" content="Review Prompts · ConfigHub Helm Ops">
+  <meta property="og:description" content="Review Prompts: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/review-prompts.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Review Prompts</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/review-prompts.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Use these prompts to review the ConfigHub Helm plan and the proposed <code>helm-expt</code> rewrite.</p>
+<p>Primary source:</p>
+<ul><li><code>docs/reference/chart-recipe-manifest-flow.md</code></li><li><code>docs/planning/agreed-execution-plan.md</code></li><li><code>docs/planning/archive/current-pathway-review.md</code></li><li><code>docs/planning/independent-review-brief.md</code></li><li><code>docs/planning/issue-backlog.md</code></li><li><code>docs/corpus/known-adversarial-charts.md</code></li><li><code>confighub/installer</code>: https://github.com/confighub/installer</li></ul>
+<p>Scope exclusions:</p>
+<ul><li>The old <code>archive/render-and-vendor-top20/</code> payload has been removed from the active tree.</li><li><code>data/top500-catalog-analysis/source/source-feature-scan.raw.json</code> is the historical source-feature scan input. The current top-500 proof index is the generated output in <code>data/top500-catalog-analysis/</code>.</li><li>Do not judge the current plan by whether those old artifacts prove it. They do not. The current plan requires new chart proof repos, new recipe artifacts, generated spreadsheets, and receipts.</li></ul>
+<p>Core thesis:</p>
+<pre><code>Use Helm charts. Ship ConfigHub variants.</code></pre>
+<p>Phase 1 scope:</p>
+<pre><code>public Helm chart catalog proof
+enterprise-internal chart variants are out of scope</code></pre>
+<p>Lead with:</p>
+<pre><code>Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.</code></pre>
+<p>60-second story:</p>
+<pre><code>Helm generates Kubernetes objects. ConfigHub captures those objects as
+immutable variant revisions. You approve the exact rendered objects, scan them
+before install, promote the same revision to prod, see why environments differ,
+and get receipts proving what changed and what was observed.</code></pre>
+<p>The repo should prove:</p>
+<pre><code>500 charts
+  -&gt; 500 core recipe candidates
+  -&gt; N base variants per recipe
+  -&gt; explicit control points
+  -&gt; rendered variant revisions
+  -&gt; bulk scans and install gates</code></pre>
+<p>Above all, it must prove simple UX:</p>
+<pre><code>one install command
+one review/diff path
+one publish path to ConfigHub OCI for GitOps pickup
+proof generated automatically</code></pre>
+<p>The first demo should be no harder than Helm for a successful install. Proof should appear automatically. The result must be safer and more accurate than Helm alone.</p>
+<p>Execution guidance:</p>
+<pre><code>Do #24 first: schemas and verifier.
+Then make Redis the first complete proof.
+Then prove the five-minute UX continuously.
+Only then should top-20/top-100/top-500 count as product evidence.</code></pre>
+<p>Implementation thesis:</p>
+<pre><code>Build this by extending confighub/installer.
+Do not invent a separate Helm platform.</code></pre>
+<p>Execution boundary:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>The current fast install story uses ConfigHub's OCI endpoint.
+GitHub is the public catalog/proof surface, currently confighub/helm-expt.
+A pure serverless cub installer path is deferred and should be tracked as an
+issue, not reviewed as part of the current proof plan.</code></pre>
+<p>Installer is the substrate for <code>cub installer</code>, <code>installer.yaml</code>, Kustomize bases/components, inputs, selection, <code>out/spec/</code>, collector facts, function chains, validators, dependency locks, OCI artifacts, sign/verify, render, upload, and day-2 lifecycle. Helm import should add chart-to-recipe import, install variants, variant revision receipts, Helm control-point diagnostics, scan/gate receipts, and external observation receipts.</p>
+<h2 id="quick-alignment-check">Quick Alignment Check</h2>
+<p>Important review distinction:</p>
+<pre><code>Current repo state:
+  planning docs, legacy reference evidence, and old source-feature scan.
+
+Target repo state:
+  new chart repos prove that Helm charts become ConfigHub installer recipe
+  candidates, install variants, immutable variant revisions, rendered objects,
+  scans, gates, OCI artifact receipts, and generated evidence spreadsheets.</code></pre>
+<p>Do not treat the removed top-20 payload or the old top-500 spreadsheet as the main pathway. The useful review is: are the new pathway, required artifacts, acceptance criteria, and proof strategy clear enough for independent implementation and verification?</p>
+<p>The proposed repo rewrite matches the whole plan if it answers these questions clearly:</p>
+<ol><li>Can a popular Helm chart become a stable core recipe?</li><li>Which bounded base variants does the recipe need?</li><li>Which control point handles each chart's Helm complexity?</li><li>Can every variant revision render deterministically?</li><li>Can every rendered variant revision be scanned and gated?</li><li>Can ConfigHub Server store intended variant state without pretending to be the live watcher?</li><li>Can <code>cub-scout</code>, GitOps, CI/CD, or other external observers submit live observation receipts with freshness?</li><li>Does the repo prove real recipe/variant behavior, not just chart-count reporting?</li><li>Is every step executable through <code>cub</code>, ConfigHub Server UI/API, or an external observer integration, with every manual step documented?</li></ol>
+<p>If the repo does not make those answers obvious, the repo is still too much of a Helm-render experiment and not enough of a ConfigHub variants proof.</p>
+<h2 id="independent-review-prompt">Independent Review Prompt</h2>
+<p>Copy/paste this into an independent product and technical review.</p>
+<pre><code>You are an independent product and technical reviewer evaluating ConfigHub's Helm mission.
+
+The mission is:
+
+  Reduce Helm pain by making chart output explicit, variant-aware, reviewable,
+  and receipt-backed.
+
+The crisp positioning is:
+
+  Use Helm charts. Ship ConfigHub variants.
+
+The 60-second story is:
+
+  Helm generates Kubernetes objects. ConfigHub captures those objects as
+  immutable variant revisions. You approve the exact rendered objects, scan them
+  before install, promote the same revision to prod, see why environments differ,
+  and get receipts proving what changed and what was observed.
+
+The plan is not to replace Helm, Git, Argo CD, Flux, scanners, or cluster observers.
+
+The plan is also not greenfield. It should be built by extending
+confighub/installer:
+
+  https://github.com/confighub/installer
+
+Installer already provides cub installer, installer.yaml packages, Kustomize
+bases/components, inputs, selection, out/spec state, collector facts, function
+chains, validators, dependency locks, OCI packaging, sign/verify, render,
+upload, and day-2 lifecycle.
+
+The Helm mission should add Helm Recipe Import, install variants, variant
+revision receipts, Helm control-point diagnostics, scan/gate receipts, and
+external observation receipts.
+
+The plan is:
+
+  Helm chart source
+    -&gt; Helm Recipe Import
+    -&gt; ConfigHub Install Variants
+    -&gt; immutable variant revisions
+    -&gt; environment facts used during render
+    -&gt; exact rendered Kubernetes objects
+    -&gt; scan exact objects before install
+    -&gt; Verified Install Gate
+    -&gt; ConfigHub operate/day-2 lifecycle
+
+ConfigHub Server is workerless in this story. It stores recipes, variants, variant revisions, operation records, receipts, target assignments, and desired state. It does not have a built-in live view. Live observations come from cub-scout, GitOps controller reports, CI/CD jobs, customer-owned agents/integrations, or human-triggered cub observations. Those observations are submitted as receipts with observer, method, timestamp, result, and freshness.
+
+Hard rule:
+
+  ConfigHub stores desired/config truth and submitted observation receipts.
+  It does not claim fresh runtime truth unless a current receipt says so.
+
+The repo proof should become:
+
+  500 Helm charts
+    -&gt; 500 core recipe candidates
+    -&gt; a small set of bounded install variants per recipe
+    -&gt; explicit control points
+    -&gt; rendered variant revisions
+    -&gt; bulk scan results and install gates
+
+Review the plan against these user pains:
+
+1. I do not want to approve a values file and hope. I want to approve the exact Kubernetes objects that will be applied.
+2. I deployed the same thing to prod and got something subtly different. I have no idea why.
+3. I need the thing we tested in staging to be the exact thing we promote to prod, not a generator we rerun and hope produces the same output.
+4. Our vendor pushed a chart upgrade. Half my customisations still work, half conflict.
+5. SecOps patched the base image. I need to roll it across many customer environments without breaking any of them.
+6. I cannot tell what changed, what landed, or whether prod saw the same thing dev approved.
+
+Please be blunt. Produce:
+
+1. A one-paragraph verdict: is this actively, obviously better and simpler than Helm alone?
+2. The three strongest parts of the plan.
+3. The five biggest objections a real Helm/GitOps user will still have.
+4. For each objection, the crispest answer we should give.
+5. Any places where the plan sounds like platform ceremony instead of reduced pain.
+6. Whether the variants model is doing enough work, or whether the plan still sounds like values-file management.
+7. Whether the workerless server boundary is clear and credible.
+8. Whether the proposed new top-20/top-100/top-500 evidence will prove the
+   right thing.
+9. What the new chart repos and generated spreadsheets must contain to make the
+   claim believable.
+10. What to cut, rename, or sharpen.
+11. Whether &quot;variant&quot; means a real approval/promotion/operation object, or just a renamed values file.
+
+Use this standard:
+
+  If a skeptical platform engineer cannot understand the value in 60 seconds,
+  the story is not crisp enough.</code></pre>
+<h2 id="codex-review-prompt">Codex Review Prompt</h2>
+<p>Copy/paste this into Codex for an implementation-oriented review.</p>
+<pre><code>You are Codex, acting as a senior engineering and product reviewer.
+
+Repository: confighub/helm-expt.
+
+Read:
+
+- docs/reference/chart-recipe-manifest-flow.md
+- docs/planning/agreed-execution-plan.md
+- README.md
+- confighub/installer, especially README.md, docs/author-guide.md, package model, collector/facts, render, deps, OCI/sign/verify, validators, and lifecycle docs
+
+Explicitly exclude from current-pathway proof review:
+
+- legacy source-feature-only spreadsheets
+
+The old render-and-vendor top-20 payload has been removed from the active tree.
+The source-feature scan is retained only as input to the generated top-500
+catalog analysis. Do not treat source-feature reconnaissance as product proof.
+
+The intended repo story is:
+
+  Use Helm charts. Ship ConfigHub variants.
+
+60-second story:
+
+  Helm generates Kubernetes objects. ConfigHub captures those objects as
+  immutable variant revisions. You approve the exact rendered objects, scan them
+  before install, promote the same revision to prod, see why environments differ,
+  and get receipts proving what changed and what was observed.
+
+The repo should prove:
+
+  500 Helm charts
+    -&gt; 500 core recipe candidates
+    -&gt; bounded base variants per recipe
+    -&gt; explicit control points
+    -&gt; deterministic rendered variant revisions
+    -&gt; bulk scans and install gates
+
+Important constraints:
+
+- ConfigHub variants are the product spine.
+- The happy path must be no more complex than Helm for a first successful
+  install, while producing more proof.
+- The happy path must be safer and more correct than Helm, not merely more
+  instrumented.
+- Every intentional difference from Helm output must be explained before
+  publish.
+- A variant needs governed state, receipts, and promotion behavior. A labeled
+  values file is insufficient.
+- A core recipe is not the same thing as a Helm release.
+- A variant revision is the thing users approve, scan, promote, deploy, and roll back.
+- Helm source weirdness should map to control points, not just &quot;bad chart&quot; labels.
+- lookup must become recipe-declared target fact requirements; no hidden live
+  cluster reads during render.
+- generated random/cert/time/password behavior must become generated facts or secrets.
+- capabilities must become named capability profiles.
+- hooks must become lifecycle policy: test hook, install phase, or unsupported.
+- raw/tpl escape hatches must become explicit extension slots or be rejected.
+- rendered manifests are where market scanners run.
+- ConfigHub Server is workerless; live state comes from cub-scout, GitOps/CI reports, or other external observation receipts.
+- ConfigHub Server must not claim fresh runtime truth unless a current external observation receipt says so.
+- The fast install path uses ConfigHub's OCI endpoint; pure serverless is deferred.
+- The implementation should extend confighub/installer, not create a parallel Helm system.
+- Map every proposed concept to an existing installer concept where possible: package, `installer.yaml`, base, component, input, selection, facts, dependency lock, function chain, validator, render output, OCI artifact, signature, upload, day-2 lifecycle.
+
+Review task:
+
+1. Check whether the current docs clearly exclude legacy artifacts from the
+   main proof pathway.
+2. Check whether the proposed happy path proves simpler UX and faster value
+   than plain Helm.
+3. Check whether the proposed new chart repo / new spreadsheet pathway can
+   prove the intended story.
+4. Identify mismatches between docs/reference/chart-recipe-manifest-flow.md,
+   docs/planning/agreed-execution-plan.md, and the target artifacts.
+5. Propose a concrete new chart repo file tree, schemas, and example files.
+6. Propose a new generated top-20/top-100/top-500 summary table focused on:
+   - core recipe viable?
+   - base variants needed
+   - primary control point
+   - secondary control point
+   - can bulk scan rendered variants?
+   - install readiness
+   - evidence artifact / receipt link
+7. Define acceptance criteria for the proof repo.
+8. Identify the smallest useful implementation slice.
+9. Identify any places the plan is technically false, underspecified, or overclaiming.
+10. Identify any places the proposed new evidence path risks becoming benchmark
+   theater instead of proving recipe/variant behavior.
+11. Check whether any issue in `docs/planning/issue-backlog.md`, especially P0 gates,
+    is missing from or bypassed by the written plan.
+12. Identify which pieces can be implemented directly in confighub/installer and which require new model/API concepts.
+
+Output format:
+
+Findings first:
+
+- P0: claims that are false or unsupported
+- P1: gaps that weaken the proof
+- P2: clarity and repo-structure improvements
+
+Then provide:
+
+- Proposed repo tree
+- Proposed YAML schemas for recipe candidate, variant, variant revision, control point, render receipt, scan receipt, and observation receipt
+- Top-500 summary shape
+- Recommended first PR
+- Open questions
+
+Do not optimize for making the plan look good.
+Optimize for finding whether the repo can actually prove:
+
+  Helm complexity -&gt; explicit ConfigHub control point -&gt; deterministic variant revision -&gt; scanned/gated install.</code></pre>
+<h2 id="optional-one-line-review-prompt">Optional One-Line Review Prompt</h2>
+<p>For a fast sanity check:</p>
+<pre><code>Does this plan make Helm simpler by turning charts into managed ConfigHub variants, or does it just rename Helm complexity? Be specific.</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/review-prompts.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

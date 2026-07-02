@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Large Machine Handover · ConfigHub Helm Ops</title>
+  <meta name="description" content="Large Machine Handover: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-handover.html">
+  <meta property="og:title" content="Large Machine Handover · ConfigHub Helm Ops">
+  <meta property="og:description" content="Large Machine Handover: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-handover.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Large Machine Handover</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/large-machine-handover.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Updated: 2026-06-08</p>
+<p>This is the handover for a Codex instance with enough local resources to run cluster and GitOps tests. It starts from public <code>main</code>.</p>
+<h2 id="first-principle">First Principle</h2>
+<p>Do not claim &quot;checked&quot;, &quot;verified&quot;, &quot;live&quot;, &quot;all charts&quot;, or &quot;all quirks&quot; unless the exact scope has committed evidence and a verifier.</p>
+<p>Use these words precisely:</p>
+<table><thead><tr><th>Word</th><th>Meaning in this repo</th></tr></thead><tbody><tr><td><code>render verified</code></td><td>Helm-equivalence and installer setup checks exist for the recipe variant.</td></tr>
+<tr><td><code>ConfigHub proof</code></td><td>ConfigHub upload, server-side clone, function scan, and safe-ops receipts exist. This is not a cluster deployment.</td></tr>
+<tr><td><code>local live</code></td><td>A kind or equivalent Kubernetes observation receipt proves objects were applied and runtime checks passed.</td></tr>
+<tr><td><code>GitOps live</code></td><td>ConfigHub Units were published through OCI and reconciled by Argo or Flux, with sync and runtime evidence.</td></tr>
+<tr><td><code>live parity</code></td><td>A live Helm deployment was compared against both ConfigHub delivery paths: controller-driven OCI and kubectl/apply.</td></tr>
+<tr><td><code>derived variant proof</code></td><td>A downstream ConfigHub Space was created from an uploaded reviewed base, with clone/link/gate/check evidence.</td></tr>
+<tr><td><code>target-bound derived variant</code></td><td>A derived variant has a real target attached and live apply evidence.</td></tr></tbody></table>
+<p>The repo has useful proof. It does not yet have complete live proof.</p>
+<h2 id="current-honest-state">Current Honest State</h2>
+<p>Use <a href="../../data/outcome-coverage/summary.html">data/outcome-coverage/summary.md</a> as the chart-recipe-variant truth source.</p>
+<p>The generated status dashboard is the front door for current counts:</p>
+<pre><code>data/status-dashboard/summary.md
+data/outcome-coverage/summary.md
+data/outcome-coverage/base-outcomes.csv</code></pre>
+<p>As of the current generated matrix, the durable row-level facts are:</p>
+<pre><code>chart-recipe-variant rows: 156
+render parity rows: 156 pass
+ConfigHub proof rows: partial
+local live rows: partial
+GitOps/OCI live rows: partial, with pass/watch/blocked/missing tracked by exact chart/base
+live Helm-vs-ConfigHub rows: partial, with pass/watch/blocked/missing tracked by exact chart/base
+complete core lane rows: partial
+100 charts have recipe/package proof artifacts.
+20 top-20 chart-level ConfigHub proof receipt sets exist.
+20 top-20 local-kind receipt sets exist for selected supported scope.
+10 derived ConfigHub variants have live intended-state receipts.</code></pre>
+<p>Do not maintain exact live lane counts in this handover. They change as receipts land. Use the generated files above for current pass, watch, blocked, and missing counts. Use <code>data/live-parity-rerun-plan/summary.md</code> to choose the next non-pass live row to rerun.</p>
+<p>The apparent tension between &quot;20 top-20 receipt sets&quot; and &quot;18 row-level ConfigHub lane passes&quot; is expected: the lane matrix is exact by chart-recipe-variant row and includes non-default choices. Never collapse the row-level gap into chart-level success.</p>
+<h2 id="what-was-just-completed">What Was Just Completed</h2>
+<p>PR #155 and PR #157 added:</p>
+<ul><li>Redis ConfigHub proof refresh through the common proof lane.</li><li>Live intended-state receipts for all 10 work orders in the first derived expansion wave:<ul><li>Redis: <code>prod-us-east</code>, <code>staging-eu-west</code></li><li>NGINX: <code>prod-us-east</code>, <code>customer-acme-prod</code></li><li>Prometheus: <code>prod-us-east</code>, <code>staging-eu-west</code></li><li>Grafana: <code>prod-us-east</code>, <code>customer-acme-prod</code></li><li>Vault: <code>regulated-prod-us-east</code>, <code>staging-us-east</code></li></ul></li><li><code>npm run derived-variants:verify</code> now verifies all 10 receipts.</li><li>Demo proof docs now distinguish <code>ConfigHub Units</code> from <code>Kubernetes Units plus installer record</code>.</li><li>Issue #156 tracks Grafana placeholder drift observed during clone.</li></ul>
+<p>Important limitation: all 10 derived receipts intentionally stop before target binding and live apply. They prove ConfigHub intended state, not runtime.</p>
+<p>The current target-bound derived variant receipts are:</p>
+<pre><code>runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
+runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
+npm run derived-variants:target-bound:verify</code></pre>
+<p>Those receipts prove clean uploaded NGINX <code>http-clusterip</code>, Metrics Server <code>default</code>, and Prometheus <code>server-only-ephemeral</code> bases were cloned with <code>cub variant create --target</code>. The cloned workload Units were applied to ConfigHub OCI targets, Argo CD reconciled the derived Spaces, and Kubernetes reported the workloads ready. Metrics Server also records APIService availability. Prometheus now has both production and staging target-bound derived receipts. The receipts also record a product detail: the derived Space label changes to the requested operating variant, while cloned Unit labels still preserve the source base label unless a post-clone mutation changes them.</p>
+<p>The first target-bound blocked receipt is:</p>
+<pre><code>runs/derived-variant-target-bound/redis-staging-eu-west/receipt.yaml</code></pre>
+<p>It records that Redis staging cannot yet be honestly called target-bound live: the work order asks for a namespace change and Redis Secret delivery, but those are not yet represented by checked post-clone mutations or secret/fact bindings in the derived path.</p>
+<h2 id="known-sharp-edge">Known Sharp Edge</h2>
+<p>Grafana generated-passwords derived variants initially cloned <code>deployment-grafana-grafana</code> with one duplicated <code>9094</code> port rewritten to:</p>
+<pre><code>name: confighubplaceholder
+protocol: confighubplaceholder</code></pre>
+<p>Both Grafana derived variants were corrected by copying the reviewed source Unit data back into the derived Unit. The receipts record the corrective update.</p>
+<p>Follow-up issue:</p>
+<pre><code>https://github.com/confighub/helm-expt/issues/156</code></pre>
+<p>Do not present Grafana as a clean clone until that behavior is fixed or explained by product.</p>
+<h2 id="start-here-on-the-large-machine">Start Here On The Large Machine</h2>
+<p>Run these first:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>git status -sb
+npm run docs:verify
+npm run lane-tests:verify
+npm run top20:verify-confighub-proof
+npm run derived-variants:verify
+npm run derived-variants:target-bound:verify
+npm run derived-variants:target-bound:summary:verify
+npm run completeness:verify
+cub version
+cub context get -o json
+cub space list -o json
+cub target list --space &quot;*&quot; -o json</code></pre>
+<p>These are read-only except for normal local generated-process temp files. Do not mutate ConfigHub or clusters until you state exactly what will change.</p>
+<h2 id="live-testing-definition-of-done">Live Testing Definition Of Done</h2>
+<p>For a chart-recipe-variant row to move toward fully proven, produce receipts for:</p>
+<ol><li>Fresh Helm install in a live cluster.</li><li>ConfigHub kubectl/apply delivery in a live cluster.</li><li>ConfigHub OCI plus Argo or Flux delivery in a live cluster.</li><li>Semantic object comparison across Helm and both ConfigHub deliveries.</li><li>Runtime checks that match the chart's actual workload and quirks.</li><li>Cleanup or retention receipt explaining what remains.</li><li>Lane-matrix update that marks only the rows actually covered as pass.</li></ol>
+<p>Runtime checks must cover relevant quirks, not just &quot;kubectl apply returned 0&quot;:</p>
+<pre><code>CRDs
+hooks and lifecycle jobs
+admission webhooks
+cluster-scoped RBAC
+generated Secrets and separated Secrets
+existing Secret target facts
+PVCs and StatefulSets
+Service, Ingress, TLS, and LoadBalancer behavior
+lookup/tpl/template weirdness
+mutable image tags and digest overrides
+namespace and storage class prerequisites
+day-2 upgrade and rollback for stateful or hook-heavy charts</code></pre>
+<h2 id="next-codex-work-packet">Next Codex Work Packet</h2>
+<p>Use <a href="large-machine-roadmap.html">large-machine-roadmap.md</a> as the active roadmap. The shortest useful path is:</p>
+<ol><li>Attach targets to one prod and one staging derived variant and produce target-bound live apply receipts.</li><li>Expand live Helm-vs-ConfigHub parity to the next useful top-20 row.</li><li>Keep the receipt schema and verifier as the gate before expanding to more charts.</li><li>Update the lane matrix after every exact row moves from missing to pass.</li></ol>
+<p>If any part fails, record a blocked receipt or issue with the exact command, environment, and observed failure. A failed or blocked lane is valuable evidence as long as it is not described as a pass.</p>
+<h2 id="human-navigation-problem">Human Navigation Problem</h2>
+<p>The repo is hard for humans to navigate. That is now a first-class workstream, not cosmetic cleanup.</p>
+<p>The large-machine Codex should improve:</p>
+<ul><li><code>README.md</code>: answer &quot;what am I getting?&quot; before proof mechanics.</li><li><code>CATALOG.md</code> and site pages: per-chart promise cards.</li><li><code>docs/README.md</code>: doc map by audience and task.</li><li><code>docs/user/</code>: only human-facing docs.</li><li><code>docs/reference/</code>: stable definitions, lane doctrine, command surfaces.</li><li><code>docs/planning/</code>: roadmap, handover, issue mirrors, execution queues.</li><li>stale docs: move, archive, or mark as historical so they cannot mislead.</li></ul>
+<p>Do not delete docs casually. Move or mark them only after checking references with <code>npm run docs:verify</code>.</p>
+<h2 id="verification-tools-explained">Verification Tools Explained</h2>
+<p>New users need to know what each verifier proves:</p>
+<table><thead><tr><th>Tool</th><th>Proves</th><th>Does not prove</th></tr></thead><tbody><tr><td><code>npm run verify</code></td><td>Corpus self-consistency across many generated artifacts and receipts.</td><td>Fresh live cluster behavior for every chart.</td></tr>
+<tr><td><code>npm run lane-tests:verify</code></td><td>Lane matrix is current and missing/pass states are generated from evidence.</td><td>That missing lanes have been run.</td></tr>
+<tr><td><code>npm run top20:verify-confighub-proof</code></td><td>Top-20 ConfigHub proof receipt sets are present and schema-valid.</td><td>Every variant row has ConfigHub proof, or any row is live.</td></tr>
+<tr><td><code>npm run derived-variants:verify</code></td><td>Ten derived intended-state receipts exist and match expected clone/link/gate evidence.</td><td>Target-bound live apply.</td></tr>
+<tr><td><code>npm run derived-variants:target-bound:verify</code></td><td>Target-bound derived variant receipts exist and pass schema/content checks.</td><td>More than the exact committed receipts.</td></tr>
+<tr><td><code>npm run derived-variants:target-bound:summary:verify</code></td><td>The generated target-bound derived variant table is current with the receipts.</td><td>Fresh live execution.</td></tr>
+<tr><td><code>npm run variant-goldens:verify</code></td><td>Creator and derived-variant golden files are current.</td><td>Live execution unless a separate receipt exists.</td></tr>
+<tr><td><code>npm run completeness:verify</code></td><td>Model-completeness generated outputs are current.</td><td>Runtime correctness.</td></tr>
+<tr><td><code>npm run docs:verify</code></td><td>Markdown doc map and links are internally consistent.</td><td>Docs are understandable or complete.</td></tr></tbody></table>
+<p>The next docs improvement should make this table visible from a user-facing &quot;How verification works&quot; page.</p>
+<h2 id="github-sync-expectation">GitHub Sync Expectation</h2>
+<p>Work in small branches, commit evidence plus verifier changes together, then sync frequently:</p>
+<pre><code>git fetch origin
+git rebase origin/main
+git push -u origin &lt;branch&gt;
+gh pr create ...
+gh pr merge ...</code></pre>
+<p>After each merge, re-check open PRs:</p>
+<pre><code>gh pr list --state open --json number,title,headRefName,mergeStateStatus,url</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/large-machine-handover.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

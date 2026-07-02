@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Next catalog tasks - Helm catalog (distilled queue) · ConfigHub Helm Ops</title>
+  <meta name="description" content="Next catalog tasks - Helm catalog (distilled queue): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/next-20-tasks.html">
+  <meta property="og:title" content="Next catalog tasks - Helm catalog (distilled queue) · ConfigHub Helm Ops">
+  <meta property="og:description" content="Next catalog tasks - Helm catalog (distilled queue): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/next-20-tasks.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Next catalog tasks - Helm catalog (distilled queue)</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/next-20-tasks.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>Created:</b> 2026-06-02. A prioritized <b>top-20 queue distilled from the detailed plans</b> - <code>next-execution-plan.md</code> (P0/P1/P2 gates), <code>agreed-execution-plan.md</code> (doctrine), <code>issue-backlog.md</code> (GitHub issues), <code>catalog-promotion-next-candidates.md</code> (wave-2), and the <code>next80</code> / production-disposition data. It does not replace them; it is the executive work queue over them.</p>
+<p>Three newer planning inputs sharpen this queue:</p>
+<ul><li><code>serverless-verified-install-plan.md</code> defines the no-login wedge: resolve a public package, verify it locally, apply it, write an in-cluster receipt, and show where ConfigHub Server starts.</li><li><code>verified-install-commercial-model.md</code> defines the paid security and operations model: factory scans, image digest inventory, signed artifacts, refresh SLAs, private catalogs, and fleet-wide queries.</li><li><code>robust-sceptic-plan.md</code> defines the public attack model: every claim needs a receipt or route, and the next hard tests are claims-register maintenance, blast-radius accuracy, torture fixtures, environment matrices, and external reproduction.</li></ul>
+<h2 id="where-we-actually-are-so-the-queue-is-honest">Where we actually are (so the queue is honest)</h2>
+<ul><li>Use generated status surfaces for current counts: <code>data/status-dashboard/summary.md</code>, <code>data/master-catalog-matrix/matrix.html</code>, <code>data/outcome-coverage/summary.md</code>, and <code>data/production-support-decisions/summary.md</code>.</li><li><code>cub variant create</code> now exists and is the real current substrate for downstream ConfigHub variants. Local CLI truth also shows <code>cub variant promote</code> and <code>cub variant upload</code>; <code>cub variant release</code> is not current.</li><li>The catalog proves base/render variants much more strongly than derived ConfigHub variants. That is now an explicit gap, not a side note: derived variants need enough goldens, tutorials, metrics, and receipts that users can see them doing useful work.</li><li>100/100 charts are supported at Level 2; 54/100 are variant-rich. The remaining catalog work is user-shaped variants, derived variants, production dispositions, and runtime/GitOps evidence, not basic proof creation.</li><li>Current chart facts show 25 hard gaps for recommended extra capabilities: 15 existing-secret gaps (#113), 3 template-CRD/no-crds gaps (#114), 6 curated-variant lanes, and 1 other gap.</li><li>Production support decisions, draft state, and work items are generated data, not hand-maintained queue text. P0 #76 is closed as a verifier-backed import-path definition; downstream <code>cub installer import helm</code> implementation remains product work.</li></ul>
+<h2 id="outcome-standard-for-this-queue">Outcome standard for this queue</h2>
+<p>Each task below should be judged by the outcome it proves, not by whether a doc or script was added. The catalog target is:</p>
+<pre><code>Every supported Helm chart default and declared main choice is reproducible,
+ConfigHub-reviewable, live-cluster verified, and tied to receipts.</code></pre>
+<p>For a task to be done, it should leave behind:</p>
+<ul><li>a named scope, such as chart-choice rows, derived variants, or live lanes;</li><li>committed evidence, such as receipts, generated matrices, or verified docs;</li><li>a verifier that fails when the evidence is missing or stale;</li><li>user-facing wording that does not claim more than the evidence proves.</li></ul>
+<p>Default-only proof is not enough when the catalog advertises a non-default main choice. Derived ConfigHub variants are not &quot;supported&quot; until the uploaded base-plus-derived-variant path has clone/check/mutation receipts and, where the task is about delivery, live observation.</p>
+<table><thead><tr><th>Tasks</th><th>Outcome to prove</th></tr></thead><tbody><tr><td>1, 13</td><td>A human, agent, or bulk flow can express &quot;take this base and extend it&quot; while the docs and verifier use the real <code>cub variant create</code> surface.</td></tr>
+<tr><td>2, 3</td><td>Multiple derived ConfigHub variants exist as executed, receipted clone/check/mutation paths, not only as UX sketches.</td></tr>
+<tr><td>4</td><td>A fast Helm install/import path can become a durable recipe/package/variant path without losing reproducibility or review evidence.</td></tr>
+<tr><td>5, 17</td><td>Main non-default chart choices become real package bases with rendered revisions, Helm-equivalence receipts, scans, gates, and live-lane tracking.</td></tr>
+<tr><td>6, 18, 19</td><td>Production support blockers are explicit: dispositions, image digests, hook/lifecycle receipts, upgrade/rollback evidence, and observation freshness.</td></tr>
+<tr><td>7, 8</td><td>Target facts and chart weirdness are represented as checkable prerequisites or receipts, not hidden tribal knowledge.</td></tr>
+<tr><td>9-12</td><td>The rendered desired-state corpus becomes queryable: inventory, fleet mutation, policy posture, dependency graph, and impact analysis all distinguish base choices from derived variants.</td></tr>
+<tr><td>14-16</td><td>OCI/GitOps/release work proves delivery outcomes: gated publication, controller reconciliation, runtime observation, and live Helm-vs-ConfigHub parity.</td></tr>
+<tr><td>20</td><td>The public story gives a new user a simple path from catalog choice to verified outcome without burying them in internal proof machinery.</td></tr></tbody></table>
+<p>The newer sceptic plan adds two cross-cutting outcomes:</p>
+<table><thead><tr><th>Task</th><th>Outcome to prove</th></tr></thead><tbody><tr><td>21</td><td>Public claims are mapped to evidence, routes, or explicit refusals. No receipt or route means no claim.</td></tr>
+<tr><td>22</td><td>Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. The first KPS, Redis, and NGINX seeds are in <code>data/blast-radius-accuracy/summary.md</code>; broader coverage is still open.</td></tr></tbody></table>
+<h2 id="now---derived-variants-and-current-cli-truth">Now - derived variants and current CLI truth</h2>
+<ol><li><b>Make <code>cub variant create</code> the explicit derived-variant substrate</b> (#143) - add the command-surface doc, update Tutorial 4, make UX proposals consistent, update <code>why-this-exists.md</code>, and add a lightweight command-surface verifier. Do not document non-existent <code>cub variant</code> subcommands as current.</li><li><b>Execute and deepen the derived-variant expansion wave</b> (#144) - the generated <a href="../../data/variant-goldens/derived-expansion-wave/README.html">derived-expansion-wave</a> now names 10 derived variants across 5 reviewed bases; turn those work orders into full clone/check/mutation receipts without hidden Helm rerender.</li><li><b>Prove promotion and environment management with derived ConfigHub variants</b> (#145) - base -&gt; staging or prod using <code>cub variant create</code>, target/gates/observation policy, upstream links, and low-noise review.</li><li><b>Keep the closed #76 import contract executable</b> - the Helm import path from <code>cub helm install</code> to durable <code>cub installer</code> recipes is defined and verified; next work is product implementation and broader managed-overlay examples.</li></ol>
+<h2 id="next---base-variants-production-depth-and-facts">Next - base variants, production depth, and facts</h2>
+<ol><li><b>Wave-2 real base-variant promotion</b> - add user-shaped base variants to the 5 selected proof-grade charts (traefik, external-dns, velero, istiod, kyverno): real recipe variant + package base + rendered revision + scan/gate + Helm-equivalence receipt each.</li><li><b>Production support decisions for the top-20</b> - use the accepted production dispositions as review input; record target scope, required live checks, and support policy before moving any chart from <code>catalog-supported (local-test)</code> toward <code>production-supported</code>.</li><li><b>Target facts beyond required Secrets</b> - map existing-CRD, API availability, namespace, storage class, ingress class, runtime class to installer-native external requirements, provided facts, cluster singleton facts, and collectors.</li><li><b>Per-chart weirdness-and-mitigations notes</b> - make hooks, CRDs, webhooks, lookup, generated secrets, required values, RBAC, stateful storage, upgrade, and rollback visible for every catalog-supported chart.</li></ol>
+<h2 id="configuration-as-data-value-lanes-inside-helm-expt">Configuration-As-Data Value Lanes Inside helm-expt</h2>
+<ol><li><b>Fleet inventory and CMDB views</b> (#146) - generated chart/component/variant/Space/Unit/target/status views, explicitly distinguishing base variants from derived ConfigHub variants.</li><li><b>Fleet-scale mutation and codemod workflows</b> (#147) - prove one controlled change across a labeled fleet slice, with preview, checks, gates, receipts, and route-back-to-base cases.</li><li><b>Policy, compliance, and security posture reports</b> (#148) - roll scan/gate findings up across the rendered desired-state catalog and route remediations to base variant, derived variant, or delivery prerequisite.</li><li><b>Dependency graph and impact analysis</b> (#149) - show which derived variants, Units, targets, and gates are affected by a base/chart/policy/target change.</li><li><b>Creator and agentic intent flow over <code>cub variant create</code></b> (#150) - human intent first, current CLI substrate underneath, checks/gates/receipts included, no broad formal-model lane.</li></ol>
+<h2 id="gitops-release-and-ui-story">GitOps, release, and UI story</h2>
+<ol><li><b>Variant release / OCI handoff semantics</b> (#151) - release vs tag, <code>:latest</code>, gates, validation, OCI publication, and what is current versus planned.</li><li><b>Promotion UI expectations</b> (#152) - less noisy diffs, upstream-added fields, inherited/no-op distinctions, prod-only gates/targets/observation policy, and no confusing preview treatment.</li><li><b>Argo/OCI GitOps tutorial positioning</b> (#153) - make Tutorial 6 bridge-independent, Argo/OCI-oriented, and honest about which runtime/GitOps receipts exist. Use the generated <a href="../../data/outcome-coverage/summary.html">outcome coverage</a> as the corpus source of truth, and add the missing live Helm-vs-ConfigHub dual-deploy comparison lane: live <code>helm install</code> compared with ConfigHub via controller OCI and ConfigHub via kubectl/apply.</li></ol>
+<h2 id="breadth-day-2-and-adoption-surfaces">Breadth, day-2, and adoption surfaces</h2>
+<ol><li><b>Promote high-value <code>next80</code> charts</b> from default-only to user-shaped variants, then attach derived variants where the change is post-render ConfigHub refinement rather than Helm render shape.</li><li><b>Image digest resolution and hook lifecycle lanes</b> - pin mutable images or gate them (#99), and turn hook-using charts into per-chart lifecycle dispositions.</li><li><b>Day-2 upgrade/rollback, consequence preview, and existing-Helm diagnostics</b> - keep #11, #15, #16, #30, and related receipt work aligned with derived-variant propagation.</li><li><b>Public story surfaces</b> - keep the Helm pain docs, <code>CATALOG.md</code>, status dashboard, and static site current, and make the first-run path simple enough for outside testers.</li><li><b>Claims register and sceptic scoreboard</b> - maintain <a href="../../data/claims-register/summary.html">data/claims-register/summary.md</a> as the page that maps each public claim to the evidence lane, receipt, route, or refusal that supports it. It should stay current as serverless, commercial, lifecycle, scan, signing, and ConfigHub graph claims change.</li><li><b>Blast-radius prediction accuracy harness</b> - extend <a href="../../data/blast-radius-accuracy/summary.html">data/blast-radius-accuracy/summary.md</a> beyond the first kube-prometheus-stack and Redis base-pair seeds. For selected density hotspots, mutate one input, predict affected objects/fields from the value and graph data, rerender, diff, and publish misses/phantoms. Until a row is measured, blast-radius and inheritance claims should stay scoped as partial evidence.</li></ol>
+<h2 id="suggested-order">Suggested order</h2>
+<p>Treat 1-3 as the immediate correction: <code>helm-expt</code> needs more visible derived variants, and the docs must line up with the real <code>cub variant create</code> command. Tasks 18, 21, and 22 are now the strongest trust builders: lifecycle evidence, claim-to-receipt maintenance, and measured blast-radius accuracy. Tasks 9-13 remain the highest-value configuration-as-data lanes inside this repo. GitOps, release, and promotion UI come next because they make the product story legible without asking humans to follow every low-level CLI step.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/next-20-tasks.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

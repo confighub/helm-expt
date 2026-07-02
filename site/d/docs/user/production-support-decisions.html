@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Production Support Decisions · ConfigHub Helm Ops</title>
-  <meta name="description" content="Production Support Decisions: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Production Support Decisions: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/production-support-decisions.html">
   <meta property="og:title" content="Production Support Decisions · ConfigHub Helm Ops">
-  <meta property="og:description" content="Production Support Decisions: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Production Support Decisions: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/production-support-decisions.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Production Support Decisions</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="production-support-decisions.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/production-support-decisions.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
@@ -417,9 +417,9 @@ operator-owned boundaries</code></pre>
 <p>That decision would not automatically support every NGINX base, every ingress mode, every cluster type, or every private overlay.</p>
 <h2 id="how-to-work-the-queue">How To Work The Queue</h2>
 <p>Start with the target-scoped support decisions:</p>
-<ul><li><a href="../../../../data/production-support-decisions/summary.md">Production Support Decision Artifacts</a></li><li><a href="../../../../data/production-support-decisions/work-items.csv">Production Support Work Items</a></li><li><a href="../../../../data/production-support-decisions/decisions.csv">Production Support Decisions CSV</a></li></ul>
+<ul><li><a href="../../data/production-support-decisions/summary.html">Production Support Decision Artifacts</a></li><li><a href="../../../../data/production-support-decisions/work-items.csv">Production Support Work Items</a></li><li><a href="../../../../data/production-support-decisions/decisions.csv">Production Support Decisions CSV</a></li></ul>
 <p>Use the older production-disposition outputs when you need the accepted pre-review receipts or the original decision contract:</p>
-<ul><li><a href="../../data/production-disposition/summary.html">Production Disposition</a></li><li><a href="../../../../data/production-disposition/support-decision-contract.md">Production Support Decision Contract</a></li><li><a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a></li></ul>
+<ul><li><a href="../../data/production-disposition/summary.html">Production Disposition</a></li><li><a href="../../data/production-disposition/support-decision-contract.html">Production Support Decision Contract</a></li><li><a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a></li></ul>
 <p>Then work the target-scoped row by decision field:</p>
 <p>Use <code>work-items.csv</code> when you want assignable rows. One chart can have several rows because image, scan, lifecycle, runtime, and fresh-evidence work can be owned and closed separately.</p>
 <table><thead><tr><th>Decision field</th><th>What to do</th></tr></thead><tbody><tr><td><code>image_decision</code></td><td>Pin images by digest or record the explicit exception for the supported scope.</td></tr>
