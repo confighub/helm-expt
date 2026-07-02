@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation Map · ConfigHub Helm Ops</title>
+  <meta name="description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/README.html">
+  <meta property="og:title" content="Documentation Map · ConfigHub Helm Ops">
+  <meta property="og:description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/README.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../try.html">Get Started</a><a href="../../charts/index.html">Helm Ops Catalog</a><a href="../../how-it-works.html">How it works</a><a href="../../journey.html">Apps</a><a href="../../docs.html">Docs/FAQ</a><a href="../../private/">Upgrade</a></span></nav></div>
+    <h1>Documentation Map</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../docs/README.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>EXPERIMENTAL</p>
+<p>This directory contains the manual documentation for the Helm experiment. The primary user-facing surface should stay small. Most Markdown files in the repo are generated catalog, recipe, package, proof, or run-output files.</p>
+<h2 id="primary-user-docs">Primary User Docs</h2>
+<p>These are the files a new user should be able to follow without reading the whole repo. For the single serial order through <code>docs/user/*.md</code>, start with <a href="user/README.html">user/README.md</a>.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="../README.html">../README.md</a></td><td>Main user introduction: why the repo exists, what is proven, and how to try it.</td></tr>
+<tr><td><a href="../CATALOG.html">../CATALOG.md</a></td><td>Generated chart catalog: charts first, recommended variants underneath.</td></tr>
+<tr><td><a href="../WEBSITE_UX_TEST.html">../WEBSITE_UX_TEST.md</a></td><td>Local static-site UX test runbook for walking a fresh user through the public website.</td></tr>
+<tr><td><a href="user/README.html">user/README.md</a></td><td>Serial reading order for the manual user docs.</td></tr>
+<tr><td><a href="user/offering.html">offering.md</a></td><td>Public offering overview: why visible Helm stages matter, what is free to try, and where managed ConfigHub workflows begin.</td></tr>
+<tr><td><a href="user/generative-gitops-fit.html">generative-gitops-fit.md</a></td><td>User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today.</td></tr>
+<tr><td><a href="user/reverse-reconcile-design.html">reverse-reconcile-design.md</a></td><td>User-facing design for the reverse live-to-desired frontier: authority policy, bounds check, fixture receipt, and the missing <code>cub</code> write-back capability.</td></tr>
+<tr><td><a href="user/cub-scout-diff-design.html">cub-scout-diff-design.md</a></td><td>User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery.</td></tr>
+<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Short Redis and kube-prometheus-stack paths for first public use.</td></tr>
+<tr><td><a href="user/installer-oci-packages.html">installer-oci-packages.md</a></td><td>Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI.</td></tr>
+<tr><td><a href="user/expected-results-and-clusters.html">expected-results-and-clusters.md</a></td><td>Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or cub-lk, and when npm verifiers are optional.</td></tr>
+<tr><td><a href="user/first-run-walkthrough.html">first-run-walkthrough.md</a></td><td>Captured real serverless try-out (render → kubectl apply → running pod) with the honest namespace rough edge; tested-UX companion to try-now.</td></tr>
+<tr><td><a href="user/serverless-mode.html">serverless-mode.md</a></td><td>Install-first intro to serverless mode (no account): both paths reach the same running outcome (helm install / cub render + kubectl apply), then how it works (Helm hides one step, cub shows it), then GitOps via OCI; includes the recipe-vs-package explanation of <code>--pull</code> and honest caveats.</td></tr>
+<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Quick route picker for direct render, one-shot upload, public catalog packages, and ConfigHub-managed variants/operations.</td></tr>
+<tr><td><a href="user/ai-assisted-helm-changes.html">ai-assisted-helm-changes.md</a></td><td>Plain-English guide to safe AI-assisted Helm changes: propose, diff, gate, approve, deliver, and observe.</td></tr>
+<tr><td><a href="user/broken-chart-triage.html">broken-chart-triage.md</a></td><td>Practical triage path for broken charts, values files, target prerequisites, lifecycle routes, image pulls, runtime failures, and model gaps.</td></tr>
+<tr><td><a href="user/known-gaps-we-surface.html">known-gaps-we-surface.md</a></td><td>User-facing guide to current watch findings that the project deliberately surfaces instead of hiding.</td></tr>
+<tr><td><a href="user/serious-chart-proof.html">serious-chart-proof.md</a></td><td>Concise kube-prometheus-stack proof path for the serious chart example.</td></tr>
+<tr><td><a href="user/what-you-get.html">what-you-get.md</a></td><td>Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work.</td></tr>
+<tr><td><a href="user/helm-render-intents.html">helm-render-intents.md</a></td><td>The two-layer model: base variants describe how Helm is rendered, managed variants describe how ConfigHub operates the rendered config, and generated render-intent objects keep the proof chain attached.</td></tr>
+<tr><td><a href="user/helm-presets-and-values.html">helm-presets-and-values.md</a></td><td>How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices.</td></tr>
+<tr><td><a href="user/verification.html">verification.md</a></td><td>Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route.</td></tr>
+<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>Short guide for choosing <code>cub helm template</code>, <code>cub helm install</code>, <code>cub installer</code>, <code>cub variant create</code>, or repo verifiers.</td></tr>
+<tr><td><a href="user/outcomes-and-tests.html">outcomes-and-tests.md</a></td><td>User-facing outcome and test map, with links to the front-door CSVs.</td></tr>
+<tr><td><a href="../data/outcome-evidence-contract/summary.html">../data/outcome-evidence-contract/summary.md</a></td><td>Generated user-outcome contract: question, status, evidence, verifier command, scope, and next action.</td></tr>
+<tr><td><a href="user/helm-pain-points.html">helm-pain-points.md</a></td><td>User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports.</td></tr>
+<tr><td><a href="user/helm-upgrade-crash-example.html">helm-upgrade-crash-example.md</a></td><td>User-facing day-2 example: how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed.</td></tr>
+<tr><td><a href="user/why-this-exists.html">why-this-exists.md</a></td><td>Skeptical entry point: why this is not just <code>cub helm install</code> or <code>cub gitops import</code>, and what the catalog/proof path adds.</td></tr>
+<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops.</td></tr>
+<tr><td><a href="user/current-proof-status.html">current-proof-status.md</a></td><td>Short guide to current proof status and the generated summaries that are authoritative.</td></tr>
+<tr><td><a href="../data/chart-use-guide/summary.html">../data/chart-use-guide/summary.md</a></td><td>Generated chart-use guide: one short answer per top-100 chart for use now, promotion review, base-variant work, or limitation decision.</td></tr>
+<tr><td><a href="../../../data/master-catalog-matrix/matrix.html">../data/master-catalog-matrix/matrix.html</a></td><td>Browser view of the full chart/version/base matrix: user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action.</td></tr>
+<tr><td><a href="../data/cub-adoption-caveats/summary.html">../data/cub-adoption-caveats/summary.md</a></td><td>Per-chart adoption caveats: for each of the 100 charts, which &quot;worse-than / more-confusing-than plain Helm&quot; rough edges apply (baked shared password, CRD-first ordering) with the exact remediation, plus the three universal cub-direct caveats - the per-chart companion to the adoption audit. CSV + colored HTML alongside.</td></tr>
+<tr><td><a href="user/hard-questions.html">hard-questions.md</a></td><td>Skeptical user route: hooks, upgrades, overlays, false-green sync, free versus managed, and how to challenge the model.</td></tr>
+<tr><td><a href="user/what-we-refuse-to-claim.html">what-we-refuse-to-claim.md</a></td><td>Trust boundary: why watchlist rows and strict witness blocks remain visible.</td></tr>
+<tr><td><a href="../data/claims-register/summary.html">../data/claims-register/summary.md</a></td><td>Generated claim-to-evidence register for checking whether a public claim is backed, partial, planned, or refused.</td></tr>
+<tr><td><a href="user/why-synced-is-not-working.html">why-synced-is-not-working.md</a></td><td>Runtime false-green explanation: why sync/object presence does not prove workload health.</td></tr>
+<tr><td><a href="user/target-prerequisites.html">target-prerequisites.md</a></td><td>Hard-chart guide: CRDs, Secrets, lifecycle checks, and target facts that must be staged or observed beyond YAML parity.</td></tr>
+<tr><td><a href="user/why-this-does-not-collapse.html">why-this-does-not-collapse.md</a></td><td>Skeptic-facing explanation of how hooks, quirks, config volume, and blocked rows are routed.</td></tr>
+<tr><td><a href="reference/enterprise-parity-contract.html">enterprise-parity-contract.md</a></td><td>Reference contract for private enterprise estates that combine first-party Helm charts, values-only repositories, and Argo ApplicationSet fan-out.</td></tr>
+<tr><td><a href="user/verify-it-yourself.html">verify-it-yourself.md</a></td><td>Reader verification commands for corpus checks, rendered installs, parity receipts, and cub-scout receipts.</td></tr>
+<tr><td><a href="user/production-support-decisions.html">production-support-decisions.md</a></td><td>How a review-ready chart becomes production-supported for one target scope.</td></tr>
+<tr><td><a href="user/chain-of-proof.html">chain-of-proof.md</a></td><td>Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation.</td></tr>
+<tr><td><a href="user/cub-deployment-path.html">cub-deployment-path.md</a></td><td>How deployment works on the cub path: cub installer → ConfigHub Units → OCI bundle → Argo/Flux/cub-direct, the single-OCI-transport rationale, and how delivery credentials (OCI pull creds, copied not printed) and app secrets are handled.</td></tr>
+<tr><td><a href="user/top100-readiness.html">top100-readiness.md</a></td><td>User-facing guide to the top-100 corpus buckets and generated readiness data.</td></tr>
+<tr><td><a href="user/top100-status.html">top100-status.md</a></td><td>Plain-English top-100 answers: what works today, what needs prerequisites or review, and how it differs from plain Helm.</td></tr>
+<tr><td><a href="user/serious-charts.html">serious-charts.md</a></td><td>The serious-chart packets: why kube-prometheus-stack, cert-manager, and external-secrets are the hard cases and how to read their status.</td></tr>
+<tr><td><a href="user/verification-lanes.html">verification-lanes.md</a></td><td>Plain-English definition of each verification lane and the commands that check them.</td></tr>
+<tr><td><a href="user/live-parity.html">live-parity.md</a></td><td>User-facing guide to pass, watch, blocked, and rerun rows in the live parity lanes.</td></tr>
+<tr><td><a href="user/reading-the-matrix.html">reading-the-matrix.md</a></td><td>How to read the master catalog matrix: the lanes, the G/P/K shorthands, the cell states (pass/watch/blocked/n-a/blank), and where to look when a row is not green.</td></tr>
+<tr><td><a href="user/remote-images-and-supported-bases.html">remote-images-and-supported-bases.md</a></td><td>What to do when a catalog base is watch-grade because an upstream image disappeared: refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse.</td></tr>
+<tr><td><a href="user/target-prerequisites-before-rerun.html">target-prerequisites-before-rerun.md</a></td><td>The action packets for a non-green row's target prerequisite: create-namespace / stage-secret / install-crds / provide-external-service / provide-storage-or-topology / operator-review, with required inputs and the rerun command.</td></tr>
+<tr><td><a href="user/large-config-operations.html">large-config-operations.md</a></td><td>User-facing guide for watching large ConfigHub upload/apply/GitOps paths without collapsing them into a vague hang.</td></tr>
+<tr><td><a href="user/how-the-harness-works.html">how-the-harness-works.md</a></td><td>Short technical explanation of the harness lifecycle and where user value is created.</td></tr>
+<tr><td><a href="user/introduction-to-the-harness.html">introduction-to-the-harness.md</a></td><td>Detailed recipe-generation workflow and the table for where Helm pieces belong.</td></tr>
+<tr><td><a href="user/how-it-works.html">how-it-works.md</a></td><td>The &quot;how it works&quot; hub: the four-move mental model (render → route → deliver → observe) plus customize/promote, day-1, day-2, secrets, and free-vs-managed - an organized index into the mechanism docs.</td></tr>
+<tr><td><a href="user/helm-presets-and-values.html">helm-presets-and-values.md</a></td><td>The doctrine for ready-to-use chart presets: keep Helm charts, support useful chart-specific choices, record values and render inputs, and verify the generated output.</td></tr>
+<tr><td><a href="user/helm-to-cub-migration.html">helm-to-cub-migration.md</a></td><td>Helm-fluent dev's cheat-sheet: how Helm habits (--set, -f values.yaml, --set image.tag, --set-string, release names) map to cub's declared-input / named-base model, and why the declared model catches the typo footgun Helm absorbs.</td></tr>
+<tr><td><a href="user/confighub-data-model.html">confighub-data-model.md</a></td><td>The vocabulary the model assumes - chart base, recipe, Unit, space, variant, target, worker, OCI bundle, target fact, route, receipt - and how they fit in one line.</td></tr>
+<tr><td><a href="user/day2-upgrade-rollback.html">day2-upgrade-rollback.md</a></td><td>Day-2 explainer: how an opaque helm upgrade becomes a staged/reviewed/rehearsed/observed change, and how versioned-Unit rollback works (with honest irreversible-migration caveats).</td></tr>
+<tr><td><a href="user/security-end-to-end.html">security-end-to-end.md</a></td><td>The &quot;no silent privileged step&quot; story end to end: app secrets (generated/existing/target-fact), delivery creds (copied not printed), RBAC visible in the recipe, and the scan + F/G adversarial lanes.</td></tr>
+<tr><td><a href="user/gitops-adopter-guide.html">gitops-adopter-guide.md</a></td><td>For Argo/Flux teams: what changes (the source becomes one OCI bundle) and what doesn't (your controller); Argo proven, Flux/cub-direct in progress; vs raw Helm-through-Argo; hooks as explicit routes.</td></tr>
+<tr><td><a href="user/creating-variants.html">creating-variants.md</a></td><td>Simple guide to base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation.</td></tr>
+<tr><td><a href="user/derived-variant-walkthrough.html">derived-variant-walkthrough.md</a></td><td>Captured real <code>cub variant create</code> read back from its receipt: faithful 7-unit clone, no Helm re-render, gates applied, honest intended-state-only scope.</td></tr>
+<tr><td><a href="user/cub-variant-command-surface.html">cub-variant-command-surface.md</a></td><td>Current <code>cub variant</code> command surface and how Space/Unit metadata maps to derived variants.</td></tr>
+<tr><td><a href="user/change-routing-before-oci.html">change-routing-before-oci.md</a></td><td>Short guide for choosing a preset/base variant, derived ConfigHub variant, or delivery prerequisite before OCI handoff.</td></tr>
+<tr><td><a href="user/adopting-existing-apps.html">adopting-existing-apps.md</a></td><td>How existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the ConfigHub model.</td></tr>
+<tr><td><a href="user/custom-overlays.html">custom-overlays.md</a></td><td>Plain-English ExternalDNS example for wrapper charts, platform values, customer overlay values, and target facts.</td></tr>
+<tr><td><a href="user/prometheus-overlay-promotion-example.html">prometheus-overlay-promotion-example.md</a></td><td>Worked Prometheus example for a values overlay and a ConfigHub-only promotion variant.</td></tr>
+<tr><td><a href="user/prometheus-high-fanout.html">prometheus-high-fanout.md</a></td><td>Kube-prometheus-stack example showing how one base choice changes many objects and target prerequisites.</td></tr>
+<tr><td><a href="user/extension-slots.html">extension-slots.md</a></td><td>General guide for raw manifests, tpl snippets, sidecars, config blocks, and other NGINX-like extension slots.</td></tr>
+<tr><td><a href="user/nginx-configuration-files.html">nginx-configuration-files.md</a></td><td>NGINX-specific guide for config-file extension slots, base variants, derived variants, and future <code>nginx -t</code> checks.</td></tr>
+<tr><td><a href="user/product-support-tiers.html">product-support-tiers.md</a></td><td>Which Helm scenarios fit the public catalog, managed imports, or commercial support.</td></tr>
+<tr><td><a href="user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a></td><td>How Helm hooks are inventoried, classified, translated, or blocked.</td></tr>
+<tr><td><a href="user/chart-hooks-what-happens.html">chart-hooks-what-happens.md</a></td><td>Practical answer to &quot;if my chart has hooks, what happens with the ConfigHub/installer version?&quot;: routes, phases, who runs each, and that a known route is not an automatically executed one.</td></tr>
+<tr><td><a href="user/pathway-route-hooks-transparently.html">pathway-route-hooks-transparently.md</a></td><td>Test pathway (Helm-user + SecOps × hook/lifecycle): render parity proves the non-hook objects, the hook runs as an explicit non-automatic route with a receipt, shown side-by-side vs. what Helm/Argo/Flux do silently. Anchored on fluent/fluent-bit; live proof via <code>npm run hook-test:proof</code>.</td></tr>
+<tr><td><a href="user/maintenance-sla.html">maintenance-sla.md</a></td><td>How catalog entries are refreshed, patched, and supported.</td></tr>
+<tr><td><a href="demo/redis/demo-script.html">demo/redis/demo-script.md</a></td><td>Runnable Redis walkthrough.</td></tr>
+<tr><td><a href="demo/redis/ux-acceptance.html">demo/redis/ux-acceptance.md</a></td><td>Redis demo acceptance criteria.</td></tr>
+<tr><td><a href="demo/redis/function-scan-lane.html">demo/redis/function-scan-lane.md</a></td><td>Redis ConfigHub function scan lane.</td></tr>
+<tr><td><a href="demo/redis/safe-ops-lane.html">demo/redis/safe-ops-lane.md</a></td><td>Redis safe operation lane.</td></tr>
+<tr><td><a href="../tests/README.html">../tests/README.md</a></td><td>Test directory map: npm verification scripts and portable runtime tests.</td></tr>
+<tr><td><a href="../tests/npm-scripts.html">../tests/npm-scripts.md</a></td><td>What each npm script family checks, why it exists, and when to run it.</td></tr></tbody></table>
+<p>This list is the intended public reading path. Generated package docs, recipe catalog pages, data summaries, and per-chart proof transcripts are corpus evidence. They should be linked when useful, but they are not the first-run documentation set.</p>
+<h2 id="maintained-orientation-layer">Maintained Orientation Layer</h2>
+<p>The <a href="../knowledge/index.html">project knowledge index</a> is a short maintained orientation layer for humans and agents. It summarizes the current model and routes to authoritative evidence. It is not a second source of truth; generated data, receipts, recipes, current issues, and verifiers remain authoritative.</p>
+<h2 id="agent-and-operator-docs">Agent And Operator Docs</h2>
+<p>These files are for agents and maintainers operating the repo. Keep public website pages and <code>docs/user</code> pages human-readable; put command routing, recovery steps, and repo-specific AX notes here.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="agent/README.html">agent/README.md</a></td><td>Canonical start page for agents and maintainers working in this repo.</td></tr>
+<tr><td><a href="agent/tasks.html">agent/tasks.md</a></td><td>Task-to-command recipes for common repo operations.</td></tr>
+<tr><td><a href="agent/recovery.html">agent/recovery.md</a></td><td>Recovery guide for stale generated files, broken links, command-surface failures, and live-lane failures.</td></tr>
+<tr><td><a href="agent/verification.html">agent/verification.md</a></td><td>Agent-focused map from claims to the narrowest useful verifier.</td></tr>
+<tr><td><a href="agent/catalog.html">agent/catalog.md</a></td><td>Read-only catalog guide for inspecting chart evidence without redesigning the catalog.</td></tr>
+<tr><td><a href="agent/human-agent-doctrine.html">agent/human-agent-doctrine.md</a></td><td>Rules for keeping human-facing pages and agent/operator pages consistent without copying the same text.</td></tr>
+<tr><td><a href="agent/terms.html">agent/terms.md</a></td><td>Compact glossary for repo-specific product, proof, catalog, and lane terms.</td></tr></tbody></table>
+<h2 id="generated-and-reference-markdown">Generated And Reference Markdown</h2>
+<table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/README.md</code></td><td>Generated recipe summary for one chart/version.</td></tr>
+<tr><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/CATALOG.md</code></td><td>Generated per-chart catalog page with supported variants, revisions, receipts, and package links.</td></tr>
+<tr><td><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/weirdness-and-mitigations.md</code></td><td>Chart-specific notes for top-20 proof entries.</td></tr>
+<tr><td><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/README.md</code></td><td>Generated <code>cub installer</code> package usage note. This is package reference, not a primary user guide.</td></tr>
+<tr><td><code>docs/demo/&lt;chart&gt;/confighub-proof.md</code></td><td>Per-chart ConfigHub proof summary. Corpus evidence.</td></tr>
+<tr><td><code>docs/demo/&lt;chart&gt;/confighub-proof-transcript.md</code></td><td>Per-chart command transcript and observed outputs. Corpus evidence.</td></tr>
+<tr><td><code>data/*/summary.md</code></td><td>Generated status, review, or matrix summary.</td></tr>
+<tr><td><code>data/README.md</code></td><td>Generated data index and start-here guide for CSVs.</td></tr>
+<tr><td><code>data/csv-index.csv</code></td><td>Generated machine-readable index of every CSV under <code>data/</code>.</td></tr>
+<tr><td><code>data/status-dashboard/summary.md</code></td><td>Generated front-door status dashboard for top100, proof lanes, hooks, quirks, GitOps, and live parity.</td></tr>
+<tr><td><code>data/outcome-evidence-contract/summary.md</code></td><td>Generated front-door map from user-visible outcomes to evidence, verifier commands, limits, and next action.</td></tr>
+<tr><td><code>data/chart-use-guide/summary.md</code></td><td>Generated front-door guide for whether one top-100 chart can be used now, promoted after review, improved with a better base, or held for a limitation decision.</td></tr>
+<tr><td><code>data/master-catalog-matrix/matrix.html</code></td><td>Generated browser front door for chart/version/base status, user route, strongest evidence, production scope, and visible gaps.</td></tr>
+<tr><td><code>data/useful-base-design-queue/summary.md</code></td><td>Generated front-door queue for proof-grade top-100 charts whose current base is too default-shaped to recommend.</td></tr>
+<tr><td><code>data/claims-register/summary.md</code></td><td>Generated claim-to-evidence register used to keep public claims scoped and reviewable.</td></tr>
+<tr><td><code>data/blast-radius-accuracy/summary.md</code></td><td>Generated blast-radius accuracy seed: predicted affected objects compared with actual committed rerender diffs.</td></tr>
+<tr><td><code>data/top100-readiness/next80-queues.md</code></td><td>Generated next80 operating queue: promotion review, user-shaped variant work, and limitation review.</td></tr>
+<tr><td><code>data/outcome-coverage/*.csv</code></td><td>Front-door CSVs for chart, base, derived variant, and feature outcomes.</td></tr>
+<tr><td><code>data/latest-top20-refresh/candidates/README.md</code></td><td>Generated summary for latest-version candidate proofs.</td></tr>
+<tr><td><code>runs/**/*.md</code></td><td>Generated execution output from Pilot or other run harnesses. These are receipts/log summaries, not narrative docs.</td></tr></tbody></table>
+<p>Do not hand-edit generated Markdown unless the generator is also updated.</p>
+<h2 id="manual-docs-by-role">Manual Docs By Role</h2>
+<h3 id="core-model-and-harness">Core Model And Harness</h3>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/chart-recipe-manifest-flow.html">chart-recipe-manifest-flow.md</a></td><td>Canonical object model: chart, recipe, variant, revision, rendered objects, receipts.</td></tr>
+<tr><td><a href="reference/seven-stage-helm-lifecycle.html">seven-stage-helm-lifecycle.md</a></td><td>Doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations.</td></tr>
+<tr><td><a href="user/offering.html">offering.md</a></td><td>Public overview of the Helm catalog offering and the free-to-managed adoption path.</td></tr>
+<tr><td><a href="user/generative-gitops-fit.html">generative-gitops-fit.md</a></td><td>User-facing map from generated config and AI/GitOps expectations to current helm-expt evidence and limits.</td></tr>
+<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Short first-run path for Redis and kube-prometheus-stack.</td></tr>
+<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Short first-run route picker across direct Helm, public catalog, and managed ConfigHub workflows.</td></tr>
+<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Sequential tutorial flow with commands and expected results.</td></tr>
+<tr><td><a href="user/current-proof-status.html">current-proof-status.md</a></td><td>User-facing entry point for current proof status.</td></tr>
+<tr><td><a href="user/hard-questions.html">hard-questions.md</a></td><td>Skeptical user route for the hard questions a Helm reviewer asks before trusting the catalog.</td></tr>
+<tr><td><a href="user/what-we-refuse-to-claim.html">what-we-refuse-to-claim.md</a></td><td>User-facing trust boundary for strict witness blocks, watchlist rows, and normalization rules.</td></tr>
+<tr><td><a href="../data/claims-register/summary.html">../data/claims-register/summary.md</a></td><td>Generated register mapping public claims to evidence, limits, and scoped verification commands.</td></tr>
+<tr><td><a href="user/why-synced-is-not-working.html">why-synced-is-not-working.md</a></td><td>User-facing explanation of object-set false greens and runtime/prerequisite checks.</td></tr>
+<tr><td><a href="user/target-prerequisites.html">target-prerequisites.md</a></td><td>User-facing explanation of target facts and live prerequisite checks for hard charts such as cert-manager, VPA, and OpenTelemetry Operator.</td></tr>
+<tr><td><a href="user/why-this-does-not-collapse.html">why-this-does-not-collapse.md</a></td><td>User-facing explanation of why hooks, quirks, and config volume are handled as routed facts instead of hidden risk.</td></tr>
+<tr><td><a href="user/verification.html">verification.md</a></td><td>User-facing landing page for proof commands, committed evidence, fresh live lanes, and render-record-route.</td></tr>
+<tr><td><a href="user/verify-it-yourself.html">verify-it-yourself.md</a></td><td>User-facing commands for independently checking repo, render, parity, and cub-scout receipt evidence.</td></tr>
+<tr><td><a href="user/production-support-decisions.html">production-support-decisions.md</a></td><td>User-facing path from production-review-ready to a target-scoped production support decision.</td></tr>
+<tr><td><a href="user/chain-of-proof.html">chain-of-proof.md</a></td><td>User-facing proof-boundary map across <code>helm-expt</code>, <code>cub installer</code>, ConfigHub, GitOps, and live observations.</td></tr>
+<tr><td><a href="user/top100-readiness.html">top100-readiness.md</a></td><td>User-facing guide to public catalog rows, promotion candidates, default-only rows, and limitation decisions in the top-100 corpus.</td></tr>
+<tr><td><a href="user/outcomes-and-tests.html">outcomes-and-tests.md</a></td><td>User-facing map from promised outcomes to tests, CSVs, and commands.</td></tr>
+<tr><td><a href="../data/outcome-evidence-contract/summary.html">../data/outcome-evidence-contract/summary.md</a></td><td>Generated product-facing contract for current outcomes, evidence, scopes, and next actions.</td></tr>
+<tr><td><a href="../data/useful-base-design-queue/summary.html">../data/useful-base-design-queue/summary.md</a></td><td>Generated queue of proposed useful base shapes for top-100 charts that are not yet good catalog offers.</td></tr>
+<tr><td><a href="user/live-parity.html">live-parity.md</a></td><td>User-facing explanation of strict live parity status, non-pass rows, and rerun rules.</td></tr>
+<tr><td><a href="user/large-config-operations.html">large-config-operations.md</a></td><td>User-facing guide for large charts and 100+ Unit operations: what to watch, what to capture, and how to classify slow or progressing stages.</td></tr>
+<tr><td><a href="user/helm-pain-points.html">helm-pain-points.md</a></td><td>User-facing map from common Helm pain points to helm-expt, ConfigHub, installer, and live-observation answers.</td></tr>
+<tr><td><a href="user/helm-upgrade-crash-example.html">helm-upgrade-crash-example.md</a></td><td>User-facing upgrade-crash example linking old/new render, blast radius, live rehearsal, ConfigHub gates, and scoped support decisions.</td></tr>
+<tr><td><a href="user/verification-lanes.html">verification-lanes.md</a></td><td>User-facing explanation of proof lanes and command checks.</td></tr>
+<tr><td><a href="user/how-the-harness-works.html">how-the-harness-works.md</a></td><td>Lifecycle-stage explanation of the harness.</td></tr>
+<tr><td><a href="user/introduction-to-the-harness.html">introduction-to-the-harness.md</a></td><td>Detailed import workflow, recipe decisions, and hook policy.</td></tr>
+<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>User-facing command-routing guide for the Helm and ConfigHub command family.</td></tr>
+<tr><td><a href="user/creating-variants.html">creating-variants.md</a></td><td>Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation.</td></tr>
+<tr><td><a href="user/cub-variant-command-surface.html">cub-variant-command-surface.md</a></td><td>Current <code>cub variant</code> syntax for create, promote, and upload, including labels, annotations, targets, namespaces, and gates.</td></tr>
+<tr><td><a href="user/change-routing-before-oci.html">change-routing-before-oci.md</a></td><td>User-facing routing guide for presets/base variants, derived variants, and delivery prerequisites before OCI handoff.</td></tr>
+<tr><td><a href="user/adopting-existing-apps.html">adopting-existing-apps.md</a></td><td>User-facing adoption path for existing Argo, Flux, KRM, rendered-manifest, and live-resource apps.</td></tr>
+<tr><td><a href="user/custom-overlays.html">custom-overlays.md</a></td><td>ExternalDNS managed overlay example with wrapper chart, platform values, customer values, target facts, and ConfigHub variant routing.</td></tr>
+<tr><td><a href="user/prometheus-overlay-promotion-example.html">prometheus-overlay-promotion-example.md</a></td><td>Concrete Prometheus example showing when an overlay becomes an installer base and when a change is ConfigHub-only.</td></tr>
+<tr><td><a href="user/prometheus-high-fanout.html">prometheus-high-fanout.md</a></td><td>Kube-prometheus-stack example for base-variant fanout and prerequisite tracking.</td></tr>
+<tr><td><a href="user/extension-slots.html">extension-slots.md</a></td><td>General extension-slot routing for raw manifests, tpl snippets, sidecars, config blocks, and add-on slots.</td></tr>
+<tr><td><a href="user/nginx-configuration-files.html">nginx-configuration-files.md</a></td><td>NGINX-specific config-file routing: Helm extension slots, derived ConfigHub variants, and future syntax checks.</td></tr>
+<tr><td><a href="user/product-support-tiers.html">product-support-tiers.md</a></td><td>Free, public, managed, and commercial support boundaries.</td></tr>
+<tr><td><a href="user/maintenance-sla.html">maintenance-sla.md</a></td><td>Catalog maintenance and update expectations.</td></tr></tbody></table>
+<h3 id="tutorial-ux-proposal-companions">Tutorial UX Proposal Companions</h3>
+<p>These are product sketches linked from <a href="user/tutorial-sequence.html">tutorial-sequence.md</a>. They are not extra first-pass requirements; they show how each tutorial's CLI steps could become a simpler human-facing Creator-style flow backed by formal contracts, AX/FX, and current ConfigHub primitives.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="user/ux-proposal-redis-quick-start-tutorial.html">ux-proposal-redis-quick-start-tutorial.md</a></td><td>Proposal for turning the Redis quick-start render/upload path into an intent-first base creation flow.</td></tr>
+<tr><td><a href="user/ux-proposal-redis-secret-modes-tutorial.html">ux-proposal-redis-secret-modes-tutorial.md</a></td><td>Proposal for presenting generated Secret versus existing Secret as a base-variant choice with target fact checks.</td></tr>
+<tr><td><a href="user/ux-proposal-prometheus-base-variant-tutorial.html">ux-proposal-prometheus-base-variant-tutorial.md</a></td><td>Proposal for presenting Prometheus server-only as a base-variant creation flow.</td></tr>
+<tr><td><a href="user/ux-proposal-prometheus-promotion-tutorial.html">ux-proposal-prometheus-promotion-tutorial.md</a></td><td>Proposal for presenting Prometheus promotion as a derived ConfigHub Creator flow.</td></tr>
+<tr><td><a href="user/ux-proposal-externaldns-custom-overlay-tutorial.html">ux-proposal-externaldns-custom-overlay-tutorial.md</a></td><td>Proposal for separating ExternalDNS render-time overlay choices from customer Creator choices.</td></tr>
+<tr><td><a href="user/ux-proposal-gitops-runtime-proof-tutorial.html">ux-proposal-gitops-runtime-proof-tutorial.md</a></td><td>Proposal for presenting GitOps and runtime proof as publish-and-prove intent.</td></tr>
+<tr><td><a href="user/ux-proposal-bulk-scan-patch-tutorial.html">ux-proposal-bulk-scan-patch-tutorial.md</a></td><td>Proposal for presenting scan, patch, review, and approve as a single bulk hardening flow.</td></tr></tbody></table>
+<h3 id="installer-and-proof-contracts">Installer And Proof Contracts</h3>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/artifact-verifier-spec.html">artifact-verifier-spec.md</a></td><td>What the artifact verifier must check.</td></tr>
+<tr><td><a href="reference/seven-stage-helm-lifecycle.html">seven-stage-helm-lifecycle.md</a></td><td>Seven-stage lifecycle, render parity boundary, hook routing, and support claims.</td></tr>
+<tr><td><a href="reference/proof-kit-migration.html">proof-kit-migration.md</a></td><td>How repeated chart proof scripts are migrated to the shared proof-kit generator/verifier.</td></tr>
+<tr><td><a href="reference/customization-algorithm.html">customization-algorithm.md</a></td><td>Reference algorithm for values files, overlays, wrapper charts, and post-render variants.</td></tr>
+<tr><td><a href="reference/catalog-doctrine.html">catalog-doctrine.md</a></td><td>Catalog doctrine: chart → recipes → placeholdered base variants → derived ConfigHub variants.</td></tr>
+<tr><td><a href="reference/customization-decision-tree.html">customization-decision-tree.md</a></td><td>Design-level routing tree for customization and support outcomes.</td></tr>
+<tr><td><a href="reference/complete-corresponding-model.html">complete-corresponding-model.md</a></td><td>Completeness contract a supported chart must satisfy.</td></tr>
+<tr><td><a href="reference/per-chart-recipes.html">per-chart-recipes.md</a></td><td>Method for recommending per-chart recipe + variant counts.</td></tr>
+<tr><td><a href="reference/top100-user-readiness.html">top100-user-readiness.md</a></td><td>Methodology for the generated top-100 user-readiness view: sources, bucket rules, and honest limits.</td></tr>
+<tr><td><a href="reference/master-catalog-matrix.html">master-catalog-matrix.md</a></td><td>Doctrine for the master matrix: HTML for human/product decisions, CSV for machine/spreadsheet use, Markdown for compact orientation.</td></tr>
+<tr><td><a href="reference/residue-families.html">residue-families.md</a></td><td>What a non-green matrix row's residue category means (<code>remote-image</code>, <code>render-input</code>, <code>capability-profile</code>, hook/lifecycle, target-prerequisite, runtime, controller-health, model gap): who fixes it, the next action, and where the rows live.</td></tr>
+<tr><td><a href="reference/matrix-completion-audit.html">matrix-completion-audit.md</a></td><td>How the matrix completion audit triages every non-green/not-yet-run cell into needs-run / needs-target-or-prereq-fix / needs-modeling / already-decided, and how to use it to finish the matrix faster.</td></tr>
+<tr><td><a href="reference/variant-promotion-closeout.html">variant-promotion-closeout.md</a></td><td>How the promotion-closeout queue makes the promotion column actionable: ready-to-run vs watch-grade vs blocked by the ConfigHub changeset bug, with owner classes; promotion is a ConfigHub server value.</td></tr>
+<tr><td><a href="reference/what-hook-support-means.html">what-hook-support-means.md</a></td><td>The hook disposition vocabulary: what observed/routed/refused/per-target/recipe-needed claim and refuse to claim.</td></tr>
+<tr><td><a href="reference/kube-prometheus-stack-serious-chart-review.html">kube-prometheus-stack-serious-chart-review.md</a></td><td>Reviewer-facing map of the serious chart: what is proved, partial, and not yet claimable.</td></tr>
+<tr><td><a href="reference/helm-quirk-support-matrix.html">helm-quirk-support-matrix.md</a></td><td>How each Helm quirk class (hooks, CRDs, lookup, capabilities, secrets, slots, RBAC, webhooks, storage) is handled across the seven lifecycle stages, with honest status per quirk.</td></tr>
+<tr><td><a href="reference/fork-vocabulary.html">fork-vocabulary.md</a></td><td>Shared vocabulary for base vs derived variants and how names map.</td></tr>
+<tr><td><a href="reference/helm-import-contract.html">helm-import-contract.md</a></td><td>Contract for graduating from direct <code>cub helm install</code> rendering into maintained <code>cub installer</code> recipes.</td></tr>
+<tr><td><a href="reference/capability-profile-catalog.html">capability-profile-catalog.md</a></td><td>Named Kubernetes capability profiles used during render.</td></tr>
+<tr><td><a href="reference/generated-fact-receipts.html">generated-fact-receipts.md</a></td><td>Generated secrets, certs, random values, and time-value receipt specification.</td></tr>
+<tr><td><a href="reference/secret-lifecycle.html">secret-lifecycle.md</a></td><td>How rendered Secrets, target Secret facts, and Kubernetes lifecycle Secret state are classified and checked.</td></tr>
+<tr><td><a href="reference/observation-freshness-slo.html">observation-freshness-slo.md</a></td><td>Freshness states for live observations in a workerless ConfigHub model.</td></tr>
+<tr><td><a href="reference/upgrade-rollback-receipts.html">upgrade-rollback-receipts.md</a></td><td>Upgrade and rollback receipt shape.</td></tr>
+<tr><td><a href="user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a></td><td>How Helm hooks are inventoried, classified, translated, or blocked.</td></tr>
+<tr><td><a href="reference/direct-cub-helm-model.html">direct-cub-helm-model.md</a></td><td>Current <code>cub helm template</code> / <code>cub helm install</code> roles and how they differ from durable installer recipes.</td></tr></tbody></table>
+<h3 id="variants-promotion-and-operations">Variants, Promotion, And Operations</h3>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/variant-creation-artifact.html">variant-creation-artifact.md</a></td><td>Reference design for guided variant creation over existing ConfigHub capabilities.</td></tr>
+<tr><td><a href="user/cub-variant-command-surface.html">cub-variant-command-surface.md</a></td><td>User-facing command surface for current <code>cub variant</code> clone, promote, and upload operations.</td></tr>
+<tr><td><a href="../../../docs/reference/redis-variant-creation-plan.yaml">redis-variant-creation-plan.yaml</a></td><td>Concrete Redis variant creation blueprint.</td></tr>
+<tr><td><a href="reference/variant-creator-verification.html">variant-creator-verification.md</a></td><td>How Creator previews, checks, receipts, UX, agent, and fleet paths are verified.</td></tr>
+<tr><td><a href="reference/derived-variant-live-proof.html">derived-variant-live-proof.md</a></td><td>First live <code>cub variant create</code> execution receipts for derived ConfigHub variants.</td></tr>
+<tr><td><a href="reference/lane-test-doctrine.html">lane-test-doctrine.md</a></td><td>Core corpus lane-test doctrine for every chart-recipe-variant row.</td></tr>
+<tr><td><a href="reference/two-cluster-parity-harness.html">two-cluster-parity-harness.md</a></td><td>Strict Helm-vs-installer live parity contract using two vanilla kind clusters.</td></tr>
+<tr><td><a href="reference/enterprise-parity-contract.html">enterprise-parity-contract.md</a></td><td>Customer-safe extension of the parity model for private Helm, values-only, and Argo ApplicationSet estates.</td></tr>
+<tr><td><a href="reference/variant-promotion-worked-example.html">variant-promotion-worked-example.md</a></td><td>Worked promotion examples for Redis and managed overlays.</td></tr>
+<tr><td><a href="reference/variant-promotion-model.html">variant-promotion-model.md</a></td><td>Consolidated model for ConfigHub server-side variant promotion: UX, AX, fleet flow, current top-20 evidence, and product gaps.</td></tr>
+<tr><td><a href="reference/confighub-promotion-mapping.html">confighub-promotion-mapping.md</a></td><td>Mapping between Helm-derived bases, ConfigHub variants, and promotion concepts.</td></tr>
+<tr><td><a href="corpus/kubara-customized-overlays.html">kubara-customized-overlays.md</a></td><td>Managed wrapper chart plus customer overlay test case.</td></tr></tbody></table>
+<p>Generated proof data for this section lives in:</p>
+<table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><code>data/variant-goldens/redis-prod-us-east/</code></td><td>Generated Redis example: <code>redis/default</code> to <code>prod-us-east</code> with preview, checks, and receipts.</td></tr>
+<tr><td><code>data/managed-overlay-goldens/external-dns-customer-acme-prod/</code></td><td>Generated ExternalDNS managed overlay example: wrapper chart plus platform/customer overlay values and route classification.</td></tr>
+<tr><td><code>data/lane-test-matrix/</code></td><td>Generated lane-test coverage matrix for every chart-recipe-variant row.</td></tr>
+<tr><td><code>runs/derived-variant-execution/</code></td><td>Live ConfigHub intended-state receipts for derived variant creation.</td></tr></tbody></table>
+<h3 id="catalog-scale-and-refresh">Catalog, Scale, And Refresh</h3>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="planning/helm-community-persona-prd.html">helm-community-persona-prd.md</a></td><td>Product requirements for Helm-user personas, free/paid boundaries, and the shift from rendering to day-1/day-2 variant operations.</td></tr>
+<tr><td><a href="planning/helm-community-persona-plan.html">helm-community-persona-plan.md</a></td><td>Execution plan for making the public repo and catalog valuable to different Helm user personas.</td></tr>
+<tr><td><a href="reference/helm-community-persona-reference.html">helm-community-persona-reference.md</a></td><td>Reference matrix for personas, free/paid capabilities, day-0/day-1/day-2 value, and variant routing decisions.</td></tr>
+<tr><td><a href="planning/user-journey-test-pathways-brief.html">user-journey-test-pathways-brief.md</a></td><td>Brief for the user-journey test pathways (persona × decisions × chart-class) and the hook-method validation work.</td></tr>
+<tr><td><a href="planning/user-journey-test-pathways-plan.html">user-journey-test-pathways-plan.md</a></td><td>Verified research map + build plan for the test pathways: the pathway matrix, phase sequencing, live-run policy, and corrections to the brief.</td></tr>
+<tr><td><a href="planning/chart-claim-integrity-audit-2026-06-22.html">chart-claim-integrity-audit-2026-06-22.md</a></td><td>Adversarial audit of the generated chart pages for false claims (page contradicts its cited receipt): the verified findings, the two systemic root causes, the clarity issues, and the permanent <code>chart-claim-integrity</code> gate that prevents them.</td></tr>
+<tr><td><a href="planning/catalog-promotion-review.html">catalog-promotion-review.md</a></td><td>Rules for deciding whether a proven chart becomes catalog-supported.</td></tr>
+<tr><td><a href="planning/catalog-promotion-next-candidates.html">catalog-promotion-next-candidates.md</a></td><td>Candidate charts for the next promotion wave.</td></tr>
+<tr><td><a href="planning/serverless-verified-install-plan.html">serverless-verified-install-plan.md</a></td><td>Planning model for the no-login verified-install wedge: public catalog package resolution, local apply, in-cluster receipt, and where ConfigHub Server begins.</td></tr>
+<tr><td><a href="planning/verified-install-commercial-model.html">verified-install-commercial-model.md</a></td><td>Commercial model for verified installs, factory scans, image digest inventory, signed artifacts, refresh SLAs, private catalogs, and fleet security queries.</td></tr>
+<tr><td><a href="planning/post-coverage-strategy.html">post-coverage-strategy.md</a></td><td>Post-100%-coverage synthesis tying user journeys (incl. serverless entry + ConfigHub-server + cub-scout), the open-issue backlog, the coverage substrate, and the competitive landscape into one sequenced roadmap (Phase A finish coverage → B legibility/trust → C productize → D commercial).</td></tr>
+<tr><td><a href="planning/user-journey-test-pathways-brief.html">user-journey-test-pathways-brief.md</a></td><td>Planning brief for validating user journeys and hook-method pathways against generated evidence before building more site or tutorial surfaces.</td></tr>
+<tr><td><a href="planning/robust-sceptic-plan.html">robust-sceptic-plan.md</a></td><td>Sceptic-facing attack taxonomy and adversarial test plan, including claims register, blast-radius accuracy, torture fixtures, environment matrix, and external reproduction.</td></tr>
+<tr><td><a href="planning/corpus-rationalization-plan.html">corpus-rationalization-plan.md</a></td><td>Named redundancy map across the data views (lane truth, hook family, readiness family) with merge/retire queue and the rules that stop view re-accretion.</td></tr>
+<tr><td><a href="planning/maintenance-strategy.html">maintenance-strategy.md</a></td><td>Maintenance NOTE: the free-tier daily-refresh SLA for public data and tests, perpetual append-only retention of all public data and its changes, and the free/paid boundary backed by a larger daily-updated private corpus.</td></tr>
+<tr><td><a href="planning/where-does-my-hook-go.html">where-does-my-hook-go.md</a></td><td>Problem analysis and solution proposal generalizing the hook disposition model (observed/routed/per-target/refused) to every Helm behavior that does not survive a config-only render: named routes, the default-plus-legible-off-ramp requirement for humans and agents, a phased plan, and the #684 review notes.</td></tr>
+<tr><td><a href="planning/hook-route-execution-plan.html">hook-route-execution-plan.md</a></td><td>Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand.</td></tr>
+<tr><td><a href="planning/top20-full-proof-target.html">top20-full-proof-target.md</a></td><td>Definition and status of the top-20 full proof milestone.</td></tr>
+<tr><td><a href="planning/top100-full-proof-target.html">top100-full-proof-target.md</a></td><td>Definition and status of the top-100 proof surface.</td></tr>
+<tr><td><a href="planning/top500-matrix-refresh-review.html">top500-matrix-refresh-review.md</a></td><td>How the top-500 analysis should be regenerated and interpreted.</td></tr>
+<tr><td><a href="planning/latest-top20-refresh-plan.html">latest-top20-refresh-plan.md</a></td><td>Latest-version refresh plan for the supported top-20 charts.</td></tr>
+<tr><td><a href="planning/upgrade-story-plan.html">upgrade-story-plan.md</a></td><td>Upgrade proof lane: old/new rendered sets, lifecycle review, live before/after observation, and scoped support decision.</td></tr>
+<tr><td><a href="planning/legacy-patch-review.html">legacy-patch-review.md</a></td><td>Review lane for older chart versions and patch support.</td></tr>
+<tr><td><a href="../data/attack-plan-workdown/summary.html">../data/attack-plan-workdown/summary.md</a></td><td>Generated workdown for import, gaps, variants, production, runtime/GitOps, latest-version candidates, and image digests.</td></tr>
+<tr><td><a href="../data/refresh-survival/summary.html">../data/refresh-survival/summary.md</a></td><td>Generated refresh-survival surface for current supported versions, upstream update candidates, and the kube-prometheus-stack upgrade seed.</td></tr>
+<tr><td><a href="../data/hook-lifecycle/summary.html">../data/hook-lifecycle/summary.md</a></td><td>Generated hook lifecycle queue and required receipt paths.</td></tr>
+<tr><td><a href="corpus/known-adversarial-charts.html">known-adversarial-charts.md</a></td><td>Public chart set used to exercise difficult Helm behaviors.</td></tr>
+<tr><td><a href="reference/quirk-coverage.html">quirk-coverage.md</a></td><td>Which Helm quirks we track, scan-but-don't-surface, or don't track yet - the honest taxonomy audit.</td></tr>
+<tr><td><a href="reference/verification-properties.html">verification-properties.md</a></td><td>The catalog's acceptance contract: properties every proven chart must satisfy.</td></tr>
+<tr><td><a href="planning/next-20-tasks.html">next-20-tasks.md</a></td><td>Distilled near-term catalog task queue.</td></tr></tbody></table>
+<h3 id="redis-proof-specs">Redis Proof Specs</h3>
+<p>These files define the first complete proof slice and the checks used by the Redis demo:</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/redis-proof-spec.html">redis-proof-spec.md</a></td><td>Overall Redis proof specification.</td></tr>
+<tr><td><a href="reference/redis-installer-package-spec.html">redis-installer-package-spec.md</a></td><td>Redis <code>cub installer</code> package requirements.</td></tr>
+<tr><td><a href="reference/redis-default-variant-spec.html">redis-default-variant-spec.md</a></td><td>Default Redis variant requirements.</td></tr>
+<tr><td><a href="reference/redis-reuse-existing-secret-variant-spec.html">redis-reuse-existing-secret-variant-spec.md</a></td><td>Redis existing-Secret variant requirements.</td></tr>
+<tr><td><a href="reference/redis-variant-diff-spec.html">redis-variant-diff-spec.md</a></td><td>Expected differences between Redis variants.</td></tr>
+<tr><td><a href="reference/redis-local-e2e-spec.html">redis-local-e2e-spec.md</a></td><td>Local kind live/e2e proof specification.</td></tr>
+<tr><td><a href="reference/redis-local-scan-spec.html">redis-local-scan-spec.md</a></td><td>Local scan proof specification.</td></tr></tbody></table>
+<h3 id="demo-docs">Demo Docs</h3>
+<table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><a href="demo/redis/demo-script.html">demo/redis/demo-script.md</a></td><td>Redis walkthrough script.</td></tr>
+<tr><td><a href="demo/redis/function-scan-lane.html">demo/redis/function-scan-lane.md</a></td><td>Redis ConfigHub function scan lane.</td></tr>
+<tr><td><a href="demo/redis/safe-ops-lane.html">demo/redis/safe-ops-lane.md</a></td><td>Redis safe operation lane.</td></tr>
+<tr><td><a href="demo/redis/ux-acceptance.html">demo/redis/ux-acceptance.md</a></td><td>Redis UX acceptance criteria.</td></tr>
+<tr><td><a href="demo/nginx/confighub-proof-plan.html">demo/nginx/confighub-proof-plan.md</a></td><td>NGINX proof target plan.</td></tr></tbody></table>
+<h3 id="tests">Tests</h3>
+<table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><a href="../tests/README.html">../tests/README.md</a></td><td>Entry point for the repo's test material.</td></tr>
+<tr><td><a href="../tests/npm-scripts.html">../tests/npm-scripts.md</a></td><td>NPM script guide: what, why, how, mutability, and recommended checks by change type.</td></tr>
+<tr><td><a href="../tests/strategy.html">../tests/strategy.md</a></td><td>Long-term catalog testing strategy.</td></tr>
+<tr><td><a href="../tests/runbook.html">../tests/runbook.md</a></td><td>Reproducible per-chart runtime test procedure.</td></tr>
+<tr><td><a href="../tests/findings.html">../tests/findings.md</a></td><td>Current runtime findings and guardrails.</td></tr>
+<tr><td><a href="../tests/adversarial-strategy.html">../tests/adversarial-strategy.md</a></td><td>Adversarial usage-test methodology.</td></tr></tbody></table>
+<h3 id="operating-skills">Operating Skills</h3>
+<p>These docs turn repeated hard-chart work into reusable operating knowledge for humans and agents. They are not product proof tables, and they do not create a dependency on Pilot or any other external demo runner.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="skills/README.html">skills/README.md</a></td><td>Entry point for helm-expt operating skills and common rules.</td></tr>
+<tr><td><a href="skills/live-parity.html">skills/live-parity.md</a></td><td>How to run and classify live Helm-vs-ConfigHub parity, GitOps/OCI, kind, and cub-scout evidence.</td></tr>
+<tr><td><a href="skills/large-app-evidence-funnel.html">skills/large-app-evidence-funnel.md</a></td><td>How to break a 100+ Unit app into rendered, uploaded, pulled, synced, converged, and controller-health stages.</td></tr>
+<tr><td><a href="skills/target-facts-and-lifecycle.html">skills/target-facts-and-lifecycle.md</a></td><td>How to route existing Secrets, CRDs, APIService readiness, topology, storage, and generated runtime state.</td></tr>
+<tr><td><a href="skills/hook-and-secret-lifecycle.html">skills/hook-and-secret-lifecycle.md</a></td><td>How to classify Helm hooks and Secret lifecycle rows without claiming execution from render evidence.</td></tr>
+<tr><td><a href="skills/serious-chart-playbooks.html">skills/serious-chart-playbooks.md</a></td><td>Start points for kube-prometheus-stack, Consul, cert-manager, External Secrets, Loki, and Argo Workflows.</td></tr></tbody></table>
+<h3 id="planning-review-and-communications">Planning, Review, And Communications</h3>
+<p>These files support project planning, review, and public explanation. They are not the primary user path.</p>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="planning/roadmap.html">roadmap.md</a></td><td>Canonical roadmap index: active workstreams, release guardrails, issue trackers, and which planning files are authoritative versus historical.</td></tr>
+<tr><td><a href="planning/agreed-execution-plan.html">agreed-execution-plan.md</a></td><td>Consolidated doctrine and historical execution record. Use current handover, status dashboard, and next-task docs for current counts.</td></tr>
+<tr><td><a href="planning/current-handover.html">current-handover.md</a></td><td>Current pickup snapshot, including the base-variant versus derived ConfigHub variant vocabulary.</td></tr>
+<tr><td><a href="planning/large-machine-handover.html">large-machine-handover.md</a></td><td>Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes.</td></tr>
+<tr><td><a href="planning/large-machine-roadmap.html">large-machine-roadmap.md</a></td><td>Outcome-driven roadmap for live parity, target-bound derived variants, chart quirks, and docs organization.</td></tr>
+<tr><td><a href="planning/next-execution-plan.html">next-execution-plan.md</a></td><td>Current execution plan and near-term backlog.</td></tr>
+<tr><td><a href="planning/serverless-verified-install-plan.html">serverless-verified-install-plan.md</a></td><td>Product planning for <code>cub installer</code> as a no-login verified-install transcript and upgrade path into ConfigHub.</td></tr>
+<tr><td><a href="planning/verified-install-commercial-model.html">verified-install-commercial-model.md</a></td><td>Paid-tier planning for scan receipts, image digest inventory, signed artifacts, private catalogs, and fleet-wide security operations.</td></tr>
+<tr><td><a href="planning/robust-sceptic-plan.html">robust-sceptic-plan.md</a></td><td>Attack model and adversarial test queue for public claims, lifecycle gaps, blast-radius prediction, and external reproduction.</td></tr>
+<tr><td><a href="planning/issue-backlog.html">issue-backlog.md</a></td><td>Issue index and execution order.</td></tr>
+<tr><td><a href="planning/independent-review-brief.html">independent-review-brief.md</a></td><td>Brief for an independent product/technical review.</td></tr>
+<tr><td><a href="planning/review-prompts.html">review-prompts.md</a></td><td>Longer review prompts for structured critique.</td></tr>
+<tr><td><a href="planning/pilot-adversarial-testing.html">pilot-adversarial-testing.md</a></td><td>Plan for adversarial testing with external automation.</td></tr>
+<tr><td><a href="planning/outside-user-test.html">outside-user-test.md</a></td><td>Fifteen-minute outside-user protocol for testing whether the public site and docs explain the product.</td></tr>
+<tr><td><a href="planning/blog-posts.html">blog-posts.md</a></td><td>Public writing plan.</td></tr>
+<tr><td><a href="planning/dedicated-website-plan.html">dedicated-website-plan.md</a></td><td>Standalone website plan.</td></tr>
+<tr><td><a href="planning/house-voice.html">house-voice.md</a></td><td>The house voice for all tech copy: the Fowler/Jobs/Dickens hybrid, ten rules, ready-to-apply before/after rewrites of the front-door site surfaces (Get Started, How It Works, chart-page intro), and how to check it (Flesch 60–70).</td></tr>
+<tr><td><a href="planning/free-path-pitch.html">free-path-pitch.md</a></td><td>The free-path value proposition: lead with a &quot;look before you install&quot; pre-flight check, keep parity as a quiet assurance, and separate ship-now copy from future security and AI builds.</td></tr>
+<tr><td><a href="planning/server-account-pitch.html">server-account-pitch.md</a></td><td>The account value proposition: your versions, your apps, your releases, plus the shipped-versus-frontier wording that ties the homepage variant and Apps boxes together.</td></tr>
+<tr><td><a href="planning/house-layout.html">house-layout.md</a></td><td>The house layout (companion to house-voice): seven principles drawn from hall.kvick.dev - narrow prose, hairline sections, terminal-card commands, two-column hero, light card grid, one accent, restraint - plus the terminal-card pattern and where to apply it.</td></tr>
+<tr><td><a href="planning/agent-experience-audit.html">agent-experience-audit.md</a></td><td>Audit for the agent/operator docs: website pages stay for users, agent instructions live in repo Markdown, and catalog changes are out of scope for the first pass.</td></tr>
+<tr><td><a href="planning/agent-experience-worklog.html">agent-experience-worklog.md</a></td><td>Running log of observed agent friction and the fixes made.</td></tr>
+<tr><td><a href="planning/get-started-rewrite-brief.html">get-started-rewrite-brief.md</a></td><td>Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of <code>--pull</code>, verified commands, and generator notes.</td></tr>
+<tr><td><a href="planning/persona-ux-rerun-2026-06-22.html">persona-ux-rerun-2026-06-22.md</a></td><td>Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work.</td></tr>
+<tr><td><a href="planning/persona-ux-audit-2026-06-22.html">persona-ux-audit-2026-06-22.md</a></td><td>Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes.</td></tr>
+<tr><td><a href="planning/how-it-works-website-brief.html">how-it-works-website-brief.md</a></td><td>Content + structure brief for the public site's &quot;How it works&quot; section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps.</td></tr>
+<tr><td><a href="planning/fuzz-corpus-tests-roadmap.html">fuzz-corpus-tests-roadmap.md</a></td><td>Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work.</td></tr>
+<tr><td><a href="planning/helm-vs-cub-adoption-audit.html">helm-vs-cub-adoption-audit.md</a></td><td>Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged.</td></tr>
+<tr><td><a href="planning/per-chart-fact-sheet-spec.html">per-chart-fact-sheet-spec.md</a></td><td>Design spec for the per-chart website page: section list, the exact data source per field, and a solid/partial/needs-more-testing status for each, plus the &quot;level of support vs evidence depth&quot; rule.</td></tr>
+<tr><td><a href="planning/archive/README.html">archive/README.md</a></td><td>Historical planning snapshots retained for traceability.</td></tr></tbody></table>
+<h2 id="naming-rules">Naming Rules</h2>
+<ul><li>User entry points should have plain names: <code>README.md</code>, <code>CATALOG.md</code>, <code>how-the-harness-works.md</code>.</li><li>Keep the primary user docs small. Generated proof files are allowed to be numerous because they are evidence, not a required reading path.</li><li>Dated files are historical handoff snapshots. New standing plans should use undated names.</li><li>Generated files should stay near the artifacts they summarize.</li><li>Recipe-level docs belong under <code>recipes/</code>.</li><li>Executable package docs belong under <code>packages/</code>.</li><li>Proof summaries and matrix outputs belong under <code>data/</code>.</li><li>Product guidance and implementation plans belong under <code>docs/</code>.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/README.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

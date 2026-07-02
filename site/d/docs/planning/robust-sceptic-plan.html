@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>helm-expt: the robust sceptic plan · ConfigHub Helm Ops</title>
+  <meta name="description" content="helm-expt: the robust sceptic plan: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html">
+  <meta property="og:title" content="helm-expt: the robust sceptic plan · ConfigHub Helm Ops">
+  <meta property="og:description" content="helm-expt: the robust sceptic plan: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>helm-expt: the robust sceptic plan</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/robust-sceptic-plan.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Planning doc. Status: active adversarial test plan. Companion to the serverless design doc and the verify-commercial doc.</p>
+<h2 id="1-purpose-and-posture">1. Purpose and posture</h2>
+<p>Assume helm-expt gets the audience it wants. Then it gets the audience that comes with it: Helm maintainers defending their project, security people probing the trust claims, practitioners with a quirky chart that breaks the model, and the standard internet pattern of finding the one overclaim and using it to dismiss the rest.</p>
+<p>The posture that wins is to turn every attack into a fixture. A sceptic with a breaking chart is useful adversarial QA, and the correct response to &quot;your model breaks on X&quot; is a public receipt that either passes X or refuses X with a named reason. The repo's existing discipline (every claim narrow, every exception visible, every strict BLOCK routed to a watchlist row or a named rule) is the right foundation. This doc is the threat model on top of it: who attacks what, what already defends, what tests are missing, and where we are honestly still weak.</p>
+<h2 id="2-what-already-defends">2. What already defends</h2>
+<p>Inventory of existing defenses, so the plan builds rather than duplicates:</p>
+<ul><li><code>what-we-refuse-to-claim.md</code> and <code>why-this-does-not-collapse.md</code>: the claims discipline and the quirks-as-catalog-facts doctrine.</li><li>Verification lanes with a generated outcome coverage: one chart can pass one lane and lack another, stated per row.</li><li>The watchlist and named normalization rules: every strict live BLOCK has a public route.</li><li><code>known-adversarial-charts.md</code>: eleven real public charts chosen for stress features (CRDs, webhooks, hooks, generated certs, capability branching, umbrella deps), each with a proof focus.</li><li><code>data/adversarial10</code>: the first scale-out harness over real charts, recording render context (Helm version, capability version, flags, values profile) and per-chart status including determinism.</li><li><code>independent-review-brief.md</code>: a written brief for outside review.</li><li>Zero-dependency clone-and-verify design and signed receipts: the proofs are re-runnable without trusting us.</li><li>Per-chart residue lists, support tiers, and the maintenance SLA separating presence, proof, and recommendation.</li></ul>
+<p>This is more than most projects have. The gaps are specific, and section 4 names them as tests. T1 through T4 now have committed machinery; they are still coverage-growing work, not finished proof of the full product. T5 through T8 remain open proof work.</p>
+<h2 id="2a-product-frontiers">2a. Product Frontiers</h2>
+<p>The sceptic work should keep these product boundaries visible. Passing render parity or a live row does not close these frontiers by itself.</p>
+<table><thead><tr><th>Frontier</th><th>Current status</th></tr></thead><tbody><tr><td>Field-complete provenance</td><td>Blast-radius prediction is scored by a generated accuracy harness: <a href="../../data/blast-radius-accuracy/summary.html">13 measured cases</a>, 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance.</td></tr>
+<tr><td>Full change authority</td><td>ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user.</td></tr>
+<tr><td>Reverse live-to-desired flow</td><td>Live observations are recorded. Authorized live fixes flowing back into desired state are future product work.</td></tr>
+<tr><td>Universal hook execution</td><td>Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically.</td></tr>
+<tr><td>Fleet-wide bounded propagation</td><td>Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built.</td></tr>
+<tr><td>Signatures as trust</td><td>The <a href="../../data/claims-register/summary.html">claims register</a> enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context.</td></tr></tbody></table>
+<h2 id="3-the-attack-taxonomy">3. The attack taxonomy</h2>
+<p>Grouped by which claim is attacked. Each entry: the attack, the current defense, and a status (HELD, PARTIAL, WEAK).</p>
+<h3 id="a-attacks-on-the-render-claim-your-render-equals-helms">A. Attacks on the render claim (&quot;your render equals Helm's&quot;)</h3>
+<ul><li><b>&quot;Which Helm?&quot;</b> Different Helm versions, flag profiles (<code>--include-crds</code>, <code>--no-hooks</code>, <code>--skip-tests</code>), and post-renderers produce different output. Defense: render context is recorded on the adversarial10 harness (Helm v4.1.4, capability 1.30.0, exact flags). Status: PARTIAL. The context is recorded per harness run but a flag-profile and Helm-version matrix on the equivalence receipt itself is not yet systematic.</li><li><b>Non-determinism.</b> Charts using random generation, generated certs, or timestamps render differently every time, &quot;so your parity proof is meaningless.&quot; Defense: this is a solved classification, not a hole: the scan flags determinism per chart (redis is recorded <code>deterministic: false</code>), and generated-fact binding captures the generated values once. Status: HELD for classified charts, PARTIAL for the long tail not yet scanned on this axis.</li><li><b><code>lookup</code> and live-cluster reads.</b> Some templates read the cluster at render time, so a factory render cannot match. Defense: classified as a control point; such charts need facts or refusal. Status: PARTIAL. The honest answer is that lookup charts get a narrower claim, and that narrowing must be visible on the chart page.</li><li><b>Capability branching.</b> Render differs by cluster version and available APIs, &quot;your pre-render is wrong for my cluster.&quot; Defense: capability profiles are a named control point with a linked P0 gate. Status: PARTIAL. One profile per package is recorded; the combinatorial envelope (which profiles a package is valid for) is not yet declared per package.</li><li><b>Environment skew.</b> OS, arch, timezone, locale affecting renders. Defense: the environment matrix records timezone, locale, and flag-profile cells for the measured corpus. Status: PARTIAL. Other operating systems, architectures, Helm versions, and CI runners remain open columns.</li></ul>
+<h3 id="b-attacks-on-the-values-space-claim-you-proved-points-not-the-space">B. Attacks on the values-space claim (&quot;you proved points, not the space&quot;)</h3>
+<ul><li><b>&quot;My values combo is unproven.&quot;</b> The catalog proves enumerated variants; a user's custom values are outside the proof. Defense: this is fundamentally true and must be owned, not argued. The mitigation is that <code>cub installer setup</code> renders locally, so a custom overlay gets the same verification run on the user's machine: the proof machinery travels, even where the catalog proof does not. Status: HELD if framed correctly, WEAK if any page implies the whole values space is proven.</li><li><b>Density hotspots.</b> One value touching dozens of objects, where a sceptic shows an unexpected interaction. Defense: density is measured in the scan and is the basis of blast radius. Status: PARTIAL, see the prediction-accuracy test below; measuring density is not the same as predicting effects correctly.</li></ul>
+<h3 id="c-attacks-on-the-lifecycle-claim-hooks-are-the-install-you-skipped-the-install">C. Attacks on the lifecycle claim (&quot;hooks are the install; you skipped the install&quot;)</h3>
+<ul><li><b>Hooks.</b> Pre/post hooks with weights and delete policies are load-bearing in many charts (cert bootstrap, migrations). &quot;A no-hooks render is not the chart.&quot; Defense: hook-lifecycle receipts exist; tiering refuses or degrades honestly; <code>--allow-hooks</code> must mark the receipt degraded. Status: PARTIAL. Lifecycle proof is the least mature link and sceptics will find it first.</li><li><b>CRD install-once and upgrades.</b> Helm's own footgun, turned around: &quot;how do you upgrade CRDs?&quot; Defense: no-crds variants, CRD-before-CR ordering, refusal with residue. Status: PARTIAL. CRD upgrade is a per-chart decision today, not a solved mechanism, and the docs should say that sentence verbatim.</li><li><b>Admission and controller mutation.</b> &quot;What lands in etcd is not what you applied; your desired state is fiction.&quot; Defense: this is Helm pain 14 turned against us, and the answer is the observation receipt plus named normalization rules: divergence is recorded and justified, not hidden. Status: HELD in design, PARTIAL in coverage; every normalization rule is also attackable as &quot;explaining away a diff,&quot; so each needs its justification on the page.</li><li><b>Install-versus-upgrade divergence.</b> Charts render differently on upgrade. Defense: both renders captured. Status: WEAK as a live verb; the capture exists, the exercised upgrade path does not.</li></ul>
+<h3 id="d-attacks-on-the-provenance-and-edges-claim-the-newest-least-tested-layer">D. Attacks on the provenance and edges claim (the newest, least-tested layer)</h3>
+<ul><li><b>Wrong blast radius.</b> The sharpest technical attack available: change one value, and the predicted set of affected objects misses something or includes phantoms. A single public demonstration of a wrong prediction damages the whole edges story. Defense today: the blast-radius scoreboard measures a small committed case set and publishes both passes and known misses. Status: PARTIAL. Whole-release identity paths currently expose under-prediction and need better source-map scope before the claim grows.</li><li><b>Incomplete source maps.</b> Aliases, import-values, library charts, post-render fills: value paths the source map does not cover yield &quot;you cannot explain this field.&quot; Defense: scanner axes were extended; coverage per axis is in quirk-coverage. Status: PARTIAL.</li></ul>
+<h3 id="e-attacks-on-freshness-and-coverage">E. Attacks on freshness and coverage</h3>
+<ul><li><b>&quot;Your redis is three versions old.&quot;</b> Staleness of the catalog against upstream. Defense: pinning is a feature (production users pin deliberately); the refresh pipeline exists (latest-top20-refresh with promotion work orders); the catalog date is printed in the install transcript, making staleness visible rather than discovered. Status: PARTIAL. The defense is only as good as the refresh SLA actually achieved, and that SLA is unproven at top-100 scale.</li><li><b>&quot;Cherry-picked corpus.&quot;</b> &quot;Forty-seven families out of thousands of charts.&quot; Defense: top-N by usage covers the large majority of real installs; breadth was frozen deliberately for depth; the coverage matrix is published. Status: HELD if the coverage numbers stay public and honest.</li><li><b>Abandonment risk.</b> &quot;What happens when you stop maintaining it&quot; (the Bitnami precedent cuts both ways: it proves the market and the fear). Defense: the maintenance SLA doc separates presence, proof, and recommendation. Status: PARTIAL; this is ultimately a commercial-model answer, see the companion doc.</li></ul>
+<h3 id="f-attacks-on-trust-and-security">F. Attacks on trust and security</h3>
+<ul><li><b>&quot;You signed your own homework.&quot;</b> The catalog signs its own renders, so the signature proves origin, not safety. Defense: correct, and the claim must be scoped exactly that way; signature equals provenance and integrity, the scan receipts carry the safety-relevant findings, and everything is locally re-runnable. Status: HELD if claims stay scoped; one overclaim turns this into the &quot;security theater&quot; headline.</li><li><b>Key compromise and signing infrastructure.</b> Who holds the key, where is the transparency log. Status: WEAK. Cosign exists in the flow; a key ceremony and a public transparency log (rekor) do not yet. This must precede any commercial security claim.</li><li><b>Single-party verification.</b> Every proof so far was produced and checked by us. Status: WEAK by definition until test T6 runs.</li><li><b>Supply chain of helm-expt itself.</b> The verifier is also software; &quot;who verifies the verifier.&quot; Defense: zero npm dependencies is a real and unusual answer, plus clone-and-verify. Status: HELD, and worth stating more loudly; it is the project's quietest strong card.</li></ul>
+<h3 id="g-positioning-and-social-attacks">G. Positioning and social attacks</h3>
+<ul><li><b>&quot;This is just the rendered manifests pattern.&quot;</b> Defense: yes, plus provenance, variants, facts, signing, and receipts; rendered manifests is step one of six in the journey, and saying so disarms rather than concedes. Status: HELD.</li><li><b>&quot;kpt tried this.&quot;</b> Defense: config-as-data lineage is acknowledged openly (the generative GitOps doc now cites it); what is new is the proof chain and the variant model, not the data model. Status: HELD; never argue the lineage, own it.</li><li><b>Helm maintainer pushback.</b> &quot;This misrepresents Helm; we have --atomic, the diff plugin, OCI charts.&quot; Defense: tone discipline already in force, never &quot;Helm is bad,&quot; always the import-path framing; every Helm pain named has a receipt or a citation, not an adjective. Status: HELD, but fragile under marketing pressure; one snarky tweet undoes it.</li><li><b>&quot;AI-generated catalog.&quot;</b> &quot;The proofs are model-generated and circular.&quot; Defense: the receipts are deterministic machine checks, re-runnable by anyone, and no model output is part of any proof. Status: HELD; put that sentence in the FAQ verbatim.</li><li><b>&quot;Vendor funnel.&quot;</b> &quot;Free catalog is bait for lock-in.&quot; Defense: the serverless tier is complete at N=1 by design, the artifacts are standard KRM YAML applied by standard means, and the exit is <code>kubectl get -o yaml</code>. Status: HELD if the never-degrade-local rule from the serverless doc holds.</li></ul>
+<h2 id="4-the-adversarial-test-plan">4. The adversarial test plan</h2>
+<p>Eight tests, ordered by leverage. T1 and T2 first: T1 is cheap and converts every other test into a public scoreboard; T2 covers the weakest high-value claim.</p>
+<p><b>T1. Claims register.</b> The generated register lives at <code>data/claims-register/summary.md</code>. It maps public claims to status, evidence, verification commands, and limits. Anything claimed without a receipt, route, or explicit planning status should be re-scoped or removed. The ongoing task is to keep this register current as new proof lanes and product claims are added.</p>
+<p><b>T2. Blast-radius prediction accuracy harness.</b> The decisive test for the edges layer. For each chart and variant: mutate one input value, predict the affected objects and fields from the inheritance graph and value-source map, then actually re-render and diff. Score predicted-versus-actual (misses and phantoms), publish accuracy per chart per axis. The generated scoreboard at <code>data/blast-radius-accuracy/summary.md</code> measures committed base-pair diffs plus recorded single-value rerender receipts (<code>scripts/record-blast-radius-case.mjs</code>), each rescored offline against the committed value-source-map. That is a growing benchmark, not a general claim. Whole-release identity paths (namespace, releaseName) are measured with rename-aware object pairing and currently fail: the source maps under-predict paths that reach every object through labels, selectors, and embedded names. Failing rows are published with their changed-field evidence, and the route is to make the source maps honest about whole-release scope, then re-record.</p>
+<p><b>T3. Synthetic torture suite. [BUILT 2026-06, growing]</b> Lives at <code>data/torture-suite/</code>: charts written to break the model (randomness in selector labels, lookup in a spec field, sprig env access, tpl self-recursion, subchart alias collisions with hardcoded names, import-values chains, install-vs-upgrade branching), each landing in a named pass, refusal, or route, recording hard-fails on silence, so a new breaker chart fails the build until it is classified. Found along the way: helm v4 rewrites aliased subcharts' .Chart.Name (defending alias-derived names), blocks sprig env at parse, and blows the goroutine stack on tpl self-recursion, all recorded as named outcomes. Future fixtures: a hook that mutates non-hook resources (needs live semantics), dry-run detection. Public problem-chart intake is open through the GitHub issue template; a reported chart still has to become a fixture, receipt, named refusal, or routed gap before it is claimed.</p>
+<p><b>T4. Environment determinism matrix.</b> The recorded matrix lives at <code>data/environment-matrix/summary.md</code>: the proof-grade corpus rendered across timezone and locale variations and flag profiles, each cell rendered twice for per-cell determinism, with digests recorded per flag profile. Open columns, other operating systems, architectures, and Helm versions, are intended to ride on CI runners rather than bespoke local infrastructure. A divergent cell is recorded, not hidden.</p>
+<p><b>T5. Cluster matrix.</b> Capability profiles and admission on/off across kind versions: verify that facts and capability profiles catch every divergence, and that each webhook mutation lands as a named normalization rule with its justification. This is what makes attack C's &quot;etcd is not what you applied&quot; answerable line by line.</p>
+<p><b>T6. External reproduction.</b> Execute the independent-review brief with outsiders: CI on public runners reproducing the proofs, plus at least one named third party rerunning the verification end to end. Publish the failure budget (what failed to reproduce and why). Single-party verification is a structural weakness no internal test can fix.</p>
+<p><b>T7. Time-travel re-verification.</b> Re-run six-month-old receipts: are the artifacts still pullable, signatures still valid, proofs still green. Exercises key rotation and registry durability before a customer does.</p>
+<p><b>T8. Upgrade gauntlet.</b> The install-versus-upgrade divergent charts exercised live on kind: upgrade applied, divergence observed, rollback receipts produced. Converts the weakest lifecycle status from captured to exercised.</p>
+<h2 id="5-where-we-are-still-weak-the-honest-register">5. Where we are still weak (the honest register)</h2>
+<p>Stated plainly so nobody inside the project is surprised by an outsider saying it:</p>
+<ol><li>Lifecycle proof (hooks, weights, delete policies) is the least mature link; today it is classification and refusal more than proof.</li><li>CRD upgrade is a per-chart decision, not a mechanism.</li><li>The values space is point-covered by construction; the proof travels (local render-verify) but the catalog claim is and will remain per-variant.</li><li>Blast-radius prediction accuracy is measured on a small case set. The current known miss is whole-release identity propagation, where source maps under-predict labels, selectors, checksums, DNS names, and immutable identity paths.</li><li>Reach and live-freshness links are partial; the chain of proof must be claimed only as far as it holds.</li><li>Authority capture does not exist; nothing should imply it does.</li><li>The refresh SLA is unproven at top-100 scale, and the staleness attack is only answered by an SLA actually met.</li><li>Signing infrastructure (key ceremony, transparency log) is not in place; commercial security claims wait on it.</li><li>Most verification to date is still internal to this project. External reproduction remains a separate proof step.</li><li>Catalog economics: the abandonment question has a commercial answer or no answer.</li></ol>
+<h2 id="6-response-playbook">6. Response playbook</h2>
+<p>Rules for the public conversation, matching the existing tone discipline:</p>
+<ul><li>Concede fast and specifically. &quot;Correct, lifecycle proof is our weakest link; here is the watchlist row and the plan&quot; beats any defense.</li><li>Answer with a receipt or a route, never an adjective. Every reply should contain a link to a lane, a receipt, a residue list, or a named rule.</li><li>Never &quot;Helm is bad.&quot; The import-path framing is the only framing.</li><li>Invite the breaker in. Any chart that breaks the model goes into the torture suite with credit; the reply to &quot;I broke it&quot; is &quot;thank you, fixture merged, here is its receipt.&quot;</li><li>Keep the refuse-to-claim page one click from everything. The strongest credibility asset is the list of things we will not say.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/robust-sceptic-plan.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

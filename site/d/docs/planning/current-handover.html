@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Current Handover · ConfigHub Helm Ops</title>
+  <meta name="description" content="Current Handover: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html">
+  <meta property="og:title" content="Current Handover · ConfigHub Helm Ops">
+  <meta property="og:description" content="Current Handover: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Current Handover</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/current-handover.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This is the current handover for the <code>helm-expt</code> repository. It is intended for another engineer or agent picking up the work from public <code>main</code>.</p>
+<p>For current priorities, start with <a href="roadmap.html">Roadmap</a>. This file is a pickup snapshot and vocabulary note, not the canonical roadmap.</p>
+<p>For the next Codex running on a machine that can perform live Kubernetes and GitOps testing, start with:</p>
+<pre><code>docs/planning/large-machine-handover.md
+docs/planning/large-machine-roadmap.md</code></pre>
+<p>Those files are stricter than this rolling handover about what &quot;verified&quot;, &quot;live&quot;, &quot;all charts&quot;, and &quot;derived variant&quot; mean.</p>
+<h2 id="repository-state">Repository State</h2>
+<p>The repository is a public proof corpus for turning popular public Helm charts into reviewed <code>cub installer</code> packages, supported base variants, rendered objects, scans, receipts, and live-test evidence.</p>
+<p>In this handover, <b>base variant</b> means a render-time installer/package variant. <b>Derived ConfigHub variant</b> means a downstream ConfigHub variant created after a reviewed base has been uploaded, using clone/link plus approved post-render refinements. The public catalog primarily proves base variants. Derived variants are still part of the product model, but they appear after upload when a deployment needs target, environment, region, customer, namespace field, fact binding, placeholder, TransformPaths, function, gate, link, check, or observation-policy changes without re-rendering Helm.</p>
+<p>The current public path is:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>Helm chart
+  -&gt; analyzed chart facts and control points
+  -&gt; cub installer package
+  -&gt; supported base variants that change or select the Helm-rendered object set
+  -&gt; rendered Kubernetes objects
+  -&gt; ConfigHub upload receipts
+  -&gt; optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, checks, or observation policy
+  -&gt; operation receipts
+  -&gt; local runtime evidence
+  -&gt; GitOps/OCI runtime evidence</code></pre>
+<p>If a reader sees &quot;supported variants&quot; in generated catalog evidence, read that as &quot;supported base variants&quot; unless the artifact explicitly says it is a derived ConfigHub variant.</p>
+<p>The current proof surface is:</p>
+<pre><code>100 charts have recipe/package proof artifacts.
+20 charts are catalog-supported for the declared local-test scope.
+20/20 top-20 charts have local-kind runtime receipts.
+20/20 top-20 charts have ConfigHub proof receipts.
+80 additional charts are proof-grade, not catalog-supported.
+All non-Redis top-20 proof scripts use the shared proof kit.</code></pre>
+<p>For chart-recipe-variant lane coverage, use the generated lane matrix instead of chart-level shorthand:</p>
+<pre><code>data/outcome-coverage/summary.md</code></pre>
+<p>As of the current matrix, all 191 chart/base rows have Helm-equivalence plus installer setup-check evidence. ConfigHub proof, local-kind evidence, and ConfigHub OCI/Argo live proof are partial by exact variant row.</p>
+<p>There are two live parity surfaces, and they answer different questions:</p>
+<table><thead><tr><th>Surface</th><th>Current reading</th><th>Use it for</th></tr></thead><tbody><tr><td>Selected live Helm-vs-ConfigHub comparison</td><td>84 committed receipts: 83 pass, 1 watch, 0 blocked.</td><td>Comparing regular Helm with ConfigHub direct apply and ConfigHub OCI/Argo delivery for selected chart/base rows.</td></tr>
+<tr><td>Live parity rerun queue</td><td>1 GitOps/controller-health row, 0 render-input rows, 0 semantic parity defects.</td><td>The active non-pass row is Consul secure mesh. Semantic parity and workload readiness passed; the remaining work is Argo aggregate health review on the three-node target profile.</td></tr></tbody></table>
+<p>The watch and blocked rows are not currently object-set parity defects. They surface target prerequisites, hook/lifecycle routes, controller health, storage, or runtime readiness decisions that still need to be modeled or rerun.</p>
+<p>For exact GitOps/OCI status, do not rely on copied counts in this handover. Use the generated status dashboard and outcome CSVs:</p>
+<pre><code>data/status-dashboard/summary.md
+data/outcome-coverage/base-outcomes.csv
+data/runtime-gitops/summary.md</code></pre>
+<p>The runtime/GitOps first wave tracks the first ten selected Argo/Flux OCI rows. The broader outcome table also includes later GitOps/OCI receipts from other live lanes. Treat both as exact chart/base evidence, not as a chart-level blanket claim.</p>
+<p>Outcome doctrine:</p>
+<pre><code>Every supported Helm chart default and declared main choice should become
+verifiably reproducible, ConfigHub-reviewable, live-cluster verified, and tied
+to receipts.</code></pre>
+<p>Do not treat an activity as done just because a script, doc, generated row, or tutorial exists. The outcome must be visible in committed evidence and guarded by a verifier. For catalog-supported charts, &quot;main choices&quot; means the default base plus the declared supported non-default bases such as existing-secret, no-crds, server-only, ingress, HA, ClusterIP, storage, or equivalent chart choices. For derived ConfigHub variants, it means the post-render operating choices that the docs claim are supported: target, environment, region, customer, gates, facts, links, field fills, checks, and observation policy.</p>
+<p>The current honest state is therefore:</p>
+<pre><code>render reproducibility: complete for current recipe variants
+ConfigHub proof: partial by exact chart-recipe-variant row
+local live cluster proof: partial by exact chart-recipe-variant row
+GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
+selected live Helm-vs-ConfigHub comparison: see generated status for current pass, watch, blocked, and missing counts
+live parity rerun queue: 1 GitOps/controller-health watch row, 0 render-input active rows, 0 semantic parity defects in the selected live Helm-vs-ConfigHub lane
+two-cluster kind parity: 73 pass, 1 watch, 0 blocked, 0 semantic parity defects
+lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog</code></pre>
+<p>The top-level public entry points are <a href="../../README.html">README.md</a>, <a href="../../CATALOG.html">CATALOG.md</a>, and the generated static site under <a href="../../..">site/</a>.</p>
+<h2 id="latest-completed-work">Latest Completed Work</h2>
+<p>The proof-kit migration is complete for the current non-Redis top-20 charts: those chart proof scripts now share <code>scripts/lib/proof-kit.mjs</code>. Redis remains bespoke because it carries the first tutorial and user-install verification helpers.</p>
+<p>The latest generated queues for the next proof stages are:</p>
+<table><thead><tr><th>Area</th><th>Artifact</th></tr></thead><tbody><tr><td>Runtime/GitOps first wave</td><td><a href="../../data/runtime-gitops/summary.html">data/runtime-gitops/summary.md</a></td></tr>
+<tr><td>Hook lifecycle wave</td><td><a href="../../data/hook-lifecycle/summary.html">data/hook-lifecycle/summary.md</a></td></tr>
+<tr><td>Cert-manager / External Secrets lifecycle observations</td><td><a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">data/lifecycle-observations/cert-manager-eso/summary.md</a></td></tr>
+<tr><td>Image digest workdown</td><td><a href="../../data/image-digest-workdown/summary.html">data/image-digest-workdown/summary.md</a></td></tr>
+<tr><td>Compact next-ten waves</td><td><a href="../../data/next-ten-waves/summary.html">data/next-ten-waves/summary.md</a></td></tr>
+<tr><td>Lane-test matrix</td><td><a href="../../data/outcome-coverage/summary.html">data/outcome-coverage/summary.md</a></td></tr>
+<tr><td>Live parity rerun queue</td><td><a href="../../data/live-parity-rerun-plan/summary.html">data/live-parity-rerun-plan/summary.md</a></td></tr>
+<tr><td>Refresh survival and upgrade seed</td><td><a href="../../data/refresh-survival/summary.html">data/refresh-survival/summary.md</a></td></tr></tbody></table>
+<p>These files are generated and verified. Do not edit them by hand.</p>
+<p>2026-06-13 update: Cluster Autoscaler <code>controller-default-reviewed</code> no longer belongs in the live rerun queue. It was converted from a misleading alias-of-default render into a values-profile rerender with <code>autoDiscovery.clusterName=kind</code> and <code>awsRegion=us-east-1</code>, then rerun through regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo. The committed receipt is:</p>
+<pre><code>runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/receipt.yaml</code></pre>
+<p>The useful-base realization wave now distinguishes alias bases from values-profile rerenders:</p>
+<pre><code>data/useful-base-realization-wave/summary.md</code></pre>
+<p>The compact product entry point is:</p>
+<pre><code>docs/user/what-you-get.md</code></pre>
+<p>Historical planning snapshots live under:</p>
+<pre><code>docs/planning/archive/</code></pre>
+<h2 id="2026-06-04-configuration-as-data-and-derived-variant-sync">2026-06-04 Configuration-As-Data And Derived-Variant Sync</h2>
+<p>The near-term TODO list now folds in the configuration-as-data value lanes and the current <code>cub variant</code> command surface. See <a href="next-20-tasks.html">next-20-tasks.md</a> for the active queue and <a href="issue-backlog.html">issue-backlog.md</a> for the issue mirror.</p>
+<p>Current CLI truth:</p>
+<pre><code>cub variant create
+cub variant promote
+cub variant upload</code></pre>
+<p><code>cub variant create</code> is the current derived-variant clone/link substrate. <code>cub variant promote</code> is the current upstream-to-downstream catch-up command. <code>cub variant upload</code> is a direct already-rendered-manifest ingestion command. <code>cub variant release</code> is not a current local command and should be described only as planned or candidate product work.</p>
+<p>New issues created from the configuration-as-data / derived-variant review:</p>
+<table><thead><tr><th>Issue</th><th>Focus</th></tr></thead><tbody><tr><td><a href="https://github.com/confighub/helm-expt/issues/143">#143</a></td><td>Make <code>cub variant create</code> the explicit derived-variant substrate.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/144">#144</a></td><td>Build a derived-variant expansion wave across top-20 and wave-2 charts.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/145">#145</a></td><td>Prove promotion and environment management with derived ConfigHub variants.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/146">#146</a></td><td>Add fleet inventory and CMDB views.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/147">#147</a></td><td>Prove fleet-scale mutation and codemod workflows.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/148">#148</a></td><td>Add policy, compliance, and security posture reports.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/149">#149</a></td><td>Add dependency graph and impact analysis.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/150">#150</a></td><td>Add Creator and agentic intent flow over <code>cub variant create</code>.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/151">#151</a></td><td>Define variant release and OCI handoff semantics.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/152">#152</a></td><td>Define promotion UI expectations for clean variant diffs.</td></tr>
+<tr><td><a href="https://github.com/confighub/helm-expt/issues/153">#153</a></td><td>Reposition GitOps tutorial around Argo/OCI and bridge-independent proof.</td></tr></tbody></table>
+<p>The most important gap is now explicit: the repo still needs more derived ConfigHub variants with execution receipts. Issue #144 now has a generated starting wave under <a href="../../../../data/variant-goldens/derived-expansion-wave">data/variant-goldens/derived-expansion-wave/</a>: 10 derived-variant work orders across Redis, Prometheus, NGINX, Grafana, and Vault. Each work order now has golden clone, mutation, and check receipt targets under <code>receipts/&lt;work-order&gt;/</code>. These are explicit proof targets, not live execution receipts.</p>
+<p>2026-06-05 update: live derived-variant execution receipts now exist for all 10 work orders in the first derived expansion wave: NGINX, Redis, Prometheus, Grafana, and Vault. The receipts prove clone/link preservation, same final data-hash set as the reviewed base, production gates where the work order asks for them, and no Helm re-render. Grafana required one corrective update per derived variant because the initial clone replaced one duplicated 9094 port's <code>name</code> and <code>protocol</code> with <code>confighubplaceholder</code>; the receipts record that friction explicitly. The active ConfigHub context did not have the desired work-order targets, so these receipts intentionally stop before target binding and live apply:</p>
+<pre><code>runs/derived-variant-execution/nginx-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/nginx-customer-acme-prod/variant-create-receipt.yaml
+runs/derived-variant-execution/redis-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/redis-staging-eu-west/variant-create-receipt.yaml
+runs/derived-variant-execution/prometheus-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/prometheus-staging-eu-west/variant-create-receipt.yaml
+runs/derived-variant-execution/grafana-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/grafana-customer-acme-prod/variant-create-receipt.yaml
+runs/derived-variant-execution/vault-regulated-prod-us-east/variant-create-receipt.yaml
+runs/derived-variant-execution/vault-staging-us-east/variant-create-receipt.yaml
+npm run derived-variants:verify</code></pre>
+<p>Redis's ConfigHub proof receipt was also refreshed through the common top-20 ConfigHub proof lane. The Redis-specific verifier now checks the common <code>upload.kubernetesUnitCount</code> and <code>serverSideVariant.downstreamSpace</code> fields, so Redis no longer preserves the older receipt schema as a special case.</p>
+<p>Target-bound derived-variant receipts now exist for <code>NGINX-prod-us-east</code>, <code>NGINX-customer-acme-prod</code>, <code>MetricsServer-prod-us-east</code>, <code>Prometheus-prod-us-east</code>, and <code>Prometheus-staging-eu-west</code>:</p>
+<pre><code>data/derived-variant-target-bound/summary.md
+runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
+runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
+npm run derived-variants:target-bound:verify
+npm run derived-variants:target-bound:summary:verify</code></pre>
+<p>They prove <code>cub variant create --target</code>, target-bound cloned workload Units, ConfigHub OCI publication, Argo CD reconciliation, Kubernetes runtime readiness, and cleanup for a small web chart, a cluster-service chart, and a server-only observability chart across production, staging, and customer-derived variants. A blocked target-bound receipt also exists for <code>Redis-staging-eu-west</code>; it records that the Redis staging work order needs checked namespace mutation and Redis Secret delivery before it can honestly be called target-bound live. The next derived-variant implementation step is to add those post-clone mutation/secret checks, or pick a derived variant whose declared operating change does not require them. After that, repeat the same target-bound live path for Redis or for additional derived operating variants. The Grafana placeholder drift is tracked in <a href="https://github.com/confighub/helm-expt/issues/156">#156</a> as a follow-up issue against clone/upgrade behavior.</p>
+<h2 id="2026-06-03-variant-and-spreadsheet-findings">2026-06-03 Variant And Spreadsheet Findings</h2>
+<p>Today's review found that the public data tracks <b>base/render variants</b> and Helm problem-space signals, but it does not yet track derived ConfigHub variant opportunity as a first-class Top-500 metric.</p>
+<p>Current Top-500 counts:</p>
+<pre><code>rows: 500
+source scanned: 495
+source failed: 5
+current proof recipes in repo: 100
+current proof recipes matched to old matrix rows: 91
+no current recipe proof: 409
+catalog-supported rows: 20
+proof-grade rows: 71
+default-only proofs: 41
+multi-variant proofs: 50
+matched proof variants/revisions in top-500 rows: 143
+catalog-supported base variants in matched top-500 rows: 40</code></pre>
+<p>Current Top-500 next-action counts:</p>
+<pre><code>review source/current-version drift and refresh recipe if needed: 21
+record target-scoped support decision and refresh live/e2e observation lane: 15
+run catalog promotion review: 24
+create recipe, package, variants, rendered digest, scans, and receipts: 404
+add user-shaped variants before catalog promotion: 31
+repair source acquisition before recipe proof: 5</code></pre>
+<p>Where the counts live:</p>
+<table><thead><tr><th>Question</th><th>Current tracking</th></tr></thead><tbody><tr><td>How many rows have proof, support, package, and variant status?</td><td><a href="../../../../data/top500-catalog-analysis/review.csv">data/top500-catalog-analysis/review.csv</a> and <a href="../../../../data/top500-catalog-analysis/raw.json">data/top500-catalog-analysis/raw.json</a>.</td></tr>
+<tr><td>How do those rows map to the Helm problem-space?</td><td><a href="../../../../data/top500-catalog-analysis/drilldown.csv">data/top500-catalog-analysis/drilldown.csv</a> and <code>raw.json</code> columns such as <code>source_features</code>, <code>lookup_count</code>, <code>tpl_count</code>, <code>crd_files_count</code>, <code>cluster_roles_count</code>, <code>webhooks_count</code>, <code>stateful_sets_count</code>, <code>pvc_count</code>, and proof control categories.</td></tr>
+<tr><td>Which top-100 rows are next for strict promotion review?</td><td><a href="../../data/top100-promotion-wave/summary.html">data/top100-promotion-wave/summary.md</a>.</td></tr>
+<tr><td>Which concrete base/render variants are next?</td><td><a href="../../data/catalog-promotion-wave2/summary.html">data/catalog-promotion-wave2/summary.md</a>, <a href="../../data/catalog-promotion-wave2/variant-work-orders.html">data/catalog-promotion-wave2/variant-work-orders.md</a>, and <a href="../../../../data/next-ten-waves/variant-build-wave.csv">data/next-ten-waves/variant-build-wave.csv</a>.</td></tr>
+<tr><td>Which derived ConfigHub variant capability has receipt-style proof?</td><td><a href="../../../../data/variant-goldens/redis-prod-us-east/preview.yaml">data/variant-goldens/redis-prod-us-east/preview.yaml</a> shows one Redis default-to-prod clone with three changed paths and one preserved upstream-link change. <a href="../../data/variant-goldens/derived-expansion-wave/README.html">data/variant-goldens/derived-expansion-wave/README.md</a> adds 10 derived-variant work orders across five reviewed bases.</td></tr>
+<tr><td>Which managed overlay route proves a creator path?</td><td><a href="../../../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml">data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml</a>, currently showing six classified overlay routes, including one creator route.</td></tr></tbody></table>
+<p>Important gap:</p>
+<pre><code>The big Top-500 sheet does not yet count derived ConfigHub variant opportunity.
+It counts current base variant proof status and maps source problem-space
+complexity. Derived variant reach is now represented by goldens, the generated
+derived-expansion wave, and managed-overlay examples, not yet by scaled
+Top-500 catalog metrics.</code></pre>
+<p>The next Top-500 generator update should add generated fields or a generated companion table for:</p>
+<pre><code>base_variant_opportunity_count
+derived_variant_opportunity_count
+delivery_prerequisite_count
+variant_route_mix
+derived_variant_routes
+problem_space_tags
+recommended_variant_strategy</code></pre>
+<p>Recommended <code>recommended_variant_strategy</code> values:</p>
+<pre><code>needs-recipe-first
+base-only
+base-plus-derived
+managed-overlay
+delivery-prerequisite-first</code></pre>
+<p>The Top-500 front sheet is <code>review.csv</code>. The generator and verifier now check that the summary's advertised outputs exist.</p>
+<h2 id="current-invariants">Current Invariants</h2>
+<p>Keep these rules intact:</p>
+<pre><code>Use `cub installer` terminology consistently.
+Do not claim GitOps/OCI proof unless a runtime/GitOps receipt exists.
+Do not claim production support while production_disposition remains blocked.
+Mutable or latest image tags are acceptable for local proof only.
+Production OCI support needs image digest evidence or an explicit image override receipt.
+If a choice changes Helm render inputs, object count, object shape, or lifecycle semantics, route it through the installer package/base path.
+If a choice refines already-rendered ConfigHub Units through approved fields, facts, links, targets, gates, functions, checks, or observation policy, route it through derived ConfigHub variants.
+Do not imply derived ConfigHub variants replace base variants for render-time object changes.
+Do not describe derived ConfigHub variants as catalog-supported unless receipts prove the uploaded-base-plus-derived-variant path.
+Generated data must have a verify script that fails if committed output is stale.
+Every task should state the outcome it will prove, the evidence artifact that proves it, and the verifier that keeps it current.</code></pre>
+<h2 id="variant-vocabulary">Variant Vocabulary</h2>
+<p>Use this wording consistently in user-facing docs:</p>
+<table><thead><tr><th>Term</th><th>Meaning</th><th>Use when</th></tr></thead><tbody><tr><td>Base variant</td><td>A reviewed install shape produced by <code>cub installer</code>.</td><td>Helm values, overlays, capabilities, generated facts, target facts, lifecycle policy, or component choices change the Helm-rendered object set, object shape, or lifecycle behavior.</td></tr>
+<tr><td>Derived ConfigHub variant</td><td>A downstream ConfigHub Space/Unit set created from an uploaded reviewed base or another derived variant. It does not run Helm again.</td><td>The reviewed object set is cloned and refined through approved post-render fields, facts, links, targets, gates, functions, checks, approvals, or observation policy.</td></tr>
+<tr><td>Delivery prerequisite</td><td>A required condition or binding outside the artifact path.</td><td>Kubernetes, GitOps, OCI, or the target cluster needs a Secret, CRD, StorageClass, digest, pull credential, controller, approval, or other evidence before delivery.</td></tr></tbody></table>
+<p>Short rule:</p>
+<pre><code>Helm render or object shape changes -&gt; base variant.
+Approved post-render refinement changes -&gt; derived ConfigHub variant.
+Delivery blocker remains -&gt; delivery prerequisite.</code></pre>
+<h2 id="important-generated-data">Important Generated Data</h2>
+<p>Use these generated summaries together:</p>
+<table><thead><tr><th>Question</th><th>Read</th></tr></thead><tbody><tr><td>What can a user install now?</td><td><a href="../../CATALOG.html">CATALOG.md</a></td></tr>
+<tr><td>What does each chart prove?</td><td><a href="../../data/top100-catalog-analysis/summary.html">data/top100-catalog-analysis/summary.md</a></td></tr>
+<tr><td>What quirks and hard gaps remain?</td><td><a href="../../data/chart-facts/summary.html">data/chart-facts/summary.md</a> and <a href="../../data/quirk-coverage/summary.html">data/quirk-coverage/summary.md</a></td></tr>
+<tr><td>What did we learn from the top 500?</td><td><a href="../../data/top500-catalog-analysis/summary.html">data/top500-catalog-analysis/summary.md</a></td></tr>
+<tr><td>What is the current attack-plan queue?</td><td><a href="../../data/attack-plan-workdown/summary.html">data/attack-plan-workdown/summary.md</a></td></tr>
+<tr><td>What is the first GitOps/OCI wave?</td><td><a href="../../data/runtime-gitops/summary.html">data/runtime-gitops/summary.md</a></td></tr>
+<tr><td>Which maintained charts need hook lifecycle receipts?</td><td><a href="../../data/hook-lifecycle/summary.html">data/hook-lifecycle/summary.md</a></td></tr>
+<tr><td>What image pinning work remains?</td><td><a href="../../data/image-digest-workdown/summary.html">data/image-digest-workdown/summary.md</a></td></tr>
+<tr><td>What are the next compact work rows?</td><td><a href="../../data/next-ten-waves/summary.html">data/next-ten-waves/summary.md</a></td></tr>
+<tr><td>Which top-20 versions need refresh?</td><td><a href="../../data/latest-top20-refresh/summary.html">data/latest-top20-refresh/summary.md</a></td></tr>
+<tr><td>Which charts are next for strict promotion review?</td><td><a href="../../data/top100-promotion-wave/summary.html">data/top100-promotion-wave/summary.md</a></td></tr>
+<tr><td>Which charts are next for real variants?</td><td><a href="../../data/catalog-promotion-wave2/summary.html">data/catalog-promotion-wave2/summary.md</a></td></tr>
+<tr><td>What derived-variant golden exists?</td><td><a href="../../data/variant-goldens/redis-prod-us-east/README.html">data/variant-goldens/redis-prod-us-east/README.md</a></td></tr>
+<tr><td>What derived-variant expansion wave exists?</td><td><a href="../../data/variant-goldens/derived-expansion-wave/README.html">data/variant-goldens/derived-expansion-wave/README.md</a></td></tr>
+<tr><td>What managed-overlay creator route exists?</td><td><a href="../../../../data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml">data/managed-overlay-goldens/external-dns-customer-acme-prod/preview.yaml</a></td></tr></tbody></table>
+<h2 id="user-documentation">User Documentation</h2>
+<p>The primary user docs are under <a href="../../../../docs/user">docs/user</a>. They should stay short, plain, and concrete. Do not move generated proof transcripts into the user path.</p>
+<p>Important user guides:</p>
+<table><thead><tr><th>Topic</th><th>File</th></tr></thead><tbody><tr><td>Harness lifecycle</td><td><a href="../user/how-the-harness-works.html">how-the-harness-works.md</a></td></tr>
+<tr><td>Recipe-generation workflow</td><td><a href="../user/introduction-to-the-harness.html">introduction-to-the-harness.md</a></td></tr>
+<tr><td>Base and derived variants</td><td><a href="../user/creating-variants.html">creating-variants.md</a></td></tr>
+<tr><td>Change routing before OCI</td><td><a href="../user/change-routing-before-oci.html">change-routing-before-oci.md</a></td></tr>
+<tr><td>Custom overlays</td><td><a href="../user/custom-overlays.html">custom-overlays.md</a></td></tr>
+<tr><td>Prometheus overlay and promotion example</td><td><a href="../user/prometheus-overlay-promotion-example.html">prometheus-overlay-promotion-example.md</a></td></tr>
+<tr><td>Hooks</td><td><a href="../user/hook-lifecycle-strategy.html">hook-lifecycle-strategy.md</a></td></tr>
+<tr><td>Support tiers</td><td><a href="../user/product-support-tiers.html">product-support-tiers.md</a></td></tr></tbody></table>
+<h2 id="tests-and-commands">Tests And Commands</h2>
+<p>Start with <a href="../../tests/npm-scripts.html">tests/npm-scripts.md</a> for the full command map.</p>
+<p>For normal changes:</p>
+<pre><code>npm run docs:verify
+npm run installer:command-surface:verify</code></pre>
+<p>For generated data changes:</p>
+<pre><code>npm run attack-plan:verify
+npm run runtime-gitops:wave:verify
+npm run hooks:lifecycle:verify
+npm run image-digests:workdown:verify
+npm run next-ten:waves:verify
+npm run top20:verify-local-e2e
+npm run production:disposition:verify
+npm run catalog:wave2:verify
+npm run top20:latest-refresh:verify
+npm run top20:latest-candidates:verify
+npm run top20:latest-promotion-readiness:verify
+npm run site:verify</code></pre>
+<p>Before merging broad changes:</p>
+<pre><code>npm run verify</code></pre>
+<p>The full verify chain is expected to pass on a clean checkout.</p>
+<h2 id="suggested-next-tasks">Suggested Next Tasks</h2>
+<p>Use <a href="next-20-tasks.html">next-20-tasks.md</a> as the single active TODO queue. The headline order is:</p>
+<ol><li>Make <code>cub variant create</code> current and explicit in docs, Tutorial 4, UX proposals, and command-surface verification (#143).</li><li>Extend the target-bound derived-variant lane beyond the first NGINX live receipt, starting with Redis and Prometheus (#144).</li><li>Prove promotion and environment management with derived ConfigHub variants (#145).</li><li>Keep the closed Helm import path contract (#76) verifier-backed while the downstream <code>cub installer import helm</code> product command remains future work.</li><li>Continue wave-2 base-variant promotion, production support decisions, target facts, GitOps/Argo proof, release/OCI semantics, promotion UI expectations, fleet inventory, fleet mutation, policy/security posture, and impact analysis in the order listed in <code>next-20-tasks.md</code>.</li></ol>
+<h2 id="operating-cautions">Operating Cautions</h2>
+<p>Do not add another planning document when an existing generated work queue can be refreshed instead.</p>
+<p>Do not mark a catalog entry production-supported because it has local-kind evidence or accepted dispositions. Production support needs a final target-scoped decision that records the support scope, required live checks, image policy, lifecycle policy, and runtime/GitOps evidence.</p>
+<p>Do not make the user-facing docs longer to explain internal proof machinery. Link to generated evidence from the docs instead.</p>
+<p>Do not file issues outside this repository without explicit approval.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/current-handover.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

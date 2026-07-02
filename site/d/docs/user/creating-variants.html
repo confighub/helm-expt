@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Creating Variants · ConfigHub Helm Ops</title>
-  <meta name="description" content="Creating Variants: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Creating Variants: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/creating-variants.html">
   <meta property="og:title" content="Creating Variants · ConfigHub Helm Ops">
-  <meta property="og:description" content="Creating Variants: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Creating Variants: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/creating-variants.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Creating Variants</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="creating-variants.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/creating-variants.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -520,7 +520,7 @@ cub variant promote &lt;downstream-space&gt; \
 <pre><code>cub unit set-predicates &lt;unit&gt; --space &lt;downstream-space&gt; \
   --predicate &quot;apps/v1/Deployment:monitoring/prometheus-server:spec.replicas=false&quot;</code></pre>
 <p>That makes promotion safer because local ownership is represented as ConfigHub data, not as an undocumented patch.</p>
-<p>The consolidated promotion model is in <a href="../../../../docs/reference/variant-promotion-model.md">Variant Promotion Model</a>. Current evidence shows server-side promotion mechanics for the primary top-20 rows, but those rows remain watch-grade until the changeset-bound path tracked in <a href="https://github.com/confighub/helm-expt/issues/682">#682</a> is fixed and rerun.</p>
+<p>The consolidated promotion model is in <a href="../reference/variant-promotion-model.html">Variant Promotion Model</a>. Current evidence shows server-side promotion mechanics for the primary top-20 rows, but those rows remain watch-grade until the changeset-bound path tracked in <a href="https://github.com/confighub/helm-expt/issues/682">#682</a> is fixed and rerun.</p>
 <h2 id="delivery-prerequisites">Delivery Prerequisites</h2>
 <p>Before OCI publication or GitOps sync, the artifact should already represent the reviewed desired state for that target.</p>
 <p>Settle these before delivery:</p>
@@ -569,7 +569,7 @@ runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml</code></pre>
 <p>The example deliberately excludes <code>installer-record</code> from the workload apply. That Unit is installer support metadata, not a Kubernetes object for the workload artifact.</p>
-<p>A future/polished <a href="../../../../docs/reference/variant-creation-artifact.md#creator-status">Creator flow</a> should make those building blocks easy to use. It should not introduce a separate variant system.</p>
+<p>A future/polished <a href="../reference/variant-creation-artifact.html#creator-status">Creator flow</a> should make those building blocks easy to use. It should not introduce a separate variant system.</p>
 <h2 id="ai-assistant-flow">AI Assistant Flow</h2>
 <p><b>Status: AX proposal.</b> The structured task below is the target contract for assistants, not a shipped command or API. Assistants today drive the same shipped commands as the worked path above.</p>
 <p>An AI assistant should receive the same request as structured work.</p>
@@ -633,7 +633,7 @@ checks:
 <tr><td>&quot;Use customer overlay values for a wrapper chart.&quot;</td><td>Follow the custom overlay flow: classify values, create a reviewed base, then derive environment or customer variants.</td></tr>
 <tr><td>&quot;Point Argo CD or Flux at the result.&quot;</td><td>Configure delivery after the reviewed base or derived variant is ready.</td></tr></tbody></table>
 <h2 id="what-to-read-next">What To Read Next</h2>
-<ul><li><a href="../../../../docs/user/derived-variant-walkthrough.md">Derived-Variant Walkthrough</a> - a real <code>cub variant create</code> read back from its receipt</li><li><a href="change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a></li><li><a href="cub-variant-command-surface.html">cub Variant Command Surface</a></li><li><a href="custom-overlays.html">Custom Overlays</a></li><li><a href="../../../../docs/reference/customization-algorithm.md">Customization Algorithm</a></li><li><a href="prometheus-overlay-promotion-example.html">Prometheus Overlay And Promotion Example</a></li><li><a href="product-support-tiers.html">Product Support Tiers For Helm Scenarios</a></li><li><a href="../../../../docs/reference/variant-creation-artifact.md">Variant Creator Reference</a></li><li><a href="../../../../docs/reference/variant-promotion-model.md">Variant Promotion Model</a></li></ul>
+<ul><li><a href="derived-variant-walkthrough.html">Derived-Variant Walkthrough</a> - a real <code>cub variant create</code> read back from its receipt</li><li><a href="change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a></li><li><a href="cub-variant-command-surface.html">cub Variant Command Surface</a></li><li><a href="custom-overlays.html">Custom Overlays</a></li><li><a href="../reference/customization-algorithm.html">Customization Algorithm</a></li><li><a href="prometheus-overlay-promotion-example.html">Prometheus Overlay And Promotion Example</a></li><li><a href="product-support-tiers.html">Product Support Tiers For Helm Scenarios</a></li><li><a href="../reference/variant-creation-artifact.html">Variant Creator Reference</a></li><li><a href="../reference/variant-promotion-model.html">Variant Promotion Model</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/creating-variants.md</code>. The source file is the authoritative version.</p></footer>

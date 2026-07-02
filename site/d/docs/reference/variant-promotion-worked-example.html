@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Variant Promotion Worked Example · ConfigHub Helm Ops</title>
+  <meta name="description" content="Variant Promotion Worked Example: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/variant-promotion-worked-example.html">
+  <meta property="og:title" content="Variant Promotion Worked Example · ConfigHub Helm Ops">
+  <meta property="og:description" content="Variant Promotion Worked Example: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/variant-promotion-worked-example.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Variant Promotion Worked Example</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/variant-promotion-worked-example.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This document gives two worked examples for promoting ConfigHub variants from Helm-derived bases. Each example should be expressible three ways:</p>
+<pre><code>UX: foundational user-led creation
+AX: agent-based creation
+FX: function-based creation</code></pre>
+<p>This is about post-render ConfigHub variant promotion. It is not chart catalog promotion, and it is not a hidden Helm rerender. The current <code>cub variant create</code> command provides the clone/link substrate. The richer Creator UX below is product porcelain over that substrate: blueprint selection, fill-value guidance, preview, checks, and receipts.</p>
+<p>The promotion model follows ConfigHub's existing promotions example: Spaces and Units carry component and variant labels, and cloned Units keep upstream links back to the source Units. The graph is built from those primitives, not from a separate promotion artifact introduced by this repo.</p>
+<p>For the canonical mapping into ConfigHub's component/space/unit/promotion model, see <a href="confighub-promotion-mapping.html">ConfigHub Promotion Mapping Doctrine</a>. For the Kubara-style overlay analysis behind the ExternalDNS example, see <a href="../corpus/kubara-customized-overlays.html">Kubara Customized Overlay Analysis</a>. For the current refresh work orders that turn these examples into executable proof work, see <code>data/latest-top20-refresh/variant-work-orders.yaml</code>.</p>
+<p>Generated goldens now exist for both examples:</p>
+<table><thead><tr><th>Example</th><th>Generated golden</th></tr></thead><tbody><tr><td>Redis production region</td><td><code>data/variant-goldens/redis-prod-us-east/</code></td></tr>
+<tr><td>ExternalDNS managed overlay</td><td><code>data/managed-overlay-goldens/external-dns-customer-acme-prod/</code></td></tr></tbody></table>
+<p>They are verified with:</p>
+<pre><code>npm run variant-goldens:verify</code></pre>
+<h2 id="example-1---redis-production-region">Example 1 - Redis Production Region</h2>
+<p>We start with a reviewed Redis base:</p>
+<pre><code>chart: bitnami/redis@25.5.3
+base: default
+source variant: redis/default</code></pre>
+<p>The source has already been rendered, scanned, uploaded, and tested. Now we want production variants:</p>
+<pre><code>redis/prod-us-east
+redis/prod-eu-west</code></pre>
+<p>The promotion should keep the reviewed object set stable unless the user explicitly chooses a different recipe/package base.</p>
+<h3 id="mapping-into-confighub">Mapping Into ConfigHub</h3>
+<p>The roadmap records a Kubara org example with this shape:</p>
+<table><thead><tr><th>ConfigHub object</th><th>Base</th><th>Promoted variant</th></tr></thead><tbody><tr><td>Space</td><td><code>helm-redis-mapping-default</code></td><td><code>helm-redis-mapping-prod-us-east</code></td></tr>
+<tr><td>Component label</td><td><code>Redis</code></td><td><code>Redis</code></td></tr>
+<tr><td>Variant label on Space</td><td><code>default</code></td><td><code>prod-us-east</code></td></tr>
+<tr><td>Unit count</td><td>15</td><td>15</td></tr>
+<tr><td>Promotion edge</td><td>source Unit</td><td>cloned Unit with <code>UpstreamUnitID</code></td></tr></tbody></table>
+<p>Observed edge:</p>
+<pre><code>statefulset-redis-redis-master default -&gt; prod-us-east</code></pre>
+<p>That is the ConfigHub Promotion graph:</p>
+<pre><code>Redis/default -&gt; Redis/prod-us-east</code></pre>
+<p>The product question is whether cloned Units should also have their Unit-level <code>Variant</code> labels patched from <code>default</code> to <code>prod-us-east</code>. Space labels already identify the downstream node, while Unit labels may preserve source identity unless clone-time relabeling is explicit.</p>
+<p>The generated Redis golden records this substrate in:</p>
+<pre><code>data/variant-goldens/redis-prod-us-east/creator-contract.yaml
+data/variant-goldens/redis-prod-us-east/preview.yaml
+data/variant-goldens/redis-prod-us-east/receipts/clone-receipt.yaml</code></pre>
+<h2 id="ux-variant-creator">UX: Variant Creator</h2>
+<pre><code>Variant Creator
+From: redis/default
+Blueprint: Promote to production
+Target variant: prod-us-east
+Fill: environment=prod, region=us-east, namespace=redis-prod, target=redis-targets/prod-us-east
+Preview: 15 Units, 3 changed paths, 1 link changed
+Checks: pass with carried scan warning
+Create</code></pre>
+<p>The Creator asks only for the values needed to make this production variant real. The source base determines the Redis Secret model. Starting from <code>redis/default</code> preserves the generated-Secret mode. A request to bind <code>redis-existing-secret</code> routes back to the <code>reuse-existing-secret</code> base or to a new <code>cub installer</code> render.</p>
+<h2 id="what-the-creator-contract-describes">What The Creator Contract Describes</h2>
+<p>The Creator contract tells ConfigHub how to use its existing primitives:</p>
+<table><thead><tr><th>Step</th><th>Primitive</th><th>Result</th></tr></thead><tbody><tr><td>Clone reviewed source</td><td><code>variant create</code> / bulk clone</td><td>New prod space with copied Units, links, triggers, permissions, and metadata.</td></tr>
+<tr><td>Set identity</td><td>labels and target metadata</td><td><code>Variant=prod-us-east</code>, environment/region labels, target selection.</td></tr>
+<tr><td>Fill required values</td><td>placeholders, parameter Unit, TransformPaths</td><td>Namespace, target, and operating labels land in the right paths.</td></tr>
+<tr><td>Review relationships</td><td>links, NeedsProvides, outgoing link review</td><td>Cross-Unit bindings are preserved or deliberately changed.</td></tr>
+<tr><td>Check safety</td><td>schema checks, function checks, target facts, gates</td><td>No unresolved placeholders, facts satisfied, diff reviewed.</td></tr>
+<tr><td>Record proof</td><td>receipts, MutationSources, scan/apply/observe receipts</td><td>The promotion is explainable and repeatable.</td></tr></tbody></table>
+<h2 id="ax-agent-task">AX: Agent Task</h2>
+<p>An agent should receive a structured task, not a loose prompt:</p>
+<pre><code>task: create_variant
+fromSpace: helm-redis-default
+blueprint: promote-to-production
+parameters:
+  environment: prod
+  region: us-east
+  namespace: redis-prod
+  redisSecretMode: preserve-generated-secret-reference
+requiredChecks:
+  - source-revision-bound
+  - no-hidden-helm-rerender
+  - redis-secret-mode-preserved
+  - unit-diff-reviewed
+  - scan-pass-or-approved-exception
+expectedReceipts:
+  - clone
+  - transformPaths
+  - functionMutations
+  - checks
+  - route-back
+  - approval</code></pre>
+<p>The agent experience is deterministic because the task says what to create, what to check, and which receipts prove the result.</p>
+<h2 id="fx-function-based-fleet-promotion">FX: Function-Based Fleet Promotion</h2>
+<p>The same artifact shape should also work over a matrix:</p>
+<pre><code>blueprint: redis-promote-to-production
+matrix:
+  - environment: prod
+    region: us-east
+    namespace: redis-prod-use1
+    redisSecretMode: preserve-generated-secret-reference
+  - environment: prod
+    region: eu-west
+    namespace: redis-prod-euw1
+    redisSecretMode: preserve-generated-secret-reference</code></pre>
+<p>Fleet execution:</p>
+<pre><code>map the Variant Creator contract over the matrix
+verify each result
+summarize fleet receipts
+promote in waves</code></pre>
+<h2 id="example-2---externaldns-managed-customer-overlay">Example 2 - ExternalDNS Managed Customer Overlay</h2>
+<p>This example uses the inspected <code>external-dns/external-dns@1.21.1</code> proof as a Kubara-style stand-in for a managed platform app. The generated golden now includes a wrapper chart, platform values, customer overlay values, classification, preview, and receipts. It is still not a claim that all Kubara applications are imported or production-ready.</p>
+<p>Inspected inputs in this repo:</p>
+<table><thead><tr><th>Evidence</th><th>Value</th></tr></thead><tbody><tr><td>Source lock</td><td><code>recipes/external-dns/external-dns/1.21.1/source-lock.yaml</code> pins <code>https://kubernetes-sigs.github.io/external-dns/</code>, chart <code>external-dns</code>, version <code>1.21.1</code>, app version <code>0.21.0</code>, and package SHA.</td></tr>
+<tr><td>Dependency lock</td><td><code>recipes/external-dns/external-dns/1.21.1/dependency-lock.yaml</code> records no chart dependencies.</td></tr>
+<tr><td>Effective values</td><td><code>effective-values.yaml</code> records chart defaults and no captured merged overlay values.</td></tr>
+<tr><td>Rendered controller args</td><td><code>--source=service</code>, <code>--source=ingress</code>, <code>--policy=upsert-only</code>, <code>--registry=txt</code>, <code>--provider=aws</code>.</td></tr>
+<tr><td>Rendered image</td><td><code>registry.k8s.io/external-dns/external-dns:v0.21.0</code>.</td></tr>
+<tr><td>Control points</td><td>generated facts, <code>tpl</code>, extension slots, one CRD, and cluster-scoped RBAC are recorded.</td></tr>
+<tr><td>Generated managed overlay golden</td><td><code>data/managed-overlay-goldens/external-dns-customer-acme-prod/</code></td></tr></tbody></table>
+<p>A realistic managed import unit is not just the public chart:</p>
+<pre><code>external-dns wrapper chart
+  + platform values
+  + customer overlay values
+  + dependency closure
+  + render context</code></pre>
+<p>Promotion shape:</p>
+<pre><code>ExternalDNS/managed-aws -&gt; ExternalDNS/customer-acme-prod</code></pre>
+<p>Mapping into ConfigHub:</p>
+<table><thead><tr><th>ConfigHub object</th><th>Managed base</th><th>Customer promoted variant</th></tr></thead><tbody><tr><td>Space</td><td><code>helm-external-dns-managed-aws</code></td><td><code>helm-external-dns-customer-acme-prod</code></td></tr>
+<tr><td>Space label <code>Component</code></td><td><code>ExternalDNS</code></td><td><code>ExternalDNS</code></td></tr>
+<tr><td>Space label <code>Variant</code></td><td><code>managed-aws</code></td><td><code>customer-acme-prod</code></td></tr>
+<tr><td>Space labels</td><td><code>Provider=aws</code>, <code>Environment=Catalog</code></td><td><code>Provider=aws</code>, <code>Customer=acme</code>, <code>Environment=Prod</code>, <code>Region=us-east</code></td></tr>
+<tr><td>Units</td><td>Rendered wrapper/platform object set</td><td>Cloned Units with <code>UpstreamUnitID</code> back to managed base Units</td></tr>
+<tr><td>Target</td><td>none or catalog validation target</td><td>customer production target</td></tr>
+<tr><td>Gates</td><td>CRD/RBAC/provider review</td><td>customer approval, target facts, observation freshness</td></tr></tbody></table>
+<p>The key product lesson is the boundary:</p>
+<table><thead><tr><th>Customer choice</th><th>Classification</th><th>Route</th></tr></thead><tbody><tr><td>DNS provider, sources, registry mode, TXT owner ID, domain filters</td><td>customer overlay value / base variant selection</td><td>Recipe/base render path, because these usually change container args or rendered objects.</td></tr>
+<tr><td>DNS credential Secret or ExternalSecret reference</td><td>target fact</td><td>Recipe/base when it changes rendered env/volume shape; Creator contract only when it binds an existing rendered placeholder/reference.</td></tr>
+<tr><td>Namespace, target, approval gates, region/customer labels</td><td>post-render ConfigHub variant field</td><td><code>cub variant create</code> plus Creator contract over ConfigHub primitives.</td></tr>
+<tr><td>CRD ownership and RBAC review</td><td>lifecycle policy / CRD disposition</td><td>Recipe/base proof plus promotion gates.</td></tr>
+<tr><td>Provider account ID, hosted zone ID, IAM role ARN</td><td>target fact</td><td>Bind/check during variant creation; rerender only if those facts become Helm-rendered args/env.</td></tr></tbody></table>
+<p>Variant Creator:</p>
+<pre><code>Variant Creator
+From: external-dns/managed-aws
+Blueprint: Customer production overlay
+Target: customer-acme-prod
+Fill: customer, region, target, credential fact, hosted zone fact
+Preview: cloned Units, target/label changes, fact bindings, gates
+Checks: CRD/RBAC reviewed, credential fact satisfied, observation policy set
+Create</code></pre>
+<p>AX task:</p>
+<pre><code>task: create_variant
+fromSpace: helm-external-dns-managed-aws
+blueprint: customer-production-overlay
+parameters:
+  customer: acme
+  environment: prod
+  region: us-east
+  target: acme-prod/cluster
+  dnsCredentialFact: external-dns-aws-credentials
+  hostedZoneFact: acme-prod-public-zone
+requiredChecks:
+  - target-facts-satisfied
+  - crd-disposition-reviewed
+  - cluster-rbac-reviewed
+  - unit-diff-reviewed</code></pre>
+<p>If the user changes provider, domain filters, TXT ownership behavior, sources, or credential wiring in a way that changes rendered Deployment args/env, the Creator should stop and route back to a maintained <code>cub installer</code> recipe/base render.</p>
+<h2 id="promotion-rules">Promotion Rules</h2>
+<p>Use the Variant Creator contract when the change is post-render:</p>
+<pre><code>target
+namespace
+labels
+links
+placeholders
+secret references
+policy gates
+approval state
+observation requirements</code></pre>
+<p>Go back to the recipe/package base path when the change affects rendered objects:</p>
+<pre><code>CRDs on/off
+generated Secret vs existing Secret
+HA/storage mode
+ingress/TLS shape that changes rendered objects
+cloud-specific Helm values
+anything requiring a new Helm render</code></pre>
+<p>The rule is simple:</p>
+<pre><code>Promote reviewed ConfigHub variants without rerendering.
+Rerender only when the install shape changes.</code></pre>
+<h2 id="expected-proof">Expected Proof</h2>
+<p>A completed promotion should leave enough evidence to answer:</p>
+<pre><code>What did we clone?
+What changed?
+Which target facts were used or checked?
+Which scans and gates passed?
+Who approved it?
+What was applied or published?
+How fresh is the observation?</code></pre>
+<p>Minimum proof objects:</p>
+<pre><code>clone receipt
+unit diff / MutationSources
+target-fact or preflight receipt
+scan/check receipt
+approval receipt
+apply/publish receipt
+observation receipt when live proof is required</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/variant-promotion-worked-example.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

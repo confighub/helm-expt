@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Current Proof Status · ConfigHub Helm Ops</title>
-  <meta name="description" content="Current Proof Status: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Current Proof Status: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html">
   <meta property="og:title" content="Current Proof Status · ConfigHub Helm Ops">
-  <meta property="og:description" content="Current Proof Status: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Current Proof Status: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Current Proof Status</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="current-proof-status.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/current-proof-status.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
@@ -418,7 +418,7 @@ Top-500:
 <p>Use the catalog when you want a chart and base to try. Use the lane summaries when you need to say exactly what has been proven for that chart/base. Use the production disposition pages when you need to decide whether a chart is ready for a specific production target.</p>
 <p>Use the generated <a href="../../data/claims-register/summary.html">Claims Register</a> when you want to check whether a public claim is backed, partial, planned, or explicitly refused.</p>
 <p>Use the generated <a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a> when you want the broad chart/version/base view in one browser page. It shows the current user route, strongest evidence, core-lane status, production scope, hooks, quirks, hard gap, and next action for each row.</p>
-<p>For the remaining non-pass live rows, use the generated <a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a>. The current queue includes target prerequisites, runtime/watch rows, image retention rows, render-input modeling work, and 16 two-cluster semantic parity defects that need inspection before they can become stronger live claims.</p>
+<p>For the remaining non-pass live rows, use the generated <a href="../../data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a>. The current queue includes target prerequisites, runtime/watch rows, image retention rows, render-input modeling work, and 16 two-cluster semantic parity defects that need inspection before they can become stronger live claims.</p>
 <h2 id="product-frontiers">Product Frontiers</h2>
 <p>These are the main places where the catalog is useful but the product claim is still bounded. A chart can have strong render and live evidence while one of these frontiers remains open.</p>
 <table><thead><tr><th>Frontier</th><th>Current status</th></tr></thead><tbody><tr><td>Field-complete provenance</td><td>Blast-radius prediction is scored by a generated accuracy harness: <a href="../../data/blast-radius-accuracy/summary.html">13 measured cases</a>, 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance.</td></tr>
@@ -431,16 +431,16 @@ Top-500:
 <h2 id="find-the-answer-fast">Find The Answer Fast</h2>
 <p>One generated file answers each common evidence question. Open the file; do not rely on prose summaries for counts.</p>
 <table><thead><tr><th>Question</th><th>Open</th><th>What it gives you</th></tr></thead><tbody><tr><td>What is the broad product status of this chart, version, and base?</td><td><a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a></td><td>One browser table with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action.</td></tr>
-<tr><td>Which top-20 charts are live tested?</td><td><a href="../../../../data/live-e2e/summary.md">Live E2E Summary</a></td><td>One row per chart: local kind live/e2e result and the strict witness columns.</td></tr>
-<tr><td>Does the selected top-20 path match regular Helm in live clusters?</td><td><a href="../../../../data/live-helm-confighub-compare/summary.md">Live Helm-vs-ConfigHub Parity</a></td><td>One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity.</td></tr>
-<tr><td>Which latest chart versions are ready for promotion work?</td><td><a href="../../../../data/latest-top20-refresh/promotion-work-orders.md">Promotion Work Orders</a></td><td>Per-candidate work orders for newer upstream versions.</td></tr>
-<tr><td>Which top-100 charts are covered, partial, or decision-needed?</td><td><a href="../../../../data/top100-coverage/summary.md">Top-100 Coverage</a> and <a href="../../../../data/top100-readiness/summary.md">Top-100 Readiness</a></td><td>Coverage-contract status per chart, and the adoption bucket with next action.</td></tr>
-<tr><td>Which hard chart shows the model under serious Helm complexity?</td><td><a href="serious-chart-proof.html">Serious Chart Proof</a>, <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">kube-prometheus-stack catalog page</a>, <a href="../../../../data/webhook-cert-lifecycle/summary.md">Webhook Certificate Lifecycle Evidence</a>, and <a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">Lifecycle Observations</a></td><td>CRDs, webhooks, RBAC, generated facts, dependency locks, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts.</td></tr>
+<tr><td>Which top-20 charts are live tested?</td><td><a href="../../data/live-e2e/summary.html">Live E2E Summary</a></td><td>One row per chart: local kind live/e2e result and the strict witness columns.</td></tr>
+<tr><td>Does the selected top-20 path match regular Helm in live clusters?</td><td><a href="../../data/live-helm-confighub-compare/summary.html">Live Helm-vs-ConfigHub Parity</a></td><td>One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity.</td></tr>
+<tr><td>Which latest chart versions are ready for promotion work?</td><td><a href="../../data/latest-top20-refresh/promotion-work-orders.html">Promotion Work Orders</a></td><td>Per-candidate work orders for newer upstream versions.</td></tr>
+<tr><td>Which top-100 charts are covered, partial, or decision-needed?</td><td><a href="../../data/top100-coverage/summary.html">Top-100 Coverage</a> and <a href="../../data/top100-readiness/summary.html">Top-100 Readiness</a></td><td>Coverage-contract status per chart, and the adoption bucket with next action.</td></tr>
+<tr><td>Which hard chart shows the model under serious Helm complexity?</td><td><a href="serious-chart-proof.html">Serious Chart Proof</a>, <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">kube-prometheus-stack catalog page</a>, <a href="../../data/webhook-cert-lifecycle/summary.html">Webhook Certificate Lifecycle Evidence</a>, and <a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">Lifecycle Observations</a></td><td>CRDs, webhooks, RBAC, generated facts, dependency locks, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts.</td></tr>
 <tr><td>Is value-change blast radius measured or assumed?</td><td><a href="../../data/blast-radius-accuracy/summary.html">Blast-Radius Accuracy</a></td><td>The generated harness currently scores 13 measured cases: 13 pass, 0 fail, and 0 value-source rows are unmeasured.</td></tr>
-<tr><td>Which watch/blocked rows are trust signals, not failures?</td><td><a href="../../../../data/live-e2e/cub-scout-watchlist.md">cub-scout Watchlist</a> and <a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></td><td>Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model.</td></tr>
+<tr><td>Which watch/blocked rows are trust signals, not failures?</td><td><a href="../../data/live-e2e/cub-scout-watchlist.html">cub-scout Watchlist</a> and <a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></td><td>Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model.</td></tr>
 <tr><td>Which public claims are backed, partial, planned, or refused?</td><td><a href="../../data/claims-register/summary.html">Claims Register</a></td><td>One row per claim with evidence paths, scoped verifier, and the limit that keeps the claim honest.</td></tr>
 <tr><td>Which sceptic attacks have fixtures, and which are still partial?</td><td><a href="generative-gitops-fit.html#sceptic-proofing-status">Generative GitOps Fit</a>, <a href="../../data/blast-radius-accuracy/summary.html">Blast-Radius Accuracy</a>, <a href="../../data/environment-matrix/summary.html">Environment-Determinism Matrix</a>, and <a href="../../data/torture-suite/summary.html">Synthetic Torture Suite</a></td><td>The built attack fixtures for blast radius, environment determinism, and breaker charts, plus the open cluster-matrix, external-reproduction, time-travel, and upgrade-gauntlet work.</td></tr>
-<tr><td>Why is a live row non-pass, and what reruns it?</td><td><a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a></td><td>Non-pass rows separated into semantic defects, target prerequisites, runtime watch, and lifecycle work.</td></tr>
+<tr><td>Why is a live row non-pass, and what reruns it?</td><td><a href="../../data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a></td><td>Non-pass rows separated into semantic defects, target prerequisites, runtime watch, and lifecycle work.</td></tr>
 <tr><td>Is this chart ready for my production target?</td><td><a href="../../data/production-disposition/summary.html">Production Disposition</a> and <a href="production-support-decisions.html">Production Support Decisions</a></td><td>What is still required per chart, and how review-ready becomes supported for one target scope.</td></tr></tbody></table>
 <h2 id="source-of-truth">Source Of Truth</h2>
 <p>The shortest generated status page is:</p>
@@ -456,10 +456,10 @@ Top-500:
 <p><a href="../../data/top20-base-readiness/summary.html">Top20 Base Variant Readiness</a></p>
 <p>It gives one row per top-20 base variant with <code>start-here</code>, <code>try-with-proof</code>, prerequisite, runtime, or hook lifecycle status.</p>
 <p>The next80 queue is the shortest answer for which proof-grade non-catalog chart to promote, review, or improve next:</p>
-<p><a href="../../../../data/top100-readiness/next80-queues.md">Next80 Action Queues</a></p>
+<p><a href="../../data/top100-readiness/next80-queues.html">Next80 Action Queues</a></p>
 <p>It separates the next80 into promotion review, limitation review, and user-shaped variant work, with source features and artifact links.</p>
 <p>The refresh-survival report is the shortest answer for what happens when upstream Helm publishes a newer chart version:</p>
-<p><a href="../../../../data/refresh-survival/summary.md">Refresh Survival</a></p>
+<p><a href="../../data/refresh-survival/summary.html">Refresh Survival</a></p>
 <p>It keeps supported versions pinned, lists upstream update candidates, and shows which candidate versions have only passed the render proof lane so far.</p>
 <p>Production support is tracked separately from test evidence:</p>
 <p><a href="../../data/production-disposition/summary.html">Production Disposition</a></p>
@@ -470,33 +470,33 @@ Top-500:
 <p>The older chart-level production queue is still useful when you want one broad next action per chart:</p>
 <p><a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a></p>
 <p>The scan warning workdown is:</p>
-<p><a href="../../../../data/scan-disposition-workdown/summary.md">Scan Disposition Workdown</a></p>
+<p><a href="../../data/scan-disposition-workdown/summary.html">Scan Disposition Workdown</a></p>
 <p>It routes external scan findings into concrete production work: fix in the installer base, add a resource policy, harden security context, explicitly accept or split privileged infrastructure, review runtime endpoints, or decide PDB policy.</p>
 <p>The image digest workdown is:</p>
-<p><a href="../../../../data/image-digest-workdown/summary.md">Image Digest Workdown</a></p>
+<p><a href="../../data/image-digest-workdown/summary.html">Image Digest Workdown</a></p>
 <p>It shows rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support.</p>
 <p>The generated lane matrix is the authority for exact chart/version/base status:</p>
-<p><a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a></p>
+<p><a href="../../data/outcome-coverage/summary.html">Outcome Coverage</a></p>
 <p>The generated outcome coverage is the easiest spreadsheet-oriented entry point for chart, base, derived variant, and feature status:</p>
-<p><a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a></p>
+<p><a href="../../data/outcome-coverage/summary.html">Outcome Coverage</a></p>
 <p>The runtime/GitOps wave tracks the first Argo/OCI live rows:</p>
 <p><a href="../../data/runtime-gitops/summary.html">Runtime/GitOps Wave</a></p>
 <p>The target-bound derived variant summary tracks ConfigHub variants created from uploaded bases and then bound to live targets:</p>
-<p><a href="../../../../data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a></p>
+<p><a href="../../data/derived-variant-target-bound/summary.html">Target-Bound Derived Variants</a></p>
 <p>The lifecycle observation summary tracks cert-manager and External Secrets checks that rendered YAML alone cannot prove:</p>
 <p><a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">Cert-Manager And External Secrets Lifecycle Observations</a></p>
 <p>The webhook certificate lifecycle summary tracks staged generated certificate material and staged CRDs for bases where render parity is not enough to prove the install contract:</p>
-<p><a href="../../../../data/webhook-cert-lifecycle/summary.md">Webhook Certificate Lifecycle Evidence</a></p>
+<p><a href="../../data/webhook-cert-lifecycle/summary.html">Webhook Certificate Lifecycle Evidence</a></p>
 <p>The cub-scout live witness watchlist records cases where ordinary live checks pass but strict rendered-object/live parity finds a target capability issue:</p>
-<p><a href="../../../../data/live-e2e/cub-scout-watchlist.md">cub-scout Live Witness Watchlist</a></p>
+<p><a href="../../data/live-e2e/cub-scout-watchlist.html">cub-scout Live Witness Watchlist</a></p>
 <p>Accepted server-normalization rules for strict live witness checks are recorded separately:</p>
-<p><a href="../../../../data/live-e2e/normalization-rules.md">Live Witness Normalization Rules</a></p>
+<p><a href="../../data/live-e2e/normalization-rules.html">Live Witness Normalization Rules</a></p>
 <p>The hook/lifecycle boundary page separates hook queue rows from hook-like controller lifecycle observations:</p>
 <p><a href="../../data/lifecycle-boundary/summary.html">Hook And Lifecycle Boundary</a></p>
 <p>The extension-slot coverage page tracks charts with raw manifests, <code>tpl</code> snippets, sidecars, config blocks, add-on slots, or similar Helm inputs:</p>
-<p><a href="../../../../data/extension-slots/summary.md">Extension Slot Coverage</a></p>
+<p><a href="../../data/extension-slots/summary.html">Extension Slot Coverage</a></p>
 <p>The top-level catalog shows what a user can browse:</p>
-<p><a href="../../../../CATALOG.md">Catalog</a></p>
+<p><a href="../../CATALOG.html">Catalog</a></p>
 <h2 id="how-to-read-the-status">How To Read The Status</h2>
 <p>The project has several levels of evidence:</p>
 <pre><code>recipe/package proof
@@ -521,15 +521,15 @@ local_kind_kubectl_apply:                 148 pass
 confighub_oci_argo_live:                  135 pass
 live_helm_vs_confighub_dual_compare:      135 pass, 53 watch, 10 blocked
 two_cluster_kind_parity:                  121 pass, 10 watch, 47 blocked</code></pre>
-<p>Those counts come from the generated lane matrix: <a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a>.</p>
+<p>Those counts come from the generated lane matrix: <a href="../../data/outcome-coverage/summary.html">Outcome Coverage</a>.</p>
 <p>The missing rows are backlog. They are not failed rows. <code>watch</code> and <code>blocked</code> mean a committed receipt exists and the lane found a target, lifecycle, or fixture condition that still needs a decision or rerun.</p>
 <p>GitOps/OCI live proof is tracked in two views:</p>
 <ul><li>the broad outcome lane has 135 of 199 chart/base rows marked pass;</li><li>the first runtime/GitOps wave has 11 committed controller receipts;</li><li>8 first-wave receipts pass and 3 are non-pass target-fit or runtime receipts;</li><li>exact chart/base/controller status is in the generated runtime summary: <a href="../../data/runtime-gitops/summary.html">Runtime/GitOps Wave</a>.</li></ul>
 <p>Live Helm-vs-ConfigHub parity is selected-row evidence:</p>
-<ul><li>The selected live comparison lane has 198 committed receipts.</li><li>135 rows pass, 53 rows are watch, and 10 rows are blocked.</li><li>The lane currently has 0 ConfigHub/OCI semantic parity defect receipts.</li><li>Watch and blocked rows are routed to target prerequisites, capability profiles, render-input modeling, image retention, runtime readiness, or GitOps controller review before a stronger live claim is made.</li><li>Across the full 199-row lane matrix, use the generated outcome coverage to distinguish pass rows, committed non-pass receipts, and rows without a pass.</li><li>The comparison checks regular Helm against ConfigHub delivery and records the expected installer-added Namespace object and any semantic object diffs.</li><li>Exact chart/base status is in the generated summary: <a href="../../../../data/live-helm-confighub-compare/summary.md">Live Helm-vs-ConfigHub Parity</a>.</li></ul>
+<ul><li>The selected live comparison lane has 198 committed receipts.</li><li>135 rows pass, 53 rows are watch, and 10 rows are blocked.</li><li>The lane currently has 0 ConfigHub/OCI semantic parity defect receipts.</li><li>Watch and blocked rows are routed to target prerequisites, capability profiles, render-input modeling, image retention, runtime readiness, or GitOps controller review before a stronger live claim is made.</li><li>Across the full 199-row lane matrix, use the generated outcome coverage to distinguish pass rows, committed non-pass receipts, and rows without a pass.</li><li>The comparison checks regular Helm against ConfigHub delivery and records the expected installer-added Namespace object and any semantic object diffs.</li><li>Exact chart/base status is in the generated summary: <a href="../../data/live-helm-confighub-compare/summary.html">Live Helm-vs-ConfigHub Parity</a>.</li></ul>
 <p>Strict two-cluster Helm-vs-installer parity now has 178 committed receipts:</p>
 <ul><li>121 rows pass;</li><li>10 rows are watch;</li><li>47 rows are blocked;</li><li>153 rows have semantic object parity;</li><li>16 rows currently report a semantic parity defect.</li></ul>
-<p>Use the generated rerun plan for the next command and expected remediation: <a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a>.</p>
+<p>Use the generated rerun plan for the next command and expected remediation: <a href="../../data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a>.</p>
 <p>For the shortest active queue, use: <a href="../../../../data/status-dashboard/active-proof-queue.csv">Active Proof Queue</a>.</p>
 <p>The current rerun queue has 119 rows: 62 watch rows, 57 blocked rows, 63 ConfigHub/OCI comparison rows, 56 two-cluster kind-parity rows, and 16 semantic parity defects. One row is documented as resolved by a separate useful base and is no longer active rerun work.</p>
 <p>Production support decisions are now explicit for the top-20 catalog:</p>
@@ -539,28 +539,28 @@ two_cluster_kind_parity:                  121 pass, 10 watch, 47 blocked</code><
 <tr><td>Superseded source chart</td><td>2</td><td>Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim.</td></tr>
 <tr><td>Rejected default base</td><td>0</td><td>No current top-20 support decisions are rejected.</td></tr>
 <tr><td>Draft support decision</td><td>1</td><td>Resolve the remaining target-scoped draft before making a production-support claim.</td></tr></tbody></table>
-<p>Use the target-scoped decision table for exact blockers and next actions: <a href="../../../../data/production-support-decisions/summary.md">Production Support Decisions</a>.</p>
+<p>Use the target-scoped decision table for exact blockers and next actions: <a href="../../data/production-support-decisions/summary.html">Production Support Decisions</a>.</p>
 <p>For the plain-English path from review-ready to production-supported, see the user guide: <a href="production-support-decisions.html">Production Support Decisions</a>.</p>
 <p>Use the generated production disposition table when you need the pre-review receipts and accepted dispositions: <a href="../../data/production-disposition/summary.html">Production Disposition</a>.</p>
-<p>Use the scan workdown when the question is what kind of work a scan warning represents: <a href="../../../../data/scan-disposition-workdown/summary.md">Scan Disposition Workdown</a>.</p>
-<p>Use the detailed disposition plan when you need the accepted receipts, owners, required evidence, and unblock rules: <a href="../../../../data/production-disposition/dispositions.md">Production Disposition Details</a>.</p>
+<p>Use the scan workdown when the question is what kind of work a scan warning represents: <a href="../../data/scan-disposition-workdown/summary.html">Scan Disposition Workdown</a>.</p>
+<p>Use the detailed disposition plan when you need the accepted receipts, owners, required evidence, and unblock rules: <a href="../../data/production-disposition/dispositions.html">Production Disposition Details</a>.</p>
 <p>Use the generated support work-item queue when you want assignable production tasks: <a href="../../../../data/production-support-decisions/work-items.csv">Production Support Work Items</a>.</p>
 <p>Use the generated disposition queue when you want the older one-row-per-chart production action: <a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a>.</p>
 <p>Lifecycle observation proof has started:</p>
 <ul><li>11 public top-100 source-scan rows contain Helm hooks.</li><li>5 maintained hook queue rows now have hook route receipts.</li><li>5 of those 5 queue rows have lifecycle observation receipts.</li><li>0 of those 5 queue rows have only partial install-lifecycle observations.</li><li>cert-manager <code>default</code> and <code>crds-enabled</code> pass lifecycle checks for its <code>startupapicheck</code> hook route, CRD ownership policy, startup API readiness, webhook CA bundle injection, and server dry-run.</li><li>External Secrets <code>default</code> and <code>no-crds</code> pass lifecycle checks for CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run.</li><li>These receipts demonstrate the lifecycle-observation pattern. They do not imply that all Helm hooks or controller-owned runtime behavior are supported automatically.</li></ul>
 <p>Use the hook boundary report for the current route-selected versus lifecycle-observed split: <a href="../../data/lifecycle-boundary/summary.html">Hook And Lifecycle Boundary</a>.</p>
 <p>Target-bound derived ConfigHub variant proof has started:</p>
-<ul><li>The generated target-bound derived variant summary shows the current pass and blocked rows: <a href="../../../../data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a>.</li><li><code>NGINX-prod-us-east</code> was created from a clean uploaded NGINX <code>http-clusterip</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live NGINX Deployment in Kubernetes.</li><li><code>NGINX-customer-acme-prod</code> repeats that same path for a customer-derived NGINX variant from the reviewed <code>http-clusterip</code> base.</li><li><code>MetricsServer-prod-us-east</code> proves the same target-bound path for a cluster-service chart; the receipt records Deployment, Service, and APIService availability.</li><li><code>Prometheus-prod-us-east</code> was created from a clean uploaded Prometheus <code>server-only-ephemeral</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live Prometheus server Deployment in Kubernetes.</li><li><code>Prometheus-staging-eu-west</code> repeats that same target-bound path for a staging derived variant from the same reviewed Prometheus <code>server-only-ephemeral</code> base.</li><li>These receipts prove the derived-variant operating path for a small web chart, a cluster-service chart, and a server-only observability chart across production, staging, and customer-derived variants: clone the reviewed base, bind a real target, apply the cloned workload Units, and record Argo/runtime evidence.</li><li><code>Redis-staging-eu-west</code> has a blocked target-bound receipt. The work order asks for a namespace change and Redis Secret delivery, but those are not yet represented as checked post-clone mutations or secret/fact bindings in the derived variant path.</li><li>The other derived-variant receipts remain intended-state clone/link evidence until they have target-bound live receipts.</li></ul>
+<ul><li>The generated target-bound derived variant summary shows the current pass and blocked rows: <a href="../../data/derived-variant-target-bound/summary.html">Target-Bound Derived Variants</a>.</li><li><code>NGINX-prod-us-east</code> was created from a clean uploaded NGINX <code>http-clusterip</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live NGINX Deployment in Kubernetes.</li><li><code>NGINX-customer-acme-prod</code> repeats that same path for a customer-derived NGINX variant from the reviewed <code>http-clusterip</code> base.</li><li><code>MetricsServer-prod-us-east</code> proves the same target-bound path for a cluster-service chart; the receipt records Deployment, Service, and APIService availability.</li><li><code>Prometheus-prod-us-east</code> was created from a clean uploaded Prometheus <code>server-only-ephemeral</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live Prometheus server Deployment in Kubernetes.</li><li><code>Prometheus-staging-eu-west</code> repeats that same target-bound path for a staging derived variant from the same reviewed Prometheus <code>server-only-ephemeral</code> base.</li><li>These receipts prove the derived-variant operating path for a small web chart, a cluster-service chart, and a server-only observability chart across production, staging, and customer-derived variants: clone the reviewed base, bind a real target, apply the cloned workload Units, and record Argo/runtime evidence.</li><li><code>Redis-staging-eu-west</code> has a blocked target-bound receipt. The work order asks for a namespace change and Redis Secret delivery, but those are not yet represented as checked post-clone mutations or secret/fact bindings in the derived variant path.</li><li>The other derived-variant receipts remain intended-state clone/link evidence until they have target-bound live receipts.</li></ul>
 <p>For the details, read the generated summaries rather than copying numbers from this page.</p>
 <h2 id="useful-next-pages">Useful Next Pages</h2>
 <table><thead><tr><th>Question</th><th>Page</th></tr></thead><tbody><tr><td>Where are the outcome CSVs?</td><td><a href="outcomes-and-tests.html">Outcomes And Tests</a></td></tr>
 <tr><td>What are the verification lanes?</td><td><a href="verification-lanes.html">Verification Lanes</a></td></tr>
-<tr><td>What can I install?</td><td><a href="../../../../CATALOG.md">Catalog</a></td></tr>
-<tr><td>How do I run the tutorial path?</td><td><a href="../../../../docs/user/tutorial-sequence.md">Tutorial Sequence</a></td></tr>
+<tr><td>What can I install?</td><td><a href="../../CATALOG.html">Catalog</a></td></tr>
+<tr><td>How do I run the tutorial path?</td><td><a href="tutorial-sequence.html">Tutorial Sequence</a></td></tr>
 <tr><td>How do variants work?</td><td><a href="creating-variants.html">Creating Variants</a></td></tr>
-<tr><td>What compact work queue should we pick from next?</td><td><a href="../../../../data/next-ten-waves/summary.md">Next-Ten Waves</a></td></tr>
-<tr><td>What is the broader generated workdown?</td><td><a href="../../../../data/attack-plan-workdown/summary.md">Attack Plan Workdown</a></td></tr>
-<tr><td>What is the current execution plan?</td><td><a href="../../../../docs/planning/large-machine-roadmap.md">Large Machine Roadmap</a></td></tr></tbody></table>
+<tr><td>What compact work queue should we pick from next?</td><td><a href="../../data/next-ten-waves/summary.html">Next-Ten Waves</a></td></tr>
+<tr><td>What is the broader generated workdown?</td><td><a href="../../data/attack-plan-workdown/summary.html">Attack Plan Workdown</a></td></tr>
+<tr><td>What is the current execution plan?</td><td><a href="../planning/large-machine-roadmap.html">Large Machine Roadmap</a></td></tr></tbody></table>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/current-proof-status.md</code>. The source file is the authoritative version.</p></footer>

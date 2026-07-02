@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Helm Experiment · ConfigHub Helm Ops</title>
+  <meta name="description" content="ConfigHub Helm Experiment: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/README.html">
+  <meta property="og:title" content="ConfigHub Helm Experiment · ConfigHub Helm Ops">
+  <meta property="og:description" content="ConfigHub Helm Experiment: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/README.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <h1>ConfigHub Helm Experiment</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../README.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Use Helm charts. Ship ConfigHub variants.</p>
+<p>Before you <code>helm install</code>, see exactly what you are installing. After you install, keep proof of what was rendered, checked, delivered, and observed.</p>
+<p>This repo shows how popular public Helm charts can become <code>cub installer</code> packages with named base variants, exact rendered Kubernetes objects, optional derived ConfigHub variants, scans, gates, receipts, and live proof.</p>
+<p>The supported bases are intended to preserve the chart's end-to-end semantics while splitting the install into visible, verifiable stages. That makes changes safer, including AI-assisted changes, and helps keep users on the chart's supported path instead of accidentally driving Helm into hidden edge cases.</p>
+<p>All contents are experimental and unofficial.</p>
+<p>Public entry points:</p>
+<ul><li><a href="docs/user/offering.html">Offering page</a>: plain-English overview for Helm users.</li><li><a href="docs/user/generative-gitops-fit.html">Generative GitOps fit</a>: what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.</li><li><a href="../offering.html">Static HTML offering page</a>: generated page for a public site.</li><li><a href="docs/user/try-now.html">Try now</a>: short Redis and kube-prometheus-stack paths.</li><li><a href="docs/user/installer-oci-packages.html">Installer package OCI refs</a>: the public package refs users pull with <code>cub installer setup --pull oci://...</code>; no ConfigHub account or Google registry login is needed for read-only public catalog use.</li><li><a href="../try.html">Static HTML try page</a>: generated try-now page for a public site.</li><li><a href="../journey.html">Journey page</a>: the path from inspect, to no-account try-out, to ConfigHub operations.</li><li><a href="docs/user/choose-your-path.html">Choose your path</a>: quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.</li><li><a href="../index.html">Catalog dashboard</a>: generated status, catalog, and proof data.</li><li><a href="../matrix.html">Master matrix</a>: one product/status view for chart versions, bases, variants, proof lanes, gaps, and next actions.</li><li><a href="data/chart-use-guide/summary.html">Chart use guide</a>: one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.</li><li><a href="data/app-readiness/summary.html">App-readiness proof</a>: a read-only RBAC app built on the held rendered objects.</li><li><a href="../hard-questions.html">Hard questions</a>: skeptical questions routed to evidence and current limits.</li><li><a href="docs/user/current-proof-status.html">Current proof status</a>: what is proven, watch, blocked, or still backlog.</li><li><a href="docs/user/top100-status.html">Top-100 status</a>: plain-English groups for Helm users.</li><li><a href="docs/user/serious-chart-proof.html">Serious chart proof</a>: the kube-prometheus-stack proof path and its limits.</li><li><a href="docs/user/helm-upgrade-crash-example.html">Helm upgrade crash example</a>: how a risky upgrade becomes staged, rehearsed, gated, and observed.</li><li><a href="docs/user/target-prerequisites.html">Target prerequisites</a>: why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity.</li><li><a href="docs/user/chain-of-proof.html">Chain of proof</a>: which tool proves which boundary.</li></ul>
+<p>If you have a public Helm chart that breaks this model, or a chart where the catalog output does not match the behavior you expect from Helm, send it as a test case using the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a>. The useful response is a public fixture and a receipt: pass, watch, blocked, or refused with a named reason.</p>
+<h2 id="new-here-start-with-these-five-stages">New Here? Start With These Five Stages</h2>
+<p>If you are a Helm user, start by asking one question: do you only need to see what Helm renders, or do you want a reviewed package that can become managed ConfigHub state later?</p>
+<p>Each stage asks for more trust and gives more value. You can stop at any stage.</p>
+<table><thead><tr><th>Stage</th><th>You want</th><th>Command or surface</th><th>Needs a ConfigHub account?</th></tr></thead><tbody><tr><td>1. Curious</td><td>See exactly what a chart renders.</td><td><code>cub helm template</code></td><td>No</td></tr>
+<tr><td>2. Fast adoption</td><td>Load one Helm render into ConfigHub Units.</td><td><code>cub helm install</code></td><td>Yes</td></tr>
+<tr><td>3. Supported catalog</td><td>A maintained base variant with rendered objects, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>No ConfigHub account or registry login for public package pulls</td></tr>
+<tr><td>4. Trust proof</td><td>Check the catalog's claims on your own machine.</td><td><code>npm run top20:verify-local-e2e</code>, <code>npm run redis:verify-install:render</code>, kind parity lanes</td><td>No</td></tr>
+<tr><td>5. Operations</td><td>Variants, diffs, scans, approvals, OCI/GitOps delivery, observations.</td><td><code>cub variant create</code>, <code>cub unit diff</code>, <code>cub function vet</code>, changesets</td><td>Yes</td></tr></tbody></table>
+<p>Stages 1 and 2 are direct fast paths and skip the catalog. Stage 3 is the durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to pay back the extra structure: the same rendered objects can be cloned into environment, region, customer, or target variants; compared before promotion; scanned and gated as exact objects; delivered through GitOps or OCI; and observed later with receipts.</p>
+<p>Free and low-friction use should cover browsing the catalog, inspecting rendered objects, running <code>cub helm template</code>, trying public <code>cub installer</code> packages from their <code>oci://</code> refs, and verifying signatures, digests, and local receipts. Paid or managed use begins when the work involves private or custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, or production support.</p>
+<p>For when each command fits, see <a href="docs/user/choosing-commands.html">Choosing Commands</a>.</p>
+<p>Working in this repository as an agent or maintainer? Start with <a href="docs/agent/README.html">Agent And Operator Notes</a>. Those notes keep command recipes, recovery steps, and repo-specific AX guidance out of the human-facing website.</p>
+<p>Four questions, answered up front:</p>
+<ul><li><b>What can I try without signing up?</b> Browse the <a href="CATALOG.html">catalog</a> and <a href="../index.html">site</a>, render any chart with <code>cub helm template</code>, run <code>cub installer setup --pull oci://...</code> on public packages, and run the repo verifiers locally. See <a href="docs/user/offering.html">the offering</a>.</li><li><b>When do I need ConfigHub?</b> When you want rendered objects stored as Units, derived environment/customer/target variants, approvals, private inputs, or fleet operations. See <a href="docs/user/product-support-tiers.html">Product Support Tiers</a>.</li><li><b>What is better than Helm here?</b> You review exact rendered objects instead of values files, changes route through named variants with receipts, and failures surface as routed watch/blocked rows instead of silent drift. See <a href="docs/user/why-this-exists.html">Why This Exists</a>.</li><li><b>What is not claimed yet?</b> The maintained hook queue has lifecycle receipts, but that is not universal Helm hook support across the top-100 or top-500; the GitOps/OCI runtime lane is partial; the stricter in-ConfigHub proof lane covers a minority of chart/base rows; live claims are bounded to the tested Kubernetes capability profile; and production support is a per-target decision, never implied by a green render. Product frontiers such as field-complete provenance, full change authority, reverse live-to-desired flow, fleet-wide propagation, and universal hook execution remain bounded claims, not finished product proof. Current counts live in the <a href="data/status-dashboard/summary.html">status dashboard</a>; deliberate refusals live in <a href="docs/user/what-we-refuse-to-claim.html">What We Refuse To Claim</a>; the concise frontier table is in <a href="docs/user/current-proof-status.html#product-frontiers">Current Proof Status</a>.</li></ul>
+<p>Core flow:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>Helm chart
+-&gt; cub installer recipe/package
+-&gt; installer package OCI ref for users to pull
+-&gt; named base variants that select or change the Helm-rendered object set
+-&gt; exact rendered Kubernetes objects
+-&gt; optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
+-&gt; hook/lifecycle policy for cluster-dependent Helm behavior
+-&gt; Helm-equivalence proof, scans, gates, receipts
+-&gt; ConfigHub / OCI / GitOps handoff</code></pre>
+<h2 id="the-idea">The Idea</h2>
+<p>Pre-rendering Helm makes the real deployment object set visible before anyone has to approve, promote, or operate it.</p>
+<p>In this experiment, AI helps analyze public Helm charts and draft deterministic <code>cub installer</code> recipes. The proof pipeline then checks the work mechanically:</p>
+<pre><code>public Helm chart
+-&gt; deterministic installer recipe
+-&gt; deterministic rendered object set
+-&gt; base variants and optional derived ConfigHub variants
+-&gt; scans, gates, receipts, and live observations</code></pre>
+<p>That matters because many Helm problems are not just install-time problems. They show up later as upgrade surprises, hidden value interactions, environment drift, unclear ownership, unreviewed YAML changes, or uncertainty about what actually reached a cluster.</p>
+<p>The catalog is meant to show a better path:</p>
+<pre><code>Day 0: install from a known recipe and inspect the exact objects.
+Day 1: create variants deliberately and compare the rendered results.
+Day 2: scan, promote, observe, upgrade, and audit with receipts.</code></pre>
+<p>The first experience should not require full product signup. The target shape is:</p>
+<pre><code>public chart
+-&gt; public signed package / OCI artifact
+-&gt; user's cluster or GitOps controller
+-&gt; local verification receipt</code></pre>
+<p>The public catalog packages are published to Google Artifact Registry with anonymous read access on the <code>helm-expt</code> repository. Full signup becomes useful when the user wants private charts, private overlays, derived ConfigHub variants, production approvals, managed receipts, or fleet operations.</p>
+<p>In practice: browse the catalog anonymously; pull public package artifacts without a Google registry login; verify receipts locally; create a full ConfigHub account only when you want ConfigHub to manage private or production state.</p>
+<h2 id="why">Why</h2>
+<p>Helm is good at producing Kubernetes objects. The pain starts when teams need to answer ordinary operational questions:</p>
+<pre><code>What exactly did this values file produce?
+Is prod getting the same objects that staging reviewed?
+Which variant changed, and why?
+Did we scan the exact objects we are about to deploy?
+Can we prove what was rendered, checked, uploaded, and observed?</code></pre>
+<p>ConfigHub is the proof and variant layer around those Helm-generated objects. The goal is not to replace Helm. The goal is to make Helm output reviewable, comparable, scannable, promotable, and auditable.</p>
+<p>Render parity is necessary, but it is not the whole value. Render parity proves that the <code>cub installer</code> path did not silently invent a different Kubernetes object set from regular Helm. The harder user problems start when a chart needs target facts, staged CRDs, admission certificates, provider prerequisites, controller-owned fields, hook-like lifecycle behavior, or fresh live observation. The catalog makes those requirements explicit, stages or routes them, observes the result where evidence exists, and records the boundary of the claim.</p>
+<p>kube-prometheus-stack is the main example. The <code>no-crds</code> base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. That is the point of the model: make the hidden operational contract visible before users trust the install.</p>
+<p>We use AI to accelerate Helm chart analysis and recipe creation. We use <code>cub installer</code> to prove the resulting recipes produce correct, Helm-equivalent, reviewable base variants and derived ConfigHub variants.</p>
+<p>This is not a single prompt. It is an AI-assisted workflow with explicit decision points and mechanical checks. For the recipe-generation workflow and the &quot;where pieces go&quot; table, see <a href="docs/user/introduction-to-the-harness.html">Introduction To The Harness</a>.</p>
+<h2 id="how-values-and-overlays-are-supported">How Values And Overlays Are Supported</h2>
+<p>Helm users already customize charts with values files, <code>--set</code> flags, umbrella charts, wrapper charts, and sometimes Kustomize overlays. The rule in this repo is not &quot;stop doing that.&quot; The rule is:</p>
+<pre><code>If a customization changes Helm render inputs, object count, object shape, or
+lifecycle semantics, make it a reviewed cub installer recipe/package base.
+
+If it refines already-rendered ConfigHub Units through approved post-render
+fields, facts, links, targets, gates, functions, or checks, make it a derived
+ConfigHub variant using `cub variant create` plus guided review.</code></pre>
+<p>There are three product questions behind that routing:</p>
+<table><thead><tr><th>Question</th><th>Product lane</th><th>Typical answer in this repo</th></tr></thead><tbody><tr><td>How many useful configs should be free or out of the box?</td><td>public catalog bases</td><td>enough reviewed base variants to cover common, high-value install shapes such as default, existing Secret, server-only, ClusterIP, storage, or observability modes</td></tr>
+<tr><td>What can users customize inside ConfigHub after a base is reviewed?</td><td>derived ConfigHub variants</td><td>environment, region, customer, target, gates, observation policy, target facts, links, and approved post-render field fills</td></tr>
+<tr><td>Which cases are more complex and likely managed or paid?</td><td>import, private overlays, and stacks</td><td>private values and wrapper charts, GitOps import, fleet variants, full app stacks, private patch SLAs, old-version support, and production receipts</td></tr></tbody></table>
+<p>The public catalog should carry enough free base variants that most users do not start from a blank chart analysis. Derived variants should cover many environment and customer cases without rerendering Helm. Full import, private overlay, and stack workflows are still important, but they should be presented as a richer lane over the same proof model rather than as the first tutorial vocabulary.</p>
+<p>Before OCI delivery, users need to make three separate decisions:</p>
+<table><thead><tr><th>Question</th><th>Use</th><th>Examples</th></tr></thead><tbody><tr><td>Does this change Helm render inputs, object count, object shape, or lifecycle semantics?</td><td><code>cub installer</code> base variant</td><td>values files, component on/off, storage, ingress, CRDs, RBAC, Kustomize patches that change object shape</td></tr>
+<tr><td>Does this refine an already-reviewed ConfigHub object set after render?</td><td>derived ConfigHub variant</td><td>target, environment, region, namespace when represented, labels, gates, observation policy, links, target facts, allowed placeholder or TransformPaths fills</td></tr>
+<tr><td>Is this required before Kubernetes or GitOps can use the artifact?</td><td>delivery prerequisite or receipt</td><td>existing Secret, StorageClass, IngressClass, CRD owner, GitOps pull secret, OCI digest/signature, hook/lifecycle decision</td></tr></tbody></table>
+<p>Examples:</p>
+<table><thead><tr><th>Customization</th><th>Route</th></tr></thead><tbody><tr><td>Helm values file that changes storage, ingress, CRDs, RBAC, args, env, object count, topology, or lifecycle behavior</td><td>new <code>cub installer</code> base / rendered revision</td></tr>
+<tr><td>Replica count over an already-rendered workload field</td><td>derived ConfigHub variant or Day-2 operation when the base allows that path; base variant only when it changes topology or chart branches</td></tr>
+<tr><td>Kustomize overlay that changes the install shape</td><td>explicit recipe/base overlay with digest and diff</td></tr>
+<tr><td>Namespace, target, labels, approval gates, observation policy</td><td>derived ConfigHub variant</td></tr>
+<tr><td>Existing Secret reference already represented in the rendered objects</td><td>derived ConfigHub variant with target fact/check</td></tr>
+<tr><td>Approved post-clone function or TransformPaths fill over existing fields</td><td>derived ConfigHub variant with mutation receipt</td></tr>
+<tr><td>Wrapper chart plus platform values plus customer overlay values</td><td>managed overlay import; usually needs ConfigHub Server</td></tr></tbody></table>
+<p>NGINX-style extension slots are common. In the current evidence set, 13/20 top-20 catalog charts and 82/100 top-100 chart facts expose raw manifests, <code>tpl</code> snippets, config blocks, sidecars, or add-on slots. In the broader top-500 source scan, 254/500 charts expose raw/extra manifest values and 363/500 use <code>tpl</code> or raw/extra manifest values. Leaving those slots empty can stay inside a supported catalog base. Populating them creates a new reviewed install shape and should route back through a <code>cub installer</code> base variant with render parity, scans, gates, and receipts. See <a href="docs/user/extension-slots.html">Extension Slots</a> for the user-facing routing guide.</p>
+<p>For the detailed algorithm, see <a href="docs/reference/customization-algorithm.html">Customization Algorithm</a>. For the product tier boundaries, see <a href="docs/user/product-support-tiers.html">Product Support Tiers For Helm Scenarios</a>. For the seven-stage lifecycle and render parity boundary, see <a href="docs/reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a>. For the simple variant creation guide, see <a href="docs/user/creating-variants.html">Creating Variants</a>. For wrapper charts and customer overlays, see <a href="docs/user/custom-overlays.html">Custom Overlays</a>. For the OCI delivery boundary, see <a href="docs/user/change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a>. For the extension-slot coverage table, see <a href="data/extension-slots/summary.html">Extension Slot Coverage</a>. For Helm hooks specifically, see <a href="docs/user/hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a>.</p>
+<p>For a single serial order through the user docs, see <a href="docs/user/README.html">User Docs Reading Order</a>. If you are asking why this is not just <code>cub helm install</code>, start with <a href="docs/user/why-this-exists.html">Why This Exists</a>. For the shortest product model, start with <a href="docs/user/what-you-get.html">What You Get</a>.</p>
+<h2 id="command-choice">Command Choice</h2>
+<p>Use the shortest command that answers the question you are asking:</p>
+<table><thead><tr><th>Goal</th><th>Command path</th></tr></thead><tbody><tr><td>See what a chart renders, without ConfigHub state.</td><td><code>cub helm template</code></td></tr>
+<tr><td>Load one Helm render into ConfigHub Units quickly.</td><td><code>cub helm install</code></td></tr>
+<tr><td>Adopt an existing Argo, Flux, KRM, or rendered-manifest app.</td><td><code>cub gitops discover/import</code>, <code>cub unit import</code>, or a managed import workflow</td></tr>
+<tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
+<tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>
+<tr><td>Create an environment, region, customer, or target variant after upload.</td><td><code>cub variant create</code></td></tr></tbody></table>
+<p>The durable catalog path starts at <code>cub installer</code>. The future bridge from a direct Helm render/install into a maintained recipe is tracked as <code>cub installer import helm</code>; it is not used as a current command in this repo. For the full routing table, see <a href="docs/user/choosing-commands.html">Choosing Commands</a>.</p>
+<h2 id="what-is-proven-today">What Is Proven Today</h2>
+<blockquote><p><b>What a full test run verifies - and what you can expect to be true:</b> see <a href="docs/reference/verification-properties.html"><code>docs/reference/verification-properties.md</code></a> for the acceptance contract - the verified properties, current coverage, and the honest limitations.</p></blockquote>
+<p>The generated status dashboard is the authority for current counts: <a href="data/status-dashboard/summary.html">data/status-dashboard/summary.md</a>. The numbers below are the current public snapshot, not a promise that every chart/base row has every lane complete.</p>
+<pre><code>20 popular Helm charts have catalog entries.
+20/20 top-20 charts have at least one passing local kind live/e2e receipt.
+20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
+19/20 top-20 charts are production-review-ready by disposition receipt.
+1/20 top-20 charts is production-blocked pending pre-review disposition.
+1/20 top-20 charts still needs pre-review target-fact preflight disposition.
+20/20 top-20 charts have target-scoped support decision artifacts.
+17/20 top-20 charts have supported target-scoped proof scopes.
+2/20 top-20 charts are superseded deprecated source charts.
+0/20 top-20 charts have rejected target-scoped proof scopes.
+1/20 top-20 charts remains a draft support decision.
+110 charts have recipe/package proof artifacts.
+199 chart/base rows have Helm-template versus cub installer render parity.
+198/199 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
+148/199 chart/base rows have local live proof.
+135/199 chart/base rows have GitOps/OCI live proof marked pass.
+The selected live Helm-vs-ConfigHub comparison lane has 198 committed receipts:
+135 pass, 53 watch, 10 blocked rows, and 0 ConfigHub/OCI semantic parity
+defect receipts.
+The two-cluster kind parity corpus has 178 committed receipts:
+121 pass, 10 watch, 47 blocked rows, 153/178 semantic parity pass rows,
+and 16 semantic parity defects.
+11/100 public top-100 source-scan rows contain Helm hooks.
+5 maintained hook queue rows have hook route receipts.
+5/5 maintained hook queue rows have lifecycle observation receipts.
+0/5 maintained hook queue rows remain partial or route-only.
+10/10 explicit lifecycle observation rows are recorded in the outcome spine.
+Separately, cert-manager has 2/2 `startupapicheck` Helm hook lifecycle
+observations. External Secrets has lifecycle-observation receipts for
+CRD/webhook/controller-owned runtime behavior, but no Helm hook in the tested
+bases. Webhook certificate lifecycle receipts cover staged generated Secrets
+and staged CRDs for selected ingress-nginx, VPA, and kube-prometheus-stack
+bases. These receipts demonstrate the observation pattern, not universal hook
+support.
+Top-500 source/catalog analysis exists as catalog-planning data for future
+recipe promotion work.</code></pre>
+<p>Do not hand-copy these counts into another claim. The generated dashboard and outcome summaries are the source of truth whenever new receipts land.</p>
+<p>The production support decision contract is in <a href="data/production-disposition/support-decision-contract.html">data/production-disposition/support-decision-contract.md</a>. For the user-facing version of that boundary, see <a href="docs/user/production-support-decisions.html">Production Support Decisions</a>.</p>
+<p>The <code>20/20</code> claims above are chart-level catalog coverage. Per-base and per-lane status is stricter; use <code>data/status-dashboard/summary.md</code> and <code>data/outcome-coverage/base-outcomes.csv</code> before making a claim about a specific chart/base pair. Use <a href="docs/user/chain-of-proof.html">Chain Of Proof</a> to avoid mixing proof levels: render proof is not live proof, and live proof has a freshness boundary. For the current non-pass live rows, use <code>data/live-parity-rerun-plan/summary.md</code>; it separates semantic parity defects from target prerequisites, target-fit rows, runtime watch rows, and lifecycle work.</p>
+<p>The current selected live comparison proof means:</p>
+<pre><code>rendered cub installer objects
+-&gt; kubectl apply to local kind
+-&gt; rollout/object checks pass
+-&gt; observation receipt is committed and verified</code></pre>
+<p>GitOps/OCI runtime verification lives in a separate live lane:</p>
+<pre><code>ConfigHub OCI
+-&gt; Argo CD or Flux
+-&gt; cluster sync
+-&gt; live observation through cub-scout / controller evidence</code></pre>
+<p>That lane depends on a live GitOps controller and cluster, so it is documented and exercised outside the pure local <code>npm run verify</code> corpus. The strict live Helm-vs-ConfigHub comparison lane currently has 198 committed receipts: 135 pass, 53 watch, and 10 blocked rows. The non-pass rows are routed to target prerequisites, capability profiles, render-input modeling, image retention, runtime readiness, or GitOps controller review before they become broader support claims. The two-cluster kind parity lane has 178 committed receipts overall: 121 pass, 10 watch, and 47 blocked rows. It is stricter about semantic object equality and currently reports 16 semantic parity defects to inspect before turning those rows into stronger live claims. The lane separates semantic parity from target prerequisites, runtime readiness, hooks, storage behavior, and operating policy. See the generated summaries for exact chart/base status: <a href="data/runtime-gitops/summary.html">Runtime/GitOps Wave</a> and <a href="data/live-helm-confighub-compare/summary.html">Live Helm-vs-ConfigHub Parity</a>. For the all-base-variant parity lane, see <a href="data/live-kind-parity/summary.html">Two-Cluster Kind Parity</a>. For the exact non-pass follow-up queue, see <a href="data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a>.</p>
+<p>Start here:</p>
+<pre><code>site/index.html
+  Generated static catalog view: command routing, proof counters, top-20 bases,
+  top-100 readiness, top-500 evidence boundary, and extension slots.
+
+CATALOG.md
+  The top-level chart catalog: charts first, variants underneath.
+
+docs/user/what-you-get.md
+  The compact product model: why this exists, what is proven, and what remains product work.
+
+docs/user/outcomes-and-tests.md
+  What the repo promises, which tests prove each promise, and where the CSVs live.
+
+docs/user/helm-pain-points.md
+  How common Helm pain points map to helm-expt, ConfigHub, cub installer, and live observation.
+
+data/status-dashboard/summary.md
+  One-page current status: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity.
+
+data/status-dashboard/top20-status.csv
+  Compact chart-by-chart status for the top-20 catalog: recommended base,
+  setup command, base readiness, lane counts, feature summary, gaps, and next action.
+
+data/top20-base-readiness/start-here.md
+  The shortest list of clean first catalog paths: chart, base, command, and
+  production-support reminder.
+
+data/top20-base-readiness/summary.md
+  One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
+
+data/top100-readiness/summary.md
+  The curated planning view: current top-100 adoption bucket, strongest
+  evidence, next action, and first work queues.
+
+docs/user/top100-status.md
+  The plain-English top-100 answer for Helm users: what is ready to try, what
+  needs target prerequisites, what needs operator review, and where plain Helm
+  is still more direct.
+
+data/top100-user-readiness/summary.md
+  The generated chart-by-chart version of that user-readiness view.
+
+data/top100-readiness/next80-queues.md
+  The compact operating queue for the 80 proof-grade charts that are not yet
+  catalog-supported: promotion review, limitation review, or user-shaped
+  variant work.
+
+data/extension-slots/summary.md
+  NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. The top-500 source scan sees raw/extra manifest values in 254/500 charts and tpl or raw/extra manifest values in 363/500 charts.
+
+docs/user/current-proof-status.md
+  What is proven now, and which generated summaries are authoritative.
+
+docs/user/verification-lanes.md
+  What each proof lane means, and what it does not prove.
+
+docs/user/adopting-existing-apps.md
+  How existing Argo, Flux, KRM, rendered-manifest, and live-resource apps enter the ConfigHub model.
+
+docs/README.md
+  The documentation map: what each doc family is for.
+
+data/live-e2e/summary.md
+  The top-20 live-test status table.
+
+data/production-disposition/summary.md
+  What still has to be resolved before each chart can be production-promoted.
+
+data/outcome-coverage/summary.md
+  Outcome promises, proving tests, and front-door CSVs for charts, bases, derived variants, and features.
+
+data/pain-point-coverage/summary.md
+  Helm pain points, current answers, handoffs, evidence paths, and remaining gaps.
+
+data/variant-path-coverage/summary.md
+  Proof status per chart, base variant, derived variant, diff, and operation path.
+
+data/edge-recovery/summary.md
+  Graph fragments recovered from catalog-supported recipe artifacts.
+
+data/latest-top20-refresh/summary.md
+  Which supported top-20 charts are current and which need new proof paths.</code></pre>
+<h2 id="pick-your-path">Pick Your Path</h2>
+<pre><code>I want to check the repo quickly.
+  Run Quick Verify.
+
+I want to see what charts and variants exist.
+  Open CATALOG.md.
+
+I want the easiest browsable catalog with setup commands.
+  Open site/index.html.
+
+I want a short show-and-tell sequence.
+  Read docs/user/tutorial-sequence.md.
+
+I want to know which command to use.
+  Read docs/user/choosing-commands.md.
+
+I already run apps through Argo, Flux, KRM, or rendered manifests.
+  Read docs/user/adopting-existing-apps.md.
+
+I want the user docs in order.
+  Read docs/user/README.md.
+
+I want to understand how to create variants.
+  Read docs/user/creating-variants.md.
+
+I have wrapper chart, platform, or customer overlay values.
+  Read docs/user/custom-overlays.md.
+
+I installed Redis and want proof it matches the catalog.
+  Run Verify Your Install.
+
+I want the full ConfigHub walkthrough.
+  Follow Quick Start With Redis.</code></pre>
+<h2 id="quick-verify">Quick Verify</h2>
+<p>You need Node.js to run the proof scripts. There are no npm dependencies and no <code>npm install</code> step.</p>
+<p>That is deliberate. The committed proof harness uses Node's standard library and local repo code, so a fresh clone can check the corpus without downloading a third-party npm supply chain first. Live lanes still need the relevant external CLIs such as <code>helm</code>, <code>kubectl</code>, <code>kind</code>, <code>cub</code>, or GitOps controllers.</p>
+<pre><code>git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+npm run top20:verify-local-e2e</code></pre>
+<p>Expected result:</p>
+<pre><code>verified 20 top20 local kind e2e receipt(s)</code></pre>
+<p>Run the full repository verifier:</p>
+<pre><code>npm run verify</code></pre>
+<p>That checks the committed proof corpus: recipe/package structure, recorded Helm equivalence, rendered object digests, receipts, catalog status, target facts, committed local live/e2e receipts, production disposition, and top-500 analysis. The default verifier does not rerun Helm or touch a Kubernetes cluster; it proves that the checked-in artifacts and receipts are self-consistent and current.</p>
+<p>Use scoped checks while working. Use <code>npm run verify</code> as a broad gate before a large merge, public demo, release note, or external review. Use live runners only when the goal is to create or refresh live evidence.</p>
+<table><thead><tr><th>Need</th><th>Start with</th></tr></thead><tbody><tr><td>One doc or generated table changed</td><td>the matching <code>*:verify</code> command, plus <code>npm run docs:verify</code> for docs</td></tr>
+<tr><td>One chart proof changed</td><td><code>&lt;chart&gt;:verify-proof</code>, <code>&lt;chart&gt;:verify-proof:self-test</code>, and <code>&lt;chart&gt;:verify-package</code></td></tr>
+<tr><td>Command examples changed</td><td><code>npm run installer:command-surface:verify</code> and <code>npm run variant:command-surface:verify</code></td></tr>
+<tr><td>CSV/data front doors changed</td><td>owner <code>*:verify</code>, then <code>npm run data:index:verify</code> if CSVs moved or changed role</td></tr>
+<tr><td>Fresh Kubernetes or GitOps evidence needed</td><td>the specific live runner, then commit the receipt and regenerate its summary</td></tr>
+<tr><td>Broad release/public review gate</td><td><code>npm run verify</code>, after scoped checks pass</td></tr></tbody></table>
+<p>Use <code>redis:compare</code> when you want to see the fresh Helm-vs-installer comparison end to end:</p>
+<pre><code>npm run redis:compare</code></pre>
+<p>For most curated charts, <code>&lt;chart&gt;:compare</code> currently verifies <code>cub installer setup</code> against the stored Helm-rendered object set; fresh Helm rendering happens in the chart's <code>:generate-proof</code> path. Use the live/runtime lanes when you want to create fresh cluster or ConfigHub evidence.</p>
+<p>For the proof contracts specifically:</p>
+<pre><code>npm run p0:contracts</code></pre>
+<p>That checks the schema directory, bounded Kubernetes capability profiles, observation freshness SLO, top-20 live receipts, top-500 analysis, and the minimum P0 corpus invariants.</p>
+<p>Tested proof context:</p>
+<pre><code>Helm renderer: v4.1.4+g05fa379
+Kubernetes capability profile: 1.30.0
+Local kind live-test image: kindest/node:v1.30.0</code></pre>
+<p>The <code>cub</code>, <code>kind</code>, and <code>kubectl</code> CLI versions are environment-dependent today; the receipts record the rendered inputs and verified outputs.</p>
+<p>For the full test-script map, including what each <code>npm run ...</code> family checks and which commands write files, see:</p>
+<pre><code>tests/npm-scripts.md
+tests/npm-script-catalog.md</code></pre>
+<h2 id="verify-your-install">Verify Your Install</h2>
+<p>The <code>Quick Verify</code> and <code>npm run verify</code> paths above check this repo's canonical artifacts. To check that your own install matches them, run one command per stage of the Redis demo.</p>
+<p>For <code>cub installer setup</code> and <code>cub installer upload</code>, use an authenticated <code>cub</code> CLI and keep <code>helm</code> and <code>kustomize</code> on your <code>PATH</code>. For live cluster checks, use a Kubernetes context you are comfortable applying test resources to.</p>
+<p>After <code>cub installer setup</code>, check the rendered objects:</p>
+<pre><code>npm run redis:verify-install:render -- \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --namespace redis</code></pre>
+<p>Expected result:</p>
+<pre><code>PASS redis:verify-install:render bitnami/redis/25.5.3 default
+semantic object matches: 14/14</code></pre>
+<p>After <code>kubectl apply</code>, check the live cluster:</p>
+<pre><code>npm run redis:verify-install:cluster -- \
+  --base default \
+  --context &lt;your-kubectl-context&gt; \
+  --namespace redis</code></pre>
+<p>Expected result:</p>
+<pre><code>PASS redis:verify-install:cluster bitnami/redis/25.5.3 default
+checks: statefulsets, PVCs, Redis PING</code></pre>
+<p>After <code>cub installer upload</code>, check the ConfigHub Units and labels:</p>
+<pre><code>npm run redis:verify-install:confighub -- \
+  --base default \
+  --space &lt;your-space&gt;</code></pre>
+<p>Expected result:</p>
+<pre><code>PASS redis:verify-install:confighub bitnami/redis/25.5.3 default
+units: 15
+variant-labeled units: 14</code></pre>
+<p>Each command writes a receipt under <code>.tmp/verify-install/</code>. That receipt is the user-side proof: what you rendered, what namespace/context you checked, what matched, and which checks passed. Today these user-install checks ship for Redis only. The generic <code>verify-install:*</code> scripts are lower-level compatibility aliases for charts that have an <code>install-checks.yaml</code>; they are not a repo-wide chart verifier.</p>
+<p>The NGINX bulk-ops tutorial has a separate live ConfigHub verifier:</p>
+<pre><code>npm run verify-bulk-ops:nginx -- \
+  --space helm-nginx-http-clusterip \
+  --changeset nginx-bulk-hardening</code></pre>
+<h2 id="quick-start-with-redis">Quick Start With Redis</h2>
+<p>Redis is the happy-path demo because it is small, familiar, and still exercises the important proof chain. The local verification path above does not need a ConfigHub account. The upload part of this demo does.</p>
+<p>Read the runnable script:</p>
+<pre><code>docs/demo/redis/demo-script.md</code></pre>
+<p>The demo uses real commands, including:</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base reuse-existing-secret \
+  --work-dir .tmp/demo/redis-reuse-existing-secret \
+  --non-interactive \
+  --namespace redis
+
+npm run redis:compare
+npm run verify
+npm run redis:verify-install:render -- --base reuse-existing-secret --work-dir .tmp/demo/redis-reuse-existing-secret --namespace redis
+npm run redis:verify-install:confighub -- --base reuse-existing-secret --space &lt;your-space&gt;</code></pre>
+<p>The full ConfigHub upload command is in <code>docs/demo/redis/demo-script.md</code>; it is longer because it records labels such as component, layer, owner, chart version, variant, and proof.</p>
+<p>Redis has two catalog variants:</p>
+<pre><code>default
+  Renders Secret redis/redis from the pinned demo password.
+  cub installer separates that Secret into out/secrets.
+
+reuse-existing-secret
+  Renders no Redis Secret.
+  Requires pre-staged Secret redis/redis-existing-secret key redis-password.</code></pre>
+<p>The key Redis proof files are:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/CATALOG.md
+packages/bitnami/redis/25.5.3/installer.yaml
+data/installer-oci-packages/summary.md
+recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+runs/redis-local-kind/latest/observation-receipt.yaml</code></pre>
+<h3 id="redis-secret-handling">Redis Secret Handling</h3>
+<p>Redis has two supported secret models in this catalog.</p>
+<table><thead><tr><th>Variant</th><th>Secret model</th><th>What ConfigHub records</th><th>Cluster requirement</th></tr></thead><tbody><tr><td><code>default</code></td><td>Helm renders <code>Secret redis/redis</code> from the pinned demo password in <code>effective-values.yaml</code>. <code>cub installer</code> separates that Secret into <code>out/secrets</code>.</td><td>The rendered Secret is part of the proof, but it is not uploaded as a ConfigHub Unit/OCI artifact. Workloads record an expected external reference to <code>v1/Secret redis/redis</code>.</td><td>For direct local tests, apply <code>out/secrets</code> before <code>out/manifests</code>.</td></tr>
+<tr><td><code>reuse-existing-secret</code></td><td>Helm renders no Redis Secret. Workloads reference <code>redis/redis-existing-secret</code> key <code>redis-password</code>.</td><td>The recipe records this as an installer <code>externalRequires</code> and variant <code>targetFacts.requiredSecrets</code> requirement. No secret material is stored.</td><td>Pre-stage <code>Secret redis/redis-existing-secret</code> with key <code>redis-password</code>; the verifier checks it exists.</td></tr></tbody></table>
+<p>The point is deliberate: ConfigHub should carry proof, references, labels, target-fact requirements, and receipts. It should not silently become the place where generated Redis credentials are hidden.</p>
+<h2 id="how-a-chart-is-organized">How A Chart Is Organized</h2>
+<p>For every chart, read the catalog page first:</p>
+<pre><code>CATALOG.md
+recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/CATALOG.md</code></pre>
+<p>The root <code>CATALOG.md</code> is the shelf: charts first, variants underneath, with the recommended first variant and installer package OCI ref visible. Then open the per-chart <code>CATALOG.md</code> for the chart source, recipe, rendered objects, source package path, receipts, scans, and current support status.</p>
+<p>The main folders are:</p>
+<pre><code>recipes/
+  Chart analysis, variants, rendered objects, receipts, and catalogs.
+
+packages/
+  Executable cub installer packages.
+
+docs/demo/
+  Plain-English per-chart walkthroughs and transcripts.
+
+docs/user/introduction-to-the-harness.md
+  How recipes are generated and how chart behavior is placed into recipes,
+  variants, facts, profiles, gates, receipts, or live observations.
+
+runs/
+  Receipts from ConfigHub, local kind, and proof runs.
+
+data/live-e2e/
+  Top-20 local kind live/e2e summary.
+
+data/production-disposition/
+  What is still required before production support.
+
+data/latest-top20-refresh/
+  Latest top-20 version refresh snapshot plus Redis promotion and Kubara overlay
+  work orders.
+
+data/top500-catalog-analysis/
+  Current top-500 analysis and proof index.</code></pre>
+<h2 id="viewing-and-operating-on-configs-in-confighub">Viewing And Operating On Configs In ConfigHub</h2>
+<p>After <code>cub installer upload</code>, the rendered objects become ConfigHub Units. This is where the proof stops being a pile of YAML and becomes something a team can inspect, compare, scan, approve, and operate.</p>
+<p>You need a ConfigHub account, an organization, and an authenticated <code>cub</code> CLI:</p>
+<pre><code>cub auth login --server https://hub.confighub.com</code></pre>
+<p>Useful first commands:</p>
+<pre><code># Find uploaded Helm experiment spaces.
+cub space list --where &quot;Slug LIKE 'helm-%'&quot;
+
+# Open matching spaces in the ConfigHub web UI.
+cub space list --where &quot;Slug LIKE 'helm-%'&quot; --web
+
+# List the Units for one uploaded chart variant.
+cub unit list --space &lt;space&gt; \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.HelmChartVersion,Unit.Labels.Variant
+
+# Open the Units for one space in the ConfigHub web UI.
+cub unit list --space &lt;space&gt; --web
+
+# Inspect the stored config for one Unit.
+cub unit data &lt;unit&gt; --space &lt;space&gt;
+
+# Compare revisions of one Unit.
+cub unit diff &lt;unit&gt; --space &lt;space&gt;
+
+# Run a ConfigHub function scan over the uploaded Units.
+cub function vet &lt;function&gt; --space &lt;space&gt;
+
+# Create a controlled operation path.
+cub changeset create --space &lt;space&gt; helm-review --description &quot;Review rendered Helm variant&quot;
+
+# Approve the checked revision for the uploaded variant.
+cub unit approve --space &lt;space&gt; --where &quot;Labels.Variant = 'default'&quot;
+
+# Dry-run an apply when the Units are attached to a target.
+cub unit apply --space &lt;space&gt; --where &quot;Labels.Variant = 'default'&quot; --dry-run
+
+# Clone a reviewed ConfigHub space into an environment/region variant.
+cub variant create staging &lt;upstream-space&gt; --environment Staging --region us-east2</code></pre>
+<p>The expected label model is visible in the Redis demo:</p>
+<pre><code>Component=Redis
+HelmChart=bitnami-redis
+HelmChartVersion=25.5.3
+Variant=default
+Proof=redis-confighub-proof</code></pre>
+<p>The important split is:</p>
+<pre><code>helm-expt proves the recipe and rendered objects.
+cub installer upload stores those objects as ConfigHub Units.
+ConfigHub lets you view, diff, scan, approve, and hand off those Units.
+Live cluster truth needs a fresh observation receipt from a cluster-side tool.</code></pre>
+<h2 id="confighub-and-gitops">ConfigHub And GitOps</h2>
+<p>Once the Units are in ConfigHub, the intended GitOps path is:</p>
+<ol><li>Choose a chart from <code>CATALOG.md</code>.</li><li>Choose a catalog variant.</li><li>Verify the rendered objects and receipts.</li><li>Upload to ConfigHub, then publish the reviewed object set to ConfigHub OCI.</li><li>Point Argo CD or Flux at that ConfigHub OCI artifact.</li><li>Let GitOps sync the cluster.</li><li>Record or inspect an observation receipt.</li></ol>
+<p>Today this repo proves the chart -&gt; recipe -&gt; variant -&gt; rendered objects path for the top 20, and proves local kind deployment for those rendered objects. The Argo CD / Flux OCI path is verified in a separate live lane because it needs a running GitOps controller and cluster. The current generated status is:</p>
+<pre><code>GitOps/OCI live pass rows: 135/199
+selected live Helm-vs-ConfigHub comparison: 135 pass, 53 watch, 10 blocked
+two-cluster kind parity corpus: 121 pass, 10 watch, 47 blocked
+two-cluster semantic parity: 153/178 pass, 16 defects</code></pre>
+<p>Use the generated summaries for exact chart/base status: <a href="data/runtime-gitops/summary.html">Runtime/GitOps Wave</a> and <a href="data/live-helm-confighub-compare/summary.html">Live Helm-vs-ConfigHub Parity</a>. For non-pass follow-up rows, use <a href="data/live-parity-rerun-plan/summary.html">Live Parity Rerun Plan</a>.</p>
+<h2 id="current-commands-used">Current Commands Used</h2>
+<p>These are real commands used somewhere in the current proof path. The Redis quick path mainly uses <code>cub installer setup</code>, <code>npm run redis:compare</code>, and <code>npm run verify</code>; the broader catalog, ConfigHub, scan, and safe-ops lanes use more of the surface area below.</p>
+<pre><code>cub installer doc
+cub installer setup
+cub installer render
+cub installer package
+cub installer vet
+cub installer plan
+cub installer upload
+cub space list
+cub variant create
+cub unit list
+cub unit data
+cub unit diff
+cub unit approve
+cub unit apply
+cub function vet
+cub changeset create</code></pre>
+<h2 id="additional-options-for-live-cluster-verification">Additional Options For Live Cluster Verification</h2>
+<p>The built-in <code>redis:verify-install:cluster</code> command is intentionally small. It proves the Redis happy path with rollout, PVC, Secret, and Redis PING checks.</p>
+<p>For deeper runtime proof, use cub-scout v2.4.0 or newer and the <a href="https://github.com/confighub/cub-scout/tree/main/examples/helm-expt">cub-scout helm-expt example</a>. Release v2.4.0 is the first cub-scout release aimed directly at the Helm catalog gap: proving that an install actually worked without requiring ConfigHub-connected mode.</p>
+<p>That example adds the cluster-side half of the proof:</p>
+<pre><code>helm-expt proves:   Helm render == cub installer render
+installer proves:   package/spec -&gt; rendered objects -&gt; ConfigHub Units/OCI
+cub-scout proves:   rendered objects, prerequisites, workloads, extras, drift, and freshness in the live cluster</code></pre>
+<p>Useful cub-scout v2.4.0 checks include:</p>
+<pre><code>./cub-scout receipt verify --file &quot;$MANIFESTS&quot; --scope namespace/&quot;$NS&quot; \
+  --format json --out &quot;$RUN_DIR/cub-scout-object-set.receipt.json&quot; \
+  --fail-on any-non-pass
+./cub-scout receipt verify --prerequisites &quot;$PREREQS&quot; --scope namespace/&quot;$NS&quot; \
+  --out &quot;$RUN_DIR/cub-scout-prerequisites.receipt.json&quot; \
+  --fail-on any-non-pass
+./cub-scout receipt verify --file &quot;$MANIFESTS&quot; --scope namespace/&quot;$NS&quot; \
+  --predicate workloads-converged --ttl 30m \
+  --out &quot;$RUN_DIR/cub-scout-workloads.receipt.json&quot; \
+  --fail-on any-non-pass
+./cub-scout receipt verify --file &quot;$MANIFESTS&quot; --scope namespace/&quot;$NS&quot; \
+  --no-extras --out &quot;$RUN_DIR/cub-scout-closed-world.receipt.json&quot;
+./cub-scout compare three-way --scope namespace/&quot;$NS&quot; \
+  --dry-from &quot;$MANIFESTS&quot; --fail-on warning</code></pre>
+<p>Use this when you want a stronger live-cluster claim than the local Redis smoke check: object-set receipts, prerequisite receipts, workload convergence, closed-world checks, standalone drift checks, source-truth checks, ownership graphs, snapshots, and GitOps convergence evidence.</p>
+<h2 id="background-reading">Background Reading</h2>
+<p>For the longer narrative behind this experiment, see <code>docs/planning/blog-posts.md</code>. For the latest refresh plan, see <code>docs/planning/latest-top20-refresh-plan.md</code>. For the shape of a dedicated public site, see <code>docs/planning/dedicated-website-plan.md</code>. The README stays focused on why the project exists, what is proven, and how to try it.</p>
+<h2 id="the-pitch">The Pitch</h2>
+<pre><code>You can keep using public Helm charts,
+but stop approving guesses.
+
+ConfigHub gives you named base and derived variants,
+exact rendered objects,
+checks,
+receipts,
+and a safer path from test to production.</code></pre>
+<p>Helm gives you charts. ConfigHub gives you managed, reviewable, scannable, promotable base and derived variants from those charts.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>README.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

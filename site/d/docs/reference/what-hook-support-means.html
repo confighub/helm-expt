@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What &quot;Hook Support&quot; Means Here · ConfigHub Helm Ops</title>
-  <meta name="description" content="What &amp;quot;Hook Support&amp;quot; Means Here: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="What &amp;quot;Hook Support&amp;quot; Means Here: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/what-hook-support-means.html">
   <meta property="og:title" content="What &amp;quot;Hook Support&amp;quot; Means Here · ConfigHub Helm Ops">
-  <meta property="og:description" content="What &amp;quot;Hook Support&amp;quot; Means Here: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="What &amp;quot;Hook Support&amp;quot; Means Here: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/what-hook-support-means.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>What &quot;Hook Support&quot; Means Here</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="what-hook-support-means.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/what-hook-support-means.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -407,7 +407,7 @@
 <h2 id="three-rules-that-keep-this-honest">Three Rules That Keep This Honest</h2>
 <ol><li><b>Dependency-provided hooks count.</b> The disposition table's <code>dependency_source</code> column names the vendored subchart that ships a hook (kong inside kubernetes-dashboard, minio inside thanos, traefik inside gitlab). Chart-level review that skips the dependency closure undercounts.</li><li><b>Values-conditional hooks are proven by rendering both paths.</b> The worked evidence under <code>data/hook-disposition/evidence/</code> renders the default and the hook-enabled profile and records both digests. A source scan count is neither an undercount alarm nor a support claim until the render shows when the hooks actually materialize - kubernetes-dashboard's hooks do not render at all under default values, and airflow's migrations default to a plain Deployment.</li><li><b>A blocked rehearsal is evidence, not failure.</b> The kafka and minio rehearsals reached real target preconditions and blocked because pinned upstream image tags no longer resolved. Those receipts - with the exact pull errors or preconditions - are stronger trust artifacts than untested green rows, and they route the real precondition (an image-override, digest-pinned base, or newer chart version) into the next action.</li></ol>
 <h2 id="where-the-evidence-lives">Where The Evidence Lives</h2>
-<ul><li>Disposition table: <a href="../../../../data/hook-disposition/top100-hook-dispositions.csv"><code>data/hook-disposition/top100-hook-dispositions.csv</code></a></li><li>Worked render evidence and blocker receipts: <code>data/hook-disposition/evidence/&lt;chart&gt;/</code></li><li>Maintained live receipts: <a href="../../../../data/hook-lifecycle/summary.md"><code>data/hook-lifecycle/</code></a></li><li>Route candidates awaiting recipes: <a href="../../../../data/hook-route-candidates/summary.md"><code>data/hook-route-candidates/</code></a></li></ul>
+<ul><li>Disposition table: <a href="../../../../data/hook-disposition/top100-hook-dispositions.csv"><code>data/hook-disposition/top100-hook-dispositions.csv</code></a></li><li>Worked render evidence and blocker receipts: <code>data/hook-disposition/evidence/&lt;chart&gt;/</code></li><li>Maintained live receipts: <a href="../../data/hook-lifecycle/summary.html"><code>data/hook-lifecycle/</code></a></li><li>Route candidates awaiting recipes: <a href="../../data/hook-route-candidates/summary.html"><code>data/hook-route-candidates/</code></a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/reference/what-hook-support-means.md</code>. The source file is the authoritative version.</p></footer>

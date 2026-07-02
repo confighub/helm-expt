@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Today Roadmap - 2026-05-29 · ConfigHub Helm Ops</title>
+  <meta name="description" content="Today Roadmap - 2026-05-29: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/archive/today-roadmap-2026-05-29.html">
+  <meta property="og:title" content="Today Roadmap - 2026-05-29 · ConfigHub Helm Ops">
+  <meta property="og:description" content="Today Roadmap - 2026-05-29: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/archive/today-roadmap-2026-05-29.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../../try.html">Get Started</a><a href="../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../how-it-works.html">How it works</a><a href="../../../../journey.html">Apps</a><a href="../../../../docs.html">Docs/FAQ</a><a href="../../../../private/">Upgrade</a></span></nav></div>
+    <h1>Today Roadmap - 2026-05-29</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/planning/archive/today-roadmap-2026-05-29.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This is the focused handoff plan for another AI or teammate to lead today. It turns the current thread into executable work without requiring the full conversation history.</p>
+<h2 id="mission-for-today">Mission For Today</h2>
+<p>Help the ConfigHub team get to a better product by making careful, evidence-backed suggestions from <code>helm-expt</code>.</p>
+<p>The product story stays:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>Use Helm charts.
+Create durable cub installer recipes.
+Ship safe ConfigHub variants.
+Prove the exact configs before and after deployment.</code></pre>
+<p>The tactical goal today is to make variant creation and promotion clear enough for a skeptical Helm user:</p>
+<pre><code>cub helm install = quick one-shot render into ConfigHub Units.
+cub installer recipe = maintained, verified, variant-aware catalog artifact.
+cub variant create = current clone/link primitive for post-render ConfigHub variants.
+Creator contract = blueprint, preview, checks, and receipts over that primitive.
+ConfigHub Promotion = review and advance changes across those variants.</code></pre>
+<h2 id="current-state">Current State</h2>
+<p>Issue:</p>
+<pre><code>#76 Define Helm import path from cub helm install to cub installer recipes</code></pre>
+<p>PR:</p>
+<pre><code>#77 Document ConfigHub promotion mapping doctrine</code></pre>
+<p>Verification before this handoff:</p>
+<pre><code>git diff --check: pass at the time of the handoff
+npm run verify: rerun from current main before using this dated handoff</code></pre>
+<p>Important correction made today:</p>
+<pre><code>Do not generate a batch of standalone per-chart promotion-map YAML files unless
+they are consumed by product code, a verifier, an agent workflow, or ConfigHub
+UI/CLI. Product contract first; artifacts only when useful.</code></pre>
+<h2 id="operating-rules">Operating Rules</h2>
+<ol><li>Work inside <code>confighub/helm-expt</code> unless Alexis explicitly approves work elsewhere.</li><li>Do not file issues outside <code>confighub/helm-expt</code> without asking first.</li><li>Do not create one-off artifacts just because they are easy to generate.</li><li>Prefer existing ConfigHub/cub primitives before proposing new primitives.</li><li>Every product suggestion should be backed by repo evidence, a concrete test case, and an acceptance check.</li><li>Keep user-facing language simple. Internal nouns belong in docs and machine-readable artifacts, not the happy path.</li></ol>
+<p>Suggested product-suggestion template:</p>
+<pre><code>Observed pain:
+Evidence in helm-expt:
+Existing ConfigHub/cub primitive:
+Smallest product gap:
+Suggested UX:
+Acceptance check:
+What not to build yet:</code></pre>
+<h2 id="workstream-1---variant-creation-doctrine">Workstream 1 - Variant Creation Doctrine</h2>
+<p>Goal:</p>
+<pre><code>Make it clear how users create variants from a reviewed base without learning
+all the internal machinery.</code></pre>
+<p>Doctrine:</p>
+<pre><code>Recipe/package base = choices that affect Helm rendering.
+ConfigHub variant = post-render refinement of an already-rendered base.
+If a change requires rerendering Helm, route back to the recipe/base path.
+If a change mutates already-rendered Units, use ConfigHub variant creation.</code></pre>
+<p>Three variant creation modes to keep aligned:</p>
+<table><thead><tr><th>Mode</th><th>User shape</th><th>Product surface</th></tr></thead><tbody><tr><td>Base variant</td><td><code>redis/default</code>, <code>redis/reuse-existing-secret</code></td><td><code>cub installer setup --base ...</code></td></tr>
+<tr><td>UX-created variant</td><td><code>Creator / From: redis/default / Blueprint: Environment clone / Target variant: prod-us-east</code></td><td>Foundational user-led expression of the Variant Creator contract</td></tr>
+<tr><td>AX-created variant</td><td>structured <code>create_variant</code> task</td><td>Agent-based expression of the same artifact</td></tr>
+<tr><td>FX-created variants</td><td><code>create 100 variants from a matrix</code></td><td>Function-based expression of the same artifact over rows</td></tr></tbody></table>
+<p>Today's concrete output:</p>
+<ul><li>Keep <a href="../../reference/variant-creation-artifact.html">variant-creation-artifact.md</a> focused on the Variant Creator contract over current ConfigHub primitives.</li><li>Treat the old <code>VariantCreationPlan</code> name as a working-name ancestor, not as a new backend entity.</li><li>Keep <a href="../../reference/variant-creator-verification.html">variant-creator-verification.md</a> focused on verifying the artifact fields, previews, checks, and receipts.</li><li>Do not add a new artifact unless the plan says who consumes it.</li></ul>
+<p>Acceptance:</p>
+<ul><li>A reader can answer: &quot;When do I create a new base versus clone a ConfigHub variant?&quot;</li><li>A reader can answer: &quot;Why would a variant need target facts?&quot;</li><li>A reader can answer: &quot;How does the same variant get made through UX, AX, and FX?&quot;</li></ul>
+<h2 id="workstream-2---test-case-a-promotions">Workstream 2 - Test Case A: Promotions</h2>
+<p>Goal:</p>
+<pre><code>Show how a reviewed Helm-derived base becomes downstream ConfigHub variants
+that can be reviewed and promoted.</code></pre>
+<p>Primary example:</p>
+<pre><code>Redis default base -&gt; prod-us-east variant</code></pre>
+<p>Recorded ConfigHub example from the Kubara org:</p>
+<pre><code>base Space: helm-redis-mapping-default
+variant Space: helm-redis-mapping-prod-us-east
+component: Redis
+base units: 15
+variant units: 15
+clone edge: statefulset-redis-redis-master default -&gt; prod-us-east</code></pre>
+<p>Important observation:</p>
+<pre><code>Space labels carry the downstream Variant value.
+Cloned Unit labels may still carry the source base Variant unless the clone
+operation also patches Unit labels. That is a product/UX point to inspect
+carefully before making a broad suggestion.</code></pre>
+<p>Today's concrete output:</p>
+<ul><li>Keep <a href="../../reference/confighub-promotion-mapping.html">confighub-promotion-mapping.md</a> as the doctrine document.</li><li>Keep <a href="../../reference/variant-promotion-worked-example.html">variant-promotion-worked-example.md</a> as the two-example explainer: Redis default -&gt; prod-us-east, and external-dns managed base -&gt; customer overlay variant.</li><li>Make no more promotion-map artifact batches today.</li><li>If adding an artifact, first decide whether the product home is:<ul><li>existing <code>artifact-index.yaml</code> fields</li><li>the Variant Creator contract</li><li>ConfigHub metadata stored with the component/base Space</li></ul></li></ul>
+<p>Acceptance:</p>
+<ul><li>The promotion story can be explained in one minute:</li></ul>
+<pre><code>cub installer uploads a reviewed Redis base.
+cub variant create clones the base, and the Creator contract describes preview/checks/fill values for prod-us-east.
+ConfigHub Promotion shows the relationship and the diff.
+Future base changes can be reviewed and promoted into prod-us-east.</code></pre>
+<ul><li>The doc states the code changes needed, but frames them as careful product suggestions, not demands.</li><li>No external GitHub issues are filed.</li></ul>
+<h2 id="workstream-3---test-case-b-kubara-customized-platform-apps">Workstream 3 - Test Case B: Kubara Customized Platform Apps</h2>
+<p>Goal:</p>
+<pre><code>Use Kubara-style managed Helm apps to test whether the model handles wrapper
+charts and customer overlay values, not just public upstream charts.</code></pre>
+<p>Doctrine:</p>
+<pre><code>The import unit is often not one public chart.
+The real import unit is:
+
+managed wrapper chart
+  + platform values
+  + customer overlay values
+  + dependency closure
+  + render context</code></pre>
+<p>Why this matters:</p>
+<pre><code>Public charts prove breadth.
+Kubara wrapper charts prove whether the model survives real platform choices:
+provider settings, cluster issuer settings, storage buckets, external secrets,
+ingress classes, CRDs, and dependency assumptions.</code></pre>
+<p>Product tier:</p>
+<pre><code>Kubara-style wrapper chart + platform values + customer overlay values is
+Tier 3 managed overlay import, not merely the public catalog proof.
+It needs ConfigHub Server, target facts, approvals, gates, variant creation,
+and receipts. It may become a managed/commercial lane.</code></pre>
+<p>Recommended first candidates:</p>
+<table><thead><tr><th>Candidate</th><th>Why</th></tr></thead><tbody><tr><td><code>external-dns</code></td><td>Provider values, webhook image, DNS credentials, ExternalSecret/target facts.</td></tr>
+<tr><td><code>cert-manager</code></td><td>ClusterIssuer values, CRDs, webhook readiness, capability profile.</td></tr>
+<tr><td><code>metrics-server</code></td><td>Smaller wrapper baseline; overlaps existing top-20 proof.</td></tr></tbody></table>
+<p>Recommended first golden:</p>
+<pre><code>external-dns</code></pre>
+<p>Reason:</p>
+<pre><code>It shows the difference between quick render and maintained recipe most clearly:
+provider-specific overlay values and secret/credential target facts are not
+accidental details. They are part of the managed release recipe.</code></pre>
+<p>Today's concrete output:</p>
+<ul><li>Add or update a Kubara mapping note only if it records real inspected inputs.</li><li>Current note: <a href="../../corpus/kubara-customized-overlays.html">kubara-customized-overlays.md</a> records inspected <code>external-dns/external-dns@1.21.1</code> inputs and classifies what a managed wrapper/customer overlay import would need to capture.</li><li>Classify each required value into one of:<ul><li>source lock</li><li>dependency lock</li><li>managed default</li><li>customer overlay value</li><li>base variant selection</li><li>target fact</li><li>generated fact</li><li>post-render ConfigHub variant field</li><li>lifecycle policy / hook / CRD disposition</li></ul></li><li>Do not claim a full Kubara golden until render, comparison, and verification evidence exists.</li></ul>
+<p>Acceptance:</p>
+<ul><li>One Kubara app has a clear &quot;what would import need to capture?&quot; analysis.</li><li>The analysis explains how customer choices become safe variant inputs.</li><li>The analysis identifies which choices require Helm rerendering and which can be post-render ConfigHub refinements.</li></ul>
+<h2 id="workstream-4---helm-import-issue-and-roadmap">Workstream 4 - Helm Import Issue And Roadmap</h2>
+<p>Canonical issue:</p>
+<pre><code>https://github.com/confighub/helm-expt/issues/76</code></pre>
+<p>Use this issue for:</p>
+<ul><li><code>cub helm install</code> versus <code>cub installer</code> recipe positioning.</li><li>The import bridge from quick render to maintained catalog artifact.</li><li>Redis as the first golden class.</li><li>Kubara wrapper chart + overlay values as the second golden class.</li><li>Promotion mapping from recipe/base to ConfigHub variants.</li></ul>
+<p>Do not use this issue to:</p>
+<ul><li>Track implementation in another repo.</li><li>Claim <code>cub installer import helm</code> exists.</li><li>Demand a new backend engine.</li><li>Hide hooks, target facts, generated secrets, or customer overlay values.</li></ul>
+<p>Today's issue work:</p>
+<ul><li>Add comments only when they contain new evidence, a decision, or an acceptance check.</li><li>If a new issue is needed, file it only in <code>confighub/helm-expt</code>.</li><li>Prefer improving #76 over creating duplicates.</li></ul>
+<h2 id="workstream-5---product-suggestions-to-confighub-team">Workstream 5 - Product Suggestions To ConfigHub Team</h2>
+<p>Careful suggestions that are currently justified:</p>
+<table><thead><tr><th>Suggestion</th><th>Why it is justified</th><th>Existing primitive</th></tr></thead><tbody><tr><td>Variant Creator contract</td><td>Users need a clear way to describe prod/region/customer variants from a base.</td><td><code>cub variant create</code>, space/unit clone substrate, upstream links, labels, targets, gates, placeholders, TransformPaths, functions</td></tr>
+<tr><td>Shared artifact shape</td><td>UX, AX, and FX paths need the same fields.</td><td>Units, placeholders, TransformPaths, functions, gates</td></tr>
+<tr><td>Promotion clarity</td><td>Helm-derived bases should appear as components with variant nodes.</td><td><code>Component</code>/<code>Variant</code> labels, <code>Unit.UpstreamUnitID</code>, Promotion UI</td></tr>
+<tr><td>Import bridge</td><td>One-shot Helm render should graduate into maintained recipe/package artifacts.</td><td><code>cub helm install</code>, <code>cub installer</code> package path</td></tr>
+<tr><td>Target facts in variants</td><td>Post-render variants still need target-specific values and checks.</td><td>target facts, triggers/functions, checks</td></tr></tbody></table>
+<p>Suggestions that are not justified yet:</p>
+<ul><li>A new standalone per-chart promotion-map YAML batch.</li><li>A new backend variant system.</li><li>A claim that all Kubara apps are fully imported.</li><li>A claim that <code>cub installer import helm</code> exists.</li><li>External project issues without explicit approval.</li></ul>
+<h2 id="sequence-for-today">Sequence For Today</h2>
+<ol><li><b>Land the creation explanation.</b><ul><li>PR #77 should remain small and readable.</li><li>It should explain how variants get created before leaning on examples.</li><li>It should define the Creator contract role without treating the old <code>VariantCreationPlan</code> name as user-facing product language.</li><li>Validate with <code>git diff --check</code> and <code>npm run verify</code>.</li></ul></li></ol>
+<ol><li><b>Then make the promotion examples crisp.</b><ul><li>Summarize the Redis default -&gt; prod-us-east Kubara org example.</li><li>Record the Unit-label nuance as a product question, not a conclusion.</li><li>Do not add product asks until the example is written clearly.</li></ul></li></ol>
+<ol><li><b>Write the Kubara app analysis.</b><ul><li>Pick <code>external-dns</code> unless a better small case is found.</li><li>Identify wrapper chart, platform values, customer overlay values, dependency closure, and target facts.</li></ul></li><li>Classify which choices are recipe/base inputs versus post-render variants.</li><li>State which product tier the example belongs to and why it is beyond a simple public/free catalog proof.</li></ol>
+<ol><li><b>Update #76 only with concrete evidence.</b><ul><li>Add a comment if the Kubara analysis lands.</li><li>Add a comment if the promotion example exposes a precise product gap.</li><li>Do not file elsewhere.</li></ul></li></ol>
+<ol><li><b>Choose the next implementation step.</b><ul><li>If the product home is existing catalog metadata, extend <code>artifact-index.yaml</code> carefully.</li><li>If the product home is Variant Creator contract, refine <code>variant-creation-artifact.md</code>.</li><li>If the product home is ConfigHub metadata, write the smallest product ask as a helm-expt issue first.</li></ul></li></ol>
+<h2 id="verification">Verification</h2>
+<p>Required before handoff:</p>
+<pre><code>git diff --check
+npm run verify</code></pre>
+<p>Optional but useful:</p>
+<pre><code>npm run top20:verify-local-e2e
+npm run catalog:review:verify
+npm run external-scan:verify</code></pre>
+<p>No today's-work PR should merge if:</p>
+<ul><li>it adds a new artifact family with no consumer;</li><li>it makes the user-facing path harder than Helm;</li><li>it files or relies on issues outside <code>confighub/helm-expt</code>;</li><li>it weakens the top-20 proof claims;</li><li>it makes a future command sound available today.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/archive/today-roadmap-2026-05-29.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

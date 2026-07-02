@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Helm → ConfigHub customization decision tree · ConfigHub Helm Ops</title>
+  <meta name="description" content="Helm → ConfigHub customization decision tree: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/customization-decision-tree.html">
+  <meta property="og:title" content="Helm → ConfigHub customization decision tree · ConfigHub Helm Ops">
+  <meta property="og:description" content="Helm → ConfigHub customization decision tree: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/customization-decision-tree.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Helm → ConfigHub customization decision tree</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/customization-decision-tree.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>Status:</b> working design reference. Sources: installer consumer guidance plus helm-expt <code>docs/reference/customization-algorithm.md</code> and <code>docs/user/change-routing-before-oci.md</code>.</p>
+<p>Tags:</p>
+<ul><li><b>[proven]</b>: demonstrated by committed helm-expt proof or live evidence.</li><li><b>[observed]</b>: observed as a risk or recurring pattern.</li><li><b>[design]</b>: still a product decision or implementation gap.</li></ul>
+<h2 id="the-one-rule">The one rule</h2>
+<blockquote><p>Don't ask users to abandon Helm behavior. Capture it, classify the change, render exact objects, prove Helm-equivalence, then deliver only digest-bound variants with receipts. <b>The package source tree (<code>./package/</code>) is read-only to consumers</b> - never <code>kustomize edit</code> it; the next <code>setup --pull</code> overwrites it.</p></blockquote>
+<h2 id="the-model-behind-the-menu-chart-recipes-base-variants-derived-variants">The model behind the menu (chart → recipes → base variants → derived variants)</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>1 Helm chart
+ └─ N recipes  (incl. a default recipe)                     - the cub installer mapping(s)        [helm-expt]
+      └─ N base variants, placeholdered  (incl. a default)  - render-time shapes; placeholders    [helm-expt]
+         │                                                     are the fill surface. Each base is
+         │                                                     rendered, Helm-equivalent, pinned.
+         │                                                     (no-crds · existing-secret · ha · ingress-tls · …)
+         └─ N×M derived variants                            - env / region / customer fills on a   [ConfigHub only]
+                                                              chosen base (cub variant create;
+                                                              no re-render). NAMED, LISTED, and
+                                                              TESTED in helm-expt; instances live
+                                                              in ConfigHub.</code></pre>
+<ul><li><b>helm-expt owns</b> the recipes + base variants (rendered, equivalence-proven, placeholdered) and the <i>names / list / tests</i> of the derived variants.</li><li><b>ConfigHub owns</b> the derived-variant <i>instances</i> (the long tail).</li><li><b>The render boundary is the rule:</b> changes the rendered object set → a new <b>base variant</b> (re-render + Helm-equivalence); only changes operating context (target/env/region/gates/fills) → a <b>derived ConfigHub variant</b> (no re-render). This is Lens B below.</li></ul>
+<h3 id="support-outcomes">Support outcomes</h3>
+<p>A chart is <b>supported</b> when every Helm quirk it uses - <code>lookup</code>, hooks, <code>.Capabilities</code>, generated secrets, <code>tpl</code>, raw / post-renderers, CRDs / webhooks - is either <b>modeled</b> (static: declared fact · named capability profile · generated-fact receipt) or <b>explicitly disclosed</b> (operator-decision · honest blocker). <b>Zero silent gaps.</b> That faithful disclosure <i>is</i> the support - not a claim that runtime behavior was statically replicated.</p>
+<p>For the public catalog outcome, the bar is higher:</p>
+<pre><code>Every supported default and declared main choice should have reproducible
+render evidence plus live-cluster evidence. Missing live evidence stays visible
+as `missing` lane backlog.</code></pre>
+<p>Analysis-tier rows can be proof-grade without live coverage. A chart choice should not be described as fully catalog-supported, production-supported, or live-verified until the relevant live lanes have committed receipts. Variant richness is an enhancement; every variant that is advertised as supported needs the same outcome tracking as the default.</p>
+<h2 id="two-complementary-lenses-read-both">Two complementary lenses (read both)</h2>
+<p>The consumer guide and the routing doc answer different questions. Use them together.</p>
+<p><b>Lens A - &quot;which knob do I turn?&quot; (installer consumer guide: 3 override layers, use the lowest that fits)</b></p>
+<table><thead><tr><th>Layer</th><th>Mechanism</th><th>Use for</th><th>Reversibility</th></tr></thead><tbody><tr><td>1. Wizard inputs</td><td>edit <code>out/spec/inputs.yaml</code> → <code>installer setup</code> (re-render)</td><td>author-exposed inputs: replicas, names, components, tunables</td><td>highest (re-render)</td></tr>
+<tr><td>2. <code>--set-image</code></td><td><code>installer setup --set-image NAME=REF</code> (needs an <code>images:</code> block in the base)</td><td>image tag/digest bumps</td><td>high (persisted in <code>spec.imageOverrides</code>)</td></tr>
+<tr><td>3. Post-install mutation</td><td><code>cub function do --space S set-container-image …</code></td><td>ad-hoc edits tracked in cub revision history; survive re-render via <code>--merge-external-source</code></td><td>lowest</td></tr></tbody></table>
+<p><b>Lens B - &quot;where does the change live?&quot; (helm-expt: 3 decisions, in order)</b></p>
+<ol><li>Changes rendered K8s objects? → <b><code>cub installer</code> base variant</b> (re-render + Helm-equivalence).</li><li>Only changes how a reviewed set is <i>operated</i> (target/env/region/gates/labels)? → <b>derived ConfigHub variant</b> (clone Units, no re-render).</li><li>Neither, but required before delivery? → <b>delivery prerequisite</b> (facts, scans, gates, approval, OCI digest, controller config).</li></ol>
+<p><b>How they map:</b> Lens-A Layers 1–2 (inputs / <code>--set-image</code>) are object changes → Lens-B <b>base path</b>. Layer 3 (post-install cub mutation) is a narrow post-render edit → Lens-B <b>derived/operating</b> (survives re-render). Plain user wording: <i>&quot;changes the Kubernetes objects → new installer base&quot;</i> vs <i>&quot;changes operating context → ConfigHub variant&quot;</i> vs <i>&quot;delivery prerequisite → satisfy/record before the OCI artifact is used.&quot;</i></p>
+<h2 id="step-0-pick-a-named-fork-the-menu-the-user-sees-first">Step 0 - pick a named fork (the menu the user sees first)</h2>
+<p>Every catalog-supported chart presents a small, predictable menu (shared vocabulary - <code>HELM_FORK_VOCABULARY.md</code>), not a values free-for-all:</p>
+<ul><li><b><code>default</code></b> - works out of the box, zero required input. <i>(Start here.)</i></li><li><b><code>parameterized</code></b> - same shape as <code>default</code>, with the fill-safe fields exposed as placeholders to fill.</li><li><b>standard forks (only those that apply):</b> <code>existing-secret</code> · <code>ingress-tls</code> · <code>ha</code> · <code>no-crds</code> · <code>minimal</code> · <code>tls</code>. These <i>change the rendered object shape</i>, so each is a real, Helm-equivalent, pinned base. Forks compose (e.g. <code>existing-secret + ingress-tls</code>).</li></ul>
+<p>Pick one fork (or a composition), then customize <i>within</i> it by <b>filling placeholders / facts</b> (derived variant, no re-render). The forks below (F1–F3) are the checks each chosen fork must pass.</p>
+<h2 id="early-forks-a-newcomer-hits-first-campaign-grounded">Early forks a newcomer hits FIRST (campaign-grounded)</h2>
+<pre><code>START - pull a public package → setup → upload → ConfigHub → OCI → Argo/Flux
+│
+├─ Fork 1 · NAMESPACE  (F1 / F1b)                                  [proven]
+│   `installer setup --namespace &lt;ns&gt;`. Does the package honor it?
+│   • Simple charts (18/20): yes (PR #95 set-namespace transformer) → any ns.
+│   • Complex charts w/ ns refs embedded in spec (consul, kube-prometheus-stack):
+│       install at the CANONICAL namespace. (helm-expt#96, F1b.)
+│   GUARD: render must contain a single namespace; abort if &gt;1.
+│
+├─ Fork 2 · IMAGE PINNING  (F2)                                   [observed]
+│   Default bases ship floating/`:latest` tags (e.g. bitnami/nginx:latest) -
+│   non-reproducible over digest-bound OCI delivery.
+│   • Bump/pin via Layer 2: `installer setup --set-image NAME=myrepo/img@sha256:…`
+│     - REQUIRES an `images:` block in the chosen base. If absent, it fails fast;
+│     fall back to Layer 3 (`cub function do set-container-image`).
+│   • Catalog gap: default bases should ship pinned digests (no helm-expt issue yet).
+│
+├─ Fork 3 · SECRETS  (F3)                                          [proven]
+│   Does the base render a Secret?
+│   • No (e.g. nginx http-clusterip) → proceed.
+│   • Yes - default &quot;static-passwords&quot;/&quot;default&quot; base over OCI→Argo is
+│       GREEN-BUT-BROKEN: `installer upload` never uploads rendered Secrets, the
+│       pod sits in CreateContainerConfigError (&quot;secret not found&quot;), and Argo
+│       still reports Synced (SILENT). Do NOT use the password-generating default
+│       for GitOps delivery.
+│       → Use the chart's existing-secret base + provide the Secret out-of-band
+│         (kubectl / ExternalSecrets / Vault). [proven: postgresql, redis, mysql, mongodb → Ready]
+│       → [design] required-secret validation gate +
+│         typed secret reference system are the planned guards.
+│
+└─ then classify the change &amp; route via the two lenses ↓</code></pre>
+<h2 id="classify-the-customization-sets-base-vs-variant">Classify the customization (sets base-vs-variant)</h2>
+<p><code>values-only</code> · <code>target fact</code> (existing Secret/StorageClass/IngressClass/CRD) · <code>generated fact</code> (password/cert generated once, before render) · <code>capability profile</code> · <code>lifecycle / hook / CRD policy</code> · <code>extension slot</code> · <code>Kustomize overlay / patch</code> · <code>post-renderer / script</code> · <code>operate / observation</code>.</p>
+<table><thead><tr><th>Customization</th><th>Route</th></tr></thead><tbody><tr><td>Replicas, storage, ingress/TLS, RBAC, args/env, component on/off</td><td>Layer 1 wizard input → base re-render</td></tr>
+<tr><td>Image bump</td><td>Layer 2 <code>--set-image</code> (or Layer 3 post-install)</td></tr>
+<tr><td>Existing Secret</td><td>base if object shape changes; derived only if base already exposes the ref</td></tr>
+<tr><td>Generate password/cert once</td><td>generated fact binding <i>before</i> render (then immutable)</td></tr>
+<tr><td>CRDs enable/disable</td><td>base lifecycle policy (enable → + CRD review gate; CRD before CR)</td></tr>
+<tr><td>Kustomize patch</td><td>base overlay if it mutates objects; narrow approved cub function only post-render</td></tr>
+<tr><td>Target / env / region / labels / gates / observation</td><td>derived ConfigHub variant</td></tr>
+<tr><td>Helm hook</td><td>lifecycle policy. Rendering proves the hook resources are explicit; it does not prove hook execution. Production support needs a chosen route and a lifecycle or observation receipt for that route.</td></tr>
+<tr><td>Cluster lookup</td><td>recipe fact requirement + variant fact binding</td></tr></tbody></table>
+<h2 id="day-2-lifecycle-from-the-consumer-guide">Day-2 lifecycle (from the consumer guide)</h2>
+<pre><code>edit inputs / --set-image / cub mutation
+        │
+   installer plan        ← read-only diff per Space (Package=&lt;pkg&gt; filter); shows + ~ - and an Images: footer
+        │
+   installer upload      ← reconcile: opens ONE ChangeSet per Space; updates/adds/empties
+        │                   (a Unit that left the render is EMPTIED, not deleted;
+        │                    DestroyGate-guarded Units are refused)
+        ▼
+   revert: cub unit update --patch --restore Before:ChangeSet:&lt;id&gt; …   (printed by upload)
+            • updates → reverted by the restore
+            • creates → NOT auto-reverted (delete the Unit)
+            • empties → restore the pre-empty revision (not in the ChangeSet)</code></pre>
+<h2 id="upgrade-re-pull-a-new-version">Upgrade (re-pull a new version)</h2>
+<p><code>installer setup --pull oci://…:&lt;new-ref&gt;</code> against the existing work-dir → schema-diff machinery: new-with-default adopted (logged), new-required-without-default prompted (non-interactive fails fast naming them), removed dropped, type-changed errors. Components: if prior selection == old default preset, adopt the new default preset. Then <code>installer plan</code> → <code>installer upload --yes</code>. Image-only upgrade = <code>--set-image</code> (no <code>--pull</code> needed).</p>
+<h2 id="multi-package-signing-recovery">Multi-package, signing, recovery</h2>
+<ul><li><b>Multi-package</b> (parent declares deps): <code>setup</code> runs <code>deps update</code> automatically; <code>installer upload --space-pattern '{{.PackageName}}-prod'</code> gives each package its own Space. <code>installer deps tree</code> audits the DAG.</li><li><b>Signing/trust:</b> <code>installer verify &lt;ref&gt; --key cosign.pub</code> (or keyless); enforce on every pull via <code>~/.config/installer/policy.yaml</code> (<code>enforce: true</code>).</li><li><b>Recovery</b> (lost work-dir): the <code>installer-record</code> Unit on ConfigHub holds the spec + <code>upload.yaml</code>; re-pull + <code>cub unit data … installer-record</code> + <code>installer render</code>.</li></ul>
+<h2 id="variant-lineage-the-oci-boundary">Variant lineage &amp; the OCI boundary</h2>
+<p><code>recipe</code> → <code>base variant</code> (rendered shape; Helm-equivalent) → <code>derived ConfigHub variant</code> (operating context) → <code>custom overlay</code> (wrapper+platform+customer values; usually ConfigHub Server / managed tier). Each digest-bound to its parent. <b>After OCI publication the artifact IS the desired object set</b> - no untracked GitOps patch / manual edit / post-render script; object changes route back to the base path and republish.</p>
+<h2 id="pipeline-confidence-labels-tiers">Pipeline, confidence labels, tiers</h2>
+<p>render → compare vs <code>helm template</code> (equivalence) → scan rendered objects → gate (<code>allow</code>/<code>warn</code>/<code>block</code>) → promote/reject → settle delivery prereqs → OCI publish (digest+sig) → Argo/Flux. Labels: <code>proof-grade</code> · <code>catalog-candidate</code> · <code>catalog-supported</code> · <code>deprecated</code> · <code>blocked</code>. Tiers: public catalog proof → ConfigHub managed variants → managed overlay import → enterprise fleet.</p>
+<h2 id="what-is-grounded-vs-still-open">What is grounded vs still open</h2>
+<ul><li><b>Proven (use with confidence):</b> namespace routing for simple chart rows, the secret silent-fail risk and existing-secret fix paths, Helm-equivalence across the maintained proof rows, selected render-to-OCI-to-Argo runtime lanes, and rollback through ConfigHub revision in prior live evidence.</li><li><b>Observed:</b> Fork 2 (<code>:latest</code>).</li><li><b>Not fully exercised live across the catalog:</b> Layer-2 <code>--set-image</code>, derived/custom variants, hooks lifecycle, upgrade schema-diff, multi-package <code>--space-pattern</code>, and signing enforcement.</li><li><b>Open work this maps to:</b> namespace references embedded in object specs, proof regeneration coupling, typed secret references, required-secret validation, lifecycle/rollback contracts, and image pinning.</li></ul>
+<h2 id="sources">Sources</h2>
+<p>installer: consumer guide, author guide, and principles. helm-expt: <code>docs/reference/customization-algorithm.md</code>, <code>docs/user/change-routing-before-oci.md</code>, <code>docs/user/creating-variants.md</code>, <code>docs/user/custom-overlays.md</code>, <code>docs/user/product-support-tiers.md</code>, <code>docs/user/hook-lifecycle-strategy.md</code>. Generated evidence: <code>data/status-dashboard/summary.md</code>, <code>data/outcome-coverage/summary.md</code>, and <code>data/live-kind-parity/summary.md</code>.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/customization-decision-tree.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Product Support Tiers For Helm Scenarios · ConfigHub Helm Ops</title>
-  <meta name="description" content="Product Support Tiers For Helm Scenarios: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Product Support Tiers For Helm Scenarios: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/product-support-tiers.html">
   <meta property="og:title" content="Product Support Tiers For Helm Scenarios · ConfigHub Helm Ops">
-  <meta property="og:description" content="Product Support Tiers For Helm Scenarios: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Product Support Tiers For Helm Scenarios: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/product-support-tiers.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Product Support Tiers For Helm Scenarios</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="product-support-tiers.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/product-support-tiers.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -475,7 +475,7 @@ metrics-server/default</code></pre>
 <p>The open question for this tier is coverage: how many free out-of-box bases are enough to feel useful without turning the public catalog into an unmanaged matrix. The target is not every possible values combination. It is the smallest reviewed set that covers common defaults, high-value non-defaults, and routes remaining changes cleanly into derived variants or managed import.</p>
 <p>This tier should be easy to try without a private customer repository. It can prove the catalog recipe, package, rendered objects, and local live checks.</p>
 <p>Production OCI support also needs image digest evidence. A public or local proof can record mutable image tags, but a production-supported base should use digest-resolved images or carry an explicit image override/proof receipt. The current review queue is:</p>
-<p><a href="../../../../data/image-digest-workdown/summary.md">Image Digest Workdown</a></p>
+<p><a href="../../data/image-digest-workdown/summary.html">Image Digest Workdown</a></p>
 <p>Extension slots are also a support boundary. A public catalog base can leave raw manifest, <code>tpl</code>, sidecar, config block, or add-on slots empty or explicitly reviewed. When a user populates one of those slots, the result is a new install shape and should be reviewed as a new <code>cub installer</code> base or managed import, with render parity, scans, gates, and receipts.</p>
 <p>Hook boundary:</p>
 <pre><code>public catalog can inventory hooks and record disposition

@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dedicated Website Plan · ConfigHub Helm Ops</title>
+  <meta name="description" content="Dedicated Website Plan: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html">
+  <meta property="og:title" content="Dedicated Website Plan · ConfigHub Helm Ops">
+  <meta property="og:description" content="Dedicated Website Plan: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Dedicated Website Plan</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/dedicated-website-plan.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>The GitHub repo proves the work. A dedicated website should make the work easy to understand and try.</p>
+<h2 id="goal">Goal</h2>
+<p>The website should answer three questions in under a minute:</p>
+<pre><code>Why is this better than using Helm alone?
+Which chart and variant should I start with?
+What proof exists that it works?</code></pre>
+<p>It should also answer the next operational question without sending the reader back into the repo:</p>
+<pre><code>What do I do after the first install?</code></pre>
+<p>The answer should be concrete: choose or create variants, upload or deliver through ConfigHub, inspect Units, compare variants, run scans, approve changes, observe live state, operate custom apps and stacks, and know when a chart needs managed support rather than public-catalog use.</p>
+<p>Website work should be checked with the persona UX strategy: <a href="../../tests/persona-ux-strategy.html">persona-ux-strategy.md</a>. That audit uses novice, Helm-fluent, GitOps, SRE, maintainer, AI-curious, and skeptical-reviewer personas to test whether the public site is understandable before users reach the proof surfaces.</p>
+<p>It should not expose the full internal noun ladder first. The first impression should be:</p>
+<pre><code>Use Helm charts.
+Ship ConfigHub variants.
+Get correct variants, safe operations, immediate proof.</code></pre>
+<h2 id="primary-pages">Primary Pages</h2>
+<h3 id="1-home">1. Home</h3>
+<p>Purpose:</p>
+<pre><code>Explain the problem, show the happy path, and separate free public use from
+managed ConfigHub operations.</code></pre>
+<p>Content:</p>
+<ul><li>the promise: use public Helm charts, but make the resulting config explicit, variant-aware, reviewable, and observable;</li><li>a five-stage adoption ladder: <code>cub helm template</code>, <code>cub helm install</code>, public <code>cub installer</code> catalog package, live parity proof, ConfigHub operations;</li><li>proof counters drawn from generated status data, not hand-edited numbers;</li><li>a &quot;what is not claimed&quot; link next to the proof counters;</li><li>start buttons: inspect catalog, try Redis, open variants, open apps and operations, and read the serious-chart proof;</li><li>clear note that Helm remains the source chart ecosystem.</li></ul>
+<h3 id="2-helm-catalog">2. Helm Catalog</h3>
+<p>Purpose:</p>
+<pre><code>Show what a user can install or inspect.</code></pre>
+<p>Content:</p>
+<ul><li>chart cards grouped by category;</li><li>recommended first variant;</li><li>supported variants;</li><li>chart version and latest-version status;</li><li>proof status;</li><li>complete-core status and missing lanes;</li><li>hook, CRD, webhook, secret, storage, and extension-slot flags;</li><li>pain/risk summary;</li><li>free/managed route: public catalog, promotion review, better base needed, limitation decision, or managed overlay;</li><li>install/download action.</li></ul>
+<p>Data source:</p>
+<pre><code>data/master-catalog-matrix/matrix.csv
+data/chart-use-guide/chart-use-guide.csv
+data/top100-user-readiness/readiness.csv
+data/production-support-decisions/decisions.csv
+recipes/*/*/*/CATALOG.md</code></pre>
+<h3 id="3-chart-page">3. Chart Page</h3>
+<p>Purpose:</p>
+<pre><code>Turn one chart into a confident install decision.</code></pre>
+<p>Content:</p>
+<ul><li>chart/version/source digest;</li><li>supported variants;</li><li>&quot;what Helm pain this absorbs&quot;;</li><li>rendered object inventory;</li><li>regular Helm equivalence result;</li><li>scan/gate status;</li><li>live e2e evidence;</li><li>ConfigHub proof receipts;</li><li>known production dispositions;</li><li>hard quirks and the exact route for each: rendered, target fact, lifecycle route, observed, blocked, refused, or not applicable;</li><li>previous-version/legacy-patch link when relevant.</li></ul>
+<p>Data source:</p>
+<pre><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/
+runs/&lt;chart&gt;-confighub-proof/latest/
+runs/top20-local-kind/&lt;chart-variant&gt;/
+data/master-catalog-matrix/matrix.csv
+data/hook-disposition/top100-hook-dispositions.csv</code></pre>
+<p>Detailed spec: <a href="per-chart-fact-sheet-spec.html">per-chart-fact-sheet-spec.md</a> - the full section list, the exact data source per item, a solid / needs-more-testing status for each, and the &quot;level of support vs evidence depth&quot; rule.</p>
+<h3 id="4-variants">4. Variants</h3>
+<p>Purpose:</p>
+<pre><code>Explain base variants, derived ConfigHub variants, promotion, and the boundary
+between render-time choices and post-render refinements.</code></pre>
+<p>Content:</p>
+<ul><li>when to create a base variant;</li><li>when to create a derived variant;</li><li>when to go back to the recipe/import path;</li><li>first command flow: <code>cub installer setup</code>, upload, <code>cub variant create</code>, <code>cub variant promote --dry-run</code>;</li><li>links to Redis, Prometheus, kube-prometheus-stack, and promotion receipts;</li><li>honest note that promotion proof is row-specific and must stay visible in the matrix.</li></ul>
+<pre><code>Base variant: changes Helm render input or object shape.
+Derived ConfigHub variant: changes target, labels, approvals, links, scans,
+or selected post-render fields after upload.
+Delivery prerequisite: changes what must exist before Argo/Flux/apply can
+converge.</code></pre>
+<p>Current generated page:</p>
+<pre><code>site/variants.html</code></pre>
+<h3 id="5-apps">5. Apps</h3>
+<p>Purpose:</p>
+<pre><code>Show what happens after the first install: public charts, custom apps, stacks,
+and platform groups become one managed desired-state graph with variants and
+promotion.</code></pre>
+<p>Content:</p>
+<ul><li>six-stage path from inspect to serverless try-out to sign-up to server try-out to day-2 operations to managed/private use;</li><li>explicit Day 0 / Day 1 distinction for public charts, custom apps, stacks, platform groups, variants, and promotion;</li><li>links to variants, custom apps, operations, private paths, and chart pages;</li><li>clear free/account/paid boundary.</li></ul>
+<p>Current generated page:</p>
+<pre><code>site/journey.html</code></pre>
+<h3 id="6-custom-apps-and-stacks">6. Custom Apps And Stacks</h3>
+<p>Purpose:</p>
+<pre><code>Provide a deeper example inside Apps for cases where a real application
+is several public charts plus a custom service, wrapper chart, overlay values,
+private inputs, target facts, or existing live state.</code></pre>
+<p>Content:</p>
+<ul><li>where each piece belongs: public chart, custom app Unit, wrapper chart, overlay values, derived variant, private catalog;</li><li>Day 0 composition versus Day 1 change management;</li><li>links to the managed overlay golden, app-readiness surface, custom overlays guide, and private paths;</li><li>clear note that private sources and production responsibility are managed product lanes.</li></ul>
+<p>Current generated page:</p>
+<pre><code>site/custom-apps.html</code></pre>
+<h3 id="7-ops">7. Ops</h3>
+<p>Purpose:</p>
+<pre><code>Turn the strongest post-render product functions into one readable product
+page: scans, gates, delivery, observation, adoption, upgrades, rollback, bulk
+patching, and fleet operations.</code></pre>
+<p>Content:</p>
+<ul><li>operation cards with status, boundary, command, value, and evidence link;</li><li>bulk scan, bulk patch, fleet operations, upgrade, rollback, and observation as productisation targets;</li><li>clear note that variants and promotion are application SDLC, while operations makes releases governed and observable;</li><li>clear watch/planned wording where receipts or product implementation are not complete.</li></ul>
+<p>Current generated page:</p>
+<pre><code>site/operations.html</code></pre>
+<h3 id="8-faq">8. FAQ</h3>
+<p>Purpose:</p>
+<pre><code>Answer hard skeptical questions without making the first screen a proof lab.</code></pre>
+<p>Content:</p>
+<ul><li>hooks, secrets, target prerequisites, GitOps false green, upgrades, custom values, free versus managed, and what is not claimed;</li><li>any unanswered question becomes a P1 hard-question issue rather than vague copy.</li></ul>
+<p>Current generated page:</p>
+<pre><code>site/hard-questions.html</code></pre>
+<h3 id="9-docs">9. Docs</h3>
+<p>Purpose:</p>
+<pre><code>Keep deeper doctrine available without overwhelming first-time users.</code></pre>
+<p>Start with:</p>
+<ul><li>choose your path;</li><li>choosing commands;</li><li>creating variants;</li><li>custom overlays;</li><li>verification lanes;</li><li>hook lifecycle strategy.</li></ul>
+<p>Current generated page:</p>
+<pre><code>site/docs.html</code></pre>
+<h3 id="10-database-and-deep-proof">10. Database And Deep Proof</h3>
+<p>Purpose:</p>
+<pre><code>Make skeptical reviewers trust the catalog without turning proof into the main
+product navigation.</code></pre>
+<p>Content:</p>
+<ul><li>Helm Catalog links to <code>site/matrix.html</code> as the current database of supported charts and variants;</li><li>Docs links to generated evidence and claims register;</li><li><code>site/proof.html</code> remains a deep reviewer reference, not a main menu item;</li><li>proof counters and generated status should come from generated data, not hand-maintained copy.</li></ul>
+<p>Current generated pages:</p>
+<pre><code>site/matrix.html
+site/proof.html</code></pre>
+<h2 id="productisation-and-test-roadmap">Productisation And Test Roadmap</h2>
+<p>The website should track the features that carry the most product value, not only the proof lanes. Each feature needs accommodation, tests, and a product surface.</p>
+<pre><code>public page -&gt; concise user flow -&gt; evidence surface -&gt; verifier or receipt -&gt; product surface</code></pre>
+<table><thead><tr><th>Feature</th><th>Public accommodation</th><th>Test or evidence</th><th>Productisation target</th></tr></thead><tbody><tr><td>Variants and promotions</td><td><code>site/variants.html</code>, <code>site/journey.html</code>, chart pages, matrix variant rows.</td><td>Variant promotion receipts and <code>cub variant</code> command-surface checks.</td><td>UI/CLI flow for base selection, derived variant creation, preview, checks, approval, and promotion as application SDLC.</td></tr>
+<tr><td>Apps, custom apps, and stacks</td><td><code>site/journey.html</code>, <code>site/custom-apps.html</code>, private boundary, overlay examples.</td><td>Managed overlay golden, app-readiness surface, import/adoption receipts.</td><td>Private catalog/import workflow for wrapper charts, customer values, internal services, and application release.</td></tr>
+<tr><td>Bulk scan, bulk patch, and fleet ops</td><td><code>site/operations.html</code>, Docs links, fleet/blast-radius evidence.</td><td>Bulk tutorial, blast-radius fleet, cub-scout desired-vs-live design, future fleet receipts.</td><td>Server-backed fleet inventory, bulk changesets, policy gates, wave rollout, and audit after the application graph exists.</td></tr>
+<tr><td>Upgrade and crash prevention</td><td>FAQ, serious-chart proof, future upgrade example page.</td><td>Old/new render diffs, CRD upgrade delta, workload upgrade rehearsals, refresh-survival data.</td><td>Managed upgrade campaign: candidate version, blast radius, rehearsal, approvals, rollout, rollback, receipt pack.</td></tr>
+<tr><td>Target prerequisites and lifecycle routes</td><td>Helm Catalog ConfigHub Actions section, FAQ, chart pages, matrix hard-gap fields.</td><td>Target-prerequisite action packets, lifecycle-route actions, hook dispositions, live observations.</td><td>Preflight UX and machine-readable action packets for CLI, UI, agents, and fleet runs.</td></tr>
+<tr><td>Matrix/database reading</td><td>Helm Catalog intro and Docs database section.</td><td><code>master-matrix:verify</code>, matrix completion audit, chart-use guide.</td><td>Future Database page/menu item if browsing/filtering becomes a first-class product surface.</td></tr></tbody></table>
+<p>Planning docs should stay private/internal unless they are distilled into one of these product pages. Proof data is the evidence underneath; the public product path should stay chart-first, application-first, and operation-aware.</p>
+<h2 id="free-authenticated-boundary">Free / Authenticated Boundary</h2>
+<p>The website can allow low-friction browsing without letting anonymous users abuse infrastructure:</p>
+<table><thead><tr><th>Mode</th><th>User value</th><th>Boundary</th></tr></thead><tbody><tr><td>Anonymous browse</td><td>view catalog, variants, proof, public digests</td><td>static pages only</td></tr>
+<tr><td>Anonymous pull/download</td><td>inspect prebuilt public artifacts</td><td>rate-limited, signed public artifacts, no private inputs</td></tr>
+<tr><td>Email/authenticated free</td><td>create a small custom public import or sandbox render</td><td>account rate limits, signatures, receipts</td></tr>
+<tr><td>Paid/managed</td><td>private charts, private overlays, Kubara-style managed apps, legacy patches, support SLAs</td><td>ConfigHub Server, gates, receipts, support policy</td></tr></tbody></table>
+<p>The free path must be genuinely useful. It should let a Helm user inspect a popular chart, pull a public package, run the verifier, and understand the supported variants without needing a sales conversation. Authentication becomes necessary when the service stores private inputs, creates private variants, uses managed compute, publishes to managed OCI, or provides support/SLA.</p>
+<h2 id="website-ux-doctrine">Website UX Doctrine</h2>
+<ul><li>Lead with the happy path, not the artifact taxonomy.</li><li>Show charts first, variants underneath.</li><li>Every claim links to a receipt or generated artifact.</li><li>&quot;Latest available&quot; and &quot;supported proof version&quot; must be visibly separate.</li><li>If a chart is popular but production-disposition-blocked, say so clearly.</li><li>Keep Kubara/private-overlay workflows out of the free public catalog unless they are explicitly marked managed examples.</li><li>Make hard cases visible early. Kube-prometheus-stack should be the serious chart proof, not an appendix.</li><li>Do not make proof receipts feel like the product. The product path is choose, install, inspect, verify, operate. Receipts are the evidence behind it.</li><li>Do not imply that signatures equal safety. Signatures prove integrity and origin; scans, policies, support scope, and live receipts carry safety claims.</li></ul>
+<h2 id="first-website-slice">First Website Slice</h2>
+<p>Build the launch website from generated repo data:</p>
+<pre><code>/                       home
+/catalog                chart catalog
+/catalog/redis          Redis chart page
+/catalog/redis/default  Redis default variant page
+/catalog/kube-prometheus-stack serious chart page
+/proof                  how the harness works
+/status                 master matrix / proof status
+/pricing-or-tiers       free, authenticated, managed, enterprise
+/docs                   selected doctrine links</code></pre>
+<p>The Redis page should be the polished first demo. NGINX should show the small web/live path. Kube-prometheus-stack should show the serious chart proof. The next chart pages should be PostgreSQL, cert-manager, External Secrets, ingress-nginx, and Argo Rollouts.</p>
+<p>Launch acceptance:</p>
+<ul><li>the home page explains the value without using internal harness vocabulary;</li><li>the catalog page can be filtered by &quot;ready to try&quot;, &quot;needs prerequisites&quot;, &quot;operator review&quot;, &quot;needs better base&quot;, and &quot;not ready&quot;;</li><li>every chart page links to source chart URL, recipe URL, package base, variant file, proof receipts, known quirks, and next action;</li><li>the status page shows generated timestamp, matrix link, and top residues;</li><li>the proof page includes the current hard limits, not only successes;</li><li>all pages are generated or verified by <code>npm run site:verify</code>.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/dedicated-website-plan.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

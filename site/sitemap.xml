@@ -104,52 +104,347 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/custom-apps.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/WEBSITE_UX_TEST.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/adversarial10/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/apiservice-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/apiservice-coverage/work-orders.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/app-readiness/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/attack-plan-workdown/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/bad-decisions-fuzz/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-accuracy/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-fleet/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/capability-profile-witnesses/selectablefields/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-index/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-review/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/variant-work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-claim-integrity-audit-2026-06-22/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-evidence-router/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-fact-sheets/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-facts/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-skills/contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-skills/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-use-guide/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/claims-register/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/coverage-completion-plan/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/crd-ordering-gap/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-adoption-caveats/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-installer-determinism/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-installer-fuzz/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/cub-scout-diff/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/default-credential-check/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/derived-variant-target-bound/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/disposition-frontier/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/doc-freshness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/drift-detection-gap/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/edge-recovery/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/environment-matrix/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/extension-slots/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/external-scan-lane/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/gitops-health-residue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/gitops-route-emission/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/argo-cd-argo-cd.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/external-secrets-external-secrets.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/grafana-loki.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/hashicorp-consul.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/hashicorp-vault.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/jetstack-cert-manager.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/longhorn-longhorn.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/prometheus-community-kube-prometheus-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-proof-gaps/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-habit-friction/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-render-intents/contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-render-intents/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/high-fanout-demo/operation-preview.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/high-fanout-demo/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-coverage/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-disposition/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-lifecycle-review/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-lifecycle/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-route-candidates/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/hook-route-candidates/work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/image-digest-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/installer-oci-packages/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/kind-parity-decisions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/large-config-operations/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/action-queue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/production-disposition/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/promotion-readiness.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/promotion-work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/replacement-decisions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/latest-top20-refresh/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/legacy-patch-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-boundary/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-observations/cert-manager-eso/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-route-actions/contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-route-actions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes-by-variant/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-e2e/cub-scout-watchlist.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-e2e/normalization-rules.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-e2e/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-helm-confighub-compare/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-kind-parity/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-matrix-burndown/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-parity-decisions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-parity-rerun-plan/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/live-run-blocks/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/local-live-triage/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-overlay-goldens/external-dns-customer-acme-prod/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/managed-setup-guidance/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/master-catalog-matrix/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/matrix-completion-audit/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-completeness/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-gap-workdown/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/model-prereq-resolution/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/next-ten-waves/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/next80-full-proofs/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/nginx-config-checks/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/oci-hook-delivery-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/outcome-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/outcome-evidence-contract/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/pain-point-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/per-chart-hooks/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/persona-ux-guide-audit-2026-06-22/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/preview-readiness/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-disposition/dispositions.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-disposition/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-disposition/support-decision-contract.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-readiness-packets/cert-manager/packet.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-readiness-packets/external-secrets/packet.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-readiness-packets/kube-prometheus-stack/packet.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/argo-cd-argo-cd/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-mongodb/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-mysql/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-nginx/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-postgresql/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-rabbitmq/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/bitnami-redis/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/external-secrets-external-secrets/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/grafana-grafana/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/grafana-loki/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/grafana-tempo/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/hashicorp-consul/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/hashicorp-vault/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/ingress-nginx-ingress-nginx/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/jetstack-cert-manager/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/longhorn-longhorn/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/metrics-server-metrics-server/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/prometheus-community-prometheus/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/secrets-store-csi-driver-secrets-store-csi-driver/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/production-support-decisions/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/prune-gap-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-inventory-audit/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-review-queue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-work-queue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/refresh-survival/kube-prometheus-stack-upgrade-seed.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/refresh-survival/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/remote-dependency-closure/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/remote-image-runtime-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/runtime-gitops/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/scan-disposition-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/secret-lifecycle/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/serverless-install-parity-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ssa-conflict-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/status-dashboard/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/target-prerequisite-actions/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/target-prerequisite-workdown/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-catalog-analysis/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-coverage/contract.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-coverage/decisions-needed.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-coverage/work-queue.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/fast-track-reviews/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/fast-track-reviews/target-scope/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/fast-track.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/review-packets/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-promotion-wave/work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-readiness/next80-queues.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-readiness/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/top100-user-readiness/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top20-base-readiness/start-here.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/top20-base-readiness/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/top500-catalog-analysis/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/torture-suite/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/useful-base-design-queue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/useful-base-realization-wave/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-backlog/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-goldens/derived-expansion-wave/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-goldens/redis-prod-us-east/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-path-coverage/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-promotion-closeout/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-promotion-proof-batches/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-promotion/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/webhook-cert-lifecycle/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/human-agent-doctrine.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/recovery.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/tasks.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/terms.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/verification.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/corpus/known-adversarial-charts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/corpus/kubara-customized-overlays.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/consul/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/consul/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/external-secrets/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/external-secrets/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/grafana/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/grafana/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/ingress-nginx/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/ingress-nginx/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kube-prometheus-stack/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kube-prometheus-stack/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/loki/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/loki/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/longhorn/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/longhorn/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/metrics-server/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/metrics-server/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/mongodb/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/mongodb/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/mysql/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/mysql/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/nginx/confighub-proof-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/nginx/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/nginx/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/postgresql/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/postgresql/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/prometheus/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/prometheus/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/rabbitmq/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/rabbitmq/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/demo-script.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/function-scan-lane.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/safe-ops-lane.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/redis/ux-acceptance.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/secrets-store-csi-driver/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/secrets-store-csi-driver/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/tempo/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/tempo/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/vault/confighub-proof-transcript.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/vault/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agent-experience-audit.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agent-experience-worklog.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agreed-execution-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/current-pathway-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/p0-major-issue-status.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/repo-consistency-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/today-roadmap-2026-05-29.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/blog-posts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-next-candidates.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-claim-integrity-audit-2026-06-22.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/free-path-pitch.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/fuzz-corpus-tests-roadmap.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/get-started-rewrite-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/helm-community-persona-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/helm-community-persona-prd.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/helm-vs-cub-adoption-audit.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/hook-route-execution-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/house-layout.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/house-voice.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/how-it-works-website-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/independent-review-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/issue-backlog.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-handover.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-roadmap.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/latest-top20-refresh-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/legacy-patch-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/maintenance-strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/next-20-tasks.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/next-execution-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/outside-user-test.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/per-chart-fact-sheet-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/persona-ux-audit-2026-06-22.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/persona-ux-rerun-2026-06-22.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/pilot-adversarial-testing.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/post-coverage-strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/review-prompts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/server-account-pitch.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/serverless-verified-install-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top100-full-proof-target.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top20-full-proof-target.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top500-matrix-refresh-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/upgrade-story-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/user-journey-test-pathways-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/user-journey-test-pathways-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/verified-install-commercial-model.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/where-does-my-hook-go.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/artifact-verifier-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/capability-profile-catalog.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/catalog-doctrine.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/chart-recipe-manifest-flow.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/complete-corresponding-model.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/confighub-promotion-mapping.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/customization-algorithm.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/customization-decision-tree.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/derived-variant-live-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/direct-cub-helm-model.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/enterprise-parity-contract.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/fork-vocabulary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/generated-fact-receipts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-community-persona-reference.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-import-contract.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/helm-quirk-support-matrix.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/kube-prometheus-stack-serious-chart-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/lane-test-doctrine.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/master-catalog-matrix.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/matrix-completion-audit.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/observation-freshness-slo.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/per-chart-recipes.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/proof-kit-migration.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/quirk-coverage.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-default-variant-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-installer-package-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-local-e2e-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-local-scan-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-proof-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-reuse-existing-secret-variant-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/redis-variant-diff-spec.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/residue-families.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/secret-lifecycle.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/seven-stage-helm-lifecycle.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/top100-user-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/two-cluster-parity-harness.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/upgrade-rollback-receipts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/variant-creation-artifact.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/variant-creator-verification.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/variant-promotion-closeout.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/variant-promotion-model.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/variant-promotion-worked-example.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/verification-properties.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/what-hook-support-means.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/hook-and-secret-lifecycle.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/large-app-evidence-funnel.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/live-parity.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/serious-chart-playbooks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/skills/target-facts-and-lifecycle.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/adopting-existing-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ai-assisted-helm-changes.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/broken-chart-triage.html</loc></url>
@@ -166,39 +461,77 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/custom-overlays.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/derived-variant-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/expected-results-and-clusters.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/extension-slots.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/first-run-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/generative-gitops-fit.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/gitops-adopter-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/hard-questions.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/helm-pain-points.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/helm-presets-and-values.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/helm-render-intents.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/helm-to-cub-migration.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/helm-upgrade-crash-example.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/hook-lifecycle-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/how-it-works.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/how-the-harness-works.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/installer-oci-packages.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/introduction-to-the-harness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/known-gaps-we-surface.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/large-config-operations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/live-parity.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/maintenance-sla.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/nginx-configuration-files.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/offering.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/outcomes-and-tests.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/pathway-route-hooks-transparently.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/product-support-tiers.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/production-support-decisions.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/prometheus-high-fanout.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/prometheus-overlay-promotion-example.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/reading-the-matrix.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/remote-images-and-supported-bases.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/reverse-reconcile-design.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/security-end-to-end.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/serious-chart-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/serious-charts.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites-before-rerun.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-status.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/try-now.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/tutorial-sequence.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-bulk-scan-patch-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-externaldns-custom-overlay-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-gitops-runtime-proof-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-prometheus-base-variant-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-prometheus-promotion-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-redis-quick-start-tutorial.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-redis-secret-modes-tutorial.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verification-lanes.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verification.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/verify-it-yourself.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/what-we-refuse-to-claim.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/what-you-get.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-synced-is-not-working.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-does-not-collapse.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-exists.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/SCHEMA.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/log.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/agent-operating-guide.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/evidence-and-authority.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/free-to-paid-journey.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/hard-chart-patterns.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/helm-lifecycle.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/hooks-and-lifecycle-routes.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/top100-status-model.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/wiki/variants-and-promotion.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/aqua/trivy-operator/0.32.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argo-cd/9.5.15/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argo-cd/9.5.15/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argo-cd/9.5.17/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argo-events/2.4.21/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.html</loc></url>
@@ -212,19 +545,25 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/elasticsearch/22.1.6/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/memcached/8.5.5/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mongodb/19.0.7/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mongodb/19.0.7/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mongodb/19.0.9/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mongodb/19.1.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mysql/14.0.3/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/mysql/14.0.3/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/nginx/24.0.2/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/nginx/24.0.2/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/nginx/24.0.4/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/nginx/25.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/opensearch/2.0.10/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/phpmyadmin/20.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/postgresql/18.6.10/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/postgresql/18.6.7/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/postgresql/18.6.7/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/postgresql/18.7.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/rabbitmq/16.0.14/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/rabbitmq/16.0.14/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/redis/25.5.3/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/redis/25.5.3/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/redis/27.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/spark/10.0.3/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/zookeeper/13.8.7/CATALOG.html</loc></url>
@@ -240,6 +579,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/elastic/metricbeat/8.5.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/external-dns/external-dns/1.21.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/external-secrets/external-secrets/2.5.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/external-secrets/external-secrets/2.5.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/fairwinds-stable/goldilocks/10.3.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/fairwinds-stable/vpa/4.11.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/falcosecurity/falco/9.0.0/CATALOG.html</loc></url>
@@ -250,29 +590,38 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/gitlab/gitlab-runner/0.89.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/alloy/1.8.2/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/grafana/10.5.15/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/grafana/10.5.15/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/loki/7.0.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/loki/7.0.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/promtail/6.17.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/pyroscope/2.0.2/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/rollout-operator/0.49.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/tempo/1.24.4/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/grafana/tempo/1.24.4/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/hashicorp/consul/2.0.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/hashicorp/consul/2.0.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/hashicorp/terraform/1.1.2/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/hashicorp/vault/0.32.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/hashicorp/vault/0.32.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/ingress-nginx/ingress-nginx/4.15.1/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/istio/gateway/1.30.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/istio/istiod/1.30.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jaegertracing/jaeger/4.8.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/trust-manager/v0.22.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kedacore/keda/2.19.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kyverno/kyverno-policies/3.8.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kyverno/kyverno/3.8.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/linkerd/linkerd-crds/1.8.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/longhorn/longhorn/1.11.2/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/longhorn/longhorn/1.11.2/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/metrics-server/metrics-server/3.13.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/metrics-server/metrics-server/3.13.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/minio-operator/operator/7.1.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/minio-operator/tenant/7.1.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/nats/nack/0.34.0/CATALOG.html</loc></url>
@@ -287,6 +636,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/alertmanager/1.37.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.html</loc></url>
@@ -295,19 +645,30 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus/29.8.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus/29.8.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/prometheus-community/prometheus/29.9.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/rook-release/rook-ceph/v1.19.5/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/runix/pgadmin4/1.62.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/stakater/reloader/2.2.12/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/traefik/traefik/40.2.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/velero/velero/12.0.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/vm/victoria-logs-single/0.12.5/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/vm/victoria-metrics-single/0.39.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/adversarial-strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/doctrine.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/findings.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/tests/npm-scripts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/persona-ux-strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/runbook.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/strategy.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/tests/top100-runtime-gitops.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/docs.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/existing-apps.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/future.html</loc></url>

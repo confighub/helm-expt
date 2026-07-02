@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tutorial Sequence · ConfigHub Helm Ops</title>
+  <meta name="description" content="Tutorial Sequence: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/tutorial-sequence.html">
+  <meta property="og:title" content="Tutorial Sequence · ConfigHub Helm Ops">
+  <meta property="og:description" content="Tutorial Sequence: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/tutorial-sequence.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Tutorial Sequence</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/tutorial-sequence.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>This page is a short show-and-tell path through the project. Each tutorial says what you are doing, what to look for, and what the result means:</p>
+<pre><code>what the tutorial proves
+-&gt; explanatory flow
+-&gt; commands
+-&gt; what success looks like</code></pre>
+<p>For concrete output snippets and cluster choices, keep <a href="expected-results-and-clusters.html">Expected Results And Clusters</a> open beside this page. A tutorial should always give the user a local check, a UI check, or a receipt to compare with their own output.</p>
+<p>The first tutorials use Redis because it is small and familiar. The later tutorials show promotion, custom overlays, the GitOps/runtime proof lane, and bulk operations over uploaded ConfigHub Units.</p>
+<h2 id="run-from-the-repo-root">Run From The Repo Root</h2>
+<p>Start from a current checkout:</p>
+<pre><code>git clone https://github.com/confighub/helm-expt.git
+cd helm-expt
+git status --short --branch</code></pre>
+<p>If you already have a checkout, run from the repository root for the optional <code>npm run ...</code> proof checks. The <code>cub installer setup --pull oci://...</code> commands pull public installer packages and do not require a repo-local <code>packages/...</code> path.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Install or verify the local tools before Tutorial 1:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>cub version
+cub plugin install confighub/installer
+cub installer --help
+
+command -v kustomize || brew install kustomize
+command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest
+
+cub context get -o json
+cub space list -o json</code></pre>
+<p><code>cub installer setup</code> shells out to <code>kustomize build</code>; the first setup fails if <code>kustomize</code> is not on <code>PATH</code>. The tutorials do not require <code>helm</code>.</p>
+<p><code>cub context get -o json</code> proves a context is selected. <code>cub space list -o json</code> is the useful auth check for the upload tutorials. If it fails with an authentication problem, run:</p>
+<pre><code>cub auth login</code></pre>
+<p>Tutorials with live Kubernetes steps also need <code>kubectl</code> on <code>PATH</code> and a reachable cluster context. Users can bring their own cluster. For a disposable local Argo/kind rig, <code>cub lk</code> is one option when the tutorial needs ConfigHub OCI and an in-cluster reconciler.</p>
+<h2 id="verification-names-used-here">Verification Names Used Here</h2>
+<p>This page uses three different verification layers. These are not all part of the default product UX. Use the narrowest check that matches the thing you just did.</p>
+<table><thead><tr><th>Name</th><th>Scope</th><th>Reruns Helm?</th><th>Touches a cluster?</th></tr></thead><tbody><tr><td><code>npm run verify</code></td><td>Repository-wide committed artifact consistency: docs, command surfaces, recipes, packages, receipts, catalog data, and generated data.</td><td>No, not in the default path.</td><td>No, it verifies committed receipts.</td></tr>
+<tr><td><code>redis:compare</code></td><td>Fresh Redis Helm-vs-<code>cub installer</code> comparison.</td><td>Yes.</td><td>No.</td></tr>
+<tr><td>Most <code>&lt;chart&gt;:compare</code> commands</td><td>Curated chart package/setup verification against the stored Helm-rendered object set.</td><td>No; fresh Helm rendering happens in <code>:generate-proof</code>.</td><td>No.</td></tr>
+<tr><td><code>redis:verify-install:*</code></td><td>A user's own Redis tutorial state after setup, upload, or apply.</td><td>No for <code>render</code>; it checks the user's rendered work dir against the Redis acceptance contract.</td><td>Only <code>redis:verify-install:cluster</code>; when available, cub-scout writes live object-set, workload, and prerequisite receipts.</td></tr></tbody></table>
+<p><code>redis:verify-install:*</code> currently ships because Redis is the first outside-user quick-start with <code>recipes/bitnami/redis/25.5.3/install-checks.yaml</code>. Other tutorials use chart-specific proof/package checks, generated goldens, or live ConfigHub/GitOps checks until they get their own <code>install-checks.yaml</code>.</p>
+<p>For a first user journey, skip the broad <code>npm run verify</code> command unless you are reviewing the repository itself. The ordinary checks should be things like:</p>
+<pre><code>cub installer setup completed
+work directory has out/manifests
+ConfigHub Space has Units
+kubectl shows workloads
+the specific receipt for this step says PASS, watch, or blocked with a reason</code></pre>
+<h2 id="picking-a-path">Picking A Path</h2>
+<p>For a quick outside-eyes test, run Tutorial 1 and Tutorial 7 first. Tutorial 7 is the most self-contained operating demo after the NGINX base is uploaded.</p>
+<p>Tutorials 2 and 6 touch live Kubernetes. Tutorial 6 also depends on Argo CD and the ConfigHub OCI target created by <code>cub lk up</code>.</p>
+<h2 id="tutorial-1-redis-quick-start">Tutorial 1: Redis Quick Start</h2>
+<p>This proves the basic path from a public Helm chart to ConfigHub Units.</p>
+<pre><code>Helm chart
+-&gt; cub installer recipe/package
+-&gt; choose a base variant, e.g. redis/default
+-&gt; cub installer setup renders Kubernetes YAML
+-&gt; cub installer upload creates ConfigHub Units</code></pre>
+<p>Run the render and upload path:</p>
+<p>The first two commands are local. The upload and ConfigHub verification require an authenticated <code>cub</code> CLI in the organization where you want the demo Space to be created. If <code>helm-redis-default</code> already exists, choose a unique Space slug or reuse the same work directory to reconcile the existing upload.</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --non-interactive \
+  --namespace redis
+
+npm run redis:verify-install:render -- \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --namespace redis
+
+cub installer upload \
+  --work-dir .tmp/demo/redis-default \
+  --space helm-redis-default \
+  --component Redis \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant default \
+  --unit-label Component=Redis \
+  --unit-label HelmChart=bitnami-redis \
+  --unit-label HelmChartVersion=25.5.3 \
+  --unit-label Variant=default \
+  --unit-label Proof=redis-confighub-proof
+
+npm run redis:verify-install:confighub -- \
+  --base default \
+  --space helm-redis-default</code></pre>
+<p>What success looks like:</p>
+<pre><code>Redis/default renders the same Kubernetes objects as regular Helm.
+ConfigHub stores the rendered objects as labeled Units.
+You can verify both the local render and the uploaded Units.</code></pre>
+<p>Check that ConfigHub has the Redis Units:</p>
+<pre><code>cub unit list --space helm-redis-default \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant</code></pre>
+<p>Expect 15 Units: 14 Redis Kubernetes objects plus <code>installer-record</code>.</p>
+<p>Where to look in the UI:</p>
+<pre><code>ConfigHub -&gt; Space helm-redis-default -&gt; Units</code></pre>
+<p>Full script: <a href="../demo/redis/demo-script.html">docs/demo/redis/demo-script.md</a>.</p>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-redis-quick-start-tutorial.html">Redis Quick Start UX Proposal</a>.</p>
+<p>For a standard Helm baseline, install the same chart into a separate namespace or throwaway cluster, then compare at the parity layer rather than by eye. The strict comparison path is documented in <a href="expected-results-and-clusters.html#stage-2-standard-helm-baseline">Expected Results And Clusters</a>.</p>
+<h2 id="tutorial-2-redis-secret-modes">Tutorial 2: Redis Secret Modes</h2>
+<p>This proves why some choices are base variants, not post-render edits.</p>
+<pre><code>redis/default
+  Helm renders Secret redis/redis.
+  cub installer separates the Secret to out/secrets for local use.
+  ConfigHub records references and proof, not hidden public secret material.
+
+redis/reuse-existing-secret
+  Helm renders no Redis Secret.
+  Workloads reference redis/redis-existing-secret key redis-password.
+  The existing Secret is a target fact and external requirement.</code></pre>
+<p>Run the existing-Secret path:</p>
+<p>This tutorial is written for the catalog namespace <code>redis</code>. Redis embeds that namespace in service DNS values, so changing the namespace changes rendered object data. Treat a different namespace as a separate render choice and review the diff deliberately.</p>
+<pre><code>kubectl --context &lt;your-context&gt; create namespace redis \
+  --dry-run=client -o yaml | kubectl --context &lt;your-context&gt; apply -f -
+
+kubectl --context &lt;your-context&gt; -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password=confighub-redis-password \
+  --dry-run=client -o yaml | kubectl --context &lt;your-context&gt; apply -f -
+
+cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base reuse-existing-secret \
+  --work-dir .tmp/demo/redis-reuse-existing-secret \
+  --non-interactive \
+  --namespace redis
+
+npm run redis:verify-install:render -- \
+  --base reuse-existing-secret \
+  --work-dir .tmp/demo/redis-reuse-existing-secret \
+  --namespace redis</code></pre>
+<p>Optional local live check:</p>
+<pre><code>kubectl --context &lt;your-context&gt; apply -f .tmp/demo/redis-reuse-existing-secret/out/manifests
+
+npm run redis:verify-install:cluster -- \
+  --base reuse-existing-secret \
+  --context &lt;your-context&gt; \
+  --namespace redis</code></pre>
+<p>What this proves:</p>
+<pre><code>default and reuse-existing-secret are different base variants because Helm
+renders different Kubernetes object references.</code></pre>
+<p>If you ran the live step, the <code>redis:verify-install:cluster</code> command above should pass with StatefulSet, PVC, Redis PING, and target Secret checks.</p>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-redis-secret-modes-tutorial.html">Redis Secret Modes UX Proposal</a>.</p>
+<h2 id="tutorial-3-prometheus-base-variant">Tutorial 3: Prometheus Base Variant</h2>
+<p>This proves how a values choice becomes a reviewed base variant when it changes the rendered object set.</p>
+<pre><code>prometheus/default
+-&gt; full chart shape
+
+prometheus/server-only-ephemeral
+-&gt; disables bundled components and persistence
+-&gt; renders fewer Kubernetes objects
+-&gt; gets its own package base, revision, receipts, scans, and gate</code></pre>
+<p>Run the server-only base:</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
+  --base server-only-ephemeral \
+  --work-dir .tmp/demo/prometheus-server-only \
+  --non-interactive \
+  --namespace monitoring</code></pre>
+<p>Inspect the catalog proof:</p>
+<pre><code>npm run prometheus:verify-proof
+npm run prometheus:verify-package</code></pre>
+<p>What this proves:</p>
+<pre><code>server-only-ephemeral is not a ConfigHub-only tweak.
+It changes the rendered YAML, so it belongs in the cub installer base path.</code></pre>
+<p>Catalog page: <a href="../../recipes/prometheus-community/prometheus/29.8.0/CATALOG.html">recipes/prometheus-community/prometheus/29.8.0/CATALOG.md</a>.</p>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-prometheus-base-variant-tutorial.html">Prometheus Base Variant UX Proposal</a>.</p>
+<p>For the larger Prometheus Operator chart, see <a href="prometheus-high-fanout.html">Prometheus High-Fanout Example</a>. It shows how <code>kube-prometheus-stack/default</code> and <code>kube-prometheus-stack/no-crds</code> differ by 10 CRD objects and why the <code>no-crds</code> base needs target prerequisites.</p>
+<h2 id="tutorial-4-prometheus-promotion-variant">Tutorial 4: Prometheus Promotion Variant</h2>
+<p>This shows the proposed product flow for creating a derived ConfigHub variant after the reviewed base has been uploaded.</p>
+<pre><code>Prometheus/server-only-ephemeral
+-&gt; uploaded reviewed ConfigHub Space
+-&gt; cub variant create clones that Space and its Units
+-&gt; Prometheus/prod-us-east adds target, environment, region, gates, and links
+-&gt; no Helm rerender</code></pre>
+<p>Current CLI primitive:</p>
+<p>The command details are summarized in <a href="cub-variant-command-surface.html">cub Variant Command Surface</a>. The key point is that <code>cub variant create</code> clones a reviewed upstream Space and its Units; it does not run Helm again.</p>
+<p>First upload the reviewed base Space if it does not already exist:</p>
+<pre><code>cub installer upload \
+  --work-dir .tmp/demo/prometheus-server-only \
+  --space helm-prometheus-server-only \
+  --component Prometheus \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant server-only-ephemeral \
+  --unit-label Component=Prometheus \
+  --unit-label HelmChart=prometheus-community-prometheus \
+  --unit-label HelmChartVersion=29.8.0 \
+  --unit-label Variant=server-only-ephemeral</code></pre>
+<p>Then clone the Space into a derived ConfigHub variant:</p>
+<pre><code>cub variant create prod-us-east helm-prometheus-server-only \
+  --environment Prod \
+  --region us-east \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}' \
+  --unit-delete-gate production-review \
+  --unit-destroy-gate production-review</code></pre>
+<p>Add <code>--target &lt;target-slug&gt;</code> only when the target already exists. The command sets the downstream Space labels such as <code>Variant=prod-us-east</code>, <code>Environment=Prod</code>, and <code>Region=us-east</code>. Cloned Units keep the source base labels unless a post-clone trigger or later bulk update changes them.</p>
+<p>When the reviewed upstream base changes later, preview the downstream update before writing it:</p>
+<pre><code>cub variant promote prod-us-east --dry-run -o mutations</code></pre>
+<p>Then promote through a changeset and the same approval/delivery path used for other ConfigHub operations.</p>
+<p>A future/polished <a href="../reference/variant-creation-artifact.html#creator-status">Creator flow</a> should present this as:</p>
+<pre><code>Create variant
+From: Prometheus/server-only-ephemeral
+For: prod-us-east
+Change: target, environment, region, production gates, observation policy
+Review: same Prometheus install shape
+Status: ready to create
+Create</code></pre>
+<p>What success looks like:</p>
+<pre><code>Promotion uses ConfigHub clone/link/label/target primitives.
+It does not create a new Helm render unless the requested change alters the
+Kubernetes object set.</code></pre>
+<p>Check the derived Space and cloned Units:</p>
+<pre><code>cub space get Prometheus-prod-us-east
+cub unit list --space Prometheus-prod-us-east \
+  --columns Unit.Slug,Unit.Labels.Variant,Unit.DeleteGates,Unit.DestroyGates</code></pre>
+<p>Expect 8 cloned Units. The Space carries <code>Variant=prod-us-east</code>; Units keep the source base label unless a post-clone operation changes them.</p>
+<p>Where to look in the UI:</p>
+<p>Open the <a href="https://auth.confighub.com/x/promotion?app=Prometheus">ConfigHub Promotion view for Prometheus</a> to see <code>server-only-ephemeral</code> and <code>prod-us-east</code> side by side, both showing 8 units in sync.</p>
+<p>Worked example: <a href="prometheus-overlay-promotion-example.html">Prometheus Promotion Example</a>.</p>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-prometheus-promotion-tutorial.html">Prometheus Promotion UX Proposal</a>.</p>
+<h2 id="tutorial-5-externaldns-custom-overlay">Tutorial 5: ExternalDNS Custom Overlay</h2>
+<p>This shows how a managed or customer overlay is routed.</p>
+<pre><code>wrapper chart + platform values + customer overlay values
+-&gt; classify each value before render
+-&gt; render-time values go through cub installer
+-&gt; post-render operating choices go through derived ConfigHub variants</code></pre>
+<p>This tutorial is also where the product support split shows up:</p>
+<pre><code>free/out-of-box catalog config
+  ExternalDNS managed AWS base shape, when it is common enough to support.
+
+ConfigHub customization
+  Acme prod target, environment, region, gates, facts, and observation policy
+  as a derived variant over the reviewed base.
+
+managed or potentially paid complexity
+  private wrapper charts, private customer values, GitOps import, fleet
+  creation, full stacks, production receipts, and support SLAs.</code></pre>
+<p>Example base:</p>
+<pre><code>ExternalDNS/managed-aws-acme</code></pre>
+<p>Installer/base values that change rendered Kubernetes YAML:</p>
+<pre><code>provider: aws
+sources:
+  - service
+  - ingress
+registry: txt
+domainFilters:
+  - acme.example.com
+txtOwnerId: acme-prod-us-east
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/external-dns-acme-prod
+rbac:
+  create: true</code></pre>
+<p>Derived customer variant:</p>
+<pre><code>ExternalDNS/managed-aws-acme
+-&gt; ExternalDNS/customer-acme-prod</code></pre>
+<p>Post-render operating choices:</p>
+<pre><code>customer: acme
+environment: prod
+region: us-east
+target: prod-us-east
+observationFreshness: PT15M
+targetFacts:
+  requiredHostedZones:
+    - acme.example.com
+  requiredSecrets:
+    - external-dns/external-dns-aws</code></pre>
+<p>Verify the managed-overlay golden:</p>
+<pre><code>npm run variant-goldens:verify</code></pre>
+<p>What this proves:</p>
+<pre><code>Customer values that affect Kubernetes YAML become a reviewed installer base.
+Customer operating context becomes a derived ConfigHub variant.
+Secret material stays outside the public proof.
+The golden is a classification test fixture, not a live import or production
+readiness receipt.</code></pre>
+<p>Plain example: <a href="custom-overlays.html">Custom Overlays</a>.</p>
+<p>Golden data: <a href="../../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.html">data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md</a>.</p>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-externaldns-custom-overlay-tutorial.html">ExternalDNS Custom Overlay UX Proposal</a>.</p>
+<h2 id="before-live-gitops-runs-bring-kubernetes-and-argo-cd">Before Live GitOps Runs: Bring Kubernetes And Argo CD</h2>
+<p>The live GitOps tutorial needs a Kubernetes cluster with Argo CD installed and able to pull from the ConfigHub OCI gateway.</p>
+<p>Recommended local setup:</p>
+<pre><code>cub plugin install jesperfj/cub-lk
+cub lk version
+cub lk up --name helm-expt-oci-demo</code></pre>
+<p><code>cub lk up</code> creates a disposable kind cluster, installs Argo CD, creates a dedicated kubeconfig at:</p>
+<pre><code>$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig</code></pre>
+<p>It also creates the ConfigHub pieces used by the tutorial:</p>
+<pre><code>helm-expt-oci-demo-cluster        cluster/root Space
+helm-expt-oci-demo-cluster/oci    OCI target
+helm-expt-oci-demo-cluster/root   root Argo Application Unit</code></pre>
+<p>If you bring your own cluster instead, set up the same contract:</p>
+<pre><code>Kubernetes cluster is reachable with kubectl.
+Argo CD is installed in the cluster.
+Argo can reach oci.hub.confighub.com:443.
+Argo has any pull secret/token required for the ConfigHub OCI gateway.
+ConfigHub has a cluster Space with an OCI target.
+Workload Units are uploaded to a workload Space and targeted at that OCI target.
+An Argo Application points at the ConfigHub OCI repo, targetRevision latest,
+and path ./&lt;workload-space&gt;.</code></pre>
+<p>For this tutorial, the Argo Application source looks like:</p>
+<pre><code>repoURL: oci://oci.hub.confighub.com:443/target/&lt;cluster-space&gt;/oci
+targetRevision: latest
+path: ./&lt;workload-space&gt;</code></pre>
+<p>When new Units are applied to the OCI target, ConfigHub publishes a new OCI revision. Argo reconciles that revision and applies the objects to the cluster. Before Tutorial 6 runs, only the root Application is expected. The workload Application named <code>nginx</code> is created by Tutorial 6, so do not refresh it yet.</p>
+<p>Check that the root Application exists before Tutorial 6:</p>
+<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
+kubectl --context kind-helm-expt-oci-demo get application \
+  helm-expt-oci-demo-cluster -n argocd</code></pre>
+<h2 id="tutorial-6-gitops-and-runtime-proof">Tutorial 6: GitOps And Runtime Proof</h2>
+<p>This runs the OCI/GitOps path with a local kind cluster, ConfigHub OCI, and Argo CD.</p>
+<pre><code>ConfigHub OCI artifact
+-&gt; Argo CD or Flux pulls the artifact
+-&gt; controller syncs the cluster
+-&gt; runtime observation receipt records digest, sync result, checks, and freshness</code></pre>
+<p>Run the first live example:</p>
+<pre><code>python3 tests/chart-install-test \
+  --package packages/bitnami/nginx/24.0.2 \
+  --slug nginx \
+  --namespace nginx \
+  --rig helm-expt-oci-demo \
+  --base http-clusterip \
+  --helm-expt &quot;$PWD&quot; \
+  --wait 240 \
+  --keep \
+  --json</code></pre>
+<p>What success looks like in command output:</p>
+<pre><code>render: PASS
+confighub: PASS
+argo: PASS, nginx Synced/Healthy
+runtime: PASS, deployment.apps/nginx 1/1</code></pre>
+<p>Check that Argo sees both Applications:</p>
+<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
+kubectl --context kind-helm-expt-oci-demo get applications -n argocd \
+  -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'</code></pre>
+<p>You are looking for:</p>
+<pre><code>helm-expt-oci-demo-cluster   Synced   Healthy   sha256:...
+nginx                        Synced   Healthy   sha256:...</code></pre>
+<p>If <code>nginx</code> exists but Argo has not polled the latest OCI revision, refresh it:</p>
+<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
+kubectl --context kind-helm-expt-oci-demo -n argocd annotate application nginx \
+  argocd.argoproj.io/refresh=hard \
+  --overwrite</code></pre>
+<p>Check that Kubernetes has the NGINX workload:</p>
+<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
+kubectl --context kind-helm-expt-oci-demo get deploy,pods,svc -n nginx -o wide</code></pre>
+<p>You are looking for:</p>
+<pre><code>deployment.apps/nginx   1/1
+pod/nginx-...           1/1 Running
+service/nginx           ClusterIP</code></pre>
+<p>Check that ConfigHub marked the workload Units live:</p>
+<pre><code>cub unit list --space helm-expt-oci-demo-nginx \
+  --columns Unit.Slug,Target.Slug,UnitStatus.Status,Unit.LiveRevisionNum,Unit.LastAppliedRevisionNum</code></pre>
+<p>You are looking for:</p>
+<pre><code>6 workload Units are Ready on target oci.
+installer-record is NotLive.</code></pre>
+<p>In the ConfigHub UI, open space <code>helm-expt-oci-demo-cluster</code> to see <code>root</code> and <code>nginx-app</code>. Open space <code>helm-expt-oci-demo-nginx</code> to see the workload Units. In Argo CD, open <code>http://localhost:30010</code> and check that <code>root</code> and <code>nginx</code> are both <code>Synced</code> and <code>Healthy</code>.</p>
+<p>Verify the committed first-wave receipt index:</p>
+<pre><code>npm run runtime-gitops:wave:verify</code></pre>
+<p>Open the committed receipt index:</p>
+<pre><code>data/runtime-gitops/summary.md
+data/runtime-gitops/wave1.csv
+data/runtime-gitops/receipt-index.csv</code></pre>
+<p>What the receipt index should tell you:</p>
+<pre><code>The first-wave index validates the committed NGINX Argo/OCI receipt and lists
+the remaining chart/base/controller pairs that still need receipts.</code></pre>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-gitops-runtime-proof-tutorial.html">GitOps And Runtime Proof UX Proposal</a>.</p>
+<h2 id="tutorial-7-bulk-scan-and-bulk-patch">Tutorial 7: Bulk Scan And Bulk Patch</h2>
+<p>This shows the operating value once Helm output has become ConfigHub Units.</p>
+<pre><code>uploaded ConfigHub Units
+-&gt; bulk scan the selected Units
+-&gt; create a changeset
+-&gt; bulk patch metadata, gates, or approved fields
+-&gt; re-scan
+-&gt; bulk approve the reviewed revision</code></pre>
+<p>Use NGINX as the small example:</p>
+<pre><code>Component: NGINX
+Base variant: http-clusterip
+Space: helm-nginx-http-clusterip</code></pre>
+<p>Upload or select the reviewed base first:</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --base http-clusterip \
+  --work-dir .tmp/demo/nginx-http \
+  --non-interactive \
+  --namespace nginx
+
+cub installer upload \
+  --work-dir .tmp/demo/nginx-http \
+  --space helm-nginx-http-clusterip \
+  --component NGINX \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant http-clusterip \
+  --unit-label Component=NGINX \
+  --unit-label HelmChart=bitnami-nginx \
+  --unit-label HelmChartVersion=24.0.2 \
+  --unit-label Variant=http-clusterip</code></pre>
+<p>Check that the upload created NGINX Units:</p>
+<pre><code>cub unit list --space helm-nginx-http-clusterip \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant</code></pre>
+<p>Expect 7 Units: 6 NGINX Kubernetes objects plus <code>installer-record</code>.</p>
+<p>Bulk scan the uploaded Units:</p>
+<pre><code>cub function vet vet-format \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --output wide</code></pre>
+<p>Expect <code>Passed: true</code> for the 6 selected NGINX Units.</p>
+<p>Create a changeset for the patch:</p>
+<pre><code>cub changeset create \
+  --space helm-nginx-http-clusterip \
+  nginx-bulk-hardening \
+  --description &quot;Bulk hardening patch after scan&quot;</code></pre>
+<p>Check that the changeset exists:</p>
+<pre><code>cub changeset get --space helm-nginx-http-clusterip nginx-bulk-hardening</code></pre>
+<p>Expect the changeset to exist in <code>helm-nginx-http-clusterip</code>.</p>
+<p>Bulk patch metadata and gates for every matching Unit:</p>
+<pre><code>cub unit update --patch \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --changeset nginx-bulk-hardening \
+  --change-desc &quot;Mark NGINX Units as scanned and production-review gated&quot; \
+  --label ScanDisposition=reviewed \
+  --label Operation=bulk-scan-patch \
+  --delete-gate production-review \
+  --destroy-gate production-review</code></pre>
+<p>Check that the metadata and gates landed:</p>
+<pre><code>cub unit list --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --columns Unit.Slug,Unit.Labels.ScanDisposition,Unit.DeleteGates,Unit.DestroyGates</code></pre>
+<p>Expect 6 Units with <code>ScanDisposition=reviewed</code> and <code>production-review</code> gates.</p>
+<p>If there is an approved mutating function for the field you want to change, use <code>cub function set</code> instead of ad hoc file editing. Always dry-run first:</p>
+<pre><code>cub function set --dry-run \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --changeset nginx-bulk-hardening \
+  --output mutations \
+  set-image nginx nginx:1.25.5</code></pre>
+<p>Expect one changed path on <code>deployment-nginx-nginx</code>: <code>spec.template.spec.containers.?name=nginx.image</code>.</p>
+<p>Apply the same function after reviewing the mutation output:</p>
+<pre><code>cub function set \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --changeset nginx-bulk-hardening \
+  --change-desc &quot;Set reviewed NGINX image&quot; \
+  set-image nginx nginx:1.25.5</code></pre>
+<p>Check the changed image field:</p>
+<pre><code>cub unit data deployment-nginx-nginx --space helm-nginx-http-clusterip</code></pre>
+<p>Expect the main <code>nginx</code> container image to be <code>nginx:1.25.5</code>.</p>
+<p>Re-scan the changed Units:</p>
+<pre><code>cub function vet vet-format \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot; \
+  --changeset nginx-bulk-hardening \
+  --output wide</code></pre>
+<p>Expect <code>Passed: true</code> for the 6 selected NGINX Units.</p>
+<p>Bulk approve the reviewed current revisions:</p>
+<pre><code>cub unit approve \
+  --space helm-nginx-http-clusterip \
+  --where &quot;Labels.Component = 'NGINX' AND Labels.Variant = 'http-clusterip'&quot;</code></pre>
+<p>Verify the whole bulk-ops result:</p>
+<pre><code>npm run verify-bulk-ops:nginx -- \
+  --space helm-nginx-http-clusterip \
+  --changeset nginx-bulk-hardening</code></pre>
+<p>What success looks like:</p>
+<pre><code>PASS verify-bulk-ops:nginx helm-nginx-http-clusterip
+units: 6
+approved units: 6
+deployment image: nginx:1.25.5
+vet-format passes: 6</code></pre>
+<p>Where to look in the UI:</p>
+<pre><code>ConfigHub -&gt; Space helm-nginx-http-clusterip -&gt; Units
+ConfigHub -&gt; Space helm-nginx-http-clusterip -&gt; Changesets -&gt; nginx-bulk-hardening
+ConfigHub -&gt; Unit deployment-nginx-nginx -&gt; Data / Revisions</code></pre>
+<p>What this proves:</p>
+<pre><code>The scan targets a labeled set of rendered Units.
+The patch is tied to a changeset.
+Metadata and gates can be patched in bulk with cub unit update --patch.
+Data changes use approved mutating functions such as cub function set.
+Approval is also bulk and selector-based.</code></pre>
+<p>This is the bulk-ops story we want to demonstrate:</p>
+<pre><code>Helm gives you a rendered release.
+ConfigHub gives you a searchable object set you can scan, patch, review,
+approve, and audit as a group.</code></pre>
+<p>You can see a UX proposal for this stage here: <a href="ux-proposal-bulk-scan-patch-tutorial.html">Bulk Scan And Bulk Patch UX Proposal</a>.</p>
+<h2 id="see-what-you-built">See what you built</h2>
+<p>After completing the tutorials, browse the configurations you created in the ConfigHub UI:</p>
+<ul><li><a href="https://auth.confighub.com/x/promotion?app=Prometheus">Promotion view - Prometheus</a> - shows <code>server-only-ephemeral</code> and <code>prod-us-east</code> side by side with their cloned units and sync status (produced by Tutorials 3 and 4).</li><li>Use the left-hand component tree to navigate to Redis, NGINX, and other components you uploaded.</li></ul>
+<p><img alt="ConfigHub Promotion view showing server-only-ephemeral promoting to prod-us-east" src="../../../../docs/images/promotion-ui.png"></p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/tutorial-sequence.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

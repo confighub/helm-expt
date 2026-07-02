@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Security end to end (secrets, credentials, RBAC, scanning) · ConfigHub Helm Ops</title>
-  <meta name="description" content="Security end to end (secrets, credentials, RBAC, scanning): chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Security end to end (secrets, credentials, RBAC, scanning): a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/security-end-to-end.html">
   <meta property="og:title" content="Security end to end (secrets, credentials, RBAC, scanning) · ConfigHub Helm Ops">
-  <meta property="og:description" content="Security end to end (secrets, credentials, RBAC, scanning): chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Security end to end (secrets, credentials, RBAC, scanning): a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/security-end-to-end.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Security end to end (secrets, credentials, RBAC, scanning)</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="security-end-to-end.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/security-end-to-end.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -408,7 +408,7 @@
 <h2 id="4-scanning-adversarial-testing">4. Scanning + adversarial testing</h2>
 <p>Charts run through scan lanes plus <b>two</b> adversarial lanes:</p>
 <ul><li><b>F - deliberate breakers</b> (a skeptic trying to break it).</li><li><b>G - careless-dev randomness</b> (the <code>--set</code> footgun: across 180 random bad decisions, Helm caught ~1% at render, ~66% were silently absorbed, ~33% leaked to the API).</li></ul>
-<p>Findings get an <b>honest disposition</b>, never buried. (<a href="../../../../tests/README.md">test map</a> · <a href="../../../../tests/doctrine.md">doctrine</a>)</p>
+<p>Findings get an <b>honest disposition</b>, never buried. (<a href="../../tests/README.html">test map</a> · <a href="../../tests/doctrine.html">doctrine</a>)</p>
 <h2 id="the-throughline">The throughline</h2>
 <p>Every privileged or sensitive step is <b>visible before it runs</b> - <i>rendered</i> (RBAC, a generated Secret), <i>staged</i> (a target fact), <i>routed</i> (a hook), or surfaced as a <i>named error</i> (a missing credential). Never silent.</p>
 <p>→ deeper: <a href="how-it-works.html">how-it-works</a> · <a href="cub-deployment-path.html">cub-deployment-path</a> · <a href="target-prerequisites.html">target-prerequisites</a> · <a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a></p>

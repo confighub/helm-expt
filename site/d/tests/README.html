@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>helm-expt Test Map · ConfigHub Helm Ops</title>
+  <meta name="description" content="helm-expt Test Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/README.html">
+  <meta property="og:title" content="helm-expt Test Map · ConfigHub Helm Ops">
+  <meta property="og:description" content="helm-expt Test Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/README.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../try.html">Get Started</a><a href="../../charts/index.html">Helm Ops Catalog</a><a href="../../how-it-works.html">How it works</a><a href="../../journey.html">Apps</a><a href="../../docs.html">Docs/FAQ</a><a href="../../private/">Upgrade</a></span></nav></div>
+    <h1>helm-expt Test Map</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/README.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This is the starting page for <b>all</b> helm-expt testing. It maps every test class across the four systems we exercise - <b>Helm · Kubernetes · ConfigHub · cub</b> - to where it lives and its honest coverage. The detailed strategy, command runbooks, runners, and UX surfaces are the layers beneath it (see <a href="#the-layers">The layers</a>).</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Testing here means <i>claims matched to evidence</i>, not green-for-its-own-sake. The bar is <b>verified disposition, not &quot;everything green&quot;</b> (see <a href="#how-we-state-coverage">How we state coverage</a>).</p>
+<h2 id="the-four-systems-we-test">The four systems we test</h2>
+<ul><li><b>Helm</b> - does <code>cub installer</code> render the same object set as regular Helm, and what happens to Helm hooks?</li><li><b>Kubernetes</b> - do the rendered objects actually run on a cluster (local kind, and strict two-cluster parity)?</li><li><b>ConfigHub</b> - do the objects become Units, scan, upload via OCI, reconcile under Argo/Flux, and promote across variants?</li><li><b>cub</b> - do <code>cub installer</code>, <code>cub variant</code>, and <code>cub-scout</code> (day-1 preview) do what the catalog claims?</li></ul>
+<h2 id="test-classes">Test classes</h2>
+<table><thead><tr><th>Group</th><th>Classes</th></tr></thead><tbody><tr><td><b>A. Static verification</b> (offline <code>npm run verify</code>)</td><td>corpus representation · render parity · disposition/frontier · <b>chart-page claim integrity</b> · <b>chart-page omission lint</b> · consistency gates (doc-map, data-index, npm-script-catalog, site)</td></tr>
+<tr><td><b>B. Live cluster proof</b> (kind, serial, receipted)</td><td>local k8s live · strict two-cluster kind-parity · GitOps/OCI (Argo/Flux) · live Helm-vs-ConfigHub parity · variant-promotion</td></tr>
+<tr><td><b>C. Lifecycle / hooks</b></td><td>observe → <b>execute</b> → <b>emit</b> (GitOps-native)</td></tr>
+<tr><td><b>D. Day-1 preview</b> (cub-scout)</td><td><code>compare three-way --dry-from</code> (desired-vs-live, drift)</td></tr>
+<tr><td><b>E. UX / journey</b></td><td>journey pathways · website-UX walkthrough · outside-user · adversarial-persona probe</td></tr>
+<tr><td><b>F. Adversarial / refusal boundary</b> (a <i>deliberate</i> skeptic breaking the model)</td><td>torture suite · adversarial-10 · quirk &amp; pain-point coverage</td></tr>
+<tr><td><b>G. Careless-dev randomness</b> (an <i>ordinary</i> dev making silly decisions, repeatedly, at volume)</td><td>random-bad-decisions fuzz</td></tr>
+<tr><td><b>cub-installer fuzz</b> (bad or weird input aimed at our tool)</td><td>cub installer fuzz · namespace/input/image validation · injection checks</td></tr>
+<tr><td><b>H. Helm-fluent migrant friction</b> (valid Helm habits applied to cub)</td><td>Helm idioms rejected safely, with migration guidance measured</td></tr></tbody></table>
+<h2 id="the-coverage-matrix">The coverage matrix</h2>
+<p>Which system each class exercises, where it lives, and its honest coverage. Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative - the <b>authoritative live numbers</b> are in the generated surface linked per row.</p>
+<table><thead><tr><th>Test class</th><th>Helm</th><th>k8s</th><th>ConfigHub</th><th>cub</th><th>Lives in</th><th>Honest coverage</th></tr></thead><tbody><tr><td>Render parity</td><td>●</td><td>–</td><td>–</td><td>●</td><td><code>&lt;chart&gt;:compare</code>, helm-equivalence receipts</td><td><b>complete</b> - every catalog base (R all pass) → <a href="../data/outcome-coverage/summary.html">outcome-coverage</a></td></tr>
+<tr><td>Disposition / frontier</td><td>meta</td><td>meta</td><td>meta</td><td>meta</td><td><a href="../data/disposition-frontier/summary.html">disposition-frontier</a>, <a href="../data/master-catalog-matrix/summary.html">master-catalog-matrix</a></td><td><b>100% verified disposition, 0 genuine todo</b></td></tr>
+<tr><td>Chart-page claim integrity</td><td>●</td><td>○</td><td>●</td><td>●</td><td><code>chart-claim-integrity:verify</code>, <a href="../docs/planning/chart-claim-integrity-audit-2026-06-22.html">claim-integrity audit</a></td><td>gate is green: chart pages must not make claims that contradict their cited receipts; remaining warnings stay visible → <a href="../data/chart-claim-integrity-audit-2026-06-22/summary.html">live findings</a></td></tr>
+<tr><td>Chart-page omission lint</td><td>○</td><td>○</td><td>○</td><td>●</td><td><code>site:ux:verify</code></td><td>gate is green: chart pages must not leak unresolved <code>&lt;action&gt;: unknown</code> next-action placeholders or raw <code>&lt;tmp&gt;</code> work-dir placeholders</td></tr>
+<tr><td>ConfigHub proof (scan/safe-ops)</td><td>–</td><td>–</td><td>●</td><td>●</td><td>confighub proof lanes, <code>&lt;chart&gt;:verify-proof</code></td><td>complete in-ConfigHub → <a href="../data/outcome-coverage/summary.html">outcome-coverage</a></td></tr>
+<tr><td>Local k8s live</td><td>●</td><td>●</td><td>○</td><td>●</td><td><code>chart-install-test</code>, local-live receipts</td><td>partial, receipt-gated → <a href="../data/status-dashboard/summary.html">status-dashboard</a></td></tr>
+<tr><td>Strict kind-parity (2-cluster)</td><td>●</td><td>●</td><td>–</td><td>●</td><td><code>live-helm-installer-kind-parity-test</code>, <code>kind-parity:run</code></td><td>partial → <a href="../data/live-kind-parity/summary.html">live-kind-parity</a></td></tr>
+<tr><td>GitOps / OCI live</td><td>○</td><td>●</td><td>●</td><td>●</td><td><code>chart-install-test</code>, <a href="../data/runtime-gitops/summary.html">runtime-gitops</a></td><td>partial → <a href="../data/live-helm-confighub-compare/summary.html">live-helm-confighub-compare</a></td></tr>
+<tr><td>Live Helm-vs-ConfigHub parity</td><td>●</td><td>●</td><td>●</td><td>●</td><td><code>live-helm-confighub-parity-test</code></td><td>partial → <a href="../data/live-parity-rerun-plan/summary.html">live-parity-rerun-plan</a></td></tr>
+<tr><td>Variant-promotion</td><td>–</td><td>–</td><td>●</td><td>●</td><td><code>target-bound-derived-variant-test</code>, promotion receipts</td><td>180 proven → <a href="../data/variant-promotion/summary.html">variant-promotion</a></td></tr>
+<tr><td>Lifecycle / hooks (observe→execute→emit)</td><td>●</td><td>●</td><td>○</td><td>○</td><td><a href="../data/hook-lifecycle/summary.html">hook-lifecycle</a>, <code>run-hook-test-proof</code> / <code>run-hook-execution-proof</code>, <a href="../data/gitops-route-emission/summary.html">gitops-route-emission</a></td><td>partial - observed for maintained hook charts; execute + emit proven; routed-but-unobserved cells remain → <a href="../data/lifecycle-boundary/summary.html">lifecycle-boundary</a></td></tr>
+<tr><td>cub-scout day-1 preview</td><td>○</td><td>●</td><td>○</td><td>●</td><td>cub-scout <code>compare three-way --dry-from</code></td><td>shipped command, design-stage coverage → <a href="../data/cub-scout-diff/summary.html">cub-scout-diff</a></td></tr>
+<tr><td>UX: journey pathways</td><td>●</td><td>●</td><td>●</td><td>●</td><td><a href="../docs/user/pathway-route-hooks-transparently.html">docs/user/pathway-*</a>, <a href="../docs/planning/user-journey-test-pathways-plan.html">user-journey-test-pathways-plan</a></td><td>partial - Pathway 1 (hooks) shipped; others pending</td></tr>
+<tr><td>UX: website / outside-user / adversarial</td><td>spans</td><td>spans</td><td>spans</td><td>spans</td><td><a href="../WEBSITE_UX_TEST.html">WEBSITE_UX_TEST.md</a>, <a href="../docs/planning/outside-user-test.html">outside-user-test</a>, <a href="../docs/planning/pilot-adversarial-testing.html">pilot-adversarial-testing</a>, <a href="adversarial-strategy.html">adversarial-strategy.md</a></td><td>runbook + plan + probe method</td></tr>
+<tr><td>Persona UX strategy</td><td>spans</td><td>spans</td><td>spans</td><td>spans</td><td><a href="persona-ux-strategy.html">persona-ux-strategy.md</a>, <a href="https://github.com/confighub/helm-expt/issues/1018">issue #1018</a></td><td>repeatable site critique method: personas, seed questions, run log, ranked improvements</td></tr>
+<tr><td>Adversarial / refusal boundary</td><td>●</td><td>○</td><td>–</td><td>–</td><td><a href="../data/torture-suite/summary.html">torture-suite</a>, <a href="../data/adversarial10/summary.html">adversarial10</a>, <a href="../data/quirk-coverage/summary.html">quirk-coverage</a></td><td>refusal boundary covered</td></tr>
+<tr><td>Random-bad-decisions fuzz</td><td>●</td><td>○</td><td>–</td><td>–</td><td><code>run-bad-decisions-fuzz</code>, <a href="../data/bad-decisions-fuzz/summary.html">bad-decisions-fuzz</a></td><td>180 cases, 0 unclassified (rejected 1% / leaked 33% / absorbed 66%)</td></tr>
+<tr><td>cub-installer fuzz</td><td>–</td><td>○</td><td>–</td><td>●</td><td><code>cub-installer:fuzz</code>, <a href="../data/cub-installer-fuzz/summary.html">cub-installer-fuzz</a></td><td>pass - 96 cases, 0 serious bugs; namespace validation rough edges visible</td></tr>
+<tr><td>Helm-fluent migrant friction</td><td>●</td><td>–</td><td>–</td><td>●</td><td><code>helm-habit:friction</code>, <a href="../data/helm-habit-friction/summary.html">helm-habit-friction</a>, <a href="../docs/user/helm-to-cub-migration.html">Helm→cub migration guide</a></td><td>pass for safety - 72/72 valid Helm idioms rejected; watch the 72/72 opaque guidance gap</td></tr>
+<tr><td>cub-installer determinism</td><td>–</td><td>–</td><td>–</td><td>●</td><td><code>cub-installer:determinism</code>, <a href="../data/cub-installer-determinism/summary.html">cub-installer-determinism</a></td><td>pass - 12/12 packages rendered byte-identically twice</td></tr>
+<tr><td>Default credential check</td><td>–</td><td>–</td><td>○</td><td>●</td><td><code>default-credential:check</code>, <a href="../data/default-credential-check/summary.html">default-credential-check</a></td><td>watch - 5/12 default bases ship fixed placeholder credentials; 4 names are misleading</td></tr>
+<tr><td>cub-scout drift field coverage</td><td>–</td><td>●</td><td>○</td><td>●</td><td><code>drift-gap:proof</code>, <a href="../data/drift-detection-gap/summary.html">drift-detection-gap</a></td><td>watch - replicas drift detected; container env-var drift missed</td></tr>
+<tr><td>cub-direct CRD ordering</td><td>–</td><td>●</td><td>○</td><td>●</td><td><code>crd-ordering:proof</code>, <a href="../data/crd-ordering-gap/summary.html">crd-ordering-gap</a></td><td>watch - first install of CRD+CR bundles needs CRD-first ordering or a controller</td></tr>
+<tr><td>cub-direct prune gap</td><td>–</td><td>●</td><td>○</td><td>●</td><td><code>prune-gap:proof</code>, <a href="../data/prune-gap-proof/summary.html">prune-gap-proof</a></td><td>watch - cub-direct plain apply leaves removed resources orphaned; Argo/Flux prune</td></tr>
+<tr><td>SSA conflict gap</td><td>–</td><td>●</td><td>○</td><td>●</td><td><code>ssa-conflict:proof</code>, <a href="../data/ssa-conflict-gap/summary.html">ssa-conflict-gap</a></td><td>watch - server-side apply protects manual edits with a conflict, but the raw error needs a plain reconcile/force path</td></tr></tbody></table>
+<h2 id="how-we-state-coverage">How we state coverage</h2>
+<p>This is the honesty rule that keeps the map trustworthy:</p>
+<ol><li><b>&quot;Complete / 100%&quot; applies only to the static catalog parity &amp; verification</b> - render parity and verified disposition. That part is genuinely finished (1194 frontier cells, 100% verified disposition, 0 genuine todo).</li><li><b>Every live / lifecycle / UX class states its own honest coverage</b> - counts, <code>watch</code>/<code>blocked</code>, and what's pending - <b>never rolled up into a blanket &quot;100% of everything.&quot;</b> <code>watch</code> ≠ <code>pass</code>; promotion-proven ≠ production-proven; render parity ≠ live-ready; a routed hook ≠ an executed hook.</li><li><b>Each number cites its generated surface</b> (linked above), so the map stays honest and current instead of asserting. The live dashboard is <a href="../data/status-dashboard/summary.html">status-dashboard</a>; this page is the map.</li></ol>
+<h2 id="the-layers">The layers</h2>
+<p>The map routes into the existing detail - fit around this page, not replaced by it:</p>
+<table><thead><tr><th>For…</th><th>Go to</th></tr></thead><tbody><tr><td><b>The standing principles (OCI transport · Argo+Flux+kubectl · never-silent · quirks through ConfigHub)</b></td><td><b><a href="doctrine.html">doctrine.md</a></b></td></tr>
+<tr><td>What claim each lane proves (the Coverage Ladder)</td><td><a href="strategy.html">strategy.md</a></td></tr>
+<tr><td>Which <code>npm run …</code> matches my edit</td><td><a href="npm-scripts.html">npm-scripts.md</a></td></tr>
+<tr><td>The generated inventory of every script</td><td><a href="npm-script-catalog.html">npm-script-catalog.md</a></td></tr>
+<tr><td>The exact reproducible per-chart procedure</td><td><a href="runbook.html">runbook.md</a></td></tr>
+<tr><td>The persona / tier-aware adversarial usage probe</td><td><a href="adversarial-strategy.html">adversarial-strategy.md</a></td></tr>
+<tr><td>Persona-based public-site UX testing</td><td><a href="persona-ux-strategy.html">persona-ux-strategy.md</a></td></tr>
+<tr><td>Whether a chart page's claims match its cited receipts</td><td><code>chart-claim-integrity:verify</code> · <a href="../docs/planning/chart-claim-integrity-audit-2026-06-22.html">claim-integrity audit</a></td></tr>
+<tr><td>Whether chart pages leak unresolved UX placeholders</td><td><code>site:ux:verify</code></td></tr>
+<tr><td>The fuzz and Helm-migrant roadmap</td><td><a href="../docs/planning/fuzz-corpus-tests-roadmap.html">fuzz-corpus-tests-roadmap.md</a></td></tr>
+<tr><td>The recorded F1–F4 findings</td><td><a href="findings.html">findings.md</a></td></tr>
+<tr><td>The top-100 runtime/GitOps sweep plan</td><td><a href="top100-runtime-gitops.html">top100-runtime-gitops.md</a></td></tr>
+<tr><td>Current aggregate status (the live dashboard)</td><td><a href="../data/status-dashboard/summary.html">status-dashboard</a></td></tr></tbody></table>
+<h2 id="test-cadence">Test cadence</h2>
+<p>Use scoped checks while working. Use the full repository verifier (<code>npm run verify</code>) as a broad release gate after focused checks pass. Use live tests only to create or refresh live evidence.</p>
+<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>Which check matches my edit?</td><td><a href="npm-scripts.html">npm-scripts.md</a></td></tr>
+<tr><td>What does this exact <code>npm run …</code> do?</td><td><a href="npm-script-catalog.html">npm-script-catalog.md</a></td></tr>
+<tr><td>What claim does each lane prove?</td><td><a href="strategy.html">strategy.md</a></td></tr>
+<tr><td>What is the current chart/base status?</td><td><a href="../data/status-dashboard/summary.html">status-dashboard</a></td></tr>
+<tr><td>Which live rows to rerun next?</td><td><a href="../data/live-parity-rerun-plan/summary.html">live-parity-rerun-plan</a></td></tr></tbody></table>
+<p>Do not use <code>npm run verify</code> as a substitute for a fresh live test (it verifies the committed corpus and receipts). Do not use a live test as a substitute for render parity. They prove different things.</p>
+<h2 id="clusterruntime-runners-resolve-the-repo-from-their-own-location">Cluster/runtime runners (resolve the repo from their own location)</h2>
+<ul><li><code>chart-install-test</code> - install one chart/base via <code>cub installer</code> → ConfigHub → OCI → Argo on a cub-lk rig; verify runtime + three-way agreement; emit a receipt.</li><li><code>chart-install-sweep</code> - shardable top-20 driver: <code>--rig &lt;cub-lk&gt; [--shard i/n] [--slugs a,b]</code>.</li><li><code>live-helm-installer-kind-parity-test</code> - strict two-cluster Helm-vs-installer parity (no cub-lk needed).</li><li><code>live-helm-confighub-parity-test</code> - live Helm vs ConfigHub delivery, dual compare.</li><li><code>target-bound-derived-variant-test</code> - <code>cub variant create --target</code>, deliver cloned Units via OCI/Argo, verify runtime, emit a receipt.</li><li><code>existing-secret-proof</code> - the F3 fix path: pre-provision the Secret, install the existing-secret base, confirm Ready.</li><li>Lifecycle proofs: <code>npm run hook-test:proof</code> / <code>hook-execution:proof</code> (and <code>:verify</code>) - route a hook as an explicit, receipted action on a throwaway kind cluster.</li></ul>
+<h2 id="run-standalone">Run (standalone)</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>cub auth login                      # verify: cub organization list (NOT cub info)
+cub plugin install jesperfj/cub-lk  # verify: cub lk version
+cub lk up --name myrig
+tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \
+  --namespace nginx --rig myrig --json     # add --helm-expt . if run from elsewhere
+cub lk down --name myrig</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>tests/README.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

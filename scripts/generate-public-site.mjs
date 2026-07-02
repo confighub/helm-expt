@@ -620,6 +620,9 @@ function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
   const subject = pageTitle(html).replace(/\s*·\s*ConfigHub Helm Ops$/, "");
+  if (relPath.startsWith("d/")) {
+    return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
+  }
   return `${subject}: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.`;
 }
 
@@ -712,6 +715,9 @@ function rewriteMdHrefs(html, pageRelPath, renderedDocs) {
     if (isExternalHref(value)) return whole;
     const resolved = resolveRelativeHref(pageDir, value);
     if (!resolved || !renderedDocs.has(resolved.target)) return whole;
+    // A rendered doc's own view-source link must keep pointing at the raw
+    // markdown, not at the page itself.
+    if (`site/${renderedDocRelPath(resolved.target)}` === `site/${pageRelPath}`) return whole;
     const out = posix.relative(pageDir, `site/${renderedDocRelPath(resolved.target)}`);
     return `href="${out}${resolved.fragment}"`;
   });
@@ -944,9 +950,38 @@ function collectMdTargets(site) {
   return [...targets].sort();
 }
 
+function markdownLinkTargets(repoPath) {
+  const markdown = readFileSync(join(repoRoot, repoPath), "utf8").replace(/```[\s\S]*?```/g, "");
+  const targets = [];
+  for (const match of markdown.matchAll(/\]\(([^)\s]+)\)/g)) {
+    const href = match[1];
+    if (isExternalHref(href)) continue;
+    const resolved = resolveRelativeHref(posix.dirname(repoPath), href);
+    if (!resolved || !resolved.target.endsWith(".md")) continue;
+    if (resolved.target.startsWith("..") || resolved.target.startsWith("site/")) continue;
+    if (!existsSync(join(repoRoot, resolved.target))) continue;
+    targets.push(resolved.target);
+  }
+  return targets;
+}
+
 function buildDocPages(catalog, site) {
   const targets = collectMdTargets(site);
   const rendered = new Set(targets.filter((target) => existsSync(join(repoRoot, target))));
+  // Close the set over doc-to-doc markdown links, so the site chrome never
+  // drops away along a link chain between rendered documents.
+  let frontier = [...rendered];
+  while (frontier.length) {
+    const next = [];
+    for (const repoPath of frontier) {
+      for (const target of markdownLinkTargets(repoPath)) {
+        if (rendered.has(target)) continue;
+        rendered.add(target);
+        next.push(target);
+      }
+    }
+    frontier = next;
+  }
   const pages = [...rendered].sort().map((repoPath) => ({
     repoPath,
     relPath: renderedDocRelPath(repoPath),

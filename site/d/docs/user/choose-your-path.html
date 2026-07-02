@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Choose Your Path · ConfigHub Helm Ops</title>
-  <meta name="description" content="Choose Your Path: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Choose Your Path: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/choose-your-path.html">
   <meta property="og:title" content="Choose Your Path · ConfigHub Helm Ops">
-  <meta property="og:description" content="Choose Your Path: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Choose Your Path: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/choose-your-path.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Choose Your Path</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="choose-your-path.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choose-your-path.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
@@ -416,13 +416,13 @@
 <ul><li>private charts, private values, custom catalogs, customer overlays, or wrapper charts;</li><li>environment, region, customer, target, or promotion variants;</li><li>teams, approvals, target facts, links, policies, gates, scans, and receipts;</li><li>GitOps/OCI operations, observations, audits, and rollback evidence;</li><li>bulk scan, patch, review, approve, promote, observe, and audit work;</li><li>full stacks, production support decisions, old-version support, patch and upgrade services, SLAs, and enterprise workflows.</li></ul>
 <p>The dividing line is simple: public packages help you inspect and verify public chart bases; ConfigHub manages private inputs, teams, approvals, operational state, and production workflows.</p>
 <h2 id="tutorial-routing">Tutorial Routing</h2>
-<table><thead><tr><th>If you want to see...</th><th>Start here</th><th>What it teaches</th></tr></thead><tbody><tr><td>The shortest public package render</td><td><a href="../../../../docs/user/try-now.md">Try Now</a></td><td>Redis setup plus local render verification.</td></tr>
-<tr><td>The full first-run sequence</td><td><a href="../../../../docs/user/tutorial-sequence.md">Tutorial Sequence</a></td><td>Redis render/upload, secret modes, Prometheus bases, promotions, overlays, GitOps/runtime proof, and bulk operations.</td></tr>
-<tr><td>Why a values choice becomes a base</td><td><a href="../../../../docs/user/tutorial-sequence.md#tutorial-3-prometheus-base-variant">Prometheus Base Variant</a></td><td>Helm render choices belong in the <code>cub installer</code> base path.</td></tr>
-<tr><td>Why a prod/customer change can avoid rerendering Helm</td><td><a href="../../../../docs/user/tutorial-sequence.md#tutorial-4-prometheus-promotion-variant">Prometheus Promotion Variant</a></td><td>Derived ConfigHub variants clone reviewed Units and add operational metadata.</td></tr>
+<table><thead><tr><th>If you want to see...</th><th>Start here</th><th>What it teaches</th></tr></thead><tbody><tr><td>The shortest public package render</td><td><a href="try-now.html">Try Now</a></td><td>Redis setup plus local render verification.</td></tr>
+<tr><td>The full first-run sequence</td><td><a href="tutorial-sequence.html">Tutorial Sequence</a></td><td>Redis render/upload, secret modes, Prometheus bases, promotions, overlays, GitOps/runtime proof, and bulk operations.</td></tr>
+<tr><td>Why a values choice becomes a base</td><td><a href="tutorial-sequence.html#tutorial-3-prometheus-base-variant">Prometheus Base Variant</a></td><td>Helm render choices belong in the <code>cub installer</code> base path.</td></tr>
+<tr><td>Why a prod/customer change can avoid rerendering Helm</td><td><a href="tutorial-sequence.html#tutorial-4-prometheus-promotion-variant">Prometheus Promotion Variant</a></td><td>Derived ConfigHub variants clone reviewed Units and add operational metadata.</td></tr>
 <tr><td>How wrapper charts and customer overlays are routed</td><td><a href="custom-overlays.html">Custom Overlays</a></td><td>Private overlays and managed imports belong in ConfigHub workflows.</td></tr>
 <tr><td>How to verify live/runtime claims</td><td><a href="chain-of-proof.html">Chain Of Proof</a> and <a href="live-parity.html">Live Parity</a></td><td>Render proof, ConfigHub desired state, GitOps handoff, and live observation are separate claims.</td></tr>
-<tr><td>How bulk operations create value after upload</td><td><a href="../../../../docs/user/tutorial-sequence.md#tutorial-7-bulk-scan-and-bulk-patch">Tutorial Sequence</a></td><td>Once objects are Units, teams can scan, patch, review, approve, and audit many objects together.</td></tr></tbody></table>
+<tr><td>How bulk operations create value after upload</td><td><a href="tutorial-sequence.html#tutorial-7-bulk-scan-and-bulk-patch">Tutorial Sequence</a></td><td>Once objects are Units, teams can scan, patch, review, approve, and audit many objects together.</td></tr></tbody></table>
 <h2 id="rule-of-thumb">Rule Of Thumb</h2>
 <p>If the change alters Helm inputs, object count, object shape, topology, CRDs, RBAC, lifecycle behavior, or chart branches, route it through a <code>cub installer</code> base.</p>
 <p>If the change refines an already-reviewed object set with environment, target, labels, gates, links, approved post-render fields, observation policy, or promotion metadata, route it through a derived ConfigHub variant.</p>
@@ -431,7 +431,7 @@
 <p>Plain Helm is enough when the only job is to render or install once. The catalog adds value before install by making the selected base explicit and reviewable. ConfigHub adds value after upload because every object is a Unit that can be diffed, scanned, gated, linked, approved, promoted, observed, and audited.</p>
 <p>The day-0 path is choosing a public base and verifying what it renders. The day-1 path is creating a derived variant for an environment, customer, region, or target without rerendering Helm. The day-2 path is operating many reviewed variants through bulk scans, patches, approvals, promotions, GitOps/OCI handoffs, observations, upgrades, rollbacks, and receipts.</p>
 <h2 id="next">Next</h2>
-<ul><li><a href="../../../../docs/user/try-now.md">Try Now</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="../../../../docs/user/tutorial-sequence.md">Tutorial Sequence</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
+<ul><li><a href="try-now.html">Try Now</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="tutorial-sequence.html">Tutorial Sequence</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/choose-your-path.md</code>. The source file is the authoritative version.</p></footer>

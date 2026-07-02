@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chart to Recipe to Manifest Flow · ConfigHub Helm Ops</title>
+  <meta name="description" content="Chart to Recipe to Manifest Flow: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/chart-recipe-manifest-flow.html">
+  <meta property="og:title" content="Chart to Recipe to Manifest Flow · ConfigHub Helm Ops">
+  <meta property="og:description" content="Chart to Recipe to Manifest Flow: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/chart-recipe-manifest-flow.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Chart to Recipe to Manifest Flow</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/chart-recipe-manifest-flow.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This note describes the proposed ConfigHub/cub installer flow for Helm-derived packages, where every source of new information is made explicit and every risky Helm feature is handled at the right stage.</p>
+<h2 id="mission">Mission</h2>
+<p>The Helm mission is to remove as much Helm pain as possible by moving hidden rendering, variation, review, delivery, and observation concerns into explicit ConfigHub artifacts and receipts.</p>
+<p>That does not mean &quot;never use Helm&quot;. It means Helm stops being the only place where the user has to reason about hidden state, invisible generator behavior, values-file guesswork, and fragile one-off deployment scripts.</p>
+<p>The promise:</p>
+<pre><code>Use the Helm ecosystem.
+Import once.
+Vary freely.
+Review the exact Kubernetes objects.
+Scan every important variant.
+Deploy approved revisions without re-rendering and hoping.
+Keep receipts for what changed, who approved it, what was applied, and what external observers saw live.</code></pre>
+<p>The 60-second story:</p>
+<pre><code>Helm generates Kubernetes objects. ConfigHub captures those objects as
+immutable variant revisions. You approve the exact rendered objects, scan them
+before install, promote the same revision to prod, see why environments differ,
+and get receipts proving what changed and what was observed.
+
+Use Helm charts. Ship ConfigHub variants.</code></pre>
+<p>From the attached &quot;first two problems&quot; note, the product should directly answer these user pains:</p>
+<ul><li>&quot;I do not want to approve a values file and hope. I want to approve the exact Kubernetes objects that will be applied.&quot;</li><li>&quot;I deployed the same thing to prod and got something subtly different. I have no idea why.&quot;</li><li>&quot;I need the thing we tested in staging to be the exact thing we promote to prod, not a generator we rerun and hope produces the same output.&quot;</li><li>&quot;Our vendor pushed a chart upgrade. Half my customisations still work, half conflict.&quot;</li><li>&quot;SecOps patched the base image. I need to roll it across 12 customer environments without breaking any of them.&quot;</li><li>&quot;I can't tell what changed, what landed, or whether prod saw the same thing dev approved.&quot;</li></ul>
+<p>So the mission is not just deterministic import. The mission is a managed variant family:</p>
+<pre><code>managed variants
++ tracked operations
++ signed receipts
++ exact rendered artifacts
++ bulk checks
++ day-2 propagation
+= less hidden Helm pain, with explicit blockers where automation is unsafe</code></pre>
+<h2 id="variants-are-the-product-spine">Variants Are the Product Spine</h2>
+<p>The ConfigHub variants model should be the center of the Helm story.</p>
+<p>Helm's native unit is a chart release. Git's native unit is a file change. Argo CD and Flux mainly operate desired-state sources and sync status. None of those is quite the object the user cares about when they say:</p>
+<pre><code>dev, staging, prod, EU, Customer A, GPU region, HA mode, TLS mode</code></pre>
+<p>Those are variants.</p>
+<p>In the new flow:</p>
+<pre><code>recipe
+  -&gt; variant
+  -&gt; variant revision
+  -&gt; rendered manifest set
+  -&gt; scan results
+  -&gt; install/operate receipts</code></pre>
+<p>Definitions:</p>
+<ul><li><b>Recipe</b>: the reusable source model imported from Helm/Kustomize/raw manifests/etc.</li><li><b>Variant</b>: a named desired-state member of the family, such as <code>prod-eu</code>, <code>customer-a</code>, <code>ha-tls</code>, or <code>gke-gpu</code>.</li><li><b>Variant revision</b>: an immutable approved version of that variant, with values, overlays, facts, capability profile, generated facts, and rendered manifests fixed.</li><li><b>Operation</b>: an action against one or more variant revisions: install, promote, deploy, remediate, rollback, rescan, reobserve.</li><li><b>Receipt</b>: evidence for the operation or observation: inputs, outputs, authority, target, result, observer, and freshness.</li></ul>
+<p>This is the user promise:</p>
+<pre><code>You do not manage piles of Helm values files.
+You manage a family of variants.
+Each variant has approved revisions.
+Each revision has exact rendered objects and receipts.</code></pre>
+<p>A variant is only real if it carries enough state to be approved, promoted, compared, scanned, and operated. A values file with a nicer label is not a complete variant.</p>
+<p>A ConfigHub variant revision must include:</p>
+<ul><li>Recipe inputs.</li><li>Environment and target fact values used during render, satisfying the target fact requirements declared by the recipe.</li><li>Capability profile.</li><li>Generated facts or generated secret handles.</li><li>Rendered release objects.</li><li>Immutable revision identity.</li><li>Diff from another variant or revision.</li><li>Scan and gate result.</li><li>Operation and observation receipts.</li></ul>
+<h2 id="five-objections-five-answers">Five Objections, Five Answers</h2>
+<p>The answer must be:</p>
+<pre><code>Less Helm pain. Not more platform ceremony.</code></pre>
+<h3 id="1-is-this-another-abstraction-on-top-of-helm">1. &quot;Is this another abstraction on top of Helm?&quot;</h3>
+<p>No. Helm remains the chart ecosystem. ConfigHub adds the missing managed object:</p>
+<pre><code>Use Helm charts.
+Ship ConfigHub variants.</code></pre>
+<p>ConfigHub is not a new templating religion. It is a variant manager, receipt layer, and operation record.</p>
+<h3 id="2-will-this-work-with-my-real-charts">2. &quot;Will this work with my real charts?&quot;</h3>
+<p>The first job is to explain the chart before install:</p>
+<pre><code>OK: values, dependencies, CRDs
+Needs facts: lookup Secret redis-password
+Needs policy: pre-install hook
+Blocked: unpinned post-renderer</code></pre>
+<p>That is already better than Helm failing late, silently ignoring values, or hiding behavior inside render-time side effects.</p>
+<h3 id="3-is-this-too-much-process-for-small-teams">3. &quot;Is this too much process for small teams?&quot;</h3>
+<p>The simple path stays simple:</p>
+<pre><code>install
+review/plan
+publish</code></pre>
+<p>Receipts, scans, and variant records are produced automatically. Teams can add approvals, variant matrices, initiatives, and promotion workflows when they need them.</p>
+<h3 id="4-who-owns-truth-git-helm-argo-flux-the-cluster-or-confighub">4. &quot;Who owns truth: Git, Helm, Argo, Flux, the cluster, or ConfigHub?&quot;</h3>
+<p>Each keeps its job:</p>
+<pre><code>Helm supplies charts.
+Git stores files.
+Argo/Flux sync clusters.
+ConfigHub records variants, operations, and proof.
+cub-scout, GitOps, CI, and other external observers report live state.</code></pre>
+<p>ConfigHub is the operational system of record. It can emit Git, OCI, YAML, or GitOps inputs instead of replacing delivery tools.</p>
+<h3 id="5-what-happens-when-yaml-needs-to-change">5. &quot;What happens when YAML needs to change?&quot;</h3>
+<p>Change the variant. Do not guess through values files.</p>
+<pre><code>Helm: change values, hope the path works, rerender, compare noise.
+ConfigHub: change variant, see affected fields, scan exact output, promote approved revision.</code></pre>
+<p>The crisp headline:</p>
+<pre><code>Helm gives you charts.
+ConfigHub gives you managed, reviewable, scannable, promotable variants from those charts.</code></pre>
+<p>User-facing naming should stay simple:</p>
+<table><thead><tr><th>Technical phrase</th><th>Public phrase</th></tr></thead><tbody><tr><td>recipe import</td><td>Helm Recipe Import</td></tr>
+<tr><td>base variants</td><td>Install Variants</td></tr>
+<tr><td>rendered manifest sets</td><td>Rendered Release Objects</td></tr>
+<tr><td>install gate</td><td>Verified Install Gate</td></tr>
+<tr><td>operation records</td><td>Receipts</td></tr>
+<tr><td>captured target/capability/generated facts</td><td>environment facts used during render</td></tr></tbody></table>
+<p>Keep the heavier terms in schemas and technical docs. Do not put them in the headline.</p>
+<p>Core flow:</p>
+<pre><code>Helm chart source
+  -&gt; Helm Recipe Import
+  -&gt; ConfigHub Install Variants
+  -&gt; immutable variant revisions
+  -&gt; environment facts used during render
+  -&gt; Rendered Release Objects
+  -&gt; scan exact objects before install
+  -&gt; Verified Install Gate
+  -&gt; ConfigHub operate/day-2 lifecycle</code></pre>
+<p>The important product claim is not &quot;ConfigHub scans Helm charts once&quot;. It is:</p>
+<pre><code>ConfigHub makes Helm's possible install outputs explicit, reproducible, attributable, and scannable.</code></pre>
+<p>The user-facing version is:</p>
+<pre><code>With cub, Helm becomes an input format. The thing you approve, scan, promote, roll back, and operate is an addressable ConfigHub variant revision with receipts.</code></pre>
+<h2 id="build-on-confighubinstaller">Build on <code>confighub/installer</code></h2>
+<p>This plan should be built on <a href="https://github.com/confighub/installer"><code>confighub/installer</code></a>, not as a separate Helm system.</p>
+<p>Installer already has much of the substrate:</p>
+<ul><li><code>cub installer</code> plugin entrypoint.</li><li>Package authoring with <code>installer.yaml</code>.</li><li>Kustomize bases and components.</li><li>Inputs, selection, and deterministic <code>out/spec/</code> state.</li><li>Collector-produced <code>facts.yaml</code>.</li><li>ConfigHub function chains and validators.</li><li>Dependency resolution and lock files.</li><li>Deterministic package bundling.</li><li>OCI push/pull/inspect/list/tag.</li><li>Cosign sign/verify and trust policy.</li><li>Render/upload/day-2 lifecycle.</li></ul>
+<p>The Helm work should add the missing layer:</p>
+<ul><li>Helm Recipe Import from chart source into installer package/recipe structure.</li><li>Source/dependency locks for Helm chart closure.</li><li>Import diagnostics and control-point classification.</li><li>ConfigHub Install Variant definitions.</li><li>Immutable variant revision receipts.</li><li>Recipe-declared target fact requirements plus capability/generated fact profiles for Helm-specific nondeterminism.</li><li>Rendered Release Object receipts.</li><li>Scan/gate receipts.</li><li>External observation receipt integration for <code>cub-scout</code>, GitOps, CI/CD, and other observers.</li></ul>
+<p>So the implementation claim is:</p>
+<pre><code>Extend confighub/installer so Helm charts become ConfigHub installer recipes
+and managed variant revisions.</code></pre>
+<h2 id="execution-surfaces">Execution Surfaces</h2>
+<p>Every step in the plan must be executable through one or more of:</p>
+<ul><li><code>cub</code> CLI / <code>cub installer</code>, backed by <code>confighub/installer</code>.</li><li>ConfigHub Server UI/API for stored variants, variant revisions, receipts, target assignments, approvals, initiatives, desired state, and the OCI endpoint used by the fast install path.</li><li><code>cub-scout</code>, GitOps controllers, CI/CD, or other external observers for live observation receipts.</li></ul>
+<p>The current proof is not trying to execute a pure serverless install path. GitHub is the public catalog/proof surface, currently <code>confighub/helm-expt</code>. The fast install path uses ConfigHub's OCI endpoint. A fully client-side, serverless <code>cub installer</code> path is a deferred option and should be tracked as an issue, not treated as part of the current proof.</p>
+<p>Backlog gates are tracked in <code>docs/planning/issue-backlog.md</code>. Any open P0 issues in that file must not be bypassed by the flow; they are gates for the scope they name.</p>
+<p>The consolidated doctrine and historical execution record is in <code>docs/planning/agreed-execution-plan.md</code>. Current command routing lives in <code>docs/user/choosing-commands.md</code>; the npm proof-command map lives in <code>tests/npm-scripts.md</code>. Treat the shorthand below as candidate product porcelain unless one of those command maps names it as a current command. During implementation, every durable chart input, recipe, variant, revision, scan, gate, publish/apply action, and observation must map back to a real execution surface and produce an addressable artifact or receipt.</p>
+<p>The upstream installer docs usually write these as <code>installer ...</code> commands. Here they are written as <code>cub installer ...</code> because the installer is used through the Cub plugin.</p>
+<p>Target happy path:</p>
+<pre><code>install redis
+review/plan redis
+publish redis</code></pre>
+<p>The first command should quietly:</p>
+<pre><code>resolve the Helm chart
+create or update the Redis recipe candidate
+create the default install variant
+render an immutable variant revision
+scan the exact rendered objects
+prepare a Verified Install Gate
+write receipts</code></pre>
+<p>The publish command should publish the approved revision through ConfigHub's OCI endpoint for GitOps pickup and write an OCI artifact receipt. Direct apply can exist for local kind tests or explicit customer choice, but it is not the default public handoff.</p>
+<p>Easy variant path:</p>
+<pre><code>create redis HA variant
+review/plan redis HA against default
+publish approved HA revision</code></pre>
+<p>or:</p>
+<pre><code>create redis reuse-existing-secret variant
+bind redis-password fact or secret handle
+publish approved reuse-existing-secret revision</code></pre>
+<p>Implementation may initially expose more explicit <code>cub installer ...</code> subcommands while this is being built, but the product proof should aim at the simple UX above. The machinery is allowed to exist; it should not be the happy path.</p>
+<h2 id="workerless-server-boundary">Workerless Server Boundary</h2>
+<p>ConfigHub Server should not be described as having a built-in live view if the direction is workerless.</p>
+<p>The server's job is to store and govern:</p>
+<ul><li>Recipes.</li><li>Variants.</li><li>Variant revisions.</li><li>Rendered manifest identities.</li><li>Scan results.</li><li>Operation records.</li><li>Receipts.</li><li>Target assignments and desired state.</li></ul>
+<p>Live observations come from outside the server:</p>
+<ul><li><code>cub-scout</code>.</li><li>GitOps controller reports.</li><li>CI/CD jobs.</li><li>Customer-owned agents or integrations.</li><li>Human-triggered <code>cub</code> observations.</li></ul>
+<p>So the state model is:</p>
+<pre><code>intended state
+  stored by ConfigHub Server
+
+applied state
+  recorded by operation receipts from cub, GitOps, CI/CD, etc.
+
+live observation
+  submitted as observation receipts by cub-scout, GitOps, CI/CD, or other external observers</code></pre>
+<p>ConfigHub Server can aggregate and display intended/applied/observed state, but it should not be the thing that directly watches every cluster unless a customer explicitly deploys an observer that reports back.</p>
+<p>Hard rule:</p>
+<pre><code>ConfigHub stores desired/config truth and submitted observation receipts.
+It does not claim fresh runtime truth unless a current receipt says so.</code></pre>
+<p>The UI must show freshness plainly:</p>
+<pre><code>Observed by cub-scout 4m ago.
+Argo report 17m old.
+No runtime receipt yet.</code></pre>
+<h2 id="1-the-new-flow">1. The New Flow</h2>
+<h3 id="step-0-source-selection">Step 0: Source Selection</h3>
+<p>Input:</p>
+<ul><li>Helm repository URL or OCI registry reference.</li><li>Chart name and version.</li><li>Optional provenance/signature.</li><li>Expected chart archive digest.</li></ul>
+<p>Output:</p>
+<ul><li>A pinned chart source identity:</li></ul>
+<pre><code>chartRef + version + chartArchiveSHA256 + acquisition metadata</code></pre>
+<p>Checks:</p>
+<ul><li>Refuse mutable &quot;latest&quot; style imports unless resolved to a digest.</li><li>Record the exact archive hash.</li><li>Record repository URL and transport.</li><li>Prefer signed/provenance-checked charts where available.</li><li>Treat unavailable or malformed archives as a pre-recipe blocker.</li></ul>
+<p>This is where the five failed rows in the top-500 scan belong. They are not Helm semantics problems; they are source-acquisition failures.</p>
+<h3 id="step-1-dependency-closure">Step 1: Dependency Closure</h3>
+<p>Helm input points:</p>
+<ul><li><code>Chart.yaml</code> dependencies.</li><li><code>Chart.lock</code>.</li><li>Vendored <code>charts/*.tgz</code>.</li><li>Unpacked subcharts.</li><li>Umbrella charts.</li><li>Library charts.</li><li>Remote dependency repositories.</li><li>Version constraints.</li></ul>
+<p>Output:</p>
+<ul><li>A dependency lock for the entire chart closure:</li></ul>
+<pre><code>root chart digest
++ every dependency name/version/digest
++ importer dependency policy
+= helm-source-lock</code></pre>
+<p>Checks:</p>
+<ul><li>Never run <code>helm dependency update</code> implicitly during import.</li><li>Require <code>Chart.lock</code>, vendored subcharts, exact dependency digests, or a first-class dependency resolution receipt.</li><li>Record library charts even though they do not render resources directly.</li><li>Treat umbrella charts as dependency graphs, not as special cases.</li></ul>
+<p>If dependency resolution is needed, it is its own auditable step. It is not hidden inside chart-to-recipe import.</p>
+<h3 id="step-2-recipe-import">Step 2: Recipe Import</h3>
+<p>Input:</p>
+<ul><li>Pinned chart source.</li><li>Dependency lock.</li><li>Importer version.</li><li>Import policy version.</li></ul>
+<p>Output:</p>
+<ul><li>One canonical ConfigHub recipe for the chart source.</li><li>Recipe-declared target fact requirements for any <code>lookup</code> or cluster-sourced render dependency.</li></ul>
+<p>Recommended framing:</p>
+<pre><code>1 Helm chart source -&gt; 1 recipe -&gt; N ConfigHub variants -&gt; M variant revisions</code></pre>
+<p>Only split into multiple recipes when the source package is intentionally forked or the importer policy creates materially different package semantics. Normal HA/default/TLS/cloud/environment/customer differences should be variants and variant revisions, not separate recipes.</p>
+<p>Checks:</p>
+<ul><li>The importer must be deterministic from source bytes plus policy bytes.</li><li>Import must not contact the target cluster.</li><li>Import must not execute hooks.</li><li>Import must not perform live <code>lookup</code>.</li><li>Import must not generate random values.</li><li>Any unsupported Helm behavior becomes an explicit recipe diagnostic.</li></ul>
+<p>There are two acceptable import modes:</p>
+<ul><li><b>Symbolic recipe mode</b>: compile chart structure into recipe inputs, target fact requirements, components, function chains, and render rules.</li><li><b>Render-and-vendor mode</b>: render one or more explicit variants and wrap those rendered artifacts. This is easier, but the Helm render context must be captured as a receipt.</li></ul>
+<p>The stronger long-term story is symbolic recipe mode. Render-and-vendor remains useful for compatibility and experiments.</p>
+<h3 id="step-3-recipe-validation">Step 3: Recipe Validation</h3>
+<p>Input:</p>
+<ul><li>Imported recipe.</li><li>Extracted value schema.</li><li>Import diagnostics.</li></ul>
+<p>Output:</p>
+<ul><li>A recipe that can either be rendered safely or rejected early.</li></ul>
+<p>Checks:</p>
+<ul><li>Validate recipe schema.</li><li>Validate mapped inputs.</li><li>Convert Helm <code>required</code> and <code>fail</code> into recipe validation rules where possible.</li><li>Flag unbounded <code>tpl</code>, raw manifest injection, unsupported hook behavior, or missing fact declarations.</li><li>Confirm no unresolved source dependencies remain.</li></ul>
+<p>This is where ConfigHub-specific malformed package checks start. Market tools generally cannot inspect this layer because it is not Kubernetes YAML yet.</p>
+<h3 id="step-4-variant-definition">Step 4: Variant Definition</h3>
+<p>Input:</p>
+<ul><li>Recipe.</li><li>Curated variant catalog.</li><li>Organization policy.</li></ul>
+<p>Output:</p>
+<ul><li>A bounded set of named ConfigHub variants:</li></ul>
+<pre><code>default
+ha
+ha-with-persistence
+tls-enabled
+ingress-enabled
+restricted-security-context
+fresh-install
+reuse-existing-secret
+k8s-1.29
+k8s-1.30
+eks
+gke
+aks</code></pre>
+<p>Checks:</p>
+<ul><li>Do not attempt every possible Helm values combination.</li><li>Define market-relevant and organization-relevant base variants.</li><li>Make each variant's values, selected components, overlays, capability profile, and target/generated fact value profile explicit. Target fact requirements come from the recipe.</li><li>Require each variant to have a stable identity and digest.</li><li>Record parent/child relationships between variants when one derives from another.</li><li>Make local deltas explicit, so base updates can be propagated or flagged for review.</li></ul>
+<p>Variants are the bridge between Helm flexibility and ConfigHub auditability.</p>
+<h3 id="step-4b-variant-revision">Step 4b: Variant Revision</h3>
+<p>Input:</p>
+<ul><li>Variant definition.</li><li>Base recipe version.</li><li>Values profile.</li><li>Selected overlays/components.</li><li>Target/generated fact value profiles and capability profiles.</li><li>Approval state.</li></ul>
+<p>Output:</p>
+<ul><li>An immutable variant revision.</li></ul>
+<p>Checks:</p>
+<ul><li>Once approved, a variant revision is not re-rendered implicitly.</li><li>Promotion deploys the approved revision, not a generator invocation.</li><li>New source, values, fact values, policy, or scanner changes create a new candidate revision.</li><li>Revisions can be compared by source, values, facts, rendered manifests, scan results, and target state.</li></ul>
+<h3 id="step-5-target-fact-values-capability-profiles-and-generated-facts">Step 5: Target Fact Values, Capability Profiles, and Generated Facts</h3>
+<p>Input:</p>
+<ul><li>Variant.</li><li>Recipe-declared target fact requirements.</li><li>Target cluster snapshot, when rendering for a real target.</li><li>Synthetic fact value profiles, when bulk scanning representative scenarios.</li></ul>
+<p>Output:</p>
+<ul><li>Captured fact value profiles:</li></ul>
+<pre><code>values-profile@sha
+capability-profile@sha
+target-facts@sha
+generated-facts@sha</code></pre>
+<p>Checks:</p>
+<ul><li>Cluster state is only observed during fact collection.</li><li>Render must not perform hidden live-cluster reads.</li><li>Same recipe + same values + same capability profile + same target/generated fact values must produce byte-identical manifests.</li><li>Sensitive values should not be stored as plain facts; store references, generated secret handles, or secret material in the existing secret path.</li></ul>
+<p>This is how we handle Helm <code>lookup</code>: turn cluster-sourced nondeterminism into target fact requirements in the recipe, then bind captured target fact values when rendering a variant revision.</p>
+<p>Example:</p>
+<pre><code>Helm source:
+  lookup Secret redis-password
+
+Recipe:
+  requires target fact redisPasswordSecret.exists
+
+Variant A:
+  redisPasswordSecret.exists = false
+
+Variant B:
+  redisPasswordSecret.exists = true</code></pre>
+<p>Now both outcomes are renderable, scannable, and repeatable.</p>
+<p>This aligns with the current installer direction: installer already has a collector extension point that writes <code>out/spec/facts.yaml</code>, and render uses <code>.Facts.*</code> from that captured file. The Helm import plan generalizes that mechanism into recipe-declared target fact requirements, capability profiles, and generated facts for variant revisions.</p>
+<h3 id="step-6-render">Step 6: Render</h3>
+<p>Input:</p>
+<ul><li>Recipe digest.</li><li>Variant digest.</li><li>Values profile.</li><li>Capability profile.</li><li>Target fact values satisfying the recipe's target fact requirements.</li><li>Generated facts.</li><li>Dependency lock.</li><li>Renderer version.</li><li>Helm render parameters, if Helm rendering remains part of the path: release name, namespace, kube version, API versions, include CRDs, install versus upgrade phase, and test inclusion.</li></ul>
+<p>Output:</p>
+<ul><li>A concrete rendered manifest set:</li></ul>
+<pre><code>renderedManifestSet@sha</code></pre>
+<p>Checks:</p>
+<ul><li>Run two-render determinism checks for the same inputs.</li><li>Store manifest digest.</li><li>Canonicalize rendered manifests before digesting: parse YAML documents, normalize to canonical JSON with sorted object keys, keep list order, remove empty documents, and preserve Kubernetes object identity as <code>apiVersion|kind|namespace|name</code>.</li><li>Store render command/options.</li><li>Store tool versions.</li><li>Separate normal manifests, secrets, CRDs, hooks, and tests where useful.</li><li>Block render if required facts are missing.</li><li>If Helm's post-renderer mechanism is supported, represent it as a named, pinned recipe/function stage. Otherwise reject it.</li></ul>
+<p>This is the point where standard Kubernetes policy scanners become most useful, because the output is actual Kubernetes YAML.</p>
+<p>Expected digest formula for proof artifacts:</p>
+<pre><code>variantRevision.digest =
+  sha256(
+    recipe.digest,
+    effectiveValues.digest,
+    capabilityProfile.digest,
+    factBindings.digest,
+    generatedFacts.digest,
+    renderer.digest,
+    renderedManifestSet.digest
+  )</code></pre>
+<p><code>helm-expt</code> defines and verifies this contract. <code>confighub/installer</code> may later emit native receipts, but installer implementation is an upstream dependency, not code owned by this repo.</p>
+<h3 id="step-7-kustomize-overlays-and-confighub-functions">Step 7: Kustomize, Overlays, and ConfigHub Functions</h3>
+<p>Kustomize can appear in several places:</p>
+<ul><li>As the implementation substrate of an installer package.</li><li>As a wrapper around Helm-rendered output.</li><li>As bases selected by recipe variants.</li><li>As components selected by recipe variants.</li><li>As overlays or patches.</li><li>As <code>images</code>, <code>replicas</code>, <code>namespace</code>, name prefix/suffix, replacements, ConfigMap generators, Secret generators, and transformers.</li></ul>
+<p>ConfigHub functions can also appear here:</p>
+<ul><li>Normalizing labels and annotations.</li><li>Setting namespace.</li><li>Setting container images/resources.</li><li>Applying security defaults.</li><li>Validating or mutating resources.</li><li>Splitting rendered output into ConfigHub Units.</li></ul>
+<p>Checks:</p>
+<ul><li>Kustomize remote bases must be pinned or vendored.</li><li>Generators must have stable input files and stable generator options.</li><li>Secret generator material must be treated as generated/secret facts, not as hidden source.</li><li>Components and overlays must be named variant inputs.</li><li>ConfigHub function chains must be resolved from recipe inputs/facts and written to the render receipt.</li><li>No post-render mutation should be invisible; every overlay/function/policy bundle gets a digest.</li></ul>
+<p>Kustomize is not a loophole around receipts. It is another explicit stage in the same recipe-to-manifest pipeline.</p>
+<h3 id="step-8-bulk-policy-and-misconfiguration-scans">Step 8: Bulk Policy and Misconfiguration Scans</h3>
+<p>Input:</p>
+<ul><li>Rendered manifest sets.</li><li>Scanner versions.</li><li>Policy bundle versions.</li></ul>
+<p>Output:</p>
+<ul><li>Scan result per manifest set:</li></ul>
+<pre><code>renderedManifestSet@sha
++ scanner@version
++ policyBundle@sha
+= scanResult@sha</code></pre>
+<p>Examples:</p>
+<ul><li>Snyk IaC.</li><li>Trivy config scanning.</li><li>Checkov.</li><li>Kubescape.</li><li>kube-linter.</li><li>kubeconform/kubeval.</li><li>OPA/Conftest.</li><li>ConfigHub scan.</li><li>Custom initiative functions.</li></ul>
+<p>Checks:</p>
+<ul><li>Scan concrete manifests, not just abstract chart source.</li><li>Store scanner version and policy database/bundle digest.</li><li>Treat each variant independently.</li><li>Treat each variant revision immutably.</li><li>Aggregate results across variants for initiatives.</li><li>Gate install on the exact variant being installed.</li></ul>
+<p>The atomic audit object should be per <code>renderedManifestSet@sha</code>. A higher-level initiative result should roll up many manifest-set scan results.</p>
+<h3 id="step-9-install-gate-and-receipt">Step 9: Install Gate and Receipt</h3>
+<p>Input:</p>
+<ul><li>Rendered manifest set.</li><li>Variant revision.</li><li>Scan results.</li><li>Import/render receipts.</li><li>Organization policy.</li></ul>
+<p>Output:</p>
+<ul><li>Approved or blocked install plan.</li></ul>
+<p>Checks:</p>
+<ul><li>Confirm the selected variant revision is the one scanned.</li><li>Confirm scan results are fresh enough for policy.</li><li>Confirm source, recipe, facts, generated facts, overlays, and manifest digests are all linked.</li><li>Confirm signatures/trust policy where required.</li><li>Refuse install if the render cannot be traced back to source and policy.</li></ul>
+<h3 id="step-10-operate-and-day-2-lifecycle">Step 10: Operate and Day-2 Lifecycle</h3>
+<p>Input:</p>
+<ul><li>Installed ConfigHub Units.</li><li>Variant revisions.</li><li>Installer record.</li><li>Prior receipts.</li><li>New target fact values.</li><li>Observation receipts from <code>cub-scout</code>, GitOps controllers, CI/CD, or other external observers.</li><li>User edits.</li><li>Drift.</li></ul>
+<p>Output:</p>
+<ul><li>Reconcile, upgrade, or re-render plan.</li></ul>
+<p>Checks:</p>
+<ul><li>Re-rendering with the same spec and facts should be byte-identical.</li><li>If target fact values change, create a new render context rather than silently changing output.</li><li>Preserve post-install ConfigHub edits according to merge policy.</li><li>Re-run scans when manifests, policies, scanner versions, or relevant facts change.</li><li>Track observed live drift separately from source/render determinism.</li><li>Mark observed state stale when no fresh external observation receipt exists.</li><li>Manage promotion, rollback, and remediation against variant revisions, not loose files.</li></ul>
+<h2 id="2-every-entry-point-for-new-information">2. Every Entry Point for New Information</h2>
+<table><thead><tr><th>Entry point</th><th>Examples</th><th>Where it belongs</th><th>Control</th></tr></thead><tbody><tr><td>Chart source</td><td>repo URL, OCI ref, chart version, archive bytes</td><td>Source selection</td><td>digest, signature, immutable receipt</td></tr>
+<tr><td>Chart dependencies</td><td>umbrella chart, subcharts, library charts, remote repos</td><td>Dependency closure</td><td>lock with dependency digests</td></tr>
+<tr><td>Chart defaults</td><td><code>values.yaml</code>, subchart defaults</td><td>Recipe import</td><td>source digest and schema extraction</td></tr>
+<tr><td>Values overlays</td><td><code>values-prod.yaml</code>, <code>--set</code>, org defaults</td><td>Variant definition</td><td>values profile digest</td></tr>
+<tr><td>Remote/generated values</td><td>CI scripts, downloaded values files, copied customer values</td><td>Variant definition</td><td>capture as input artifact or reject</td></tr>
+<tr><td>Values schema</td><td><code>values.schema.json</code></td><td>Recipe validation</td><td>input constraints</td></tr>
+<tr><td>Templates</td><td>manifests, helpers, named templates</td><td>Recipe import/render</td><td>importer policy and diagnostics</td></tr>
+<tr><td><code>tpl</code></td><td>template strings supplied through values</td><td>Late/literal policy</td><td>bound evaluation or reject</td></tr>
+<tr><td><code>.Files.Get</code></td><td>bundled config files, dashboards, scripts</td><td>Source import</td><td>file digest and path restrictions</td></tr>
+<tr><td><code>lookup</code></td><td>live Secret/CRD/ConfigMap checks</td><td>Recipe target fact requirements plus bound values</td><td>snapshot, synthetic variant, or fail</td></tr>
+<tr><td>Capabilities</td><td>kube version, API versions</td><td>Capability profile</td><td>named profile digest</td></tr>
+<tr><td>Release object</td><td>name, namespace, install/upgrade, revision</td><td>Variant/render phase</td><td>explicit render parameter</td></tr>
+<tr><td>Random/cert/time funcs</td><td><code>randAlphaNum</code>, <code>genCA</code>, <code>now</code>, <code>uuidv4</code></td><td>Generated facts</td><td>generate once and persist</td></tr>
+<tr><td>Hooks</td><td>pre-install jobs, test hooks, weights, delete policies</td><td>Lifecycle policy and hook receipt</td><td>inventory deterministically; execute only through target-aware lifecycle proof</td></tr>
+<tr><td>CRDs</td><td><code>crds/</code>, CRD templates</td><td>Operate policy</td><td>CRD phase, ownership, ordering</td></tr>
+<tr><td>Raw manifest escape hatches</td><td><code>extraObjects</code>, <code>extraManifests</code></td><td>Late/literal policy</td><td>scan, constrain, or disable</td></tr>
+<tr><td>Kustomize bases</td><td>selected top-level base</td><td>Variant definition</td><td>base selection receipt</td></tr>
+<tr><td>Kustomize components</td><td>optional components</td><td>Variant definition</td><td>component selection receipt</td></tr>
+<tr><td>Kustomize overlays/patches</td><td>patches, replacements, images</td><td>Render stage</td><td>overlay digest and deterministic build</td></tr>
+<tr><td>Secret/config generators</td><td>configMapGenerator, secretGenerator</td><td>Render/generated facts</td><td>input-file digest and secret handling</td></tr>
+<tr><td>ConfigHub functions</td><td>set namespace/image/resources, validators</td><td>Render/validation</td><td>resolved function-chain digest</td></tr>
+<tr><td>Helm post-renderer</td><td>external post-render command</td><td>Render stage</td><td>explicit pinned function stage or reject</td></tr>
+<tr><td>Helm/getter plugins</td><td>nonstandard fetch/render behavior</td><td>Source/render stage</td><td>pinned toolchain receipt or reject</td></tr>
+<tr><td>Kustomize exec plugins</td><td>alpha/exec plugins</td><td>Render stage</td><td>pinned allowed plugin set and digest</td></tr>
+<tr><td>Image references</td><td>mutable tags, registry digests</td><td>Render/scan stage</td><td>optional image digest resolution receipt</td></tr>
+<tr><td>CRD/OpenAPI schemas</td><td>schemas used by validators</td><td>Scan stage</td><td>schema source/digest</td></tr>
+<tr><td>Scanner policy</td><td>policy bundles, vulnerability DBs</td><td>Scan stage</td><td>scanner/policy digest</td></tr>
+<tr><td>Delivery target</td><td>target namespace/cluster/space</td><td>Install gate</td><td>target binding receipt</td></tr>
+<tr><td>Live observation</td><td><code>cub-scout</code>, GitOps report, CI/CD report</td><td>Operate</td><td>observation receipt with observer, method, timestamp, freshness</td></tr>
+<tr><td>Day-2 edits</td><td>ConfigHub mutations, drift, upgrades</td><td>Operate</td><td>merge/reconcile policy</td></tr></tbody></table>
+<h2 id="3-checks-by-failure-type">3. Checks by Failure Type</h2>
+<table><thead><tr><th>Problem type</th><th>Failure mode</th><th>Control</th></tr></thead><tbody><tr><td>Mutable source</td><td>same chart ref gives different bytes</td><td>require archive digest or signed immutable ref</td></tr>
+<tr><td>Unlocked dependencies</td><td>dependency resolution changes</td><td>require dependency lock/digests</td></tr>
+<tr><td>Missing archive</td><td>chart cannot be fetched</td><td>fail before recipe</td></tr>
+<tr><td>Cluster lookup</td><td>live cluster state changes render output</td><td>recipe target fact requirement plus target fact snapshot or synthetic variants</td></tr>
+<tr><td>Kube capability branch</td><td>target cluster changes output</td><td>named capability profiles</td></tr>
+<tr><td>Random generation</td><td>repeated render differs</td><td>generated facts persisted once</td></tr>
+<tr><td>Time/UUID</td><td>repeated render differs</td><td>generated facts or forbid in strict mode</td></tr>
+<tr><td>Required/fail</td><td>render fails only after late values</td><td>recipe input validation</td></tr>
+<tr><td><code>tpl</code> escape hatch</td><td>values become code</td><td>bound evaluation, explicit allowed fields, or reject</td></tr>
+<tr><td>Raw manifests</td><td>arbitrary resource injection</td><td>explicit extension slot plus scanning</td></tr>
+<tr><td>Hooks</td><td>procedural lifecycle hidden in chart; execution depends on live cluster facts</td><td>inventory first; map to phases/tests, target-aware lifecycle receipts, explicit skip, or blocker where safe</td></tr>
+<tr><td>CRDs/webhooks/APIService</td><td>ordering and cluster-wide blast radius</td><td>operate policy and install phases</td></tr>
+<tr><td>Kustomize remote base</td><td>remote content changes</td><td>vendor or pin digest</td></tr>
+<tr><td>Kustomize generator</td><td>name/content changes unexpectedly</td><td>deterministic generator options and input digests</td></tr>
+<tr><td>Post-render command</td><td>arbitrary code changes rendered YAML</td><td>explicit pinned stage or reject</td></tr>
+<tr><td>Tool/plugin drift</td><td>different Helm/Kustomize/plugin behavior</td><td>toolchain receipt and allowed versions</td></tr>
+<tr><td>Mutable images</td><td>same image tag points to different image</td><td>optional image digest resolution</td></tr>
+<tr><td>Validator schema drift</td><td>different schemas change validation result</td><td>schema source/digest receipt</td></tr>
+<tr><td>Scanner drift</td><td>same manifest gives different result</td><td>scanner/policy bundle receipt</td></tr>
+<tr><td>Day-2 drift</td><td>externally observed live state diverges</td><td>observation receipt separate from render receipt</td></tr></tbody></table>
+<h2 id="4-how-this-solves-the-first-two-problems">4. How This Solves the First Two Problems</h2>
+<h3 id="problem-1-install-config-correctly">Problem 1: Install Config Correctly</h3>
+<p>The current pain is that users approve abstract inputs and hope the generated output is correct. The new flow changes the review object.</p>
+<p>Old flow:</p>
+<pre><code>approve values.yaml
+run helm somewhere
+hope the cluster got what was intended</code></pre>
+<p>New flow:</p>
+<pre><code>create/update variant
+render candidate variant revision
+approve variant revision
+review exact rendered YAML
+scan exact rendered YAML
+install exact approved manifest set
+record receipt</code></pre>
+<p>Controls:</p>
+<ul><li>Values that do not apply without warning become recipe validation and dead-key checks.</li><li>Non-deterministic re-renders become recipe-declared target fact requirements, bound target fact values, generated facts, capability profiles, and two-render determinism checks.</li><li>Helm CLI versus Argo CD versus Flux render differences become explicit renderer/toolchain receipts.</li><li>&quot;Which value set this field?&quot; becomes recipe/variant provenance.</li><li>&quot;What will be deployed?&quot; becomes <code>renderedManifestSet@sha</code>.</li><li>&quot;What did we approve?&quot; becomes <code>variantRevision@sha</code>.</li></ul>
+<h3 id="problem-1b-small-scale-helm-pain">Problem 1b: Small-Scale Helm Pain</h3>
+<p>Even small teams see the same failure modes:</p>
+<ul><li>Wrong values path.</li><li>Merge conflicts between Helm and GitOps controllers.</li><li>Random secrets and timestamps.</li><li>CRD upgrade gaps.</li><li>Controller-injected diff noise.</li><li>Missing resource requests, HPA settings, topology spread, and other reliability defaults.</li></ul>
+<p>In the new flow, these are not all solved by one scanner. They are solved at different points:</p>
+<ul><li>Wrong values path: recipe validation and values schema checks.</li><li>Merge conflicts: ConfigHub ownership and operate policy.</li><li>Random secrets/timestamps: generated facts.</li><li>CRD gaps: CRD phase and schema/upgrade policy.</li><li>Diff noise: intended/applied/observed-live views are separated, with observed-live data supplied by <code>cub-scout</code>, GitOps, CI/CD, or other external observers.</li><li>Reliability defaults: bulk policy scans over concrete manifest variants.</li></ul>
+<h3 id="problem-2-manage-related-variants-over-time">Problem 2: Manage Related Variants Over Time</h3>
+<p>The server-side version of the plan is about managing a family of related approved states, not re-running generators whenever a target changes.</p>
+<p>Old flow:</p>
+<pre><code>many values files
++ many clusters
++ custom scripts
++ GitOps sync events
+= no durable variant/operation record</code></pre>
+<p>New flow:</p>
+<pre><code>base recipe update
+  -&gt; affected variants
+  -&gt; candidate variant revisions
+  -&gt; render and scan each candidate revision
+  -&gt; approve exact variant revisions
+  -&gt; promote/deploy those approved revisions to targets
+  -&gt; record operation receipts
+  -&gt; ingest external observation receipts for live freshness</code></pre>
+<p>Controls:</p>
+<ul><li>Promotion is not a copy; it advances one variant from one approved revision to another while preserving prod/customer constraints.</li><li>Rollback is variant-relative; it moves a variant/target back to a prior approved revision without reverting unrelated variants.</li><li>Base updates are propagated through explicit variant deltas.</li><li>Operations are first-class records, not just commits or sync events.</li><li>Operation receipts include authority, target, artifact, and result.</li><li>Observation receipts include observer, method, timestamp, and freshness.</li></ul>
+<p>This is why &quot;deploy and vary however much you like&quot; is plausible: variation happens in the ConfigHub variants model, and deployment operates approved variant revisions.</p>
+<h2 id="5-legacy-top-500-source-scan">5. Legacy Top-500 Source Scan</h2>
+<p>The existing workbook scan is legacy/reference material. It covered 500 Artifact Hub Helm packages sorted by stars and statically scanned chart source; it did not execute templates, hooks, or lookups.</p>
+<p>Do not treat the existing workbook as the current proof pathway. The current plan requires new chart proof repos and new generated spreadsheets backed by recipe, variant, revision, scan, gate, and receipt artifacts.</p>
+<p>The chart count alone proves nothing. The evidence matters only if each chart can be connected to real recipe candidates, bounded install variants, rendered objects, scan results, gates, and failure classifications.</p>
+<p>The new top-20/top-100/top-500 proof should show breadth across complex Helm reality:</p>
+<ul><li>CRDs.</li><li>Hooks.</li><li>Dependencies.</li><li>Globals.</li><li>Values schemas.</li><li>Cloud-specific knobs.</li><li>Generated names and generated secrets/certs.</li><li>SecurityContext and policy drift.</li><li>Image override patterns.</li><li>Ingress and TLS variants.</li><li>Upgrade/customization conflicts.</li></ul>
+<p>Legacy scan summary:</p>
+<table><thead><tr><th>Category</th><th>Count</th></tr></thead><tbody><tr><td>Requested charts</td><td>500</td></tr>
+<tr><td>Scanned charts</td><td>495</td></tr>
+<tr><td>Source/archive failures</td><td>5</td></tr>
+<tr><td>Registry rate-limited during final run</td><td>0</td></tr>
+<tr><td>P0 source/dependency risk</td><td>154</td></tr>
+<tr><td>P1 compiler policy needed</td><td>165</td></tr>
+<tr><td>P2 recipe/render/install policy</td><td>174</td></tr>
+<tr><td>P3 plain/static-ish</td><td>2</td></tr></tbody></table>
+<p>Feature counts among scanned charts:</p>
+<table><thead><tr><th>Feature</th><th>Count</th><th>Where the new system handles it</th></tr></thead><tbody><tr><td>Non-exact dependency constraints</td><td>152</td><td>dependency lock before import/render</td></tr>
+<tr><td>HTTP chart repo URL</td><td>5</td><td>source acquisition warning/policy</td></tr>
+<tr><td>Hooks</td><td>54</td><td>lifecycle policy, phases/tests, or explicit blocker</td></tr>
+<tr><td>Non-test hooks</td><td>42</td><td>install phase mapping or unsupported</td></tr>
+<tr><td>Test hooks</td><td>16</td><td>map to test/check actions</td></tr>
+<tr><td><code>lookup</code></td><td>244</td><td>recipe target fact requirements and lookup policy</td></tr>
+<tr><td>Generated facts candidates</td><td>282</td><td>generated facts persisted in receipts</td></tr>
+<tr><td>Random funcs</td><td>220</td><td>generated facts</td></tr>
+<tr><td>Certificate funcs</td><td>169</td><td>generated cert facts or secret material</td></tr>
+<tr><td>Hash/password funcs</td><td>19</td><td>generated facts/secrets</td></tr>
+<tr><td>Time/UUID funcs</td><td>140</td><td>generated facts or strict reject</td></tr>
+<tr><td><code>required</code>/<code>fail</code></td><td>309</td><td>recipe input validation</td></tr>
+<tr><td><code>.Capabilities.APIVersions</code></td><td>281</td><td>capability profiles</td></tr>
+<tr><td><code>.Capabilities.KubeVersion</code></td><td>319</td><td>capability profiles</td></tr>
+<tr><td><code>semverCompare</code></td><td>309</td><td>capability/value validation profiles</td></tr>
+<tr><td>Release install/upgrade/revision branching</td><td>177</td><td>render phase variants</td></tr>
+<tr><td><code>tpl</code></td><td>362</td><td>late/literal policy</td></tr>
+<tr><td>Extra/raw manifest values</td><td>254</td><td>explicit extension slots and scans</td></tr>
+<tr><td><code>.Files</code> access</td><td>129</td><td>source file digest and path policy</td></tr>
+<tr><td><code>values.schema.json</code></td><td>178</td><td>recipe validation input</td></tr>
+<tr><td>CRDs</td><td>131</td><td>install ordering/ownership policy</td></tr>
+<tr><td>Cluster RBAC</td><td>250</td><td>policy scans and operate review</td></tr>
+<tr><td>Webhooks</td><td>77</td><td>policy scans and operate review</td></tr>
+<tr><td>APIService</td><td>17</td><td>policy scans and operate review</td></tr>
+<tr><td>Stateful/PVC footprint</td><td>296</td><td>stateful operate policy</td></tr></tbody></table>
+<p>Important overlaps:</p>
+<table><thead><tr><th>Combination</th><th>Count</th><th>Meaning</th></tr></thead><tbody><tr><td><code>lookup</code> + generated facts</td><td>221</td><td>many charts combine cluster-derived and generated state</td></tr>
+<tr><td><code>lookup</code> + capabilities</td><td>228</td><td>target fact requirements and capability profiles must be designed together</td></tr>
+<tr><td>Hooks + generated facts</td><td>43</td><td>lifecycle handling must preserve generated state</td></tr>
+<tr><td><code>tpl</code> + raw/extra manifests</td><td>253</td><td>late/literal escape hatches are common</td></tr>
+<tr><td>CRDs + webhooks</td><td>55</td><td>install ordering and admission risk often travel together</td></tr>
+<tr><td>Stateful/PVC + generated facts</td><td>215</td><td>databases often need generated secrets/certs plus persistence</td></tr>
+<tr><td>P0 source risk + P1 features</td><td>148</td><td>source locking and compiler policy often both matter</td></tr></tbody></table>
+<p>Conclusion from the legacy scan:</p>
+<pre><code>The top-500 chart features do not defeat the plan.
+They force the plan to be explicit.</code></pre>
+<p>Every observed feature class has a control:</p>
+<ul><li>Lock and verify source/dependencies.</li><li>Convert cluster reads into recipe-declared target fact requirements and bound target fact values.</li><li>Convert random/time/cert generation into generated facts.</li><li>Convert required/fail into input validation.</li><li>Convert capabilities into named capability profiles.</li><li>Convert install/upgrade branching into render phase variants.</li><li>Convert hooks into lifecycle phases/tests or fail early.</li><li>Convert raw/tpl escape hatches into explicit extension slots or reject them.</li><li>Scan concrete manifest sets for Kubernetes policy and misconfiguration.</li></ul>
+<p>The system cannot make an unavailable chart archive available. It should block or require mirroring. It also cannot prove semantic safety from a static regex scan alone. The importer must eventually use a proper chart/template parser and record importer diagnostics.</p>
+<h2 id="6-bulk-policy-scan-and-misconfiguration-checks">6. Bulk Policy, Scan, and Misconfiguration Checks</h2>
+<p>The bulk-scanning model still works:</p>
+<pre><code>recipe@sha
+  variant: default
+    revision: default@2026-05-25.1
+    renderedManifestSet@sha -&gt; Snyk/Trivy/Checkov/Kubescape/ConfigHub scan
+  variant: ha
+    revision: ha@2026-05-25.1
+    renderedManifestSet@sha -&gt; Snyk/Trivy/Checkov/Kubescape/ConfigHub scan
+  variant: tls-enabled
+    revision: tls-enabled@2026-05-25.1
+    renderedManifestSet@sha -&gt; Snyk/Trivy/Checkov/Kubescape/ConfigHub scan</code></pre>
+<p>There should be two result levels:</p>
+<ul><li><b>Atomic result</b>: scanner result for one <code>renderedManifestSet@sha</code> and one policy bundle.</li><li><b>Variant revision result</b>: aggregate over all scans/checks for one immutable variant revision.</li><li><b>Initiative result</b>: aggregate over many variants, revisions, charts, targets, and scanners.</li></ul>
+<p>This lets ConfigHub answer both questions:</p>
+<ul><li>&quot;Is this exact variant revision safe to publish or apply?&quot;</li><li>&quot;How healthy is our Redis/Ingress/Monitoring initiative across all standard variants?&quot;</li></ul>
+<p>Market scanners belong mostly after render. ConfigHub scan belongs both before and after render:</p>
+<ul><li>Before render: recipe validity, missing fact values, unsupported <code>lookup</code>, unbounded <code>tpl</code>, unsafe generated fact handling, invalid variant definitions.</li><li>After render: Kubernetes object validity, policy violations, image/security checks, RBAC, CRDs, webhooks, storage, network exposure.</li></ul>
+<h2 id="7-leftover-design-questions">7. Leftover Design Questions</h2>
+<p>These are not optional details. They are the remaining defaults that turn the plan into a product.</p>
+<h3 id="top-target-facts">Top Target Facts</h3>
+<p>Likely top target fact requirements Helm recipes need:</p>
+<ol><li>Kubernetes version.</li><li>Available API versions and CRDs.</li><li>Target namespace exists, plus labels/annotations when charts branch on them.</li><li>Named Secret exists and required keys exist.</li><li>Named ConfigMap exists and required keys exist.</li><li>Existing CRD ownership and served versions.</li><li>StorageClass/default storage class/volume expansion support.</li><li>IngressClass or GatewayClass availability/defaults.</li><li>Existing ServiceAccount/RBAC objects when charts support reuse.</li><li>Certificate issuer or TLS secret availability.</li><li>ImagePullSecret availability.</li><li>Existing PVC availability for stateful reuse/upgrade flows.</li></ol>
+<p>The first two are closer to capability profiles than ordinary facts, but users will think of them as target facts. The UI can group them while keeping the receipt model precise. The recipe declares these requirements; a render context or variant revision binds the concrete target fact values.</p>
+<h3 id="lookup-default">Lookup Default</h3>
+<p>Recommended policy:</p>
+<ul><li><b>Strict import</b>: <code>lookup</code> must map to a declared target fact requirement or import fails.</li><li><b>Bulk scan</b>: render synthetic variants for common fact values.</li><li><b>Real install</b>: run a collector once, store target fact values, render from the stored snapshot.</li></ul>
+<p>Do not allow hidden live <code>lookup</code> during render.</p>
+<h3 id="variant-specific-vs-recipe-wide-misconfigs">Variant-Specific vs Recipe-Wide Misconfigs</h3>
+<p>Recipe-wide:</p>
+<ul><li>Unsupported Helm functions.</li><li>Unlocked dependencies.</li><li>Unbounded <code>tpl</code>.</li><li>Invalid recipe schema.</li><li>Missing fact declarations.</li><li>Unsafe importer policy.</li></ul>
+<p>Variant-specific:</p>
+<ul><li>Bad values.</li><li>Missing target fact values.</li><li>Policy scanner findings.</li><li>RBAC/webhook/CRD footprint.</li><li>Persistence/ingress/TLS/security context choices.</li><li>Fresh-install versus reuse-existing-resource behavior.</li><li>Approval, promotion, rollback, and target assignment state.</li></ul>
+<h3 id="result-object">Result Object</h3>
+<p>Use both:</p>
+<ul><li><code>ScanResult</code> per <code>renderedManifestSet@sha</code>.</li><li><code>VariantRevisionResult</code> per immutable variant revision.</li><li><code>InitiativeResult</code> as an aggregate roll-up across variants/revisions.</li></ul>
+<p>The per-manifest-set result is the scan audit primitive. The variant revision is the user-facing approval and promotion primitive. The initiative result is the workflow/dashboard primitive.</p>
+<h2 id="8-what-we-may-still-be-missing">8. What We May Still Be Missing</h2>
+<p>After reviewing the conversation and the legacy 500-chart feature matrix, the likely missing or under-specified areas are:</p>
+<ol><li><b>Chart tests as first-class checks</b>: Helm test hooks should probably become optional post-render or post-install test actions, not just &quot;hooks&quot;.</li><li><b>Notes and human instructions</b>: <code>NOTES.txt</code> sometimes carries required operational steps. We need a policy for extracting or preserving operator notes.</li><li><b>Image resolution</b>: scanners inspect image strings, but mutable image tags can still move. We need optional image digest resolution as a render or scan step.</li><li><b>Policy database drift</b>: scanner output can change when vulnerability DBs update. Receipts must include scanner database/policy bundle versions.</li><li><b>CRD schema-dependent validation</b>: kubeconform-style checks need the right CRD schemas for custom resources, not just built-in Kubernetes schemas.</li><li><b>Admission-controller reality</b>: rendered YAML can pass static scans but fail target admission policies. A dry-run/server-side validation stage may be needed for real targets.</li><li><b>Secret value scanning</b>: rendered Secrets may be withheld from uploaded Units, but install gating still needs a safe way to validate secret shape without leaking material.</li><li><b>Cross-resource references</b>: Services, ServiceAccounts, Secrets, PVCs, Ingress classes, and RBAC references need graph checks, not only object-local checks.</li><li><b>Subchart value propagation</b>: umbrella charts can pass values deeply into dependencies. Variant definitions must include subchart values explicitly.</li><li><b>Library charts</b>: they do not render resources but strongly affect templates. They must be represented in the source lock and importer diagnostics.</li><li><b>Post-renderers</b>: Helm supports post-renderers. If supported, they need to become explicit recipe/Kustomize/function stages; otherwise reject.</li><li><b>Upgrade/downgrade semantics</b>: <code>.Release.IsUpgrade</code>, hook delete policies, CRD upgrades, and PVC retention need explicit phase variants.</li><li><b>Namespace and cluster-scope collisions</b>: cluster-scoped resources need ownership and conflict checks across installs, not just within one rendered set.</li><li><b>Remote values or generated values files</b>: if a workflow fetches values from URLs or CI scripts, that source must be captured as an input artifact.</li><li><b>OCI registry throttling/availability</b>: source-acquisition failure is not chart behavior, but it affects import reliability. Mirroring may be part of the product story.</li><li><b>False positives in static chart scanning</b>: the legacy top-500 matrix is a source scan heuristic. It is good enough to prioritize controls, not enough to certify a chart. New matrices must be generated from chart proof artifacts and receipts.</li><li><b>Bounded capability profiles</b>: we should name the supported Kubernetes/API profiles rather than imply an unbounded continuum.</li><li><b>Scanner coverage gaps</b>: Snyk/Trivy/Checkov/Kubescape overlap but do not fully substitute for ConfigHub recipe/fact/variant checks.</li><li><b>Operator override governance</b>: raw manifest slots and <code>tpl</code> need role/policy controls, not just technical receipts.</li><li><b>Receipt UX</b>: the receipt has to be understandable to Helm users. A receipt no one can read will not build trust.</li><li><b>Values dead-key detection</b>: the attached note calls out values that do not apply without warning. Helm does not reliably prove that a values path affected output. The importer should report unknown values, unused values where detectable, and field-level provenance for generated manifests where possible.</li><li><b>Field ownership across tools</b>: Helm, GitOps controllers, operators, and ConfigHub functions can all touch the same fields. The operate model needs ownership/conflict checks, not just render determinism.</li><li><b>Intended versus applied versus observed live</b>: scanning rendered YAML is necessary but not enough. ConfigHub Server should store intended state and applied-operation receipts, while <code>cub-scout</code>, GitOps, CI/CD, or other external observers submit live observation receipts with freshness.</li><li><b>Variant propagation semantics</b>: &quot;deploy to prod&quot; must mean promote an approved variant revision while preserving prod-only constraints, not copy dev YAML blindly.</li><li><b>Rollback semantics</b>: rollback must be scoped to a variant/target and operation, not a Git revert that pulls unrelated changes with it.</li></ol>
+<h2 id="9-recommended-product-defaults">9. Recommended Product Defaults</h2>
+<p>Start with these defaults:</p>
+<ul><li>Import requires pinned chart bytes and dependency lock/digests.</li><li>Import fails on hidden live cluster access.</li><li><code>lookup</code> must become a recipe-declared target fact requirement.</li><li>Random/time/cert/password generation must become generated facts or secrets.</li><li><code>tpl</code> is allowed only for declared values paths and is visible in diagnostics.</li><li>Raw manifest injection is disabled by default for trusted base variants, allowed only in explicit extension variants.</li><li>Hooks are split into test hooks, install-phase hooks, upgrade/delete lifecycle actions, explicit skips, and unsupported procedural hooks. Hook templates can be inventoried deterministically; hook execution is proven only by target-aware lifecycle receipts and live observations.</li><li>Capability profiles are named and finite for scanning.</li><li>Every standard variant is rendered and scanned in bulk.</li><li>Install is gated on the exact selected variant revision and its rendered manifest set.</li><li>Receipts include source, dependency lock, recipe, variant, facts, renderer, overlays/functions, manifest digest, scanner versions, and scan results.</li></ul>
+<p>That is the cleanest version of The Plan.</p>
+<h2 id="10-what-helm-expt-must-prove">10. What <code>helm-expt</code> Must Prove</h2>
+<p>The repo rewrite should make these artifacts visible:</p>
+<ul><li>Corpus manifest: chart name, version, source, category.</li><li>Core recipe candidates.</li><li>Bounded install variants.</li><li>Rendered release object snapshots.</li><li>Per-variant diffs.</li><li>Policy and misconfiguration scan results.</li><li>Verified install gate receipts.</li><li>Upgrade simulation: old chart plus customizations to new chart conflicts.</li><li>Promotion example: staging rendered revision promoted to prod without re-rendering.</li><li>Failure catalog: unsupported hooks, missing schemas, conflicting overrides, CRD risks.</li><li>One 60-second skeptical-engineer walkthrough.</li></ul>
+<p>The repo should not merely say &quot;top 500 charts&quot;. It should show:</p>
+<pre><code>Helm complexity
+  -&gt; explicit ConfigHub control point
+  -&gt; deterministic variant revision
+  -&gt; scanned and gated rendered objects</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/chart-recipe-manifest-flow.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

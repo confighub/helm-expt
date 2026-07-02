@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customization Algorithm · ConfigHub Helm Ops</title>
+  <meta name="description" content="Customization Algorithm: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/customization-algorithm.html">
+  <meta property="og:title" content="Customization Algorithm · ConfigHub Helm Ops">
+  <meta property="og:description" content="Customization Algorithm: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/customization-algorithm.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Customization Algorithm</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/customization-algorithm.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>This document defines how a Helm-user customization becomes a ConfigHub variant, and where each piece of new information belongs.</p>
+<p>For the full chart-to-recipe workflow, including the main &quot;where pieces go&quot; table, see <a href="../user/introduction-to-the-harness.html">Introduction To The Harness</a>. For the short guide to variant creation through human, AI assistant, and bulk flows, see <a href="../user/creating-variants.html">Creating Variants</a>. For a concrete chart walkthrough, see <a href="../user/prometheus-overlay-promotion-example.html">Prometheus Overlay And Promotion Example</a>. For wrapper charts, platform values, and customer values, see <a href="../user/custom-overlays.html">Custom Overlays</a>. For the delivery boundary, see <a href="../user/change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a>.</p>
+<p>The product rule is:</p>
+<pre><code>Do not ask users to abandon Helm chart behavior.
+Capture the behavior, classify the customization, render exact objects, then
+promote only digest-bound variants with receipts.</code></pre>
+<h2 id="inputs">Inputs</h2>
+<p>A customization request can arrive from:</p>
+<ul><li>a Helm values file;</li><li><code>--set</code> values;</li><li>an umbrella chart dependency choice;</li><li>a Kustomize overlay or patch;</li><li>an existing Secret, ConfigMap, StorageClass, IngressClass, CRD, or API;</li><li>a cloud/provider-specific setting;</li><li>an operator lifecycle requirement;</li><li>a user-submitted use case not already in the catalog.</li></ul>
+<h2 id="supported-overlay-modes">Supported Overlay Modes</h2>
+<p>This project must support all common Helm customization inputs, but not by flattening them into one vague &quot;variant&quot; bucket.</p>
+<table><thead><tr><th>Input style</th><th>Supported route</th><th>What gets checked</th></tr></thead><tbody><tr><td>Helm values file or <code>--set</code></td><td>Recipe/base variant when it changes Helm render inputs, object shape, object count, or lifecycle behavior; derived ConfigHub variant only when it fills already-rendered fields</td><td>effective values digest, render diff, Helm equivalence receipt when expected</td></tr>
+<tr><td>Umbrella chart or wrapper chart</td><td>Recipe import unit</td><td>source/dependency locks for wrapper and subcharts</td></tr>
+<tr><td>Platform values</td><td>Managed default in the recipe/base</td><td>effective values digest and field provenance</td></tr>
+<tr><td>Customer overlay values</td><td>Recipe/base if rendered into objects; derived ConfigHub variant if binding already-rendered placeholders/fields</td><td>overlay digest, target-fact binding, or mutation receipt</td></tr>
+<tr><td>Kustomize overlay/patch</td><td>Recipe/base overlay when it changes install shape; post-render ConfigHub mutation only for narrow editable fields</td><td>overlay digest, object diff, MutationSources</td></tr>
+<tr><td>Post-renderer/script</td><td>Pinned function stage or reject</td><td>tool digest, function-chain receipt, diff</td></tr>
+<tr><td>Live cluster input</td><td>target fact, preflight, or observation receipt</td><td>fact snapshot/digest and freshness</td></tr></tbody></table>
+<h2 id="algorithm">Algorithm</h2>
+<ol><li>Start from the chart recipe.</li></ol>
+<p>The recipe owns chart identity, source lock, dependency lock, value model, known control points, fact requirements, lifecycle policy, and allowed extension slots.</p>
+<ol><li>Classify the requested customization.</li></ol>
+<pre><code>   values-only
+   target fact
+   generated fact
+   capability profile
+   lifecycle / hook / CRD policy
+   extension slot
+   Kustomize overlay / patch
+   post-renderer or script
+   operate / observation requirement</code></pre>
+<ol><li>Decide whether it belongs in the recipe or the variant.</li></ol>
+<p>The user-facing decision should be phrased simply:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>   This changes Helm render inputs or object shape, so it needs a cub installer
+   base.
+   This is an approved post-render refinement of an uploaded base, so it can be
+   a derived ConfigHub variant.</code></pre>
+<p>The supporting proof can record the exact digests, paths, facts, checks, and receipts behind that decision.</p>
+<p>Recipe-level:</p>
+<pre><code>   chart source
+   dependency closure
+   value schema and known value paths
+   fact requirements
+   allowed extension slots
+   lifecycle policy
+   forbidden or review-only mechanisms</code></pre>
+<p>Variant-level:</p>
+<pre><code>   chosen values
+   selected components
+   target fact bindings
+   capability profile
+   generated fact bindings
+   explicit overlays
+   namespace and release name</code></pre>
+<ol><li>Render a candidate variant revision.</li></ol>
+<p>The revision binds:</p>
+<pre><code>   recipe digest
+   effective values digest
+   capability profile digest
+   target/generated fact binding digest
+   renderer/version/flags digest
+   rendered object set digest</code></pre>
+<ol><li>Compare against regular Helm when Helm equivalence is expected.</li></ol>
+<p>Passing means:</p>
+<pre><code>   regular helm template output
+     == cub installer setup output
+     plus allowed installer support objects</code></pre>
+<ol><li>Scan the exact rendered objects.</li></ol>
+<p>Scans run on the rendered object set, not on a guess about values.</p>
+<ol><li>Gate the revision.</li></ol>
+<p>Gate decisions are:</p>
+<pre><code>   allow
+   warn
+   block</code></pre>
+<p>A warning can be acceptable for local proof but still blocked for production until review or observation requirements are satisfied.</p>
+<ol><li>Promote or reject the variant.</li></ol>
+<p>If broadly useful, the variant can become catalog-supported. If organization-specific, it remains a private/local variant. If unsafe or ambiguous, it is blocked with a reason.</p>
+<ol><li>Settle delivery prerequisites before OCI handoff.</li></ol>
+<p>OCI delivery should publish the reviewed object set that Kubernetes or GitOps will consume. Before that handoff, the route must be explicit:</p>
+<pre><code>   base variant selected
+   derived ConfigHub variant selected, if needed
+   target facts bound or deferred with a receipt
+   generated facts bound
+   scans and gates complete
+   hook/CRD/lifecycle decision recorded
+   approval state known
+   OCI digest, signature, and access method recorded</code></pre>
+<p>If a late change requires Helm to rerender, changes object count or install shape, or touches fields outside the approved post-render contract, it routes back to the <code>cub installer</code> base path. If it is an approved post-render refinement, it can be a derived ConfigHub variant before publication or apply.</p>
+<h2 id="where-common-customizations-go">Where Common Customizations Go</h2>
+<table><thead><tr><th>Customization</th><th>ConfigHub Location</th><th>Notes</th></tr></thead><tbody><tr><td>Change replica count</td><td>Derived ConfigHub variant or Day-2 operation when it edits an already-rendered workload field allowed by the base; <code>cub installer</code> base variant when it changes topology, object count, storage, chart branches, or lifecycle behavior</td><td>Trivial scale changes should not force a new installer base. HA/topology changes still need render proof.</td></tr>
+<tr><td>Use existing Secret</td><td>Base variant if object shape changes; derived ConfigHub variant only if the base already exposes the reference</td><td>Secret name and keys are recorded; secret material is not stored in the public proof.</td></tr>
+<tr><td>Generate password/cert once</td><td>Generated fact binding before render</td><td>Generation happens before approval, then the rendered revision is immutable.</td></tr>
+<tr><td>Enable ingress/TLS</td><td>Base variant plus target facts</td><td>TLS Secret and ingress class become explicit facts.</td></tr>
+<tr><td>Disable CRDs</td><td>Base variant lifecycle policy</td><td>Common for GitOps/controller-owned CRD installs.</td></tr>
+<tr><td>Enable CRDs</td><td>Base variant plus CRD review gate</td><td>CRD lifecycle and upgrade risk must be visible.</td></tr>
+<tr><td>Add raw manifests</td><td>Recipe/base extension slot</td><td>Allowed only when the recipe declares the slot and scan/gate checks run.</td></tr>
+<tr><td>Use <code>tpl</code> content</td><td>Recipe/base extension slot</td><td>Treated as code-like input and reviewed before promotion.</td></tr>
+<tr><td>Add Kustomize patch</td><td>Base overlay when it changes object shape; ConfigHub function only for narrow approved post-render edits</td><td>Patch must be explicit, digest-bound, and included in the diff or MutationSources.</td></tr>
+<tr><td>Set target/environment/region/customer</td><td>Derived ConfigHub variant</td><td>Clone reviewed Units, preserve upstream links, set identity and target context.</td></tr>
+<tr><td>Fill namespace, Secret reference, hosted zone, account ID, or endpoint already exposed by the base</td><td>Derived ConfigHub variant</td><td>Bind target facts, fill approved fields, run checks, and write mutation receipts.</td></tr>
+<tr><td>Set approval gates or observation policy</td><td>Derived ConfigHub variant</td><td>Must be set before the reviewed object set is delivered or applied for that target.</td></tr>
+<tr><td>Helm hook behavior</td><td>Lifecycle policy plus hook/lifecycle receipt</td><td>Hook templates can be inventoried deterministically, but hook execution depends on the target cluster. Map to tests, preflight, lifecycle action, observation, explicit skip, or blocker.</td></tr>
+<tr><td>Cluster lookup</td><td>Recipe fact requirement plus variant fact binding</td><td>Cluster-sourced data must not silently change the approved render.</td></tr></tbody></table>
+<h2 id="product-tier-routing">Product Tier Routing</h2>
+<p>The same algorithm applies across product tiers, but the required product surface changes.</p>
+<table><thead><tr><th>Scenario</th><th>Product tier</th><th>Why</th></tr></thead><tbody><tr><td>Public chart with supported base variants</td><td>Public catalog proof</td><td>The repo can publish recipe/package artifacts, receipts, and local live proof.</td></tr>
+<tr><td>Environment or region clone from a reviewed uploaded base</td><td>ConfigHub managed variants</td><td>Needs ConfigHub Spaces, Units, upstream links, gates, and receipts.</td></tr>
+<tr><td>Wrapper chart plus platform values plus customer overlay values</td><td>Managed overlay import</td><td>Needs private/customer inputs, render context capture, ConfigHub Server, and usually managed/commercial workflows.</td></tr>
+<tr><td>Fleet of many customer/environment variants</td><td>Enterprise fleet operations</td><td>Needs bulk creation, promotion waves, checks, observations, and support disposition.</td></tr></tbody></table>
+<p>See <a href="../user/product-support-tiers.html">Product Support Tiers For Helm Scenarios</a>.</p>
+<h2 id="hook-customization-rule">Hook Customization Rule</h2>
+<p>A request to enable, disable, replace, or rely on Helm hook behavior is not a normal values-only customization.</p>
+<p>Treat it as:</p>
+<pre><code>lifecycle / hook policy
+target fact or preflight requirement
+execution-or-skip decision
+observation requirement</code></pre>
+<p>The rendered normal object set can still be deterministic. The hook action is not proven until a lifecycle receipt records whether it ran, was skipped, was converted into a test/check, or was blocked.</p>
+<h2 id="confidence-labels">Confidence Labels</h2>
+<p>Each variant should carry one of these statuses:</p>
+<pre><code>proof-grade
+catalog-candidate
+catalog-supported
+deprecated
+blocked</code></pre>
+<p>Proof-grade means the variant is mechanically proven. Catalog-supported means it is also the recommended, simple, safe experience for Helm users.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/customization-algorithm.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

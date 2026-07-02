@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lifecycle Routes · ConfigHub Helm Ops</title>
-  <meta name="description" content="Lifecycle Routes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="Lifecycle Routes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/summary.html">
   <meta property="og:title" content="Lifecycle Routes · ConfigHub Helm Ops">
-  <meta property="og:description" content="Lifecycle Routes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="Lifecycle Routes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/summary.html">
   <style>
@@ -391,7 +391,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
     <h1>Lifecycle Routes</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="summary.html">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/lifecycle-routes/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
@@ -400,10 +400,10 @@
 <p>This is a machine-readable answer to one question a Helm user asks when a chart has a hook or hidden lifecycle behavior:</p>
 <pre><code>Where does it go? Who executes it? What is the default? What are my off-ramps?</code></pre>
 <p>Render parity proves the desired non-hook objects. This contract is the separate fact about the lifecycle behavior: its route, who runs it, and whether the product runs it automatically (today, nothing does - see below).</p>
-<p>The full field definitions and the deterministic mapping tables are in <a href="../../../../data/lifecycle-routes/contract.md">contract.md</a>. The two data forms are <a href="../../../../data/lifecycle-routes/routes.csv">routes.csv</a> (spreadsheet) and <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> (stable interface for agents).</p>
+<p>The full field definitions and the deterministic mapping tables are in <a href="contract.html">contract.md</a>. The two data forms are <a href="../../../../data/lifecycle-routes/routes.csv">routes.csv</a> (spreadsheet) and <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> (stable interface for agents).</p>
 <h2 id="what-this-covers">What This Covers</h2>
 <p>25 route rows across 13 chart/version lifecycle behaviors, joined from:</p>
-<ul><li><a href="../hook-disposition/summary.html">data/hook-disposition/top100-hook-dispositions.csv</a></li><li><a href="../../../../data/hook-route-candidates/summary.md">data/hook-route-candidates/candidates.csv</a></li><li><a href="../../../../data/hook-lifecycle-review/summary.md">data/hook-lifecycle-review/top100-source-hook-route-review.csv</a></li></ul>
+<ul><li><a href="../hook-disposition/summary.html">data/hook-disposition/top100-hook-dispositions.csv</a></li><li><a href="../hook-route-candidates/summary.html">data/hook-route-candidates/candidates.csv</a></li><li><a href="../hook-lifecycle-review/summary.html">data/hook-lifecycle-review/top100-source-hook-route-review.csv</a></li></ul>
 <p>It starts with hooks and existing routed hook candidates, and reaches the adjacent Tier-1 lifecycle quirks those rows already touch (<code>crd-install</code>, <code>target-facts</code>, <code>webhook-readiness</code>). Quirk classes with no per-chart route data yet (for example generated-facts, lookup) are deliberately out of scope until that data exists - a small correct contract, not a broad guess.</p>
 <h2 id="the-honest-headline">The Honest Headline</h2>
 <p>0 of 25 rows are safe to show as automatic.</p>

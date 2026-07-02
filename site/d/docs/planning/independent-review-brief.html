@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Independent Review Brief · ConfigHub Helm Ops</title>
+  <meta name="description" content="Independent Review Brief: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/independent-review-brief.html">
+  <meta property="og:title" content="Independent Review Brief · ConfigHub Helm Ops">
+  <meta property="og:description" content="Independent Review Brief: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/independent-review-brief.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Independent Review Brief</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/independent-review-brief.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Use this brief for independent reviews of the current ConfigHub Helm plan.</p>
+<h2 id="scope">Scope</h2>
+<p>Review the new pathway:</p>
+<pre><code>public Helm chart catalog proof
+enterprise-internal chart variants are out of scope
+
+new chart proof repos
+  -&gt; HelmPlan
+  -&gt; ChartDossier
+  -&gt; recipe candidate
+  -&gt; variants
+  -&gt; variant revisions
+  -&gt; rendered release objects
+  -&gt; scans and gates
+  -&gt; ConfigHub OCI artifact receipts
+  -&gt; generated proof spreadsheets</code></pre>
+<p>Explicitly exclude legacy/reference artifacts:</p>
+<pre><code>data/top500-catalog-analysis/source/source-feature-scan.raw.json</code></pre>
+<p>The old render-and-vendor top-20 payload has been removed from the active tree. The source-feature scan may be mentioned only as input to the generated top-500 catalog analysis, not as the current proof path.</p>
+<h2 id="source-docs">Source Docs</h2>
+<p>Read:</p>
+<ul><li><code>README.md</code></li><li><code>data/adversarial10/summary.md</code></li><li><code>data/adversarial10/proof-readiness.csv</code></li><li><code>docs/planning/agreed-execution-plan.md</code></li><li><code>docs/reference/chart-recipe-manifest-flow.md</code></li><li><code>docs/planning/archive/current-pathway-review.md</code></li><li><code>docs/planning/issue-backlog.md</code></li><li><code>docs/corpus/known-adversarial-charts.md</code></li><li><code>docs/planning/review-prompts.md</code></li><li><code>confighub/installer</code> docs and package/render/upload/OCI/facts behavior</li></ul>
+<h2 id="review-1-product-clarity">Review 1: Product Clarity</h2>
+<p>Review focus:</p>
+<pre><code>Would a skeptical Helm/GitOps user understand in 60 seconds why this is less
+Helm pain rather than more platform ceremony?</code></pre>
+<p>Public framing:</p>
+<pre><code>Approve the Kubernetes objects Helm produced,
+not the values you hope produced them.</code></pre>
+<p>Return:</p>
+<ul><li>Verdict.</li><li>Whether the happy path is no more complex than Helm for the first successful install.</li><li>Whether the happy path feels safer and more correct than Helm, not merely more instrumented.</li><li>Whether the value appears immediately: exact rendered objects, diff/review, scan/gate, and safe publish to ConfigHub OCI for GitOps pickup.</li><li>Three strongest claims.</li><li>Five likely user objections.</li><li>Crisp answer to each objection.</li><li>Any terms to cut, rename, or demote.</li><li>Whether <code>variant</code> sounds like a real governed object or just a values file.</li></ul>
+<p>Adoption standard:</p>
+<pre><code>The first demo should be no harder than Helm for a successful install.
+Proof should appear automatically.
+The workflow should feel safer and more correct than Helm alone.</code></pre>
+<h2 id="review-2-architecture-and-artifact-proof">Review 2: Architecture And Artifact Proof</h2>
+<p>Review focus:</p>
+<pre><code>Do the proposed artifacts prove chart -&gt; recipe -&gt; variant -&gt; revision -&gt;
+rendered object -&gt; scan/gate -&gt; receipt?</code></pre>
+<p>Return findings:</p>
+<ul><li>P0: false, unsupported, or missing proof.</li><li>P1: gaps that weaken belief.</li><li>P2: clarity, structure, or naming improvements.</li></ul>
+<p>Also return:</p>
+<ul><li>Required repo tree.</li><li>Required schema list.</li><li>Minimal Redis proof.</li><li>What belongs in <code>confighub/installer</code>.</li><li>What requires ConfigHub model/API support.</li></ul>
+<h2 id="review-3-at-scale-adversarial-verification">Review 3: At-Scale Adversarial Verification</h2>
+<p>Review focus:</p>
+<pre><code>Can the plan prove itself against 20, 100, and 500 real charts, including
+complex Helm behavior?</code></pre>
+<p>For the next milestone, &quot;20 charts&quot; means 20 full public-chart proof slices. It does not mean a broad readiness spreadsheet plus a handful of examples. Review <a href="top20-full-proof-target.html">top20-full-proof-target.md</a> as the concrete target list and acceptance contract.</p>
+<p>Review whether the plan covers:</p>
+<ul><li>source and dependency locks</li><li><code>lookup</code></li><li>generated secrets/certs/time/random functions</li><li><code>.Capabilities</code></li><li><code>required</code> / <code>fail</code></li><li>hooks/tests</li><li>CRDs/webhooks/RBAC/APIService</li><li><code>tpl</code></li><li>raw/extra manifest slots</li><li>mutable image tags</li><li>schema gaps and unknown values</li><li>upgrade, rollback, and live observation freshness</li></ul>
+<p>Return:</p>
+<ul><li>Required adversarial run matrix.</li><li>Required result objects.</li><li>Required spreadsheet tabs and columns.</li><li>Failure taxonomy.</li><li>P0 blockers before scaling.</li><li>Whether any P0 issue in <code>docs/planning/issue-backlog.md</code> is being ignored or bypassed by the written plan.</li><li>Whether <a href="https://github.com/confighub/helm-expt/issues/24">#24</a> really comes first, before the repo generates more evidence artifacts.</li></ul>
+<h2 id="acceptance-standard">Acceptance Standard</h2>
+<p>Every generated spreadsheet row must trace to artifacts and receipts:</p>
+<pre><code>row -&gt; chart source -&gt; lock -&gt; HelmPlan -&gt; recipe candidate -&gt; variant -&gt;
+variant revision -&gt; rendered digest -&gt; scan/gate -&gt; receipt -&gt; next action</code></pre>
+<p>If a claim cannot be traced, it is not proof.</p>
+<p>Current generated evidence to inspect:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/
+packages/bitnami/redis/25.5.3/
+docs/demo/redis/
+data/adversarial10/
+docs/planning/top20-full-proof-target.md
+recipes/metrics-server/metrics-server/3.13.0/
+packages/metrics-server/metrics-server/3.13.0/
+recipes/ingress-nginx/ingress-nginx/4.15.1/
+packages/ingress-nginx/ingress-nginx/4.15.1/
+recipes/jetstack/cert-manager/v1.20.2/
+packages/jetstack/cert-manager/v1.20.2/
+recipes/external-secrets/external-secrets/2.5.0/
+packages/external-secrets/external-secrets/2.5.0/
+recipes/argo-cd/argo-cd/9.5.15/
+packages/argo-cd/argo-cd/9.5.15/
+recipes/bitnami/postgresql/18.6.7/
+packages/bitnami/postgresql/18.6.7/
+recipes/bitnami/rabbitmq/16.0.14/
+packages/bitnami/rabbitmq/16.0.14/
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/
+packages/prometheus-community/kube-prometheus-stack/85.3.3/
+recipes/grafana/loki/7.0.0/
+packages/grafana/loki/7.0.0/
+recipes/longhorn/longhorn/1.11.2/
+packages/longhorn/longhorn/1.11.2/
+recipes/bitnami/mysql/14.0.3/
+packages/bitnami/mysql/14.0.3/
+recipes/grafana/grafana/10.5.15/
+packages/grafana/grafana/10.5.15/
+recipes/hashicorp/vault/0.32.0/
+packages/hashicorp/vault/0.32.0/
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/
+recipes/prometheus-community/prometheus/29.8.0/
+packages/prometheus-community/prometheus/29.8.0/
+recipes/bitnami/mongodb/19.0.7/
+packages/bitnami/mongodb/19.0.7/
+recipes/bitnami/nginx/24.0.2/
+packages/bitnami/nginx/24.0.2/
+recipes/grafana/tempo/1.24.4/
+packages/grafana/tempo/1.24.4/
+recipes/hashicorp/consul/2.0.0/
+packages/hashicorp/consul/2.0.0/</code></pre>
+<p><code>data/adversarial10/</code> is a readiness and blocker harness, not final certification. Review it for whether each row is clear, generated, and receipt-backed, then identify what is still missing before those charts become full recipe/variant/revision proofs.</p>
+<p><code>metrics-server/metrics-server@3.13.0</code> is the first row promoted from that harness. Review whether its target fact, APIService, RBAC, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern after Redis.</p>
+<p><code>ingress-nginx/ingress-nginx@4.15.1</code> is the second row promoted from that harness. Review whether its <code>default</code> and <code>admission-disabled</code> variants, admission webhook, Helm hook lifecycle, RBAC, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for admission-webhook charts.</p>
+<p><code>jetstack/cert-manager@v1.20.2</code> is the third row promoted from that harness. Review whether its <code>default</code> and <code>crds-enabled</code> variants, CRD lifecycle, admission webhook, Helm startup hook lifecycle, RBAC, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for CRD-heavy control-plane charts.</p>
+<p><code>external-secrets/external-secrets@2.5.0</code> is the fourth row promoted from that harness. Review whether its <code>default</code> and <code>no-crds</code> variants, 23-CRD default render, disabled dependency lock, admission webhook, webhook Secret/cert controller, RBAC, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for CRD-heavy controller charts.</p>
+<p><code>argo-cd/argo-cd@9.5.15</code> is the fifth row promoted from that harness. Review whether its <code>default</code> and <code>no-crds</code> variants, three-CRD default render, disabled <code>redis-ha</code> dependency lock, hook lifecycle policy, generated Secret ownership, StatefulSet policy, GitOps handoff, RBAC, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for GitOps controller charts.</p>
+<p><code>bitnami/postgresql@18.6.7</code> is the sixth row promoted from that harness. Review whether its <code>generated-passwords</code> and <code>existing-secret</code> variants, generated fact binding, target Secret binding, Bitnami <code>common</code> dependency lock, hook lifecycle policy, StatefulSet/PVC policy, extension-slot review, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for stateful generated-credential charts.</p>
+<p><code>bitnami/rabbitmq@16.0.14</code> is the seventh row promoted from that harness. Review whether its <code>generated-passwords</code> and <code>existing-secret</code> variants, generated fact binding for password and Erlang cookie, target Secret binding for both external Secrets, Bitnami <code>common</code> dependency lock, StatefulSet/PVC policy, clustering policy, extension-slot review, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for stateful generated-credential charts with clustering material.</p>
+<p><code>prometheus-community/kube-prometheus-stack@85.3.3</code> is the eighth row promoted from that harness. Review whether its <code>default</code> and <code>no-crds</code> variants, generated fact binding for Grafana admin password, 10-CRD default render, umbrella dependency lock, admission webhook observation gates, cluster RBAC, dashboard ConfigMap normalization, extension-slot review, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for large umbrella monitoring charts.</p>
+<p><code>grafana/loki@7.0.0</code> is the ninth row promoted from that harness. Review whether its blocked default render, <code>single-binary-filesystem</code> and <code>simple-scalable-minio</code> variants, storage/schema binding, MinIO object-store fixture, dependency lock, cluster RBAC, StatefulSet/PVC policy, Loki ConfigMap normalization, extension-slot review, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for charts that cannot render safely from defaults.</p>
+<p><code>longhorn/longhorn@1.11.2</code> is the tenth row promoted from that harness. Review whether its <code>default</code> and <code>ui-ingress</code> variants, 22 Longhorn CRDs, pre-upgrade hook policy, admission/recovery observation, cluster RBAC, privileged storage workload policy, StorageClass/default-setting policy, UI ingress policy, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for storage control-plane charts.</p>
+<p><code>bitnami/mysql@14.0.3</code> is the eleventh row promoted from that harness. Review whether its <code>generated-passwords</code> and <code>existing-secret</code> variants, generated fact binding for root/user/replication passwords, target Secret binding, Bitnami <code>common</code> dependency lock, hook lifecycle policy, StatefulSet/PVC policy, extension-slot review, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for stateful generated-credential charts.</p>
+<p><code>grafana/grafana@10.5.15</code> is the twelfth row promoted from that harness. Review whether its chart-deprecation marker, <code>generated-passwords</code> and <code>existing-secret-ingress</code> variants, generated admin credential binding, target Secret binding, UI ingress policy, cluster RBAC review, deployment and extension-slot gates, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for dashboard/control-plane application charts.</p>
+<p><code>hashicorp/vault@0.32.0</code> is the thirteenth full public-chart proof row. Review whether its <code>default</code> and <code>ha-raft-ui</code> variants, TLS posture review, injector admission webhook review, StatefulSet storage and HA Raft policy, init/unseal operate-policy gates, service exposure review, RBAC review, Secret/env extension-slot gates, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for security-sensitive stateful control-plane charts.</p>
+<p><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code> is the fourteenth full public-chart proof row. Review whether its <code>default</code> and <code>sync-secret-rotation</code> variants, SecretProviderClass CRD lifecycle, CSIDriver kubelet integration, Linux DaemonSet and hostPath policy, cluster RBAC review, synced Secret ownership, rotation/provider-health policy, provider identity integration gates, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for node-level CSI driver charts.</p>
+<p><code>prometheus-community/prometheus@29.8.0</code> is the fifteenth full public-chart proof row. Review whether its <code>default</code> and <code>server-only-ephemeral</code> variants, bundled dependency lock, Alertmanager/exporter/pushgateway component selection, scrape ConfigMap review, server PVC/storage retention policy, cluster RBAC review, remote read/write and exposure extension slots, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for bundled monitoring stack charts.</p>
+<p><code>bitnami/mongodb@19.0.7</code> is the sixteenth full public-chart proof row. Review whether its <code>generated-passwords</code> and <code>existing-secret-replicaset</code> variants, generated root password binding, target Secret binding, replica-set and arbiter StatefulSets, persistent storage, NetworkPolicy/PDB policy, hook lifecycle review, <code>tpl</code> configuration slots, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for stateful database topology charts.</p>
+<p><code>bitnami/nginx@24.0.2</code> is the seventeenth full public-chart proof row. Review whether its <code>http-clusterip</code> and <code>existing-tls-ingress</code> variants, generated TLS mitigation, declared TLS target Secrets, ingress exposure, NetworkPolicy, PDB, service exposure, static-site supply-chain slots, metrics add-ons, raw/template extension slots, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for simple web-service charts.</p>
+<p><code>grafana/tempo@1.24.4</code> is the eighteenth full public-chart proof row. Review whether its deprecated-chart marker, <code>local-persistent</code> and <code>s3-query-observability</code> variants, local/S3 storage backend policy, target S3 credential Secret, query ingress, ServiceMonitor capability, NetworkPolicy, StatefulSet/headless-Service runtime risk, raw/template extension slots, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for observability storage charts.</p>
+<p><code>hashicorp/consul@2.0.0</code> is the nineteenth full public-chart proof row and twentieth target chart. Review whether its <code>default-control-plane</code> and <code>secure-mesh-existing-secrets</code> variants, 28 CRDs, cluster RBAC, injector webhooks, TLS/ACL/gossip target Secrets, gateway topology, UI ingress, lifecycle Jobs, rendered Secrets, StatefulSet storage, raw/template extension slots, scan/gate, and <code>cub installer</code> package evidence are convincing enough to serve as the repeatable pattern for service-mesh/control-plane charts.</p>
+<p>Every happy-path demo must also pass the simple UX test:</p>
+<pre><code>one install command
+one review/diff path
+one publish path to ConfigHub OCI for GitOps pickup
+clear scan/gate status
+receipts available after the fact
+Helm-equivalent output where expected
+every intentional difference explained</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/independent-review-brief.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>
