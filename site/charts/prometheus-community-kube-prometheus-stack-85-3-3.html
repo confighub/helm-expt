@@ -391,7 +391,7 @@
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=kube-prometheus-stack&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">catalog-supported page for prometheus-community/kube-prometheus-stack@85.3.3.</p>
-    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir .tmp/demo/prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</pre>
+    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -445,7 +445,8 @@
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
-        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir .tmp/demo/prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</code></p>
+        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</code></p>
+        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
   <pre><code>cub installer setup ...
@@ -514,7 +515,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2a honest default base</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir .tmp/demo/prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-default --non-interactive --namespace monitoring</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>2 source hook(s); observed; live: yes; route: yes</dd>
           <dt>Who runs actions?</dt><dd>target-owned:3, user-executes:4; automatic false until route execution has evidence</dd>
@@ -536,7 +538,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base no-crds --work-dir .tmp/demo/prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base no-crds --work-dir ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds --non-interactive --namespace monitoring</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/no-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/prometheus-community-kube-prometheus-stack-85-3-3/no-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>2 source hook(s); observed; live: yes; route: yes</dd>
           <dt>Who runs actions?</dt><dd>target-owned:3, user-executes:4; automatic false until route execution has evidence</dd>

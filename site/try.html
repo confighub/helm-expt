@@ -576,7 +576,7 @@ stringData:
   <p>These npm commands check the catalog's own evidence. They're not how you install. Use them to confirm what we claim; you install with <code>cub installer setup</code>, <code>helm install</code>, or <code>kubectl apply</code>.</p>
   <pre><code># confirm the render matches Helm (a check, not an install)
 $ npm run redis:verify-install:render -- \
-    --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
+    --base default --work-dir ./redis-default --namespace redis</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
   <p>Already a ConfigHub user? The product docs cover the direct install path (<code>cub helm install</code>) and Variants: read the <a href="https://docs.confighub.com/guide/helm-charts/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">Helm charts guide</a> and the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">setup page</a>. This site is the public chart catalog and its evidence.</p>

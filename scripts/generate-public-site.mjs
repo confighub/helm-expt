@@ -180,6 +180,7 @@ if (mode === "--generate") {
   rmSync(chartPagesRoot, { recursive: true, force: true });
   rmSync(privateRoot, { recursive: true, force: true });
   rmSync(docPagesRoot, { recursive: true, force: true });
+  rmSync(join(siteRoot, "sh"), { recursive: true, force: true });
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
@@ -207,6 +208,7 @@ if (mode === "--generate") {
   write(chartIndexPath, site.chartIndexHtml);
   for (const page of site.chartPages) write(page.path, page.html);
   for (const page of site.docPages) write(page.path, page.html);
+  for (const script of site.presetScripts) write(script.path, script.content);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
@@ -217,7 +219,7 @@ if (mode === "--generate") {
     console.log(`markdown targets linked but not found in the repo (left as raw links): ${site.missingMdTargets.length}`);
     for (const target of site.missingMdTargets) console.log(`  - ${target}`);
   }
-  console.log(`wrote public site outputs, ${site.chartPages.length} chart page(s), and ${site.docPages.length} rendered doc page(s)`);
+  console.log(`wrote public site outputs, ${site.chartPages.length} chart page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} preset script(s)`);
 } else if (mode === "--verify") {
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
@@ -301,6 +303,23 @@ if (mode === "--generate") {
     }
   };
   walkDocPages(docPagesRoot, "d/");
+  const expectedScripts = new Map(site.presetScripts.map((script) => [script.relPath, script]));
+  const actualScripts = [];
+  const walkScripts = (dir, prefix) => {
+    if (!existsSync(dir)) return;
+    for (const name of readdirSync(dir).sort()) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) walkScripts(full, `${prefix}${name}/`);
+      else if (name.endsWith(".sh")) actualScripts.push(`${prefix}${name}`);
+    }
+  };
+  walkScripts(join(siteRoot, "sh"), "sh/");
+  check(actualScripts.length === expectedScripts.size, `expected ${expectedScripts.size} preset script(s) under site/sh/, found ${actualScripts.length}`);
+  for (const relPath of actualScripts) check(expectedScripts.has(relPath), `unexpected preset script site/${relPath}`);
+  for (const [relPath, script] of expectedScripts) {
+    check(existsSync(script.path), `site/${relPath} is missing; run npm run site:generate`);
+    check(readFileSync(script.path, "utf8") === script.content, `site/${relPath} is stale`);
+  }
   check(actualDocPages.length === expectedDocPages.size, `expected ${expectedDocPages.size} rendered doc page(s) under site/d/, found ${actualDocPages.length}`);
   for (const relPath of actualDocPages) check(expectedDocPages.has(relPath), `unexpected rendered doc page site/${relPath}`);
   for (const [relPath, page] of expectedDocPages) {
@@ -566,6 +585,7 @@ function buildSite(generatedAt) {
   site.llmsTxt = buildLlmsTxt();
   const finalized = finalizeSite(site, catalog);
   finalized.sitemapXml = buildSitemapXml(finalized.chartPages, finalized.docPages);
+  finalized.presetScripts = buildPresetScripts(catalog);
   return finalized;
 }
 
@@ -2380,7 +2400,7 @@ stringData:
   <p>These npm commands check the catalog's own evidence. They're not how you install. Use them to confirm what we claim; you install with <code>cub installer setup</code>, <code>helm install</code>, or <code>kubectl apply</code>.</p>
   <pre><code># confirm the render matches Helm (a check, not an install)
 $ npm run redis:verify-install:render -- \\
-    --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
+    --base default --work-dir ./redis-default --namespace redis</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
   ${productDocsPointer("try")}
@@ -4590,17 +4610,208 @@ function evidenceDepthSummary(lanes) {
   return parts.join(" ") || "No lane evidence recorded yet.";
 }
 
-function packageRequirementsForEntry(entry) {
+function packageRequirementsForBase(entry, variant) {
   if (!entry.package_path) return [];
   const installerPath = join(repoRoot, entry.package_path, "installer.yaml");
   if (!existsSync(installerPath)) return [];
   const installer = readYaml(installerPath);
   const bases = installer.spec?.bases ?? [];
   const base =
-    bases.find((candidate) => candidate.name === entry.start_variant) ??
+    bases.find((candidate) => candidate.name === variant) ??
     bases.find((candidate) => candidate.default) ??
     bases[0];
   return Array.isArray(base?.externalRequires) ? base.externalRequires : [];
+}
+
+function packageRequirementsForEntry(entry) {
+  return packageRequirementsForBase(entry, entry.start_variant);
+}
+
+// Per-preset scripts. Each runnable preset row ships try.sh (render locally,
+// prerequisites in order, kubectl apply) and confighub.sh (render locally,
+// upload to the user's Space). Both are emitted from the same data as the
+// chart page command cards, so page copy and scripts cannot diverge.
+function presetVariantSlug(row) {
+  return String(row.variant || "default")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function presetScriptDir(entry, row) {
+  if (["source", "candidate", "derived"].includes(row.row_kind)) return null;
+  if (!(row.package_base_path || (entry.package_path && row.variant && row.variant !== "(source)"))) return null;
+  const stem = chartPageFileName(entry).replace(/\.html$/, "");
+  return `sh/${stem}/${presetVariantSlug(row)}`;
+}
+
+function shellStepText(value) {
+  return String(value ?? "").replace(/["`$\\]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function presetScriptPreamble(entry, row, purposeLines) {
+  const pageUrl = `${SITE_BASE_URL}charts/${chartPageFileName(entry)}`;
+  return [
+    "#!/usr/bin/env bash",
+    `# ${entry.chart} ${entry.version} - preset: ${row.variant}`,
+    ...purposeLines.map((line) => `# ${line}`),
+    "# Generated by scripts/generate-public-site.mjs from the committed package",
+    `# data for this preset. Chart page: ${pageUrl}`,
+    "set -euo pipefail",
+    "",
+    "say() { printf '\\n>> %s\\n' \"$*\"; }",
+    "",
+    "if ! command -v cub >/dev/null 2>&1; then",
+    `  printf 'cub is not installed. Install it with:\\n  ${CUB_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
+    "  exit 1",
+    "fi",
+  ];
+}
+
+function presetTryScript(entry, row) {
+  const workDir = presetWorkDir(entry, row);
+  const setup = installerSetupCommand(entry.package_path, row.variant, entry, row);
+  const requirements = packageRequirementsForBase(entry, row.variant);
+  const namespaces = [...new Set([entry.namespace, ...requirements.map((requirement) => requirement.namespace)].filter(Boolean))];
+  const lines = presetScriptPreamble(entry, row, [
+    "Path: pull the package, render this preset locally, read the objects,",
+    "then apply them with kubectl. No ConfigHub account is needed.",
+  ]);
+  lines.push(
+    "",
+    "if ! command -v kubectl >/dev/null 2>&1; then",
+    "  printf 'kubectl is required for the apply step.\\n' >&2",
+    "  exit 1",
+    "fi",
+    "",
+    `say "Pull the package and render the ${row.variant} preset into ${workDir}"`,
+    setup,
+    "",
+    'say "Read what was rendered; nothing has touched the cluster yet"',
+    `ls ${workDir}/out/manifests`,
+  );
+  for (const namespace of namespaces) {
+    lines.push(
+      "",
+      `say "Ensure the ${namespace} namespace exists"`,
+      `kubectl create namespace ${namespace} --dry-run=client -o yaml | kubectl apply -f -`,
+    );
+  }
+  const runnable = requirements.filter((requirement) => {
+    const suggested = String(requirement.suggestedSource ?? "").trim();
+    return suggested && !/[<>]/.test(suggested);
+  });
+  const manual = requirements.filter((requirement) => !runnable.includes(requirement));
+  for (const requirement of runnable) {
+    const label = shellStepText(requirement.name || requirement.kind || "required target input");
+    lines.push(
+      "",
+      `say "Requirement before apply: ${label}"`,
+      `if ! ${String(requirement.suggestedSource).trim()}; then`,
+      "  printf '!! The requirement command failed. If the resource already exists, review it and re-run; otherwise fix the error above.\\n' >&2",
+      "  exit 1",
+      "fi",
+    );
+  }
+  if (manual.length) {
+    // Requirements recorded as templates (or without a command) need real
+    // values from the user; stop once with all of them, and let a re-run
+    // with REQUIREMENTS_READY=1 continue past this gate.
+    lines.push(
+      "",
+      'if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then',
+      "  cat >&2 <<'EOF_REQUIREMENTS'",
+      "This preset needs resources you must create with your own values first:",
+      ...manual.flatMap((requirement) => {
+        const label = String(requirement.name || requirement.kind || "required target input").replace(/\s+/g, " ").trim();
+        const suggested = String(requirement.suggestedSource ?? "").trim();
+        return suggested ? [`  - ${label}`, `    ${suggested}`] : [`  - ${label} (no command recorded; see the chart page)`];
+      }),
+      "Substitute the <...> placeholders and create these, then re-run with:",
+      "  REQUIREMENTS_READY=1 bash try.sh",
+      "EOF_REQUIREMENTS",
+      "  exit 1",
+      "fi",
+    );
+  }
+  lines.push(
+    "",
+    `if [ -d ${workDir}/out/secrets ]; then`,
+    '  say "Apply rendered Secrets first"',
+    `  kubectl apply -f ${workDir}/out/secrets`,
+    "fi",
+    "",
+    'say "Apply the rendered objects"',
+    `kubectl apply -f ${workDir}/out/manifests`,
+    "",
+    `say "Done. The cluster received exactly the files in ${workDir}/out."`,
+    "",
+  );
+  return lines.join("\n");
+}
+
+function presetConfigHubScript(entry, row) {
+  const workDir = presetWorkDir(entry, row);
+  const setup = installerSetupCommand(entry.package_path, row.variant, entry, row);
+  const requirements = packageRequirementsForBase(entry, row.variant);
+  const chartShort = entry.chart.split("/").pop();
+  const spaceSlug = `helm-${chartShort}-${row.variant}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  const lines = presetScriptPreamble(entry, row, [
+    "Path: render this preset locally, then upload the objects to your",
+    "ConfigHub Space as Units you can edit, diff, and deliver.",
+    "Needs a ConfigHub account: run cub auth login once before this script.",
+  ]);
+  lines.push(
+    "",
+    `SPACE="\${CUB_SPACE:-${spaceSlug}}"`,
+    "",
+    'say "Check ConfigHub auth"',
+    "if ! cub auth status >/dev/null 2>&1; then",
+    "  printf 'Not logged in. Run: cub auth login\\nThen re-run this script.\\n' >&2",
+    "  exit 1",
+    "fi",
+    "",
+    `say "Render the ${row.variant} preset into ${workDir}"`,
+    setup,
+    "",
+    `say "Upload the rendered objects to Space \${SPACE} (created on first upload)"`,
+    `cub installer upload --work-dir ${workDir} --space "\${SPACE}"`,
+    "",
+    'say "Uploaded. See your Units:"',
+    `printf '  cub unit list --space %s\\n  or open https://hub.confighub.com and find that Space.\\n' "\${SPACE}"`,
+  );
+  if (requirements.length) {
+    lines.push(
+      "",
+      "# Before applying this preset from ConfigHub to a cluster, it still needs:",
+      ...requirements.map((requirement) => `#   - ${String(requirement.name || requirement.kind || "required target input").replace(/\s+/g, " ")}${requirement.suggestedSource ? ` (suggested: ${String(requirement.suggestedSource).replace(/\s+/g, " ")})` : ""}`),
+    );
+  }
+  lines.push("");
+  return lines.join("\n");
+}
+
+function buildPresetScripts(catalog) {
+  const scripts = [];
+  const seen = new Set();
+  for (const entry of catalog.catalogEntries) {
+    const rows = catalog.masterCatalogMatrix
+      .filter((row) => row.chart === entry.chart && row.version === entry.version)
+      .sort(compareMatrixRows);
+    for (const row of rows) {
+      const dir = presetScriptDir(entry, row);
+      if (!dir || seen.has(dir)) continue;
+      seen.add(dir);
+      scripts.push(
+        { relPath: `${dir}/try.sh`, path: join(siteRoot, dir, "try.sh"), content: presetTryScript(entry, row) },
+        { relPath: `${dir}/confighub.sh`, path: join(siteRoot, dir, "confighub.sh"), content: presetConfigHubScript(entry, row) },
+      );
+    }
+  }
+  return scripts;
 }
 
 function chartPageHtml(catalog, entry) {
@@ -4615,6 +4826,7 @@ function chartPageHtml(catalog, entry) {
     matrixRows.find((row) => row.row_kind !== "source");
   const firstRunnableCommand = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry) : "No runnable row recorded yet.";
   const firstRunnableCommandText = firstRunnableRow ? matrixRowRunPath(firstRunnableRow, entry, { html: false }) : "No runnable row recorded yet.";
+  const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
   const installerPackageStatus = installerOciStatusText(entry);
   const firstRunnableReason = cleanPageActionText(
@@ -4803,6 +5015,7 @@ function chartPageHtml(catalog, entry) {
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
+        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -4944,8 +5157,8 @@ function chartTeachingHtml(entry) {
       <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
-        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir ./redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
       </div>
       <p><a href="../try.html">Open the current Get Started page</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
     </section>`;
@@ -4957,8 +5170,8 @@ function chartTeachingHtml(entry) {
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/prometheus --version 29.8.0 --namespace monitoring --create-namespace</code></pre><p>You should see Helm create a Prometheus release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} --base server-only-ephemeral --work-dir .tmp/demo/prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
-        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/prometheus-server-only --space helm-prometheus-server-only</code></pre><p>You should see Prometheus Units in ConfigHub. Derived variants can start from that uploaded base.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} --base server-only-ephemeral --work-dir ./prometheus-server-only --non-interactive --namespace monitoring</code></pre><p>You should see rendered manifests in the work directory, ready to inspect before delivery.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./prometheus-server-only --space helm-prometheus-server-only</code></pre><p>You should see Prometheus Units in ConfigHub. Derived variants can start from that uploaded base.</p></div>
       </div>
       <p><a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
     </section>`;
@@ -5078,6 +5291,10 @@ function sentenceCase(value) {
 function matrixRowCard(row, entry) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
+  const scriptDir = presetScriptDir(entry, row);
+  const scriptLinks = scriptDir
+    ? `<a href="../${scriptDir}/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../${scriptDir}/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.`
+    : "";
   const nextAction = cleanPageActionText(row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "");
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
   const humanReason = reason ? humanizeReasonList(reason) : "";
@@ -5103,7 +5320,8 @@ function matrixRowCard(row, entry) {
         <p class="row-purpose">${escapeHtml(matrixRowPurpose(row))}</p>
         <dl>
           <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>
-          <dt>How to run</dt><dd>${command}</dd>
+          <dt>How to run</dt><dd>${command}</dd>${scriptLinks ? `
+          <dt>Scripts</dt><dd>${scriptLinks}</dd>` : ""}
           <dt>Evidence</dt><dd>${escapeHtml(matrixEvidenceLabel(row.strongest_evidence || row.outcome_level || ""))}</dd>
           <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
           <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>
@@ -5152,15 +5370,18 @@ function matrixRowRunPath(row, entry, options = {}) {
 function installerSetupCommand(packagePath, variant, entry, row) {
   void packagePath;
   const namespace = entry.namespace ? ` --namespace ${entry.namespace}` : "";
-  return `cub installer setup --pull ${installerOciRefForEntry(entry)} --base ${variant} --work-dir ${demoWorkDir(entry, row)} --non-interactive${namespace}`;
+  return `cub installer setup --pull ${installerOciRefForEntry(entry)} --base ${variant} --work-dir ${presetWorkDir(entry, row)} --non-interactive${namespace}`;
 }
 
-function demoWorkDir(entry, row) {
-  const stem = `${entry.chart}-${entry.version}-${row.variant || entry.start_variant || "default"}`
+function presetStem(entry, row) {
+  return `${entry.chart}-${entry.version}-${row.variant || entry.start_variant || "default"}`
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-  return `.tmp/demo/${stem}`;
+}
+
+function presetWorkDir(entry, row) {
+  return `./${presetStem(entry, row)}`;
 }
 
 function matrixHookSummary(row) {
