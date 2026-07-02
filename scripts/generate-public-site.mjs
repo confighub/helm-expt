@@ -86,6 +86,12 @@ const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CUB_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
+// Single source for the public URL of the generated site; a future domain
+// move is one edit here.
+const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
+const sitemapPath = join(siteRoot, "sitemap.xml");
+const robotsPath = join(siteRoot, "robots.txt");
+const llmsPath = join(siteRoot, "llms.txt");
 
 function confighubOutboundUrl(baseUrl, campaign) {
   const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
@@ -121,6 +127,44 @@ const SITE_PAGE_RELPATHS = {
   journeyHtml: "journey.html",
   day1OperationsHtml: "day1-operations.html",
   chartIndexHtml: "charts/index.html",
+  matrixHtml: "matrix.html",
+};
+
+// Redirect stubs: canonical points at the target and they stay out of the sitemap.
+const PAGE_REDIRECT_TARGETS = {
+  "hooks.html": "charts/index.html",
+  "tiers.html": "private/index.html",
+  "day1-operations.html": "operations.html",
+};
+
+// One sentence per page, drawn from the page's lead copy. Chart pages derive
+// theirs from the page title.
+const PAGE_DESCRIPTIONS = {
+  "index.html": "Render a Helm chart once, change any field afterward, and keep it through upgrades: AI-friendly Helm tools and an evidence-backed catalog of the top 100 charts.",
+  "offering.html": "Public Helm charts in visible and verifiable stages: keep the chart as the source and make the rendered config reviewable and safer to operate.",
+  "try.html": "Install a chart with Helm and cub side by side on a throwaway cluster, read the rendered objects first, then change a setting and keep it through upgrades.",
+  "serverless.html": "Serverless mode is the no-account path: install a catalog chart and inspect the rendered objects, Secrets, and prerequisites before you apply them.",
+  "how-it-works.html": "The recipe is your source of truth: how render, record, and route stages keep a Helm chart reviewable through changes and upgrades.",
+  "variants.html": "Same chart, but change one thing: when a values change is a new chart preset and when it belongs in a derived ConfigHub variant.",
+  "custom-apps.html": "Bring the applications your team owns alongside public charts so a release can move as one reviewed set.",
+  "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
+  "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
+  "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
+  "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
+  "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
+  "docs.html": "The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.",
+  "verification.html": "Verification for the catalog: product commands and proof commands, committed evidence and fresh live parity you can run yourself.",
+  "proof.html": "How to read the proof corpus: receipts, scans, render records, and live evidence for each catalog chart.",
+  "quirks.html": "Helm quirks in plain words: hooks, CRDs, generated Secrets, and the other extras charts leave around the edges.",
+  "hard-questions.html": "Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.",
+  "known-gaps.html": "The gaps we surface on purpose, from fixed placeholder credentials to SSA conflict ergonomics.",
+  "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
+  "tiers.html": "The tiers page moved: commercial options now live on the private page.",
+  "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
+  "private/index.html": "Upgrade to ConfigHub: the commercial edition for private charts, teams, policies, fleet operations, and production support.",
+  "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
+  "charts/index.html": "The Helm Ops Catalog: pick a chart, choose a preset chart configuration, and read its rendered objects, checks, and evidence.",
+  "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
 };
 const mode = process.argv[2] ?? "--generate";
 
@@ -157,6 +201,9 @@ if (mode === "--generate") {
   for (const page of site.chartPages) write(page.path, page.html);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
+  write(sitemapPath, site.sitemapXml);
+  write(robotsPath, site.robotsTxt);
+  write(llmsPath, site.llmsTxt);
   write(generatedAtPath, `${generatedAt}\n`);
   console.log(`wrote public site outputs and ${site.chartPages.length} chart page(s)`);
 } else if (mode === "--verify") {
@@ -225,6 +272,12 @@ if (mode === "--generate") {
   }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
+  check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
+  check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
+  check(existsSync(robotsPath), "site/robots.txt is missing; run npm run site:generate");
+  check(readFileSync(robotsPath, "utf8") === site.robotsTxt, "site/robots.txt is stale");
+  check(existsSync(llmsPath), "site/llms.txt is missing; run npm run site:generate");
+  check(readFileSync(llmsPath, "utf8") === site.llmsTxt, "site/llms.txt is stale");
   console.log("verified generated public site outputs");
 } else {
   console.log(`Usage:
@@ -445,7 +498,7 @@ function buildSite(generatedAt) {
     path: join(chartPagesRoot, chartPageFileName(entry)),
     html: chartPageHtml(catalog, entry),
   }));
-  return finalizeSite({
+  const site = {
     catalogJson: `${JSON.stringify(siteSafe(catalog), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
@@ -474,7 +527,11 @@ function buildSite(generatedAt) {
     chartPages,
     matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
     readme: readme(),
-  });
+  };
+  site.sitemapXml = buildSitemapXml(site.chartPages);
+  site.robotsTxt = buildRobotsTxt();
+  site.llmsTxt = buildLlmsTxt();
+  return finalizeSite(site);
 }
 
 function generatedStamp(catalog, label) {
@@ -514,8 +571,43 @@ function injectInstallCubNote(html, relPath) {
   return html;
 }
 
+function canonicalUrl(relPath) {
+  const target = PAGE_REDIRECT_TARGETS[relPath] ?? relPath;
+  if (target === "index.html") return SITE_BASE_URL;
+  return SITE_BASE_URL + target.replace(/index\.html$/, "");
+}
+
+function pageTitle(html) {
+  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "ConfigHub Helm Ops").trim();
+}
+
+function pageDescription(html, relPath) {
+  const fromMap = PAGE_DESCRIPTIONS[relPath];
+  if (fromMap) return fromMap;
+  const subject = pageTitle(html).replace(/\s*·\s*ConfigHub Helm Ops$/, "");
+  return `${subject}: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.`;
+}
+
+function injectHeadMeta(html, relPath) {
+  const titleMatch = html.match(/<title>[^<]*<\/title>/);
+  if (!titleMatch) return html;
+  const title = pageTitle(html);
+  const description = pageDescription(html, relPath);
+  const canonical = canonicalUrl(relPath);
+  const meta = [
+    `<meta name="description" content="${escapeHtml(description)}">`,
+    `<link rel="canonical" href="${escapeHtml(canonical)}">`,
+    `<meta property="og:title" content="${escapeHtml(title)}">`,
+    `<meta property="og:description" content="${escapeHtml(description)}">`,
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:url" content="${escapeHtml(canonical)}">`,
+  ].join("\n  ");
+  const at = titleMatch.index + titleMatch[0].length;
+  return `${html.slice(0, at)}\n  ${meta}${html.slice(at)}`;
+}
+
 function finalizePage(html, relPath) {
-  return injectInstallCubNote(html, relPath);
+  return injectHeadMeta(injectInstallCubNote(html, relPath), relPath);
 }
 
 function finalizeSite(site) {
@@ -528,6 +620,35 @@ function finalizeSite(site) {
     html: finalizePage(page.html, `charts/${page.fileName}`),
   }));
   return finalized;
+}
+
+function buildSitemapXml(chartPages) {
+  const urls = new Set();
+  for (const relPath of Object.values(SITE_PAGE_RELPATHS)) {
+    if (PAGE_REDIRECT_TARGETS[relPath]) continue;
+    urls.add(canonicalUrl(relPath));
+  }
+  for (const page of chartPages) urls.add(canonicalUrl(`charts/${page.fileName}`));
+  const body = [...urls].sort().map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`).join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+}
+
+function buildRobotsTxt() {
+  return `User-agent: *\nAllow: /\n\nSitemap: ${SITE_BASE_URL}sitemap.xml\n`;
+}
+
+function buildLlmsTxt() {
+  return `# ConfigHub Helm Ops (helm-expt)
+
+> A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
+
+- [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: charts, presets, packages, counts, and the repo data paths they come from.
+- [Helm Ops Catalog](${SITE_BASE_URL}charts/): the catalog index, one page per chart version with preset configurations, rendered objects, and evidence links.
+- [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
+- [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
+- [Get Started](${SITE_BASE_URL}try.html): the no-account try path for installing catalog charts.
+- [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
+`;
 }
 
 function topNav(base = ".") {

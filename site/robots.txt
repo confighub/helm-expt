@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://confighub.github.io/helm-expt/site/sitemap.xml
