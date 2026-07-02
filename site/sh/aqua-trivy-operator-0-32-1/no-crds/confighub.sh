@@ -31,6 +31,9 @@ cub installer upload --work-dir ./aqua-trivy-operator-0-32-1-no-crds --space "${
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - CRD clustercompliancereports.aquasecurity.github.io (suggested: kubectl apply -f <crd-manifest.yaml>)
 #   - CRD clusterconfigauditreports.aquasecurity.github.io (suggested: kubectl apply -f <crd-manifest.yaml>)

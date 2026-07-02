@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · ConfigHub Helm Ops</title>
-  <meta name="description" content="Same chart, but change one thing: when a values change is a new chart preset and when it belongs in a derived ConfigHub variant.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/variants.html">
-  <meta property="og:title" content="Variants · ConfigHub Helm Ops">
-  <meta property="og:description" content="Same chart, but change one thing: when a values change is a new chart preset and when it belongs in a derived ConfigHub variant.">
+  <title>After Upload: Create A Variant And Promote Changes · ConfigHub Helm Ops</title>
+  <meta name="description" content="After Upload: Create A Variant And Promote Changes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html">
+  <meta property="og:title" content="After Upload: Create A Variant And Promote Changes · ConfigHub Helm Ops">
+  <meta property="og:description" content="After Upload: Create A Variant And Promote Changes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/variants.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html">
   <style>
     :root {
       color-scheme: light;
@@ -379,191 +379,64 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .95em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Variants</h1>
-    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Then dev, staging, prod, regions, and customers turn into values-file sprawl and fork pressure.</p>
-    <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
-    <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>After Upload: Create A Variant And Promote Changes</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/variants-after-upload.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="model">
-      <h2 id="model">The Model In One Picture</h2>
-      <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
-      <pre><code>Component: payments-api
-
-Variants:
-  payments-api/base
-  payments-api/dev
-  payments-api/staging
-  payments-api/prod-us
-  payments-api/prod-eu</code></pre>
-      <div class="card"><table>
-        <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Component</td><td>The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice.</td></tr><tr><td>Variant</td><td>One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a.</td></tr><tr><td>Base variant</td><td>A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects.</td></tr><tr><td>Derived variant</td><td>A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes.</td></tr><tr><td>Promotion</td><td>A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>This gives the team plain questions to answer: which shape are we using, where did it come from, what changed, and is it safe to promote?</p>
-    </section>
-
-    <section aria-labelledby="choose">
-      <h2 id="choose">The One Decision That Matters</h2>
-      <p>Ask whether Helm would render different Kubernetes objects. That one question decides where the change belongs.</p>
-      <div class="card"><table>
-        <thead><tr><th>Action</th><th>Use it when</th><th>Examples</th></tr></thead>
-        <tbody><tr><td>Make a base variant</td><td>The choice changes the objects Helm would create.</td><td>CRDs on or off, HA mode, generated Secret vs existing Secret, different values file.</td></tr><tr><td>Make a derived variant</td><td>The object set is already right, but it needs to live in a different place or policy context.</td><td>prod-us-east from a base, target binding, labels, approvals, observation policy.</td></tr><tr><td>Go back to the recipe</td><td>The requested change belongs before render, not after it.</td><td>New chart version, wrapper chart, customer overlay values, or a different rendered object set.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="journey">
-      <h2 id="journey">A Good Variant Flow</h2>
-      <p>A good variant flow is plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
-      <div class="card"><table>
-        <thead><tr><th>Step</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Choose a base</td><td>Pick the closest proved install shape from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The command surface today is <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. Product screens can make this friendlier, but the same data remains available for review.</p>
-      <p>For the exact commands with the why behind each flag, read <a href="d/docs/user/variants-after-upload.html">After upload: create a variant and promote changes</a>. It starts where a preset's <code>confighub.sh</code> ends.</p>
-    </section>
-
-    <section aria-labelledby="flow">
-      <h2 id="flow">The Basic Flow</h2>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/redis
-cub installer upload --work-dir .tmp/redis --space helm-redis-default
-cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
-cub variant promote prod-us-east --dry-run -o mutations</code></pre>
-      <p>You see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
-      <div class="card">
-        <h3>Expected output</h3>
-        <pre><code>created downstream variant
-cloned Units linked to upstream Units
-changed labels/target/gates only, unless an allowed mutation receipt says otherwise
-promotion dry-run lists mutations before apply</code></pre>
-      </div>
-    </section>
-
-    <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
-      <p>These examples show the same rule in different chart shapes.</p>
-      <div class="card"><table>
-        <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Redis</td><td>Secret strategy changes the rendered objects, so it belongs in a base variant.</td><td><a href="./charts/bitnami-redis-25-5-3.html">Redis</a></td></tr><tr><td>Prometheus</td><td>A small server-only base can become environment-specific ConfigHub variants.</td><td><a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus</a></td></tr><tr><td>kube-prometheus-stack</td><td>A serious chart needs variants that carry target facts, lifecycle routes, and upgrade checks.</td><td><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="more">
-      <h2 id="more">More Detail</h2>
-      <p><a href="d/docs/user/creating-variants.html">Creating variants</a> explains the doctrine. <a href="d/docs/user/cub-variant-command-surface.html">cub variant command surface</a> tracks the command vocabulary. <a href="d/data/variant-promotion/summary.html">Variant promotion receipts</a> show the current evidence.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Commands on this page were verified against <code>cub &lt;verb&gt; --help</code> on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.</p>
+<p>You ran a preset's <code>confighub.sh</code> (or <code>cub installer upload</code> yourself). Your rendered chart objects now live in a ConfigHub Space as Units. This page is the next step: make an environment version of that Space, change it safely, and pull reviewed base changes forward when the base moves.</p>
+<h2 id="the-one-decision-restated">The one decision, restated</h2>
+<ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different chart preset. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a ConfigHub variant. Nothing re-renders.</li></ul>
+<p>Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.</p>
+<h2 id="what-you-have-after-upload">What you have after upload</h2>
+<p>One Space holding your rendered objects as Units, one Unit per manifest. See it:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>cub unit list --space helm-redis-default</code></pre>
+<p>Replace <code>helm-redis-default</code> with the Space your script printed. The upload also set the Space's well-known <code>Component</code> label from the package name; the variant Space name builds on it below.</p>
+<h2 id="step-1-create-an-environment-variant">Step 1: Create an environment variant</h2>
+<pre><code>cub variant create prod helm-redis-default \
+  --environment Prod \
+  --namespace redis-prod \
+  --unit-delete-gate prod-critical \
+  --unit-destroy-gate prod-critical</code></pre>
+<p>What each part does, and why you want it:</p>
+<table><thead><tr><th>Part</th><th>What it does</th><th>Why</th></tr></thead><tbody><tr><td><code>prod</code></td><td>The variant name. It becomes the new Space's <code>Variant</code> label.</td><td>The environment difference gets a name instead of hiding in a fork.</td></tr>
+<tr><td><code>helm-redis-default</code></td><td>The upstream Space to clone.</td><td>The variant records this upstream link. Promotion follows it later.</td></tr>
+<tr><td><code>--environment Prod</code></td><td>Sets the <code>Environment</code> label on the new Space.</td><td>Fleet queries like &quot;everything in Prod&quot; work without parsing names.</td></tr>
+<tr><td><code>--namespace redis-prod</code></td><td>Runs <code>set-namespace</code> on the cloned Units.</td><td>Each environment lands in its own namespace; the base stays neutral.</td></tr>
+<tr><td><code>--unit-delete-gate</code> / <code>--unit-destroy-gate</code></td><td>Blocks delete and destroy of the cloned Units until the gate is removed.</td><td>Prod objects should not be one bulk command away from gone. Name the gate for the reason it exists.</td></tr></tbody></table>
+<p>The new Space's slug comes from the label pattern <code>Component-Variant</code> (for example <code>bitnami-redis-prod</code>). Confirm with <code>cub space list</code>. The clone copies the upstream Space's triggers and permissions along with the Units.</p>
+<h2 id="step-2-change-something-in-the-variant">Step 2: Change something in the variant</h2>
+<p>Edit Unit data with a ConfigHub function, not by re-rendering the chart:</p>
+<pre><code>cub run set-replicas --replicas 3 --space bitnami-redis-prod --unit &lt;unit-slug&gt; \
+  --change-desc &quot;Prod runs three replicas&quot;</code></pre>
+<p>Every change is a recorded revision on that Unit, with the description you gave. The base Space is untouched.</p>
+<h2 id="step-3-when-the-base-moves-preview-then-promote">Step 3: When the base moves, preview then promote</h2>
+<p>The base Space changes when you upload a newer render of the chart or edit it. Your variant does not move by itself. First preview exactly what promotion would do:</p>
+<pre><code>cub variant promote bitnami-redis-prod --dry-run -o mutations</code></pre>
+<p>This lists the Units that would be upgraded, with the data diff, and any Units added upstream since the clone. Nothing re-renders; the diff is against the reviewed upstream data.</p>
+<p>Then promote:</p>
+<pre><code>cub variant promote bitnami-redis-prod --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<p>Validation triggers run on the changed Units. A failing check attaches an apply gate; fix the data or the rule rather than working around the gate. Your variant's own changes (the replicas edit above) are preserved through the merge.</p>
+<h2 id="step-4-deliver-verify-roll-back">Step 4: Deliver, verify, roll back</h2>
+<ul><li>Deliver: apply the Space to its Target, or let the Argo or Flux you already run pull it from ConfigHub's OCI endpoint. The <a href="gitops-adopter-guide.html">GitOps adopter guide</a> and <a href="serverless-mode.html">serverless mode notes</a> cover both shapes.</li><li>Verify: the chart page's evidence links show what the catalog itself checks after apply.</li><li>Roll back: every promotion is ordinary revisions. Restore the before state and apply again; the product docs cover <code>--restore</code> forms.</li></ul>
+<h2 id="honest-boundaries">Honest boundaries</h2>
+<ul><li>Only Spaces created by <code>cub variant create</code> can be promoted with <code>cub variant promote</code>. It follows the upstream link recorded at create time; a Space made any other way has no such link.</li><li>Rendered Secrets are not uploaded. Stage them out of band; the preset's <code>try.sh</code> and chart page record what each preset needs.</li><li><code>cub variant upload</code> also exists, as a general way to seed a base Space from any rendered manifests. The catalog path uses <code>cub installer upload</code>, which additionally records the package.</li><li>The committed proof for this flow is the <a href="../../data/master-catalog-matrix/summary.html">master catalog matrix</a> Promotion lane per chart preset. This page is the user-facing walkthrough of the same mechanism, not a separate proof.</li></ul>
+    </article>
   </main>
-  <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>
+  <footer><p>Generated from the committed markdown file <code>docs/user/variants-after-upload.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -31,6 +31,9 @@ cub installer upload --work-dir ./bitnami-nginx-24-0-2-existing-tls-ingress --sp
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt (suggested: kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>)
 #   - Secret nginx/nginx-ingress-tls keys tls.crt,tls.key (suggested: kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>)

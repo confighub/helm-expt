@@ -31,6 +31,9 @@ cub installer upload --work-dir ./bitnami-rabbitmq-16-0-14-existing-secret --spa
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret rabbitmq/rabbitmq-auth key rabbitmq-password (suggested: kubectl -n rabbitmq create secret generic rabbitmq-auth --from-literal=rabbitmq-password="$(openssl rand -base64 32)")
 #   - Secret rabbitmq/rabbitmq-erlang-cookie key rabbitmq-erlang-cookie (suggested: kubectl -n rabbitmq create secret generic rabbitmq-erlang-cookie --from-literal=rabbitmq-erlang-cookie="$(openssl rand -base64 48)")

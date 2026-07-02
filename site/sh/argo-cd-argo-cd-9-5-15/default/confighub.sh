@@ -31,5 +31,8 @@ cub installer upload --work-dir ./argo-cd-argo-cd-9-5-15-default --space "${SPAC
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret argocd/argocd-redis key auth (suggested: kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>)

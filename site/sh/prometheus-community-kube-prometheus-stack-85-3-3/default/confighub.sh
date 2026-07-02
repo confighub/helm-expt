@@ -31,5 +31,8 @@ cub installer upload --work-dir ./prometheus-community-kube-prometheus-stack-85-
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret monitoring/kube-prometheus-stack-admission keys cert,key (suggested: kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>)

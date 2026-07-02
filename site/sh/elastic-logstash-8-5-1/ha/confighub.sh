@@ -31,5 +31,8 @@ cub installer upload --work-dir ./elastic-logstash-8-5-1-ha --space "${SPACE}"
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - minimum schedulable nodes 3 (suggested: use a target with at least 3 schedulable nodes before applying this base)

@@ -2534,6 +2534,7 @@ function docsHtml(catalog) {
     ["Answer hard questions", "Direct answers about hooks, upgrades, AI changes, limits, and refusals.", "./hard-questions.html"],
     ["Known Gaps", "The known problems this project names instead of hiding.", "./known-gaps.html"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
+    ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
     ["Expected results and clusters", "Which commands need a cluster and what output to expect.", "../docs/user/expected-results-and-clusters.md"],
     ["Deployment path", "How a cub installer package becomes files, a ConfigHub upload, an OCI bundle, or controller input.", "../docs/user/cub-deployment-path.md"],
     ["GitOps adopter guide", "How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.", "../docs/user/gitops-adopter-guide.md"],
@@ -3756,6 +3757,7 @@ Variants:
         ...journeyRows,
       ])}
       <p>The command surface today is <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. Product screens can make this friendlier, but the same data remains available for review.</p>
+      <p>For the exact commands with the why behind each flag, read <a href="../docs/user/variants-after-upload.md">After upload: create a variant and promote changes</a>. It starts where a preset's <code>confighub.sh</code> ends.</p>
     </section>
 
     <section aria-labelledby="flow">
@@ -4782,6 +4784,9 @@ function presetConfigHubScript(entry, row) {
     "",
     'say "Uploaded. See your Units:"',
     `printf '  cub unit list --space %s\\n  or open https://hub.confighub.com and find that Space.\\n' "\${SPACE}"`,
+    "",
+    'say "Next: create an environment variant and promote reviewed changes"',
+    `printf '  Walkthrough with the why behind each flag:\\n  ${SITE_BASE_URL}d/docs/user/variants-after-upload.html\\n'`,
   );
   if (requirements.length) {
     lines.push(

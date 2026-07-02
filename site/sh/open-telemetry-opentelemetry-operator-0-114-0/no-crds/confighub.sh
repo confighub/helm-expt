@@ -31,6 +31,9 @@ cub installer upload --work-dir ./open-telemetry-opentelemetry-operator-0-114-0-
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key (suggested: Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator)
 #   - CRD certificates.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)

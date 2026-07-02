@@ -31,5 +31,8 @@ cub installer upload --work-dir ./bitnami-postgresql-18-6-7-existing-secret --sp
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret postgresql/postgresql-auth key postgres-password (suggested: kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password="$(openssl rand -base64 32)")

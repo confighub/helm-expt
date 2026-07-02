@@ -31,6 +31,9 @@ cub installer upload --work-dir ./fairwinds-stable-vpa-4-11-0-no-crds --space "$
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret default/vpa-tls-secret keys ca,cert,key (suggested: kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>)
 #   - CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io (suggested: kubectl apply -f <crd-manifest.yaml>)

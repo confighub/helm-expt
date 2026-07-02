@@ -31,5 +31,8 @@ cub installer upload --work-dir ./autoscaler-vertical-pod-autoscaler-0-9-0-defau
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret default/vpa-tls-certs keys ca,cert,key (suggested: Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller)

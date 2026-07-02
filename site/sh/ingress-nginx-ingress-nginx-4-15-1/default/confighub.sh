@@ -31,5 +31,8 @@ cub installer upload --work-dir ./ingress-nginx-ingress-nginx-4-15-1-default --s
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca (suggested: kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>)

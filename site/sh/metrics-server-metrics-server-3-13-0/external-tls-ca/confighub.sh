@@ -31,5 +31,8 @@ cub installer upload --work-dir ./metrics-server-metrics-server-3-13-0-external-
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret kube-system/metrics-server-tls keys tls.crt,tls.key (suggested: kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>)

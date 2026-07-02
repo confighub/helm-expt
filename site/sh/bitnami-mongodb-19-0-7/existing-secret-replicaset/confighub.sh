@@ -31,5 +31,8 @@ cub installer upload --work-dir ./bitnami-mongodb-19-0-7-existing-secret-replica
 say "Uploaded. See your Units:"
 printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find that Space.\n' "${SPACE}"
 
+say "Next: create an environment variant and promote reviewed changes"
+printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
 # Before applying this preset from ConfigHub to a cluster, it still needs:
 #   - Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key (suggested: kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password="$(openssl rand -base64 32)" --from-literal=mongodb-replica-set-key="$(openssl rand -base64 48)")
