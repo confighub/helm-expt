@@ -2321,6 +2321,24 @@ em{font-style:italic;color:var(--ink);}
   <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
 
+  <h2>The fastest first run</h2>
+  <p>Five commands, copy and paste. They render the Redis catalog preset, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <pre><code># 1. Install cub (one time)
+${CUB_INSTALL_COMMAND} &amp;&amp; export PATH=~/.confighub/bin:$PATH
+
+# 2. A throwaway cluster (needs Docker; skip if you already have one)
+kind create cluster
+
+# 3. Render the Redis preset and install it
+bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/default/try.sh)
+
+# 4. It is running
+kubectl -n redis get pods
+
+# 5. It is all files you can read; this one is what the cluster received
+cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
+  <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; presets that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
+
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
   <p>The <code>--base default</code> choice is a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
