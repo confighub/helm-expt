@@ -396,18 +396,25 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Commands on this page were verified against <code>cub &lt;verb&gt; --help</code> on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Commands on this page were verified against <code>cub &lt;verb&gt; --help</code> and a live end-to-end run (upload, two variants, base edit, promotions, cleanup) on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.</p>
 <p>You ran a preset's <code>confighub.sh</code> (or <code>cub installer upload</code> yourself). Your rendered chart objects now live in a ConfigHub Space as Units. This page is the next step: make an environment version of that Space, change it safely, and pull reviewed base changes forward when the base moves.</p>
+<h2 id="the-whole-chain-with-the-variants-labeled">The whole chain, with the variants labeled</h2>
+<p>Variants appear at two levels, and they meet here:</p>
+<pre><code>chart -&gt; base variant (chosen with --base) -&gt; OCI package
+      -&gt; upload -&gt; base Space
+      -&gt; derived variants (staging, production) -&gt; promote</code></pre>
+<p>A <b>base variant</b> is a preset: a named Helm render choice such as default, no-crds, or reuse-existing-secret. The chart page calls it a preset chart configuration; <code>--base</code> picks it. A <b>derived variant</b> is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.</p>
 <h2 id="the-one-decision-restated">The one decision, restated</h2>
-<ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different chart preset. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a ConfigHub variant. Nothing re-renders.</li></ul>
+<ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.</li></ul>
 <p>Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.</p>
 <h2 id="what-you-have-after-upload">What you have after upload</h2>
 <p>One Space holding your rendered objects as Units, one Unit per manifest. See it:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
   <pre><code>cub unit list --space helm-redis-default</code></pre>
-<p>Replace <code>helm-redis-default</code> with the Space your script printed. The upload also set the Space's well-known <code>Component</code> label from the package name; the variant Space name builds on it below.</p>
+<p>Replace <code>helm-redis-default</code> with the Space your script printed. The upload also set the Space's well-known <code>Component</code> label from the package name.</p>
 <h2 id="step-1-create-an-environment-variant">Step 1: Create an environment variant</h2>
 <pre><code>cub variant create prod helm-redis-default \
+  --space-pattern &quot;template:my-redis-prod&quot; \
   --environment Prod \
   --namespace redis-prod \
   --unit-delete-gate prod-critical \
@@ -418,18 +425,18 @@
 <tr><td><code>--environment Prod</code></td><td>Sets the <code>Environment</code> label on the new Space.</td><td>Fleet queries like &quot;everything in Prod&quot; work without parsing names.</td></tr>
 <tr><td><code>--namespace redis-prod</code></td><td>Runs <code>set-namespace</code> on the cloned Units.</td><td>Each environment lands in its own namespace; the base stays neutral.</td></tr>
 <tr><td><code>--unit-delete-gate</code> / <code>--unit-destroy-gate</code></td><td>Blocks delete and destroy of the cloned Units until the gate is removed.</td><td>Prod objects should not be one bulk command away from gone. Name the gate for the reason it exists.</td></tr></tbody></table>
-<p>The new Space's slug comes from the label pattern <code>Component-Variant</code> (for example <code>bitnami-redis-prod</code>). Confirm with <code>cub space list</code>. The clone copies the upstream Space's triggers and permissions along with the Units.</p>
+<p>Name the new Space yourself with <code>--space-pattern</code> (for example <code>--space-pattern &quot;template:my-redis-prod&quot;</code>); in live testing, omitting it produced a server-derived slug like <code>&lt;upstream&gt;-&lt;variant&gt;-&lt;Environment&gt;</code>, which works but is long. Either way, confirm with <code>cub space list</code>. The clone copies the upstream Space's triggers and permissions along with the Units. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.</p>
 <h2 id="step-2-change-something-in-the-variant">Step 2: Change something in the variant</h2>
 <p>Edit Unit data with a ConfigHub function, not by re-rendering the chart:</p>
-<pre><code>cub run set-replicas --replicas 3 --space bitnami-redis-prod --unit &lt;unit-slug&gt; \
+<pre><code>cub run set-replicas --replicas 3 --space my-redis-prod --unit &lt;unit-slug&gt; \
   --change-desc &quot;Prod runs three replicas&quot;</code></pre>
 <p>Every change is a recorded revision on that Unit, with the description you gave. The base Space is untouched.</p>
 <h2 id="step-3-when-the-base-moves-preview-then-promote">Step 3: When the base moves, preview then promote</h2>
 <p>The base Space changes when you upload a newer render of the chart or edit it. Your variant does not move by itself. First preview exactly what promotion would do:</p>
-<pre><code>cub variant promote bitnami-redis-prod --dry-run -o mutations</code></pre>
-<p>This lists the Units that would be upgraded, with the data diff, and any Units added upstream since the clone. Nothing re-renders; the diff is against the reviewed upstream data.</p>
+<pre><code>cub variant promote my-redis-prod --dry-run</code></pre>
+<p>This prints how many Units would be upgraded and how many would be added from upstream since the clone. Nothing re-renders. One honest note from live testing on 2026-07-02: <code>--dry-run -o mutations</code> currently prints nothing for <code>variant promote</code>, so use the plain <code>--dry-run</code> summary; to inspect exact data, read the Unit before and after with <code>cub unit get &lt;unit&gt; --space &lt;space&gt; --data-only</code>.</p>
 <p>Then promote:</p>
-<pre><code>cub variant promote bitnami-redis-prod --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
+<pre><code>cub variant promote my-redis-prod --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
 <p>Validation triggers run on the changed Units. A failing check attaches an apply gate; fix the data or the rule rather than working around the gate. Your variant's own changes (the replicas edit above) are preserved through the merge.</p>
 <h2 id="step-4-deliver-verify-roll-back">Step 4: Deliver, verify, roll back</h2>
 <ul><li>Deliver: apply the Space to its Target, or let the Argo or Flux you already run pull it from ConfigHub's OCI endpoint. The <a href="gitops-adopter-guide.html">GitOps adopter guide</a> and <a href="serverless-mode.html">serverless mode notes</a> cover both shapes.</li><li>Verify: the chart page's evidence links show what the catalog itself checks after apply.</li><li>Roll back: every promotion is ordinary revisions. Restore the before state and apply again; the product docs cover <code>--restore</code> forms.</li></ul>

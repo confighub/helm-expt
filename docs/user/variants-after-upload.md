@@ -1,13 +1,25 @@
 # After Upload: Create A Variant And Promote Changes
 
-**UNOFFICIAL/EXPERIMENTAL.** Commands on this page were verified against `cub <verb> --help` on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.
+**UNOFFICIAL/EXPERIMENTAL.** Commands on this page were verified against `cub <verb> --help` and a live end-to-end run (upload, two variants, base edit, promotions, cleanup) on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.
 
 You ran a preset's `confighub.sh` (or `cub installer upload` yourself). Your rendered chart objects now live in a ConfigHub Space as Units. This page is the next step: make an environment version of that Space, change it safely, and pull reviewed base changes forward when the base moves.
 
+## The whole chain, with the variants labeled
+
+Variants appear at two levels, and they meet here:
+
+```text
+chart -> base variant (chosen with --base) -> OCI package
+      -> upload -> base Space
+      -> derived variants (staging, production) -> promote
+```
+
+A **base variant** is a preset: a named Helm render choice such as default, no-crds, or reuse-existing-secret. The chart page calls it a preset chart configuration; `--base` picks it. A **derived variant** is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.
+
 ## The one decision, restated
 
-- If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different chart preset. Go back to the chart page and pick it with `--base`.
-- If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a ConfigHub variant. Nothing re-renders.
+- If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with `--base`.
+- If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.
 
 Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.
 
@@ -19,12 +31,13 @@ One Space holding your rendered objects as Units, one Unit per manifest. See it:
 cub unit list --space helm-redis-default
 ```
 
-Replace `helm-redis-default` with the Space your script printed. The upload also set the Space's well-known `Component` label from the package name; the variant Space name builds on it below.
+Replace `helm-redis-default` with the Space your script printed. The upload also set the Space's well-known `Component` label from the package name.
 
 ## Step 1: Create an environment variant
 
 ```text
 cub variant create prod helm-redis-default \
+  --space-pattern "template:my-redis-prod" \
   --environment Prod \
   --namespace redis-prod \
   --unit-delete-gate prod-critical \
@@ -41,14 +54,14 @@ What each part does, and why you want it:
 | `--namespace redis-prod` | Runs `set-namespace` on the cloned Units. | Each environment lands in its own namespace; the base stays neutral. |
 | `--unit-delete-gate` / `--unit-destroy-gate` | Blocks delete and destroy of the cloned Units until the gate is removed. | Prod objects should not be one bulk command away from gone. Name the gate for the reason it exists. |
 
-The new Space's slug comes from the label pattern `Component-Variant` (for example `bitnami-redis-prod`). Confirm with `cub space list`. The clone copies the upstream Space's triggers and permissions along with the Units.
+Name the new Space yourself with `--space-pattern` (for example `--space-pattern "template:my-redis-prod"`); in live testing, omitting it produced a server-derived slug like `<upstream>-<variant>-<Environment>`, which works but is long. Either way, confirm with `cub space list`. The clone copies the upstream Space's triggers and permissions along with the Units. Both the namespace rewrite and the gates were verified live: cloned Units carry the new namespace, and a gated Space refuses plain deletion until the gate is removed or overridden.
 
 ## Step 2: Change something in the variant
 
 Edit Unit data with a ConfigHub function, not by re-rendering the chart:
 
 ```text
-cub run set-replicas --replicas 3 --space bitnami-redis-prod --unit <unit-slug> \
+cub run set-replicas --replicas 3 --space my-redis-prod --unit <unit-slug> \
   --change-desc "Prod runs three replicas"
 ```
 
@@ -59,15 +72,15 @@ Every change is a recorded revision on that Unit, with the description you gave.
 The base Space changes when you upload a newer render of the chart or edit it. Your variant does not move by itself. First preview exactly what promotion would do:
 
 ```text
-cub variant promote bitnami-redis-prod --dry-run -o mutations
+cub variant promote my-redis-prod --dry-run
 ```
 
-This lists the Units that would be upgraded, with the data diff, and any Units added upstream since the clone. Nothing re-renders; the diff is against the reviewed upstream data.
+This prints how many Units would be upgraded and how many would be added from upstream since the clone. Nothing re-renders. One honest note from live testing on 2026-07-02: `--dry-run -o mutations` currently prints nothing for `variant promote`, so use the plain `--dry-run` summary; to inspect exact data, read the Unit before and after with `cub unit get <unit> --space <space> --data-only`.
 
 Then promote:
 
 ```text
-cub variant promote bitnami-redis-prod --change-desc "Pull the reviewed base forward"
+cub variant promote my-redis-prod --change-desc "Pull the reviewed base forward"
 ```
 
 Validation triggers run on the changed Units. A failing check attaches an apply gate; fix the data or the rule rather than working around the gate. Your variant's own changes (the replicas edit above) are preserved through the merge.
