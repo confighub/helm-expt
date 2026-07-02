@@ -81,6 +81,17 @@ const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
+const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
+const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
+
+function confighubOutboundUrl(baseUrl, campaign) {
+  const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+  return `${base}/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=${campaign}`;
+}
+
+function productDocsPointer(campaign) {
+  return `<p>Already a ConfigHub user? The product docs cover the direct install path (<code>cub helm install</code>) and Variants: read the <a href="${confighubOutboundUrl(CONFIGHUB_HELM_GUIDE_URL, campaign)}">Helm charts guide</a> and the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, campaign)}">setup page</a>. This site is the public chart catalog and its evidence.</p>`;
+}
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -448,7 +459,7 @@ function calmPage(html) {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">AI Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1768,6 +1779,7 @@ $ npm run redis:verify-install:render -- \\
     --base default --work-dir .tmp/demo/redis-default --namespace redis</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
+  ${productDocsPointer("try")}
   <p class="closing-line">Get Started needs no ConfigHub account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
 </main>
@@ -1874,7 +1886,7 @@ function docsHtml(catalog) {
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use chart preset and read its values, output, hooks, CRDs, setup work, and evidence."],
-    ["Use your own application", `<a href="./journey.html">AI Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
+    ["Use your own application", `<a href="./journey.html">Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
     ["Check a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm check that matches the claim instead of treating every test as the same thing."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
     ["Know when managed help begins", `<a href="./private/">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
@@ -1889,7 +1901,7 @@ function docsHtml(catalog) {
     ["Helm chart presets and values", "Why the catalog supports useful chart-specific presets instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
-    ["AI Apps", "Bring your own applications, existing GitOps apps, rendered YAML, live namespaces, and AI-suggested changes under review.", "./journey.html"],
+    ["Apps", "Bring your own applications, existing GitOps apps, rendered YAML, live namespaces, and AI-suggested changes under review.", "./journey.html"],
     ["Application examples", "Examples that combine public charts with private application pieces.", "./custom-apps.html"],
     ["Existing Apps", "Start read-only from Argo, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
@@ -1945,6 +1957,7 @@ function docsHtml(catalog) {
     <section aria-labelledby="start-here">
       <h2 id="start-here">Start Here</h2>
       <p>Choose what you want to do next and open the matching page.</p>
+      ${productDocsPointer("docs")}
       ${markdownLikeTable([
         ["Task", "Open", "Why"],
         ...startRows,
