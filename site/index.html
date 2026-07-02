@@ -68,6 +68,14 @@
       font-weight: 700;
       letter-spacing: 0;
     }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
@@ -508,7 +516,7 @@
 </head>
 <body>
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">AI Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">AI Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. The 100 public chart packages pull without a ConfigHub account or Google registry login.</p>
@@ -535,7 +543,7 @@ stringData:
     <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
     <div class="start-block" aria-labelledby="start">
       <h2 id="start">How we help</h2>
-      <p>Try it first with a couple of charts and add GitOps if you like. A free ConfigHub account lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
+      <p>Try it first with a couple of charts and add GitOps if you like. A <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">free ConfigHub account</a> lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
         <a class="journey-step" href="./try.html">
           <span class="kicker">First</span>
@@ -593,6 +601,7 @@ stringData:
       <h2 id="try-now">Try It Now with Kubernetes</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
+      <p class="install-cub-note">Install cub first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -612,10 +621,10 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ConfigHub account is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
+      <p>A basic <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">ConfigHub account</a> is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="home-list">
         <div class="home-list-item"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="home-list-item"><h3>Edit and keep your versions</h3><p>With a free account, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
+        <div class="home-list-item"><h3>Edit and keep your versions</h3><p>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">free account</a>, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
         <div class="home-list-item"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
         <div class="home-list-item"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
       </div>

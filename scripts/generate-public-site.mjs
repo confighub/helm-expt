@@ -81,6 +81,47 @@ const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
+const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
+const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
+const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
+const CUB_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
+
+function confighubOutboundUrl(baseUrl, campaign) {
+  const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+  return `${base}/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=${campaign}`;
+}
+
+function signupLink(campaign, label) {
+  return `<a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, campaign)}">${label}</a>`;
+}
+
+const SITE_PAGE_RELPATHS = {
+  indexHtml: "index.html",
+  offeringHtml: "offering.html",
+  tryHtml: "try.html",
+  serverlessHtml: "serverless.html",
+  howItWorksHtml: "how-it-works.html",
+  variantsHtml: "variants.html",
+  customAppsHtml: "custom-apps.html",
+  existingAppsHtml: "existing-apps.html",
+  aiHtml: "ai.html",
+  securityHtml: "security.html",
+  futureHtml: "future.html",
+  operationsHtml: "operations.html",
+  docsHtml: "docs.html",
+  verificationHtml: "verification.html",
+  proofHtml: "proof.html",
+  quirksHtml: "quirks.html",
+  hardQuestionsHtml: "hard-questions.html",
+  knownGapsHtml: "known-gaps.html",
+  hooksHtml: "hooks.html",
+  privateHtml: "private/index.html",
+  tiersRedirectHtml: "tiers.html",
+  journeyHtml: "journey.html",
+  day1OperationsHtml: "day1-operations.html",
+  chartIndexHtml: "charts/index.html",
+};
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -404,7 +445,7 @@ function buildSite(generatedAt) {
     path: join(chartPagesRoot, chartPageFileName(entry)),
     html: chartPageHtml(catalog, entry),
   }));
-  return {
+  return finalizeSite({
     catalogJson: `${JSON.stringify(siteSafe(catalog), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
@@ -433,7 +474,7 @@ function buildSite(generatedAt) {
     chartPages,
     matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
     readme: readme(),
-  };
+  });
 }
 
 function generatedStamp(catalog, label) {
@@ -446,9 +487,52 @@ function calmPage(html) {
     .replace("<body>", '<body class="calm-page">');
 }
 
+function pageBasePrefix(relPath) {
+  const depth = relPath.split("/").length - 1;
+  return depth ? "../".repeat(depth).replace(/\/$/, "") : ".";
+}
+
+// Every page that shows a runnable cub command must carry an install step or a
+// link to one (site/try.html#install-cub). Pages that already include the step
+// or a link to it are left alone.
+function injectInstallCubNote(html, relPath) {
+  if (html.includes('id="install-cub"') || html.includes("try.html#install-cub")) return html;
+  const base = pageBasePrefix(relPath);
+  const note = `<p class="install-cub-note">New to <code>cub</code>? <a href="${base}/try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>`;
+  const headerEnd = html.indexOf("</header>");
+  for (const match of html.matchAll(/<pre[^>]*>[\s\S]*?<\/pre>/g)) {
+    if (match.index <= headerEnd) continue;
+    if (!/\bcub /.test(match[0])) continue;
+    return `${html.slice(0, match.index)}${note}\n  ${html.slice(match.index)}`;
+  }
+  const inlineCommandCub = /<code[^>]*>[^<]*\bcub /.test(html);
+  const mainMatch = html.match(/<main[^>]*>/);
+  if (inlineCommandCub && mainMatch) {
+    const insertAt = mainMatch.index + mainMatch[0].length;
+    return `${html.slice(0, insertAt)}\n  ${note}${html.slice(insertAt)}`;
+  }
+  return html;
+}
+
+function finalizePage(html, relPath) {
+  return injectInstallCubNote(html, relPath);
+}
+
+function finalizeSite(site) {
+  const finalized = { ...site };
+  for (const [key, relPath] of Object.entries(SITE_PAGE_RELPATHS)) {
+    finalized[key] = finalizePage(site[key], relPath);
+  }
+  finalized.chartPages = site.chartPages.map((page) => ({
+    ...page,
+    html: finalizePage(page.html, `charts/${page.fileName}`),
+  }));
+  return finalized;
+}
+
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">AI Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}">ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">AI Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -531,7 +615,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   ];
   const valueCards = [
     ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
-    ["Edit and keep your versions", "With a free account, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.", "./variants.html", "Variants"],
+    ["Edit and keep your versions", `With a ${signupLink("index", "free account")}, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.`, "./variants.html", "Variants"],
     ["Build custom apps", "Bring your own apps and configs alongside public charts so a release can move as one reviewed set.", "./journey.html", "Apps"],
     ["Promote and release", "Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.", "./operations.html", "Ops"],
   ];
@@ -572,7 +656,7 @@ stringData:
     <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
     <div class="start-block" aria-labelledby="start">
       <h2 id="start">How we help</h2>
-      <p>Try it first with a couple of charts and add GitOps if you like. A free ConfigHub account lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
+      <p>Try it first with a couple of charts and add GitOps if you like. A ${signupLink("index", "free ConfigHub account")} lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
       <div class="journey-flow" aria-label="Four-step product journey">
         ${journeySteps.map(([number, title, body, href, linkText]) => `<a class="journey-step" href="${escapeHtml(href)}">
           <span class="kicker">${escapeHtml(number)}</span>
@@ -609,6 +693,7 @@ stringData:
       <h2 id="try-now">Try It Now with Kubernetes</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
+      <p class="install-cub-note">Install cub first: <code>${CUB_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -628,9 +713,9 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ConfigHub account is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
+      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations.</p>
       <div class="home-list">
-        ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
+        ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
     </section>
 
@@ -1525,8 +1610,8 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
-      <p>A public catalog of maintained Helm-derived packages, plus a free ConfigHub account that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
-      <p>The free lane: browse, inspect, template, and install catalog chart bases without a ConfigHub account, and, with a free account, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <p>A public catalog of maintained Helm-derived packages, plus a ${signupLink("offering", "free ConfigHub account")} that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
+      <p>The free lane: browse, inspect, template, and install catalog chart bases without a ConfigHub account, and, with a ${signupLink("offering", "free account")}, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -1567,7 +1652,7 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
-      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ConfigHub account is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
+      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ${signupLink("offering", "ConfigHub account")} is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
       <pre>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
   --base default \\
   --work-dir .tmp/redis \\
@@ -1686,6 +1771,12 @@ em{font-style:italic;color:var(--ink);}
   </div>
 </header>
 <main>
+  <h2 id="install-cub">Install cub</h2>
+  <p>Every command below uses the <code>cub</code> CLI. Install it once:</p>
+  <pre><code>$ ${CUB_INSTALL_COMMAND}</code></pre>
+  <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
+  <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
   <p>The <code>--base default</code> choice is a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
@@ -1727,8 +1818,8 @@ $ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q
       <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
     </div>
     <div class="box">
-      <h3>With a free account: any edit stays</h3>
-      <p class="tag">free account</p>
+      <h3>With a ${signupLink("try", "free account")}: any edit stays</h3>
+      <p class="tag">${signupLink("try", "free account")}</p>
       <pre><code>$ cub installer upload --space my-app
 $ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
 $ cub installer plan &amp;&amp; cub installer upload --yes
@@ -1771,7 +1862,7 @@ $ npm run redis:verify-install:render -- \\
   <p class="closing-line">Get Started needs no ConfigHub account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+<footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ${signupLink("try", "ConfigHub account")} is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>
 `;
@@ -1856,7 +1947,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ConfigHub account is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ${signupLink("serverless", "ConfigHub account")} is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>
 `;
@@ -2854,7 +2945,7 @@ function privateHtml(catalog) {
   <header class="hero human-hero">
     ${topNav("..")}
     <h1>Upgrade to ConfigHub</h1>
-    <p class="lead">If you like ConfigHub, please use the commercial edition. It is available as a standalone enterprise product and as a self-sign-up SaaS.</p>
+    <p class="lead">If you like ConfigHub, please use the commercial edition. It is available as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">self-sign-up SaaS</a>.</p>
     <p>Below you will find some of the current and intended benefits of the commercial product for users of this Helm site.</p>
   </header>
   <main>
@@ -3850,7 +3941,7 @@ function chartIndexHtml(catalog) {
     <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected preset locally.</p>
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
-    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. Contact us with suggestions and questions.</p>
+    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="presets">
@@ -5268,6 +5359,14 @@ function siteCss() {
       color: #6d4b00;
       font-weight: 700;
       letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
     }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
