@@ -2310,7 +2310,7 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">On any throwaway cluster (a quick dev cluster such as kind: install a chart, change a setting, then upgrade) and your change stays. That last part is the thing Helm can't do. No ConfigHub account to start. You run <code>helm install</code> and <code>cub installer</code> side by side and read the same result.</p>
+    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. No ConfigHub account needed to start.</p>
     <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
   </div>
 </header>
