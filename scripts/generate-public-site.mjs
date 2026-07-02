@@ -1,5 +1,5 @@
-import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
+import { join, posix } from "node:path";
 
 import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
@@ -81,6 +81,35 @@ const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
+const docPagesRoot = join(siteRoot, "d");
+
+const SITE_PAGE_RELPATHS = {
+  indexHtml: "index.html",
+  offeringHtml: "offering.html",
+  tryHtml: "try.html",
+  serverlessHtml: "serverless.html",
+  howItWorksHtml: "how-it-works.html",
+  variantsHtml: "variants.html",
+  customAppsHtml: "custom-apps.html",
+  existingAppsHtml: "existing-apps.html",
+  aiHtml: "ai.html",
+  securityHtml: "security.html",
+  futureHtml: "future.html",
+  operationsHtml: "operations.html",
+  docsHtml: "docs.html",
+  verificationHtml: "verification.html",
+  proofHtml: "proof.html",
+  quirksHtml: "quirks.html",
+  hardQuestionsHtml: "hard-questions.html",
+  knownGapsHtml: "known-gaps.html",
+  hooksHtml: "hooks.html",
+  privateHtml: "private/index.html",
+  tiersRedirectHtml: "tiers.html",
+  journeyHtml: "journey.html",
+  day1OperationsHtml: "day1-operations.html",
+  chartIndexHtml: "charts/index.html",
+  matrixHtml: "matrix.html",
+};
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -88,6 +117,7 @@ if (mode === "--generate") {
   const site = buildSite(generatedAt);
   rmSync(chartPagesRoot, { recursive: true, force: true });
   rmSync(privateRoot, { recursive: true, force: true });
+  rmSync(docPagesRoot, { recursive: true, force: true });
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
@@ -114,10 +144,15 @@ if (mode === "--generate") {
   write(join(siteRoot, "matrix.html"), site.matrixHtml);
   write(chartIndexPath, site.chartIndexHtml);
   for (const page of site.chartPages) write(page.path, page.html);
+  for (const page of site.docPages) write(page.path, page.html);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
   write(generatedAtPath, `${generatedAt}\n`);
-  console.log(`wrote public site outputs and ${site.chartPages.length} chart page(s)`);
+  if (site.missingMdTargets.length) {
+    console.log(`markdown targets linked but not found in the repo (left as raw links): ${site.missingMdTargets.length}`);
+    for (const target of site.missingMdTargets) console.log(`  - ${target}`);
+  }
+  console.log(`wrote public site outputs, ${site.chartPages.length} chart page(s), and ${site.docPages.length} rendered doc page(s)`);
 } else if (mode === "--verify") {
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
@@ -184,6 +219,24 @@ if (mode === "--generate") {
   }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
+  const expectedDocPages = new Map(site.docPages.map((page) => [page.relPath, page]));
+  const actualDocPages = [];
+  const walkDocPages = (dir, prefix) => {
+    if (!existsSync(dir)) return;
+    for (const name of readdirSync(dir).sort()) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) walkDocPages(full, `${prefix}${name}/`);
+      else if (name.endsWith(".html")) actualDocPages.push(`${prefix}${name}`);
+    }
+  };
+  walkDocPages(docPagesRoot, "d/");
+  check(actualDocPages.length === expectedDocPages.size, `expected ${expectedDocPages.size} rendered doc page(s) under site/d/, found ${actualDocPages.length}`);
+  for (const relPath of actualDocPages) check(expectedDocPages.has(relPath), `unexpected rendered doc page site/${relPath}`);
+  for (const [relPath, page] of expectedDocPages) {
+    check(existsSync(page.path), `site/${relPath} is missing; run npm run site:generate`);
+    check(readFileSync(page.path, "utf8") === page.html, `site/${relPath} is stale`);
+  }
+  verifySiteLinks();
   console.log("verified generated public site outputs");
 } else {
   console.log(`Usage:
@@ -404,7 +457,7 @@ function buildSite(generatedAt) {
     path: join(chartPagesRoot, chartPageFileName(entry)),
     html: chartPageHtml(catalog, entry),
   }));
-  return {
+  const site = {
     catalogJson: `${JSON.stringify(siteSafe(catalog), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
@@ -431,9 +484,14 @@ function buildSite(generatedAt) {
     day1OperationsHtml: legacyOperationsRedirectHtml(),
     chartIndexHtml: chartIndexHtml(catalog),
     chartPages,
-    matrixHtml: readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
+    matrixHtml: rebaseRelativeLinks(
+      readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
+      "data/master-catalog-matrix",
+      "site",
+    ),
     readme: readme(),
   };
+  return finalizeSite(site, catalog);
 }
 
 function generatedStamp(catalog, label) {
@@ -444,6 +502,354 @@ function calmPage(html) {
   return html
     .replace(/\n[ \t]*<\/style>/, `\n${calmPageCss().trimEnd()}\n  </style>`)
     .replace("<body>", '<body class="calm-page">');
+}
+
+function pageBasePrefix(relPath) {
+  const depth = relPath.split("/").length - 1;
+  return depth ? "../".repeat(depth).replace(/\/$/, "") : ".";
+}
+
+function splitFragment(value) {
+  const hash = value.indexOf("#");
+  if (hash < 0) return [value, ""];
+  return [value.slice(0, hash), value.slice(hash)];
+}
+
+function isExternalHref(value) {
+  return /^(https?:|mailto:|data:|javascript:|#)/.test(value);
+}
+
+function resolveRelativeHref(baseDir, href) {
+  const [pathPart, fragment] = splitFragment(href);
+  if (!pathPart) return null;
+  return { target: posix.normalize(posix.join(baseDir, pathPart)), fragment };
+}
+
+// The master matrix html is authored for data/master-catalog-matrix/; the site
+// copy lives one directory higher, at site/, so every relative link in the
+// byte copy pointed one level above the repo root. Re-base each relative link
+// for the copy's location.
+function rebaseRelativeLinks(html, fromDir, toDir) {
+  return html.replace(/(href|src)="([^"]+)"/g, (whole, attr, value) => {
+    if (isExternalHref(value)) return whole;
+    const resolved = resolveRelativeHref(fromDir, value);
+    if (!resolved || resolved.target.startsWith("..")) return whole;
+    return `${attr}="${posix.relative(toDir, resolved.target)}${resolved.fragment}"`;
+  });
+}
+
+function renderedDocRelPath(repoPath) {
+  return `d/${repoPath.replace(/\.md$/, ".html")}`;
+}
+
+// Rewrite .md hrefs on a generated page to the rendered doc pages under
+// site/d/. Targets outside the rendered set keep their original raw link.
+function rewriteMdHrefs(html, pageRelPath, renderedDocs) {
+  const pageDir = posix.dirname(`site/${pageRelPath}`);
+  return html.replace(/href="([^"]+\.md(?:#[^"]*)?)"/g, (whole, value) => {
+    if (isExternalHref(value)) return whole;
+    const resolved = resolveRelativeHref(pageDir, value);
+    if (!resolved || !renderedDocs.has(resolved.target)) return whole;
+    const out = posix.relative(pageDir, `site/${renderedDocRelPath(resolved.target)}`);
+    return `href="${out}${resolved.fragment}"`;
+  });
+}
+
+function headingSlug(text, used) {
+  const base = text
+    .toLowerCase()
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+  const count = used.get(base) ?? 0;
+  used.set(base, count + 1);
+  return count === 0 ? base : `${base}-${count}`;
+}
+
+function resolveDocHref(href, docRepoPath, renderedDocs) {
+  if (isExternalHref(href)) return href;
+  const resolved = resolveRelativeHref(posix.dirname(docRepoPath), href);
+  if (!resolved || resolved.target.startsWith("..")) return href;
+  const outDir = posix.dirname(`site/${renderedDocRelPath(docRepoPath)}`);
+  if (resolved.target.endsWith(".md") && renderedDocs.has(resolved.target)) {
+    return posix.relative(outDir, `site/${renderedDocRelPath(resolved.target)}`) + resolved.fragment;
+  }
+  return posix.relative(outDir, resolved.target) + resolved.fragment;
+}
+
+function renderInlineMarkdown(text, docRepoPath, renderedDocs) {
+  const codeSpans = [];
+  let out = escapeHtml(text).replace(/`([^`]+)`/g, (whole, code) => {
+    codeSpans.push(`<code>${code}</code>`);
+    return `\u0000${codeSpans.length - 1}\u0000`;
+  });
+  out = out
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (whole, alt, href) => `<img alt="${alt}" src="${resolveDocHref(href, docRepoPath, renderedDocs)}">`)
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (whole, label, href) => `<a href="${resolveDocHref(href, docRepoPath, renderedDocs)}">${label}</a>`)
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/(^|[\s(])\*([^*\s][^*]*?)\*(?=$|[\s).,;:!?])/g, "$1<i>$2</i>");
+  return out.replace(/\u0000(\d+)\u0000/g, (whole, index) => codeSpans[Number(index)]);
+}
+
+function renderListBlock(lines, start, inline) {
+  const items = [];
+  let i = start;
+  while (i < lines.length) {
+    const match = lines[i].match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/);
+    if (!match) {
+      if (items.length && lines[i].trim() && /^\s{2,}/.test(lines[i])) {
+        items[items.length - 1].text += ` ${lines[i].trim()}`;
+        i++;
+        continue;
+      }
+      break;
+    }
+    items.push({ indent: match[1].length, ordered: /\d/.test(match[2][0]), text: match[3] });
+    i++;
+  }
+  const built = buildNestedList(items, 0, items[0].indent, inline);
+  return { html: built.html, next: i };
+}
+
+function buildNestedList(items, index, indent, inline) {
+  const tag = items[index].ordered ? "ol" : "ul";
+  let html = `<${tag}>`;
+  let i = index;
+  while (i < items.length && items[i].indent >= indent) {
+    if (items[i].indent > indent) {
+      const nested = buildNestedList(items, i, items[i].indent, inline);
+      html = html.replace(/<\/li>$/, `${nested.html}</li>`);
+      i = nested.next;
+      continue;
+    }
+    html += `<li>${inline(items[i].text)}</li>`;
+    i++;
+  }
+  html += `</${tag}>`;
+  return { html, next: i };
+}
+
+function renderMarkdownBody(markdown, docRepoPath, renderedDocs) {
+  const usedSlugs = new Map();
+  const lines = markdown.replace(/<!--[\s\S]*?-->/g, "").replace(/\r\n/g, "\n").split("\n");
+  const blocks = [];
+  const inline = (text) => renderInlineMarkdown(text, docRepoPath, renderedDocs);
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) {
+      i++;
+      continue;
+    }
+    const fence = line.match(/^\s*(```|~~~)/);
+    if (fence) {
+      const buffer = [];
+      i++;
+      while (i < lines.length && !lines[i].trimStart().startsWith(fence[1])) {
+        buffer.push(lines[i]);
+        i++;
+      }
+      i++;
+      blocks.push(`<pre><code>${escapeHtml(buffer.join("\n"))}</code></pre>`);
+      continue;
+    }
+    const heading = line.match(/^(#{1,6})\s+(.*)$/);
+    if (heading) {
+      const level = heading[1].length;
+      const text = heading[2].trim();
+      const slug = headingSlug(text, usedSlugs);
+      blocks.push(`<h${level} id="${slug}">${inline(text)}</h${level}>`);
+      i++;
+      continue;
+    }
+    if (line.trim().startsWith("|") && i + 1 < lines.length && /^\s*\|?[\s:|-]+\|?\s*$/.test(lines[i + 1]) && lines[i + 1].includes("-")) {
+      const cells = (row) => row.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+      const header = cells(line);
+      i += 2;
+      const bodyRows = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        bodyRows.push(cells(lines[i]));
+        i++;
+      }
+      const thead = `<thead><tr>${header.map((cell) => `<th>${inline(cell)}</th>`).join("")}</tr></thead>`;
+      const tbody = bodyRows.length ? `<tbody>${bodyRows.map((row) => `<tr>${row.map((cell) => `<td>${inline(cell)}</td>`).join("")}</tr>`).join("\n")}</tbody>` : "";
+      blocks.push(`<table>${thead}${tbody}</table>`);
+      continue;
+    }
+    if (line.trimStart().startsWith(">")) {
+      const buffer = [];
+      while (i < lines.length && lines[i].trimStart().startsWith(">")) {
+        buffer.push(lines[i].trimStart().replace(/^>\s?/, ""));
+        i++;
+      }
+      blocks.push(`<blockquote><p>${inline(buffer.join(" ").trim())}</p></blockquote>`);
+      continue;
+    }
+    if (/^\s*(-{3,}|\*{3,}|_{3,})\s*$/.test(line)) {
+      blocks.push("<hr>");
+      i++;
+      continue;
+    }
+    if (/^(\s*)([-*+]|\d+\.)\s+/.test(line)) {
+      const list = renderListBlock(lines, i, inline);
+      blocks.push(list.html);
+      i = list.next;
+      continue;
+    }
+    const buffer = [line.trim()];
+    i++;
+    while (
+      i < lines.length &&
+      lines[i].trim() &&
+      !/^(\s*)([-*+]|\d+\.)\s+/.test(lines[i]) &&
+      !/^#{1,6}\s/.test(lines[i]) &&
+      !lines[i].trim().startsWith("|") &&
+      !lines[i].trimStart().startsWith(">") &&
+      !/^\s*(```|~~~)/.test(lines[i])
+    ) {
+      buffer.push(lines[i].trim());
+      i++;
+    }
+    blocks.push(`<p>${inline(buffer.join(" "))}</p>`);
+  }
+  return blocks.join("\n");
+}
+
+function docTitleOf(markdown, repoPath) {
+  const match = markdown.match(/^#\s+(.+)$/m);
+  if (match) return match[1].trim().replace(/`/g, "").replace(/\*\*/g, "");
+  return repoPath.split("/").pop();
+}
+
+function docPageCss() {
+  return `
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  `;
+}
+
+function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
+  const relPath = renderedDocRelPath(repoPath);
+  const base = pageBasePrefix(relPath);
+  const title = docTitleOf(markdown, repoPath);
+  const body = renderMarkdownBody(markdown.replace(/^#\s+.+$/m, ""), repoPath, renderedDocs);
+  const outDir = posix.dirname(`site/${relPath}`);
+  const sourceHref = posix.relative(outDir, repoPath);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)} · ConfigHub Helm Ops</title>
+  <style>${siteCss()}${docPageCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(base)}
+    <h1>${escapeHtml(title)}</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.</p>
+  </header>
+  <main>
+    ${generatedStamp(catalog, "rendered repository document")}
+    <article class="doc-body">
+${body}
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>${escapeHtml(repoPath)}</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>
+`;
+}
+
+function collectMdTargets(site) {
+  const targets = new Set();
+  const scan = (html, pageRelPath) => {
+    const pageDir = posix.dirname(`site/${pageRelPath}`);
+    for (const match of html.matchAll(/href="([^"]+\.md(?:#[^"]*)?)"/g)) {
+      if (isExternalHref(match[1])) continue;
+      const resolved = resolveRelativeHref(pageDir, match[1]);
+      if (!resolved || resolved.target.startsWith("..") || resolved.target.startsWith("site/")) continue;
+      targets.add(resolved.target);
+    }
+  };
+  for (const [key, relPath] of Object.entries(SITE_PAGE_RELPATHS)) scan(site[key], relPath);
+  for (const page of site.chartPages) scan(page.html, `charts/${page.fileName}`);
+  return [...targets].sort();
+}
+
+function buildDocPages(catalog, site) {
+  const targets = collectMdTargets(site);
+  const rendered = new Set(targets.filter((target) => existsSync(join(repoRoot, target))));
+  const pages = [...rendered].sort().map((repoPath) => ({
+    repoPath,
+    relPath: renderedDocRelPath(repoPath),
+    path: join(siteRoot, renderedDocRelPath(repoPath)),
+    html: docPageHtml(catalog, repoPath, readFileSync(join(repoRoot, repoPath), "utf8"), rendered),
+  }));
+  return { pages, rendered, missing: targets.filter((target) => !rendered.has(target)) };
+}
+
+function finalizePage(html, relPath, renderedDocs) {
+  return rewriteMdHrefs(html, relPath, renderedDocs);
+}
+
+function finalizeSite(site, catalog) {
+  const docs = buildDocPages(catalog, site);
+  const finalized = { ...site };
+  for (const [key, relPath] of Object.entries(SITE_PAGE_RELPATHS)) {
+    finalized[key] = finalizePage(site[key], relPath, docs.rendered);
+  }
+  finalized.chartPages = site.chartPages.map((page) => ({
+    ...page,
+    html: finalizePage(page.html, `charts/${page.fileName}`, docs.rendered),
+  }));
+  finalized.docPages = docs.pages;
+  finalized.missingMdTargets = docs.missing;
+  return finalized;
+}
+
+// Every relative href/src in the generated site must resolve to a file or
+// directory in the repository. Raw-markdown dead ends and depth bugs fail here.
+function verifySiteLinks() {
+  const htmlFiles = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) walk(full);
+      else if (name.endsWith(".html")) htmlFiles.push(full);
+    }
+  };
+  walk(siteRoot);
+  const failures = [];
+  let skippedRunLinks = 0;
+  for (const file of htmlFiles) {
+    const pageDir = posix.dirname(file);
+    const html = readFileSync(file, "utf8");
+    for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+      const value = match[1];
+      if (isExternalHref(value)) continue;
+      const resolved = resolveRelativeHref(pageDir, value);
+      if (!resolved) continue;
+      if (posix.relative(repoRoot, resolved.target).startsWith("runs/")) {
+        // Receipt paths under runs/ come from proof data (for example the
+        // master matrix receipt column) and run outputs are partially
+        // ephemeral by design; the site must not rewrite proof pointers.
+        skippedRunLinks += 1;
+        continue;
+      }
+      if (!existsSync(resolved.target)) failures.push(`${posix.relative(repoRoot, file)} -> ${value}`);
+    }
+  }
+  check(
+    failures.length === 0,
+    `site link check failed: ${failures.length} broken relative link(s), first ${Math.min(failures.length, 20)}:\n${failures.slice(0, 20).map((failure) => `  - ${failure}`).join("\n")}`,
+  );
+  console.log(`verified site relative links across ${htmlFiles.length} page(s) (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
 }
 
 function topNav(base = ".") {
@@ -3931,12 +4337,12 @@ ${chartRowsHtml}
         ["Disposition", "Rows", "Meaning"],
         ...dispositionRows,
       ])}
-      <p>For a specific chart, open its chart page and read the action details beside the variant options. Deeper reference: <a href="../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../docs/reference/what-hook-support-means.md">hook support vocabulary</a>.</p>
+      <p>For a specific chart, open its chart page and read the action details beside the variant options. Deeper reference: <a href="../../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../../docs/reference/what-hook-support-means.md">hook support vocabulary</a>.</p>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(lifecycleRoutes.length)}</strong><span>lifecycle route rows</span></div>
         <div class="metric"><strong>${escapeHtml(lifecycleChartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
         <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
+        <div class="metric"><strong><a href="../../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
       </div>
     </section>
   </main>

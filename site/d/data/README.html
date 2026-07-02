@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Index · ConfigHub Helm Ops</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../try.html">Get Started</a><a href="../../charts/index.html">Helm Ops Catalog</a><a href="../../how-it-works.html">How it works</a><a href="../../journey.html">AI Apps</a><a href="../../docs.html">Docs/FAQ</a><a href="../../private/">Upgrade</a></span></nav></div>
+    <h1>Data Index</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../data/README.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This directory contains generated evidence, CSVs, and summary pages for the Helm experiment. The data is meant to answer three questions without requiring readers to inspect every recipe folder:</p>
+<pre><code>What outcomes are promised?
+Which tests prove those outcomes?
+What is the current status for each chart, base, derived variant, and feature?</code></pre>
+<h2 id="quick-routes">Quick Routes</h2>
+<p>Do not start by opening every CSV. Pick the question first, then use the smallest generated surface that answers it.</p>
+<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>I want the compact catalog data routing index.</td><td><a href="../../../data/catalog-index/summary.md">catalog-index/summary.md</a></td></tr>
+<tr><td>I want the broad chart/version/base status in one browser sheet.</td><td><a href="../../../data/master-catalog-matrix/matrix.html">master-catalog-matrix/matrix.html</a>&lt;br&gt;<a href="master-catalog-matrix/summary.html">master-catalog-matrix/summary.md</a>&lt;br&gt;<a href="../../../data/master-catalog-matrix/matrix.csv">master-catalog-matrix/matrix.csv</a></td></tr>
+<tr><td>I want the current headline status.</td><td><a href="status-dashboard/summary.html">status-dashboard/summary.md</a></td></tr>
+<tr><td>I want to know if I can use a specific chart.</td><td><a href="chart-use-guide/summary.html">chart-use-guide/summary.md</a>&lt;br&gt;<a href="../../../data/chart-use-guide/chart-use-guide.csv">chart-use-guide/chart-use-guide.csv</a></td></tr>
+<tr><td>I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check.</td><td><a href="../../../data/chart-fact-sheets/summary.md">chart-fact-sheets/summary.md</a>&lt;br&gt;<a href="../../../data/chart-fact-sheets/fact-sheets.html">chart-fact-sheets/fact-sheets.html</a>&lt;br&gt;<a href="../../../data/chart-fact-sheets/fact-sheets.csv">chart-fact-sheets/fact-sheets.csv</a></td></tr>
+<tr><td>I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions.</td><td><a href="chart-evidence-router/summary.html">chart-evidence-router/summary.md</a>&lt;br&gt;<a href="../../../data/chart-evidence-router/router.csv">chart-evidence-router/router.csv</a></td></tr>
+<tr><td>I want to know what outcomes are actually promised and proven.</td><td><a href="../../../data/outcome-evidence-contract/summary.md">outcome-evidence-contract/summary.md</a>&lt;br&gt;<a href="../../../data/outcome-evidence-contract/outcomes.csv">outcome-evidence-contract/outcomes.csv</a></td></tr>
+<tr><td>I want the next work queues.</td><td><a href="../../../data/status-dashboard/next-work-queues.csv">status-dashboard/next-work-queues.csv</a>&lt;br&gt;<a href="../../../data/status-dashboard/active-proof-queue.csv">status-dashboard/active-proof-queue.csv</a></td></tr>
+<tr><td>I want to know which catalog base to try first.</td><td><a href="../../../data/top20-base-readiness/start-here.md">top20-base-readiness/start-here.md</a></td></tr>
+<tr><td>I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.</td><td><a href="top20-base-readiness/summary.html">top20-base-readiness/summary.md</a></td></tr>
+<tr><td>I want one spreadsheet row per chart/base proof lane.</td><td><a href="../../../data/outcome-coverage/base-outcomes.csv">outcome-coverage/base-outcomes.csv</a></td></tr>
+<tr><td>I want to check whether a public claim is backed, partial, planned, or refused.</td><td><a href="claims-register/summary.html">claims-register/summary.md</a>&lt;br&gt;<a href="../../../data/claims-register/claims.csv">claims-register/claims.csv</a></td></tr>
+<tr><td>I want to know whether value-change blast radius is measured or still assumed.</td><td><a href="blast-radius-accuracy/summary.html">blast-radius-accuracy/summary.md</a>&lt;br&gt;<a href="../../../data/blast-radius-accuracy/cases.csv">blast-radius-accuracy/cases.csv</a></td></tr>
+<tr><td>I want the top-100 coverage contract.</td><td><a href="../../../data/top100-coverage/summary.md">top100-coverage/summary.md</a>&lt;br&gt;<a href="../../../data/top100-coverage/coverage.csv">top100-coverage/coverage.csv</a></td></tr>
+<tr><td>I want the strict top-100 work queue.</td><td><a href="../../../data/top100-coverage/work-queue.md">top100-coverage/work-queue.md</a>&lt;br&gt;<a href="../../../data/top100-coverage/work-queue.csv">top100-coverage/work-queue.csv</a>&lt;br&gt;<a href="../../../data/top100-coverage/decisions-needed.md">top100-coverage/decisions-needed.md</a></td></tr>
+<tr><td>I want to know which useful base variants need designing next.</td><td><a href="../../../data/useful-base-design-queue/summary.md">useful-base-design-queue/summary.md</a>&lt;br&gt;<a href="../../../data/useful-base-design-queue/queue.csv">useful-base-design-queue/queue.csv</a></td></tr>
+<tr><td>I want to know which useful base variants have been made real.</td><td><a href="../../../data/useful-base-realization-wave/summary.md">useful-base-realization-wave/summary.md</a>&lt;br&gt;<a href="../../../data/useful-base-realization-wave/wave.csv">useful-base-realization-wave/wave.csv</a></td></tr>
+<tr><td>I want the source-scan quirk work queue.</td><td><a href="../../../data/quirk-work-queue/summary.md">quirk-work-queue/summary.md</a>&lt;br&gt;<a href="../../../data/quirk-work-queue/top100-queue.csv">quirk-work-queue/top100-queue.csv</a></td></tr>
+<tr><td>I want the hardest top-100 proof gaps to assign next.</td><td><a href="../../../data/hard-proof-gaps/summary.md">hard-proof-gaps/summary.md</a>&lt;br&gt;<a href="../../../data/hard-proof-gaps/shortlist.csv">hard-proof-gaps/shortlist.csv</a></td></tr>
+<tr><td>I want remote dependency closure status.</td><td><a href="../../../data/remote-dependency-closure/summary.md">remote-dependency-closure/summary.md</a>&lt;br&gt;<a href="../../../data/remote-dependency-closure/top100.csv">remote-dependency-closure/top100.csv</a></td></tr>
+<tr><td>I want the first strict top-100 promotion wave.</td><td><a href="../../../data/top100-promotion-wave/summary.md">top100-promotion-wave/summary.md</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/wave.csv">top100-promotion-wave/wave.csv</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/fast-track.md">top100-promotion-wave/fast-track.md</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/fast-track-reviews/README.md">top100-promotion-wave/fast-track-reviews/README.md</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md">top100-promotion-wave/fast-track-reviews/storage-rollback/README.md</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/fast-track-reviews/target-scope/README.md">top100-promotion-wave/fast-track-reviews/target-scope/README.md</a>&lt;br&gt;<a href="../../../data/top100-promotion-wave/work-orders.md">top100-promotion-wave/work-orders.md</a></td></tr>
+<tr><td>I want to know how upstream chart updates are handled.</td><td><a href="../../../data/refresh-survival/summary.md">refresh-survival/summary.md</a>&lt;br&gt;<a href="../../../data/latest-top20-refresh/action-queue/summary.md">latest-top20-refresh/action-queue/summary.md</a>&lt;br&gt;<a href="../../../data/latest-top20-refresh/replacement-decisions/summary.md">latest-top20-refresh/replacement-decisions/summary.md</a></td></tr>
+<tr><td>I want the top-100 or top-500 planning picture.</td><td><a href="../../../data/top100-readiness/summary.md">top100-readiness/summary.md</a>&lt;br&gt;<a href="../../../data/top100-readiness/next80-queues.md">top100-readiness/next80-queues.md</a>&lt;br&gt;<a href="../../../data/top500-catalog-analysis/review.csv">top500-catalog-analysis/review.csv</a></td></tr>
+<tr><td>I want live parity status.</td><td><a href="../../../data/live-kind-parity/summary.md">live-kind-parity/summary.md</a>&lt;br&gt;<a href="../../../data/live-helm-confighub-compare/summary.md">live-helm-confighub-compare/summary.md</a>&lt;br&gt;<a href="../../../data/live-matrix-burndown/summary.md">live-matrix-burndown/summary.md</a>&lt;br&gt;<a href="../../../data/gitops-health-residue/summary.md">gitops-health-residue/summary.md</a></td></tr>
+<tr><td>I want large ConfigHub upload/apply/GitOps operations split into visible stages.</td><td><a href="../../../data/large-config-operations/summary.md">large-config-operations/summary.md</a>&lt;br&gt;<a href="../../../data/large-config-operations/operations.csv">large-config-operations/operations.csv</a></td></tr>
+<tr><td>I want to understand local live non-pass rows.</td><td><a href="../../../data/local-live-triage/summary.md">local-live-triage/summary.md</a>&lt;br&gt;<a href="../../../data/local-live-triage/triage.csv">local-live-triage/triage.csv</a></td></tr>
+<tr><td>I want hook, APIService, CRD, webhook, or lifecycle status.</td><td><a href="../../../data/hook-coverage/summary.md">hook-coverage/summary.md</a>&lt;br&gt;<a href="../../../data/apiservice-coverage/summary.md">apiservice-coverage/summary.md</a>&lt;br&gt;<a href="../../../data/apiservice-coverage/work-orders.md">apiservice-coverage/work-orders.md</a>&lt;br&gt;<a href="lifecycle-boundary/summary.html">lifecycle-boundary/summary.md</a>&lt;br&gt;<a href="../../../data/webhook-cert-lifecycle/summary.md">webhook-cert-lifecycle/summary.md</a>&lt;br&gt;<a href="../../../data/outcome-coverage/feature-outcomes.csv">outcome-coverage/feature-outcomes.csv</a></td></tr>
+<tr><td>I want candidate routes for hook-bearing source charts.</td><td><a href="../../../data/hook-route-candidates/summary.md">hook-route-candidates/summary.md</a>&lt;br&gt;<a href="../../../data/hook-route-candidates/candidates.csv">hook-route-candidates/candidates.csv</a>&lt;br&gt;<a href="../../../data/hook-route-candidates/work-orders.md">hook-route-candidates/work-orders.md</a></td></tr>
+<tr><td>I want the machine-readable lifecycle route contract: where a hook or hidden behavior goes, who executes it, the default, and the off-ramps.</td><td><a href="lifecycle-routes/summary.html">lifecycle-routes/summary.md</a>&lt;br&gt;<a href="../../../data/lifecycle-routes/routes.csv">lifecycle-routes/routes.csv</a>&lt;br&gt;<a href="../../../data/lifecycle-routes/routes.json">lifecycle-routes/routes.json</a></td></tr>
+<tr><td>I want to know which operating skill/playbook applies to a chart.</td><td><a href="chart-skills/summary.html">chart-skills/summary.md</a>&lt;br&gt;<a href="../../../data/chart-skills/skills.csv">chart-skills/skills.csv</a>&lt;br&gt;<a href="../../../data/chart-skills/skills.json">chart-skills/skills.json</a></td></tr>
+<tr><td>I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.</td><td><a href="lifecycle-route-actions/summary.html">lifecycle-route-actions/summary.md</a>&lt;br&gt;<a href="../../../data/lifecycle-route-actions/actions.csv">lifecycle-route-actions/actions.csv</a>&lt;br&gt;<a href="../../../data/lifecycle-route-actions/actions.json">lifecycle-route-actions/actions.json</a></td></tr>
+<tr><td>I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached.</td><td><a href="helm-render-intents/summary.html">helm-render-intents/summary.md</a>&lt;br&gt;<a href="../../../data/helm-render-intents/intents.csv">helm-render-intents/intents.csv</a>&lt;br&gt;<a href="../../../data/helm-render-intents/intents.json">helm-render-intents/intents.json</a></td></tr>
+<tr><td>I want the installer package OCI ref users should pull for each chart/version.</td><td><a href="installer-oci-packages/summary.html">installer-oci-packages/summary.md</a>&lt;br&gt;<a href="../../../data/installer-oci-packages/packages.csv">installer-oci-packages/packages.csv</a>&lt;br&gt;<a href="../../../data/installer-oci-packages/packages.json">installer-oci-packages/packages.json</a></td></tr>
+<tr><td>I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today.</td><td><a href="../../../data/kind-parity-decisions/summary.md">kind-parity-decisions/summary.md</a>&lt;br&gt;<a href="../../../data/kind-parity-decisions/decisions.csv">kind-parity-decisions/decisions.csv</a>&lt;br&gt;<a href="../../../data/kind-parity-decisions/decisions.json">kind-parity-decisions/decisions.json</a></td></tr>
+<tr><td>I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today.</td><td><a href="../../../data/live-parity-decisions/summary.md">live-parity-decisions/summary.md</a>&lt;br&gt;<a href="../../../data/live-parity-decisions/decisions.csv">live-parity-decisions/decisions.csv</a>&lt;br&gt;<a href="../../../data/live-parity-decisions/decisions.json">live-parity-decisions/decisions.json</a></td></tr>
+<tr><td>I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim).</td><td><a href="../../../data/live-run-blocks/summary.md">live-run-blocks/summary.md</a>&lt;br&gt;<a href="../../../data/live-run-blocks/run-blocks.csv">live-run-blocks/run-blocks.csv</a>&lt;br&gt;<a href="../../../data/live-run-blocks/run-blocks.json">live-run-blocks/run-blocks.json</a></td></tr>
+<tr><td>I want every non-green/not-yet-run matrix cell triaged into needs-a-run vs needs-a-fix vs needs-modeling vs already-decided, with a reason and next action.</td><td><a href="../../../data/matrix-completion-audit/summary.md">matrix-completion-audit/summary.md</a>&lt;br&gt;<a href="../../../data/matrix-completion-audit/audit.csv">matrix-completion-audit/audit.csv</a>&lt;br&gt;<a href="../../../data/matrix-completion-audit/audit.json">matrix-completion-audit/audit.json</a></td></tr>
+<tr><td>I want the variant-promotion column as an actionable queue: which variants can run cub variant promote now, which old watch receipts need rerun on the fixed ConfigHub server, and which are blocked by proof prerequisites.</td><td><a href="../../../data/variant-promotion-closeout/summary.md">variant-promotion-closeout/summary.md</a>&lt;br&gt;<a href="../../../data/variant-promotion-closeout/closeout.csv">variant-promotion-closeout/closeout.csv</a>&lt;br&gt;<a href="../../../data/variant-promotion-closeout/closeout.json">variant-promotion-closeout/closeout.json</a></td></tr>
+<tr><td>I want the remote-image watch rows turned into product decisions: the exact missing image, where it fails, and whether to refresh the chart/base, override the image, pin/mirror a digest, route a lifecycle image, or watch/refuse.</td><td><a href="../../../data/remote-image-runtime-workdown/summary.md">remote-image-runtime-workdown/summary.md</a>&lt;br&gt;<a href="../../../data/remote-image-runtime-workdown/workdown.csv">remote-image-runtime-workdown/workdown.csv</a>&lt;br&gt;<a href="../../../data/remote-image-runtime-workdown/workdown.json">remote-image-runtime-workdown/workdown.json</a></td></tr>
+<tr><td>I want the ready-to-run variant promotions grouped into safe serial batches of commands to run once ConfigHub auth returns.</td><td><a href="../../../data/variant-promotion-proof-batches/summary.md">variant-promotion-proof-batches/summary.md</a>&lt;br&gt;<a href="../../../data/variant-promotion-proof-batches/batches.csv">variant-promotion-proof-batches/batches.csv</a>&lt;br&gt;<a href="../../../data/variant-promotion-proof-batches/batches.json">variant-promotion-proof-batches/batches.json</a></td></tr>
+<tr><td>I want the catalog-owned model gaps (rows that need a recipe/base change, not a re-run): the gap kind, the recommended action, and any sibling base that already passes.</td><td><a href="../../../data/model-gap-workdown/summary.md">model-gap-workdown/summary.md</a>&lt;br&gt;<a href="../../../data/model-gap-workdown/workdown.csv">model-gap-workdown/workdown.csv</a>&lt;br&gt;<a href="../../../data/model-gap-workdown/workdown.json">model-gap-workdown/workdown.json</a></td></tr>
+<tr><td>I want the target/user prerequisites a base needs before it can pass (a CRD, Namespace, Secret, storage, external API, or target topology), who owns each, and the exact prerequisite name.</td><td><a href="../../../data/target-prerequisite-workdown/summary.md">target-prerequisite-workdown/summary.md</a>&lt;br&gt;<a href="../../../data/target-prerequisite-workdown/workdown.csv">target-prerequisite-workdown/workdown.csv</a>&lt;br&gt;<a href="../../../data/target-prerequisite-workdown/workdown.json">target-prerequisite-workdown/workdown.json</a></td></tr>
+<tr><td>I want an action packet per non-green row: what to stage before rerunning (create-namespace / stage-secret / install-crds / provide-external-service / provide-storage-or-topology / operator-review), the required inputs, the evidence to look for, and the rerun command.</td><td><a href="../../../data/target-prerequisite-actions/summary.md">target-prerequisite-actions/summary.md</a>&lt;br&gt;<a href="../../../data/target-prerequisite-actions/actions.csv">target-prerequisite-actions/actions.csv</a>&lt;br&gt;<a href="../../../data/target-prerequisite-actions/actions.json">target-prerequisite-actions/actions.json</a></td></tr>
+<tr><td>I want every current model gap and target prerequisite routed to a product resolution path: new base variant, existing sibling base, derived target variant, target-scoped policy, or operator review.</td><td><a href="../../../data/model-prereq-resolution/summary.md">model-prereq-resolution/summary.md</a>&lt;br&gt;<a href="../../../data/model-prereq-resolution/resolution.csv">model-prereq-resolution/resolution.csv</a>&lt;br&gt;<a href="../../../data/model-prereq-resolution/resolution.json">model-prereq-resolution/resolution.json</a></td></tr>
+<tr><td>I want the ranked plan to reach 100% verified matrix disposition: the non-green cells collapsed into action families by cells-cleared-per-action, owner lane, and linked issues, with variant promotion as a first-class family.</td><td><a href="../../../data/coverage-completion-plan/summary.md">coverage-completion-plan/summary.md</a>&lt;br&gt;<a href="../../../data/coverage-completion-plan/actions.csv">coverage-completion-plan/actions.csv</a>&lt;br&gt;<a href="../../../data/coverage-completion-plan/actions.json">coverage-completion-plan/actions.json</a></td></tr>
+<tr><td>I want extension-slot or custom-config risk.</td><td><a href="../../../data/extension-slots/summary.md">extension-slots/summary.md</a>&lt;br&gt;<a href="../../../data/nginx-config-checks/summary.md">nginx-config-checks/summary.md</a></td></tr>
+<tr><td>I want production support status and next actions.</td><td><a href="../../../data/status-dashboard/next-work-queues.csv">status-dashboard/next-work-queues.csv</a>&lt;br&gt;<a href="../../../data/production-support-decisions/summary.md">production-support-decisions/summary.md</a>&lt;br&gt;<a href="../../../data/production-support-decisions/work-items.csv">production-support-decisions/work-items.csv</a>&lt;br&gt;<a href="../../../data/production-support-decisions/decisions.csv">production-support-decisions/decisions.csv</a>&lt;br&gt;<a href="hard-chart-production-packets/summary.html">hard-chart-production-packets/summary.md</a></td></tr>
+<tr><td>I want accepted pre-review production dispositions.</td><td><a href="production-disposition/summary.html">production-disposition/summary.md</a>&lt;br&gt;<a href="../../../data/production-disposition/support-decision-contract.md">production-disposition/support-decision-contract.md</a>&lt;br&gt;<a href="../../../data/production-disposition/support-decision-queue.csv">production-disposition/support-decision-queue.csv</a></td></tr></tbody></table>
+<h2 id="start-here">Start Here</h2>
+<table><thead><tr><th>File</th><th>Use it for</th></tr></thead><tbody><tr><td><a href="../../../data/catalog-index/summary.md">catalog-index/summary.md</a></td><td>Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence.</td></tr>
+<tr><td><a href="../../../data/master-catalog-matrix/matrix.html">master-catalog-matrix/matrix.html</a></td><td>Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action.</td></tr>
+<tr><td><a href="../../../data/master-catalog-matrix/matrix.csv">master-catalog-matrix/matrix.csv</a></td><td>Machine/spreadsheet form of the master catalog matrix. Same row set as matrix.html, without relying on color.</td></tr>
+<tr><td><a href="master-catalog-matrix/summary.html">master-catalog-matrix/summary.md</a></td><td>Compact GitHub orientation for the master catalog matrix.</td></tr>
+<tr><td><a href="status-dashboard/summary.html">status-dashboard/summary.md</a></td><td>Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity.</td></tr>
+<tr><td><a href="chart-use-guide/summary.html">chart-use-guide/summary.md</a></td><td>Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first.</td></tr>
+<tr><td><a href="chart-evidence-router/summary.html">chart-evidence-router/summary.md</a></td><td>Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action.</td></tr>
+<tr><td><a href="../../../data/status-dashboard/next-work-queues.csv">status-dashboard/next-work-queues.csv</a></td><td>Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work.</td></tr>
+<tr><td><a href="../../../data/status-dashboard/active-proof-queue.csv">status-dashboard/active-proof-queue.csv</a></td><td>Current non-pass live parity rows with the exact support artifact that should be handled before rerun.</td></tr>
+<tr><td><a href="../../../data/status-dashboard/top20-status.csv">status-dashboard/top20-status.csv</a></td><td>Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action.</td></tr>
+<tr><td><a href="../../../data/top20-base-readiness/start-here.md">top20-base-readiness/start-here.md</a></td><td>Short guide to the clean first catalog paths: chart, base, command, and production-support reminder.</td></tr>
+<tr><td><a href="top20-base-readiness/summary.html">top20-base-readiness/summary.md</a></td><td>One row per top-20 base variant: which bases are good first paths and which need prerequisites, runtime review, or hook lifecycle work.</td></tr>
+<tr><td><a href="../../../data/outcome-coverage/summary.md">outcome-coverage/summary.md</a></td><td>Start here. Outcome promises, tests that prove them, and links to the four front-door CSVs.</td></tr>
+<tr><td><a href="../../../data/outcome-coverage/chart-outcomes.csv">outcome-coverage/chart-outcomes.csv</a></td><td>One row per chart: model support, production readiness, lane counts, hard gaps, feature summary.</td></tr>
+<tr><td><a href="../../../data/outcome-coverage/base-outcomes.csv">outcome-coverage/base-outcomes.csv</a></td><td>One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity.</td></tr>
+<tr><td><a href="../../../data/outcome-coverage/derived-variant-outcomes.csv">outcome-coverage/derived-variant-outcomes.csv</a></td><td>One row per derived ConfigHub variant: intended-state proof and target-bound live status.</td></tr>
+<tr><td><a href="../../../data/outcome-coverage/feature-outcomes.csv">outcome-coverage/feature-outcomes.csv</a></td><td>One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps.</td></tr>
+<tr><td><a href="claims-register/summary.html">claims-register/summary.md</a></td><td>Claim-to-evidence register: public claims, status, evidence paths, scoped verifiers, and limits.</td></tr>
+<tr><td><a href="../../../data/claims-register/claims.csv">claims-register/claims.csv</a></td><td>Spreadsheet form of the claim-to-evidence register.</td></tr>
+<tr><td><a href="blast-radius-accuracy/summary.html">blast-radius-accuracy/summary.md</a></td><td>Measured blast-radius accuracy seed: predicted affected objects compared with actual committed rerender diffs.</td></tr>
+<tr><td><a href="../../../data/blast-radius-accuracy/cases.csv">blast-radius-accuracy/cases.csv</a></td><td>Spreadsheet form of measured and unmeasured value-source-map blast-radius rows.</td></tr>
+<tr><td><a href="../../../data/extension-slots/extension-slots.csv">extension-slots/extension-slots.csv</a></td><td>One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence.</td></tr>
+<tr><td><a href="../../../data/nginx-config-checks/checks.csv">nginx-config-checks/checks.csv</a></td><td>NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape.</td></tr>
+<tr><td><a href="lifecycle-boundary/summary.html">lifecycle-boundary/summary.md</a></td><td>Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits.</td></tr>
+<tr><td><a href="../../../data/webhook-cert-lifecycle/summary.md">webhook-cert-lifecycle/summary.md</a></td><td>Webhook certificate lifecycle evidence: rows where explicit staged certificate material makes a local live workload converge.</td></tr>
+<tr><td><a href="../../../data/hook-coverage/summary.md">hook-coverage/summary.md</a></td><td>Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans.</td></tr>
+<tr><td><a href="../../../data/apiservice-coverage/summary.md">apiservice-coverage/summary.md</a></td><td>Top-100 APIService coverage bridge: separates rendered APIService object evidence from aggregated API availability evidence.</td></tr>
+<tr><td><a href="../../../data/apiservice-coverage/work-orders.md">apiservice-coverage/work-orders.md</a></td><td>Assignable APIService proof-wave work orders: KEDA first, source-only import rows next, and Metrics Server keep-fresh pattern.</td></tr>
+<tr><td><a href="../../../data/hook-route-candidates/summary.md">hook-route-candidates/summary.md</a></td><td>Candidate hook route plans for source top-100 hook charts that are not yet maintained hook lifecycle queue rows.</td></tr>
+<tr><td><a href="../../../data/hook-route-candidates/work-orders.md">hook-route-candidates/work-orders.md</a></td><td>Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers.</td></tr>
+<tr><td><a href="lifecycle-observations/cert-manager-eso/summary.html">lifecycle-observations/cert-manager-eso/summary.md</a></td><td>Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data.</td></tr>
+<tr><td><a href="../../../data/live-kind-parity/summary.md">live-kind-parity/summary.md</a></td><td>Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another.</td></tr>
+<tr><td><a href="../../../data/live-matrix-burndown/summary.md">live-matrix-burndown/summary.md</a></td><td>Generated live burn-down plan: one row per remaining live-parity or two-cluster kind-parity command needed to close the master matrix live cells.</td></tr>
+<tr><td><a href="../../../data/local-live-triage/summary.md">local-live-triage/summary.md</a></td><td>Local Kubernetes non-pass triage: every local live fail/block row mapped to a route class, next action, and receipt.</td></tr>
+<tr><td><a href="../../../data/live-helm-confighub-compare/summary.md">live-helm-confighub-compare/summary.md</a></td><td>Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows.</td></tr>
+<tr><td><a href="../../../data/live-parity-rerun-plan/summary.md">live-parity-rerun-plan/summary.md</a></td><td>Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command.</td></tr>
+<tr><td><a href="../../../data/gitops-health-residue/summary.md">gitops-health-residue/summary.md</a></td><td>GitOps controller-health residue: rows where sync/workload evidence can pass while aggregate controller health still needs explanation.</td></tr>
+<tr><td><a href="../../../data/large-config-operations/summary.md">large-config-operations/summary.md</a></td><td>Large ConfigHub operation funnel: 50+ object live rows split by runtime, GitOps, target facts, workload convergence, controller health, and missing progress evidence.</td></tr>
+<tr><td><a href="production-disposition/summary.html">production-disposition/summary.md</a></td><td>Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions.</td></tr>
+<tr><td><a href="../../../data/production-disposition/dispositions.md">production-disposition/dispositions.md</a></td><td>Detailed production disposition plan: accepted receipts, open dispositions, owners, required evidence, and unblock rules.</td></tr>
+<tr><td><a href="../../../data/production-disposition/next-actions.csv">production-disposition/next-actions.csv</a></td><td>Production decision work queue: recommended base, decision focus, image digest gap, and next action per top-20 chart.</td></tr>
+<tr><td><a href="../../../data/production-disposition/support-decision-contract.md">production-disposition/support-decision-contract.md</a></td><td>Production support decision contract: required fields, current decision states, and the rule for moving from production-review-ready to production-supported.</td></tr>
+<tr><td><a href="../../../data/production-disposition/support-decision-queue.csv">production-disposition/support-decision-queue.csv</a></td><td>Pre-review queue showing the candidate production base, support boundary work, and required evidence before target-scoped decisions.</td></tr>
+<tr><td><a href="../../../data/production-support-decisions/summary.md">production-support-decisions/summary.md</a></td><td>Target-scoped support decision artifacts: supported, rejected, and superseded decisions, boundaries, evidence state, and next action.</td></tr>
+<tr><td><a href="../../../data/production-support-decisions/work-items.csv">production-support-decisions/work-items.csv</a></td><td>One row per production-support task or keep-fresh item: chart, base, work type, status field, priority, action, and source decision.</td></tr>
+<tr><td><a href="../../../data/production-support-decisions/decisions.csv">production-support-decisions/decisions.csv</a></td><td>One row per target-scoped support decision artifact: chart, base, decision state, target scope, evidence decision, and next action.</td></tr>
+<tr><td><a href="../../../data/external-scan-lane/chart-workdown.csv">external-scan-lane/chart-workdown.csv</a></td><td>Chart-level scan/gate workdown: grouped scanner findings, priority, and next action before production disposition.</td></tr>
+<tr><td><a href="../../../data/scan-disposition-workdown/workdown.csv">scan-disposition-workdown/workdown.csv</a></td><td>Scan warning routes: which rows need fixes, hardened bases, explicit security acceptance, runtime endpoint review, or PDB policy decisions.</td></tr>
+<tr><td><a href="../../../data/image-digest-workdown/summary.md">image-digest-workdown/summary.md</a></td><td>Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support.</td></tr>
+<tr><td><a href="../../../data/pain-point-coverage/summary.md">pain-point-coverage/summary.md</a></td><td>General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions.</td></tr>
+<tr><td><a href="../../../data/top100-readiness/summary.md">top100-readiness/summary.md</a></td><td>Top-100 readiness: one chart-by-chart answer for workability, adoption bucket, strongest evidence, hard gap, next action, and first work queues.</td></tr>
+<tr><td><a href="../../../data/top100-readiness/next80-queues.md">top100-readiness/next80-queues.md</a></td><td>Next80 operating queue: proof-grade non-catalog charts split into promotion review, limitation review, and user-shaped variant work.</td></tr>
+<tr><td><a href="../../../data/top100-coverage/summary.md">top100-coverage/summary.md</a></td><td>Top-100 coverage contract result: covered versus partial rows and item-by-item pass/todo breakdown.</td></tr>
+<tr><td><a href="../../../data/top100-coverage/coverage.csv">top100-coverage/coverage.csv</a></td><td>One row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action.</td></tr>
+<tr><td><a href="../../../data/top100-coverage/work-queue.md">top100-coverage/work-queue.md</a></td><td>Top-100 strict coverage work queue: promotion review, user-shaped variants, limitation decisions, and first rows.</td></tr>
+<tr><td><a href="../../../data/top100-coverage/work-queue.csv">top100-coverage/work-queue.csv</a></td><td>One row per partial top-100 chart: queue, priority, missing items, first step, done-when rule, evidence, and owner.</td></tr>
+<tr><td><a href="../../../data/top100-coverage/decisions-needed.md">top100-coverage/decisions-needed.md</a></td><td>Human decision memos for top-100 limitation-decision rows.</td></tr>
+<tr><td><a href="../../../data/useful-base-design-queue/summary.md">useful-base-design-queue/summary.md</a></td><td>Useful base design queue for top-100 charts that are proof-grade but too default-shaped to recommend.</td></tr>
+<tr><td><a href="../../../data/useful-base-design-queue/queue.csv">useful-base-design-queue/queue.csv</a></td><td>One row per chart needing a useful base proposal: proposed base shape, user job, render choices, target inputs, and proof required.</td></tr>
+<tr><td><a href="../../../data/useful-base-design-queue/families.csv">useful-base-design-queue/families.csv</a></td><td>Grouped useful-base design families for assigning batches of related chart work.</td></tr>
+<tr><td><a href="../../../data/useful-base-realization-wave/summary.md">useful-base-realization-wave/summary.md</a></td><td>First wave of useful base proposals made real as recipe variants and cub installer package bases.</td></tr>
+<tr><td><a href="../../../data/useful-base-realization-wave/wave.csv">useful-base-realization-wave/wave.csv</a></td><td>One row per realized useful base: strategy, remaining proof work, package base, and recipe variant.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/summary.md">top100-promotion-wave/summary.md</a></td><td>First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/wave.csv">top100-promotion-wave/wave.csv</a></td><td>One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/wave.yaml">top100-promotion-wave/wave.yaml</a></td><td>Machine-readable strict top-100 promotion wave input.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/fast-track.md">top100-promotion-wave/fast-track.md</a></td><td>Low-residue top-100 promotion candidates whose remaining work is narrow enough to review quickly.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/fast-track-reviews/README.md">top100-promotion-wave/fast-track-reviews/README.md</a></td><td>Review packets for the low-residue top-100 promotion candidates.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md">top100-promotion-wave/fast-track-reviews/storage-rollback/README.md</a></td><td>Storage and rollback review inputs for each fast-track candidate.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/fast-track-reviews/target-scope/README.md">top100-promotion-wave/fast-track-reviews/target-scope/README.md</a></td><td>Draft target-scope support decisions for each fast-track candidate.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/work-orders.md">top100-promotion-wave/work-orders.md</a></td><td>Assignable chart-by-chart review tasks for the first top-100 promotion wave.</td></tr>
+<tr><td><a href="../../../data/top100-promotion-wave/work-orders.csv">top100-promotion-wave/work-orders.csv</a></td><td>Spreadsheet work orders for the first top-100 promotion wave: variant selection, scan/gate, lifecycle, live evidence, and support decision tasks.</td></tr>
+<tr><td><a href="../../../data/refresh-survival/summary.md">refresh-survival/summary.md</a></td><td>Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement.</td></tr>
+<tr><td><a href="../../../data/refresh-survival/refreshes.csv">refresh-survival/refreshes.csv</a></td><td>One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/action-queue/summary.md">latest-top20-refresh/action-queue/summary.md</a></td><td>Action queue for current top-20 upstream movement: replacement decisions, retained-candidate refreshes, and new-candidate creation.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/action-queue/queue.csv">latest-top20-refresh/action-queue/queue.csv</a></td><td>Spreadsheet action queue for latest-refresh work: current version, latest upstream version, retained candidate, priority, command, evidence, and done-when rule.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/action-queue/queue.yaml">latest-top20-refresh/action-queue/queue.yaml</a></td><td>Machine-readable latest-refresh action queue.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/promotion-work-orders.md">latest-top20-refresh/promotion-work-orders.md</a></td><td>Per-candidate lane closure table for retained proof-complete update candidates.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/promotion-work-orders.csv">latest-top20-refresh/promotion-work-orders.csv</a></td><td>Spreadsheet work orders for retained candidates: render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/replacement-decisions/summary.md">latest-top20-refresh/replacement-decisions/summary.md</a></td><td>Final review queue for retained proof-complete update candidates before any supported catalog version is replaced.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/replacement-decisions/decisions.csv">latest-top20-refresh/replacement-decisions/decisions.csv</a></td><td>Spreadsheet replacement-decision queue: current supported version, retained candidate version, latest upstream version, freshness, proof status, evidence, and next action.</td></tr>
+<tr><td><a href="../../../data/latest-top20-refresh/replacement-decisions/decisions.yaml">latest-top20-refresh/replacement-decisions/decisions.yaml</a></td><td>Machine-readable replacement-decision queue for the retained proof-complete update candidates.</td></tr>
+<tr><td><a href="../../../data/next-ten-waves/summary.md">next-ten-waves/summary.md</a></td><td>Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes.</td></tr>
+<tr><td><a href="../../../data/attack-plan-workdown/summary.md">attack-plan-workdown/summary.md</a></td><td>Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests.</td></tr>
+<tr><td><a href="../../../data/top500-catalog-analysis/review.csv">top500-catalog-analysis/review.csv</a></td><td>Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action.</td></tr>
+<tr><td><a href="../../../data/variant-path-coverage/summary.md">variant-path-coverage/summary.md</a></td><td>Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants.</td></tr>
+<tr><td><a href="../../../data/quirk-coverage/summary.md">quirk-coverage/summary.md</a></td><td>Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned.</td></tr>
+<tr><td><a href="../../../data/quirk-work-queue/summary.md">quirk-work-queue/summary.md</a></td><td>Chart-level work queue for converting public top-100 source-scan quirks into modeled, reviewable, and eventually provable catalog facts.</td></tr>
+<tr><td><a href="../../../data/hard-proof-gaps/summary.md">hard-proof-gaps/summary.md</a></td><td>Short assignment surface for the top-100 source-quirk rows most likely to damage trust if overclaimed.</td></tr>
+<tr><td><a href="../../../data/remote-dependency-closure/summary.md">remote-dependency-closure/summary.md</a></td><td>Top-100 remote dependency closure map: source-scan dependency risk joined to maintained recipe dependency locks.</td></tr>
+<tr><td><a href="../../../data/high-fanout-demo/summary.md">high-fanout-demo/summary.md</a></td><td>Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites.</td></tr>
+<tr><td><a href="../../../data/high-fanout-demo/operation-preview.md">high-fanout-demo/operation-preview.md</a></td><td>Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof.</td></tr>
+<tr><td><a href="../../../data/edge-recovery/summary.md">edge-recovery/summary.md</a></td><td>Recovered graph fragments from catalog-supported recipe artifacts.</td></tr>
+<tr><td><a href="../../../data/csv-index.csv">csv-index.csv</a></td><td>Machine-readable index of every CSV under data/.</td></tr></tbody></table>
+<p>The front-door CSVs are intentionally redundant with deeper generated reports. They join the important evidence into a small set of spreadsheet-friendly tables. Use the deeper CSVs when you need drill-down.</p>
+<h2 id="csv-audience-labels">CSV Audience Labels</h2>
+<p><code>csv-index.csv</code> assigns each CSV one audience label. Use the labels to decide which files are evidence, which files are planning, and which files are supporting drill-down.</p>
+<table><thead><tr><th>Audience</th><th>Meaning</th></tr></thead><tbody><tr><td><code>user/front-door</code></td><td>Start here. These CSVs join the important proof and status data into reader-facing tables.</td></tr>
+<tr><td><code>verification</code></td><td>Evidence tables for committed proof lanes, live receipts, runtime checks, and parity checks.</td></tr>
+<tr><td><code>corpus</code></td><td>Maintained chart facts, feature facts, quirk facts, and graph fragments used by the catalog.</td></tr>
+<tr><td><code>planning</code></td><td>Work queues, promotion reviews, refresh candidates, and future catalog expansion inputs.</td></tr>
+<tr><td><code>supporting</code></td><td>Secondary generated tables that explain or drill into another summary. Do not cite these as the headline status without following the linked summary.</td></tr></tbody></table>
+<p>When in doubt, read in this order:</p>
+<pre><code>user/front-door
+-&gt; verification
+-&gt; corpus
+-&gt; planning
+-&gt; supporting</code></pre>
+<h2 id="regeneration-order">Regeneration Order</h2>
+<p>Use the narrowest generator that matches the change, then run the matching verify command. Do not run live tests just to refresh CSVs.</p>
+<table><thead><tr><th>Change</th><th>Regenerate in this order</th></tr></thead><tbody><tr><td>Chart facts, quirk facts, or variant metadata</td><td><code>npm run chart-facts</code>, <code>npm run outcomes:generate</code>, <code>npm run top100:readiness</code>, <code>npm run status:dashboard</code>, <code>npm run site:generate</code></td></tr>
+<tr><td>Production support decisions or blockers</td><td><code>npm run production:disposition</code>, <code>npm run production:disposition:details</code>, <code>npm run top100:readiness</code>, <code>npm run status:dashboard</code>, <code>npm run site:generate</code></td></tr>
+<tr><td>Live receipt status</td><td>Regenerate the lane summary, then <code>npm run outcomes:generate</code>, <code>npm run status:dashboard</code>, <code>npm run site:generate</code></td></tr>
+<tr><td>Per-chart catalog or artifact map inputs</td><td><code>npm run catalog:maps</code>, then <code>npm run catalog:index</code> if the root catalog view changed</td></tr>
+<tr><td>CSV files added, removed, or renamed</td><td>Run the owner generator first, then <code>npm run data:index</code></td></tr></tbody></table>
+<p>After regenerating, run the same commands with <code>:verify</code> where available. Use <code>npm run verify</code> only as the broad release gate after scoped checks pass.</p>
+<h2 id="how-to-read-status">How To Read Status</h2>
+<table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><code>model-supported</code></td><td>The chart has a complete, honest model for its declared scope. It is not a live-deployment claim by itself.</td></tr>
+<tr><td><code>render parity</code></td><td><code>cub installer</code> setup renders the same Kubernetes object set as regular Helm under recorded inputs.</td></tr>
+<tr><td><code>in-ConfigHub</code></td><td>The rendered objects upload as ConfigHub Units with scan/safe-operation receipts.</td></tr>
+<tr><td><code>local live</code></td><td>The rendered objects were applied to Kubernetes and observed with workload checks.</td></tr>
+<tr><td><code>GitOps live</code></td><td>ConfigHub OCI was reconciled by Argo or Flux and observed.</td></tr>
+<tr><td><code>live parity</code></td><td>A live Helm install was compared with ConfigHub delivery paths.</td></tr>
+<tr><td><code>missing</code></td><td>No committed receipt for that exact row yet. This is backlog, not failure.</td></tr>
+<tr><td><code>watch</code></td><td>A committed receipt exists and the lane produced useful evidence, but runtime, storage, controller-health, initialization, or operating policy still needs review.</td></tr>
+<tr><td><code>blocked</code></td><td>A committed receipt exists, but a target prerequisite, lifecycle route, hook decision, Secret, CRD, storage class, or similar condition must be resolved before the row can pass.</td></tr>
+<tr><td><code>fail</code></td><td>A committed receipt records a failed check. Read the reason before treating it as a ConfigHub-vs-Helm defect.</td></tr></tbody></table>
+<h2 id="dataset-families">Dataset Families</h2>
+<table><thead><tr><th>Family</th><th>Main summary</th><th>Primary use</th></tr></thead><tbody><tr><td><code>adversarial10</code></td><td><a href="../../../data/adversarial10/summary.md">adversarial10/summary.md</a></td><td>hard-chart readiness and control-point analysis</td></tr>
+<tr><td><code>apiservice-coverage</code></td><td><a href="../../../data/apiservice-coverage/summary.md">apiservice-coverage/summary.md</a></td><td>top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations</td></tr>
+<tr><td><code>app-readiness</code></td><td><a href="app-readiness/summary.html">app-readiness/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>attack-plan-workdown</code></td><td><a href="../../../data/attack-plan-workdown/summary.md">attack-plan-workdown/summary.md</a></td><td>execution workdown across gaps and proof lanes</td></tr>
+<tr><td><code>blast-radius-accuracy</code></td><td><a href="blast-radius-accuracy/summary.html">blast-radius-accuracy/summary.md</a></td><td>front-door measured blast-radius accuracy seed and backlog</td></tr>
+<tr><td><code>blast-radius-fleet</code></td><td><a href="../../../data/blast-radius-fleet/summary.md">blast-radius-fleet/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>capability-profile-witnesses</code></td><td>-</td><td>supporting generated evidence</td></tr>
+<tr><td><code>catalog-promotion-review</code></td><td><a href="../../../data/catalog-promotion-review/summary.md">catalog-promotion-review/summary.md</a></td><td>catalog promotion worksheet for the 100-chart corpus</td></tr>
+<tr><td><code>catalog-promotion-wave2</code></td><td><a href="../../../data/catalog-promotion-wave2/summary.md">catalog-promotion-wave2/summary.md</a></td><td>older user-shaped variant work-order worksheet</td></tr>
+<tr><td><code>chart-claim-integrity-audit-2026-06-22</code></td><td><a href="../../../data/chart-claim-integrity-audit-2026-06-22/summary.md">chart-claim-integrity-audit-2026-06-22/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>chart-evidence-router</code></td><td><a href="chart-evidence-router/summary.html">chart-evidence-router/summary.md</a></td><td>front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions</td></tr>
+<tr><td><code>chart-fact-sheets</code></td><td><a href="../../../data/chart-fact-sheets/summary.md">chart-fact-sheets/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>chart-facts</code></td><td><a href="../../../data/chart-facts/summary.md">chart-facts/summary.md</a></td><td>per-chart feature, quirk, and hard-gap facts</td></tr>
+<tr><td><code>chart-skills</code></td><td><a href="chart-skills/summary.html">chart-skills/summary.md</a></td><td>advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why</td></tr>
+<tr><td><code>chart-use-guide</code></td><td><a href="chart-use-guide/summary.html">chart-use-guide/summary.md</a></td><td>front-door can-I-use-this-chart guide</td></tr>
+<tr><td><code>claims-register</code></td><td><a href="claims-register/summary.html">claims-register/summary.md</a></td><td>front-door public claim-to-evidence register</td></tr>
+<tr><td><code>coverage-completion-plan</code></td><td><a href="../../../data/coverage-completion-plan/summary.md">coverage-completion-plan/summary.md</a></td><td>ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family</td></tr>
+<tr><td><code>cub-adoption-caveats</code></td><td><a href="../../../data/cub-adoption-caveats/summary.md">cub-adoption-caveats/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>cub-scout-diff</code></td><td><a href="cub-scout-diff/summary.html">cub-scout-diff/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>data-index</code></td><td>-</td><td>CSV index and generated data guide</td></tr>
+<tr><td><code>derived-variant-target-bound</code></td><td><a href="../../../data/derived-variant-target-bound/summary.md">derived-variant-target-bound/summary.md</a></td><td>derived ConfigHub variants with target/live evidence</td></tr>
+<tr><td><code>disposition-frontier</code></td><td><a href="../../../data/disposition-frontier/summary.md">disposition-frontier/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>doc-freshness</code></td><td><a href="../../../data/doc-freshness/summary.md">doc-freshness/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>edge-recovery</code></td><td><a href="../../../data/edge-recovery/summary.md">edge-recovery/summary.md</a></td><td>recovered desired-state graph fragments</td></tr>
+<tr><td><code>environment-matrix</code></td><td><a href="environment-matrix/summary.html">environment-matrix/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>extension-slots</code></td><td><a href="../../../data/extension-slots/summary.md">extension-slots/summary.md</a></td><td>NGINX-like extension-slot coverage and routing</td></tr>
+<tr><td><code>external-scan-lane</code></td><td><a href="external-scan-lane/summary.html">external-scan-lane/summary.md</a></td><td>external scanner lane review output</td></tr>
+<tr><td><code>gitops-health-residue</code></td><td><a href="../../../data/gitops-health-residue/summary.md">gitops-health-residue/summary.md</a></td><td>ConfigHub OCI/GitOps controller-health residue classification</td></tr>
+<tr><td><code>gitops-route-emission</code></td><td><a href="../../../data/gitops-route-emission/summary.md">gitops-route-emission/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>hard-chart-production-packets</code></td><td><a href="hard-chart-production-packets/summary.html">hard-chart-production-packets/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>hard-proof-gaps</code></td><td><a href="../../../data/hard-proof-gaps/summary.md">hard-proof-gaps/summary.md</a></td><td>hard top-100 proof gaps joined across quirk, hook, and dependency queues</td></tr>
+<tr><td><code>helm-render-intents</code></td><td><a href="helm-render-intents/summary.html">helm-render-intents/summary.md</a></td><td>ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached</td></tr>
+<tr><td><code>high-fanout-demo</code></td><td><a href="../../../data/high-fanout-demo/summary.md">high-fanout-demo/summary.md</a></td><td>Prometheus base-variant fanout and prerequisite example</td></tr>
+<tr><td><code>hook-coverage</code></td><td><a href="../../../data/hook-coverage/summary.md">hook-coverage/summary.md</a></td><td>top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans</td></tr>
+<tr><td><code>hook-disposition</code></td><td><a href="hook-disposition/summary.html">hook-disposition/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>hook-lifecycle</code></td><td><a href="../../../data/hook-lifecycle/summary.md">hook-lifecycle/summary.md</a></td><td>hook-bearing charts and required lifecycle receipt paths</td></tr>
+<tr><td><code>hook-lifecycle-review</code></td><td><a href="../../../data/hook-lifecycle-review/summary.md">hook-lifecycle-review/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>hook-route-candidates</code></td><td><a href="../../../data/hook-route-candidates/summary.md">hook-route-candidates/summary.md</a></td><td>candidate hook route plans before maintained lifecycle queue admission</td></tr>
+<tr><td><code>image-digest-workdown</code></td><td><a href="../../../data/image-digest-workdown/summary.md">image-digest-workdown/summary.md</a></td><td>image pinning and mutable tag review</td></tr>
+<tr><td><code>installer-oci-packages</code></td><td><a href="installer-oci-packages/summary.html">installer-oci-packages/summary.md</a></td><td>public installer package OCI refs and consumer setup commands for chart packages</td></tr>
+<tr><td><code>kind-parity-decisions</code></td><td><a href="../../../data/kind-parity-decisions/summary.md">kind-parity-decisions/summary.md</a></td><td>product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action</td></tr>
+<tr><td><code>large-config-operations</code></td><td><a href="../../../data/large-config-operations/summary.md">large-config-operations/summary.md</a></td><td>large ConfigHub upload/apply/GitOps operation funnel and progress-evidence gaps</td></tr>
+<tr><td><code>latest-top20-refresh</code></td><td><a href="../../../data/latest-top20-refresh/summary.md">latest-top20-refresh/summary.md</a></td><td>latest upstream chart-version refresh candidates</td></tr>
+<tr><td><code>legacy-patch-review</code></td><td><a href="../../../data/legacy-patch-review/summary.md">legacy-patch-review/summary.md</a></td><td>older chart-version patch support review</td></tr>
+<tr><td><code>lifecycle-boundary</code></td><td><a href="lifecycle-boundary/summary.html">lifecycle-boundary/summary.md</a></td><td>hook queue and hook-like lifecycle observation boundary</td></tr>
+<tr><td><code>lifecycle-observations</code></td><td><a href="lifecycle-observations/cert-manager-eso/summary.html">lifecycle-observations/cert-manager-eso/summary.md</a></td><td>controller-owned or hook-like lifecycle observations</td></tr>
+<tr><td><code>lifecycle-route-actions</code></td><td><a href="lifecycle-route-actions/summary.html">lifecycle-route-actions/summary.md</a></td><td>hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag</td></tr>
+<tr><td><code>lifecycle-routes</code></td><td><a href="lifecycle-routes/summary.html">lifecycle-routes/summary.md</a></td><td>machine-readable lifecycle route contract: disposition, route, execution mode, default, alternatives, and human/agent off-ramps</td></tr>
+<tr><td><code>lifecycle-routes-by-variant</code></td><td><a href="../../../data/lifecycle-routes-by-variant/summary.md">lifecycle-routes-by-variant/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>live-e2e</code></td><td><a href="../../../data/live-e2e/summary.md">live-e2e/summary.md</a></td><td>top-20 local kind runtime status</td></tr>
+<tr><td><code>live-helm-confighub-compare</code></td><td><a href="../../../data/live-helm-confighub-compare/summary.md">live-helm-confighub-compare/summary.md</a></td><td>strict live Helm-vs-ConfigHub parity</td></tr>
+<tr><td><code>live-kind-parity</code></td><td><a href="../../../data/live-kind-parity/summary.md">live-kind-parity/summary.md</a></td><td>two-cluster kind parity receipts</td></tr>
+<tr><td><code>live-matrix-burndown</code></td><td><a href="../../../data/live-matrix-burndown/summary.md">live-matrix-burndown/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>live-parity-decisions</code></td><td><a href="../../../data/live-parity-decisions/summary.md">live-parity-decisions/summary.md</a></td><td>product-readable decisions for non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) rows: residue category, who owns the fix, usable-today answer, next action, and support artifact</td></tr>
+<tr><td><code>live-parity-rerun-plan</code></td><td><a href="../../../data/live-parity-rerun-plan/summary.md">live-parity-rerun-plan/summary.md</a></td><td>rerun queue for non-pass live parity rows</td></tr>
+<tr><td><code>live-run-blocks</code></td><td><a href="../../../data/live-run-blocks/summary.md">live-run-blocks/summary.md</a></td><td>read-only run-block plan for the ready-to-run todo rows: small ordered blocks (G/P before K, hard charts first) with a derived (never claimed) predicted residue family and target profile per row</td></tr>
+<tr><td><code>local-live-triage</code></td><td><a href="../../../data/local-live-triage/summary.md">local-live-triage/summary.md</a></td><td>front-door local live non-pass route classes and next actions</td></tr>
+<tr><td><code>master-catalog-matrix</code></td><td><a href="master-catalog-matrix/summary.html">master-catalog-matrix/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>matrix-completion-audit</code></td><td><a href="../../../data/matrix-completion-audit/summary.md">matrix-completion-audit/summary.md</a></td><td>read-only audit of every non-green/not-yet-run matrix cell with lane, state, reason, next action, support artifact, and a completion class separating needs-run from needs-fix from needs-modeling from already-decided</td></tr>
+<tr><td><code>model-completeness</code></td><td><a href="../../../data/model-completeness/summary.md">model-completeness/summary.md</a></td><td>chart-level model support criteria</td></tr>
+<tr><td><code>model-gap-workdown</code></td><td><a href="../../../data/model-gap-workdown/summary.md">model-gap-workdown/summary.md</a></td><td>catalog-owned model gaps: non-pass rows needing a recipe/base change (not a re-run), classified by gap kind with a recommended action, owner class, and any sibling base that already passes</td></tr>
+<tr><td><code>model-prereq-resolution</code></td><td><a href="../../../data/model-prereq-resolution/summary.md">model-prereq-resolution/summary.md</a></td><td>front-door resolution bridge for B1/B2 rows: each model gap and target prerequisite mapped to a new base variant, existing sibling base, derived target variant, target-scoped policy, or operator review</td></tr>
+<tr><td><code>next-ten-waves</code></td><td><a href="../../../data/next-ten-waves/summary.md">next-ten-waves/summary.md</a></td><td>compact next work queues</td></tr>
+<tr><td><code>next80-full-proofs</code></td><td><a href="../../../data/next80-full-proofs/summary.md">next80-full-proofs/summary.md</a></td><td>80 additional full proof-grade chart artifacts</td></tr>
+<tr><td><code>nginx-config-checks</code></td><td><a href="../../../data/nginx-config-checks/summary.md">nginx-config-checks/summary.md</a></td><td>NGINX supported-base config extension checks</td></tr>
+<tr><td><code>outcome-coverage</code></td><td><a href="../../../data/outcome-coverage/summary.md">outcome-coverage/summary.md</a></td><td>front-door outcome, test, and status map</td></tr>
+<tr><td><code>outcome-evidence-contract</code></td><td><a href="../../../data/outcome-evidence-contract/summary.md">outcome-evidence-contract/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>pain-point-coverage</code></td><td><a href="../../../data/pain-point-coverage/summary.md">pain-point-coverage/summary.md</a></td><td>front-door Helm pain point coverage map</td></tr>
+<tr><td><code>per-chart-hooks</code></td><td><a href="../../../data/per-chart-hooks/summary.md">per-chart-hooks/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>persona-ux-guide-audit-2026-06-22</code></td><td><a href="../../../data/persona-ux-guide-audit-2026-06-22/summary.md">persona-ux-guide-audit-2026-06-22/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>preview-readiness</code></td><td><a href="../../../data/preview-readiness/summary.md">preview-readiness/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>production-disposition</code></td><td><a href="production-disposition/summary.html">production-disposition/summary.md</a></td><td>top-20 production blockers and next actions</td></tr>
+<tr><td><code>production-support-decisions</code></td><td><a href="../../../data/production-support-decisions/summary.md">production-support-decisions/summary.md</a></td><td>target-scoped production support decision artifacts</td></tr>
+<tr><td><code>quirk-coverage</code></td><td><a href="../../../data/quirk-coverage/summary.md">quirk-coverage/summary.md</a></td><td>Helm quirk-axis coverage audit</td></tr>
+<tr><td><code>quirk-inventory-audit</code></td><td><a href="../../../data/quirk-inventory-audit/summary.md">quirk-inventory-audit/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>quirk-review-queue</code></td><td><a href="../../../data/quirk-review-queue/summary.md">quirk-review-queue/summary.md</a></td><td>queue for chart quirks needing human or product review</td></tr>
+<tr><td><code>quirk-work-queue</code></td><td><a href="../../../data/quirk-work-queue/summary.md">quirk-work-queue/summary.md</a></td><td>source-scan quirk work queue for top-100 charts</td></tr>
+<tr><td><code>refresh-survival</code></td><td><a href="../../../data/refresh-survival/summary.md">refresh-survival/summary.md</a></td><td>latest-version refresh survival and upgrade seed</td></tr>
+<tr><td><code>remote-dependency-closure</code></td><td><a href="../../../data/remote-dependency-closure/summary.md">remote-dependency-closure/summary.md</a></td><td>remote dependency closure map for top-100 charts</td></tr>
+<tr><td><code>remote-image-runtime-workdown</code></td><td><a href="../../../data/remote-image-runtime-workdown/summary.md">remote-image-runtime-workdown/summary.md</a></td><td>product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class</td></tr>
+<tr><td><code>runtime-gitops</code></td><td><a href="runtime-gitops/summary.html">runtime-gitops/summary.md</a></td><td>Argo/Flux OCI live proof wave</td></tr>
+<tr><td><code>scan-disposition-workdown</code></td><td><a href="../../../data/scan-disposition-workdown/summary.md">scan-disposition-workdown/summary.md</a></td><td>scan warning routes to fixes, hardened bases, or explicit dispositions</td></tr>
+<tr><td><code>secret-lifecycle</code></td><td><a href="secret-lifecycle/summary.html">secret-lifecycle/summary.md</a></td><td>front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state</td></tr>
+<tr><td><code>serious-chart-reviews</code></td><td>-</td><td>supporting generated evidence</td></tr>
+<tr><td><code>status-dashboard</code></td><td><a href="status-dashboard/summary.html">status-dashboard/summary.md</a></td><td>one-page front-door status dashboard</td></tr>
+<tr><td><code>target-prerequisite-actions</code></td><td><a href="../../../data/target-prerequisite-actions/summary.md">target-prerequisite-actions/summary.md</a></td><td>action packets: per non-green row, what to stage before rerunning (action_kind), the required inputs, the evidence to look for after staging, and the rerun command; automatic=false (preflight plan, not automation)</td></tr>
+<tr><td><code>target-prerequisite-workdown</code></td><td><a href="../../../data/target-prerequisite-workdown/summary.md">target-prerequisite-workdown/summary.md</a></td><td>target/user prerequisites: non-pass rows needing a CRD/Namespace/Secret/storage/external-API/topology staged on the target (not a model change), with the exact prerequisite name, owner class, and next action</td></tr>
+<tr><td><code>top100-catalog-analysis</code></td><td><a href="../../../data/top100-catalog-analysis/summary.md">top100-catalog-analysis/summary.md</a></td><td>top-100 proof and promotion surface</td></tr>
+<tr><td><code>top100-coverage</code></td><td><a href="../../../data/top100-coverage/summary.md">top100-coverage/summary.md</a></td><td>front-door top-100 coverage contract and work queue</td></tr>
+<tr><td><code>top100-promotion-wave</code></td><td><a href="../../../data/top100-promotion-wave/summary.md">top100-promotion-wave/summary.md</a></td><td>first strict top-100 promotion-review wave</td></tr>
+<tr><td><code>top100-readiness</code></td><td><a href="../../../data/top100-readiness/summary.md">top100-readiness/summary.md</a></td><td>front-door top-100 user readiness and evidence summary</td></tr>
+<tr><td><code>top100-user-readiness</code></td><td><a href="top100-user-readiness/summary.html">top100-user-readiness/summary.md</a></td><td>front-door top-100 user-language readiness, prerequisites, first base, and next action</td></tr>
+<tr><td><code>top20-base-readiness</code></td><td><a href="top20-base-readiness/summary.html">top20-base-readiness/summary.md</a></td><td>top-20 base-variant readiness and first-path guidance</td></tr>
+<tr><td><code>top500-catalog-analysis</code></td><td><a href="../../../data/top500-catalog-analysis/summary.md">top500-catalog-analysis/summary.md</a></td><td>top-500 catalog planning analysis</td></tr>
+<tr><td><code>torture-suite</code></td><td><a href="torture-suite/summary.html">torture-suite/summary.md</a></td><td>supporting generated evidence</td></tr>
+<tr><td><code>useful-base-design-queue</code></td><td><a href="../../../data/useful-base-design-queue/summary.md">useful-base-design-queue/summary.md</a></td><td>front-door proposed useful-base queue for default-shaped top-100 charts</td></tr>
+<tr><td><code>useful-base-realization-wave</code></td><td><a href="../../../data/useful-base-realization-wave/summary.md">useful-base-realization-wave/summary.md</a></td><td>front-door useful-base proposals made real as candidate recipe/package bases</td></tr>
+<tr><td><code>variant-backlog</code></td><td><a href="../../../data/variant-backlog/summary.md">variant-backlog/summary.md</a></td><td>candidate base-variant expansion backlog</td></tr>
+<tr><td><code>variant-goldens</code></td><td>-</td><td>golden work orders for derived-variant examples</td></tr>
+<tr><td><code>variant-path-coverage</code></td><td><a href="../../../data/variant-path-coverage/summary.md">variant-path-coverage/summary.md</a></td><td>chart/base/path proof status matrix</td></tr>
+<tr><td><code>variant-promotion</code></td><td><a href="variant-promotion/summary.html">variant-promotion/summary.md</a></td><td>server-side ConfigHub variant promotion status by chart/base</td></tr>
+<tr><td><code>variant-promotion-closeout</code></td><td><a href="../../../data/variant-promotion-closeout/summary.md">variant-promotion-closeout/summary.md</a></td><td>actionable promotion queue: per variant, whether cub variant promote is ready-to-run, watch-grade pending receipt rerun, or blocked by a proof prerequisite, the owner class, and the exact next command or fix</td></tr>
+<tr><td><code>variant-promotion-proof-batches</code></td><td><a href="../../../data/variant-promotion-proof-batches/summary.md">variant-promotion-proof-batches/summary.md</a></td><td>run plan: the ready-to-run promotions grouped into safe serial batches of 5-10 cub variant promote proof commands to run once ConfigHub auth returns (not completed evidence)</td></tr>
+<tr><td><code>webhook-cert-lifecycle</code></td><td><a href="../../../data/webhook-cert-lifecycle/summary.md">webhook-cert-lifecycle/summary.md</a></td><td>webhook serving certificate lifecycle evidence and proof boundaries</td></tr></tbody></table>
+<h2 id="every-csv">Every CSV</h2>
+<p>The complete CSV list is generated at:</p>
+<pre><code>data/csv-index.csv</code></pre>
+<p>It includes 163 CSV files. Each row records the path, audience, purpose, summary, and regenerate/verify command where known.</p>
+<h2 id="regeneration">Regeneration</h2>
+<p>Regenerate and verify this index:</p>
+<pre><code>npm run data:index
+npm run data:index:verify</code></pre>
+<p>The full repository verifier includes the data index:</p>
+<pre><code>npm run verify</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/README.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

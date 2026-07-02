@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Master Catalog Matrix · ConfigHub Helm Ops</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Master Catalog Matrix</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/master-catalog-matrix/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>ONE view of the whole catalog: one row per chart/version/catalog layer, including upstream sources, real installer bases, candidate paths, and downstream ConfigHub-derived variants. The translation attributes and per-lane status are joined from the committed sources below. This file invents no new truth - every cell comes from a source the verifier checks this view against.</p>
+<p>Three renderings of the same rows: this summary (GitHub), <a href="../../../../data/master-catalog-matrix/matrix.csv">matrix.csv</a> for spreadsheet import (CSV carries words, not colors), and <a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a> - open it in a browser for the literal red/green/grey colored cells.</p>
+<h2 id="legend">Legend</h2>
+<table><thead><tr><th>Icon</th><th>Meaning</th></tr></thead><tbody><tr><td>✅</td><td>yes / pass</td></tr>
+<tr><td>⚠️</td><td>watch - passing with a recorded caution</td></tr>
+<tr><td>❌</td><td>no / blocked</td></tr>
+<tr><td>⬜</td><td>not yet run - absence of evidence, not a failure</td></tr>
+<tr><td>-</td><td>not applicable - this lane does not apply to this row</td></tr></tbody></table>
+<p>Deferred accepted means the cell already has an honest disposition, usually watch or not applicable. It stays visible, but it is not where live-run time should be spent until the product scope changes.</p>
+<p>Lane columns: <b>R</b> render parity (helm template vs installer setup) · <b>C</b> ConfigHub upload + scan + safe ops · <b>L</b> local kind apply · <b>Y</b> explicit lifecycle observation · <b>G</b> ConfigHub OCI + Argo live · <b>P</b> live Helm-vs-ConfigHub dual parity · <b>K</b> two-cluster kind parity · <b>V</b> server-side ConfigHub variant promotion. Hooks column: source hook count, disposition route, live-rehearsal status. <b>Route</b> is the generated lifecycle route/off-ramp contract: ✅ all route rows observed, ⚠️ route/executor named with cautions, ⬜ route work still todo, - no route row applies. <code>unrouted ⚠️</code> marks a chart whose source scan flags hooks but that has no hook-disposition row yet; <code>(from @x.y.z)</code> marks chart-family evidence taken from a different chart version's disposition row.</p>
+<h2 id="current-status">Current Status</h2>
+<table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Chart versions</td><td>110</td></tr>
+<tr><td>Matrix rows</td><td>396</td></tr>
+<tr><td>F1 source / F2 base / candidate / F4 derived rows</td><td>110 / 199 / 74 / 13</td></tr>
+<tr><td>Layer rows</td><td>F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6</td></tr>
+<tr><td>Lane cells ✅ / ⚠️ / ❌ / ⬜ / -</td><td>961 / 116 / 124 / 87 / 1484</td></tr>
+<tr><td>Base/derived rows with the complete core lane set</td><td>131</td></tr>
+<tr><td>Rows with a target run decision</td><td>25</td></tr>
+<tr><td>Target run decisions (runs / superseded / blocked-or-rejected)</td><td>22 / 2 / 1</td></tr>
+<tr><td>Server-side variant promotion (proven / watch / todo / blocked / n/a)</td><td>184 / 12 / 1 / 2 / 197</td></tr>
+<tr><td>Lifecycle route contracts (observed / watch / todo / n/a)</td><td>7 / 0 / 3 / 386</td></tr>
+<tr><td>Hook-flagged variants with no disposition row (unrouted)</td><td>0</td></tr>
+<tr><td>Rows currently in the active proof queue</td><td>83</td></tr>
+<tr><td>Cells with deferred accepted disposition</td><td>125</td></tr></tbody></table>
+<p>Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): <code>argo-cd/argo-cd@9.5.17</code>, <code>bitnami/mongodb@19.0.9</code>, <code>bitnami/mongodb@19.1.0</code>, <code>bitnami/nginx@24.0.4</code>, <code>bitnami/nginx@25.0.0</code>, <code>bitnami/postgresql@18.6.10</code>, <code>bitnami/postgresql@18.7.0</code>, <code>bitnami/redis@27.0.0</code>, <code>prometheus-community/kube-prometheus-stack@86.1.0</code>, <code>prometheus-community/prometheus@29.9.0</code>.</p>
+<h2 id="how-to-use-this-sheet">How To Use This Sheet</h2>
+<p>Each row is one chart/version layer: F1 source chart, F2 base variant, F3 target-prerequisite/fill candidate, or F4 downstream ConfigHub-derived variant. Use the row to answer three questions before deciding what to do next:</p>
+<table><thead><tr><th>Question</th><th>Column to check</th></tr></thead><tbody><tr><td>Can I try this now, promote it, or does it need more design?</td><td>Use / adoption bucket</td></tr>
+<tr><td>What is the strongest evidence currently available?</td><td>Evidence, R/C/L/G/P/K, Core</td></tr>
+<tr><td>What prevents a stronger target-run claim?</td><td>Target, Scope, Gap, Next action</td></tr>
+<tr><td>Where am I in the customization flow?</td><td>Layer, Kind</td></tr>
+<tr><td>Can downstream ConfigHub variants be promoted from this base?</td><td>V, Promotion status</td></tr>
+<tr><td>If a hook or lifecycle behavior exists, where does it go?</td><td>Route, Hooks, lifecycle route contract</td></tr>
+<tr><td>Which non-pass live row should be rerun or reviewed now?</td><td>Active proof</td></tr>
+<tr><td>Is this row active work, an external dependency, or deferred for now?</td><td>Action</td></tr></tbody></table>
+<p>The HTML view carries these user/product columns directly: <a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a>. The CSV carries the same fields for filtering: <a href="../../../../data/master-catalog-matrix/matrix.csv">matrix.csv</a>. Counts below are matrix rows unless stated otherwise.</p>
+<h2 id="current-product-queues">Current Product Queues</h2>
+<table><thead><tr><th>Queue</th><th>Rows</th><th>Meaning</th><th>Examples</th></tr></thead><tbody><tr><td>F1 source charts</td><td>110</td><td>Upstream Helm chart/version source rows. These are the starting points before any installer base is chosen.</td><td><code>aqua/trivy-operator@0.32.1/(source)</code>, <code>argo-cd/argo-cd@9.5.15/(source)</code>, <code>argo-cd/argo-cd@9.5.17/(source)</code></td></tr>
+<tr><td>Public catalog rows</td><td>42</td><td>Reviewed top-20 catalog rows. Use base-readiness or the per-chart catalog page to choose the easiest first base.</td><td><code>argo-cd/argo-cd@9.5.15/default</code>, <code>argo-cd/argo-cd@9.5.15/no-crds</code>, <code>bitnami/mongodb@19.0.7/existing-secret-replicaset</code></td></tr>
+<tr><td>Promote after review</td><td>78</td><td>Proof-grade rows that need catalog/product review before becoming public starting points.</td><td><code>aqua/trivy-operator@0.32.1/default</code>, <code>aqua/trivy-operator@0.32.1/no-crds</code>, <code>argo-cd/argo-events@2.4.21/default</code></td></tr>
+<tr><td>Design a more useful base</td><td>33</td><td>Rows where plain render proof exists but the first user-facing base is not yet good enough.</td><td><code>argo-cd/argocd-image-updater@1.2.2/default</code>, <code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default</code>, <code>bitnami/memcached@8.5.5/default</code></td></tr>
+<tr><td>Decide a limitation first</td><td>23</td><td>Rows where a product or operator boundary must be chosen before promotion.</td><td><code>bitnami/apache@11.4.29/default</code>, <code>bitnami/apache@11.4.29/legacy</code>, <code>bitnami/contour@21.1.4/default</code></td></tr>
+<tr><td>Complete the core proof lane</td><td>81</td><td>Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity.</td><td><code>argo-cd/argo-cd@9.5.15/no-crds</code>, <code>argo-cd/argo-cd@9.5.17/default</code>, <code>argo-cd/argo-cd@9.5.17/no-crds</code></td></tr>
+<tr><td>Active proof queue</td><td>83</td><td>Rows with a current non-pass live parity result and an exact rerun or review action.</td><td><code>argo-cd/argo-cd@9.5.17/default</code>, <code>autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed</code>, <code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default</code></td></tr>
+<tr><td>Deferred accepted dispositions</td><td>39</td><td>Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes.</td><td><code>argo-cd/argo-cd@9.5.17/default</code>, <code>argo-cd/argocd-image-updater@1.2.2/default</code>, <code>autoscaler/cluster-autoscaler@9.57.0/default</code></td></tr>
+<tr><td>Derived ConfigHub variants</td><td>13</td><td>Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender.</td><td><code>bitnami/nginx@24.0.2/customer-acme-prod</code>, <code>bitnami/nginx@24.0.2/prod-us-east</code>, <code>bitnami/redis@25.5.3/prod-us-east</code></td></tr>
+<tr><td>Candidate rows</td><td>74</td><td>Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims.</td><td><code>autoscaler/cluster-autoscaler@9.57.0/default + review</code>, <code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology</code>, <code>bitnami/memcached@8.5.5/storage-default-reviewed</code></td></tr>
+<tr><td>Custom-discussion candidates</td><td>58</td><td>Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable.</td><td><code>autoscaler/cluster-autoscaler@9.57.0/default + review</code>, <code>bitnami/memcached@8.5.5/storage-default-reviewed</code>, <code>bitnami/phpmyadmin@20.0.0/web-ui-existing-secret</code></td></tr>
+<tr><td>Decide target run scope</td><td>186</td><td>Rows without a target run decision or target-bound receipt yet.</td><td><code>aqua/trivy-operator@0.32.1/default</code>, <code>aqua/trivy-operator@0.32.1/no-crds</code>, <code>argo-cd/argo-cd@9.5.15/no-crds</code></td></tr>
+<tr><td>Investigate hard gaps</td><td>124</td><td>Rows with a named chart/product gap rather than a simple missing receipt.</td><td><code>argo-cd/argo-cd@9.5.15/default</code>, <code>argo-cd/argo-cd@9.5.15/no-crds</code>, <code>argo-cd/argocd-image-updater@1.2.2/default</code></td></tr></tbody></table>
+<h2 id="sources-joined-and-what-this-view-compresses">Sources joined, and what this view compresses</h2>
+<p>The matrix is the variant-granularity overview, not a replacement for its sources. Per source: what is carried here, and what deliberately stays behind (follow the source link when you need it). Chart-granularity, value-path-granularity, and claim-granularity views (status dashboard, blast-radius accuracy, claims register) are different granularities, not duplicates of this one.</p>
+<table><thead><tr><th>Source of truth</th><th>Carried into the matrix</th><th>Stays in the source</th></tr></thead><tbody><tr><td><a href="../../../../data/outcome-coverage/base-outcomes.csv">outcome-coverage/base-outcomes.csv</a></td><td>the spine: variants, the five proof lanes, lifecycle observation, two-cluster kind parity (K), outcome level, core-lane completeness, recipe path</td><td>two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes, package_path, variant_revision</td></tr>
+<tr><td><a href="../../../../data/top100-readiness/readiness.csv">top100-readiness/readiness.csv</a></td><td>catalog tier, adoption bucket, quirk features, hard gap, strongest evidence, next action</td><td>workability, user_status, per-chart lane ratios, proof_surface_rank, top500_rank, next_action_source/receipt, file paths</td></tr>
+<tr><td><a href="../../../../data/hook-disposition/top100-hook-dispositions.csv">hook-disposition/top100-hook-dispositions.csv</a></td><td>source-top100 hook count, disposition, live status</td><td>hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank</td></tr>
+<tr><td><a href="../../../../data/hook-lifecycle/maintained-hook-queue.csv">hook-lifecycle/maintained-hook-queue.csv</a></td><td>maintained hook lifecycle fallback rows when a chart has an observed route outside the source-top100 disposition table</td><td>hook examples, route details, required receipt path, next action</td></tr>
+<tr><td><a href="../../../../data/hook-route-candidates/candidates.csv">hook-route-candidates/candidates.csv</a></td><td>candidate hook routes for charts whose hook or hook-like lifecycle work has been reviewed but not promoted to a maintained receipt</td><td>pattern, phases, delete policies, dependency source, target dependencies, promotion next step</td></tr>
+<tr><td><a href="../../../../data/lifecycle-boundary/selected-routes.csv">lifecycle-boundary/selected-routes.csv</a></td><td>base-specific hook candidate routes that have a selected route receipt</td><td>receipt evidence list, non-claim boundaries, remaining work</td></tr>
+<tr><td><a href="../../../../data/lifecycle-routes/routes.csv">lifecycle-routes/routes.csv</a></td><td>route-contract status, route count, disposition summary, execution-mode summary, safe-as-automatic count, and chart-family evidence version when needed</td><td>per-route alternatives, requirements, exact evidence/next-action text; follow the JSON/CSV route contract for agent-readable detail</td></tr>
+<tr><td><a href="../../../../data/production-support-decisions/decisions.csv">production-support-decisions/decisions.csv</a></td><td>target run decision and target scope</td><td>delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action</td></tr>
+<tr><td><a href="../../../../data/variant-promotion/status.csv">variant-promotion/status.csv</a></td><td>server-side ConfigHub promotion status, matrix value, evidence path, reason, and next action</td><td>none; follow the source when you need the full per-row promotion route</td></tr>
+<tr><td><a href="../../../../data/live-helm-confighub-compare/summary.csv">live-helm-confighub-compare/summary.csv</a></td><td>exact chart/version/base live GitOps/OCI and live Helm-vs-ConfigHub parity result, overriding older aggregate outcome rows when a newer receipt exists</td><td>receipt reason and path; follow the source when diagnosing the run itself</td></tr>
+<tr><td><a href="../../../../data/runtime-gitops/receipts">runtime-gitops/receipts</a></td><td>exact committed RuntimeGitOps receipt result for a chart/base, overriding stale aggregate GitOps lane values when present</td><td>controller logs, workload diagnostics, and target-prerequisite detail; follow the receipt when diagnosing the run itself</td></tr>
+<tr><td><a href="../../../../data/live-kind-parity/summary.csv">live-kind-parity/summary.csv</a></td><td>exact chart/version/base two-cluster kind parity result, overriding older aggregate outcome rows when a newer receipt exists</td><td>semantic parity details, reason, related lifecycle evidence, and receipt path</td></tr>
+<tr><td><a href="../../../../data/live-parity-rerun-plan/rerun-plan.csv">live-parity-rerun-plan/rerun-plan.csv</a></td><td>active non-pass live parity rows: current result, next step, rerun readiness, reason, support artifact, rerun command</td><td>priority and receipt path; follow the source when diagnosing the run itself</td></tr>
+<tr><td><a href="../../../../data/coverage-completion-plan/actions.json">coverage-completion-plan/actions.json</a></td><td>row-level completion action overlay: active run/fix/stage work, upstream dependency, scope decision, or deferred accepted disposition</td><td>full cell-level completion families; follow the coverage completion plan for the exact affected cells and family ranking</td></tr>
+<tr><td><a href="../../../../runs/derived-variant-execution">../runs/derived-variant-execution</a></td><td>real downstream ConfigHub derived variants: source base, downstream space, clone/link/gate result, environment, region, and no-Helm-rerender proof</td><td>full command transcript, unit hash details, corrective update details, and gate counts</td></tr>
+<tr><td><a href="../../../../data/derived-variant-target-bound/summary.csv">derived-variant-target-bound/summary.csv</a></td><td>target-bound status for derived variants when a downstream variant has been reconciled through OCI/Argo and observed</td><td>receipt internals; follow the target-bound receipt when diagnosing the target run</td></tr>
+<tr><td><a href="../../../../data/catalog-promotion-wave2/variant-work-orders.yaml">catalog-promotion-wave2/variant-work-orders.yaml</a></td><td>candidate F2 base/fork rows that are explicitly not rendered yet and need recipe/package/evidence work before becoming real bases</td><td>per-value detail beyond the compact inputs, blockers, and first action shown in the candidate row</td></tr>
+<tr><td><a href="../../../../data/useful-base-realization-wave/wave2-selection.csv">useful-base-realization-wave/wave2-selection.csv</a></td><td>candidate F2 user-shaped base rows from the useful-base queue, including render-time knobs, target inputs, and required receipts</td><td>priority scoring internals; follow the source for full wave ordering</td></tr>
+<tr><td><a href="../../../../data/target-prerequisite-actions/actions.csv">target-prerequisite-actions/actions.csv</a></td><td>candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether human review is needed</td><td>duplicate lane-level rows after they are grouped by chart/base/prerequisite/action</td></tr></tbody></table>
+<p>The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next action, target run scope, and active proof queue details. The Markdown table below stays compact for GitHub readability; open <a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a> when you want the user/product view with those columns visible.</p>
+<h2 id="matrix">Matrix</h2>
+<table><thead><tr><th>Chart</th><th>Layer</th><th>Kind</th><th>Variant</th><th>Tier</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Action</th><th>Outcome</th><th>Target</th></tr></thead><tbody><tr><td><code>aqua/trivy-operator@0.32.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>❌</td><td>✅</td><td>⬜</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.17</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>⬜</td><td>✅</td><td>deferred</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>❌</td><td>✅</td><td>✅</td><td>⬜</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-events@2.4.21</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-rollouts@2.40.9</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>⬜</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>controller-default-reviewed</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>⬜</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>minimal-crds</td><td>next80</td><td>-</td><td>1 observed ✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argocd-image-updater@1.2.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>autoscaler/cluster-autoscaler@9.57.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>controller-default-reviewed</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>model</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>autoscaler/vertical-pod-autoscaler@0.9.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + topology</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>bitnami/apache@11.4.29</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>bitnami/contour@21.1.4</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⬜</td><td>⬜</td><td>⬜</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>bitnami/memcached@8.5.5</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>storage-default-reviewed</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>bitnami/mongodb@19.0.7</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret-replicaset</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>bitnami/mongodb@19.0.9</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret-replicaset</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>⬜</td><td>⚠️</td><td>run</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/mongodb@19.1.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret-replicaset</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>⚠️</td><td>run</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/mysql@14.0.3</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>bitnami/nginx@24.0.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-tls-ingress</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>http-clusterip</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F4b</td><td>derived from http-clusterip</td><td>customer-acme-prod</td><td>derived</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>target-bound-derived</td><td>✅</td></tr>
+<tr><td></td><td>F4b</td><td>derived from http-clusterip</td><td>prod-us-east</td><td>derived</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>target-bound-derived</td><td>✅</td></tr>
+<tr><td><code>bitnami/nginx@24.0.4</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-tls-ingress</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>⬜</td><td>⚠️</td><td>run</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>http-clusterip</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/nginx@25.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-tls-ingress</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>⚠️</td><td>run</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>http-clusterip</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/opensearch@2.0.10</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>bitnami/phpmyadmin@20.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>web-ui-existing-secret</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>bitnami/postgresql@18.6.7</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>bitnami/postgresql@18.6.10</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/postgresql@18.7.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/rabbitmq@16.0.14</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>bitnami/redis@25.5.3</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>reuse-existing-secret</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F4a</td><td>derived from default</td><td>prod-us-east</td><td>derived</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td></td><td>F4b</td><td>derived from default</td><td>staging-eu-west</td><td>derived</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>❌</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>derived-intended-state</td><td>❌</td></tr>
+<tr><td><code>bitnami/redis@27.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>reuse-existing-secret</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>bitnami/spark@10.0.3</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>bitnami/zookeeper@13.8.7</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>legacy</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;tpl;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;tpl;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>generated-facts;tpl;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>coredns/coredns@1.45.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>controller-default-reviewed</td><td>candidate</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>crossplane-stable/crossplane@2.3.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>descheduler/descheduler@0.36.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cluster-metrics-readonly</td><td>candidate</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>dex/dex@0.24.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>web-ui-existing-secret</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>elastic/eck-operator@3.4.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>elastic/filebeat@8.5.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>node-or-cluster-collector</td><td>next80</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + secret</td><td>candidate</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>node-or-cluster-collector + external-api</td><td>candidate</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>node-or-cluster-collector + review</td><td>candidate</td><td><code>tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>elastic/kibana@8.5.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>web-ui-existing-secret</td><td>candidate</td><td><code>tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + external-api</td><td>candidate</td><td><code>tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>elastic/logstash@8.5.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>elastic/metricbeat@8.5.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + secret</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>external-dns/external-dns@1.21.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>dry-run-txt-registry</td><td>next80</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cloudflare-existing-secret</td><td>candidate</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>route53-irsa</td><td>candidate</td><td><code>tpl;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>fairwinds-stable/goldilocks@10.3.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cluster-metrics-readonly</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>lookup;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + crd</td><td>candidate</td><td><code>lookup;tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>falcosecurity/falco@9.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>node-or-cluster-collector</td><td>candidate</td><td><code>lookup;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>falcosecurity/falcosidekick@0.13.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>fluent/fluent-bit@0.57.6</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;hooks;cluster-rbac</code></td><td>1 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;hooks;cluster-rbac</code></td><td>1 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>node-or-cluster-collector</td><td>candidate</td><td><code>tpl;capabilities;hooks;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>fluent/fluentd@0.5.3</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>node-or-cluster-collector</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>gatekeeper/gatekeeper@3.22.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>capabilities;hooks;crds;cluster-rbac;webhooks</code></td><td>4 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>capabilities;hooks;crds;cluster-rbac;webhooks</code></td><td>4 observed ✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>capabilities;hooks;crds;cluster-rbac;webhooks</code></td><td>4 observed ✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>gitlab/gitlab-runner@0.89.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>runner-existing-secret</td><td>candidate</td><td><code>generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + external-api</td><td>candidate</td><td><code>generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>grafana/alloy@1.8.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>grafana/grafana@10.5.15</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>existing-secret-ingress</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>superseded</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>static-passwords</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F4a</td><td>derived from static-passwords</td><td>customer-acme-prod</td><td>derived</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td></td><td>F4a</td><td>derived from static-passwords</td><td>prod-us-east</td><td>derived</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td><code>grafana/loki@7.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>simple-scalable-minio</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>single-binary-filesystem</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>grafana/promtail@6.17.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>grafana/pyroscope@2.0.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>ha + review</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + review</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>grafana/rollout-operator@0.49.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + review</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>grafana/tempo@1.24.4</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>local-persistent</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>superseded</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>s3-query-observability</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>haproxytech/kubernetes-ingress@1.52.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>hashicorp/consul@2.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>default-control-plane</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>secure-mesh-existing-secrets</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>❌</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>hashicorp/terraform@1.1.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>crds</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>crds</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + review</td><td>candidate</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + secret</td><td>candidate</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>draft</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>dev-mode</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha-raft-ui</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>ha-raft-ui + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F4a</td><td>derived from default</td><td>regulated-prod-us-east</td><td>derived</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td></td><td>F4a</td><td>derived from default</td><td>staging-us-east</td><td>derived</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>admission-disabled</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>internal-clusterip</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>istio/gateway@1.30.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>controller-default-reviewed</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>image</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td><code>istio/istiod@1.30.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>external-ca</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate</td><td>minimal-profile</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>revisioned-control-plane</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + namespace</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>jaegertracing/jaeger@4.8.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>node-or-cluster-collector</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>crds;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>crds;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>stage</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>crds;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + crd</td><td>candidate</td><td><code>crds;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + crd</td><td>candidate</td><td><code>crds;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>crds-enabled</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td><code>jetstack/cert-manager-csi-driver@v0.14.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>jetstack/trust-manager@v0.22.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>kedacore/keda@2.19.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + secret</td><td>candidate</td><td><code>tpl;capabilities;crds;cluster-rbac;webhooks</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>kyverno/kyverno@3.8.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>8 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>8 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>8 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>run</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>default-admission</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>external-crds</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>ha-admission-reports</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>kyverno/kyverno-policies@3.8.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;tpl</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>deferred</td><td>local-live</td><td>⬜</td></tr>
+<tr><td><code>linkerd/linkerd-crds@1.8.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>longhorn/longhorn@1.11.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>generated-facts;tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>generated-facts;tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ui-ingress</td><td>top20</td><td><code>generated-facts;tpl;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>lookup;generated-facts;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>external-tls-ca</td><td>top20</td><td><code>lookup;generated-facts;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F4b</td><td>derived from default</td><td>prod-us-east</td><td>derived</td><td><code>lookup;generated-facts;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>target-bound-derived</td><td>✅</td></tr>
+<tr><td><code>minio-operator/operator@7.1.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>storage-default-reviewed</td><td>candidate</td><td><code>cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>minio-operator/tenant@7.1.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>nats/nack@0.34.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>model</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>nats/nats@2.14.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>tpl</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>model</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>nats/surveyor@0.20.9</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>default-reviewed</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default-reviewed + external-api</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default-reviewed + review</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>storage-default-reviewed</td><td>candidate</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>open-telemetry/opentelemetry-operator@0.114.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td><code>opencost/opencost@2.5.21</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>⚠️</td><td>⚠️</td><td>❌</td><td>✅</td><td>stage</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cluster-metrics-readonly</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>default + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>percona/pg-operator@3.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + crd</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>percona/psmdb-operator@1.22.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>percona/pxc-operator@1.19.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + external-api</td><td>candidate</td><td><code>lookup;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;hooks;cluster-rbac</code></td><td>1 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;hooks;cluster-rbac</code></td><td>1 observed ✅</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>controller-default-reviewed</td><td>candidate</td><td><code>lookup;hooks;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + crd</td><td>candidate</td><td><code>lookup;hooks;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>ha</td><td>next80</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>2 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>2 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>stage</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>top20</td><td><code>lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>2 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@86.1.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>2 observed ✅ (from @85.3.0)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>-</td><td>-</td><td>2 observed ✅ (from @85.3.0)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>model</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>-</td><td>-</td><td>2 observed ✅ (from @85.3.0)</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/kube-state-metrics@7.4.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>cluster-metrics-readonly</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>server-only-ephemeral</td><td>top20</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F4a</td><td>derived from default</td><td>prod-us-east</td><td>derived</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td></td><td>F4a</td><td>derived from default</td><td>staging-eu-west</td><td>derived</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>⬜</td><td>-</td><td>-</td><td>-</td><td>run</td><td>derived-intended-state</td><td>⬜</td></tr>
+<tr><td></td><td>F4b</td><td>derived from server-only-ephemeral</td><td>prod-us-east</td><td>derived</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>target-bound-derived</td><td>✅</td></tr>
+<tr><td></td><td>F4b</td><td>derived from server-only-ephemeral</td><td>staging-eu-west</td><td>derived</td><td><code>generated-facts;tpl;capabilities;cluster-rbac;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>target-bound-derived</td><td>✅</td></tr>
+<tr><td><code>prometheus-community/prometheus@29.9.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>server-only-ephemeral</td><td>-</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>apiservice-v1-capability</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>cluster-metrics-readonly</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>cluster-metrics-readonly + crd</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + crd</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>prometheus-community/prometheus-blackbox-exporter@11.10.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>cluster-metrics-readonly</td><td>next80</td><td><code>tpl;capabilities</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/prometheus-node-exporter@4.55.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>cluster-metrics-readonly</td><td>next80</td><td><code>generated-facts;tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>prometheus-community/prometheus-operator-crds@29.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>generated-facts;crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>generated-facts;crds</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cluster-metrics-readonly</td><td>candidate</td><td><code>generated-facts;crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>prometheus-community/prometheus-pushgateway@3.6.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cluster-metrics-readonly</td><td>candidate</td><td><code>tpl;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>rook-release/rook-ceph@v1.19.5</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>rook-release/rook-ceph-cluster@v1.19.5</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>stage</td><td>local-live</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>default + namespace</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>runix/pgadmin4@1.62.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>web-ui-existing-secret</td><td>candidate</td><td><code>tpl;capabilities;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>sealed-secrets/sealed-secrets@2.18.6</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>✅</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>sync-secret-rotation</td><td>top20</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>stakater/reloader@2.2.12</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>controller-default-reviewed</td><td>next80</td><td><code>tpl;capabilities;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>⚠️</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + namespace</td><td>candidate</td><td><code>tpl;capabilities;crds;cluster-rbac</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>traefik/traefik@40.2.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>model</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>deferred</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>cloud-loadbalancer</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>external-crds</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate</td><td>internal-clusterip-dashboard-off</td><td>candidate</td><td><code>lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>velero/velero@12.0.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>-</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>model</td><td>in-confighub</td><td>⬜</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>aws-s3-existing-secret</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>azure-blob-existing-secret</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F2c</td><td>candidate review</td><td>filesystem-backup-node-agent</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>model</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td></td><td>F3</td><td>candidate</td><td>no-crds + crd</td><td>candidate</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
+<tr><td><code>vm/victoria-logs-single@0.12.5</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>vm/victoria-metrics-single@0.39.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td></td><td>F2b</td><td>base</td><td>default-reviewed</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr></tbody></table>
+<h2 id="regenerate">Regenerate</h2>
+<pre><code>npm run master-matrix
+npm run master-matrix:verify</code></pre>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/master-catalog-matrix/summary.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

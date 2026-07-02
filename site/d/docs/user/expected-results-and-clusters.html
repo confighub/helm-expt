@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expected Results And Clusters · ConfigHub Helm Ops</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Expected Results And Clusters</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/expected-results-and-clusters.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>Every guide should show what the user should see after the command they just ran. The default path should not make a new user read proof machinery first. Use this page as the simple checking pattern for the public guides.</p>
+<h2 id="short-version">Short Version</h2>
+<table><thead><tr><th>User is doing</th><th>Cluster needed?</th><th>What they should check</th></tr></thead><tbody><tr><td>Render a public catalog package with <code>cub installer setup</code></td><td>No</td><td>A work directory with rendered manifests, and optionally separated secrets.</td></tr>
+<tr><td>Compare their Redis render with the catalog</td><td>No</td><td>The Redis chart page links the committed evidence for the base they rendered.</td></tr>
+<tr><td>Upload to ConfigHub</td><td>No Kubernetes cluster, but ConfigHub auth is required</td><td>A Space with labeled Units.</td></tr>
+<tr><td>Apply locally</td><td>Yes, any reachable Kubernetes context</td><td><code>kubectl get</code> shows created workloads, and live checks show <code>Running</code> or <code>Ready</code>.</td></tr>
+<tr><td>Compare Helm and cub installer live behavior</td><td>Yes, usually throwaway kind clusters</td><td>The parity receipt says <code>pass</code>, <code>watch</code>, or <code>blocked</code> with a named reason.</td></tr>
+<tr><td>Deliver through Argo or Flux</td><td>Yes, a cluster with the controller and OCI credentials</td><td>The controller reports synced or reconciled, then workloads are observed.</td></tr>
+<tr><td>Operate apps and variants</td><td>ConfigHub auth; cluster only when delivering or observing</td><td>Diffs, scans, changesets, promotions, and receipts are visible in ConfigHub.</td></tr></tbody></table>
+<h2 id="the-default-ux-should-be-product-commands-first">The Default UX Should Be Product Commands First</h2>
+<p>For a new user, the steel thread is:</p>
+<pre><code>choose chart
+-&gt; render with cub installer
+-&gt; inspect what was produced
+-&gt; optionally upload to ConfigHub
+-&gt; optionally apply or deliver
+-&gt; verify the specific thing they just did</code></pre>
+<p><code>npm run ...</code> commands are optional proof checks. They are useful for reviewers, maintainers, CI, and users who want to verify a receipt. They should not be the main product action in a default guide unless the guide is explicitly about proof or parity.</p>
+<h2 id="stage-1-serverless-redis-render">Stage 1: Serverless Redis Render</h2>
+<p>Run:</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base default \
+  --work-dir .tmp/demo/redis-default \
+  --non-interactive \
+  --namespace redis</code></pre>
+<p>You should see a completed work directory.</p>
+<p>Check:</p>
+<pre><code>find .tmp/demo/redis-default/out -maxdepth 2 -type f | sort | head</code></pre>
+<p>You should see something like:</p>
+<pre><code>.tmp/demo/redis-default/out/manifests/...
+.tmp/demo/redis-default/out/secrets/...</code></pre>
+<p>Redis <code>default</code> separates generated Secret material into <code>out/secrets</code>. For a local apply, stage secrets before manifests:</p>
+<pre><code>kubectl apply -f .tmp/demo/redis-default/out/secrets
+kubectl apply -f .tmp/demo/redis-default/out/manifests</code></pre>
+<p>The Redis chart page carries the catalog evidence for this base. You do not need to run the repository proof harness for the first pass through the guide.</p>
+<h2 id="stage-2-standard-helm-baseline">Stage 2: Standard Helm Baseline</h2>
+<p>If the guide asks you to compare with standard Helm, use the same chart version and values as the catalog base. Use a separate namespace or a separate throwaway cluster so the two installs do not collide. A naked <code>helm install</code> can be a useful smoke test, but it is not a parity check unless the inputs match.</p>
+<p>Example shape:</p>
+<pre><code>kubectl create namespace helm-redis --dry-run=client -o yaml | kubectl apply -f -
+helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
+  --version 25.5.3 \
+  --namespace helm-redis \
+  -f recipes/bitnami/redis/25.5.3/effective-values.yaml</code></pre>
+<p>You should see Helm create a release:</p>
+<pre><code>NAME: redis
+LAST DEPLOYED: ...
+NAMESPACE: helm-redis
+STATUS: deployed</code></pre>
+<p>Then check Kubernetes:</p>
+<pre><code>kubectl -n helm-redis get statefulset,pod,pvc</code></pre>
+<p>You should see Redis StatefulSets, pods, and PVCs. Some charts take time to become ready; readiness is a live-cluster fact, not a render fact.</p>
+<p>For strict parity, use two clean clusters rather than comparing namespaces by eye. Install regular Helm into one cluster. Render with <code>cub installer</code> and apply the output into the other. Then compare the live Kubernetes objects and workload readiness. The repository has a harness that automates this for maintainers; that harness is not the default user install path.</p>
+<h2 id="stage-3-upload-to-confighub">Stage 3: Upload To ConfigHub</h2>
+<p>Run:</p>
+<pre><code>cub installer upload \
+  --work-dir .tmp/demo/redis-default \
+  --space helm-redis-default \
+  --component Redis \
+  --layer App \
+  --environment Demo \
+  --owner ConfigHubHelm \
+  --variant default \
+  --unit-label Component=Redis \
+  --unit-label HelmChart=bitnami-redis \
+  --unit-label HelmChartVersion=25.5.3 \
+  --unit-label Variant=default</code></pre>
+<p>Then check:</p>
+<pre><code>cub unit list --space helm-redis-default \
+  --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant</code></pre>
+<p>You should see Redis Units, all labeled with <code>Component=Redis</code> and <code>Variant=default</code>. For Redis <code>default</code>, expect the Kubernetes objects plus an <code>installer-record</code> Unit.</p>
+<p>In the ConfigHub UI:</p>
+<pre><code>Space helm-redis-default -&gt; Units</code></pre>
+<p>You should see the same Units and labels. If you want to rerun the repository proof harness, use <a href="verify-it-yourself.html">Verify It Yourself</a> after the product path is clear.</p>
+<h2 id="stage-4-local-kubernetes">Stage 4: Local Kubernetes</h2>
+<p>Users may bring any reachable Kubernetes cluster. For quick local tests, use a throwaway kind cluster:</p>
+<pre><code>kind create cluster --name helm-expt-demo
+kubectl config use-context kind-helm-expt-demo</code></pre>
+<p>Apply separated secrets first when a work directory has <code>out/secrets</code>:</p>
+<pre><code>kubectl apply -f .tmp/demo/redis-default/out/secrets
+kubectl apply -f .tmp/demo/redis-default/out/manifests</code></pre>
+<p>Then check:</p>
+<pre><code>kubectl -n redis get statefulset,pod,pvc</code></pre>
+<p>You should see Redis workloads and PVCs. A healthy Redis run should eventually show pods in <code>Running</code> or <code>Ready</code> state.</p>
+<p>For deeper checks, use <code>kubectl describe</code>, workload logs, or a cub-scout receipt. The repository proof harness can also check Redis-specific behavior, but it should not be the first thing a new user has to understand.</p>
+<h2 id="stage-5-argo-flux-and-cub-lk">Stage 5: Argo, Flux, And cub-lk</h2>
+<p>For GitOps examples, users need a cluster that already has the chosen controller and the ConfigHub OCI pull credentials. There are two sensible paths:</p>
+<table><thead><tr><th>Path</th><th>Use it when</th><th>What to expect</th></tr></thead><tbody><tr><td>Bring your own cluster</td><td>You already run Argo CD or Flux.</td><td>Configure the controller to pull the ConfigHub OCI artifact, then check controller sync and workload readiness.</td></tr>
+<tr><td>Use <code>cub-lk</code></td><td>You want a disposable local Argo/kind rig for a demo or proof run.</td><td><code>cub lk up</code> provisions kind, Argo, and the OCI worker/target pieces needed by the proof path.</td></tr></tbody></table>
+<p>The important point is that ConfigHub does not replace the in-cluster controller in the GitOps path. ConfigHub stores Units, publishes one OCI artifact, and records evidence. Argo or Flux pulls and reconciles it.</p>
+<p>You should verify two things:</p>
+<pre><code>controller accepted the artifact
+workloads reached the expected live state</code></pre>
+<p>A synced controller alone is not enough. Read <a href="why-synced-is-not-working.html">Why Synced Is Not Working</a>.</p>
+<h2 id="stage-6-apps-and-ops">Stage 6: Apps And Ops</h2>
+<p>After upload, the expected checks become ConfigHub checks:</p>
+<table><thead><tr><th>Step</th><th>What the user should see</th></tr></thead><tbody><tr><td>Create a derived variant</td><td>A downstream Space with cloned Units, labels, links to the upstream Space, and any target/gate changes.</td></tr>
+<tr><td>Promote a variant</td><td>A dry-run mutation preview first, then a changeset or applied promotion with receipts.</td></tr>
+<tr><td>Scan or gate</td><td>Findings, accepted findings, or blocked findings attached to exact Units.</td></tr>
+<tr><td>Deliver through OCI</td><td>A digest or target artifact identity, plus controller or apply receipts.</td></tr>
+<tr><td>Observe live state</td><td>Workload, prerequisite, controller, or cub-scout receipts with freshness.</td></tr></tbody></table>
+<p>For a user guide, each step should show one concrete check:</p>
+<pre><code>cub unit list ...
+cub variant promote ... --dry-run -o mutations
+kubectl get ...
+controller status page
+ConfigHub Space -&gt; Units
+ConfigHub changeset / approval / receipt</code></pre>
+<h2 id="existing-apps-platforms-stacks-and-live-clusters">Existing Apps, Platforms, Stacks, And Live Clusters</h2>
+<p>Yes, an existing app can enter the model. That is not the same as starting from a public catalog chart.</p>
+<table><thead><tr><th>Existing thing</th><th>First route</th></tr></thead><tbody><tr><td>Existing Argo CD app</td><td>Discover or import the Argo app, preserving source and target.</td></tr>
+<tr><td>Existing Flux HelmRelease or Kustomization</td><td>Discover or import Flux state, preserving controller ownership.</td></tr>
+<tr><td>Rendered manifests or KRM YAML</td><td>Import as ConfigHub Units, then label, scan, link, and observe.</td></tr>
+<tr><td>Live cluster resources</td><td>Discover or import what exists, then decide whether to keep imported, create a variant, or graduate to a recipe.</td></tr>
+<tr><td>Platform or stack</td><td>Represent multiple chart bases and custom app objects as one app graph.</td></tr></tbody></table>
+<p>The first expected result should be read-only:</p>
+<pre><code>ConfigHub found the app
+ConfigHub shows the objects
+no cluster change was made yet
+next action is import, variant, or recipe graduation</code></pre>
+<p>Only move to a <code>cub installer</code> recipe when the app needs a maintained render path, future chart refreshes, and catalog-grade proof.</p>
+<h2 id="what-not-to-put-in-the-default-guide-path">What Not To Put In The Default Guide Path</h2>
+<p>Do not make a new user run the full repo gate just to understand the product. Use it for broad repo verification before release or review. In a user guide, prefer a visible check tied to the thing they just did:</p>
+<table><thead><tr><th>User just did</th><th>Narrow check</th></tr></thead><tbody><tr><td>Rendered Redis</td><td>Inspect the work directory and compare with the Redis chart page evidence.</td></tr>
+<tr><td>Uploaded Redis</td><td>List Units in the ConfigHub Space and check labels in the UI.</td></tr>
+<tr><td>Applied Redis to a cluster</td><td>Use <code>kubectl get</code>, <code>kubectl describe</code>, logs, or cub-scout receipts.</td></tr>
+<tr><td>Wants strict Helm-vs-installer parity</td><td>Use two clean clusters: Helm in one, cub installer output in the other, then compare live objects.</td></tr>
+<tr><td>Wants GitOps/OCI proof</td><td>Check the controller sync, workload readiness, and the chart/base evidence page.</td></tr></tbody></table>
+<p>The default UX should stay simple. The proof machinery is there when the user asks, &quot;how do I know?&quot;</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/expected-results-and-clusters.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

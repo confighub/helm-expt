@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>helm-expt: the verified-install commercial model · ConfigHub Helm Ops</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>helm-expt: the verified-install commercial model</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/verified-install-commercial-model.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Planning doc. Status: draft for discussion. Companion to the serverless design doc and the robust-sceptic plan.</p>
+<h2 id="1-the-question-scoped-honestly">1. The question, scoped honestly</h2>
+<p>Can customers feel safer using &quot;our&quot; Helm, the catalog plus <code>cub installer</code>, than standard <code>helm install</code>? Yes, and the case is strong, but only if the claim is scoped exactly. What we can make true: the customer knows precisely what they are installing, that it has not been altered, what was found when it was scanned, what it needs from the cluster, what it did when it landed, and whether it is still what they installed. What we cannot claim: that the software inside the images is safe, that scanner findings equal exploitability, or that a signature makes a chart trustworthy. The signature proves origin and integrity; the scan receipts carry the findings; the judgment stays with the customer. Holding that line is what separates a security product from security theater, and the sceptic plan's claims register is the enforcement mechanism.</p>
+<h2 id="2-the-security-deltas-versus-helm-install">2. The security deltas versus <code>helm install</code></h2>
+<p>Nine concrete differences, each with its mechanism and its current status in the repo.</p>
+<p><b>D1. There is an artifact to scan before install.</b> With standard Helm, the thing that will actually be applied does not exist until render time, so security teams scan templates (noisy, incomplete) or build their own render pipelines (often with the wrong flags and values). In the catalog model the exact object set per variant exists as data before anyone installs it. The scan target is the deliverable itself. This is the single biggest structural delta and everything else builds on it.</p>
+<p><b>D2. Scanning is done at the factory and verified at the door.</b> Each variant is scanned at publication: manifest-level policy tools and image-level vulnerability scanners, with the results recorded in a signed scan receipt naming the tool, tool version, policy bundle, and date. The customer's install verifies the signature instead of re-running the pipeline, and can re-run everything locally when they want to, because the zero-dependency clone-and-verify design preserves the no-trust-required option. The cost of scanning moves from every customer on every install to once per variant per catalog refresh, which is also the commercial engine (section 4).</p>
+<p><b>D3. Image inventory and digest pinning.</b> Charts routinely reference images by mutable tag. The catalog resolves images to digests at render (the image-digest workdown and the kube-prometheus-stack digest-resolution lane exist in the tree), so each variant carries an exact, immutable image inventory. That inventory is the basis for an SBOM per variant and for the CVE question: which of my installs contains image X. Serverless answers per cluster from the in-cluster receipts; the Server answers fleet-wide.</p>
+<p><b>D4. An integrity chain with teeth.</b> Cosign signature on the artifact, signature verification at install, and (required before commercial claims, per the sceptic plan) a key ceremony plus a public transparency log. Compare standard Helm: provenance files exist and are almost universally unused. Tamper-evidence from catalog to cluster is a delta customers can test themselves.</p>
+<p><b>D5. Preflight facts instead of insecure fallbacks.</b> The facts check refuses loudly when a required Secret or StorageClass is missing, where charts otherwise fall back to generated defaults or broken half-installs. The pain report surfaces weak securityContext, mutable tags, and privileged settings per variant, before apply rather than in a post-incident audit.</p>
+<p><b>D6. No render at install time.</b> Standard Helm executes template logic at install, including cluster reads via lookup, on the operator's machine with the operator's credentials. The catalog model applies pre-rendered, signed data: no template execution, no render-time cluster reads, a strictly smaller surface at the moment of highest privilege.</p>
+<p><b>D7. An audit trail by default.</b> Every install writes a receipt (inventory, digest, variant, facts used) into the cluster, even serverless. Drift is a one-command check against that record. Signed in, the receipt also lands in the ledger with identity, and authority on every change. The serverless tier gives integrity; the Server tier adds accountability.</p>
+<p><b>D8. Hardened variants with explicit provenance of deviation.</b> A hardened variant (restricted securityContext, no privileged, pinned digests, network policies on) is just another named base, and the value-source map shows exactly how it differs from upstream, field by field. &quot;Hardened, and here is precisely what we changed&quot; is a claim standard Helm cannot express, because the deviation lives in values archaeology.</p>
+<p><b>D9. Faster, calmer CVE response.</b> When a CVE lands, the catalog re-renders the affected variants against patched images, signs, and publishes; the customer's <code>cub upgrade</code> shows the exact object diff before applying. The response to a CVE becomes a verified artifact swap with a visible diff, not a values-file scramble. The Bitnami precedent (free images withdrawn, secure images paywalled) demonstrated both that customers will pay for maintained, vetted artifacts and that they fear depending on unmaintained ones; we sell the vetted configuration plus its proof, which is one layer up from images and includes them by digest.</p>
+<h2 id="3-the-scanning-story-concretely">3. The scanning story, concretely</h2>
+<p>Since scanning is the named use case, the specifics:</p>
+<ul><li><b>What runs:</b> manifest scanners (policy engines over the rendered objects: privilege, capabilities, network exposure, deprecated APIs) and image scanners (CVEs over the digest-pinned inventory). Tools are pluggable; the receipt names them.</li><li><b>Where:</b> at the factory on every publication and refresh, and locally on demand, same harness, so a customer's security team can reproduce any number on the receipt.</li><li><b>The artifact:</b> a scan receipt per variant per version: tool, version, policy bundle, date, findings with severities, and waived findings with named justifications (the same named-rule discipline as live normalization, because an unwaived-versus-waived distinction is what auditors actually ask for).</li><li><b>The genuinely novel UX: scan diff across versions.</b> Because both the old and new variants exist as data, an upgrade can answer &quot;what new findings does this version introduce and which old ones does it fix&quot; as a first-class diff. Standard Helm users cannot ask this question without building the comparison pipeline themselves. This belongs in the <code>cub upgrade</code> transcript next to the object diff.</li><li><b>Later, not now:</b> VEX-style statements (&quot;CVE X in image Y does not affect variant Z because the component is disabled&quot;) are the natural extension, since the variant's effective configuration is known. Heavier analysis, real value, do not promise it yet.</li></ul>
+<h2 id="3b-environment-attestation">3b. Environment attestation</h2>
+<p>The environment-determinism matrix built for the sceptic plan is part of the commercial safety story. A catalog artifact should not only say &quot;this rendered once&quot;; it should say which render context was tested.</p>
+<p>For the free public catalog, this means one supported platform profile per variant, with the recorded Helm version, Kubernetes capability profile, flag profile, timezone, locale, and relevant environment facts.</p>
+<p>For paid or managed support, this can expand into a support matrix:</p>
+<pre><code>variant x Kubernetes version x controller profile x policy profile x platform</code></pre>
+<p>The commercial claim should stay narrow:</p>
+<pre><code>supported for these declared profiles
+not universally safe for every cluster shape</code></pre>
+<p>This matters because many Helm failures are not pure render failures. They are target-fit failures: missing APIs, webhook readiness, storage class behavior, load balancer assumptions, image availability, or lifecycle prerequisites. The environment matrix, target facts, and live receipts are how those assumptions become visible.</p>
+<h2 id="4-the-commercial-model">4. The commercial model</h2>
+<p>The tiers map onto the boundaries the repo already drew (product-support-tiers, maintenance SLA, and the serverless design's upsell walls):</p>
+<ul><li><b>Free: the public catalog.</b> Top-N charts, proof-grade for recorded variants, community-paced refresh, full local verifiability. This tier is the trust engine and must stay genuinely good; the sceptic plan's never-degrade-local rule applies.</li><li><b>Paid: the catalog subscription.</b> What is bought is the SLA, not the bits: guaranteed refresh cadence against upstream, a CVE-response turnaround commitment (re-render, re-scan, re-sign within a stated window), the attestation pack per variant (SBOM, scan receipts, digest inventory, signatures), and hardened variants. The patch-SLA and old-version-support lanes already named in the support-tiers doc live here. This is exactly the artifact-subscription business the Bitnami affair validated, with proof attached.</li><li><b>Paid: the private catalog.</b> The same machinery pointed at the customer's own world: org pins, private values and overlays, wrapper charts, internal charts run through the same render-scan-sign pipeline, private refresh SLAs. The support-tiers doc already marks this column as the commercial one.</li><li><b>The Server tier.</b> Where the per-install story becomes an estate story: fleet-wide CVE queries, authority on every change, the ledger, gates before apply, continuous observation. This is the upsell from the serverless doc, and security is its sharpest wedge, because &quot;where do I run this image and who changed that field&quot; are the two questions a security team asks weekly that scattered receipts cannot answer.</li></ul>
+<p>The pricing logic underneath: factory scanning amortizes a cost every customer currently pays separately and badly; the subscription sells that amortization plus the SLA; the Server sells the queries. Each tier's security claim is backed by a receipt the tier below can verify, which keeps the funnel honest.</p>
+<p>The broader commercial packaging work is tracked in <a href="https://github.com/confighub/helm-expt/issues/949">issue #949</a>. That issue keeps three paid lanes explicit without forcing them into first-run user docs:</p>
+<ul><li><b>Helm remediation and legacy patch lane:</b> old approved chart versions, CVE-oriented object patches, image digest updates, RBAC/securityContext fixes, deprecated API patches, webhook/cert mitigations, rollback evidence, and patch SLAs.</li><li><b>Config lifecycle intelligence:</b> upgrade risk, hook/lifecycle routes, annotated diffs, evidence packs, and exact rendered configuration variants.</li><li><b>Managed integrations:</b> Argo, Flux, Kargo or promotion waves, bulk scan and patch, AICR, NIM, and possible BYO AI/cloud sandbox integrations.</li></ul>
+<p>Those are commercial lanes, not free-catalog claims. Each should map to a receipt, claims-register row, or explicit future/no-claim status before launch copy mentions it as a product capability.</p>
+<h2 id="5-what-makes-the-safety-claim-defensible">5. What makes the safety claim defensible</h2>
+<p>The difference between this and security marketing is that every safety statement is receipt-backed, re-runnable, and scoped:</p>
+<ul><li>Every claim in the sales material maps to a row in the claims register (sceptic plan T1). No receipt, no claim.</li><li>Everything is reproducible by the customer: clone-and-verify is the standing answer to &quot;why should we believe your scan.&quot;</li><li>External reproduction (sceptic plan T6) and the signing infrastructure (key ceremony, transparency log) are prerequisites for the paid security tiers, not nice-to-haves. Selling a security promise on a single-party-verified, ceremony-less key invites the exact headline the sceptic plan exists to prevent.</li><li>The refuse-to-claim page is a sales asset. The vendor that states plainly what it does not promise is more believable on what it does. Put it in the deck.</li></ul>
+<h2 id="6-honest-limits-and-open-questions">6. Honest limits and open questions</h2>
+<ul><li>Scanner findings are not exploitability; the receipts report, the customer judges. Say so in the product.</li><li>We inherit upstream chart and image quality; the catalog makes it visible, it does not make it good.</li><li>Key compromise is the catastrophic scenario; the ceremony and transparency log are on the critical path to charging money for any of this.</li><li>Indemnification and liability posture for the paid tiers is a business decision flagged here, not answered.</li><li>Compliance positioning: promise evidence (receipts that map to change-management and integrity controls), never certification. Auditor-friendly is the claim; audit-passing is the customer's.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/verified-install-commercial-model.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

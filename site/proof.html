@@ -454,7 +454,7 @@
     <h1>What We Checked</h1>
     <p class="tagline">Use this page to see which claims have evidence and which ones still need a chart, values file, or target-specific check.</p>
     <p>First we check that cub preserves Helm's objects. Then we track scans, approvals, delivery, live checks, and limits separately.</p>
-    <p style="margin-top:14px;font-size:.95rem"><a href="./verification.html">Start with Verification</a> · <a href="./matrix.html">Read the matrix</a> · <a href="../data/claims-register/summary.md">Read the claims register</a></p>
+    <p style="margin-top:14px;font-size:.95rem"><a href="./verification.html">Start with Verification</a> · <a href="./matrix.html">Read the matrix</a> · <a href="d/data/claims-register/summary.html">Read the claims register</a></p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this proof page.</p>
@@ -485,7 +485,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Use <a href="./verification.html">Verification</a> for the command map, <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for lane meanings, and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
+      <p>Use <a href="./verification.html">Verification</a> for the command map, <a href="d/docs/user/verification-lanes.html">Verification Lanes</a> for lane meanings, and <a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
     </section>
 
     <section aria-labelledby="serious">
@@ -494,12 +494,12 @@
       <p>This is the expert/SRE problem. Before a fleet change ships, someone needs to know what it touches, what the cluster must already provide, which checks passed, how it will be delivered, and what the live system reported afterward.</p>
       <p>For these charts, a green render is not enough. The page must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
       <div class="grid">
-        <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
-        <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
-        <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
-        <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
+        <div class="card"><h3>kube-prometheus-stack</h3><p><a href="d/docs/user/prometheus-high-fanout.html">High-fanout guide</a> and <a href="d/data/hard-chart-production-packets/summary.html">production packet</a>.</p></div>
+        <div class="card"><h3>Upgrade crash example</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
+        <div class="card"><h3>cert-manager and ESO</h3><p><a href="d/data/lifecycle-observations/cert-manager-eso/summary.html">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
+        <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="d/data/lifecycle-boundary/summary.html">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
-        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook dispositions</a> separate observed, routed, per-target, and recipe-needed rows.</p></div>
+        <div class="card"><h3>Hooks</h3><p><a href="d/data/hook-disposition/summary.html">Top-100 hook dispositions</a> separate observed, routed, per-target, and recipe-needed rows.</p></div>
       </div>
     </section>
 
@@ -509,7 +509,7 @@
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       <div class="card"><table>
         <thead><tr><th>Surface</th><th>What it answers</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Claims register</td><td>Every public claim is backed, partial, planned, or refused.</td><td><a href="../data/claims-register/summary.md">../data/claims-register/summary.md</a></td></tr><tr><td>Blast-radius accuracy</td><td>Predicted affected objects are scored against actual rerender diffs, including published failures.</td><td><a href="../data/blast-radius-accuracy/summary.md">../data/blast-radius-accuracy/summary.md</a></td></tr><tr><td>Synthetic torture suite</td><td>Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.</td><td><a href="../data/torture-suite/summary.md">../data/torture-suite/summary.md</a></td></tr><tr><td>Environment matrix</td><td>Renders are checked across timezone and locale cells for the measured corpus.</td><td><a href="../data/environment-matrix/summary.md">../data/environment-matrix/summary.md</a></td></tr><tr><td>Hook dispositions</td><td>Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.</td><td><a href="../data/hook-disposition/summary.md">../data/hook-disposition/summary.md</a></td></tr><tr><td>Master matrix</td><td>Every chart/version/base row carries lane status, source links, production scope, and next action.</td><td><a href="./matrix.html">./matrix.html</a></td></tr></tbody>
+        <tbody><tr><td>Claims register</td><td>Every public claim is backed, partial, planned, or refused.</td><td><a href="d/data/claims-register/summary.html">../data/claims-register/summary.md</a></td></tr><tr><td>Blast-radius accuracy</td><td>Predicted affected objects are scored against actual rerender diffs, including published failures.</td><td><a href="d/data/blast-radius-accuracy/summary.html">../data/blast-radius-accuracy/summary.md</a></td></tr><tr><td>Synthetic torture suite</td><td>Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.</td><td><a href="d/data/torture-suite/summary.html">../data/torture-suite/summary.md</a></td></tr><tr><td>Environment matrix</td><td>Renders are checked across timezone and locale cells for the measured corpus.</td><td><a href="d/data/environment-matrix/summary.html">../data/environment-matrix/summary.md</a></td></tr><tr><td>Hook dispositions</td><td>Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.</td><td><a href="d/data/hook-disposition/summary.html">../data/hook-disposition/summary.md</a></td></tr><tr><td>Master matrix</td><td>Every chart/version/base row carries lane status, source links, production scope, and next action.</td><td><a href="./matrix.html">./matrix.html</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -531,7 +531,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../docs/user/what-we-refuse-to-claim.md">Read the full refusal page</a> or <a href="../data/claims-register/summary.md">open the claims register</a>.</p>
+      <p><a href="d/docs/user/what-we-refuse-to-claim.html">Read the full refusal page</a> or <a href="d/data/claims-register/summary.html">open the claims register</a>.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. A passing verifier means committed evidence is self-consistent; it does not replace fresh live evidence for a new target.</footer>
