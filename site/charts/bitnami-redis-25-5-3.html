@@ -391,7 +391,7 @@
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=redis&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">catalog-supported page for bitnami/redis@25.5.3.</p>
-    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir .tmp/demo/bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</pre>
+    <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</pre>
   </header>
   <main>
     <section aria-labelledby="summary">
@@ -445,7 +445,8 @@
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
-        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir .tmp/demo/bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></p>
+        <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></p>
+        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/bitnami-redis-25-5-3/reuse-existing-secret/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
   <pre><code>cub installer setup ...
@@ -461,8 +462,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
       <div class="grid">
         <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
-        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir .tmp/demo/redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
       </div>
       <p><a href="../try.html">Open the current Get Started page</a> · <a href="../d/docs/user/expected-results-and-clusters.html">Expected results and clusters</a></p>
     </section>
@@ -506,7 +507,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">F2a honest default base</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/demo/bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./bitnami-redis-25-5-3-default --non-interactive --namespace redis</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/bitnami-redis-25-5-3/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-redis-25-5-3/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
@@ -528,7 +530,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
-          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir .tmp/demo/bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></dd>
+          <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir ./bitnami-redis-25-5-3-reuse-existing-secret --non-interactive --namespace redis</code></dd>
+          <dt>Scripts</dt><dd><a href="../sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-redis-25-5-3/reuse-existing-secret/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
