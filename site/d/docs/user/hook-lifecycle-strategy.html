@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hook Lifecycle Strategy · ConfigHub Helm Ops</title>
+  <meta name="description" content="Hook Lifecycle Strategy: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/hook-lifecycle-strategy.html">
+  <meta property="og:title" content="Hook Lifecycle Strategy · ConfigHub Helm Ops">
+  <meta property="og:description" content="Hook Lifecycle Strategy: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/hook-lifecycle-strategy.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Hook Lifecycle Strategy</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="hook-lifecycle-strategy.html">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>Helm hooks are not ordinary rendered configuration. They are lifecycle actions that Helm may run before, during, or after install, upgrade, test, rollback, or delete phases.</p>
+<p>The rule is:</p>
+<pre><code>Do not execute Helm hooks during recipe import.
+Do not hide hooks inside the normal rendered-object proof.
+Do not claim hook execution is deterministic without a lifecycle receipt.</code></pre>
+<p>The hook policy uses the same seven-stage lifecycle as the rest of the harness:</p>
+<pre><code>acquire and pin -&gt; render and capture -&gt; shape base variants -&gt; scan and gate
+-&gt; settle prerequisites -&gt; publish and deploy -&gt; observe and operate</code></pre>
+<p>Render parity proves the desired non-hook object set. Hook support starts with source inventory and becomes a support claim only when the lifecycle route and receipts exist. The full doctrine is <a href="../../../../docs/reference/seven-stage-helm-lifecycle.md">Seven-Stage Helm Lifecycle</a>.</p>
+<p>For serious chart support, hooks are required lifecycle work. A chart can have valid render parity while still being unready for production if its hooks are only inventoried or routed. Production support requires the hook route to be observed, translated with equivalent lifecycle evidence, or explicitly blocked with a reason.</p>
+<h2 id="what-the-top-500-scan-shows">What The Top-500 Scan Shows</h2>
+<p>The retained source scan is:</p>
+<pre><code>data/top500-catalog-analysis/source/source-feature-scan.raw.json</code></pre>
+<p>It stores more than a hook count: hook examples, phases, weights, delete policies, Jobs, CRDs, cluster RBAC, webhooks, APIServices, <code>lookup</code>, generated fact signals, and related source features.</p>
+<p>Current estimate from the stored top-500 source scan:</p>
+<pre><code>charts requested: 500
+charts scanned: 495
+charts with Helm hooks: 54
+total hook templates found: 176
+
+likely problematic hook charts: 42
+needs review: 6
+probably benign/test-only: 6</code></pre>
+<p>Risk signals among the 54 hook charts:</p>
+<pre><code>non-test lifecycle hooks: 42
+post-* hooks: 26
+pre-* hooks: 26
+hook weights/order: 21
+hook delete policies: 44
+Job resources: 46
+cluster RBAC: 35
+CRDs: 22
+webhooks: 15
+APIService: 6
+lookup / cluster facts: 41</code></pre>
+<p>This means hooks are not most charts, but they are real. Roughly 11% of scanned public charts use Helm hooks, and most hook-using charts need lifecycle review before production support.</p>
+<h2 id="status-vocabulary">Status Vocabulary</h2>
+<p>Use these states when discussing hook or hook-like lifecycle behavior:</p>
+<table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td><code>inventoried</code></td><td>The source scan found hook templates or hook-like lifecycle behavior.</td></tr>
+<tr><td><code>render-proven</code></td><td>The normal non-hook object set is deterministic under recorded inputs.</td></tr>
+<tr><td><code>route-selected</code></td><td>A candidate handling route is recorded, such as test action, preflight, Argo hook, sync wave, managed action, or blocker.</td></tr>
+<tr><td><code>lifecycle-observed</code></td><td>The selected route has a receipt with execution or controller behavior, runtime result, timestamp, and freshness.</td></tr>
+<tr><td><code>blocked</code></td><td>The hook is unsafe, ambiguous, target-dependent, or not yet mapped.</td></tr></tbody></table>
+<p>Do not treat <code>inventoried</code> or <code>render-proven</code> as lifecycle support. <code>route-selected</code> means the route has been recorded, usually in a route receipt, but it is still not lifecycle proof until execution or observation evidence exists. <code>blocked</code> is a valid catalog outcome when a hook does not fit the current model safely.</p>
+<h2 id="where-to-look-per-chart">Where To Look Per Chart</h2>
+<p>The first place to look is the chart row in the master catalog matrix. The Hook column tells you whether the chart has hooks, whether a disposition exists, and whether the route has been observed. From there, follow the row links to the chart catalog, pain report, hook disposition, or lifecycle route receipt.</p>
+<p>For a user, the practical contract is:</p>
+<table><thead><tr><th>What you see</th><th>What it means</th></tr></thead><tbody><tr><td><code>observed</code></td><td>The hook or hook-like lifecycle step has a selected route and live evidence. Use the linked route and receipt for the supported target scope.</td></tr>
+<tr><td><code>routed</code></td><td>The route is known, such as preflight, post-apply Job, Argo hook, sync wave, ConfigHub check, or target prerequisite, but the route still needs fresh live evidence before a production claim.</td></tr>
+<tr><td><code>per-target</code></td><td>The right route depends on the target platform, policy, or operator choice. The catalog names the decision instead of guessing.</td></tr>
+<tr><td><code>refused</code> or <code>blocked</code></td><td>The public catalog does not run that hook automatically. The chart records why and what would be needed to support it.</td></tr></tbody></table>
+<p>If the route is a normal Kubernetes object, it can be delivered as a ConfigHub Unit with the rest of the desired state. If the route is an action, it must be set up as an explicit lifecycle operation: preflight, post-apply Job, Argo hook, Argo sync wave, ConfigHub function/check, operator action, or documented manual step. The catalog should make that route visible before OCI delivery, so the user is not surprised by behavior Helm would otherwise hide in an install or upgrade.</p>
+<p>The route is not considered production-supported until the row either has live evidence for the target scope or is explicitly marked per-target, refused, or blocked. A chart can have perfect render parity and still be incomplete if its hook route is only inventoried.</p>
+<h3 id="machine-readable-route-contract">Machine-Readable Route Contract</h3>
+<p>The same disposition, route, execution mode, default, and off-ramps are also a machine-readable surface: <a href="../../data/lifecycle-routes/summary.html">data/lifecycle-routes/</a> - <a href="../../../../data/lifecycle-routes/routes.csv">routes.csv</a> for spreadsheets, <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> for agents, and <a href="../../../../data/lifecycle-routes/contract.md">contract.md</a> for the field definitions.</p>
+<p>To read one row: <code>route_name</code> is where the behavior goes; <code>disposition</code> is one of <code>observed</code>, <code>routed</code>, <code>per-target</code>, <code>refused</code>, or <code>todo</code>; <code>execution_mode</code> is who runs it (<code>user-executes</code>, <code>target-owned</code>, or <code>not-yet-executable</code>; <code>product-executes</code> only with evidence); <code>default_route</code> plus <code>alternatives</code> are the off-ramps; and <code>safe_as_automatic</code> stays <code>no</code> unless the product itself runs the route. No row is shown as automatic without evidence.</p>
+<p>For the current recipe corpus, use:</p>
+<pre><code>data/chart-facts/chart-facts.csv</code></pre>
+<p>The hook columns show the phases found for each chart, the current route state, the evidence file, and the next lifecycle action. That view is scoped to charts with current recipes. The broader source-scan hook inventory lives under:</p>
+<pre><code>data/hook-lifecycle/</code></pre>
+<p>Keep the two views separate. The source scan answers &quot;which public charts appear to use Helm hooks.&quot; Chart facts answer &quot;what does this maintained recipe know about hooks now, and what remains before a stronger support claim.&quot;</p>
+<h2 id="classification">Classification</h2>
+<table><thead><tr><th>Hook class</th><th>Default disposition</th></tr></thead><tbody><tr><td>Helm test hook only</td><td>Convert to explicit post-install check/test where useful.</td></tr>
+<tr><td><code>pre-install</code> / <code>post-install</code></td><td>Preflight, target fact requirement, install phase action, readiness gate, or blocker.</td></tr>
+<tr><td><code>pre-upgrade</code> / <code>post-upgrade</code></td><td>Upgrade lifecycle action plus upgrade receipt.</td></tr>
+<tr><td>Delete or cleanup hook</td><td>Delete/rollback lifecycle policy.</td></tr>
+<tr><td>Hook with weight/order</td><td>Preserve ordering through lifecycle policy or sync-wave-style mechanism.</td></tr>
+<tr><td>Hook with delete policy</td><td>Preserve cleanup behavior explicitly or block.</td></tr>
+<tr><td>CRD/webhook/bootstrap hook</td><td>CRD/webhook lifecycle gate plus live observation.</td></tr>
+<tr><td>Hook depending on lookup, existing objects, RBAC, storage, or release history</td><td>Target facts, preflight, managed lifecycle action, or blocker.</td></tr>
+<tr><td>Unclear procedural hook</td><td>Unsupported for production until reviewed.</td></tr></tbody></table>
+<h2 id="public-catalog-strategy">Public Catalog Strategy</h2>
+<p>For public catalog entries:</p>
+<pre><code>inventory hooks
+classify hook phase and risk
+render normal objects with an explicit hook policy
+bind scan/gate findings to the rendered revision
+record whether hook behavior is skipped, translated, tested, or blocked</code></pre>
+<p>The catalog can safely prove:</p>
+<pre><code>source chart contains hooks
+normal rendered object set has render parity under recorded inputs
+hook behavior has an explicit disposition
+production support is blocked unless lifecycle proof exists</code></pre>
+<p>The catalog must not claim:</p>
+<pre><code>Helm hook execution was reproduced by normal render equivalence
+cluster-dependent hook behavior is deterministic
+all hook behavior can be translated automatically</code></pre>
+<p>Some charts will have hooks that do not fit the first-pass categories cleanly. The correct behavior is to record the uncertainty and block production support for that chart/base until the lifecycle route is reviewed and receipted.</p>
+<h2 id="gitops-and-argo-route">GitOps And Argo Route</h2>
+<p>When Helm is not the runtime installer, many hook-like behaviors need another lifecycle surface. The first practical route is GitOps lifecycle handling, especially Argo CD sync hooks and sync waves where they are safe.</p>
+<p>Suggested mapping:</p>
+<table><thead><tr><th>Helm hook need</th><th>Candidate route</th></tr></thead><tbody><tr><td><code>pre-install</code> setup Job</td><td>Argo <code>PreSync</code> hook, explicit preflight, or managed install action.</td></tr>
+<tr><td><code>post-install</code> smoke test</td><td>Argo <code>PostSync</code> hook, ConfigHub check, or observation receipt.</td></tr>
+<tr><td><code>pre-upgrade</code> migration</td><td>Argo <code>PreSync</code> in an upgrade revision, gated by approval.</td></tr>
+<tr><td><code>post-upgrade</code> validation</td><td>Argo <code>PostSync</code> plus observation receipt.</td></tr>
+<tr><td>hook weight/order</td><td>Argo sync waves where semantics match.</td></tr>
+<tr><td>hook delete policy</td><td>Argo hook delete policy or explicit cleanup/rollback policy.</td></tr>
+<tr><td>unsafe side effect</td><td>Block until reviewed.</td></tr></tbody></table>
+<p>Argo translation is not automatic. It is one implementation strategy that must produce lifecycle receipts and observations.</p>
+<h2 id="related-lifecycle-observations">Related Lifecycle Observations</h2>
+<p>Some charts have no Helm hook but still need lifecycle observation because controllers populate fields or Secrets after apply. External Secrets is the current example: the chart does not use a Helm hook in the tested bases, but the controller and webhook flow populate runtime data that rendered YAML alone cannot prove.</p>
+<p>Cert-manager is the opposite cross-lane case. It does have the <code>startupapicheck</code> Helm post-install hook, but the retained top-100 source-scan row did not flag hooks. The lifecycle lane therefore records cert-manager explicitly: both <code>default</code> and <code>crds-enabled</code> model <code>startupapicheck</code> as a post-apply API dry-run and readiness check.</p>
+<p>The cert-manager / External Secrets lifecycle lane records this pattern:</p>
+<pre><code>data/lifecycle-observations/cert-manager-eso/summary.md</code></pre>
+<p>That lane is not a claim that all hooks are solved. It proves the receipt shape for common lifecycle issues: CRD ownership, webhook API readiness, CA bundle injection, controller-populated Secret data, and server dry-run checks.</p>
+<p>The generated boundary page keeps the two claims separate:</p>
+<p><a href="../../data/lifecycle-boundary/summary.html">Hook And Lifecycle Boundary</a></p>
+<h2 id="managed-commercial-strategy">Managed / Commercial Strategy</h2>
+<p>Hooks can support paid value, but the offer should not be &quot;we run arbitrary hooks for you.&quot; The valuable paid work is lifecycle intelligence and managed translation:</p>
+<pre><code>hook inventory for private or old chart versions
+classification of install/upgrade/delete side effects
+safe Argo/GitOps lifecycle mapping where possible
+preflight and target fact requirements
+upgrade/rollback simulation and receipts
+blocked-hook remediation recommendations
+fresh observation receipts after live execution
+evidence pack for audit and change review</code></pre>
+<p>This fits naturally beside a broader commercial lifecycle-intelligence story:</p>
+<pre><code>chart/version inventory
+known-risk and breaking-change analysis
+annotated rendered-object diffs
+upgrade project templates
+agent-ready remediation tasks
+policy and misconfiguration findings
+freshness-aware runtime observations
+auditable receipts</code></pre>
+<p>The differentiation should remain ConfigHub-shaped:</p>
+<pre><code>We reason about the exact rendered configuration variants you approve and run.</code></pre>
+<p>Competitors can summarize Kubernetes upgrade risk. ConfigHub should connect the risk to concrete recipe inputs, rendered objects, ConfigHub variants, scans, gates, approvals, observations, and evidence.</p>
+<h2 id="acceptance-criteria">Acceptance Criteria</h2>
+<p>For any catalog-supported chart with hooks:</p>
+<ul><li><code>helm-pain-report.yaml</code> lists hook pain and disposition.</li><li><code>helm-plan.yaml</code> records hook policy.</li><li>scan/gate receipts include hook findings or explicit test/check mapping.</li><li>production disposition states whether hooks are skipped, translated, tested, blocked, or supported by live lifecycle receipts.</li><li>if translated to Argo/GitOps lifecycle, the mapping has its own receipt and live observation when cluster behavior matters.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/hook-lifecycle-strategy.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

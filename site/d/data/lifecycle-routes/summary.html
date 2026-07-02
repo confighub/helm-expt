@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lifecycle Routes · ConfigHub Helm Ops</title>
+  <meta name="description" content="Lifecycle Routes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/summary.html">
+  <meta property="og:title" content="Lifecycle Routes · ConfigHub Helm Ops">
+  <meta property="og:description" content="Lifecycle Routes: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/lifecycle-routes/summary.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Lifecycle Routes</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="summary.html">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Generated by <code>scripts/generate-lifecycle-routes.mjs</code>. Do not hand-edit. Regenerate with <code>npm run lifecycle:routes</code>.</p>
+<p>This is a machine-readable answer to one question a Helm user asks when a chart has a hook or hidden lifecycle behavior:</p>
+<pre><code>Where does it go? Who executes it? What is the default? What are my off-ramps?</code></pre>
+<p>Render parity proves the desired non-hook objects. This contract is the separate fact about the lifecycle behavior: its route, who runs it, and whether the product runs it automatically (today, nothing does - see below).</p>
+<p>The full field definitions and the deterministic mapping tables are in <a href="../../../../data/lifecycle-routes/contract.md">contract.md</a>. The two data forms are <a href="../../../../data/lifecycle-routes/routes.csv">routes.csv</a> (spreadsheet) and <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> (stable interface for agents).</p>
+<h2 id="what-this-covers">What This Covers</h2>
+<p>25 route rows across 13 chart/version lifecycle behaviors, joined from:</p>
+<ul><li><a href="../hook-disposition/summary.html">data/hook-disposition/top100-hook-dispositions.csv</a></li><li><a href="../../../../data/hook-route-candidates/summary.md">data/hook-route-candidates/candidates.csv</a></li><li><a href="../../../../data/hook-lifecycle-review/summary.md">data/hook-lifecycle-review/top100-source-hook-route-review.csv</a></li></ul>
+<p>It starts with hooks and existing routed hook candidates, and reaches the adjacent Tier-1 lifecycle quirks those rows already touch (<code>crd-install</code>, <code>target-facts</code>, <code>webhook-readiness</code>). Quirk classes with no per-chart route data yet (for example generated-facts, lookup) are deliberately out of scope until that data exists - a small correct contract, not a broad guess.</p>
+<h2 id="the-honest-headline">The Honest Headline</h2>
+<p>0 of 25 rows are safe to show as automatic.</p>
+<p>Nothing the catalog renders today is auto-executed by the cub installer. Every route is <code>user-executes</code>, <code>target-owned</code> (a controller or GitOps engine runs it), or <code>not-yet-executable</code>. That is the entire point of the contract: a <code>routed</code> disposition means the route and its executor are named and an off-ramp exists - <b>not</b> that the product silently runs it. <code>safe_as_automatic</code> only becomes <code>yes</code> when <code>execution_mode</code> is <code>product-executes</code> and evidence proves it.</p>
+<h2 id="distribution">Distribution</h2>
+<table><thead><tr><th>Disposition</th><th>Rows</th></tr></thead><tbody><tr><td><code>observed</code></td><td>15</td></tr>
+<tr><td><code>routed</code></td><td>5</td></tr>
+<tr><td><code>todo</code></td><td>4</td></tr>
+<tr><td><code>per-target</code></td><td>1</td></tr></tbody></table>
+<table><thead><tr><th>Execution mode</th><th>Rows</th></tr></thead><tbody><tr><td><code>user-executes</code></td><td>11</td></tr>
+<tr><td><code>not-yet-executable</code></td><td>7</td></tr>
+<tr><td><code>target-owned</code></td><td>7</td></tr></tbody></table>
+<table><thead><tr><th>Quirk class</th><th>Rows</th></tr></thead><tbody><tr><td><code>hook-phase</code></td><td>12</td></tr>
+<tr><td><code>hook-delete-policy</code></td><td>4</td></tr>
+<tr><td><code>hook-test</code></td><td>2</td></tr>
+<tr><td><code>hook-weight-ordering</code></td><td>2</td></tr>
+<tr><td><code>target-facts</code></td><td>2</td></tr>
+<tr><td><code>crd-install</code></td><td>1</td></tr>
+<tr><td><code>per-target-hook</code></td><td>1</td></tr>
+<tr><td><code>webhook-readiness</code></td><td>1</td></tr></tbody></table>
+<h2 id="how-to-read-one-row">How To Read One Row</h2>
+<p>Take <code>route_name = preflight-or-presync</code>, <code>disposition = routed</code>, <code>execution_mode = user-executes</code>:</p>
+<ul><li><b>quirk_class</b> - the kind of behavior (here a pre-install/upgrade hook phase).</li><li><b>disposition</b> - <code>routed</code>: the route is named but not yet proven live.</li><li><b>route_name / default_route</b> - where the behavior goes by default.</li><li><b>alternatives</b> - the named off-ramps for this quirk class.</li><li><b>execution_mode</b> - <code>user-executes</code>: you run it; the product does not.</li><li><b>human_offramp / agent_offramp</b> - how each picks a non-default route. A human selects a different recipe base/values; an agent enumerates and selects from <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a>.</li><li><b>route_requirements</b> - what the route needs (target facts, conditions).</li><li><b>live_status / safe_as_automatic</b> - proven-ness, and the strict automatic flag (<code>no</code> until the product executes it with evidence).</li><li><b>evidence_or_next_action</b> - the receipt path if observed, else the next step.</li></ul>
+<h2 id="rows">Rows</h2>
+<table><thead><tr><th>Chart</th><th>Quirk</th><th>Route</th><th>Disposition</th><th>Execution</th><th>Auto</th></tr></thead><tbody><tr><td>airflow-helm/airflow@8.9.0</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>apache-airflow/airflow@1.21.0</td><td>hook-phase</td><td><code>recipe-time-lifecycle-verification</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>argo-cd/argo-workflows@1.0.14</td><td>crd-install</td><td><code>preflight-or-presync-crd-apply</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>bitnami/kafka@32.4.3</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>bitnami/minio@17.0.21</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>bitnami/thanos@17.3.1</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>datadog/datadog@3.214.0</td><td>per-target-hook</td><td><code>target-class-preflight-and-upgrade-action</code></td><td>per-target</td><td>user-executes</td><td>no</td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>gitlab/gitlab@10.0.0</td><td>hook-phase</td><td><code>argocd-or-flux-lifecycle-hook</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>k8s-dashboard/kubernetes-dashboard@7.14.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kong/kong@3.2.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td><code>delete-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>target-owned</td><td>no</td></tr></tbody></table>
+<h2 id="boundaries">Boundaries</h2>
+<ul><li>Static join of committed source CSVs only. No hook is executed, no cluster is touched, no ConfigHub state is changed, no <code>runs/</code> receipt is edited.</li><li>A <code>routed</code> or <code>todo</code> row is a classification, not a proof. <code>observed</code> rows point at the committed receipt in <code>evidence_or_next_action</code>.</li><li>The master matrix value <code>candidate-route</code> maps to <code>routed</code> here; the <code>source_disposition</code> column keeps the original value for traceability.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/lifecycle-routes/summary.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

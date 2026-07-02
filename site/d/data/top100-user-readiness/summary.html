@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Top-100 User Readiness · ConfigHub Helm Ops</title>
+  <meta name="description" content="Top-100 User Readiness: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/top100-user-readiness/summary.html">
+  <meta property="og:title" content="Top-100 User Readiness · ConfigHub Helm Ops">
+  <meta property="og:description" content="Top-100 User Readiness: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/top100-user-readiness/summary.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Top-100 User Readiness</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="summary.html">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Generated. Do not edit by hand.</p>
+<pre><code>npm run top100:user-readiness          # regenerate
+npm run top100:user-readiness:verify   # check</code></pre>
+<p>One row per top-100 chart, in Helm-user language: can I try it, what must I provide, what does ConfigHub/installer absorb, and what happens next. Buckets are deterministic projections of curated repo data; the mapping rules and limits are in <a href="../../../../docs/reference/top100-user-readiness.md">the reference doc</a>. Full detail per chart is in <a href="../../../../data/top100-user-readiness/readiness.csv">readiness.csv</a>.</p>
+<table><thead><tr><th>Bucket</th><th>Charts</th><th>Meaning</th></tr></thead><tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with live evidence; the recommended first base passes its lanes. Pull it and inspect the exact objects.</td></tr>
+<tr><td>works-with-target-prerequisites</td><td>15</td><td>Proof-grade and review-queued; the named gap is something your cluster or team must provide (existing Secret, storage, CRD ownership).</td></tr>
+<tr><td>works-with-operator-review</td><td>23</td><td>Proof-grade; render parity holds, but an operator should review the catalog shape (hooks, lifecycle, HA teaching, variant naming) before relying on it.</td></tr>
+<tr><td>needs-better-base-variant</td><td>33</td><td>The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet.</td></tr>
+<tr><td>not-ready-yet</td><td>9</td><td>A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted.</td></tr></tbody></table>
+<h2 id="ready-to-try-20">ready-to-try (20)</h2>
+<table><thead><tr><th>Chart</th><th>First base</th><th>You provide</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>bitnami/mongodb@19.0.7</td><td>static-passwords</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first</td></tr>
+<tr><td>bitnami/mysql@14.0.3</td><td>static-passwords</td><td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>bitnami/nginx@24.0.2</td><td>http-clusterip</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time</td><td>choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first</td></tr>
+<tr><td>bitnami/postgresql@18.6.7</td><td>static-passwords</td><td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first</td></tr>
+<tr><td>bitnami/rabbitmq@16.0.14</td><td>static-passwords</td><td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>bitnami/redis@25.5.3</td><td>default</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>choose whether default is in production scope; close or document its render-only live-readiness issue first</td></tr>
+<tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>existing-secret-ingress</td><td>nothing beyond a cluster and namespace</td><td>resolve image digests for each affected variant before production OCI support</td></tr>
+<tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>nothing beyond a cluster and namespace</td><td>resolve image digests for each affected variant before production OCI support</td></tr>
+<tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs</td><td>resolve image digests for each affected variant before production OCI support</td></tr>
+<tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>webhook/cert readiness at delivery time; mandatory chart inputs</td><td>record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope</td></tr>
+<tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>nothing beyond a cluster and namespace</td><td>write or fix the receipt for target fact preflight</td></tr>
+<tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>target facts at variant time; mandatory chart inputs</td><td>choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support</td></tr>
+<tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time</td><td>image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>default</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs</td><td>choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support</td></tr>
+<tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td><td>choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support</td></tr>
+<tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>nothing beyond a cluster and namespace</td><td>choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support</td></tr></tbody></table>
+<h2 id="works-with-target-prerequisites-15">works-with-target-prerequisites (15)</h2>
+<table><thead><tr><th>Chart</th><th>First base</th><th>You provide</th><th>Next action</th></tr></thead><tbody><tr><td>external-dns/external-dns@1.21.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>cloudnative-pg/cloudnative-pg@0.28.2</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time</td><td>run catalog promotion review</td></tr>
+<tr><td>prometheus-community/kube-state-metrics@7.4.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a StorageClass / storage decision; target facts at variant time</td><td>run catalog promotion review</td></tr>
+<tr><td>elastic/eck-operator@3.4.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>nats/nats@2.14.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>prometheus-community/prometheus-node-exporter@4.55.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); target facts at variant time; mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>gatekeeper/gatekeeper@3.22.2</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td><td>run catalog promotion review</td></tr>
+<tr><td>aqua/trivy-operator@0.32.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>autoscaler/vertical-pod-autoscaler@0.9.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>bitnami/opensearch@2.0.10</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run)</td><td>run catalog promotion review</td></tr>
+<tr><td>jetstack/trust-manager@v0.22.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>nats/nack@0.34.0</td><td>no-crds (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>open-telemetry/opentelemetry-operator@0.114.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>sealed-secrets/sealed-secrets@2.18.6</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>velero/velero@12.0.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr></tbody></table>
+<h2 id="works-with-operator-review-23">works-with-operator-review (23)</h2>
+<table><thead><tr><th>Chart</th><th>First base</th><th>You provide</th><th>Next action</th></tr></thead><tbody><tr><td>kedacore/keda@2.19.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td><td>run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt</td></tr>
+<tr><td>prometheus-community/prometheus-blackbox-exporter@11.10.0</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>stakater/reloader@2.2.12</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>grafana/alloy@1.8.2</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>prometheus-community/alertmanager@1.37.0</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision</td><td>run catalog promotion review</td></tr>
+<tr><td>elastic/logstash@8.5.1</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision</td><td>run catalog promotion review</td></tr>
+<tr><td>prometheus-community/prometheus-adapter@5.3.0</td><td>apiservice-v1-capability (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>Run ConfigHub proof, local live, live Helm-vs-ConfigHub parity, and the APIService runtime contract for the maintained apiservice-v1-capability base before catalog promotion.</td></tr>
+<tr><td>elastic/filebeat@8.5.1</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>hashicorp/terraform@1.1.2</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); mandatory chart inputs</td><td>run catalog promotion review</td></tr>
+<tr><td>fairwinds-stable/vpa@4.11.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time</td><td>review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path</td></tr>
+<tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td><td>run catalog promotion review</td></tr>
+<tr><td>strimzi/strimzi-kafka-operator@1.0.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>percona/pxc-operator@1.19.1</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); target facts at variant time</td><td>run catalog promotion review</td></tr>
+<tr><td>argo-cd/argo-events@2.4.21</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>argo-cd/argo-rollouts@2.40.9</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>argo-cd/argo-workflows@1.0.14</td><td>minimal-crds (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>autoscaler/cluster-autoscaler@9.57.0</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>grafana/rollout-operator@0.49.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>istio/gateway@1.30.0</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>nats/surveyor@0.20.9</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr>
+<tr><td>percona/pg-operator@3.0.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>percona/psmdb-operator@1.22.0</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base)</td><td>run catalog promotion review</td></tr>
+<tr><td>vm/victoria-metrics-single@0.39.0</td><td>default (unreviewed first guess)</td><td>nothing beyond a cluster and namespace</td><td>run catalog promotion review</td></tr></tbody></table>
+<h2 id="needs-better-base-variant-33">needs-better-base-variant (33)</h2>
+<table><thead><tr><th>Chart</th><th>First base</th><th>You provide</th><th>Next action</th></tr></thead><tbody><tr><td>gitlab/gitlab-runner@0.89.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); target facts at variant time; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>default (unreviewed first guess)</td><td>your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>runix/pgadmin4@1.62.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>elastic/kibana@8.5.1</td><td>default (unreviewed first guess)</td><td>your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>descheduler/descheduler@0.36.0</td><td>default (unreviewed first guess)</td><td>mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>jaegertracing/jaeger@4.8.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>dex/dex@0.24.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>falcosecurity/falco@9.0.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default (unreviewed first guess)</td><td>target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>fairwinds-stable/goldilocks@10.3.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>prometheus-community/prometheus-operator-crds@29.0.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>coredns/coredns@1.45.2</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>prometheus-community/prometheus-pushgateway@3.6.0</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>fluent/fluentd@0.5.3</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>bitnami/memcached@8.5.5</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>opencost/opencost@2.5.21</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>kyverno/kyverno-policies@3.8.0</td><td>default (unreviewed first guess)</td><td>target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>elastic/metricbeat@8.5.1</td><td>default (unreviewed first guess)</td><td>a StorageClass / storage decision; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>minio-operator/operator@7.1.1</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</td><td>default (unreviewed first guess)</td><td>mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>falcosecurity/falcosidekick@0.13.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>argo-cd/argocd-image-updater@1.2.2</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>crossplane-stable/crossplane@2.3.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>grafana/promtail@6.17.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>haproxytech/kubernetes-ingress@1.52.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>istio/istiod@1.30.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>jetstack/cert-manager-csi-driver@v0.14.0</td><td>default (unreviewed first guess)</td><td>your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>linkerd/linkerd-crds@1.8.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>minio-operator/tenant@7.1.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>rook-release/rook-ceph@v1.19.5</td><td>default (unreviewed first guess)</td><td>a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>rook-release/rook-ceph-cluster@v1.19.5</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr>
+<tr><td>vm/victoria-logs-single@0.12.5</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td><td>add at least one user-shaped variant before catalog promotion</td></tr></tbody></table>
+<h2 id="not-ready-yet-9">not-ready-yet (9)</h2>
+<table><thead><tr><th>Chart</th><th>First base</th><th>You provide</th><th>Next action</th></tr></thead><tbody><tr><td>traefik/traefik@40.2.0</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/elasticsearch@22.1.6</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/spark@10.0.3</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/zookeeper@13.8.7</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/phpmyadmin@20.0.0</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/contour@21.1.4</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>bitnami/apache@11.4.29</td><td>legacy (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td>grafana/pyroscope@2.0.2</td><td>default (unreviewed first guess)</td><td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td><td>review limitation before promotion: existing-secret (chart ships no Secret toggle)</td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/top100-user-readiness/summary.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

@@ -484,7 +484,7 @@
       <p>Helm users can usually install something. The harder problem changes by audience: a new user cannot see what will land until after the install; an app team ends up with values-file sprawl and forks; a platform reviewer cannot prove blast radius, approvals, delivery, and live convergence at fleet scale.</p>
       <p>ConfigHub's answer is staged visibility: render first, turn common install shapes into named bases, keep post-render variants explicit, and attach scans, gates, receipts, GitOps handoff, and observations to the object set.</p>
       <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
-      <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, show what was checked, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation are not fully proven yet. <a href="../docs/user/generative-gitops-fit.md">Read the fit and limits</a>.</p>
+      <p>This is the Helm-facing slice of Generative GitOps: render once, hold the result as data, show what was checked, and keep GitOps delivery. The current catalog proves the import and staged lifecycle path; full field authority, fleet propagation, and authorized live-to-desired reconciliation are not fully proven yet. <a href="d/docs/user/generative-gitops-fit.html">Read the fit and limits</a>.</p>
       <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
       <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
       <div class="card"><table>
@@ -542,7 +542,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../docs/user/choose-your-path.md">Open the full route picker</a> for tutorial links, free/public boundaries, and ConfigHub-managed operations.</p>
+      <p><a href="d/docs/user/choose-your-path.html">Open the full route picker</a> for tutorial links, free/public boundaries, and ConfigHub-managed operations.</p>
     </section>
 
     <section aria-labelledby="two-uses">
@@ -557,7 +557,7 @@
           <p>Many Helm failures come from accidentally driving a chart away from the path its authors expected. The catalog makes supported bases explicit, records where a custom choice belongs, and flags target or lifecycle gaps before they become production surprises. It keeps the user on the right path and makes departures visible.</p>
         </section>
       </div>
-      <p>For a day-2 example, read <a href="../docs/user/helm-upgrade-crash-example.md">how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed</a>.</p>
+      <p>For a day-2 example, read <a href="d/docs/user/helm-upgrade-crash-example.html">how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed</a>.</p>
     </section>
 
     <section aria-labelledby="try">
@@ -603,7 +603,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a> or <a href="../data/top100-user-readiness/summary.md">open the generated user-readiness table</a>.</p>
+      <p><a href="d/docs/user/top100-status.html">Open the plain-English top-100 status</a> or <a href="d/data/top100-user-readiness/summary.html">open the generated user-readiness table</a>.</p>
     </section>
 
     <section aria-labelledby="honesty">
@@ -633,16 +633,16 @@
       <h2 id="links">Where To Go Next</h2>
       <div class="grid">
         <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
-        <div class="card"><h3>Check a chart</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
+        <div class="card"><h3>Check a chart</h3><p><a href="d/data/chart-use-guide/summary.html">Open the chart-use guide</a>.</p></div>
         <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
-        <div class="card"><h3>Choose a path</h3><p><a href="../docs/user/choose-your-path.md">Open the route picker</a>.</p></div>
-        <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
-        <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
-        <div class="card"><h3>Review an upgrade story</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">Open the Helm upgrade crash example</a>.</p></div>
-        <div class="card"><h3>Check the trust boundary</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a>.</p></div>
-        <div class="card"><h3>Verify it yourself</h3><p><a href="../docs/user/verify-it-yourself.md">Open verification commands</a>.</p></div>
-        <div class="card"><h3>Understand production support</h3><p><a href="../docs/user/production-support-decisions.md">Open production support decisions</a>.</p></div>
-        <div class="card"><h3>Choose the right command</h3><p><a href="../docs/user/choosing-commands.md">Open command routing</a>.</p></div>
+        <div class="card"><h3>Choose a path</h3><p><a href="d/docs/user/choose-your-path.html">Open the route picker</a>.</p></div>
+        <div class="card"><h3>Pick a base variant</h3><p><a href="d/data/top20-base-readiness/summary.html">Open top-20 base readiness</a>.</p></div>
+        <div class="card"><h3>Read current proof status</h3><p><a href="d/docs/user/current-proof-status.html">Open current proof status</a>.</p></div>
+        <div class="card"><h3>Review an upgrade story</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">Open the Helm upgrade crash example</a>.</p></div>
+        <div class="card"><h3>Check the trust boundary</h3><p><a href="d/docs/user/what-we-refuse-to-claim.html">Open what we refuse to claim</a>.</p></div>
+        <div class="card"><h3>Verify it yourself</h3><p><a href="d/docs/user/verify-it-yourself.html">Open verification commands</a>.</p></div>
+        <div class="card"><h3>Understand production support</h3><p><a href="d/docs/user/production-support-decisions.html">Open production support decisions</a>.</p></div>
+        <div class="card"><h3>Choose the right command</h3><p><a href="d/docs/user/choosing-commands.html">Open command routing</a>.</p></div>
       </div>
     </section>
   </main>

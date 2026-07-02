@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serverless Verified Install Model · ConfigHub Helm Ops</title>
+  <meta name="description" content="Serverless Verified Install Model: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/serverless-verified-install-plan.html">
+  <meta property="og:title" content="Serverless Verified Install Model · ConfigHub Helm Ops">
+  <meta property="og:description" content="Serverless Verified Install Model: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/serverless-verified-install-plan.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Serverless Verified Install Model</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="serverless-verified-install-plan.html">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Design doc. Status: draft for discussion. Derived from the helm-expt repo (current main), the package and recipe catalog, and prior strategy sessions.</p>
+<h2 id="1-the-question">1. The question</h2>
+<p>Can a user get a useful subset of the total benefits without logging into ConfigHub? Three candidate shapes:</p>
+<ul><li>(a) No server at all: some iteration of <code>cub installer</code> plus the YAML recipes and packages.</li><li>(b) Git used as a server somehow.</li><li>(c) No login, but a default or vanilla anonymous use of ConfigHub is possible.</li></ul>
+<p>In all cases the target experience is that the speed of <code>helm install redis</code> is matched by a verified installer path against an appropriate Kubernetes cluster. The current substrate is <code>cub installer setup</code>. A shorter one-command wrapper may be useful later, but this document does not treat that wrapper as shipped CLI. Restricting the demo set is acceptable. The main thing is that a wide range of default charts just work, and build trust.</p>
+<h2 id="2-prior-conclusions-that-scope-the-design">2. Prior conclusions that scope the design</h2>
+<p>Three earlier findings bound what this mode can honestly be.</p>
+<p>The right axis is capture versus live-graph, not serverless versus server. The capture layer (render, equivalence, provenance, named variants, scan, signing, single-artifact review) is genuinely serverless. The operational payoff (propagation, blast-radius queries, fleet operations, live state with freshness, authority) is the graph and stays server-side. A serverless mode is honest exactly as long as it claims the first list and not the second.</p>
+<p>Of the roughly twenty-eight catalogued problems, about seventeen are Helm problems fixable in the capture layer. That is a real, sellable subset: the &quot;verifiably replace Helm&quot; half. The other eleven are System-of-Record problems that need the Server, and the serverless mode must not imply otherwise.</p>
+<p>The design follows the current product boundary: minimal scope, open source, no mandatory server, no GUI dependency, config in git or OCI, and delivery through existing Kubernetes and GitOps tools. It is the persona-1 wedge from the Helm community PRD: as fast as <code>helm install</code>, but with more visibility and proof.</p>
+<h2 id="3-what-the-repo-already-has">3. What the repo already has</h2>
+<p>Most of the model exists in the current tree. Path 1 of <code>try-now.md</code> uses <code>cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --non-interactive --namespace redis</code> to pull the package, pick a named base variant, and render locally. <code>npm run redis:verify-install:render</code> proves the rendered objects match the catalog acceptance contract. No login is needed in that path. Login first appears in Path 2 (upload to ConfigHub Units), exactly where the capture-versus-graph line says it should.</p>
+<p>The live half exists as harness lanes: the redis-local-kind run applies to a kind cluster and runs cub-scout locally, producing closed-world, object-set, and workload observation receipts plus a liveness check (redis answers PING). The honesty discipline is doctrine: what-we-refuse-to-claim, current-proof-status, and chain-of-proof, with the rule that every strict live BLOCK gets a public route (watchlist row or named normalization rule). And the scoping question is measured, not estimated: per-chart confighub-proof runs and top20-base-readiness give the data for which charts just work.</p>
+<h3 id="the-gap-in-three-items">The gap, in three items</h3>
+<ol><li><b>One composed path.</b> Today the path is setup, then an npm verify, then a harness lane for apply, then cub-scout. A future high-level installer wrapper could compose resolve, pull, verify, collect facts, apply, and record. Every stage exists; nothing composes them yet. Plumbing, not invention.</li><li><b>Name resolution without a clone.</b> <code>--pull packages/bitnami/redis/25.5.3</code> assumes the user knows the vendor/chart/version triple and has cloned a five-thousand-file repo, which breaks the as-fast-as-helm bar. The fix is a static, signed catalog index (&quot;redis&quot; resolves to the latest promoted bitnami/redis package), served from GitHub Pages or OCI, with packages pulled as signed OCI artifacts. The index must be correct and current; its date is printed in the transcript (section 7), which makes staleness user-visible and puts the right pressure on the refresh pipeline.</li><li><b>In-cluster install record.</b> Receipts currently land in runs/ directories on local disk, so list, upgrade, rollback, and uninstall have no durable anchor. The Helm-style answer: write the receipt and object inventory as a ConfigMap or Secret per install. The cluster is the server. Day-2 verbs read that record; local cub-scout supplies the diff and observe halves.</li></ol>
+<h2 id="4-the-design">4. The design</h2>
+<h3 id="future-serverless-installer-flow">Future Serverless Installer Flow</h3>
+<ol><li><b>Resolve.</b> &quot;redis&quot; resolves via the static signed catalog index to a pinned package (vendor, chart, version, digest). No clone, no login.</li><li><b>Pull and verify.</b> Fetch the signed OCI artifact; cosign-verify locally against the published catalog key. Trust requires no server by design; proofs must be checkable without trusting the store.</li><li><b>Pick the base.</b> <code>installer.yaml</code> already declares named bases with a default. The current command uses <code>--base default</code>; a future wrapper could choose the default when no base is specified. No values file, no render: a menu of pre-rendered, pre-scanned bases.</li><li><b>Collect facts.</b> Run the package's collector against the current kubeconfig context. Resolve declared target facts; refuse loudly and early if a required fact (an existing Secret, a StorageClass) is missing. Helm fails late and silently; this fails early and loudly, or passes with prerequisites proven present.</li><li><b>Apply and record.</b> Server-side apply the object set in CRD-before-CR order. Write the receipt (inventory, artifact digest, variant, facts used) into the cluster. Note: direct apply dodges the GitOps secret-delivery hole (issue 113) entirely, because that hole is specific to the upload path; serverless mode ships the Secret because it applies it itself.</li><li><b>Observe.</b> Run the local cub-scout pass and report the observation receipt: not &quot;the apply returned zero&quot; but &quot;the workloads are up and answering.&quot;</li><li><b>Operate.</b> Day-2 commands read in-cluster receipts. Inventory diff compares live state against the recorded inventory. Upgrade preview pulls the next pinned revision and shows the object-level diff before touching anything. Rollback re-applies the previous inventory. Uninstall deletes by inventory.</li></ol>
+<h3 id="resolving-shapes-a-b-c">Resolving shapes (a), (b), (c)</h3>
+<p>(a) is the product. (b) demotes to an optional future flag that commits the artifact reference and receipt to a repo for teams wanting shared history, and the same artifact hands to Argo or Flux unchanged; making git the default would break the speed bar persona 1 lives or dies on. (c) shrinks to its anonymous-read core: the static index needs no server at all; an anonymous ConfigHub catalog UI is a marketing surface, not a dependency.</p>
+<h2 id="5-which-charts-just-work">5. Which charts just work</h2>
+<p>No hand-picked demo set. The scan corpus already computes the boundary: vanilla charts (no hooks, no webhooks, no required facts) flow through untouched; standard charts work with a declared fact or two; complex charts (hooks, webhook cert bootstrap, CRD upgrade) are refused honestly in serverless mode, with the chart's residue list surfaced at install time: &quot;this chart needs lifecycle steps; install with --allow-hooks runs them best-effort without proof, or use the server.&quot; Refusals follow the existing watchlist-or-named-rule discipline. &quot;A wide range of default charts just work&quot; is true by construction for the vanilla and standard tiers, and the boundary is disclosed rather than discovered.</p>
+<h2 id="6-what-people-see-the-value-beyond-it-worked-like-helm">6. What people see (the value beyond &quot;it worked like Helm&quot;)</h2>
+<p>&quot;It worked like Helm&quot; is the bar, not the value. The value is three visible moments around the install, each one a thing Helm users already do today with pain.</p>
+<p><b>See before.</b> The exact objects that will deploy and the effective values, with no render and no values-file spelunking. A menu of named variants instead of reverse-engineering values.yaml. The pain report: what the scan flagged. Required facts checked up front, before apply, instead of a CrashLoopBackOff twenty minutes after.</p>
+<p><b>Prove during.</b> The artifact is signed and verified on pull: what is being applied is exactly what the catalog rendered from exactly that chart at exactly that version, checked locally. The install writes a receipt recording what was applied, which variant, which facts, which digest.</p>
+<p><b>Check after.</b> Where this beats Helm most visibly. Object-level drift can be checked from the recorded inventory, where Helm needs a plugin and two renders. Upgrade preview can show the exact object diff before applying, the view Helm cannot produce. Rollback can return to the precise prior inventory. The observation receipt proves the thing is alive.</p>
+<p>The demo line: Helm tells you &quot;deployed.&quot; This tells you deployed, here is what it was, here is proof it came from the chart it claims, here is proof it landed, and here is proof it is alive, and next month you can ask &quot;has anything drifted&quot; and get an answer in one command. The value is least visible on day 1 and most visible at the first moment of doubt, so the upgrade-preview and drift-check moments belong in the first five minutes of the tutorial.</p>
+<p>One more audience: the receipts are machine-readable, so an AI agent that ran the install can hand its operator the proof, or a second agent can check it. The first taste of verification-as-query, delivered serverless.</p>
+<h2 id="7-the-entry-page">7. The entry page</h2>
+<p>Design insight: the best entry page for a CLI is a faithful transcript of a great run. The terminal output is the documentation, which means the page and the CLI output are designed together, and most of the docs work is CLI output design. Draft:</p>
+<hr>
+<h1 id="install-any-helm-chart-keep-the-proof">Install any Helm chart. Keep the proof.</h1>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>cub installer setup --pull oci://example/catalog/bitnami/redis:25.5.3 --base default --namespace redis --non-interactive</code></pre>
+<p>Works like <code>helm install</code>. Same speed, same result, one difference: you can see everything before it happens, and prove everything after.</p>
+<h2 id="what-youll-see">What you'll see</h2>
+<pre><code>$ cub installer setup --pull oci://example/catalog/bitnami/redis:25.5.3 --base default --namespace redis --non-interactive
+
+  resolved   bitnami/redis 25.5.3 (catalog: 2026-06-09, signed)
+  base       default        (also: ha, no-crds, reuse-existing-secret)
+  preview    14 objects -&gt; namespace redis (run with --show-objects to inspect)
+  checks     no hooks, no CRDs, 0 warnings from scan
+  facts      needs StorageClass: found &quot;standard&quot;
+  verify     signature OK (cosign, catalog key)
+
+  apply? [y/N] y
+
+  applied    14/14 objects
+  recorded   receipt -&gt; cluster
+  observed   redis answers PING -&gt; PONG
+
+  done in 41s</code></pre>
+<p>Every line above is a question Helm can't answer. What exactly will deploy, before it deploys. Whether the cluster has what the chart needs, before it fails. Whether this is really the chart it claims to be. Whether it actually landed and actually runs.</p>
+<h2 id="the-first-moment-of-doubt">The first moment of doubt</h2>
+<p>A month from now, something looks off. Ask:</p>
+<pre><code>inventory diff        # what changed vs. what I installed, object by object
+upgrade preview       # shows the exact diff of the new version before applying
+rollback by receipt   # returns to the exact prior state, not a guess</code></pre>
+<p>No second render, no plugin, no archaeology. The install remembered itself.</p>
+<h2 id="what-this-is-honestly">What this is, honestly</h2>
+<p>Every chart here was rendered once from the real chart, compared against Helm's own output, scanned, and signed. You can re-verify all of it yourself, locally, without trusting us. Some charts need decisions we won't make for you (CRD upgrades, secrets you must supply); each chart's page lists exactly what those are. What we refuse to claim is written down [link: what-we-refuse-to-claim].</p>
+<h2 id="when-you-have-more-than-one">When you have more than one</h2>
+<p>The second time you install the same chart, you'll have two copies that nothing connects. That's where this stops and ConfigHub starts: one base, many variants, a change made once propagating everywhere it should and nowhere it shouldn't, with the blast radius shown before you commit and proof of arrival after. Everything you've installed here imports in one command. [link: see it on your own installs]</p>
+<hr>
+<p>Notes on the draft. The hero is the transcript, and each output line maps one-to-one to a catalogued pain point, so the page teaches the value proposition without arguing it. &quot;The first moment of doubt&quot; is deliberately the second section: that is where this beats Helm most, and a day-1 reader needs to be shown their day-30 self. The honesty block is short but load-bearing: in a catalog whose brand is proof, the credibility section is a feature. The closing paragraph states the second-install wall in advance, so when the CLI later says it, it reads as a reminder rather than an ad. Product implication: this page commits to the installer path as the command surface; any later short wrapper must preserve the same output shape. The catalog date in line one carries the up-to-date requirement; index staleness becomes user-visible.</p>
+<h2 id="8-the-upsell">8. The upsell</h2>
+<p>Principle: a strong upsell sells the next recurring feared event, and fires at the exact moment the user feels the wall. Three mechanisms.</p>
+<p><b>Put the wall in the product, not the pricing page.</b> The serverless tool detects its own limits and says so when they bind. The sharpest instance is the second install: the moment someone installs the same base into a second namespace or cluster, the tool knows (the in-cluster records make it knowable) and says: &quot;You now have 2 unrelated copies of bitnami/redis. Nothing connects them. Sign in to make them variants of one base: change the base once, both update, overrides protected.&quot; Same pattern at first upgrade (&quot;this chart moved from 25.5.3 to 26.0.0 upstream; signed-in users got the diff, the override check, and one-click propagation across environments&quot;) and at first drift detection (&quot;drift found; locally you can revert it; signed in you'd know who made it and whether it was authorized&quot;).</p>
+<p><b>Sell the event, not the feature.</b> Nobody wants &quot;fleet management.&quot; They dread a critical CVE, a chart upgrade that broke prod last time, an auditor asking who changed a value. So the upsell is three questions with dates attached: When the next critical CVE lands, can you answer in one minute where you run that image, what to change, and what breaks if you change it? When the next chart release ships, can you see exactly what it would change in every environment before touching any of them? When someone asks who changed this value and whether they were allowed to, do you have an answer or a shrug? Serverless answers each for one install. The graph answers for everything you run.</p>
+<p><b>Make the loss visible.</b> Every serverless install already produces proofs: provenance, receipts, signatures. Unsigned-in, those proofs sit on a laptop and in scattered ConfigMaps, unqueryable and decaying. The upsell line is not &quot;get more features&quot; but &quot;stop throwing away what you're already producing.&quot; <code>cub login &amp;&amp; cub import</code> lifts every existing install into the graph in one step, nothing re-rendered. The first thing the user sees post-import is the high-fanout demo run on their own estate: change one base value, watch the blast radius compute across their actual installs, see the reached-everywhere ledger. The demo machinery exists (data/high-fanout-demo). The import-to-wow path must land within five minutes of login.</p>
+<p>Receipt footer line, on every serverless receipt: &quot;This receipt proves one install. Sign in to prove all of them, and to be asked before a change, not after.&quot;</p>
+<p>Discipline that keeps the wedge healthy: never gate the local basics (diff, rollback, observe-once) to force the upgrade. The upsell argument is &quot;the graph does what local provably cannot,&quot; and it stays credible only if nothing local was artificially limited to make it.</p>
+<h2 id="9-what-changes-when-you-sign-in">9. What changes when you sign in</h2>
+<p>The user keeps using the installer path. The flags and transcript shape should stay as close as possible before and after login. What changes is not the base command model but three things underneath it.</p>
+<p><b>Where desired state lives.</b> Serverless, the only durable record is the in-cluster receipt. Signed in, the install also creates Units in a Space: the desired state enters the graph. Path 2 of try-now (the explicit upload) happens implicitly as part of install. The in-cluster record is still written, so the cluster-side truth never disappears; the graph is additive.</p>
+<p><b>Who is accountable.</b> Serverless, the apply is anonymous and local. Signed in, every value written carries the user's identity and authority: change provenance starts accruing from the first install. The second install of the same chart is no longer an unrelated copy; it lands as a variant related to the first, with the base-to-variant edges live in the graph.</p>
+<p><b>What runs around the apply.</b> Serverless, nothing: resolve, verify, apply. Signed in, the org's gates and policies run before apply (and can block), the receipt goes to the queryable ledger as well as the cluster, observation becomes continuous instead of on-demand, and the apply can flow through the org's delivery path (worker, or hand-off to the org's Argo/Flux) instead of a direct kubectl-style apply.</p>
+<p>Resolution also gains a layer: signed in, &quot;redis&quot; resolves first against the org's catalog (pinned versions, approved variants, org defaults) before falling back to the public index, and the transcript says so: <code>resolved bitnami/redis 25.5.3 (org pin; public catalog has 26.0.0)</code>. Governance becomes visible in line one rather than discovered at gate time.</p>
+<p>Concretely, the signed-in transcript is the serverless transcript with a few added lines and none removed:</p>
+<pre><code>$ cub installer setup --pull oci://example/catalog/bitnami/redis:25.5.3 --base default --namespace redis --non-interactive
+
+  resolved   bitnami/redis 25.5.3 (org pin; public catalog has 26.0.0)
+  base       default        (org-approved: default, ha)
+  preview    14 objects -&gt; namespace redis
+  facts      needs StorageClass: found &quot;standard&quot;
+  verify     signature OK (cosign, catalog key)
+  gates      org policy: 2 checks passed, 0 blocked
+
+  apply? [y/N] y
+
+  applied    14/14 objects (via space: payments-dev)
+  recorded   receipt -&gt; cluster + ledger  (unit: redis, space: payments-dev)
+  related    1 other install of bitnami/redis found -&gt; linked as variant
+  observed   redis answers PING -&gt; PONG  (continuous observation: on)
+
+  done in 47s</code></pre>
+<p>Design rules that make this work:</p>
+<ul><li>One command family, two substrates. The installer inspects the auth context: no context, local mode; authenticated context, graph mode. <code>--local</code> would force serverless behavior even when logged in, for the user who wants it.</li><li>Same receipt schema in both modes. This is what makes <code>cub import</code> lossless and the upsell promise (&quot;keep everything, add the graph&quot;) literally true. The serverless receipts are graph receipts that haven't been shipped yet.</li><li>The transcript only ever gains lines at login. If the signed-in flow requires relearning the command or changes the meaning of any existing line, the continuity promise is broken and the wedge stops feeding the funnel.</li></ul>
+<h2 id="10-open-items-and-honest-gaps">10. Open items and honest gaps</h2>
+<ul><li><b>Catalog freshness is a correctness requirement, not an ops nicety.</b> Name resolution from the package and recipe catalog means the index must be regenerated and signed on every promotion, and the printed catalog date makes staleness visible. The refresh pipeline (latest-top20-refresh and its promotion work orders) is the dependency.</li><li><b>Upgrade across install-vs-upgrade-divergent charts.</b> The capture exists (both renders recorded); the apply logic for choosing the upgrade render is not yet a serverless verb.</li><li><b>In-cluster record spec.</b> Namespace, naming, size limits, and pruning need a short spec so the record does not reinvent Helm's three-way-merge wedging.</li><li><b>Multi-writer is out of scope by design.</b> Serverless mode is single operator, one cluster, the regime where graph-less is safe. The moment of concurrency is a wall message, not a feature request.</li><li><b>The output format is product surface.</b> The transcript in sections 7 and 9 is the contract; spec it alongside the entry page, not after.</li><li><b>--allow-hooks semantics.</b> Best-effort hook execution without lifecycle proof must be visibly marked degraded in the receipt, per the refuse-to-claim discipline.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/serverless-verified-install-plan.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

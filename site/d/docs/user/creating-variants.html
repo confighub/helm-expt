@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creating Variants · ConfigHub Helm Ops</title>
+  <meta name="description" content="Creating Variants: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/creating-variants.html">
+  <meta property="og:title" content="Creating Variants · ConfigHub Helm Ops">
+  <meta property="og:description" content="Creating Variants: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/creating-variants.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Creating Variants</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="creating-variants.html">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>This guide explains how a Helm user should think about variants in this project.</p>
+<p>There are two variant stages, and the one-line definitions are:</p>
+<pre><code>Base variant = the render-time Helm install shape.
+Derived ConfigHub variant = the post-render environment, region, customer, or target refinement.</code></pre>
+<p>A <b>base variant</b> is the rendered install shape created by <code>cub installer</code>. A <b>derived ConfigHub variant</b> starts from a reviewed uploaded base and applies approved post-render refinements without running Helm again. If those names feel similar, use this rule first:</p>
+<pre><code>Helm render inputs or object shape change -&gt; base variant.
+Approved post-render fields, facts, links, targets, gates, or checks change -&gt; derived ConfigHub variant.</code></pre>
+<p>There are three common situations:</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <pre><code>Helm needs to render a different object set or lifecycle shape.
+  Use a cub installer base variant.
+
+The reviewed object set is being refined after render.
+  Use a derived ConfigHub variant.
+
+The artifact is ready, but Kubernetes or GitOps needs something else first.
+  Record or satisfy the delivery prerequisite before OCI delivery.</code></pre>
+<h2 id="component-and-variant-model">Component And Variant Model</h2>
+<p>The higher-order model is simple: ConfigHub treats an app or workload as a Component, then treats each named configuration instance as a Variant.</p>
+<pre><code>Component: payments-api
+
+Variants:
+  payments-api/base
+  payments-api/dev
+  payments-api/staging
+  payments-api/prod-us
+  payments-api/prod-eu</code></pre>
+<p>A <b>Component</b> is the logical thing being configured and shipped: an app, service, platform package, or deployable capability such as <code>payments-api</code>, <code>redis</code>, or <code>ingress-nginx</code>. Today, Component is represented by standard metadata rather than a separate first-class API entity. Users should mostly think of it as the family name for a related set of configurations.</p>
+<p>A <b>Variant</b> is one named configuration instance of that Component: <code>base</code>, <code>dev</code>, <code>staging</code>, <code>prod-us</code>, <code>customer-a</code>, <code>ha</code>, <code>tls-enabled</code>, and so on. When created through <code>cub variant create</code>, it is not just a label convention: it is a downstream clone of an upstream configuration, stamped with upstream identity so it can later be promoted or upgraded from that upstream.</p>
+<p>The unlock is that ConfigHub can ask questions about the family, not only the individual Units:</p>
+<ul><li>what changed between the base and <code>prod-us</code>;</li><li>which variants are downstream of this base;</li><li>whether this base change can promote to staging but not prod yet;</li><li>which target facts or overrides make <code>prod-eu</code> different;</li><li>whether an AI-assisted change stayed inside the approved variant boundary.</li></ul>
+<p>Caveat: Component is currently mostly a grouping concept. Variant has stronger behavior because <code>cub variant create</code> and <code>cub variant promote</code> give it upstream/downstream clone and promotion semantics.</p>
+<h2 id="choose-the-path-first">Choose The Path First</h2>
+<table><thead><tr><th>What the user wants</th><th>Use</th><th>Example</th></tr></thead><tbody><tr><td>a different Kubernetes object set</td><td><code>cub installer</code> base variant</td><td><code>prometheus/server-only-ephemeral</code>, <code>redis/reuse-existing-secret</code></td></tr>
+<tr><td>the same reviewed objects in a new operating context</td><td>derived ConfigHub variant</td><td><code>prometheus/server-only-ephemeral -&gt; prod-us-east</code></td></tr>
+<tr><td>something Kubernetes needs before it can use the artifact</td><td>delivery prerequisite</td><td>existing Secret, CRD owner, StorageClass, Argo/Flux pull credentials</td></tr></tbody></table>
+<p>This choice should be visible before the user sees detailed receipts or proof data. Receipts matter, but the first UX question is simply where the change belongs.</p>
+<h2 id="variant-file-and-values-profile">Variant File And Values Profile</h2>
+<p>A base variant usually has two related files:</p>
+<table><thead><tr><th>File</th><th>Meaning</th></tr></thead><tbody><tr><td><code>variants/&lt;name&gt;/variant.yaml</code></td><td>The named install shape: recipe pointer, namespace, release name, values profile, capability profile, hook policy, and other variant-level controls.</td></tr>
+<tr><td><code>effective-values*.yaml</code></td><td>The captured Helm values profile used to render that install shape.</td></tr></tbody></table>
+<p>For example, Prometheus <code>server-only-ephemeral</code> is split like this:</p>
+<pre><code>recipes/prometheus-community/prometheus/29.8.0/
+  effective-values-server-only-ephemeral.yaml
+  variants/server-only-ephemeral/variant.yaml</code></pre>
+<p>The <code>variant.yaml</code> file points at the values profile:</p>
+<pre><code>spec:
+  valuesProfile: &quot;../../effective-values-server-only-ephemeral.yaml&quot;</code></pre>
+<p>The values profile contains the Helm inputs that make this install shape different from the default Prometheus render, such as disabling Alertmanager, exporters, pushgateway, and persistence. The variant file gives that rendered shape a name and records the surrounding render controls.</p>
+<p>The files live in different folders because values profiles are recipe-level proof artifacts. A recipe can hash, compare, reuse, and cite them across variants and revisions. The variant directory is for the named variant's control file and variant-specific artifacts.</p>
+<p>Derived ConfigHub variants usually should not create a new <code>effective-values</code> file, because they do not rerender Helm. If the user needs different Helm values, route back to a base variant. If the user keeps the same reviewed object set and changes target, labels, gates, fact bindings, or approved post-render fields, use a derived ConfigHub variant.</p>
+<h2 id="base-variants">Base Variants</h2>
+<p>A base variant is a reviewed install shape produced by <code>cub installer</code>.</p>
+<p>Use a base variant when Helm must render a different object set, object shape, or lifecycle behavior.</p>
+<p>Common examples:</p>
+<ul><li>turn chart components on or off;</li><li>change storage, ingress, TLS, CRDs, RBAC, webhooks, args, env, object count, or topology;</li><li>change replica or HA settings when they alter topology, chart branches, services, PDBs, storage, or lifecycle behavior;</li><li>switch between generated Secret mode and existing Secret mode when the rendered references differ;</li><li>apply a Helm values file or <code>--set</code> flag that changes Helm template output or object shape;</li><li>apply a Kustomize overlay or post-renderer that materially changes the install shape;</li><li>use a wrapper chart, umbrella chart, platform values, or customer overlay values that change the Helm-rendered object set.</li></ul>
+<p>Examples:</p>
+<pre><code>redis/default
+redis/reuse-existing-secret
+prometheus/default
+prometheus/server-only-ephemeral</code></pre>
+<p>The important point is simple: if Helm needs to re-evaluate chart templates, or if the object count, object shape, dependencies, or lifecycle behavior changes, make that difference visible in a base variant.</p>
+<h2 id="derived-confighub-variants">Derived ConfigHub Variants</h2>
+<p>A derived ConfigHub variant starts from a reviewed uploaded base. It does not run Helm again.</p>
+<p>Use a derived variant when the reviewed object set can be cloned and refined with approved post-render changes over ConfigHub Units.</p>
+<p>The preservation rule is strict:</p>
+<pre><code>The cloned Units should keep the reviewed rendered data unless an allowed
+post-render mutation changes a declared path and records a receipt.</code></pre>
+<p>If a clone changes decoded Kubernetes data without an allowed mutation receipt, treat that as drift to investigate. Do not present it as a valid variant just because the clone command completed.</p>
+<p>Common examples:</p>
+<ul><li>environment, region, customer, or target;</li><li>replica count when it is an approved edit to an already-rendered workload field;</li><li>namespace when the base exposes it as a post-render field;</li><li>ConfigHub labels, annotations, views, links, and ownership;</li><li>approval gates and operation policy;</li><li>observation policy and freshness expectations;</li><li>target fact bindings such as Secret names, hosted zones, endpoint IDs, or account IDs when the base already exposes those references;</li><li>placeholder, parameter Unit, or TransformPaths fills over existing fields;</li><li>PostClone trigger or function mutations selected by the source Space, with checks and MutationSources receipts.</li></ul>
+<p>Example:</p>
+<pre><code>prometheus/server-only-ephemeral
+-&gt; prometheus/prod-us-east</code></pre>
+<p>The production variant keeps the same Prometheus install shape. It may change target, labels, namespace fields, fact bindings, gates, links, checks, and observation policy through the Creator contract.</p>
+<h2 id="one-worked-path-end-to-end">One Worked Path, End To End</h2>
+<p>This is the compact day-1 value story, using shipped commands only. It keeps the Prometheus install shape fixed and changes only the operating context.</p>
+<pre><code>prometheus/server-only-ephemeral        (reviewed, uploaded base)
+-&gt; prod-us-east derived variant         (cub variant create)
+-&gt; labels, target, approval, observation policy
+-&gt; preview the changed paths            (cub unit diff against the upstream Units)
+-&gt; checks                               (install shape preserved, Unit count preserved, links intact)
+-&gt; receipt                              (committed run evidence)</code></pre>
+<p>The shipped commands for that sequence:</p>
+<pre><code># 1. Create the derived variant from the uploaded base Space.
+cub variant create prod-us-east helm-prometheus-server-only \
+  --environment Prod \
+  --region us-east
+
+# 2. Preview what actually changed: diff a cloned Unit against its upstream.
+cub unit diff &lt;unit&gt; --space &lt;derived-space&gt;
+
+# 3. Check the preservation rule: same Units, same rendered shape, links intact.
+cub unit list --space &lt;derived-space&gt; \
+  --columns Unit.Slug,Unit.Labels.Variant,Unit.Labels.Environment</code></pre>
+<p>The expected preview is small: labels, environment, region, and any approved post-render fills. If the diff shows decoded Kubernetes data changing without an allowed mutation receipt, stop and treat it as drift, not a variant.</p>
+<p>A committed example receipt for exactly this path is <code>runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml</code>, created from a clean uploaded base, cloned with <code>cub variant create --target</code>, and reconciled by Argo CD. The richer guided preview screens shown later in this doc are proposals layered over these same commands.</p>
+<h2 id="promoting-a-later-base-change">Promoting A Later Base Change</h2>
+<p>Every recipe-backed chart gets the same ConfigHub promotion mechanism once it has:</p>
+<ul><li>a reviewed <code>cub installer</code> base rendered from the recipe;</li><li>an uploaded upstream ConfigHub Space for that reviewed base;</li><li>one or more downstream Spaces created with <code>cub variant create</code>.</li></ul>
+<p>The promotion capability is part of ConfigHub server use. It is not something each Helm recipe has to invent. The recipe creates the reviewed upstream object set; ConfigHub gives users a repeatable way to stage, preview, approve, and roll that object set into downstream variants.</p>
+<p>Do not treat that as a blanket production claim. A chart/base should advertise promotion support only after its own promotion receipt proves the expected behavior: changed upstream Units are previewed, new upstream Units are added, intended downstream field ownership is preserved, and any deletions or unsupported merge cases are either handled or refused with a named reason.</p>
+<p>When the recipe or base is refreshed, rerender and review the upstream base first. Then promote each downstream variant from that reviewed upstream Space:</p>
+<pre><code># Preview changed Units and mutation paths.
+cub variant promote &lt;downstream-space&gt; --dry-run -o mutations
+
+# Promote through the normal ConfigHub review path.
+cub changeset create &lt;release-name&gt; --space &lt;downstream-space&gt;
+cub variant promote &lt;downstream-space&gt; \
+  --changeset &lt;release-name&gt; \
+  --change-desc &quot;Promote reviewed base update&quot;</code></pre>
+<p>That gives the rollout a visible sequence:</p>
+<pre><code>recipe/base refresh
+-&gt; reviewed upstream Space
+-&gt; dry-run downstream mutation preview
+-&gt; changeset and approval
+-&gt; apply/publish to the target
+-&gt; live observation</code></pre>
+<p>This is not a hidden Helm upgrade. Helm-render-changing choices still belong in the <code>cub installer</code> recipe/package path. <code>cub variant promote</code> carries the reviewed ConfigHub changes into derived variants so staging, production, and customer Spaces can move in controlled waves.</p>
+<p>When a downstream variant intentionally owns a field differently from the upstream, record that boundary explicitly. <code>cub unit set-predicates</code> can mark a path as protected or reopen it for future upstream merges:</p>
+<pre><code>cub unit set-predicates &lt;unit&gt; --space &lt;downstream-space&gt; \
+  --predicate &quot;apps/v1/Deployment:monitoring/prometheus-server:spec.replicas=false&quot;</code></pre>
+<p>That makes promotion safer because local ownership is represented as ConfigHub data, not as an undocumented patch.</p>
+<p>The consolidated promotion model is in <a href="../../../../docs/reference/variant-promotion-model.md">Variant Promotion Model</a>. Current evidence shows server-side promotion mechanics for the primary top-20 rows, but those rows remain watch-grade until the changeset-bound path tracked in <a href="https://github.com/confighub/helm-expt/issues/682">#682</a> is fixed and rerun.</p>
+<h2 id="delivery-prerequisites">Delivery Prerequisites</h2>
+<p>Before OCI publication or GitOps sync, the artifact should already represent the reviewed desired state for that target.</p>
+<p>Settle these before delivery:</p>
+<ul><li>selected base variant;</li><li>selected derived ConfigHub variant, if the deployment needs one;</li><li>required existing Secret, StorageClass, IngressClass, namespace, CRD, API, or webhook;</li><li>generated password, certificate, random value, or time-derived value;</li><li>scan and gate status;</li><li>hook, CRD, webhook, and lifecycle decision;</li><li>approval state;</li><li>OCI digest, signature, and access method;</li><li>Argo CD or Flux configuration that will consume the OCI artifact.</li></ul>
+<p>Do not publish a generic artifact and rely on an untracked cluster patch to make it correct later.</p>
+<h2 id="human-flow">Human Flow</h2>
+<p><b>Status: UX proposal.</b> The screen below is a product sketch. The shipped surface today is the <code>cub variant create</code> command and the ConfigHub web UI; the worked path above uses only shipped commands.</p>
+<p>The user-facing flow should be short and concrete.</p>
+<p>Example:</p>
+<pre><code>Create variant
+From: prometheus/server-only-ephemeral
+For: prod-us-east
+Change: target, environment, region, production gates, observation policy
+Review: same Prometheus install shape, approved post-render production refinements
+Status: ready to create
+Create</code></pre>
+<p>The first screen should show the route and the visible changes. Details such as object digests, Unit counts, links, scans, and receipts should be available in a details view, audit view, or verification output.</p>
+<p>Current building blocks:</p>
+<pre><code>cub installer setup
+cub installer upload
+cub variant create
+cub variant promote
+ConfigHub Units, Spaces, labels, links, gates, functions, and receipts</code></pre>
+<p>The current CLI primitive is:</p>
+<pre><code>cub variant create prod-us-east helm-prometheus-server-only \
+  --environment Prod \
+  --region us-east \
+  --namespace monitoring-prod \
+  --space-pattern 'template:{{.Labels.Component}}-{{.Labels.Variant}}'</code></pre>
+<p>That command clones the upstream Space and Units, sets the downstream Space labels to <code>Variant=prod-us-east</code>, <code>Environment=Prod</code>, and <code>Region=us-east</code>, and links the cloned Units back to their upstream Units. Add <code>--target &lt;target-slug&gt;</code> only when the target already exists. Use <code>--namespace</code> only when the upstream base was uploaded with a placeholder namespace and the derived variant should set a concrete namespace on cloned Kubernetes/YAML Units. Cloned Units keep their source base labels unless a post-clone trigger or later bulk update changes them.</p>
+<p>Current live target-bound example:</p>
+<pre><code>nginx/http-clusterip
+-&gt; NGINX-prod-us-east
+-&gt; NGINX-customer-acme-prod
+
+metrics-server/default
+-&gt; MetricsServer-prod-us-east
+
+prometheus/server-only-ephemeral
+-&gt; Prometheus-prod-us-east
+-&gt; Prometheus-staging-eu-west</code></pre>
+<p>These examples start from clean uploaded base Spaces, run <code>cub variant create --target</code>, apply the cloned workload Units to ConfigHub OCI targets, and let Argo CD reconcile the derived Spaces into Kubernetes. The receipts are:</p>
+<pre><code>runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
+runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
+runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml</code></pre>
+<p>The example deliberately excludes <code>installer-record</code> from the workload apply. That Unit is installer support metadata, not a Kubernetes object for the workload artifact.</p>
+<p>A future/polished <a href="../../../../docs/reference/variant-creation-artifact.md#creator-status">Creator flow</a> should make those building blocks easy to use. It should not introduce a separate variant system.</p>
+<h2 id="ai-assistant-flow">AI Assistant Flow</h2>
+<p><b>Status: AX proposal.</b> The structured task below is the target contract for assistants, not a shipped command or API. Assistants today drive the same shipped commands as the worked path above.</p>
+<p>An AI assistant should receive the same request as structured work.</p>
+<p>Example:</p>
+<pre><code>task: create_derived_variant
+from:
+  component: Prometheus
+  variant: server-only-ephemeral
+  space: helm-prometheus-server-only
+blueprint: environment-clone
+parameters:
+  variant: prod-us-east
+  environment: Prod
+  region: us-east
+  target: monitoring-targets/prod-us-east
+allowedChanges:
+  - space labels
+  - target assignment
+  - approval gates
+  - target fact bindings
+  - allowed TransformPaths fills
+  - observation policy metadata
+checks:
+  - no Helm rerender
+  - install shape preserved
+  - mutation paths reviewed
+  - upstream links preserved
+  - Unit count preserved</code></pre>
+<p>If the requested change requires Helm to re-evaluate templates, changes the object count or install shape, or touches fields outside the approved post-render contract, the assistant should route the work back to the <code>cub installer</code> base path.</p>
+<h2 id="bulk-creation-flow">Bulk Creation Flow</h2>
+<p><b>Status: proposal.</b> Bulk rows are the target shape; today each row is an individual <code>cub variant create</code> invocation.</p>
+<p>The same creation pattern should also work across many environments, regions, or customers.</p>
+<p>Example:</p>
+<pre><code>createVariantsFrom:
+  component: Prometheus
+  variant: server-only-ephemeral
+  space: helm-prometheus-server-only
+rows:
+  - variant: prod-us-east
+    environment: Prod
+    region: us-east
+    target: monitoring-targets/prod-us-east
+  - variant: prod-eu-west
+    environment: Prod
+    region: eu-west
+    target: monitoring-targets/prod-eu-west
+checks:
+  - no Helm rerender for every row
+  - every mutation path is allowed by the Creator contract
+  - each downstream Space keeps Component=Prometheus
+  - every row has a target and observation policy</code></pre>
+<p>This keeps the human flow, AI assistant flow, and bulk flow aligned without making the human flow complicated.</p>
+<h2 id="routing-examples">Routing Examples</h2>
+<table><thead><tr><th>Request</th><th>Route</th></tr></thead><tbody><tr><td>&quot;Install Redis with a generated password.&quot;</td><td>Select the <code>redis/default</code> base variant.</td></tr>
+<tr><td>&quot;Install Redis using an existing Secret.&quot;</td><td>Select the <code>redis/reuse-existing-secret</code> base variant if object references differ.</td></tr>
+<tr><td>&quot;Promote Prometheus server-only to prod-us-east.&quot;</td><td>Create a derived ConfigHub variant from <code>prometheus/server-only-ephemeral</code>.</td></tr>
+<tr><td>&quot;Disable Prometheus Alertmanager.&quot;</td><td>Create or select a <code>cub installer</code> base variant.</td></tr>
+<tr><td>&quot;Add production approval gates.&quot;</td><td>Create a derived ConfigHub variant.</td></tr>
+<tr><td>&quot;Fill a namespace or Secret reference already exposed by the base.&quot;</td><td>Create a derived ConfigHub variant with target facts, TransformPaths, checks, and receipts.</td></tr>
+<tr><td>&quot;Change the StorageClass.&quot;</td><td>Usually create a base variant and record the target fact.</td></tr>
+<tr><td>&quot;Use customer overlay values for a wrapper chart.&quot;</td><td>Follow the custom overlay flow: classify values, create a reviewed base, then derive environment or customer variants.</td></tr>
+<tr><td>&quot;Point Argo CD or Flux at the result.&quot;</td><td>Configure delivery after the reviewed base or derived variant is ready.</td></tr></tbody></table>
+<h2 id="what-to-read-next">What To Read Next</h2>
+<ul><li><a href="../../../../docs/user/derived-variant-walkthrough.md">Derived-Variant Walkthrough</a> - a real <code>cub variant create</code> read back from its receipt</li><li><a href="change-routing-before-oci.html">Choosing Base Variants, Derived Variants, And Delivery Changes</a></li><li><a href="cub-variant-command-surface.html">cub Variant Command Surface</a></li><li><a href="custom-overlays.html">Custom Overlays</a></li><li><a href="../../../../docs/reference/customization-algorithm.md">Customization Algorithm</a></li><li><a href="prometheus-overlay-promotion-example.html">Prometheus Overlay And Promotion Example</a></li><li><a href="product-support-tiers.html">Product Support Tiers For Helm Scenarios</a></li><li><a href="../../../../docs/reference/variant-creation-artifact.md">Variant Creator Reference</a></li><li><a href="../../../../docs/reference/variant-promotion-model.md">Variant Promotion Model</a></li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/creating-variants.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

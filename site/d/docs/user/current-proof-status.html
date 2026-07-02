@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Current Proof Status · ConfigHub Helm Ops</title>
+  <meta name="description" content="Current Proof Status: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html">
+  <meta property="og:title" content="Current Proof Status · ConfigHub Helm Ops">
+  <meta property="og:description" content="Current Proof Status: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .92rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .94rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .92rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: .98rem; }
+    .tier p { font-size: .85rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .76rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .82rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .74rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .84rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .8rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">AI Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Current Proof Status</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="current-proof-status.html">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
+<p>Start here when you want to know what is proven today.</p>
+<h2 id="plain-english-status">Plain-English Status</h2>
+<p>The current catalog is useful, but it is not a blanket production support claim.</p>
+<pre><code>Top-20:
+  Good public catalog examples.
+  Every chart has maintained bases, proof artifacts, and at least one live lane.
+  Exact proof still depends on the chart/base/lane row.
+
+Top-100:
+  Good maintained proof corpus.
+  Every chart has render parity against regular Helm.
+  Most charts still need catalog review, useful variants, or selected live lanes.
+
+Top-500:
+  Good reconnaissance data.
+  It shows where Helm pain appears across public charts.
+  It is not a maintained recipe catalog.</code></pre>
+<p>Use the catalog when you want a chart and base to try. Use the lane summaries when you need to say exactly what has been proven for that chart/base. Use the production disposition pages when you need to decide whether a chart is ready for a specific production target.</p>
+<p>Use the generated <a href="../../data/claims-register/summary.html">Claims Register</a> when you want to check whether a public claim is backed, partial, planned, or explicitly refused.</p>
+<p>Use the generated <a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a> when you want the broad chart/version/base view in one browser page. It shows the current user route, strongest evidence, core-lane status, production scope, hooks, quirks, hard gap, and next action for each row.</p>
+<p>For the remaining non-pass live rows, use the generated <a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a>. The current queue includes target prerequisites, runtime/watch rows, image retention rows, render-input modeling work, and 16 two-cluster semantic parity defects that need inspection before they can become stronger live claims.</p>
+<h2 id="product-frontiers">Product Frontiers</h2>
+<p>These are the main places where the catalog is useful but the product claim is still bounded. A chart can have strong render and live evidence while one of these frontiers remains open.</p>
+<table><thead><tr><th>Frontier</th><th>Current status</th></tr></thead><tbody><tr><td>Field-complete provenance</td><td>Blast-radius prediction is scored by a generated accuracy harness: <a href="../../data/blast-radius-accuracy/summary.html">13 measured cases</a>, 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance.</td></tr>
+<tr><td>Full change authority</td><td>ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user.</td></tr>
+<tr><td>Reverse live-to-desired flow</td><td>Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work.</td></tr>
+<tr><td>Universal hook execution</td><td>Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically.</td></tr>
+<tr><td>Fleet-wide bounded propagation</td><td>Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built.</td></tr>
+<tr><td>Signatures as trust</td><td>The <a href="../../data/claims-register/summary.html">claims register</a> enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context.</td></tr></tbody></table>
+<p>The sceptic-proofing work is also not finished. The claims register, blast-radius scoreboard, torture suite, and environment matrix exist today. Cluster-matrix, external reproduction, time-travel re-verification, and the upgrade gauntlet remain open proof work.</p>
+<h2 id="find-the-answer-fast">Find The Answer Fast</h2>
+<p>One generated file answers each common evidence question. Open the file; do not rely on prose summaries for counts.</p>
+<table><thead><tr><th>Question</th><th>Open</th><th>What it gives you</th></tr></thead><tbody><tr><td>What is the broad product status of this chart, version, and base?</td><td><a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a></td><td>One browser table with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action.</td></tr>
+<tr><td>Which top-20 charts are live tested?</td><td><a href="../../../../data/live-e2e/summary.md">Live E2E Summary</a></td><td>One row per chart: local kind live/e2e result and the strict witness columns.</td></tr>
+<tr><td>Does the selected top-20 path match regular Helm in live clusters?</td><td><a href="../../../../data/live-helm-confighub-compare/summary.md">Live Helm-vs-ConfigHub Parity</a></td><td>One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity.</td></tr>
+<tr><td>Which latest chart versions are ready for promotion work?</td><td><a href="../../../../data/latest-top20-refresh/promotion-work-orders.md">Promotion Work Orders</a></td><td>Per-candidate work orders for newer upstream versions.</td></tr>
+<tr><td>Which top-100 charts are covered, partial, or decision-needed?</td><td><a href="../../../../data/top100-coverage/summary.md">Top-100 Coverage</a> and <a href="../../../../data/top100-readiness/summary.md">Top-100 Readiness</a></td><td>Coverage-contract status per chart, and the adoption bucket with next action.</td></tr>
+<tr><td>Which hard chart shows the model under serious Helm complexity?</td><td><a href="serious-chart-proof.html">Serious Chart Proof</a>, <a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">kube-prometheus-stack catalog page</a>, <a href="../../../../data/webhook-cert-lifecycle/summary.md">Webhook Certificate Lifecycle Evidence</a>, and <a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">Lifecycle Observations</a></td><td>CRDs, webhooks, RBAC, generated facts, dependency locks, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts.</td></tr>
+<tr><td>Is value-change blast radius measured or assumed?</td><td><a href="../../data/blast-radius-accuracy/summary.html">Blast-Radius Accuracy</a></td><td>The generated harness currently scores 13 measured cases: 13 pass, 0 fail, and 0 value-source rows are unmeasured.</td></tr>
+<tr><td>Which watch/blocked rows are trust signals, not failures?</td><td><a href="../../../../data/live-e2e/cub-scout-watchlist.md">cub-scout Watchlist</a> and <a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></td><td>Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model.</td></tr>
+<tr><td>Which public claims are backed, partial, planned, or refused?</td><td><a href="../../data/claims-register/summary.html">Claims Register</a></td><td>One row per claim with evidence paths, scoped verifier, and the limit that keeps the claim honest.</td></tr>
+<tr><td>Which sceptic attacks have fixtures, and which are still partial?</td><td><a href="generative-gitops-fit.html#sceptic-proofing-status">Generative GitOps Fit</a>, <a href="../../data/blast-radius-accuracy/summary.html">Blast-Radius Accuracy</a>, <a href="../../data/environment-matrix/summary.html">Environment-Determinism Matrix</a>, and <a href="../../data/torture-suite/summary.html">Synthetic Torture Suite</a></td><td>The built attack fixtures for blast radius, environment determinism, and breaker charts, plus the open cluster-matrix, external-reproduction, time-travel, and upgrade-gauntlet work.</td></tr>
+<tr><td>Why is a live row non-pass, and what reruns it?</td><td><a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a></td><td>Non-pass rows separated into semantic defects, target prerequisites, runtime watch, and lifecycle work.</td></tr>
+<tr><td>Is this chart ready for my production target?</td><td><a href="../../data/production-disposition/summary.html">Production Disposition</a> and <a href="production-support-decisions.html">Production Support Decisions</a></td><td>What is still required per chart, and how review-ready becomes supported for one target scope.</td></tr></tbody></table>
+<h2 id="source-of-truth">Source Of Truth</h2>
+<p>The shortest generated status page is:</p>
+<p><a href="../../data/status-dashboard/summary.html">Status Dashboard</a></p>
+<p>It summarizes top100 readiness, the retained top500 evidence map, proof lanes, hook and quirk residues, derived ConfigHub variants, GitOps/OCI, and live parity in one place.</p>
+<p>The shortest generated answer for &quot;can I use this chart?&quot; is:</p>
+<p><a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a></p>
+<p>It gives one row per top-100 chart and routes the chart to one of four user answers: use the public catalog now, promote after review, design a useful base variant first, or decide a named limitation before promotion.</p>
+<p>The compact top-20 catalog status CSV is:</p>
+<p><a href="../../../../data/status-dashboard/top20-status.csv">Top20 Catalog Status</a></p>
+<p>It gives one row per catalog chart with supported base variants, strongest evidence, lane counts, hard gaps, and next action.</p>
+<p>The top-20 base readiness table is the shortest answer for which base variant to try first:</p>
+<p><a href="../../data/top20-base-readiness/summary.html">Top20 Base Variant Readiness</a></p>
+<p>It gives one row per top-20 base variant with <code>start-here</code>, <code>try-with-proof</code>, prerequisite, runtime, or hook lifecycle status.</p>
+<p>The next80 queue is the shortest answer for which proof-grade non-catalog chart to promote, review, or improve next:</p>
+<p><a href="../../../../data/top100-readiness/next80-queues.md">Next80 Action Queues</a></p>
+<p>It separates the next80 into promotion review, limitation review, and user-shaped variant work, with source features and artifact links.</p>
+<p>The refresh-survival report is the shortest answer for what happens when upstream Helm publishes a newer chart version:</p>
+<p><a href="../../../../data/refresh-survival/summary.md">Refresh Survival</a></p>
+<p>It keeps supported versions pinned, lists upstream update candidates, and shows which candidate versions have only passed the render proof lane so far.</p>
+<p>Production support is tracked separately from test evidence:</p>
+<p><a href="../../data/production-disposition/summary.html">Production Disposition</a></p>
+<p>It shows which top-20 charts still need explicit decisions for scan/gate warnings, lifecycle behavior, target facts, storage policy, RBAC, webhooks, extension slots, and operating policy before they can be called production-supported.</p>
+<p>The shortest assignable production-support work queue is:</p>
+<p><a href="../../../../data/production-support-decisions/work-items.csv">Production Support Work Items</a></p>
+<p>It lists one row per concrete support task or keep-fresh item. A chart can have several rows because image, scan, lifecycle, runtime, and fresh-evidence work can be assigned independently.</p>
+<p>The older chart-level production queue is still useful when you want one broad next action per chart:</p>
+<p><a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a></p>
+<p>The scan warning workdown is:</p>
+<p><a href="../../../../data/scan-disposition-workdown/summary.md">Scan Disposition Workdown</a></p>
+<p>It routes external scan findings into concrete production work: fix in the installer base, add a resource policy, harden security context, explicitly accept or split privileged infrastructure, review runtime endpoints, or decide PDB policy.</p>
+<p>The image digest workdown is:</p>
+<p><a href="../../../../data/image-digest-workdown/summary.md">Image Digest Workdown</a></p>
+<p>It shows rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support.</p>
+<p>The generated lane matrix is the authority for exact chart/version/base status:</p>
+<p><a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a></p>
+<p>The generated outcome coverage is the easiest spreadsheet-oriented entry point for chart, base, derived variant, and feature status:</p>
+<p><a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a></p>
+<p>The runtime/GitOps wave tracks the first Argo/OCI live rows:</p>
+<p><a href="../../data/runtime-gitops/summary.html">Runtime/GitOps Wave</a></p>
+<p>The target-bound derived variant summary tracks ConfigHub variants created from uploaded bases and then bound to live targets:</p>
+<p><a href="../../../../data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a></p>
+<p>The lifecycle observation summary tracks cert-manager and External Secrets checks that rendered YAML alone cannot prove:</p>
+<p><a href="../../data/lifecycle-observations/cert-manager-eso/summary.html">Cert-Manager And External Secrets Lifecycle Observations</a></p>
+<p>The webhook certificate lifecycle summary tracks staged generated certificate material and staged CRDs for bases where render parity is not enough to prove the install contract:</p>
+<p><a href="../../../../data/webhook-cert-lifecycle/summary.md">Webhook Certificate Lifecycle Evidence</a></p>
+<p>The cub-scout live witness watchlist records cases where ordinary live checks pass but strict rendered-object/live parity finds a target capability issue:</p>
+<p><a href="../../../../data/live-e2e/cub-scout-watchlist.md">cub-scout Live Witness Watchlist</a></p>
+<p>Accepted server-normalization rules for strict live witness checks are recorded separately:</p>
+<p><a href="../../../../data/live-e2e/normalization-rules.md">Live Witness Normalization Rules</a></p>
+<p>The hook/lifecycle boundary page separates hook queue rows from hook-like controller lifecycle observations:</p>
+<p><a href="../../data/lifecycle-boundary/summary.html">Hook And Lifecycle Boundary</a></p>
+<p>The extension-slot coverage page tracks charts with raw manifests, <code>tpl</code> snippets, sidecars, config blocks, add-on slots, or similar Helm inputs:</p>
+<p><a href="../../../../data/extension-slots/summary.md">Extension Slot Coverage</a></p>
+<p>The top-level catalog shows what a user can browse:</p>
+<p><a href="../../../../CATALOG.md">Catalog</a></p>
+<h2 id="how-to-read-the-status">How To Read The Status</h2>
+<p>The project has several levels of evidence:</p>
+<pre><code>recipe/package proof
+-&gt; ConfigHub proof
+-&gt; local live Kubernetes proof
+-&gt; GitOps/OCI live proof
+-&gt; live Helm-vs-ConfigHub parity proof
+-&gt; lifecycle observation proof for controller-owned or hook-like behavior</code></pre>
+<p>A row is only proven for a lane when the lane matrix says <code>pass</code>.</p>
+<p>Production support is stricter than a passing proof lane. A chart can be render-equivalent, locally tested, and useful for demos while still not being production-supported. Accepted dispositions are review input; production support needs a final target-scoped decision.</p>
+<p>Strict cub-scout witness checks are routed more conservatively than ordinary local live checks. A local live receipt can pass because the workloads converge, while the strict witness still finds that the live API did not preserve an authored field. Every committed strict-witness <code>BLOCK</code> must appear either in the watchlist or in the normalization log.</p>
+<p>In <code>data/live-e2e/top20-local-kind.csv</code>, <code>cubScout=observed</code> means the row has committed cub-scout witness evidence summarized in the CSV. A blank <code>cubScout</code> cell means the row still has its ordinary observation receipt, but no committed cub-scout witness for that row. It is not a hidden pass or fail.</p>
+<p>Receipt retention follows this policy:</p>
+<ul><li>commit worked-example receipts and evidence needed by public walkthroughs;</li><li>commit every receipt or evidence summary cited by a watchlist row;</li><li>keep bulk transient run artifacts local when the generated summaries are the public surface;</li><li>when a claim depends on live evidence, commit enough detail for a reader to understand the target, chart, base, result, and next action.</li></ul>
+<h2 id="current-interpretation">Current Interpretation</h2>
+<p>The repo has complete render-parity evidence for the current recipe/base rows. ConfigHub proof, local live proof, GitOps/OCI proof, and strict live Helm-vs-ConfigHub proof are tracked separately because each one proves a different outcome.</p>
+<p>Current aggregate status:</p>
+<pre><code>chart/base rows:                          199
+helm_template_vs_installer_setup:         199 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   198 pass, 1 missing
+local_kind_kubectl_apply:                 148 pass
+confighub_oci_argo_live:                  135 pass
+live_helm_vs_confighub_dual_compare:      135 pass, 53 watch, 10 blocked
+two_cluster_kind_parity:                  121 pass, 10 watch, 47 blocked</code></pre>
+<p>Those counts come from the generated lane matrix: <a href="../../../../data/outcome-coverage/summary.md">Outcome Coverage</a>.</p>
+<p>The missing rows are backlog. They are not failed rows. <code>watch</code> and <code>blocked</code> mean a committed receipt exists and the lane found a target, lifecycle, or fixture condition that still needs a decision or rerun.</p>
+<p>GitOps/OCI live proof is tracked in two views:</p>
+<ul><li>the broad outcome lane has 135 of 199 chart/base rows marked pass;</li><li>the first runtime/GitOps wave has 11 committed controller receipts;</li><li>8 first-wave receipts pass and 3 are non-pass target-fit or runtime receipts;</li><li>exact chart/base/controller status is in the generated runtime summary: <a href="../../data/runtime-gitops/summary.html">Runtime/GitOps Wave</a>.</li></ul>
+<p>Live Helm-vs-ConfigHub parity is selected-row evidence:</p>
+<ul><li>The selected live comparison lane has 198 committed receipts.</li><li>135 rows pass, 53 rows are watch, and 10 rows are blocked.</li><li>The lane currently has 0 ConfigHub/OCI semantic parity defect receipts.</li><li>Watch and blocked rows are routed to target prerequisites, capability profiles, render-input modeling, image retention, runtime readiness, or GitOps controller review before a stronger live claim is made.</li><li>Across the full 199-row lane matrix, use the generated outcome coverage to distinguish pass rows, committed non-pass receipts, and rows without a pass.</li><li>The comparison checks regular Helm against ConfigHub delivery and records the expected installer-added Namespace object and any semantic object diffs.</li><li>Exact chart/base status is in the generated summary: <a href="../../../../data/live-helm-confighub-compare/summary.md">Live Helm-vs-ConfigHub Parity</a>.</li></ul>
+<p>Strict two-cluster Helm-vs-installer parity now has 178 committed receipts:</p>
+<ul><li>121 rows pass;</li><li>10 rows are watch;</li><li>47 rows are blocked;</li><li>153 rows have semantic object parity;</li><li>16 rows currently report a semantic parity defect.</li></ul>
+<p>Use the generated rerun plan for the next command and expected remediation: <a href="../../../../data/live-parity-rerun-plan/summary.md">Live Parity Rerun Plan</a>.</p>
+<p>For the shortest active queue, use: <a href="../../../../data/status-dashboard/active-proof-queue.csv">Active Proof Queue</a>.</p>
+<p>The current rerun queue has 119 rows: 62 watch rows, 57 blocked rows, 63 ConfigHub/OCI comparison rows, 56 two-cluster kind-parity rows, and 16 semantic parity defects. One row is documented as resolved by a separate useful base and is no longer active rerun work.</p>
+<p>Production support decisions are now explicit for the top-20 catalog:</p>
+<ul><li>17 of 20 top-20 charts have supported target-scoped proof scopes.</li><li>2 of 20 top-20 charts are superseded deprecated source charts and remain catalog proof evidence only.</li><li>0 of 20 top-20 charts have rejected target-scoped proof scopes.</li><li>1 of 20 top-20 charts has a draft support decision.</li><li>19 of 20 are production-review-ready by pre-review disposition receipt.</li><li>1 of 20 still has a blocked pre-review production disposition.</li><li>105 production-disposition receipts are accepted across 20 charts.</li><li>external scan work has 0 remaining mutable-image rows after the current supported-base image pinning pass.</li><li>the remaining high-priority scan rows are routed to explicit privileged infrastructure or security disposition work, not to simple image-pin fixes.</li><li>A supported target scope is still narrow: it covers the named chart, base, target, delivery path, accepted risks, and live evidence rule only.</li></ul>
+<p>The top-20 production queue has one remaining pre-review disposition blocker: cert-manager needs target-fact preflight closure. Vault is currently a draft target-scoped support decision for the default base; its <code>dev-mode</code> base remains documented as local/demo evidence rather than a production support path. The active support view is grouped from the current target-scoped decisions. Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh evidence work before it becomes production-supported for a target scope.</p>
+<table><thead><tr><th>Decision group</th><th>Charts</th><th>Meaning</th></tr></thead><tbody><tr><td>Supported scope evidence</td><td>17</td><td>Keep target-scoped evidence fresh before using the supported scope as a production example.</td></tr>
+<tr><td>Superseded source chart</td><td>2</td><td>Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim.</td></tr>
+<tr><td>Rejected default base</td><td>0</td><td>No current top-20 support decisions are rejected.</td></tr>
+<tr><td>Draft support decision</td><td>1</td><td>Resolve the remaining target-scoped draft before making a production-support claim.</td></tr></tbody></table>
+<p>Use the target-scoped decision table for exact blockers and next actions: <a href="../../../../data/production-support-decisions/summary.md">Production Support Decisions</a>.</p>
+<p>For the plain-English path from review-ready to production-supported, see the user guide: <a href="production-support-decisions.html">Production Support Decisions</a>.</p>
+<p>Use the generated production disposition table when you need the pre-review receipts and accepted dispositions: <a href="../../data/production-disposition/summary.html">Production Disposition</a>.</p>
+<p>Use the scan workdown when the question is what kind of work a scan warning represents: <a href="../../../../data/scan-disposition-workdown/summary.md">Scan Disposition Workdown</a>.</p>
+<p>Use the detailed disposition plan when you need the accepted receipts, owners, required evidence, and unblock rules: <a href="../../../../data/production-disposition/dispositions.md">Production Disposition Details</a>.</p>
+<p>Use the generated support work-item queue when you want assignable production tasks: <a href="../../../../data/production-support-decisions/work-items.csv">Production Support Work Items</a>.</p>
+<p>Use the generated disposition queue when you want the older one-row-per-chart production action: <a href="../../../../data/production-disposition/next-actions.csv">Production Next Actions</a>.</p>
+<p>Lifecycle observation proof has started:</p>
+<ul><li>11 public top-100 source-scan rows contain Helm hooks.</li><li>5 maintained hook queue rows now have hook route receipts.</li><li>5 of those 5 queue rows have lifecycle observation receipts.</li><li>0 of those 5 queue rows have only partial install-lifecycle observations.</li><li>cert-manager <code>default</code> and <code>crds-enabled</code> pass lifecycle checks for its <code>startupapicheck</code> hook route, CRD ownership policy, startup API readiness, webhook CA bundle injection, and server dry-run.</li><li>External Secrets <code>default</code> and <code>no-crds</code> pass lifecycle checks for CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run.</li><li>These receipts demonstrate the lifecycle-observation pattern. They do not imply that all Helm hooks or controller-owned runtime behavior are supported automatically.</li></ul>
+<p>Use the hook boundary report for the current route-selected versus lifecycle-observed split: <a href="../../data/lifecycle-boundary/summary.html">Hook And Lifecycle Boundary</a>.</p>
+<p>Target-bound derived ConfigHub variant proof has started:</p>
+<ul><li>The generated target-bound derived variant summary shows the current pass and blocked rows: <a href="../../../../data/derived-variant-target-bound/summary.md">Target-Bound Derived Variants</a>.</li><li><code>NGINX-prod-us-east</code> was created from a clean uploaded NGINX <code>http-clusterip</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live NGINX Deployment in Kubernetes.</li><li><code>NGINX-customer-acme-prod</code> repeats that same path for a customer-derived NGINX variant from the reviewed <code>http-clusterip</code> base.</li><li><code>MetricsServer-prod-us-east</code> proves the same target-bound path for a cluster-service chart; the receipt records Deployment, Service, and APIService availability.</li><li><code>Prometheus-prod-us-east</code> was created from a clean uploaded Prometheus <code>server-only-ephemeral</code> base with <code>cub variant create --target</code>, applied to a ConfigHub OCI target, reconciled by Argo CD, and observed as a live Prometheus server Deployment in Kubernetes.</li><li><code>Prometheus-staging-eu-west</code> repeats that same target-bound path for a staging derived variant from the same reviewed Prometheus <code>server-only-ephemeral</code> base.</li><li>These receipts prove the derived-variant operating path for a small web chart, a cluster-service chart, and a server-only observability chart across production, staging, and customer-derived variants: clone the reviewed base, bind a real target, apply the cloned workload Units, and record Argo/runtime evidence.</li><li><code>Redis-staging-eu-west</code> has a blocked target-bound receipt. The work order asks for a namespace change and Redis Secret delivery, but those are not yet represented as checked post-clone mutations or secret/fact bindings in the derived variant path.</li><li>The other derived-variant receipts remain intended-state clone/link evidence until they have target-bound live receipts.</li></ul>
+<p>For the details, read the generated summaries rather than copying numbers from this page.</p>
+<h2 id="useful-next-pages">Useful Next Pages</h2>
+<table><thead><tr><th>Question</th><th>Page</th></tr></thead><tbody><tr><td>Where are the outcome CSVs?</td><td><a href="outcomes-and-tests.html">Outcomes And Tests</a></td></tr>
+<tr><td>What are the verification lanes?</td><td><a href="verification-lanes.html">Verification Lanes</a></td></tr>
+<tr><td>What can I install?</td><td><a href="../../../../CATALOG.md">Catalog</a></td></tr>
+<tr><td>How do I run the tutorial path?</td><td><a href="../../../../docs/user/tutorial-sequence.md">Tutorial Sequence</a></td></tr>
+<tr><td>How do variants work?</td><td><a href="creating-variants.html">Creating Variants</a></td></tr>
+<tr><td>What compact work queue should we pick from next?</td><td><a href="../../../../data/next-ten-waves/summary.md">Next-Ten Waves</a></td></tr>
+<tr><td>What is the broader generated workdown?</td><td><a href="../../../../data/attack-plan-workdown/summary.md">Attack Plan Workdown</a></td></tr>
+<tr><td>What is the current execution plan?</td><td><a href="../../../../docs/planning/large-machine-roadmap.md">Large Machine Roadmap</a></td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/user/current-proof-status.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>
