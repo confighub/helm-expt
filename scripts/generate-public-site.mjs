@@ -518,13 +518,13 @@ function html(catalog) {
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
   const journeySteps = [
-    ["First", "Pre-flight checks", "No account, no cluster: see every hook, CRD, prerequisite, and footgun a chart carries, and fix what you would change before anything reaches the cluster.", "./try.html", "Get Started"],
+    ["First", "Pre-flight checks", "No account, no cluster: see the hooks, CRDs, prerequisites, and known footguns we track for a chart, and fix what you would change before anything reaches the cluster.", "./try.html", "Get Started"],
     ["Second", "Helm Ops Catalog", "We maintain a public catalog of standard charts with known good variants, risk advice, and support for hooks, CRDs, setup jobs, and other Helm extras.", "./charts/index.html", "Go to Catalog"],
     ["Then", "Change it and keep it", "With a free account, edit any rendered field, even ones the chart never exposed, and keep it through upgrades. Start from one base and make versions for dev, staging, prod, per region.", "./variants.html", "What are Variants?"],
     ["Later", "Application Delivery Tools", "Use your favourite GitOps tools with ConfigHub to add custom apps alongside your chart-based platform.", "./journey.html", "Apps on ConfigHub"],
   ];
   const seeCards = [
-    ["See what will bite you", "Every hook, CRD, prerequisite, and footgun a chart carries, named up front. helm template shows you the objects; we show you the traps."],
+    ["See what will bite you", "The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps."],
     ["Catch classic errors", "AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry."],
     ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
     ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, Secrets, hooks, CRDs, and target assumptions."],
@@ -548,9 +548,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts with every hook, CRD, prerequisite, and footgun mapped. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Hooks, CRDs, prerequisites, and known footguns are tracked per chart, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Preview your installs, with every hook, CRD, prerequisite, and footgun mapped</p>
+        <p>Preview your installs, with hooks, CRDs, prerequisites, and known footguns tracked per chart</p>
         <p>Change any field after install, and keep it through upgrades</p>
         <p>Run many customised installs as one fleet, without the upgrade pain</p>
       </div>
