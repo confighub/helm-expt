@@ -2553,6 +2553,7 @@ function docsHtml(catalog) {
     ["Known Gaps", "The known problems this project names instead of hiding.", "./known-gaps.html"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
     ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
+    ["App to live, end to end", "A plain app into ConfigHub, staging and prod variants, OCI to Argo delivery, and a staged rollout: the whole chain, run live.", "../docs/user/app-to-live-walkthrough.md"],
     ["Expected results and clusters", "Which commands need a cluster and what output to expect.", "../docs/user/expected-results-and-clusters.md"],
     ["Deployment path", "How a cub installer package becomes files, a ConfigHub upload, an OCI bundle, or controller input.", "../docs/user/cub-deployment-path.md"],
     ["GitOps adopter guide", "How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.", "../docs/user/gitops-adopter-guide.md"],

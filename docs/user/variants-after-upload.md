@@ -87,7 +87,7 @@ Validation triggers run on the changed Units. A failing check attaches an apply 
 
 ## Step 4: Deliver, verify, roll back
 
-- Deliver: apply the Space to its Target, or let the Argo or Flux you already run pull it from ConfigHub's OCI endpoint. The [GitOps adopter guide](./gitops-adopter-guide.md) and [serverless mode notes](./serverless-mode.md) cover both shapes.
+- Deliver: apply the Space to its Target, or let the Argo or Flux you already run pull it from ConfigHub's OCI endpoint. The whole chain, run live from a plain app to pods on a cluster with a staged rollout, is the [app-to-live walkthrough](./app-to-live-walkthrough.md). The [GitOps adopter guide](./gitops-adopter-guide.md) and [serverless mode notes](./serverless-mode.md) cover the delivery shapes.
 - Verify: the chart page's evidence links show what the catalog itself checks after apply.
 - Roll back: every promotion is ordinary revisions. Restore the before state and apply again; the product docs cover `--restore` forms.
 
