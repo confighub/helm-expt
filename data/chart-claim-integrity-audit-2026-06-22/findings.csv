@@ -10,7 +10,6 @@ warn,bitnami/rabbitmq,recommends-base-outside-supported-scope,"password caveat r
 warn,bitnami/redis,supported-cites-cross-version-receipt,"decision for 25.5.3 cites a 27.0.0 receipt (version skew — confirm the doctrine derive-rule covers it) — runs/live-kind-parity/bitnami-redis-default/receipt.yaml"
 warn,bitnami/redis,recommends-base-outside-supported-scope,"password caveat recommends base ""reuse-existing-secret"" but the support decision covers only ""default"" — following the page's own advice steps off the supported base"
 warn,fairwinds-stable/vpa,recommends-base-with-nonpass-receipt,"CRD caveat recommends base ""no-crds"" whose live receipt is result: watch"
-warn,grafana/grafana,recommends-base-outside-supported-scope,"password caveat recommends base ""existing-secret-ingress"" but the support decision covers only ""static-passwords"" — following the page's own advice steps off the supported base"
 warn,grafana/pyroscope,recommends-base-with-nonpass-receipt,"CRD caveat recommends base ""no-crds"" whose live receipt is result: watch"
 warn,grafana/rollout-operator,recommends-base-with-nonpass-receipt,"CRD caveat recommends base ""no-crds"" whose live receipt is result: watch"
 warn,grafana/tempo,recommends-base-with-nonpass-receipt,"password caveat recommends base ""s3-query-observability"" whose live receipt is result: watch"

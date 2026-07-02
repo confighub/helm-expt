@@ -562,10 +562,11 @@ function buildSite(generatedAt) {
     ),
     readme: readme(),
   };
-  site.sitemapXml = buildSitemapXml(site.chartPages);
   site.robotsTxt = buildRobotsTxt();
   site.llmsTxt = buildLlmsTxt();
-  return finalizeSite(site, catalog);
+  const finalized = finalizeSite(site, catalog);
+  finalized.sitemapXml = buildSitemapXml(finalized.chartPages, finalized.docPages);
+  return finalized;
 }
 
 function generatedStamp(catalog, label) {
@@ -640,13 +641,14 @@ function injectHeadMeta(html, relPath) {
   return `${html.slice(0, at)}\n  ${meta}${html.slice(at)}`;
 }
 
-function buildSitemapXml(chartPages) {
+function buildSitemapXml(chartPages, docPages = []) {
   const urls = new Set();
   for (const relPath of Object.values(SITE_PAGE_RELPATHS)) {
     if (PAGE_REDIRECT_TARGETS[relPath]) continue;
     urls.add(canonicalUrl(relPath));
   }
   for (const page of chartPages) urls.add(canonicalUrl(`charts/${page.fileName}`));
+  for (const page of docPages) urls.add(canonicalUrl(page.relPath));
   const body = [...urls].sort().map((url) => `  <url><loc>${escapeHtml(url)}</loc></url>`).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
 }
