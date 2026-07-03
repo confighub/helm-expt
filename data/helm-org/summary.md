@@ -56,3 +56,18 @@ asynchronously after clone; an earlier count read zero). Org total measured at
 **977/1,000** after the sketches — 23 headroom. Render provenance therefore
 ships as one exemplar Link, not one per unit; further trees need quota room or
 a raise.
+
+## Gate-scope fix (2026-07-03, later the same day)
+
+Alexis spotted `render-record` wearing an unapprovable approval gate. Root
+cause: both platform filters selected every platform trigger (`Space.Slug =
+'platform'`), so the vet-only baseline also dragged `require-approval` onto
+all 27 consuming spaces — an approval gate with no human workflow behind it,
+which doctrine #8 calls a lie in the UI. Fix, live and in the builder:
+`helm-catalog-checks` now excludes `vet-approvedby`; all consumers refreshed;
+`hashicorp-vault-env-prod` (which had inherited the baseline through its
+template) rewired to `helm-catalog-prod-gates`. End state verified: approval
+gates on exactly the four production Spaces (redis-prod, fleet-prod-us,
+fleet-prod-eu, vault-env-prod); none anywhere else; sketch units clean. The
+builder now wires prod filters explicitly (`wireProdGates`) because `variant
+create` copies the template's TriggerFilterID.
