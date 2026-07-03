@@ -4,3 +4,4 @@ secrets-story,labeled,bitnami-mysql-14-0-3-existing-secret + bitnami-mysql-14-0-
 crd-split,labeled,argo-cd-argo-cd-9-5-15-default + argo-cd-argo-cd-9-5-15-no-crds
 hooks-argo,created,hook-probe-base from tests/fixtures/hook-replacement-probe
 fleet,created,4 envs; dev/staging/prod-us promoted; prod-eu deliberately needs-upgrade
+promotion-interplay,created,demo base + 3 envs; replicas departures merged with releases; dev same-map departure reconciled explicitly

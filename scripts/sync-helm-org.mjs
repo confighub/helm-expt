@@ -269,6 +269,10 @@ if (mode === "--exhibits") {
       results.push([exhibit, "labeled", spaces.join(" + ")]);
     }
   }
+  // The no-crds root wears the committed receipt that backs its contract.
+  if (spaceExists("argo-cd-argo-cd-9-5-15-no-crds")) {
+    label("argo-cd-argo-cd-9-5-15-no-crds", { ProofReceipt: "crd-ordering-gap" });
+  }
 
   // E4 hooks-argo: the receipted hook fixture; the Job unit's data carries the
   // Argo hook annotations, so the routing choice is inspectable config.
@@ -281,7 +285,7 @@ if (mode === "--exhibits") {
         write(join(stage, file), readFileSync(join(repoRoot, "tests/fixtures/hook-replacement-probe", file), "utf8"));
       }
       cub(["variant", "upload", "--component", "hook-probe", "--variant", "base", "--space", "hook-probe-base", "--granularity", "per-resource", stage]);
-      label("hook-probe-base", { Exhibit: "hooks-argo", HookRoute: "argo-hook-annotations" });
+      label("hook-probe-base", { Exhibit: "hooks-argo", HookRoute: "argo-hook-annotations", ProofReceipt: "hook-execution-proof", DeliveryReceipt: "oci-hook-delivery-proof" });
       results.push(["hooks-argo", "created", "hook-probe-base from tests/fixtures/hook-replacement-probe"]);
     } finally {
       rmSync(stage, { recursive: true, force: true });
@@ -315,6 +319,47 @@ if (mode === "--exhibits") {
       cub(["variant", "promote", `bitnami-nginx-fleet-${env}`, "--change-desc", "Fleet release: pull 3 replicas"]);
     }
     results.push(["fleet", "created", "4 envs; dev/staging/prod-us promoted; prod-eu deliberately needs-upgrade"]);
+  }
+
+  // E6 promotion-interplay: what happens when environment departures meet base
+  // releases. A mutable demo base derives from the immutable vault root; three
+  // environments star off it with distinct departures; the base then ships two
+  // releases (annotations) and every environment promotes. Field-level
+  // departures (replicas) merge with the releases; dev's departure edits the
+  // same annotations map the releases write to, so promote keeps dev's map and
+  // reports success without the releases arriving — dev adopts them with
+  // explicit reconcile commits instead. Both behaviours are the exhibit.
+  const vaultRoot = "hashicorp-vault-0-32-0-default";
+  if (!spaceExists(vaultRoot)) {
+    results.push(["promotion-interplay", "FAILED", `missing wave-1 space ${vaultRoot}`]);
+  } else if (spaceExists("hashicorp-vault-demo-base")) {
+    results.push(["promotion-interplay", "exists", "hashicorp-vault-demo-base present; skipped"]);
+  } else {
+    cub(["variant", "create", "demo", vaultRoot, "--space-pattern", "template:hashicorp-vault-demo-base", "--namespace", "vault-demo"]);
+    label("hashicorp-vault-demo-base", { Exhibit: "promotion-interplay" });
+    const envs = [
+      ["dev", "Dev", []],
+      ["staging", "Staging", []],
+      ["prod", "Prod", ["--unit-delete-gate", "showroom-keep", "--unit-destroy-gate", "showroom-keep"]],
+    ];
+    for (const [env, envLabel, gates] of envs) {
+      cub(["variant", "create", env === "prod" ? "production" : env, "hashicorp-vault-demo-base", "--space-pattern", `template:hashicorp-vault-env-${env}`, "--environment", envLabel, "--namespace", `vault-${env}`, ...gates]);
+      label(`hashicorp-vault-env-${env}`, { Exhibit: "promotion-interplay" });
+    }
+    const sts = "statefulset-vault-vault";
+    cub(["run", "set-annotation", "--annotation-key", "cost.confighub.com/center", "--annotation-value", "dev-sandbox", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Dev departure: tag the sandbox for cost attribution"]);
+    cub(["run", "set-replicas", "--replicas", "2", "--space", "hashicorp-vault-env-staging", "--unit", sts, "--change-desc", "Staging departure: two replicas to catch clustering issues early"]);
+    cub(["run", "set-replicas", "--replicas", "3", "--space", "hashicorp-vault-env-prod", "--unit", sts, "--change-desc", "Prod departure: three replicas for quorum"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/telemetry", "--annotation-value", "enabled", "--space", "hashicorp-vault-demo-base", "--unit", sts, "--change-desc", "Base release: enable telemetry everywhere"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/release-track", "--annotation-value", "stable", "--space", "hashicorp-vault-demo-base", "--unit", sts, "--change-desc", "Base release 2: stamp release track"]);
+    for (const [env] of envs) {
+      cub(["variant", "promote", `hashicorp-vault-env-${env}`, "--change-desc", `Pull the telemetry release into ${env}`]);
+    }
+    // Dev's same-map departure means the releases did not arrive there; adopt
+    // them explicitly so the revision history teaches the reconcile move.
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/telemetry", "--annotation-value", "enabled", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base telemetry release alongside the dev departure (same-map departures do not auto-merge)"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/release-track", "--annotation-value", "stable", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base release-track stamp"]);
+    results.push(["promotion-interplay", "created", "demo base + 3 envs; replicas departures merged with releases; dev same-map departure reconciled explicitly"]);
   }
 
   const csv = [["exhibit", "result", "detail"], ...results].map((row) => row.join(",")).join("\n");
