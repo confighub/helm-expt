@@ -110,3 +110,17 @@ choice, such as keep live, accept desired, or force with an explicit receipt.
 false blocks), torn down immediately after (`cub lk down --force`), orphan rigs/spaces
 cleaned. Honest disposition throughout: `watch ≠ pass`; render parity ≠ live-ready;
 promotion-proven ≠ production-proven.
+
+## 8. Humans read websites; agents read docs; operators read the org
+Every load-bearing explanation or check publishes to **all three surfaces**, in the
+form each reader actually uses:
+- **The website** gets the human form: styled pages with the tables and the context
+  under them, in the site's own chrome — not a link to a raw file.
+- **The docs and data files** get the agent form: the same facts as markdown, CSV,
+  and JSON that a tool can read and a verifier can check.
+- **The org** gets the operator form: labels, warnings, and gates on real Spaces and
+  Units, wired to real checks — never decorative. A gate that does not reflect a
+  real validation is a lie in the UI.
+A truth that exists on only one surface is not published; it is buried. When the
+three surfaces disagree, the disagreement is itself a finding to surface, not to
+paper over.

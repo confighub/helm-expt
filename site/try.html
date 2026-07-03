@@ -498,14 +498,14 @@ em{font-style:italic;color:var(--ink);}
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
 
   <h2>The fastest first run</h2>
-  <p>Five commands, copy and paste. They render the Redis catalog preset, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
   <pre><code># 1. Install cub (one time)
 curl -fsSL https://hub.confighub.com/cub/install.sh | bash &amp;&amp; export PATH=~/.confighub/bin:$PATH
 
 # 2. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
 
-# 3. Render the Redis preset and install it
+# 3. Render the Redis base variant and install it
 bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/default/try.sh)
 
 # 4. It is running
@@ -513,11 +513,11 @@ kubectl -n redis get pods
 
 # 5. It is all files you can read; this one is what the cluster received
 cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
-  <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; presets that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
+  <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; base variants that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
 
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
-  <p>The <code>--base default</code> choice is a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
+  <p>The <code>--base default</code> choice is a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
   <p>In the catalog, the full rendered YAML output is always a real file. For this Prometheus example, open <a href="../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. Then use the chart page and render intent to see the Helm inputs, checks, and any route decisions for hooks, CRDs, setup jobs, or target prerequisites.</p>
   <pre><code># plain Helm — one step · prometheus → monitoring
 $ helm install prom prometheus-community/prometheus --version 29.8.0 \
@@ -543,7 +543,7 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
 
   <h2>2 · Change it after install — and it stays</h2>
   <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
-  <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#presets">chart preset</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
+  <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#base-variants">base variant</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
   <div class="two">
     <div class="box">
       <h3>Free: your settings stay</h3>

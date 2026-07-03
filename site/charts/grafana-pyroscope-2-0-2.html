@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>grafana/pyroscope 2.0.2 · ConfigHub Helm Ops</title>
-  <meta name="description" content="grafana/pyroscope 2.0.2: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="grafana/pyroscope 2.0.2: chart status, base varianturations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html">
   <meta property="og:title" content="grafana/pyroscope 2.0.2 · ConfigHub Helm Ops">
-  <meta property="og:description" content="grafana/pyroscope 2.0.2: chart status, preset configurations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="grafana/pyroscope 2.0.2: chart status, base varianturations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html">
   <style>
@@ -384,10 +384,10 @@
   <header>
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>grafana/pyroscope</h1>
-    <p>Everything we know about this Helm chart is on this page: how to run it, which preset chart configurations exist, what we have proven, and what still needs work.</p>
-    <p>Start by choosing a <a href="./index.html#presets">preset chart configuration</a>. A chart preset is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
-    <p>This page does not claim every values combination for this chart. It shows the supported chart presets we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
-    <p>Use this page to choose the first useful chart preset, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
+    <p>Everything we know about this Helm chart is on this page: how to run it, which base variants exist, what we have proven, and what still needs work.</p>
+    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
+    <p>This page does not claim every values combination for this chart. It shows the supported base variants we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
+    <p>Use this page to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=pyroscope&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">proof-grade / machine-proof-only page for grafana/pyroscope@2.0.2.</p>
@@ -397,15 +397,15 @@
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       <div class="grid">
-        <div class="metric"><strong>default</strong><span>Recommended first chart preset</span></div>
-        <div class="metric"><strong>3</strong><span>Candidate chart presets</span></div>
+        <div class="metric"><strong>default</strong><span>Recommended first base variant</span></div>
+        <div class="metric"><strong>3</strong><span>Candidate base variants</span></div>
         <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
         <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
       </div>
       <p>A named capability gap affects the recommended path.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>2.0.2</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate chart presets</td><td>default;ha;no-crds</td></tr><tr><td>Not yet enabled</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>2.0.2</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;ha;no-crds</td></tr><tr><td>Not yet enabled</td><td>existing-secret (chart ships no Secret toggle)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -416,12 +416,12 @@
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">What A Chart Preset Records</h2>
-      <p>Each <a href="./index.html#presets">preset chart configuration</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the <a href="../../recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
-      <p>If your values file creates a new useful operating shape, it should become another chart preset with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
+      <h2 id="render-record-route">What A Base Variant Records</h2>
+      <p>Each <a href="./index.html#base-variants">base variant</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the <a href="../../recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
+      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended preset.<br>No separate setup command recorded.</td><td>External resources the recommended preset expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this chart preset. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/grafana-pyroscope-2-0-2-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended base variant.<br>No separate setup command recorded.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/grafana-pyroscope-2-0-2-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -430,16 +430,16 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
       <div class="grid">
-        <div class="card"><h3>Choose preset config</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
+        <div class="card"><h3>Choose base variant</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
         <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, <a href="../../data/helm-render-intents/intents/grafana-pyroscope-2-0-2-default.yaml">default render intent</a>, full YAML output, package base, proof lanes, and route context together.</p></div>
-        <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a preset, some need a setup step, and some are blocked until there is a safe path.</p></div>
+        <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../d/docs/user/helm-render-intents.html">How render intents work</a> · <a href="../d/data/helm-render-intents/summary.html">All generated render intents</a></p>
     </section>
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>default</strong> unless a card below explains that another chart preset is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
+      <p>Start with <strong>default</strong> unless a card below explains that another base variant is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
@@ -459,8 +459,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Chart Presets And Options</h2>
-      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable chart presets. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
+      <h2 id="matrix-options">Base Variants And Options</h2>
+      <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.86rem">7 matrix rows for grafana/pyroscope@2.0.2 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
@@ -708,9 +708,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
-      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the chart preset, split it into a separate preset, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
-      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-preset action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
     </section>
 
     <section aria-labelledby="production">

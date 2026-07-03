@@ -28,7 +28,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "What A Chart Preset Records", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -129,7 +129,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/journey.html",
-    headerTerms: ["applications your team owns", "preset or preset update", "keeps the approved changes"],
+    headerTerms: ["applications your team owns", "new or updated base variant", "keeps the approved changes"],
   },
   {
     file: "site/operations.html",
