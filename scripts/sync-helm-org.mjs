@@ -154,6 +154,10 @@ if (mode === "--verify") {
     present += 1;
     const units = unitCount(item.space);
     if (units <= 0) failures.push(`space ${item.space} has no units`);
+    const intent = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
+    if (existsSync(intent)) {
+      try { cub(["unit", "get", "recipe", "--space", item.space]); } catch { failures.push(`space ${item.space} is missing its recipe unit`); }
+    }
   }
   console.log(`verified helm org: ${present}/${plan.length} space(s) present`);
   if (failures.length) {
@@ -306,6 +310,10 @@ for (const item of plan) {
     cub(["installer", "upload", "--work-dir", workDir, "--space", item.space]);
     const labelArgs = Object.entries(item.labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]);
     cub(["space", "update", item.space, ...labelArgs]);
+    const intentPath = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
+    if (existsSync(intentPath)) {
+      cub(["unit", "create", "--space", item.space, "recipe", intentPath, "--change-desc", "The recipe: the F1 source object this space was rendered from."]);
+    }
     const units = unitCount(item.space);
     unitsTotal += Math.max(0, units);
     created += 1;
