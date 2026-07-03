@@ -60,6 +60,7 @@ function routeLabelsFor(row, chartVariants) {
     RenderParity: labelSafe(row.lane_render_parity || "none-recorded"),
     ConfigHubProof: labelSafe(row.lane_confighub_scan_ops || "none-recorded"),
     GitopsOciLive: labelSafe(row.lane_gitops_oci_live || "none-recorded"),
+    RouteCount: labelSafe(row.lifecycle_route_count || "0"),
   };
 }
 
