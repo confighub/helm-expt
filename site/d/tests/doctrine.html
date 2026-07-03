@@ -425,6 +425,10 @@
 <p>ConfigHub/cub delivery uses server-side apply. That can be safer than Helm's silent overwrite when someone has edited a live field by hand, because the API can report field ownership conflict instead of hiding it. The adoption UX bar is not the raw Kubernetes error. The managed path must show a plain reconcile choice, such as keep live, accept desired, or force with an explicit receipt.</p>
 <h2 id="7-live-runs-are-serial-and-ephemeral">7. Live runs are serial and ephemeral</h2>
 <p><code>cub-lk</code> is <b>kind under the hood</b> - one rig at a time (concurrent rigs starve nodes → false blocks), torn down immediately after (<code>cub lk down --force</code>), orphan rigs/spaces cleaned. Honest disposition throughout: <code>watch ≠ pass</code>; render parity ≠ live-ready; promotion-proven ≠ production-proven.</p>
+<h2 id="8-humans-read-websites-agents-read-docs-operators-read-the-org">8. Humans read websites; agents read docs; operators read the org</h2>
+<p>Every load-bearing explanation or check publishes to <b>all three surfaces</b>, in the form each reader actually uses:</p>
+<ul><li><b>The website</b> gets the human form: styled pages with the tables and the context under them, in the site's own chrome - not a link to a raw file.</li><li><b>The docs and data files</b> get the agent form: the same facts as markdown, CSV, and JSON that a tool can read and a verifier can check.</li><li><b>The org</b> gets the operator form: labels, warnings, and gates on real Spaces and Units, wired to real checks - never decorative. A gate that does not reflect a real validation is a lie in the UI.</li></ul>
+<p>A truth that exists on only one surface is not published; it is buried. When the three surfaces disagree, the disagreement is itself a finding to surface, not to paper over.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>tests/doctrine.md</code>. The source file is the authoritative version.</p></footer>

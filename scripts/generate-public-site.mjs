@@ -1414,14 +1414,27 @@ em{font-style:italic;color:var(--ink);}
     <p>A <strong>derived variant</strong> is a change derived <em>from</em> a base: set the operating context (target, region, labels, approvals) or edit any field. Make one per environment from a single base; the next upgrade keeps your edits instead of wiping them. ConfigHub then <strong>manages</strong> it: compares, promotes, approves, delivers, observes. ("Managed" is a property, not a kind: a base variant can be managed too.) This is the part Helm structurally can't do.</p>
   </div>
 
-  <h3>The three kinds of variant: Variants, in one picture</h3>
+  <h3>The five words: Variants, in one picture</h3>
   <table class="gtable">
-    <tr><th>Kind</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Base variant / base variant</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new base variant.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
-    <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base — the exact objects.</td><td>No — it's already rendered</td><td>the recipe</td></tr>
-    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base — per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
+    <tr><th>Word</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
+    <tr><td><strong>Recipe</strong></td><td>The source of renders: chart, version, values, declared bases, declared routing intent.</td><td>It is what gets rendered</td><td>the repo and the package</td></tr>
+    <tr><td><strong>Base variant</strong></td><td>A recipe rendered one named way (default, no-crds, ha…). Changing what gets installed means a new base variant.</td><td>Yes, once, and it's checked against Helm</td><td>the package; a root Space after upload</td></tr>
+    <tr><td><strong>Rendered output</strong></td><td>The <em>frozen, checksummed objects</em> a rendering produced; with its render intent it forms the render record.</td><td>No, it's already rendered</td><td>the recipe's revisions</td></tr>
+    <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits, upstream link recorded.</td><td>No</td><td>ConfigHub</td></tr>
   </table>
-  <p class="quiet-line">Any of these can be <strong>managed</strong>: that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fourth kind.</p>
+  <p class="quiet-line">Any of these can be <strong>managed</strong>: that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fifth kind. One sentence for the whole picture: a recipe renders into a base variant; a base variant clones into derived variants; promotions carry reviewed changes down.</p>
+
+  <h3>Where the recipe lives, today and next</h3>
+  <p>Inside a ConfigHub org you see the rendered half of this model: config Units, clones, revisions, links. The source half, the recipe, lives in this repo and in the package. To make the seam visible, every Space in the catalog org also carries its recipe as a plain data unit named <code>recipe</code>, next to the objects it produced. Three shapes of the same idea, side by side:</p>
+  <table class="gtable">
+    <tr><th></th><th>The recipe in this repo</th><th>The <code>recipe</code> unit in an org</th><th>A first-class source object (where this is heading)</th></tr>
+    <tr><td><strong>What it is</strong></td><td>The authoritative source: chart pin, source lock, per-base values, revisions.</td><td>A generated record of one render's inputs, placed as data beside the output.</td><td>An executable source object: repository, chart, version, values, in one unit.</td></tr>
+    <tr><td><strong>Carries the values?</strong></td><td>Yes; it is the values.</td><td>No; it points at them in the repo.</td><td>Yes, self-contained.</td></tr>
+    <tr><td><strong>Who acts on it</strong></td><td>The catalog pipeline builds the package from it.</td><td>Nobody; the render already happened outside.</td><td>A worker renders it, and re-renders it when it changes.</td></tr>
+    <tr><td><strong>Connected to its outputs?</strong></td><td>Through the repo's evidence chain.</td><td>Sits in the same Space, no link.</td><td>Linked to the units it rendered.</td></tr>
+    <tr><td><strong>Authority</strong></td><td>Authoritative.</td><td>A copy; it can lag the repo.</td><td>Would become authoritative.</td></tr>
+  </table>
+  <p class="quiet-line">The <code>recipe</code> unit is the future source object with the machinery removed: a plaque in the seat where the engine goes. It marks the spot; it does not run. When source objects become first-class, this catalog's hundred recipes are ready to become real ones.</p>
 
   <h2>4 · The decisions, and why</h2>
   <table class="gtable">
