@@ -310,6 +310,8 @@ for (const item of plan) {
     cub(["installer", "upload", "--work-dir", workDir, "--space", item.space]);
     const labelArgs = Object.entries(item.labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]);
     cub(["space", "update", item.space, ...labelArgs]);
+    cub(["space", "update", item.space, "--trigger-filter", "platform/helm-catalog-checks", "--where-trigger", "-"]);
+    cub(["space", "update", "--patch", item.space, "--refresh-triggers"]);
     const intentPath = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
     if (existsSync(intentPath)) {
       cub(["unit", "create", "--space", item.space, "recipe", intentPath, "--change-desc", "The recipe: the F1 source object this space was rendered from."]);
