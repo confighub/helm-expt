@@ -71,3 +71,29 @@ gates on exactly the four production Spaces (redis-prod, fleet-prod-us,
 fleet-prod-eu, vault-env-prod); none anywhere else; sketch units clean. The
 builder now wires prod filters explicitly (`wireProdGates`) because `variant
 create` copies the template's TriggerFilterID.
+
+## The #4697 upstreaming pattern, reproduced (2026-07-03)
+
+Jesper's rollout plan (confighubai/confighub#4697) sets env vars directly on
+staging/prod first, then "upstreams" them to bases with `confighubplaceholder`.
+We reproduced that exact sequence on the vault tree (staging departs with
+`CONFIGHUB_IDP_AUDIENCE=staging-real-audience`; the base later adds the same
+var as `confighubplaceholder` plus a second, unconflicted
+`CONFIGHUB_IDP_ISSUER`; promote staging twice):
+
+- **The plan works.** The placeholder did not clobber staging's real value,
+  and the unconflicted issuer flowed in as a real `UpgradeUnit` revision while
+  the conflicted audience entry stayed local. Container env merges
+  **entry-by-entry** (union, local entry wins on conflict) — unlike the
+  annotations map, which we earlier observed losing wholesale (downstream map
+  kept, upstream keys dropped). Merge behaviour differs by structure.
+- **The conflict resolution is still silent.** The first promote reported
+  Success, advanced `UpstreamRevisionNum`, created no revision; nothing
+  records that placeholder-vs-real was decided. Wanted here, invisible always.
+- **`vet-placeholders` gated the base** the moment it carried the placeholder
+  — the guardrail that a placeholder can never reach a cluster. By design.
+- **Promote propagates new base units downstream** (the base's render-record
+  sketch was created into staging, links copied) — expected inheritance, with
+  link-quota side effects worth knowing at 977/1,000.
+- CLI correction recorded: `set-env` **upserts** env vars; `set-env-var` only
+  mutates existing ones (our earlier "cannot add" note was the wrong function).
