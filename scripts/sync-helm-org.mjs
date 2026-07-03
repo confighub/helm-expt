@@ -54,7 +54,7 @@ function routeLabelsFor(row, chartVariants) {
   return {
     HookRoute: labelSafe(row.hook_disposition || "none-recorded"),
     RouteContract: labelSafe(row.lifecycle_route_contract || "none-recorded"),
-    CrdRoute: chartVariants.includes("no-crds") ? "no-crds-base variant-available" : "bundled-or-none",
+    CrdRoute: chartVariants.includes("no-crds") ? "no-crds-base-variant-available" : "bundled-or-none",
   };
 }
 
@@ -69,14 +69,33 @@ function secretRouteFor(entry, variant) {
   return "stage-external";
 }
 
+// The curated showroom set: ten charts chosen for variant diversity and quirk
+// richness within the org's ~1,000-Link budget (depth over breadth; see
+// data/helm-org/summary.md). Value "all" keeps every base variant; an array
+// keeps only the named ones.
+const CURATED_CHARTS = {
+  "bitnami/redis": "all",
+  "argo-cd/argo-cd": "all",
+  "hashicorp/vault": "all",
+  "ingress-nginx/ingress-nginx": "all",
+  "prometheus-community/prometheus": "all",
+  "grafana/grafana": "all",
+  "bitnami/mysql": "all",
+  "bitnami/rabbitmq": "all",
+  "bitnami/nginx": "all",
+  "prometheus-community/kube-prometheus-stack": ["no-crds"],
+};
+
 function buildPlan() {
   const top20 = top100.entries.filter((entry) => entry.proof_surface === "top20-catalog-supported");
   const matrixRows = parseCsv(matrixCsv);
   const plan = [];
   for (const entry of top20) {
+    const allowed = CURATED_CHARTS[entry.chart];
+    if (!allowed) continue;
     const rows = matrixRows.filter(
       (row) => row.chart === entry.chart && row.version === entry.version && row.row_kind === "base" && row.package_base_path,
-    );
+    ).filter((row) => allowed === "all" || allowed.includes(row.variant));
     const chartVariants = rows.map((row) => row.variant);
     for (const row of rows) {
       const stem = slugify(`${entry.chart}-${entry.version}`);
