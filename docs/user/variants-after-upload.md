@@ -16,7 +16,7 @@ chart -> base variant (chosen with --base) -> OCI package
 
 A **base variant** is a preset: a named Helm render choice such as default, no-crds, or reuse-existing-secret. The chart page calls it a preset chart configuration; `--base` picks it. A **derived variant** is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.
 
-One boundary keeps the two straight: the preset lives in the package and is chosen at render time, before upload. ConfigHub never sees the preset, only the rendered result, stored fully materialized. Templates stay outside; data lives inside.
+One boundary keeps the two straight: the recipe lives in the package and is chosen at render time, before upload. ConfigHub never sees the recipe, only the rendered result, stored fully materialized. Templates stay outside; data lives inside.
 
 ## The one decision, restated
 

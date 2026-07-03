@@ -404,7 +404,7 @@
       -&gt; upload -&gt; base Space
       -&gt; derived variants (staging, production) -&gt; promote</code></pre>
 <p>A <b>base variant</b> is a preset: a named Helm render choice such as default, no-crds, or reuse-existing-secret. The chart page calls it a preset chart configuration; <code>--base</code> picks it. A <b>derived variant</b> is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.</p>
-<p>One boundary keeps the two straight: the preset lives in the package and is chosen at render time, before upload. ConfigHub never sees the preset, only the rendered result, stored fully materialized. Templates stay outside; data lives inside.</p>
+<p>One boundary keeps the two straight: the recipe lives in the package and is chosen at render time, before upload. ConfigHub never sees the recipe, only the rendered result, stored fully materialized. Templates stay outside; data lives inside.</p>
 <h2 id="the-one-decision-restated">The one decision, restated</h2>
 <ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.</li></ul>
 <p>Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.</p>
