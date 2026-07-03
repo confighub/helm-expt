@@ -55,6 +55,11 @@ function routeLabelsFor(row, chartVariants) {
     HookRoute: labelSafe(row.hook_disposition || "none-recorded"),
     RouteContract: labelSafe(row.lifecycle_route_contract || "none-recorded"),
     CrdRoute: chartVariants.includes("no-crds") ? "no-crds-base-variant-available" : "bundled-or-none",
+    // Proof-lane labels mirror the committed matrix receipts verbatim; the org
+    // states what recorded evidence says, never more.
+    RenderParity: labelSafe(row.lane_render_parity || "none-recorded"),
+    ConfigHubProof: labelSafe(row.lane_confighub_scan_ops || "none-recorded"),
+    GitopsOciLive: labelSafe(row.lane_gitops_oci_live || "none-recorded"),
   };
 }
 
@@ -161,6 +166,19 @@ if (mode === "--plan") {
   process.exit(0);
 }
 
+if (mode === "--relabel") {
+  assertOrg();
+  let stamped = 0;
+  for (const item of plan) {
+    if (!spaceExists(item.space)) continue;
+    const labelArgs = Object.entries(item.labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]);
+    cub(["space", "update", item.space, ...labelArgs]);
+    stamped += 1;
+  }
+  console.log(`re-stamped labels on ${stamped} space(s)`);
+  process.exit(0);
+}
+
 if (mode === "--verify") {
   assertOrg();
   const failures = [];
@@ -175,7 +193,17 @@ if (mode === "--verify") {
     if (units <= 0) failures.push(`space ${item.space} has no units`);
     const intent = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
     if (existsSync(intent)) {
-      try { cub(["unit", "get", "recipe", "--space", item.space]); } catch { failures.push(`space ${item.space} is missing its recipe unit`); }
+      try {
+        const unitData = cub(["unit", "get", "recipe", "--space", item.space, "--data-only"]);
+        const file = readFileSync(intent, "utf8");
+        for (const field of ["baseVariant", "name"]) {
+          const fromUnit = (unitData.match(new RegExp(`${field}: "([^"]+)"`)) || [])[1];
+          const fromFile = (file.match(new RegExp(`${field}: "([^"]+)"`)) || [])[1];
+          if (fromUnit !== fromFile) failures.push(`space ${item.space} recipe unit drifted from the intent file (${field}: ${fromUnit} vs ${fromFile})`);
+        }
+      } catch {
+        failures.push(`space ${item.space} is missing its recipe unit`);
+      }
     }
   }
   console.log(`verified helm org: ${present}/${plan.length} space(s) present`);

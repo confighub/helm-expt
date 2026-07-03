@@ -245,6 +245,8 @@
     "scan-disposition:workdown:verify": "node scripts/generate-scan-disposition-workdown.mjs --verify",
     "attack-plan:generate": "node scripts/generate-attack-plan-workdown.mjs --generate",
     "attack-plan:verify": "node scripts/generate-attack-plan-workdown.mjs --verify",
+    "helm-org:plan": "node scripts/sync-helm-org.mjs --plan",
+    "helm-org:verify": "node scripts/sync-helm-org.mjs --verify",
     "runtime-gitops:wave": "node scripts/generate-runtime-gitops-wave.mjs --generate",
     "runtime-gitops:wave:verify": "node scripts/generate-runtime-gitops-wave.mjs --verify",
     "hooks:lifecycle": "node scripts/generate-hook-lifecycle-wave.mjs --generate",
