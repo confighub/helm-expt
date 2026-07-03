@@ -1398,7 +1398,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="fstage star">
     <span class="ftag">RENDER</span><span class="codetag">F2 · base → rendered output</span>
     <h3>Render: inputs first, then the frozen objects</h3>
-    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>rendered output</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The rendered output is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new base variant; change only the operating context → no re-render.</p>
+    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice: chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>rendered output</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The rendered output is never re-rendered. It is what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em> is simple. Changing the object set makes a new base variant. Changing only the operating context needs no re-render.</p>
     <p><strong>Example:</strong> Redis <code>default</code> has a package users pull, <code>${REDIS_INSTALLER_OCI_REF}</code>; a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> that records the Helm inputs; and a full rendered YAML output, <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repo source for that base variant. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
   </div>
 
@@ -1447,7 +1447,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
     <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
-    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers — no re-render drift between review and runtime.</td></tr>
+    <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
     <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
     <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
@@ -1485,7 +1485,7 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
     <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
   </table>
-  <p>The model has four steps — <strong>recipe → render → record → route</strong>: lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Live results are reported one lane at a time, not as one blanket success mark:</p>
+  <p>The model has four steps: <strong>recipe → render → record → route</strong>. Lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Live results are reported one lane at a time, not as one blanket success mark:</p>
   <div class="counts">
     <div class="count pass"><b>961</b><span>pass</span></div>
     <div class="count watch"><b>116</b><span>watch</span></div>
@@ -1535,7 +1535,7 @@ spec:
       <li><strong>CRD ordering.</strong> CRDs must land before the objects that use them; the managed applier orders this for you.</li>
       <li><strong>SSA conflicts.</strong> Server-side-apply field ownership is surfaced as a readable conflict, not a silent overwrite.</li>
     </ul>
-    <p>Per-chart password and CRD heads-up: <a href="./charts/index.html">cub adoption caveats</a> for the chart you're installing.</p>
+    <p>For per-chart password and CRD heads-up, read the <a href="./charts/index.html">cub adoption caveats</a> for the chart you're installing.</p>
   </div>
 
   <h2>10 · Letting AI make the changes, safely</h2>
@@ -2176,7 +2176,7 @@ function legacyOfferingHtml(catalog) {
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
       <p>A public catalog of maintained Helm-derived packages, plus a ${signupLink("offering", "free ConfigHub account")} that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
-      <p>The free lane: browse, inspect, template, and install catalog chart bases without a ConfigHub account, and, with a ${signupLink("offering", "free account")}, edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane: private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <p>The free lane lets you browse, inspect, template, and install catalog chart bases without a ConfigHub account. With a ${signupLink("offering", "free account")} you can also edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane covers private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -2364,7 +2364,7 @@ cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configura
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
   <p>The <code>--base default</code> choice is a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
   <p>In the catalog, the full rendered YAML output is always a real file. For this Prometheus example, open <a href="../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. Then use the chart page and render intent to see the Helm inputs, checks, and any route decisions for hooks, CRDs, setup jobs, or target prerequisites.</p>
-  <pre><code># plain Helm — one step · prometheus → monitoring
+  <pre><code># plain Helm, one step · prometheus → monitoring
 $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
     -n monitoring --create-namespace
 
@@ -2386,8 +2386,8 @@ $ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code><
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
   <div class="callout"><p><strong>Registry access today.</strong> ${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p></div>
 
-  <h2>2 · Change it after install — and it stays</h2>
-  <p>Once it's running you'll want to tweak something — more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
+  <h2>2 · Change it after install, and it stays</h2>
+  <p>Once it's running you'll want to tweak something: more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
   <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#base-variants">base variant</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
   <div class="two">
     <div class="box">
@@ -4132,11 +4132,11 @@ function aiHtml(catalog) {
     <section aria-labelledby="guides">
       <h2 id="guides">Guides And Evidence</h2>
       <div class="grid">
-        <div class="card"><h3>How it works</h3><p>The core model: render the chart, record the evidence, route the extras, deliver and observe.</p><p><a href="./how-it-works.html">Open page</a></p></div>
+        <div class="card"><h3>How it works</h3><p>The core model renders the chart, records the evidence, routes the extras, then delivers and observes.</p><p><a href="./how-it-works.html">Open page</a></p></div>
         <div class="card"><h3>Verification</h3><p>Npm commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
-        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern: CLI/plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
+        <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern built from a CLI plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
         <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="../data/blast-radius-accuracy/summary.md">Open evidence</a></p></div>
       </div>
     </section>
@@ -5201,7 +5201,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ["Fact", "Current chart-level route"],
         ...factSheetRows,
       ])}
-      <p>Source data: <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
+      <p>The source data lives in <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
     </section>
 
     <section aria-labelledby="proof">
