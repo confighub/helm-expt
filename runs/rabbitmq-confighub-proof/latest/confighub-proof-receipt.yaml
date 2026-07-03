@@ -70,7 +70,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/rabbitmq-static-passwords --space helm-rabbitmq-confighub-proof --component RabbitMQ --layer App --environment Demo --owner ConfigHubHelm --variant static-passwords --unit-label Component=RabbitMQ --unit-label HelmChart=bitnami-rabbitmq --unit-label HelmChartVersion=16.0.14 --unit-label Variant=static-passwords --unit-label Proof=rabbitmq-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-rabbitmq-confighub-proof"
     unitCount: 10
     kubernetesUnitCount: 9
@@ -112,7 +112,7 @@ spec:
       - "helm-rabbitmq-confighub-proof"
       - "RabbitMQ-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

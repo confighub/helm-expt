@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
-        --version 19.1.0 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-static-passwords/regular-helm-values.yaml
+        --version 19.1.0 --namespace mongodb --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mongodb
       manifestSHA256: 2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/mongodb/19.1.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/mongodb/19.1.0
         --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-mongod-71ac5-0wnw-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

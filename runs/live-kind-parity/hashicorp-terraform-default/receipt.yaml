@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
-        --version 1.1.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/hashicorp-terraform-default/regular-helm-values.yaml
+        --version 1.1.2 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/hashicorp-terraform-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b
@@ -171,7 +171,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/hashicorp/terraform/1.1.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/hashicorp/terraform/1.1.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-terraf-65f0a-ptv6-terraform
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

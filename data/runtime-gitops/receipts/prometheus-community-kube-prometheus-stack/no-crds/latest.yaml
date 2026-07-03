@@ -18,7 +18,7 @@ spec:
     target: helm-expt-parity-kpsnocrds-codex-0611-cluster/oci
     namespace: monitoring
     kubeContext: kind-helm-expt-parity-kpsnocrds-codex-0611
-    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kpsnocrds-codex-0611.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/helm-expt-parity-kpsnocrds-codex-0611.kubeconfig
     keptForInspection: false
     cleanupPolicy: cub-lk rig and ConfigHub cluster space removed after evidence capture
   oci:

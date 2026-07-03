@@ -58,7 +58,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
-        --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
+        --version 2.0.0 --namespace consul --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468
       objectCount: 97
@@ -100,7 +100,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/consul/2.0.0
         --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h-hashicorp-consul-secure-mesh-existing-secrets
         --non-interactive --namespace consul
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1801,7 +1801,7 @@ spec:
     elapsedSeconds: 154.549
     timeoutSeconds: 900
     command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
-      --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
+      --version 2.0.0 --namespace consul --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1809,7 +1809,7 @@ spec:
     finishedAt: '2026-06-14T14:41:11Z'
     elapsedSeconds: 14.314
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/consul/2.0.0
       --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h-hashicorp-consul-secure-mesh-existing-secrets
       --non-interactive --namespace consul
   - name: configHub-direct-crd-apply
@@ -1818,9 +1818,9 @@ spec:
     finishedAt: '2026-06-14T14:41:13Z'
     elapsedSeconds: 0.259
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig
       --context kind-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/confighub-rendered-crds.yaml
     objectCount: 28
   - name: configHub-direct-apply
     result: pass
@@ -1828,9 +1828,9 @@ spec:
     finishedAt: '2026-06-14T14:41:18Z'
     elapsedSeconds: 0.362
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig
       --context kind-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/direct-apply-manifest.yaml
     objectCount: 69
   - name: configHub-direct-readiness
     result: pass
@@ -1845,7 +1845,7 @@ spec:
     finishedAt: '2026-06-14T14:42:53Z'
     elapsedSeconds: 13.849
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/consul/2.0.0
       --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h-hashicorp-consul-secure-mesh-existing-secrets
       --non-interactive --namespace consul
   - name: configHub-oci-upload
@@ -1881,7 +1881,7 @@ spec:
     elapsedSeconds: 1.021
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h-cluster
-      hashicorp-consul-secure-mesh-existing-secrets-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argo-application.json
+      hashicorp-consul-secure-mesh-existing-secrets-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/argo-application.json
       --target helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1911,11 +1911,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h\"\
-      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -1928,7 +1928,7 @@ spec:
       \ \U0001F4BE\n \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining\
       \ worker nodes \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-hashicorpconsce7c0-mqdw0pqn-150h\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pq"
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-hashicorpconsce7c0-mqdw0pq"
   - name: target-profile
     result: pass
     detail: 'kind-three-node: The proof target has at least three schedulable Kubernetes
@@ -2004,7 +2004,7 @@ spec:
         observedSchedulableNodes: 3
         lane: regularHelm
         result: pass
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -2035,7 +2035,7 @@ spec:
         observedSchedulableNodes: 3
         lane: configHubKubectlApply
         result: pass
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -2066,7 +2066,7 @@ spec:
         observedSchedulableNodes: 3
         lane: configHubOciArgo
         result: pass
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-consul-secure-mesh-existing-secrets/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

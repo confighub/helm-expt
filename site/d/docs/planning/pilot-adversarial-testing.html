@@ -415,9 +415,9 @@ data/live-parity-rerun-plan/summary.md
 data/outcome-coverage/base-outcomes.csv</code></pre>
 <h2 id="local-pilot">Local Pilot</h2>
 <p>Use the ConfigHub Pilot checkout on this laptop:</p>
-<pre><code>/Users/alexis/code/confighub-ai-demo</code></pre>
+<pre><code>$HOME/code/confighub-ai-demo</code></pre>
 <p>The repo-local front door is:</p>
-<pre><code>/Users/alexis/code/confighub-ai-demo/scripts/pilot</code></pre>
+<pre><code>$HOME/code/confighub-ai-demo/scripts/pilot</code></pre>
 <p>Start with the automated read-only package gate over all 20 current installer packages:</p>
 <pre><code>npm run pilot:adversarial</code></pre>
 <p>To also run the full helm-expt verifier first:</p>
@@ -435,20 +435,20 @@ separate live lane: ConfigHub upload, OCI/GitOps handoff, Kubernetes apply,
 runtime observation</code></pre>
 <p>Call a run &quot;live e2e&quot; only after it includes target-access proof, a disposable cluster, ConfigHub proof, OCI/GitOps/controller proof where relevant, exact Kubernetes runtime observation, and cleanup/closeout receipts.</p>
 <p>Useful single-chart probes:</p>
-<pre><code>cd /Users/alexis/code/confighub-ai-demo
+<pre><code>cd $HOME/code/confighub-ai-demo
 ./scripts/pilot start \
-  --repo /Users/alexis/code/helm-expt \
-  --task-brief-file /Users/alexis/code/helm-expt/docs/planning/pilot-adversarial-testing.md \
+  --repo $HOME/code/helm-expt \
+  --task-brief-file $HOME/code/helm-expt/docs/planning/pilot-adversarial-testing.md \
   --out-dir /tmp/helm-expt-pilot-start \
   --json
 
 ./scripts/pilot installer-render-preview \
-  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --source $HOME/code/helm-expt/packages/bitnami/redis/25.5.3 \
   --out-dir /tmp/helm-expt-pilot-redis-preview \
   --json
 
 ./scripts/pilot installer-e2e-gate \
-  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --source $HOME/code/helm-expt/packages/bitnami/redis/25.5.3 \
   --out-dir /tmp/helm-expt-pilot-redis-gate \
   --json</code></pre>
 <h2 id="safety-rules">Safety Rules</h2>
@@ -482,7 +482,7 @@ artifact paths
 recommended fix</code></pre>
 <h2 id="pilot-mission-prompt">Pilot Mission Prompt</h2>
 <p>Use this as the main Pilot instruction:</p>
-<pre><code>You are Pilot running an adversarial test of /Users/alexis/code/helm-expt.
+<pre><code>You are Pilot running an adversarial test of $HOME/code/helm-expt.
 
 Your job is to falsify, not flatter, the ConfigHub Helm proof claims.
 

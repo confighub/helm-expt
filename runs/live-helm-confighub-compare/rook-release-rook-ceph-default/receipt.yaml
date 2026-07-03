@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rook-ceph rook-ceph --repo https://charts.rook.io/release
-        --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/regular-helm-values.yaml
+        --version v1.19.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8
       objectCount: 133
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -2060,7 +2060,7 @@ spec:
     elapsedSeconds: 90.473
     timeoutSeconds: 900
     command: helm upgrade --install rook-ceph rook-ceph --repo https://charts.rook.io/release
-      --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/regular-helm-values.yaml
+      --version v1.19.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -2068,7 +2068,7 @@ spec:
     finishedAt: '2026-06-15T05:14:49Z'
     elapsedSeconds: 1.648
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -2077,9 +2077,9 @@ spec:
     finishedAt: '2026-06-15T05:14:53Z'
     elapsedSeconds: 0.595
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig
       --context kind-helm-expt-parity-rookceph-mqera4ya-18v apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/confighub-rendered-crds.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/confighub-rendered-crds.yaml
     objectCount: 25
   - name: configHub-direct-apply
     result: pass
@@ -2087,9 +2087,9 @@ spec:
     finishedAt: '2026-06-15T05:15:01Z'
     elapsedSeconds: 0.435
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig
       --context kind-helm-expt-parity-rookceph-mqera4ya-18v apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/direct-apply-manifest.yaml
     objectCount: 108
   - name: configHub-direct-readiness
     result: pass
@@ -2104,7 +2104,7 @@ spec:
     finishedAt: '2026-06-15T05:15:48Z'
     elapsedSeconds: 2.756
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookceph-mqera4ya-18v-rook-ceph
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -2139,7 +2139,7 @@ spec:
     elapsedSeconds: 1.059
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-rookceph-mqera4ya-18v-cluster
-      rook-ceph-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/argo-application.json
+      rook-ceph-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-default/argo-application.json
       --target helm-expt-parity-rookceph-mqera4ya-18v-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -2169,11 +2169,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-rookceph-mqera4ya-18v\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-rookceph-mqera4ya-18v\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -2184,7 +2184,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-rookceph-mqera4ya-18v\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rookceph-mqera4ya-18v\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rookceph-mqera4ya-18v.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
   - name: target-facts-regular-helm

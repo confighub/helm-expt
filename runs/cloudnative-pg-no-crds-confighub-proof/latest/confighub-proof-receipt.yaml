@@ -214,7 +214,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cloudnative-pg-no-crds --space helm-cloudnative-pg-no-crds-confighub-proof --component CloudNativePG --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=CloudNativePG --unit-label HelmChart=cloudnative-pg-cloudnative-pg --unit-label HelmChartVersion=0.28.2 --unit-label Variant=no-crds --unit-label Proof=cloudnative-pg-no-crds-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cloudnative-pg-no-crds-confighub-proof"
     unitCount: 13
     kubernetesUnitCount: 12
@@ -255,6 +255,6 @@ spec:
       - "helm-cloudnative-pg-no-crds-confighub-proof"
       - "CloudNativePG-no-crds-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

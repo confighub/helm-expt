@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-prometheus-pushgateway-3-6-0-default --space helm-cl-prometheus-pushgateway-3-6-0-default-confighub-proof --component PrometheusPushgateway360 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=PrometheusPushgateway360 --unit-label HelmChart=prometheus-community-prometheus-pushgateway --unit-label HelmChartVersion=3.6.0 --unit-label Variant=default --unit-label Proof=cl-prometheus-pushgateway-3-6-0-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-prometheus-pushgateway-3-6-0-default-confighub-proof"
     unitCount: 5
     kubernetesUnitCount: 4
@@ -85,6 +85,6 @@ spec:
       - "helm-cl-prometheus-pushgateway-3-6-0-default-confighub-proof"
       - "PrometheusPushgateway360-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

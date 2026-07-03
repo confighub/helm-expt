@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
+    "claim": "live object set matches rendered manifests from $HOME/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
     "scope": {
       "kind": "ObjectSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "objectSet": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
           "digest": "6a796c2bf47b440265da18ce7e089b7f931c3083247906c1bbd16645c6b8f4eb",
           "objectCount": 7
         },

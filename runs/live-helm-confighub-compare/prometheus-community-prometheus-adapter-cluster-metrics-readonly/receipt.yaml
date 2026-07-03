@@ -49,7 +49,7 @@ spec:
       result: pass
       command: helm upgrade --install prometheus-adapter prometheus-adapter --repo
         https://prometheus-community.github.io/helm-charts --version 5.3.0 --namespace
-        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/regular-helm-values.yaml
+        default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a
       objectCount: 11
@@ -77,7 +77,7 @@ spec:
     elapsedSeconds: 40.141
     timeoutSeconds: 900
     command: helm upgrade --install prometheus-adapter prometheus-adapter --repo https://prometheus-community.github.io/helm-charts
-      --version 5.3.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/regular-helm-values.yaml
+      --version 5.3.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -85,7 +85,7 @@ spec:
     finishedAt: '2026-06-16T05:49:30Z'
     elapsedSeconds: 0.534
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-adapter/5.3.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-adapter/5.3.0
       --base cluster-metrics-readonly --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusadapter-mqg7ztzb-gjd-prometheus-adapter
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -94,18 +94,18 @@ spec:
     finishedAt: '2026-06-16T05:49:30Z'
     elapsedSeconds: 0.248
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig
       --context kind-helm-expt-parity-prometheusadapter-mqg7ztzb-gjd apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml
     objectCount: 11
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheusadapter-mqg7ztzb-gjd\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheusadapter-mqg7ztzb-gjd\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -116,7 +116,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheusadapter-mqg7ztzb-gjd\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheusadapter-mqg7ztzb-gjd\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheusadapter-mqg7ztzb-gjd.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/"
   - name: target-facts-regular-helm
     result: pass
@@ -135,7 +135,7 @@ spec:
   - name: failure
     result: blocked
     detail: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
-      namespace: "" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml":
+      namespace: "" from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml":
       no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
 
       ensure CRDs are installed first'
@@ -158,7 +158,7 @@ spec:
       operation: none
   failure:
     message: 'manifest apply failed: error: resource mapping not found for name: "v1beta1.custom.metrics.k8s.io"
-      namespace: "" from "/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml":
+      namespace: "" from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-adapter-cluster-metrics-readonly/direct-apply-manifest.yaml":
       no matches for kind "APIService" in version "apiregistration.k8s.io/v1beta1"
 
       ensure CRDs are installed first'

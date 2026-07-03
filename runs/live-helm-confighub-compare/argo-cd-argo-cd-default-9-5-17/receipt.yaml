@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
-        --version 9.5.17 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
+        --version 9.5.17 --namespace argocd-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7
       objectCount: 49
@@ -92,7 +92,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
         --non-interactive --namespace argocd-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -317,7 +317,7 @@ spec:
     elapsedSeconds: 21.568
     timeoutSeconds: 900
     command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
-      --version 9.5.17 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
+      --version 9.5.17 --namespace argocd-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -325,7 +325,7 @@ spec:
     finishedAt: '2026-06-14T18:54:57Z'
     elapsedSeconds: 1.237
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
       --non-interactive --namespace argocd-apply
   - name: configHub-direct-crd-apply
@@ -334,9 +334,9 @@ spec:
     finishedAt: '2026-06-14T18:55:00Z'
     elapsedSeconds: 0.481
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
       --context kind-helm-expt-parity-argocd-mqe575l2-s1w apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/confighub-rendered-crds.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/confighub-rendered-crds.yaml
     objectCount: 3
   - name: configHub-direct-apply
     result: pass
@@ -344,9 +344,9 @@ spec:
     finishedAt: '2026-06-14T18:55:04Z'
     elapsedSeconds: 0.31
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig
       --context kind-helm-expt-parity-argocd-mqe575l2-s1w apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/direct-apply-manifest.yaml
     objectCount: 46
   - name: configHub-direct-readiness
     result: pass
@@ -361,7 +361,7 @@ spec:
     finishedAt: '2026-06-14T18:55:40Z'
     elapsedSeconds: 1.124
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-cd/9.5.17
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-mqe575l2-s1w-argo-cd
       --non-interactive --namespace argocd-oci
   - name: configHub-oci-upload
@@ -396,7 +396,7 @@ spec:
     elapsedSeconds: 1.164
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-argocd-mqe575l2-s1w-cluster
-      argo-cd-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/argo-application.json
+      argo-cd-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/argo-application.json
       --target helm-expt-parity-argocd-mqe575l2-s1w-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -419,11 +419,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-argocd-mqe575l2-s1w\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-argocd-mqe575l2-s1w\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -434,7 +434,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-argocd-mqe575l2-s1w\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-mqe575l2-s1w\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocd-mqe575l2-s1w.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\n"
   - name: target-facts-regular-helm
@@ -520,7 +520,7 @@ spec:
         sourceNamespace: argocd
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -537,7 +537,7 @@ spec:
         sourceNamespace: argocd
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-default/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

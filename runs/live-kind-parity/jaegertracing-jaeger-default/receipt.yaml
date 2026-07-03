@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install jaeger jaeger --repo https://jaegertracing.github.io/helm-charts
-        --version 4.8.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jaegertracing-jaeger-default/regular-helm-values.yaml
+        --version 4.8.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/jaegertracing-jaeger-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: da24b2c05d1c43492627f3d01b0d675ea01bb2acb38017a18dec5a70c55b7939
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger/4.8.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jaegertracing/jaeger/4.8.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-jaeger-fe687-l0zt-jaeger
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

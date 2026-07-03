@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
-        --version v1.20.2 --namespace cert-manager --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
+        --version v1.20.2 --namespace cert-manager --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: cert-manager
       manifestSHA256: e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
         --base crds-enabled --work-dir /tmp/helm-expt-kind-parity-hx-certma-b06f3-styg-cert-manager
         --non-interactive --namespace cert-manager
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

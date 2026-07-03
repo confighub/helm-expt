@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-        --version 29.8.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
+        --version 29.8.0 --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 174e1729753ef551fa059f86111cfd87653ea2380dc879238cf5cc4987e78812
       objectCount: 6
@@ -56,7 +56,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.8.0
         --base server-only-ephemeral --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mq15se5h-1see-prometheus
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -128,7 +128,7 @@ spec:
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheus-mq15se5h-1see\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheus-mq15se5h-1see\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -139,7 +139,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheus-mq15se5h-1see\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mq15se5h-1see\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheus-mq15se5h-1see.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo C"
   - name: regular-helm-live

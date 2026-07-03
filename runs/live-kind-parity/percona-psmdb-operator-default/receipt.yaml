@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install psmdb-operator psmdb-operator --repo https://percona.github.io/percona-helm-charts/
-        --version 1.22.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-psmdb-operator-default/regular-helm-values.yaml
+        --version 1.22.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/percona-psmdb-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/psmdb-operator/1.22.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/percona/psmdb-operator/1.22.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-psmdbo-95707-s9sc-psmdb-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

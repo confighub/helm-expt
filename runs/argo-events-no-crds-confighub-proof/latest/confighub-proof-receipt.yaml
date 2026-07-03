@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/argo-events-no-crds --space helm-argo-events-no-crds-confighub-proof --component ArgoEvents --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=ArgoEvents --unit-label HelmChart=argo-cd-argo-events --unit-label HelmChartVersion=2.4.21 --unit-label Variant=no-crds --unit-label Proof=argo-events-no-crds-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-argo-events-no-crds-confighub-proof"
     unitCount: 8
     kubernetesUnitCount: 7
@@ -86,6 +86,6 @@ spec:
       - "helm-argo-events-no-crds-confighub-proof"
       - "ArgoEvents-no-crds-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

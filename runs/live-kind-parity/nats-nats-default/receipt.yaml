@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install nats nats --repo https://nats-io.github.io/k8s/helm/charts/
-        --version 2.14.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nats-nats-default/regular-helm-values.yaml
+        --version 2.14.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/nats-nats-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nats/2.14.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/nats/nats/2.14.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-nats-f4637-2ci5-nats
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

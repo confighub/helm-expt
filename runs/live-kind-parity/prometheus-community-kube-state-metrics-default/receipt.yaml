@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install kube-state-metrics kube-state-metrics --repo
         https://prometheus-community.github.io/helm-charts --version 7.4.0 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-state-metrics-default/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/prometheus-community-kube-state-metrics-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-state-metrics/7.4.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/kube-state-metrics/7.4.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubest-bb7e6-szal-kube-state-metrics
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

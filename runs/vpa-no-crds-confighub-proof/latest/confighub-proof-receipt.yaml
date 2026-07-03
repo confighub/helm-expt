@@ -111,7 +111,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/vpa-no-crds --space helm-vpa-no-crds-confighub-proof --component VPA --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=VPA --unit-label HelmChart=fairwinds-stable-vpa --unit-label HelmChartVersion=4.11.0 --unit-label Variant=no-crds --unit-label Proof=vpa-no-crds-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-vpa-no-crds-confighub-proof"
     unitCount: 28
     kubernetesUnitCount: 27
@@ -152,6 +152,6 @@ spec:
       - "helm-vpa-no-crds-confighub-proof"
       - "VPA-no-crds-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

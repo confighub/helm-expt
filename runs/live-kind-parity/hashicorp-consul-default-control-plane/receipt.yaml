@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
-        --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-default-control-plane/regular-helm-values.yaml
+        --version 2.0.0 --namespace consul --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/hashicorp-consul-default-control-plane/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: consul
       manifestSHA256: 7efa3e8b59c702c8b8fa744a0ff91198e09ad8ba0fb93a86b50c3fd9e39d29f7
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/consul/2.0.0
         --base default-control-plane --work-dir /tmp/helm-expt-kind-parity-hx-consul-776fd-ni7s-consul
         --non-interactive --namespace consul
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

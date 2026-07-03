@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install falco falco --repo https://falcosecurity.github.io/charts
-        --version 9.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/falcosecurity-falco-default/regular-helm-values.yaml
+        --version 9.0.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/falcosecurity-falco-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: e417f53227667413d5d51b89157f00c603af2cd613e282816c27df69408f7648
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/falcosecurity/falco/9.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/falcosecurity/falco/9.0.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-falco-2d69f-gha6-falco
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

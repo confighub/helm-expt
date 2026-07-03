@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install contour contour --repo https://charts.bitnami.com/bitnami
-        --version 21.1.4 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-contour-no-crds/regular-helm-values.yaml
+        --version 21.1.4 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-contour-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f
@@ -164,7 +164,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/contour/21.1.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/contour/21.1.4
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-contou-cb26c-l7q5-contour
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

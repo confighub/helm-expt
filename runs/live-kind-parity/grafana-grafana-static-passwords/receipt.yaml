@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
-        --version 10.5.15 --namespace grafana --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-grafana-static-passwords/regular-helm-values.yaml
+        --version 10.5.15 --namespace grafana --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-grafana-static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: grafana
       manifestSHA256: 893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/grafana/10.5.15
         --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-grafan-676b4-0p57-grafana
         --non-interactive --namespace grafana
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

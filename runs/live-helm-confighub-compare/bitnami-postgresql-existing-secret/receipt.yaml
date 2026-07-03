@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
-        --version 18.6.7 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/regular-helm-values.yaml
+        --version 18.6.7 --namespace postgresql-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd
       objectCount: 6
@@ -56,7 +56,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.6.7
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/postgresql/18.6.7
         --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqaohpi8-7ej-postgresql
         --non-interactive --namespace postgresql-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -131,11 +131,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-postgresql-mqaohpi8-7ej\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqaohpi8-7ej.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-postgresql-mqaohpi8-7ej.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-postgresql-mqaohpi8-7ej\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -146,7 +146,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-postgresql-mqaohpi8-7ej\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-postgresql-mqaohpi8-7ej\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqaohpi8-7ej.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-postgresql-mqaohpi8-7ej.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nC"
   - name: target-facts-regular-helm
@@ -195,7 +195,7 @@ spec:
         lane: regularHelm
         sourceNamespace: postgresql
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -206,7 +206,7 @@ spec:
         lane: configHubKubectlApply
         sourceNamespace: postgresql
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -217,4 +217,4 @@ spec:
         lane: configHubOciArgo
         sourceNamespace: postgresql
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret/target-facts-confighub-oci.yaml

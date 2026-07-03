@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install metricbeat metricbeat --repo https://helm.elastic.co
-        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/elastic-metricbeat-default/regular-helm-values.yaml
+        --version 8.5.1 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/elastic-metricbeat-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 805a258f07a07f1cdef0ee45ee427a06e28cc18380e52368840efeb7b672e939
@@ -275,7 +275,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/elastic/metricbeat/8.5.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-metric-6589d-umbt-metricbeat
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

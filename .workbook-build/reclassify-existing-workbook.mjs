@@ -2,8 +2,8 @@ import fs from "node:fs/promises";
 import { join } from "node:path";
 import { FileBlob, SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 
-const inputPath = "/Users/alexis/code/helm-expt/outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx";
-const outputDir = "/Users/alexis/code/helm-expt/outputs/helm_top500_matrix";
+const inputPath = "$HOME/code/helm-expt/outputs/helm_top500_matrix/helm_top500_import_feature_matrix.xlsx";
+const outputDir = "$HOME/code/helm-expt/outputs/helm_top500_matrix";
 const outputPath = join(outputDir, "helm_top500_import_feature_matrix.xlsx");
 const sourceURL =
   "https://artifacthub.io/api/v1/packages/search?kind=0&sort=stars&limit=60&offset=0..480&deprecated=false";

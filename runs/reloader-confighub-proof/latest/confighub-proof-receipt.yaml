@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/reloader-controller-default-reviewed --space helm-reloader-confighub-proof --component Reloader --layer App --environment Demo --owner ConfigHubHelm --variant controller-default-reviewed --unit-label Component=Reloader --unit-label HelmChart=stakater-reloader --unit-label HelmChartVersion=2.2.12 --unit-label Variant=controller-default-reviewed --unit-label Proof=reloader-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-reloader-confighub-proof"
     unitCount: 8
     kubernetesUnitCount: 7
@@ -78,6 +78,6 @@ spec:
       - "helm-reloader-confighub-proof"
       - "Reloader-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

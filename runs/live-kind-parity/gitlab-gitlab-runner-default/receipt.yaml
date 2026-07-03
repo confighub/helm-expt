@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
-        --version 0.89.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/gitlab-gitlab-runner-default/regular-helm-values.yaml
+        --version 0.89.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/gitlab-gitlab-runner-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/gitlab/gitlab-runner/0.89.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/gitlab/gitlab-runner/0.89.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-gitlab-ee72e-u45f-gitlab-runner
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

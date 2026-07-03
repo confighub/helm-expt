@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install sealed-secrets sealed-secrets --repo https://bitnami-labs.github.io/sealed-secrets
-        --version 2.18.6 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/sealed-secrets-sealed-secrets-default/regular-helm-values.yaml
+        --version 2.18.6 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/sealed-secrets-sealed-secrets-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/sealed-secrets/sealed-secrets/2.18.6
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-sealed-4c392-lhq0-sealed-secrets
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

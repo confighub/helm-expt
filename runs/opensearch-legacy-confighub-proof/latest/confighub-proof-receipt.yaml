@@ -46,7 +46,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/opensearch-legacy --space helm-opensearch-legacy-confighub-proof --component OpenSearch --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=OpenSearch --unit-label HelmChart=bitnami-opensearch --unit-label HelmChartVersion=2.0.10 --unit-label Variant=legacy --unit-label Proof=opensearch-legacy-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-opensearch-legacy-confighub-proof"
     unitCount: 20
     kubernetesUnitCount: 19
@@ -87,6 +87,6 @@ spec:
       - "helm-opensearch-legacy-confighub-proof"
       - "OpenSearch-legacy-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

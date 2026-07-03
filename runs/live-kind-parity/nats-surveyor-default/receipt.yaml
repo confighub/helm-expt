@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
-        --version 0.20.9 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nats-surveyor-default/regular-helm-values.yaml
+        --version 0.20.9 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/nats-surveyor-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
@@ -238,7 +238,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/nats/surveyor/0.20.9
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-survey-d489c-1lc1-surveyor
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

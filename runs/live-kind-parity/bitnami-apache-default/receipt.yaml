@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install apache apache --repo https://charts.bitnami.com/bitnami
-        --version 11.4.29 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-apache-default/regular-helm-values.yaml
+        --version 11.4.29 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-apache-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c
@@ -168,7 +168,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/apache/11.4.29
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/apache/11.4.29
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-apache-0375f-ww48-apache
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "claim": "desired workloads from $HOME/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
     "scope": {
       "kind": "WorkloadSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "workloads": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml",
           "digest": "199efbf31ac4d6a0e2ef7b708fcf1bcc66e9dc2f1065aba818dc16d9fcc78b63",
           "objectCount": 1
         },

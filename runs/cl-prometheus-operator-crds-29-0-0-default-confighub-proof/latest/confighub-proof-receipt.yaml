@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-prometheus-operator-crds-29-0-0-default --space helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof --component PrometheusOperatorCrds2900 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=PrometheusOperatorCrds2900 --unit-label HelmChart=prometheus-community-prometheus-operator-crds --unit-label HelmChartVersion=29.0.0 --unit-label Variant=default --unit-label Proof=cl-prometheus-operator-crds-29-0-0-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof"
     unitCount: 12
     kubernetesUnitCount: 11
@@ -85,6 +85,6 @@ spec:
       - "helm-cl-prometheus-operator-crds-29-0-0-default-confighub-proof"
       - "PrometheusOperatorCrds2900-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

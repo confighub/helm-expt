@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/rollout-operator-default --space helm-rollout-operator-confighub-proof --component RolloutOperator --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=RolloutOperator --unit-label HelmChart=grafana-rollout-operator --unit-label HelmChartVersion=0.49.0 --unit-label Variant=default --unit-label Proof=rollout-operator-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-rollout-operator-confighub-proof"
     unitCount: 17
     kubernetesUnitCount: 16
@@ -78,6 +78,6 @@ spec:
       - "helm-rollout-operator-confighub-proof"
       - "RolloutOperator-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

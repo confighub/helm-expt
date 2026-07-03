@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
-        --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
+        --version 0.28.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d
       objectCount: 11
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -930,7 +930,7 @@ spec:
     elapsedSeconds: 13.754
     timeoutSeconds: 900
     command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
-      --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
+      --version 0.28.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -938,7 +938,7 @@ spec:
     finishedAt: '2026-06-14T17:30:39Z'
     elapsedSeconds: 0.425
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -947,9 +947,9 @@ spec:
     finishedAt: '2026-06-14T17:30:39Z'
     elapsedSeconds: 0.147
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig
       --context kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/direct-apply-manifest.yaml
     objectCount: 11
   - name: configHub-direct-readiness
     result: pass
@@ -964,7 +964,7 @@ spec:
     finishedAt: '2026-06-14T17:30:55Z'
     elapsedSeconds: 0.265
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-mqe269k5-c7x-cloudnative-pg
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1000,7 +1000,7 @@ spec:
     elapsedSeconds: 0.955
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster
-      cloudnative-pg-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/argo-application.json
+      cloudnative-pg-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-no-crds/argo-application.json
       --target helm-expt-parity-cloudnativepg-mqe269k5-c7x-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1030,11 +1030,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-cloudnativepg-mqe269k5-c7x\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-cloudnativepg-mqe269k5-c7x\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1045,7 +1045,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-cloudnativepg-mqe269k5-c7x\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-cloudnativepg-mqe269k5-c7x.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Names"
   - name: target-facts-regular-helm

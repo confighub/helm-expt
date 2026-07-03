@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
-        --version v3.32.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/projectcalico-tigera-operator-default/regular-helm-values.yaml
+        --version v3.32.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/projectcalico-tigera-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350

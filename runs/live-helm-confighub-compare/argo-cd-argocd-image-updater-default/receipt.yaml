@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install argocd-image-updater argocd-image-updater --repo
         https://argoproj.github.io/argo-helm --version 1.2.2 --namespace default-helm
-        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2
       objectCount: 11
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -956,7 +956,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install argocd-image-updater argocd-image-updater --repo
       https://argoproj.github.io/argo-helm --version 1.2.2 --namespace default-helm
-      --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
+      --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -964,7 +964,7 @@ spec:
     finishedAt: '2026-06-14T21:51:59Z'
     elapsedSeconds: 0.441
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -973,9 +973,9 @@ spec:
     finishedAt: '2026-06-14T21:51:59Z'
     elapsedSeconds: 0.06
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
       --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/confighub-rendered-crds.yaml
     objectCount: 1
   - name: configHub-direct-apply
     result: pass
@@ -983,9 +983,9 @@ spec:
     finishedAt: '2026-06-14T21:51:59Z'
     elapsedSeconds: 0.138
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig
       --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -1000,7 +1000,7 @@ spec:
     finishedAt: '2026-06-14T21:52:36Z'
     elapsedSeconds: 0.259
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argocd-image-updater/1.2.2
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-argocd-image-updater
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1036,7 +1036,7 @@ spec:
     elapsedSeconds: 1.156
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster
-      argocd-image-updater-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/argo-application.json
+      argocd-image-updater-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argocd-image-updater-default/argo-application.json
       --target helm-expt-parity-argocdimageupdater-mqebhwzn-1o51-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1066,11 +1066,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -1081,7 +1081,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocdimageupdater-mqebhwzn-1o51\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocdimageupdater-mqebhwzn-1o51.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https:/"
   - name: target-facts-regular-helm
     result: pass

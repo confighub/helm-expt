@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install vertical-pod-autoscaler vertical-pod-autoscaler
         --repo https://kubernetes.github.io/autoscaler --version 0.9.0 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6
@@ -82,7 +82,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/autoscaler/vertical-pod-autoscaler/0.9.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-vertic-c524a-h0l1-vertical-pod-autoscaler
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -190,7 +190,7 @@ spec:
         lane: regularHelm
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -203,7 +203,7 @@ spec:
         lane: cubInstallerApply
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

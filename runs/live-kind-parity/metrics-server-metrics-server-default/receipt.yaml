@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
-        --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-default/regular-helm-values.yaml
+        --version 3.13.0 --namespace kube-system --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: kube-system
       manifestSHA256: 97514966a1917b1ae3b597ec3a32216d0a650db7cb56d472f4e722c69c869b51
@@ -82,7 +82,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-metric-1db9a-pfzo-metrics-server
         --non-interactive --namespace kube-system
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

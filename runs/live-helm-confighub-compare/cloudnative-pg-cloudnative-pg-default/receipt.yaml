@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
-        --version 0.28.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/regular-helm-values.yaml
+        --version 0.28.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/cloudnative-pg-cloudnative-pg-default/regular-helm-values.yaml
         --wait --timeout 600s
       manifestSHA256: 67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46
       objectCount: 21
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-cloudnativepg-default-1781307102-cloudnative-pg-cloudnative-pg
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -378,11 +378,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-cloudnativepg-default-1781307102\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-cloudnativepg-default-1781307102\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -393,7 +393,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-cloudnativepg-default-1781307102\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-cloudnativepg-default-1781307102\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-cloudnativepg-default-1781307102.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"a"
   - name: target-facts-regular-helm
     result: pass

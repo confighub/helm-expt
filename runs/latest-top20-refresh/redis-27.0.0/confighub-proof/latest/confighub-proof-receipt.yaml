@@ -58,7 +58,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/latest-top20-refresh/redis-27.0.0/confighub-proof --space helm-redis-27-0-0-candidate-proof --component Redis --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Redis --unit-label HelmChart=bitnami-redis --unit-label HelmChartVersion=27.0.0 --unit-label Variant=default --unit-label Proof=redis-27-0-0-candidate-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-redis-27-0-0-candidate-proof"
     unitCount: 15
     kubernetesUnitCount: 14
@@ -91,7 +91,7 @@ spec:
       - "helm-redis-27-0-0-candidate-proof"
       - "Redis-redis-27-0-0-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

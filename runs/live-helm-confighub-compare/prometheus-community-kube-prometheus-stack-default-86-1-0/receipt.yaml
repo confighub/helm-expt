@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
         --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
-        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
+        --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd
       objectCount: 124
@@ -88,7 +88,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1973,7 +1973,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack --repo
       https://prometheus-community.github.io/helm-charts --version 86.1.0 --namespace
-      monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
+      monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1981,7 +1981,7 @@ spec:
     finishedAt: '2026-06-14T20:52:48Z'
     elapsedSeconds: 2.137
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
       --non-interactive --namespace monitoring-apply
   - name: configHub-direct-crd-apply
@@ -1990,9 +1990,9 @@ spec:
     finishedAt: '2026-06-14T20:52:54Z'
     elapsedSeconds: 0.798
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
       --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/confighub-rendered-crds.yaml
     objectCount: 10
   - name: configHub-direct-apply
     result: pass
@@ -2000,9 +2000,9 @@ spec:
     finishedAt: '2026-06-14T20:53:02Z'
     elapsedSeconds: 0.684
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig
       --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/direct-apply-manifest.yaml
     objectCount: 114
   - name: configHub-direct-readiness
     result: pass
@@ -2017,7 +2017,7 @@ spec:
     finishedAt: '2026-06-14T20:53:48Z'
     elapsedSeconds: 2.004
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/86.1.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-kube-prometheus-stack
       --non-interactive --namespace monitoring-oci
   - name: configHub-oci-upload
@@ -2053,7 +2053,7 @@ spec:
     elapsedSeconds: 1.124
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster
-      kube-prometheus-stack-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/argo-application.json
+      kube-prometheus-stack-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/argo-application.json
       --target helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -2083,11 +2083,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -2098,7 +2098,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mqe9brrc-1xch.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.i"
   - name: target-facts-regular-helm
     result: pass
@@ -2172,7 +2172,7 @@ spec:
         sourceNamespace: monitoring
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -2191,7 +2191,7 @@ spec:
         sourceNamespace: monitoring
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default-86-1-0/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

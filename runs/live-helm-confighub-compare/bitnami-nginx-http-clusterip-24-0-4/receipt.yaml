@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
-        --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/regular-helm-values.yaml
+        --version 24.0.4 --namespace nginx-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac
       objectCount: 5
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
         --base http-clusterip --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqefb17b-2015-nginx
         --non-interactive --namespace nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -846,7 +846,7 @@ spec:
     elapsedSeconds: 27.357
     timeoutSeconds: 900
     command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
-      --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/regular-helm-values.yaml
+      --version 24.0.4 --namespace nginx-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -854,7 +854,7 @@ spec:
     finishedAt: '2026-06-14T23:38:25Z'
     elapsedSeconds: 0.355
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
       --base http-clusterip --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqefb17b-2015-nginx
       --non-interactive --namespace nginx-apply
   - name: configHub-direct-apply
@@ -863,9 +863,9 @@ spec:
     finishedAt: '2026-06-14T23:38:25Z'
     elapsedSeconds: 0.106
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig
       --context kind-helm-expt-parity-nginx-mqefb17b-2015 apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/direct-apply-manifest.yaml
     objectCount: 5
   - name: configHub-direct-readiness
     result: pass
@@ -880,7 +880,7 @@ spec:
     finishedAt: '2026-06-14T23:39:01Z'
     elapsedSeconds: 0.263
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
       --base http-clusterip --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqefb17b-2015-nginx
       --non-interactive --namespace nginx-oci
   - name: configHub-oci-upload
@@ -915,7 +915,7 @@ spec:
     elapsedSeconds: 0.941
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-nginx-mqefb17b-2015-cluster
-      nginx-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/argo-application.json
+      nginx-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-http-clusterip-24-0-4/argo-application.json
       --target helm-expt-parity-nginx-mqefb17b-2015-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -945,11 +945,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-nginx-mqefb17b-2015\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-nginx-mqefb17b-2015\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -960,7 +960,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqefb17b-2015\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqefb17b-2015\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nginx-mqefb17b-2015.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argoc"
   - name: target-facts-regular-helm

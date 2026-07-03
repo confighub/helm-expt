@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
-        --version 0.49.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
+        --version 0.49.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763
       objectCount: 15
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1014,7 +1014,7 @@ spec:
     elapsedSeconds: 29.866
     timeoutSeconds: 900
     command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
-      --version 0.49.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
+      --version 0.49.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1022,7 +1022,7 @@ spec:
     finishedAt: '2026-06-15T02:43:13Z'
     elapsedSeconds: 0.371
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -1031,9 +1031,9 @@ spec:
     finishedAt: '2026-06-15T02:43:13Z'
     elapsedSeconds: 0.049
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
       --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/confighub-rendered-crds.yaml
     objectCount: 2
   - name: configHub-direct-apply
     result: pass
@@ -1041,9 +1041,9 @@ spec:
     finishedAt: '2026-06-15T02:43:13Z'
     elapsedSeconds: 0.169
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig
       --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/direct-apply-manifest.yaml
     objectCount: 13
   - name: configHub-direct-readiness
     result: pass
@@ -1058,7 +1058,7 @@ spec:
     finishedAt: '2026-06-15T02:43:39Z'
     elapsedSeconds: 0.26
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rolloutoperator-mqelwmtx-16l7-rollout-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1094,7 +1094,7 @@ spec:
     elapsedSeconds: 1.091
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster
-      rollout-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/argo-application.json
+      rollout-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-rollout-operator-default/argo-application.json
       --target helm-expt-parity-rolloutoperator-mqelwmtx-16l7-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1124,11 +1124,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-rolloutoperator-mqelwmtx-16l7\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1139,7 +1139,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rolloutoperator-mqelwmtx-16l7\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rolloutoperator-mqelwmtx-16l7.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/"
   - name: target-facts-regular-helm
     result: pass

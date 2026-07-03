@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts
-        --version 2.0.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-pyroscope-no-crds/regular-helm-values.yaml
+        --version 2.0.2 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-pyroscope-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086
@@ -71,7 +71,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pyrosc-a0f07-hbnm-pyroscope
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

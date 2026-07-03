@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
-        --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
+        --version 3.13.0 --namespace kube-system --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: kube-system
       manifestSHA256: 03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4
@@ -83,7 +83,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
         --base external-tls-ca --work-dir /tmp/helm-expt-kind-parity-hx-metric-3c02b-dsdn-metrics-server
         --non-interactive --namespace kube-system --input apiServiceCaBundle=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2ekNDQXFlZ0F3SUJBZ0lVUE1vaW9TREdhRGMwUEVERzdOUTdRUjY0OENJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0tURW5NQ1VHQTFVRUF3d2ViV1YwY21samN5MXpaWEoyWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTUI0WApEVEkyTURZeE1EQTBNRGN4TTFvWERUSTJNRFl4TVRBME1EY3hNMW93S1RFbk1DVUdBMVVFQXd3ZWJXVjBjbWxqCmN5MXpaWEoyWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEEKTUlJQkNnS0NBUUVBci8rdlFPa1pnbGVOQzJIMjdES3RkdndJeWp6WXJXYXB2R0l4cEZVZUVKSytGeU5Jd3pyagpqa3VFVVFDTytEUnFCZzQ3bXZYY1JEYkMrYktzUDB1aHNJa0ZHN2YyNWdOdnYzTjloVDBYb1NHc2FBM3c3Uk9VCllsVjcwc0VJaTE1ZTJXcGFiL2dydytxVDF4eHBNL1c5eHN6QTJMNmtFOEZxeGNWRDdjM0JveFFGYUt6ZDA1MGIKSFAxaEtlNkJwL0JWM2ZReFlWSGZzTldoZjQ1U0dDQjNLcGtkSmxrYjJHQ2hyc1dyNXNhWFNhd3htREVhM0lUZgpFWjQxejFOcDRXWHFnOU9tVXROeEloR3pGd0ZCdGo5V0FYTUNBcVNqc3RYVUduTStkSGU0REgyZ3F3WExtWnhVClQ2aHluRkh1Q2syeUVJc2tVMWo5cnVVVndmekVvVDJpSHdJREFRQUJvNEhlTUlIYk1BOEdBMVVkRXdFQi93UUYKTUFNQkFmOHdEZ1lEVlIwUEFRSC9CQVFEQWdLa01CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRkJ3TUJNSUdEQmdOVgpIUkVFZkRCNmdnNXRaWFJ5YVdOekxYTmxjblpsY29JYWJXVjBjbWxqY3kxelpYSjJaWEl1YTNWaVpTMXplWE4wClpXMkNIbTFsZEhKcFkzTXRjMlZ5ZG1WeUxtdDFZbVV0YzNsemRHVnRMbk4yWTRJc2JXVjBjbWxqY3kxelpYSjIKWlhJdWEzVmlaUzF6ZVhOMFpXMHVjM1pqTG1Oc2RYTjBaWEl1Ykc5allXd3dIUVlEVlIwT0JCWUVGTHowVkx4NwpESjZvZVAwdkhJRWFTUW55Ymw3cU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQXFDRWYzTnkwZTEwKy9NTVJGCnBKUmY3dTdqcnNRLzdJSFV0anh5SHNYU3BLcWEvOC9ycHF4d1JWLzN0MHhvRjNiS0wwaTNwWFdTeUpEcStORDIKYmczNXlxQndCekhzajJnZExxa25JNlgyUzBla1dGWncxOElXWCtCUG1vWHFlVXZYSnZaaW9MWW9nMEJFektWZwprQ1M0c3RickhjQmJBTnVROFZ5ZVpYcFgwdWNrM08yMHdVemlKYnJnY0lOT3BsZWdPM0kvYUJwb2Rla0VFcHdOCmFzOU1WbmpxbFhMR1lQUlNRdUlUbnJPSzRLeDE1QmVhblZ0UUg0L0lhRXI1Ky9PYU14S1V2cVR5MlcvZ01acXkKUE1wQjlUdCtlSWxGVnRwVDA1UzFSbzZGbmk2VnpoNDZvdjM4U28vUjlSc083TWs2VzMvSEZTOTJlU09uZ3VFRQowQk1iCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -190,7 +190,7 @@ spec:
         - tls.key
         lane: regularHelm
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -201,7 +201,7 @@ spec:
         - tls.key
         lane: cubInstallerApply
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/target-facts-installer.yaml
     requiredValues:
     - path: apiService.caBundle
       lane: regularHelm

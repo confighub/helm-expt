@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install trivy-operator trivy-operator --repo https://aquasecurity.github.io/helm-charts/
-        --version 0.32.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-default/regular-helm-values.yaml
+        --version 0.32.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25
@@ -81,7 +81,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/aqua/trivy-operator/0.32.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-trivyo-8986a-vyw1-trivy-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

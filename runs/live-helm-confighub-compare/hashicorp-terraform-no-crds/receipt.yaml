@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
-        --version 1.1.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
+        --version 1.1.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a
       objectCount: 4
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/terraform/1.1.2
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -910,7 +910,7 @@ spec:
     elapsedSeconds: 481.715
     timeoutSeconds: 900
     command: helm upgrade --install terraform terraform --repo https://helm.releases.hashicorp.com
-      --version 1.1.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
+      --version 1.1.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -918,7 +918,7 @@ spec:
     finishedAt: '2026-06-15T16:38:08Z'
     elapsedSeconds: 0.414
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/terraform/1.1.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -927,9 +927,9 @@ spec:
     finishedAt: '2026-06-15T16:38:08Z'
     elapsedSeconds: 0.087
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig
       --context kind-helm-expt-parity-terraform-mqffcrbf-14g1 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/direct-apply-manifest.yaml
     objectCount: 4
   - name: configHub-direct-readiness
     result: pass
@@ -944,7 +944,7 @@ spec:
     finishedAt: '2026-06-15T16:38:14Z'
     elapsedSeconds: 0.258
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/terraform/1.1.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/terraform/1.1.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-terraform-mqffcrbf-14g1-terraform
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -979,7 +979,7 @@ spec:
     elapsedSeconds: 1.004
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-terraform-mqffcrbf-14g1-cluster
-      terraform-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/argo-application.json
+      terraform-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/argo-application.json
       --target helm-expt-parity-terraform-mqffcrbf-14g1-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1009,11 +1009,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-terraform-mqffcrbf-14g1\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-terraform-mqffcrbf-14g1\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1024,7 +1024,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-terraform-mqffcrbf-14g1\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-terraform-mqffcrbf-14g1\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-terraform-mqffcrbf-14g1.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreatin"
   - name: target-facts-regular-helm

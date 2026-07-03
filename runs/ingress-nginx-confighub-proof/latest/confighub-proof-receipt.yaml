@@ -66,7 +66,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/ingress-nginx-internal-clusterip --space helm-ingress-nginx-confighub-proof --component IngressNGINX --layer App --environment Demo --owner ConfigHubHelm --variant internal-clusterip --unit-label Component=IngressNGINX --unit-label HelmChart=ingress-nginx-ingress-nginx --unit-label HelmChartVersion=4.15.1 --unit-label Variant=internal-clusterip --unit-label Proof=ingress-nginx-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-ingress-nginx-confighub-proof"
     unitCount: 11
     kubernetesUnitCount: 10
@@ -107,6 +107,6 @@ spec:
       - "helm-ingress-nginx-confighub-proof"
       - "IngressNGINX-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

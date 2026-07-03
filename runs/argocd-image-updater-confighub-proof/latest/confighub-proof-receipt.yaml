@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/argocd-image-updater-default --space helm-argocd-image-updater-confighub-proof --component ArgoCDImageUpdater --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoCDImageUpdater --unit-label HelmChart=argo-cd-argocd-image-updater --unit-label HelmChartVersion=1.2.2 --unit-label Variant=default --unit-label Proof=argocd-image-updater-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-argocd-image-updater-confighub-proof"
     unitCount: 13
     kubernetesUnitCount: 12
@@ -77,6 +77,6 @@ spec:
       - "helm-argocd-image-updater-confighub-proof"
       - "ArgoCDImageUpdater-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/velero-no-crds --space helm-velero-confighub-proof --component Velero --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=Velero --unit-label HelmChart=velero-velero --unit-label HelmChartVersion=12.0.1 --unit-label Variant=no-crds --unit-label Proof=velero-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-velero-confighub-proof"
     unitCount: 11
     kubernetesUnitCount: 10
@@ -78,7 +78,7 @@ spec:
       - "helm-velero-confighub-proof"
       - "Velero-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

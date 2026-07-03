@@ -18,18 +18,18 @@ spec:
     target: codex-es-provider-082730-cluster/oci
     namespace: external-secrets
     kubeContext: kind-codex-es-provider-082730
-    kubeconfig: /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig
     keptForInspection: false
   commands:
     setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-es-provider-082730
     renderForSecretPrerequisite: cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir /tmp/helm-expt-es-provider.ot0A1c --non-interactive --namespace external-secrets
-    stageNamespace: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 create namespace external-secrets --dry-run=client -o yaml | kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f -
-    stageSeparatedSecret: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f /tmp/helm-expt-es-provider.ot0A1c/out/secrets
-    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-provider-roundtrip --namespace external-secrets --rig codex-es-provider-082730 --base default --helm-expt /Users/alexis/code/helm-expt --wait 600 --keep --json
-    createProviderObjects: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f <fake-provider-roundtrip-yaml>
-    patchProviderVersion: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets patch externalsecret fake-provider-roundtrip --type merge -p '{"spec":{"data":[{"secretKey":"proof","remoteRef":{"key":"/helm-expt/roundtrip","version":"v1"}}]}}'
-    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
-    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets get deploy,pods,secretstore,externalsecret,secret -o wide
+    stageNamespace: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 create namespace external-secrets --dry-run=client -o yaml | kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f -
+    stageSeparatedSecret: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f /tmp/helm-expt-es-provider.ot0A1c/out/secrets
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-provider-roundtrip --namespace external-secrets --rig codex-es-provider-082730 --base default --helm-expt $HOME/code/helm-expt --wait 600 --keep --json
+    createProviderObjects: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f <fake-provider-roundtrip-yaml>
+    patchProviderVersion: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets patch externalsecret fake-provider-roundtrip --type merge -p '{"spec":{"data":[{"secretKey":"proof","remoteRef":{"key":"/helm-expt/roundtrip","version":"v1"}}]}}'
+    inspectApplications: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig $HOME/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets get deploy,pods,secretstore,externalsecret,secret -o wide
     teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-es-provider-082730 --force
     postTeardownClusters: kind get clusters
   oci:

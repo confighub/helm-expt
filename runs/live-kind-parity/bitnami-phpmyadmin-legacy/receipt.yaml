@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install phpmyadmin phpmyadmin --repo https://charts.bitnami.com/bitnami
-        --version 20.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-phpmyadmin-legacy/regular-helm-values.yaml
+        --version 20.0.0 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-phpmyadmin-legacy/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 401bc04af284e57aba9dce87ee949cc2c2fed28b8adc4bfffd7056ef5ad70942
@@ -168,7 +168,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/phpmyadmin/20.0.0
         --base legacy --work-dir /tmp/helm-expt-kind-parity-hx-phpmya-bd435-1bjt-phpmyadmin
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

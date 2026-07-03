@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-rollouts argo-rollouts --repo https://argoproj.github.io/argo-helm
-        --version 2.40.9 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/regular-helm-values.yaml
+        --version 2.40.9 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 6facde581531cc4995b342bf9b3614f4c73f5c8d9ba057ae92895db6c3813dd7
@@ -69,7 +69,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-rollouts/2.40.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-rollouts/2.40.9
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argoro-0b8df-lks7-argo-rollouts
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

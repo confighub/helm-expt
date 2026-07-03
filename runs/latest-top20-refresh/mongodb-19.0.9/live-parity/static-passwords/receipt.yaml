@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
-        --version 19.0.9 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/mongodb-19.0.9/live-parity/static-passwords/regular-helm-values.yaml
+        --version 19.0.9 --namespace mongodb --create-namespace --values $HOME/code/helm-expt/runs/latest-top20-refresh/mongodb-19.0.9/live-parity/static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mongodb
       manifestSHA256: 4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9
         --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-mongod-8d732-9mbk-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

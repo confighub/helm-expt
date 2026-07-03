@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
         --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
-        --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/regular-helm-values.yaml
+        --namespace monitoring --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: monitoring
       manifestSHA256: 671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87
@@ -88,7 +88,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/kube-prometheus-stack/86.1.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/kube-prometheus-stack/86.1.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-3f2cf-7wv6-kube-prometheus-stack
         --non-interactive --namespace monitoring
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -252,7 +252,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -295,7 +295,7 @@ spec:
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

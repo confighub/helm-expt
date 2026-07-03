@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
-        --version 0.20.9 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/regular-helm-values.yaml
+        --version 0.20.9 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1
       objectCount: 3
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/nats/surveyor/0.20.9
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg0tl7v-z7u-surveyor
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -959,7 +959,7 @@ spec:
     elapsedSeconds: 482.796
     timeoutSeconds: 900
     command: helm upgrade --install surveyor surveyor --repo https://nats-io.github.io/k8s/helm/charts/
-      --version 0.20.9 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/regular-helm-values.yaml
+      --version 0.20.9 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -967,7 +967,7 @@ spec:
     finishedAt: '2026-06-16T02:38:39Z'
     elapsedSeconds: 0.418
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/nats/surveyor/0.20.9
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg0tl7v-z7u-surveyor
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -976,9 +976,9 @@ spec:
     finishedAt: '2026-06-16T02:38:40Z'
     elapsedSeconds: 0.088
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig
       --context kind-helm-expt-parity-surveyor-mqg0tl7v-z7u apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/direct-apply-manifest.yaml
     objectCount: 3
   - name: configHub-direct-readiness
     result: watch
@@ -993,7 +993,7 @@ spec:
     finishedAt: '2026-06-16T02:43:55Z'
     elapsedSeconds: 0.409
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/surveyor/0.20.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/nats/surveyor/0.20.9
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-surveyor-mqg0tl7v-z7u-surveyor
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1028,7 +1028,7 @@ spec:
     elapsedSeconds: 1.16
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-surveyor-mqg0tl7v-z7u-cluster
-      surveyor-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/argo-application.json
+      surveyor-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/nats-surveyor-default/argo-application.json
       --target helm-expt-parity-surveyor-mqg0tl7v-z7u-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1058,11 +1058,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-surveyor-mqg0tl7v-z7u\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-surveyor-mqg0tl7v-z7u\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1073,7 +1073,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-surveyor-mqg0tl7v-z7u\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-surveyor-mqg0tl7v-z7u\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-surveyor-mqg0tl7v-z7u.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating name"
   - name: target-facts-regular-helm

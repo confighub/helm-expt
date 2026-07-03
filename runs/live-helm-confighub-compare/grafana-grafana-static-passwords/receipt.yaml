@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
-        --version 10.5.15 --namespace grafana-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-static-passwords/regular-helm-values.yaml
+        --version 10.5.15 --namespace grafana-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 893351c9b8cad0a10b0176a946bf514a76c5895bdb2d88a31bdd53a94288066d
       objectCount: 9
@@ -56,7 +56,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/grafana/10.5.15
         --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-grafana-mq1aexyg-oaf-grafana
         --non-interactive --namespace grafana-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -129,7 +129,7 @@ spec:
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-grafana-mq1aexyg-oaf\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-grafana-mq1aexyg-oaf\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -140,7 +140,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-grafana-mq1aexyg-oaf\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-grafana-mq1aexyg-oaf\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-grafana-mq1aexyg-oaf.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argoc"
   - name: regular-helm-live

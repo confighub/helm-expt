@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install strimzi-kafka-operator strimzi-kafka-operator
         --repo https://strimzi.io/charts/ --version 1.0.0 --namespace default --create-namespace
-        --values /Users/alexis/code/helm-expt/runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/regular-helm-values.yaml
+        --values $HOME/code/helm-expt/runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-strimz-421c3-57du-strimzi-kafka-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

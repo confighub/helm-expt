@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
-        --version 18.7.0 --namespace postgresql --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/live-parity/static-passwords/regular-helm-values.yaml
+        --version 18.7.0 --namespace postgresql --create-namespace --values $HOME/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/live-parity/static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: postgresql
       manifestSHA256: e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0
         --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-postgr-f7ba8-hshd-postgresql
         --non-interactive --namespace postgresql
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

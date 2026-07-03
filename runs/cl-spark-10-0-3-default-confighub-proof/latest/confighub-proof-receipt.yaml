@@ -46,7 +46,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-spark-10-0-3-default --space helm-cl-spark-10-0-3-default-confighub-proof --component Spark1003 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Spark1003 --unit-label HelmChart=bitnami-spark --unit-label HelmChartVersion=10.0.3 --unit-label Variant=default --unit-label Proof=cl-spark-10-0-3-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-spark-10-0-3-default-confighub-proof"
     unitCount: 11
     kubernetesUnitCount: 10
@@ -87,7 +87,7 @@ spec:
       - "helm-cl-spark-10-0-3-default-confighub-proof"
       - "Spark1003-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

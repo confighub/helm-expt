@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install argocd-image-updater argocd-image-updater --repo
         https://argoproj.github.io/argo-helm --version 1.2.2 --namespace default --create-namespace
-        --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
+        --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/argo-cd-argocd-image-updater-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 0b3646b69dab9a21cad5cbc550a95ffb9ac4be833cc2d076b1fd12cbe4e4eaf2
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/argo-cd/argocd-image-updater/1.2.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/argo-cd/argocd-image-updater/1.2.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-argocd-f8f02-kajz-argocd-image-updater
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

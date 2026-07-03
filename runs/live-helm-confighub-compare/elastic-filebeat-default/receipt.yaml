@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install filebeat filebeat --repo https://helm.elastic.co
-        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
+        --version 8.5.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020
       objectCount: 7
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/filebeat/8.5.1
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1027,7 +1027,7 @@ spec:
     elapsedSeconds: 482.19
     timeoutSeconds: 900
     command: helm upgrade --install filebeat filebeat --repo https://helm.elastic.co
-      --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
+      --version 8.5.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1035,7 +1035,7 @@ spec:
     finishedAt: '2026-06-15T14:31:00Z'
     elapsedSeconds: 0.545
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/filebeat/8.5.1
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1044,9 +1044,9 @@ spec:
     finishedAt: '2026-06-15T14:31:01Z'
     elapsedSeconds: 0.118
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig
       --context kind-helm-expt-parity-filebeat-mqfat94m-1gyl apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/direct-apply-manifest.yaml
     objectCount: 7
   - name: configHub-direct-readiness
     result: watch
@@ -1061,7 +1061,7 @@ spec:
     finishedAt: '2026-06-15T14:36:16Z'
     elapsedSeconds: 0.415
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/filebeat/8.5.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/filebeat/8.5.1
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-filebeat-mqfat94m-1gyl-filebeat
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1096,7 +1096,7 @@ spec:
     elapsedSeconds: 1.04
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-filebeat-mqfat94m-1gyl-cluster
-      filebeat-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/argo-application.json
+      filebeat-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-filebeat-default/argo-application.json
       --target helm-expt-parity-filebeat-mqfat94m-1gyl-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1126,11 +1126,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-filebeat-mqfat94m-1gyl\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-filebeat-mqfat94m-1gyl\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1141,7 +1141,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-filebeat-mqfat94m-1gyl\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-filebeat-mqfat94m-1gyl\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-filebeat-mqfat94m-1gyl.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
   - name: target-facts-regular-helm

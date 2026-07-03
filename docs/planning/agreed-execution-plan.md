@@ -607,7 +607,7 @@ pain points.
 Working folder:
 
 ```text
-/Users/alexis/code/helm-expt
+$HOME/code/helm-expt
 ```
 
 Use the authenticated demo or proof organization allocated for the run. Do not

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
-        --version 1.8.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/linkerd-linkerd-crds-default/regular-helm-values.yaml
+        --version 1.8.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/linkerd-linkerd-crds-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b
@@ -62,7 +62,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-linker-aceee-pjvi-linkerd-crds
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

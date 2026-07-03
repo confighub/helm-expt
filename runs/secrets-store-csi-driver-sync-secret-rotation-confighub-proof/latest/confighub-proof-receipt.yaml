@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/secrets-store-csi-driver-sync-secret-rotation --space helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof --component SecretsStoreCSIDriver --layer App --environment Demo --owner ConfigHubHelm --variant sync-secret-rotation --unit-label Component=SecretsStoreCSIDriver --unit-label HelmChart=secrets-store-csi-driver-secrets-store-csi-driver --unit-label HelmChartVersion=1.6.0 --unit-label Variant=sync-secret-rotation --unit-label Proof=secrets-store-csi-driver-sync-secret-rotation-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof"
     unitCount: 14
     kubernetesUnitCount: 13
@@ -78,6 +78,6 @@ spec:
       - "helm-secrets-store-csi-driver-sync-secret-rotation-confighub-proof"
       - "SecretsStoreCSIDriver-sync-secret-rotation-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

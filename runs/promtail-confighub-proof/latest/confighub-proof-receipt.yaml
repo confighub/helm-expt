@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/promtail-default --space helm-promtail-confighub-proof --component Promtail --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Promtail --unit-label HelmChart=grafana-promtail --unit-label HelmChartVersion=6.17.1 --unit-label Variant=default --unit-label Proof=promtail-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-promtail-confighub-proof"
     unitCount: 6
     kubernetesUnitCount: 5
@@ -77,7 +77,7 @@ spec:
       - "helm-promtail-confighub-proof"
       - "Promtail-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

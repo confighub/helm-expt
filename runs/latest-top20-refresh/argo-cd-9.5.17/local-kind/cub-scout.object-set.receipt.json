@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
+    "claim": "live object set matches rendered manifests from $HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
     "scope": {
       "kind": "ObjectSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "objectSet": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
           "digest": "d234f5bba7aa428f94cb0482702329157f0d5a2be1fe4a62570288bb0f7c58c7",
           "objectCount": 49
         },

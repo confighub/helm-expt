@@ -125,7 +125,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cert-manager-default --space helm-cert-manager-default-confighub-proof --component CertManager --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=CertManager --unit-label HelmChart=jetstack-cert-manager --unit-label HelmChartVersion=v1.20.2 --unit-label Variant=default --unit-label Proof=cert-manager-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cert-manager-default-confighub-proof"
     unitCount: 44
     kubernetesUnitCount: 43
@@ -166,6 +166,6 @@ spec:
       - "helm-cert-manager-default-confighub-proof"
       - "CertManager-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

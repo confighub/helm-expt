@@ -18,7 +18,7 @@ spec:
     target: helm-expt-oci-0605-cluster/oci
     namespace: monitoring
     kubeContext: kind-helm-expt-oci-0605
-    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/helm-expt-oci-0605.kubeconfig
     keptForInspection: true
   oci:
     repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci

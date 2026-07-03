@@ -145,7 +145,7 @@ spec:
       materialized spec.template.spec.volumes[argocd-cmd-params-cm].configMap.defaultMode=420'
     rationale: Normalize Kubernetes API zero/default fields before publishing the
       OCI GitOps artifact; semantic parity remains checked against Helm.
-    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/gitops-canonicalization-k8s-zero-defaults.yaml
+    receipt: $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
     rig: helm-expt-parity-argocd-nc6-0613
     kubeContext: kind-helm-expt-parity-argocd-nc6-0613
@@ -173,7 +173,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
-        --version 9.5.15 --namespace argocd-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
+        --version 9.5.15 --namespace argocd-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
         --wait --timeout 10m
       manifestSHA256: 23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71
       objectCount: 46
@@ -216,7 +216,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-cd/9.5.15
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argocd-nc6-0613-argo-cd-argo-cd
         --non-interactive --namespace argocd-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -843,11 +843,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-argocd-nc6-0613\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-argocd-nc6-0613.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-argocd-nc6-0613.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-argocd-nc6-0613\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -858,7 +858,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-argocd-nc6-0613\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argocd-nc6-0613\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-argocd-nc6-0613.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argocd-nc6-0613.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersion:\
       \ v1\nkin"
@@ -961,7 +961,7 @@ spec:
       - name: appprojects.argoproj.io
         sourceVariant: default
         lane: configHubKubectlApply
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -986,7 +986,7 @@ spec:
       - name: appprojects.argoproj.io
         sourceVariant: default
         lane: configHubOciArgo
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-cd-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

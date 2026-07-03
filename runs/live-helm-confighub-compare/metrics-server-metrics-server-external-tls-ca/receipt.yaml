@@ -25,7 +25,7 @@ spec:
       removed spec.insecureSkipTLSVerify=false'
     rationale: Remove Kubernetes API zero-value fields before publishing the OCI GitOps
       artifact; semantic parity remains checked against Helm.
-    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/gitops-canonicalization-k8s-zero-defaults.yaml
+    receipt: $HOME/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
     rig: helm-expt-parity-metricsserver-mqb474bi-18gb
     kubeContext: kind-helm-expt-parity-metricsserver-mqb474bi-18gb
@@ -53,7 +53,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install metrics-server metrics-server --repo https://kubernetes-sigs.github.io/metrics-server/
-        --version 3.13.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
+        --version 3.13.0 --namespace kube-system --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4
       objectCount: 9
@@ -91,7 +91,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/metrics-server/metrics-server/3.13.0
         --base external-tls-ca --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-metricsserver-mqb474bi-18gb-metrics-server
         --non-interactive --namespace kube-system
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -217,11 +217,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-metricsserver-mqb474bi-18gb\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-metricsserver-mqb474bi-18gb.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-metricsserver-mqb474bi-18gb.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-metricsserver-mqb474bi-18gb\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -232,7 +232,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-metricsserver-mqb474bi-18gb\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-metricsserver-mqb474bi-18gb\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-metricsserver-mqb474bi-18gb.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-metricsserver-mqb474bi-18gb.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind:"
   - name: target-facts-regular-helm
@@ -281,7 +281,7 @@ spec:
         - tls.key
         lane: regularHelm
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -292,7 +292,7 @@ spec:
         - tls.key
         lane: configHubKubectlApply
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -303,4 +303,4 @@ spec:
         - tls.key
         lane: configHubOciArgo
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/metrics-server-metrics-server-external-tls-ca/target-facts-confighub-oci.yaml

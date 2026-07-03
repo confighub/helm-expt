@@ -33,7 +33,7 @@ Selector: Labels.Proof = 'redis-confighub-proof'
 Create the operation record:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset create \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset create \
   redis-safe-ops-20260527 \
   --space helm-redis-confighub-proof \
   --description "Redis ConfigHub proof safe operation lane" \
@@ -45,7 +45,7 @@ CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset create \
 Update it with the proof scope:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset update \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset update \
   redis-safe-ops-20260527 \
   --space helm-redis-confighub-proof \
   --description "Redis safe-ops proof: approve reviewed revisions, dry-run apply only" \
@@ -56,7 +56,7 @@ CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset update \
 Approve a representative reviewed Unit:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit approve \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
   --space helm-redis-confighub-proof \
   --revision HeadRevisionNum \
@@ -74,7 +74,7 @@ Awaiting triggers...
 Attempt dry-run apply:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit apply \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub unit apply \
   --space helm-redis-confighub-proof \
   --where "Labels.Proof = 'redis-confighub-proof'" \
   --dry-run \
@@ -91,7 +91,7 @@ Failed: cannot invoke action on a unit without a target
 Cancel is safe:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit cancel \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub unit cancel \
   --space helm-redis-confighub-proof \
   --where "Labels.Proof = 'redis-confighub-proof'"
 ```

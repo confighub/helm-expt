@@ -41,7 +41,7 @@ spec:
       result: blocked
       command: helm upgrade --install prometheus-adapter prometheus-adapter --repo
         https://prometheus-community.github.io/helm-charts --version 5.3.0 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-adapter-default/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-adapter-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a

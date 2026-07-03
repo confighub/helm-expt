@@ -68,7 +68,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/vault-ha-raft-ui --space helm-vault-ha-raft-ui-confighub-proof --component Vault --layer App --environment Demo --owner ConfigHubHelm --variant ha-raft-ui --unit-label Component=Vault --unit-label HelmChart=hashicorp-vault --unit-label HelmChartVersion=0.32.0 --unit-label Variant=ha-raft-ui --unit-label Proof=vault-ha-raft-ui-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-vault-ha-raft-ui-confighub-proof"
     unitCount: 20
     kubernetesUnitCount: 19
@@ -109,6 +109,6 @@ spec:
       - "helm-vault-ha-raft-ui-confighub-proof"
       - "Vault-ha-raft-ui-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

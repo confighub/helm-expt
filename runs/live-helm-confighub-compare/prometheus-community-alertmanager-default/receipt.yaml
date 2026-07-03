@@ -73,7 +73,7 @@ spec:
       spec.volumeClaimTemplates[storage].spec.volumeMode=Filesystem'
     rationale: Normalize Kubernetes API zero/default fields before publishing the
       OCI GitOps artifact; semantic parity remains checked against Helm.
-    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/gitops-canonicalization-k8s-zero-defaults.yaml
+    receipt: $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
     rig: helm-expt-parity-alertmanager-1781297537
     kubeContext: kind-helm-expt-parity-alertmanager-1781297537
@@ -101,7 +101,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install alertmanager alertmanager --repo https://prometheus-community.github.io/helm-charts
-        --version 1.37.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/regular-helm-values.yaml
+        --version 1.37.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-alertmanager-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: fc6c693435a12f92b94f3f59435e1e23af1cf4b87fc4564cda64ea502e7e1dc6
       objectCount: 5
@@ -117,7 +117,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/alertmanager/1.37.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/alertmanager/1.37.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-alertmanager-1781297537-alertmanager
         --non-interactive --namespace default
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -199,11 +199,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-alertmanager-1781297537\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-alertmanager-1781297537\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -214,7 +214,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-alertmanager-1781297537\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-alertmanager-1781297537\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-alertmanager-1781297537.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm

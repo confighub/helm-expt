@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
-        --version 13.8.7 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
+        --version 13.8.7 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ac9d09d452d221cb673fcdbc07767e7440402161c0e3a41811db20192768b01f
       objectCount: 7
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
         --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1140,7 +1140,7 @@ spec:
     elapsedSeconds: 486.437
     timeoutSeconds: 900
     command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
-      --version 13.8.7 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
+      --version 13.8.7 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1148,7 +1148,7 @@ spec:
     finishedAt: '2026-06-17T16:02:33Z'
     elapsedSeconds: 0.427
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
       --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1157,9 +1157,9 @@ spec:
     finishedAt: '2026-06-17T16:02:34Z'
     elapsedSeconds: 0.127
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig
       --context kind-helm-expt-parity-zookeeper-mqi92c73-22pt apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/direct-apply-manifest.yaml
     objectCount: 7
   - name: configHub-direct-readiness
     result: watch
@@ -1174,7 +1174,7 @@ spec:
     finishedAt: '2026-06-17T16:02:50Z'
     elapsedSeconds: 0.259
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/zookeeper/13.8.7
       --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-zookeeper-mqi92c73-22pt-zookeeper
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1209,7 +1209,7 @@ spec:
     elapsedSeconds: 0.943
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-zookeeper-mqi92c73-22pt-cluster
-      zookeeper-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/argo-application.json
+      zookeeper-parity-app $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/bitnami-zookeeper-ha/argo-application.json
       --target helm-expt-parity-zookeeper-mqi92c73-22pt-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1239,11 +1239,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-zookeeper-mqi92c73-22pt\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-zookeeper-mqi92c73-22pt\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1254,7 +1254,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-zookeeper-mqi92c73-22pt\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-zookeeper-mqi92c73-22pt\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-zookeeper-mqi92c73-22pt.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nC"
   - name: target-facts-regular-helm

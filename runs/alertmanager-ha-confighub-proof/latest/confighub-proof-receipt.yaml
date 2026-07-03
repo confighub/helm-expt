@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/alertmanager-ha --space helm-alertmanager-ha-confighub-proof --component Alertmanager --layer App --environment Demo --owner ConfigHubHelm --variant ha --unit-label Component=Alertmanager --unit-label HelmChart=prometheus-community-alertmanager --unit-label HelmChartVersion=1.37.0 --unit-label Variant=ha --unit-label Proof=alertmanager-ha-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-alertmanager-ha-confighub-proof"
     unitCount: 7
     kubernetesUnitCount: 6
@@ -58,7 +58,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/alertmanager-ha"
     result: "pass"
-    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-alertmanager-ha-confighub-proof:\n  ~ service-default-alertmanager-headless\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/alertmanager-ha/out/manifests/service-default-alertmanager-headless.yaml:\n      Resource: v1/Service default/alertmanager-headless\n        - [Delete] spec.ports.?port=9094;@1  (#2)\n          name: cluster-tcp\n          port: 9094\n          protocol: TCP\n          targetPort: clusterpeer-tcp"
+    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-alertmanager-ha-confighub-proof:\n  ~ service-default-alertmanager-headless\n      New changes from update from $HOME/code/helm-expt-claude-clone/.tmp/confighub-proof/alertmanager-ha/out/manifests/service-default-alertmanager-headless.yaml:\n      Resource: v1/Service default/alertmanager-headless\n        - [Delete] spec.ports.?port=9094;@1  (#2)\n          name: cluster-tcp\n          port: 9094\n          protocol: TCP\n          targetPort: clusterpeer-tcp"
   serverSideVariant:
     command: "cub variant create staging helm-alertmanager-ha-confighub-proof --environment Staging --region local --namespace default --space-pattern template:Alertmanager-ha-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
@@ -86,6 +86,6 @@ spec:
       - "helm-alertmanager-ha-confighub-proof"
       - "Alertmanager-ha-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
-        --version 0.49.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-default/regular-helm-values.yaml
+        --version 0.49.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-rollou-151e1-149e-rollout-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

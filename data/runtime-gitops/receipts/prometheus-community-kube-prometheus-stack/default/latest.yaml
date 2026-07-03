@@ -18,7 +18,7 @@ spec:
     target: codex-kps-default-071834-cluster/oci
     namespace: monitoring
     kubeContext: kind-codex-kps-default-071834
-    kubeconfig: /Users/alexis/.confighub/lk/codex-kps-default-071834.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/codex-kps-default-071834.kubeconfig
     keptForInspection: false
   oci:
     repoURL: oci://oci.hub.confighub.com:443/target/codex-kps-default-071834-cluster/oci

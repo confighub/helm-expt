@@ -70,7 +70,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-nginx-25-0-0-http-clusterip --space helm-cl-nginx-25-0-0-http-clusterip-confighub-proof --component Nginx2500 --layer App --environment Demo --owner ConfigHubHelm --variant http-clusterip --unit-label Component=Nginx2500 --unit-label HelmChart=bitnami-nginx --unit-label HelmChartVersion=25.0.0 --unit-label Variant=http-clusterip --unit-label Proof=cl-nginx-25-0-0-http-clusterip-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-nginx-25-0-0-http-clusterip-confighub-proof"
     unitCount: 7
     kubernetesUnitCount: 6
@@ -103,6 +103,6 @@ spec:
       - "helm-cl-nginx-25-0-0-http-clusterip-confighub-proof"
       - "Nginx2500-http-clusterip-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

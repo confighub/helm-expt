@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
-        --version 2.5.0 --namespace external-secrets --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-default/regular-helm-values.yaml
+        --version 2.5.0 --namespace external-secrets --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: external-secrets
       manifestSHA256: f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-extern-a266f-styg-external-secrets
         --non-interactive --namespace external-secrets
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

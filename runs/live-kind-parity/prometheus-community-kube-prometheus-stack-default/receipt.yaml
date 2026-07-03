@@ -41,7 +41,7 @@ spec:
       result: blocked
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
         --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
-        --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
+        --namespace monitoring --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: monitoring
       manifestSHA256: 58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd
@@ -88,7 +88,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/kube-prometheus-stack/86.1.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/prometheus-community/kube-prometheus-stack/86.1.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-ccd1b-1qhs-kube-prometheus-stack
         --non-interactive --namespace monitoring
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -264,7 +264,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

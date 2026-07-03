@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
-        --version 1.62.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
+        --version 1.62.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565
       objectCount: 5
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/runix/pgadmin4/1.62.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -832,7 +832,7 @@ spec:
     elapsedSeconds: 46.222
     timeoutSeconds: 900
     command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
-      --version 1.62.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
+      --version 1.62.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -840,7 +840,7 @@ spec:
     finishedAt: '2026-06-15T05:42:58Z'
     elapsedSeconds: 0.334
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/runix/pgadmin4/1.62.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -849,9 +849,9 @@ spec:
     finishedAt: '2026-06-15T05:42:58Z'
     elapsedSeconds: 0.128
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig
       --context kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/direct-apply-manifest.yaml
     objectCount: 5
   - name: configHub-direct-readiness
     result: pass
@@ -866,7 +866,7 @@ spec:
     finishedAt: '2026-06-15T05:43:34Z'
     elapsedSeconds: 0.275
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/runix/pgadmin4/1.62.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/runix/pgadmin4/1.62.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pgadmin4-mqesbz7w-1ags-pgadmin4
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -901,7 +901,7 @@ spec:
     elapsedSeconds: 1.041
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster
-      pgadmin4-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/argo-application.json
+      pgadmin4-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/runix-pgadmin4-default/argo-application.json
       --target helm-expt-parity-pgadmin4-mqesbz7w-1ags-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -931,11 +931,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-pgadmin4-mqesbz7w-1ags\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-pgadmin4-mqesbz7w-1ags\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -946,7 +946,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pgadmin4-mqesbz7w-1ags\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pgadmin4-mqesbz7w-1ags.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm

@@ -41,7 +41,7 @@ spec:
       result: blocked
       command: helm upgrade --install aws-ebs-csi-driver aws-ebs-csi-driver --repo
         https://kubernetes-sigs.github.io/aws-ebs-csi-driver --version 2.60.1 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/aws-ebs-csi-driver-aws-ebs-csi-driver-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7
@@ -698,7 +698,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-awsebs-e9abf-cbjn-aws-ebs-csi-driver
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

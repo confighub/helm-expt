@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
-        --version v1.19.5 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+        --version v1.19.5 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010
@@ -62,7 +62,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-rookce-f46ab-fwqv-rook-ceph-cluster
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -161,7 +161,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -183,7 +183,7 @@ spec:
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-cluster-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

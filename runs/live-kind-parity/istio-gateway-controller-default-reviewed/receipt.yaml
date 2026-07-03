@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install gateway gateway --repo https://istio-release.storage.googleapis.com/charts
-        --version 1.30.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/istio-gateway-controller-default-reviewed/regular-helm-values.yaml
+        --version 1.30.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/istio-gateway-controller-default-reviewed/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc
@@ -171,7 +171,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/istio/gateway/1.30.0
         --base controller-default-reviewed --work-dir /tmp/helm-expt-kind-parity-hx-gatewa-7cd1c-uv2u-gateway
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

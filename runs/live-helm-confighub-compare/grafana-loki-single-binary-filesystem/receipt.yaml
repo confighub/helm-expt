@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install loki loki --repo https://grafana.github.io/helm-charts
-        --version 7.0.0 --namespace loki-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
+        --version 7.0.0 --namespace loki-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30
       objectCount: 19
@@ -72,7 +72,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/loki/7.0.0
         --base single-binary-filesystem --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-loki-mq5308xy-1mc0-loki
         --non-interactive --namespace loki-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -183,7 +183,7 @@ spec:
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-loki-mq5308xy-1mc0\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-loki-mq5308xy-1mc0\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -194,7 +194,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-loki-mq5308xy-1mc0\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-loki-mq5308xy-1mc0\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-loki-mq5308xy-1mc0.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\n"
   - name: regular-helm-live

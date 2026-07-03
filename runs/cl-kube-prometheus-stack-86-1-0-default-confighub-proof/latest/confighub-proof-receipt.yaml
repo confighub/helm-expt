@@ -133,7 +133,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-kube-prometheus-stack-86-1-0-default --space helm-cl-kube-prometheus-stack-86-1-0-default-confighub-proof --component KubePrometheusStack8610 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=KubePrometheusStack8610 --unit-label HelmChart=prometheus-community-kube-prometheus-stack --unit-label HelmChartVersion=86.1.0 --unit-label Variant=default --unit-label Proof=cl-kube-prometheus-stack-86-1-0-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-kube-prometheus-stack-86-1-0-default-confighub-proof"
     unitCount: 124
     kubernetesUnitCount: 123
@@ -167,7 +167,7 @@ spec:
       - "helm-cl-kube-prometheus-stack-86-1-0-default-confighub-proof"
       - "KubePrometheusStack8610-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."

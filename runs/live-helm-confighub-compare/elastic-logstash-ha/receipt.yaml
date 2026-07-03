@@ -55,7 +55,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
-        --version 8.5.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-ha/regular-helm-values.yaml
+        --version 8.5.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-ha/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70
       objectCount: 3
@@ -72,7 +72,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/logstash/8.5.1
         --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-logstash-mqcc9mdq-g5o-logstash
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -252,11 +252,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-logstash-mqcc9mdq-g5o\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-logstash-mqcc9mdq-g5o\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6 \U0001F4E6\
@@ -269,7 +269,7 @@ spec:
       \ \u2022 Joining worker nodes \U0001F69C  ...\n \u2713 Joining worker nodes\
       \ \U0001F69C\nSet kubectl context to \"kind-helm-expt-parity-logstash-mqcc9mdq-g5o\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-mqcc9mdq-g5o\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-logstash-mqcc9mdq-g5o.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://"
   - name: target-profile
     result: pass

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install operator operator --repo https://operator.min.io
-        --version 7.1.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/minio-operator-operator-default/regular-helm-values.yaml
+        --version 7.1.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/minio-operator-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 3ac734cc8872f78365a7649830f706dc43341bba596b7ff266be2862f0f28b0a
@@ -69,7 +69,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/minio-operator/operator/7.1.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/minio-operator/operator/7.1.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-operat-e0d04-2qqp-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

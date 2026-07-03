@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rabbitmq rabbitmq --repo https://charts.bitnami.com/bitnami
-        --version 16.0.14 --namespace rabbitmq --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/regular-helm-values.yaml
+        --version 16.0.14 --namespace rabbitmq --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: rabbitmq
       manifestSHA256: cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
         --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-rabbit-28b3a-4l5y-rabbitmq
         --non-interactive --namespace rabbitmq
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -131,7 +131,7 @@ spec:
         name: rabbitmq-erlang-cookie
         keys:
         - rabbitmq-erlang-cookie
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -143,4 +143,4 @@ spec:
         name: rabbitmq-erlang-cookie
         keys:
         - rabbitmq-erlang-cookie
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-existing-secret/target-facts-installer.yaml

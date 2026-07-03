@@ -199,7 +199,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/external-secrets-default --space helm-external-secrets-confighub-proof --component ExternalSecrets --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ExternalSecrets --unit-label HelmChart=external-secrets-external-secrets --unit-label HelmChartVersion=2.5.0 --unit-label Variant=default --unit-label Proof=external-secrets-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-external-secrets-confighub-proof"
     unitCount: 43
     kubernetesUnitCount: 42
@@ -240,7 +240,7 @@ spec:
       - "helm-external-secrets-confighub-proof"
       - "ExternalSecrets-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

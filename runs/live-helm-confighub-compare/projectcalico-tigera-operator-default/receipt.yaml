@@ -7,11 +7,11 @@ spec:
   chart: "projectcalico/tigera-operator"
   checks:
     -
-      detail: "acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock"
+      detail: "acquired $HOME/.confighub/locks/helm-expt-live-parity.lock"
       name: "live-lane-lock"
       result: "pass"
     -
-      detail: "Creating kind cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig)...\nCreating cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" ...\n • Ensuring node image (kindest/node:v1.35.0) 🖼  ...\n ✓ Ensuring node image (kindest/node:v1.35.0) 🖼\n • Preparing nodes 📦   ...\n ✓ Preparing nodes 📦 \n • Writing configuration 📜  ...\n ✓ Writing configuration 📜\n • Starting control-plane 🕹️  ...\n ✓ Starting control-plane 🕹️\n • Installing CNI 🔌  ...\n ✓ Installing CNI 🔌\n • Installing StorageClass 💾  ...\n ✓ Installing StorageClass 💾\nSet kubectl context to \"kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig\n\nThanks for using kind! 😊\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersi"
+      detail: "Creating kind cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig)...\nCreating cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" ...\n • Ensuring node image (kindest/node:v1.35.0) 🖼  ...\n ✓ Ensuring node image (kindest/node:v1.35.0) 🖼\n • Preparing nodes 📦   ...\n ✓ Preparing nodes 📦 \n • Writing configuration 📜  ...\n ✓ Writing configuration 📜\n • Starting control-plane 🕹️  ...\n ✓ Starting control-plane 🕹️\n • Installing CNI 🔌  ...\n ✓ Installing CNI 🔌\n • Installing StorageClass 💾  ...\n ✓ Installing StorageClass 💾\nSet kubectl context to \"kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo --kubeconfig $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig\n\nThanks for using kind! 😊\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersi"
       name: "cluster-up"
       result: "pass"
     -
@@ -27,16 +27,16 @@ spec:
       name: "target-facts-confighub-apply"
       result: "pass"
     -
-      detail: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm"
+      detail: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm"
       name: "failure"
       result: "blocked"
   failure:
-    message: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"/Users/alexis/code/helm-expt/runs/live-helm-co"
+    message: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-co"
   gitOpsCanonicalizationProfile:
     name: "none"
   legs:
     regularHelm:
-      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
+      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
       getManifestError: "Error: release: not found"
       liveHelmManifestObjectCount: 0
       liveHelmManifestSHA256: ""
@@ -83,7 +83,7 @@ spec:
       result: "pass"
   operationTimings:
     -
-      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
+      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
       elapsedSeconds: 3.089
       finishedAt: "2026-06-16T08:08:26Z"
       name: "regular-helm-install"
@@ -91,7 +91,7 @@ spec:
       startedAt: "2026-06-16T08:08:23Z"
       timeoutSeconds: 900
     -
-      command: "cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-tigera-operator --non-interactive --namespace default-apply"
+      command: "cub installer setup --pull $HOME/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-tigera-operator --non-interactive --namespace default-apply"
       elapsedSeconds: 0.554
       finishedAt: "2026-06-16T08:11:30Z"
       name: "configHub-direct-render"
@@ -99,7 +99,7 @@ spec:
       startedAt: "2026-06-16T08:11:29Z"
       timeoutSeconds: 360
     -
-      command: "kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml"
+      command: "kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo apply --server-side --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml"
       elapsedSeconds: 0.177
       finishedAt: "2026-06-16T08:11:30Z"
       name: "configHub-direct-apply"

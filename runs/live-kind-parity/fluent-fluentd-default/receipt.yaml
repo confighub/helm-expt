@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts
-        --version 0.5.3 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/fluent-fluentd-default/regular-helm-values.yaml
+        --version 0.5.3 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/fluent-fluentd-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/fluent/fluentd/0.5.3
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-fluent-97f6a-3n0w-fluentd
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

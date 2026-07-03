@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install dex dex --repo https://charts.dexidp.io --version
-        0.24.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
+        0.24.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5
       objectCount: 8
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1027,7 +1027,7 @@ spec:
     elapsedSeconds: 482.297
     timeoutSeconds: 900
     command: helm upgrade --install dex dex --repo https://charts.dexidp.io --version
-      0.24.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
+      0.24.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1035,7 +1035,7 @@ spec:
     finishedAt: '2026-06-17T16:25:37Z'
     elapsedSeconds: 0.299
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1044,9 +1044,9 @@ spec:
     finishedAt: '2026-06-17T16:25:37Z'
     elapsedSeconds: 0.128
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig
       --context kind-helm-expt-parity-dex-mqi9w9e2-2b4 apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/direct-apply-manifest.yaml
     objectCount: 8
   - name: configHub-direct-readiness
     result: watch
@@ -1061,7 +1061,7 @@ spec:
     finishedAt: '2026-06-17T16:25:53Z'
     elapsedSeconds: 0.243
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/dex/dex/0.24.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-dex-mqi9w9e2-2b4-dex
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1096,7 +1096,7 @@ spec:
     elapsedSeconds: 1.027
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-dex-mqi9w9e2-2b4-cluster dex-parity-app
-      /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/argo-application.json
+      $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/dex-dex-default/argo-application.json
       --target helm-expt-parity-dex-mqi9w9e2-2b4-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1126,11 +1126,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-dex-mqi9w9e2-2b4\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-dex-mqi9w9e2-2b4\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1141,7 +1141,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-dex-mqi9w9e2-2b4\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-dex-mqi9w9e2-2b4\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-dex-mqi9w9e2-2b4.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\napiVersion: v1\nkin"
   - name: target-facts-regular-helm

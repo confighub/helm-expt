@@ -50,7 +50,7 @@ spec:
       result: pass
       command: helm upgrade --install cluster-autoscaler cluster-autoscaler --repo
         https://kubernetes.github.io/autoscaler --version 9.57.0 --namespace default-helm
-        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446
       objectCount: 7
@@ -77,7 +77,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqebtt9o-y6-cluster-autoscaler
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -908,7 +908,7 @@ spec:
     elapsedSeconds: 2.589
     timeoutSeconds: 900
     command: helm upgrade --install cluster-autoscaler cluster-autoscaler --repo https://kubernetes.github.io/autoscaler
-      --version 9.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
+      --version 9.57.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -916,7 +916,7 @@ spec:
     finishedAt: '2026-06-14T22:00:50Z'
     elapsedSeconds: 0.364
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqebtt9o-y6-cluster-autoscaler
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -925,9 +925,9 @@ spec:
     finishedAt: '2026-06-14T22:00:50Z'
     elapsedSeconds: 0.117
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig
       --context kind-helm-expt-parity-clusterautoscaler-mqebtt9o-y6 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/direct-apply-manifest.yaml
     objectCount: 7
   - name: configHub-direct-readiness
     result: pass
@@ -941,7 +941,7 @@ spec:
     finishedAt: '2026-06-14T22:00:56Z'
     elapsedSeconds: 0.245
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqebtt9o-y6-cluster-autoscaler
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -977,7 +977,7 @@ spec:
     elapsedSeconds: 0.949
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-clusterautoscaler-mqebtt9o-y6-cluster
-      cluster-autoscaler-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/argo-application.json
+      cluster-autoscaler-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-default/argo-application.json
       --target helm-expt-parity-clusterautoscaler-mqebtt9o-y6-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1006,11 +1006,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-clusterautoscaler-mqebtt9o-y6\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-clusterautoscaler-mqebtt9o-y6\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1021,7 +1021,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-clusterautoscaler-mqebtt9o-y6\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-clusterautoscaler-mqebtt9o-y6\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-clusterautoscaler-mqebtt9o-y6.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/"
   - name: target-facts-regular-helm
     result: pass

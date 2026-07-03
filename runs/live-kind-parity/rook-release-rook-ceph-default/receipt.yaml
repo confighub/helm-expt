@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rook-ceph rook-ceph --repo https://charts.rook.io/release
-        --version v1.19.5 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-default/regular-helm-values.yaml
+        --version v1.19.5 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/rook-release-rook-ceph-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8
@@ -71,7 +71,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph/v1.19.5
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-rookce-b587f-7bl8-rook-ceph
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

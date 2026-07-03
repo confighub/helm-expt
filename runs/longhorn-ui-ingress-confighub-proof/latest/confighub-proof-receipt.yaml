@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/longhorn-ui-ingress --space helm-longhorn-ui-ingress-confighub-proof --component Longhorn --layer App --environment Demo --owner ConfigHubHelm --variant ui-ingress --unit-label Component=Longhorn --unit-label HelmChart=longhorn-longhorn --unit-label HelmChartVersion=1.11.2 --unit-label Variant=ui-ingress --unit-label Proof=longhorn-ui-ingress-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-longhorn-ui-ingress-confighub-proof"
     unitCount: 44
     kubernetesUnitCount: 43
@@ -86,6 +86,6 @@ spec:
       - "helm-longhorn-ui-ingress-confighub-proof"
       - "Longhorn-ui-ingress-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

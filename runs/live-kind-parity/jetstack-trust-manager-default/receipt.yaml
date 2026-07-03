@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
-        --version v0.22.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/regular-helm-values.yaml
+        --version v0.22.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-trustm-d5d01-4ejh-trust-manager
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -183,7 +183,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -204,7 +204,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: cubInstallerApply
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/jetstack-trust-manager-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/strimzi-kafka-operator-default --space helm-strimzi-kafka-operator-confighub-proof --component StrimziKafkaOperator --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=StrimziKafkaOperator --unit-label HelmChart=strimzi-strimzi-kafka-operator --unit-label HelmChartVersion=1.0.0 --unit-label Variant=default --unit-label Proof=strimzi-kafka-operator-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-strimzi-kafka-operator-confighub-proof"
     unitCount: 29
     kubernetesUnitCount: 28
@@ -78,6 +78,6 @@ spec:
       - "helm-strimzi-kafka-operator-confighub-proof"
       - "StrimziKafkaOperator-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

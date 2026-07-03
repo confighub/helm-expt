@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install secrets-store-csi-driver secrets-store-csi-driver
         --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --version
-        1.6.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/regular-helm-values.yaml
+        1.6.0 --namespace kube-system --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/secrets-store-csi-driver-secrets-store-csi-driver-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead
       objectCount: 10
@@ -80,7 +80,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-secretsstorece4481-mq1e49vr-12eh-secrets-store-csi-driver
         --non-interactive --namespace kube-system
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -198,7 +198,7 @@ spec:
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-secretsstorece4481-mq1e49vr-12eh\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-secretsstorece4481-mq1e49vr-12eh.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-secretsstorece4481-mq1e49vr-12eh.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-secretsstorece4481-mq1e49vr-12eh\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -209,7 +209,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-secretsstorece4481-mq1e49vr-12eh\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-secretsstorece4481-mq1e49vr-12eh\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-secretsstorece4481-mq1e49vr-12eh.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-secretsstorece4481-mq1e49vr-12eh.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namesp"
   - name: regular-helm-live
     result: pass

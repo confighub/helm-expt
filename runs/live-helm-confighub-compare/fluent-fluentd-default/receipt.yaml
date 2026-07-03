@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts
-        --version 0.5.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
+        --version 0.5.3 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9d7c1ec5d0f201623aa61a0fa2adcb477bac4b7366f5a9b87d9b4a3754c2491a
       objectCount: 10
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/fluent/fluentd/0.5.3
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -991,7 +991,7 @@ spec:
     elapsedSeconds: 20.564
     timeoutSeconds: 900
     command: helm upgrade --install fluentd fluentd --repo https://fluent.github.io/helm-charts
-      --version 0.5.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
+      --version 0.5.3 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -999,7 +999,7 @@ spec:
     finishedAt: '2026-06-15T01:42:58Z'
     elapsedSeconds: 0.371
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/fluent/fluentd/0.5.3
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1008,9 +1008,9 @@ spec:
     finishedAt: '2026-06-15T01:42:59Z'
     elapsedSeconds: 0.142
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig
       --context kind-helm-expt-parity-fluentd-mqejr47p-1n1b apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: watch
@@ -1025,7 +1025,7 @@ spec:
     finishedAt: '2026-06-15T01:48:14Z'
     elapsedSeconds: 0.425
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluentd/0.5.3
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/fluent/fluentd/0.5.3
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-fluentd-mqejr47p-1n1b-fluentd
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1060,7 +1060,7 @@ spec:
     elapsedSeconds: 1.341
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-fluentd-mqejr47p-1n1b-cluster
-      fluentd-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/argo-application.json
+      fluentd-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/fluent-fluentd-default/argo-application.json
       --target helm-expt-parity-fluentd-mqejr47p-1n1b-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1090,11 +1090,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-fluentd-mqejr47p-1n1b\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-fluentd-mqejr47p-1n1b\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1105,7 +1105,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-fluentd-mqejr47p-1n1b\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-fluentd-mqejr47p-1n1b\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-fluentd-mqejr47p-1n1b.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace "
   - name: target-facts-regular-helm

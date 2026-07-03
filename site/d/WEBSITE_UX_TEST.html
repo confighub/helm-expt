@@ -400,23 +400,23 @@
 <p>This runbook helps another Codex, Claude, or teammate start the generated helm-expt website locally and walk Alexis through a UX review. The review starts with the top-level pages, then follows guide and doc links one or two clicks deeper.</p>
 <p>Use it when the goal is to test whether the public site is understandable to a fresh Helm user. Do not use the walkthrough to rewrite the site live. First record findings, then make a focused follow-up change.</p>
 <h2 id="1-sync-and-verify">1. Sync And Verify</h2>
-<pre><code>cd /Users/alexis/code/helm-expt
+<pre><code>cd $HOME/code/helm-expt
 git fetch origin
 git pull --ff-only
 npm run site:verify</code></pre>
 <p>If the site verifier fails, stop and report the failing page. Do not start the UX walkthrough from stale generated HTML.</p>
 <h2 id="2-start-a-local-static-server">2. Start A Local Static Server</h2>
 <p>Prefer port <code>8766</code>.</p>
-<pre><code>python3 -m http.server 8766 --bind 127.0.0.1 --directory /Users/alexis/code/helm-expt/site</code></pre>
+<pre><code>python3 -m http.server 8766 --bind 127.0.0.1 --directory $HOME/code/helm-expt/site</code></pre>
 <p>Open:</p>
 <pre><code>http://127.0.0.1:8766/</code></pre>
 <p>If the port is already in use, pick another port:</p>
-<pre><code>python3 -m http.server 8767 --bind 127.0.0.1 --directory /Users/alexis/code/helm-expt/site</code></pre>
+<pre><code>python3 -m http.server 8767 --bind 127.0.0.1 --directory $HOME/code/helm-expt/site</code></pre>
 <h2 id="3-test-from-another-laptop">3. Test From Another Laptop</h2>
 <p><code>127.0.0.1</code> only works on the machine running the server.</p>
 <p>The simplest option is to run the same commands on the other laptop.</p>
 <p>If the server should run on this machine and be viewed from another laptop on the same network, bind to all interfaces:</p>
-<pre><code>python3 -m http.server 8766 --bind 0.0.0.0 --directory /Users/alexis/code/helm-expt/site</code></pre>
+<pre><code>python3 -m http.server 8766 --bind 0.0.0.0 --directory $HOME/code/helm-expt/site</code></pre>
 <p>Find this machine's LAN IP:</p>
 <pre><code>ipconfig getifaddr en0</code></pre>
 <p>Then open this from the other laptop, replacing the IP:</p>

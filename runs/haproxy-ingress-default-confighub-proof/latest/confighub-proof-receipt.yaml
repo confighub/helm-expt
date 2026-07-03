@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/haproxy-ingress-default --space helm-haproxy-ingress-default-confighub-proof --component HaproxyIngress --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=HaproxyIngress --unit-label HelmChart=haproxytech-kubernetes-ingress --unit-label HelmChartVersion=1.52.0 --unit-label Variant=default --unit-label Proof=haproxy-ingress-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-haproxy-ingress-default-confighub-proof"
     unitCount: 9
     kubernetesUnitCount: 8
@@ -57,7 +57,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/haproxy-ingress-default"
     result: "pass"
-    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-haproxy-ingress-default-confighub-proof:\n  ~ deployment-default-kubernetes-ingress\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/haproxy-ingress-default/out/manifests/deployment-default-kubernetes-ingress.yaml:\n      Resource: apps/v1/Deployment default/kubernetes-ingress\n        - [Delete] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@2  (#2)\n          containerPort: 8443\n          name: https\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@3.name  (#2)"
+    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-haproxy-ingress-default-confighub-proof:\n  ~ deployment-default-kubernetes-ingress\n      New changes from update from $HOME/code/helm-expt-claude-clone/.tmp/confighub-proof/haproxy-ingress-default/out/manifests/deployment-default-kubernetes-ingress.yaml:\n      Resource: apps/v1/Deployment default/kubernetes-ingress\n        - [Delete] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@2  (#2)\n          containerPort: 8443\n          name: https\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=kubernetes-ingress-controller;@0.ports.?containerPort=8443;@3.name  (#2)"
   serverSideVariant:
     command: "cub variant create staging helm-haproxy-ingress-default-confighub-proof --environment Staging --region local --namespace default --space-pattern template:HaproxyIngress-default-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
@@ -85,6 +85,6 @@ spec:
       - "helm-haproxy-ingress-default-confighub-proof"
       - "HaproxyIngress-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

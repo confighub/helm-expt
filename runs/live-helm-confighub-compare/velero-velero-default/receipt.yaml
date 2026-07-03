@@ -47,7 +47,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
-        --version 12.0.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
+        --version 12.0.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b
       objectCount: 23
@@ -82,7 +82,7 @@ spec:
     elapsedSeconds: 19.161
     timeoutSeconds: 900
     command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
-      --version 12.0.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
+      --version 12.0.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -90,7 +90,7 @@ spec:
     finishedAt: '2026-06-16T03:42:04Z'
     elapsedSeconds: 0.472
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/velero/velero/12.0.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/velero/velero/12.0.1
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-velero-mqg3fkmi-esz-velero
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -99,9 +99,9 @@ spec:
     finishedAt: '2026-06-16T03:42:05Z'
     elapsedSeconds: 0.145
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
       --context kind-helm-expt-parity-velero-mqg3fkmi-esz apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/confighub-rendered-crds.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/confighub-rendered-crds.yaml
     objectCount: 13
   - name: configHub-direct-apply
     result: blocked
@@ -109,18 +109,18 @@ spec:
     finishedAt: '2026-06-16T03:42:07Z'
     elapsedSeconds: 0.167
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig
       --context kind-helm-expt-parity-velero-mqg3fkmi-esz apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/velero-velero-default/direct-apply-manifest.yaml
     objectCount: 10
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-velero-mqg3fkmi-esz\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-velero-mqg3fkmi-esz\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -131,7 +131,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-velero-mqg3fkmi-esz\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-velero-mqg3fkmi-esz\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-velero-mqg3fkmi-esz.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nsta"

@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
-        --version 2.0.10 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
+        --version 2.0.10 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ae93532b5f5b71b51e19b840c9195d903674e3edb9138823f46d73daf97afccc
       objectCount: 18
@@ -330,7 +330,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
         --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1343,7 +1343,7 @@ spec:
     elapsedSeconds: 487.834
     timeoutSeconds: 900
     command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
-      --version 2.0.10 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
+      --version 2.0.10 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1351,7 +1351,7 @@ spec:
     finishedAt: '2026-06-19T07:49:29Z'
     elapsedSeconds: 0.539
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
       --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1360,9 +1360,9 @@ spec:
     finishedAt: '2026-06-19T07:49:30Z'
     elapsedSeconds: 0.15
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig
       --context kind-helm-expt-parity-opensearch-mqkmcli9-1xbj apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/direct-apply-manifest.yaml
     objectCount: 18
   - name: configHub-direct-readiness
     result: pass
@@ -1377,7 +1377,7 @@ spec:
     finishedAt: '2026-06-19T07:53:10Z'
     elapsedSeconds: 0.531
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/opensearch/2.0.10
       --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opensearch-mqkmcli9-1xbj-opensearch
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1412,7 +1412,7 @@ spec:
     elapsedSeconds: 1.003
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster
-      opensearch-parity-app /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/argo-application.json
+      opensearch-parity-app $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-opensearch-legacy/argo-application.json
       --target helm-expt-parity-opensearch-mqkmcli9-1xbj-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1442,11 +1442,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-opensearch-mqkmcli9-1xbj\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-opensearch-mqkmcli9-1xbj\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1457,7 +1457,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-opensearch-mqkmcli9-1xbj\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opensearch-mqkmcli9-1xbj\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opensearch-mqkmcli9-1xbj.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
   - name: target-facts-regular-helm

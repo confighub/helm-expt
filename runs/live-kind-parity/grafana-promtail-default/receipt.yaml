@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install promtail promtail --repo https://grafana.github.io/helm-charts
-        --version 6.17.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-promtail-default/regular-helm-values.yaml
+        --version 6.17.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-promtail-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/promtail/6.17.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/promtail/6.17.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-promta-cd252-yuob-promtail
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

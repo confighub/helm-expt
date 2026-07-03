@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
-        --version 22.1.6 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-elasticsearch-ha/regular-helm-values.yaml
+        --version 22.1.6 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-elasticsearch-ha/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4
@@ -1050,7 +1050,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
         --base ha --work-dir /tmp/helm-expt-kind-parity-hx-elasti-c0627-tl5q-elasticsearch
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

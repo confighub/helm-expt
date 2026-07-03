@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install longhorn longhorn --repo https://charts.longhorn.io
-        --version 1.11.2 --namespace longhorn-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/longhorn-longhorn-default/regular-helm-values.yaml
+        --version 1.11.2 --namespace longhorn-system --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/longhorn-longhorn-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: longhorn-system
       manifestSHA256: 4a2f739775a696f5d67db6adf1f99473c60a3f5adf308ceb3ccbf222435acd90
@@ -113,7 +113,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/longhorn/longhorn/1.11.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/longhorn/longhorn/1.11.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-longho-2dfbc-lqom-longhorn
         --non-interactive --namespace longhorn-system
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

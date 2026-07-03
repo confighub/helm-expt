@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/kube-prometheus-stack-default --space helm-kube-prometheus-stack-confighub-proof --component KubePrometheusStack --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=KubePrometheusStack --unit-label HelmChart=prometheus-community-kube-prometheus-stack --unit-label HelmChartVersion=85.3.3 --unit-label Variant=default --unit-label Proof=kube-prometheus-stack-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-kube-prometheus-stack-confighub-proof"
     unitCount: 124
     kubernetesUnitCount: 123
@@ -59,7 +59,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/kube-prometheus-stack-default"
     result: "pass"
-    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-kube-prometheus-stack-confighub-proof:\n  ~ deployment-monitoring-kube-prometheus-stack-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/kube-prometheus-stack-default/out/manifests/deployment-monitoring-kube-prometheus-stack-grafana.yaml:\n      Resource: apps/v1/Deployment monitoring/kube-prometheus-stack-grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@2.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@2.ports.?containerPort=9094;@1.name  (#3)"
+    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-kube-prometheus-stack-confighub-proof:\n  ~ deployment-monitoring-kube-prometheus-stack-grafana\n      New changes from update from $HOME/code/helm-expt/.tmp/confighub-proof/kube-prometheus-stack-default/out/manifests/deployment-monitoring-kube-prometheus-stack-grafana.yaml:\n      Resource: apps/v1/Deployment monitoring/kube-prometheus-stack-grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@2.ports.?containerPort=9094;@1  (#3)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@2.ports.?containerPort=9094;@1.name  (#3)"
   serverSideVariant:
     command: "cub variant create staging helm-kube-prometheus-stack-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists"
     result: "pass"
@@ -79,7 +79,7 @@ spec:
       - "helm-kube-prometheus-stack-confighub-proof"
       - "helm-kube-prometheus-stack-confighub-proof-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install dex dex --repo https://charts.dexidp.io --version
-        0.24.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/dex-dex-default/regular-helm-values.yaml
+        0.24.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/dex-dex-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5
@@ -168,7 +168,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/dex/dex/0.24.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/dex/dex/0.24.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-dex-755e0-6mhk-dex
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

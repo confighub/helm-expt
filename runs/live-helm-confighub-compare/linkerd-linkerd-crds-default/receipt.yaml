@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
-        --version 1.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
+        --version 1.8.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b
       objectCount: 8
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -918,7 +918,7 @@ spec:
     elapsedSeconds: 2.983
     timeoutSeconds: 900
     command: helm upgrade --install linkerd-crds linkerd-crds --repo https://helm.linkerd.io/stable
-      --version 1.8.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
+      --version 1.8.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -926,7 +926,7 @@ spec:
     finishedAt: '2026-06-14T20:11:50Z'
     elapsedSeconds: 0.621
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -935,9 +935,9 @@ spec:
     finishedAt: '2026-06-14T20:11:51Z'
     elapsedSeconds: 0.175
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig
       --context kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/confighub-rendered-crds.yaml
     objectCount: 8
   - name: configHub-direct-readiness
     result: pass
@@ -951,7 +951,7 @@ spec:
     finishedAt: '2026-06-14T20:11:59Z'
     elapsedSeconds: 0.429
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/linkerd/linkerd-crds/1.8.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-linkerdcrds-mqe7ygyi-bm-linkerd-crds
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -986,7 +986,7 @@ spec:
     elapsedSeconds: 0.975
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster
-      linkerd-crds-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argo-application.json
+      linkerd-crds-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/linkerd-linkerd-crds-default/argo-application.json
       --target helm-expt-parity-linkerdcrds-mqe7ygyi-bm-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1015,11 +1015,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-linkerdcrds-mqe7ygyi-bm\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1030,7 +1030,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-linkerdcrds-mqe7ygyi-bm\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-linkerdcrds-mqe7ygyi-bm.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
   - name: target-facts-regular-helm

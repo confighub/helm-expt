@@ -126,7 +126,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/consul-secure-mesh-existing-secrets --space helm-consul-secure-mesh-existing-secrets-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant secure-mesh-existing-secrets --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=secure-mesh-existing-secrets --unit-label Proof=consul-secure-mesh-existing-secrets-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-consul-secure-mesh-existing-secrets-confighub-proof"
     unitCount: 98
     kubernetesUnitCount: 97
@@ -167,7 +167,7 @@ spec:
       - "helm-consul-secure-mesh-existing-secrets-confighub-proof"
       - "Consul-secure-mesh-existing-secrets-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."

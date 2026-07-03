@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install gateway gateway --repo https://istio-release.storage.googleapis.com/charts
-        --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
+        --version 1.30.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc
       objectCount: 6
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/istio/gateway/1.30.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1017,7 +1017,7 @@ spec:
     elapsedSeconds: 482.468
     timeoutSeconds: 900
     command: helm upgrade --install gateway gateway --repo https://istio-release.storage.googleapis.com/charts
-      --version 1.30.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
+      --version 1.30.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1025,7 +1025,7 @@ spec:
     finishedAt: '2026-06-15T17:48:59Z'
     elapsedSeconds: 0.485
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/istio/gateway/1.30.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1034,9 +1034,9 @@ spec:
     finishedAt: '2026-06-15T17:49:00Z'
     elapsedSeconds: 0.12
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig
       --context kind-helm-expt-parity-gateway-mqfhvw46-1af2 apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: watch
@@ -1051,7 +1051,7 @@ spec:
     finishedAt: '2026-06-15T17:54:10Z'
     elapsedSeconds: 0.402
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/gateway/1.30.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/istio/gateway/1.30.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gateway-mqfhvw46-1af2-gateway
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1086,7 +1086,7 @@ spec:
     elapsedSeconds: 0.929
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-gateway-mqfhvw46-1af2-cluster
-      gateway-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/argo-application.json
+      gateway-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/istio-gateway-default/argo-application.json
       --target helm-expt-parity-gateway-mqfhvw46-1af2-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1116,11 +1116,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-gateway-mqfhvw46-1af2\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-gateway-mqfhvw46-1af2\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1131,7 +1131,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-gateway-mqfhvw46-1af2\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-gateway-mqfhvw46-1af2\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-gateway-mqfhvw46-1af2.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
   - name: target-facts-regular-helm

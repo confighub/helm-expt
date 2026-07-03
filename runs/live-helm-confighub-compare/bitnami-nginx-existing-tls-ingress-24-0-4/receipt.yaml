@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
-        --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
+        --version 24.0.4 --namespace nginx-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f
       objectCount: 6
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
         --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
         --non-interactive --namespace nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -858,7 +858,7 @@ spec:
     elapsedSeconds: 22.033
     timeoutSeconds: 900
     command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
-      --version 24.0.4 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
+      --version 24.0.4 --namespace nginx-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -866,7 +866,7 @@ spec:
     finishedAt: '2026-06-14T23:22:05Z'
     elapsedSeconds: 0.384
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
       --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
       --non-interactive --namespace nginx-apply
   - name: configHub-direct-apply
@@ -875,9 +875,9 @@ spec:
     finishedAt: '2026-06-14T23:22:06Z'
     elapsedSeconds: 0.106
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig
       --context kind-helm-expt-parity-nginx-mqeeq513-1aex apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: pass
@@ -892,7 +892,7 @@ spec:
     finishedAt: '2026-06-14T23:22:32Z'
     elapsedSeconds: 0.252
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.4
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.4
       --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqeeq513-1aex-nginx
       --non-interactive --namespace nginx-oci
   - name: configHub-oci-upload
@@ -927,7 +927,7 @@ spec:
     elapsedSeconds: 1.005
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-nginx-mqeeq513-1aex-cluster
-      nginx-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/argo-application.json
+      nginx-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/argo-application.json
       --target helm-expt-parity-nginx-mqeeq513-1aex-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -957,11 +957,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-nginx-mqeeq513-1aex\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-nginx-mqeeq513-1aex\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -972,7 +972,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqeeq513-1aex\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqeeq513-1aex\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nginx-mqeeq513-1aex.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nsta"
@@ -1045,7 +1045,7 @@ spec:
         sourceNamespace: nginx
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1079,7 +1079,7 @@ spec:
         sourceNamespace: nginx
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1113,7 +1113,7 @@ spec:
         sourceNamespace: nginx
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress-24-0-4/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

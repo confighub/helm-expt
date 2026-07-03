@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
-        --version 10.5.15 --namespace grafana --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/regular-helm-values.yaml
+        --version 10.5.15 --namespace grafana --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: grafana
       manifestSHA256: 04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/grafana/10.5.15
         --base existing-secret-ingress --work-dir /tmp/helm-expt-kind-parity-hx-grafan-a0632-xay3-grafana
         --non-interactive --namespace grafana
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -127,7 +127,7 @@ spec:
         keys:
         - admin-password
         - admin-user
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -136,4 +136,4 @@ spec:
         keys:
         - admin-password
         - admin-user
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-grafana-existing-secret-ingress/target-facts-installer.yaml

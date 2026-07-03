@@ -34,19 +34,19 @@ Selector: Labels.Proof = 'redis-confighub-proof'
 Commands:
 
 ```sh
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-format \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-format \
   --space helm-redis-confighub-proof \
   --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \
   --wait
 
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-placeholders \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-placeholders \
   --space helm-redis-confighub-proof \
   --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \
   --wait
 
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-merge-keys \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-merge-keys \
   --space helm-redis-confighub-proof \
   --where "Labels.Proof = 'redis-confighub-proof'" \
   --output json \

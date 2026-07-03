@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install eck-operator eck-operator --repo https://helm.elastic.co
-        --version 3.4.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/elastic-eck-operator-ha/regular-helm-values.yaml
+        --version 3.4.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/elastic-eck-operator-ha/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a
@@ -69,7 +69,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/eck-operator/3.4.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/eck-operator/3.4.0
         --base ha --work-dir /tmp/helm-expt-kind-parity-hx-eckope-44ca9-dxve-eck-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

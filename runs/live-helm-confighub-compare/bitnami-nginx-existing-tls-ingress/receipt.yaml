@@ -51,7 +51,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install nginx oci://registry-1.docker.io/bitnamicharts/nginx
-        --version 24.0.2 --namespace nginx-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/regular-helm-values.yaml
+        --version 24.0.2 --namespace nginx-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f
       objectCount: 6
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/nginx/24.0.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/nginx/24.0.2
         --base existing-tls-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nginx-mqb1msyn-rh8-nginx
         --non-interactive --namespace nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -151,11 +151,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-nginx-mqb1msyn-rh8\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-nginx-mqb1msyn-rh8\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -166,7 +166,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-nginx-mqb1msyn-rh8\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nginx-mqb1msyn-rh8\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nginx-mqb1msyn-rh8.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
   - name: target-profile
@@ -218,7 +218,7 @@ spec:
         lane: regularHelm
         sourceNamespace: nginx
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -251,7 +251,7 @@ spec:
         lane: configHubKubectlApply
         sourceNamespace: nginx
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -284,4 +284,4 @@ spec:
         lane: configHubOciArgo
         sourceNamespace: nginx
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/target-facts-confighub-oci.yaml

@@ -97,7 +97,7 @@ not prose (prose can be stale vs the data).
 - User-story spine: `docs/user/generative-gitops-fit.md`; site `site/journey.html`,
   `site/day1-operations.html`, `site/hooks.html`, and the per-row **"Options From The Matrix"**
   cards on `site/charts/*.html` (generator `scripts/generate-public-site.mjs`).
-- **Day-1 tooling** (preview / dry-run / diff): cub-scout at `/Users/alexis/code/cub-scout` —
+- **Day-1 tooling** (preview / dry-run / diff): cub-scout at `$HOME/code/cub-scout` —
   `compare three-way --dry-from`, and the new `compare object-set --dry-from` / `ObjectSetDiffReceipt`
   (cub-scout PR #498). `docs/user/cub-scout-diff-design.md`, `reverse-reconcile-design.md`.
 
@@ -170,8 +170,8 @@ Span hook **classes**: post-apply Job · test hook · cleanup/delete-policy · C
 
 ## 6. Operating constraints (honor these — learned the hard way)
 
-- **Workspace:** use the standalone clone `/Users/alexis/code/helm-expt-claude-clone` (the
-  loop owns `/Users/alexis/code/helm-expt`). **SOURCE-ONLY PRs; never self-merge helm-expt PRs**
+- **Workspace:** use the standalone clone `$HOME/code/helm-expt-claude-clone` (the
+  loop owns `$HOME/code/helm-expt`). **SOURCE-ONLY PRs; never self-merge helm-expt PRs**
   (Codex/user merges; cub-scout self-merge OK when authorized). A safety classifier enforces this.
 - **Live runs: serial only** (one live/kind job at a time — concurrent starves kind nodes →
   false blocks). **Quota:** ConfigHub prod org = **Kubara**, Unit-quota-limited — use

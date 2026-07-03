@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
-        --version 2.57.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jaegertracing-jaeger-operator-default/regular-helm-values.yaml
+        --version 2.57.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/jaegertracing-jaeger-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab

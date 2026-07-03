@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install vpa vpa --repo https://charts.fairwinds.com/stable
-        --version 4.11.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-default/regular-helm-values.yaml
+        --version 4.11.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9fc49375853347271950b87624ed5215a97a56370dc361b14d22f7efb157a48b
@@ -75,7 +75,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/vpa/4.11.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/fairwinds-stable/vpa/4.11.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-vpa-0e086-51wl-vpa
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -272,7 +272,7 @@ spec:
         lane: cubInstallerApply
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/fairwinds-stable-vpa-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

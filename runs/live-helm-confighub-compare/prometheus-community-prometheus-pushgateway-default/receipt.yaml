@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install prometheus-pushgateway prometheus-pushgateway
         --repo https://prometheus-community.github.io/helm-charts --version 3.6.0
-        --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
+        --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450
       objectCount: 3
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -822,7 +822,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install prometheus-pushgateway prometheus-pushgateway
       --repo https://prometheus-community.github.io/helm-charts --version 3.6.0 --namespace
-      default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
+      default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -830,7 +830,7 @@ spec:
     finishedAt: '2026-06-15T04:36:06Z'
     elapsedSeconds: 0.389
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -839,9 +839,9 @@ spec:
     finishedAt: '2026-06-15T04:36:06Z'
     elapsedSeconds: 0.092
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig
       --context kind-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/direct-apply-manifest.yaml
     objectCount: 3
   - name: configHub-direct-readiness
     result: pass
@@ -856,7 +856,7 @@ spec:
     finishedAt: '2026-06-15T04:36:32Z'
     elapsedSeconds: 0.249
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-prometheus-pushgateway
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -892,7 +892,7 @@ spec:
     elapsedSeconds: 2.313
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster
-      prometheus-pushgateway-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/argo-application.json
+      prometheus-pushgateway-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-pushgateway-default/argo-application.json
       --target helm-expt-parity-prometheuspus392af-mqepy2zp-hmq-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -922,11 +922,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheuspus392af-mqepy2zp-hmq\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheuspus392af-mqepy2zp-hmq\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -937,7 +937,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheuspus392af-mqepy2zp-hmq\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheuspus392af-mqepy2zp-hmq.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"a"
   - name: target-facts-regular-helm

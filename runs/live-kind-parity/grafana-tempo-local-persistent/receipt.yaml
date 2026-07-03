@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
-        --version 1.24.4 --namespace tempo --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-local-persistent/regular-helm-values.yaml
+        --version 1.24.4 --namespace tempo --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-tempo-local-persistent/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: tempo
       manifestSHA256: df7ce7b40425eef8d057bdd80416ea3ae781ababe7ce6a154db74990c0f07905
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/tempo/1.24.4
         --base local-persistent --work-dir /tmp/helm-expt-kind-parity-hx-tempo-c7c24-smr6-tempo
         --non-interactive --namespace tempo
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

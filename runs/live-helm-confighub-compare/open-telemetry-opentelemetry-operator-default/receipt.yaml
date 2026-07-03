@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install opentelemetry-operator opentelemetry-operator
         --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-        0.114.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
+        0.114.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873
       objectCount: 17
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-opentelemetry-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1043,7 +1043,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install opentelemetry-operator opentelemetry-operator
       --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-      0.114.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
+      0.114.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1051,7 +1051,7 @@ spec:
     finishedAt: '2026-06-14T17:12:46Z'
     elapsedSeconds: 0.804
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-opentelemetry-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -1060,9 +1060,9 @@ spec:
     finishedAt: '2026-06-14T17:12:49Z'
     elapsedSeconds: 0.214
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig
       --context kind-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/confighub-rendered-crds.yaml
     objectCount: 4
   - name: configHub-direct-apply
     result: pass
@@ -1070,9 +1070,9 @@ spec:
     finishedAt: '2026-06-14T17:12:51Z'
     elapsedSeconds: 0.156
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig
       --context kind-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/direct-apply-manifest.yaml
     objectCount: 13
   - name: configHub-direct-readiness
     result: pass
@@ -1087,7 +1087,7 @@ spec:
     finishedAt: '2026-06-14T17:13:19Z'
     elapsedSeconds: 0.723
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-opentelemetry-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1123,7 +1123,7 @@ spec:
     elapsedSeconds: 1.839
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster
-      opentelemetry-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argo-application.json
+      opentelemetry-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/argo-application.json
       --target helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1153,11 +1153,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -1168,7 +1168,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqe1j6js-19fn.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.i"
   - name: target-facts-regular-helm
     result: pass
@@ -1223,7 +1223,7 @@ spec:
       - name: issuers.cert-manager.io
         sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1247,7 +1247,7 @@ spec:
       - name: issuers.cert-manager.io
         sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
         lane: configHubKubectlApply
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1271,7 +1271,7 @@ spec:
       - name: issuers.cert-manager.io
         sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
         lane: configHubOciArgo
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

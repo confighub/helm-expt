@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-cd argo-cd --repo https://argoproj.github.io/argo-helm
-        --version 9.5.17 --namespace argocd --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
+        --version 9.5.17 --namespace argocd --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: argocd
       manifestSHA256: 58d54d31b7e52f80c4a352f48a8828fc62fc31b8e2c8aea497f756ae5ce0f9ec
@@ -93,7 +93,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/argo-cd/argo-cd/9.5.17
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/argo-cd/argo-cd/9.5.17
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argocd-768fb-jrhe-argo-cd
         --non-interactive --namespace argocd
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -239,7 +239,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -260,7 +260,7 @@ spec:
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/argo-cd-argo-cd-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-events argo-events --repo https://argoproj.github.io/argo-helm
-        --version 2.4.21 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-events-no-crds/regular-helm-values.yaml
+        --version 2.4.21 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-events-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-events/2.4.21
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-events/2.4.21
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argoev-ffb87-d0vp-argo-events
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
