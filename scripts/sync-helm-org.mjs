@@ -308,6 +308,16 @@ if (mode === "--exhibits") {
   const results = [];
   const label = (space, pairs) =>
     cub(["space", "update", space, ...Object.entries(pairs).flatMap(([k, v]) => ["--label", `${k}=${v}`])]);
+  // Prod spaces get the approval-bearing filter explicitly. variant create
+  // copies the template's TriggerFilterID, which is the vet-only baseline
+  // (helm-catalog-checks excludes vet-approvedby so non-prod spaces and
+  // sketch units never wear an approval gate nobody will action — the
+  // baseline's real check is `npm run helm-org:verify`). Without this
+  // rewire a prod space would silently miss its approval gate.
+  const wireProdGates = (space) => {
+    cub(["space", "update", space, "--trigger-filter", "platform/helm-catalog-prod-gates", "--where-trigger", "-"]);
+    cub(["space", "update", "--patch", space, "--refresh-triggers"]);
+  };
   const firstUnit = (space, needle) => {
     const rows = cub(["unit", "list", "--space", space]).trim().split("\n").slice(1);
     const hit = rows.map((line) => line.split(/\s+/)[0]).find((slug) => slug.includes(needle));
@@ -329,6 +339,7 @@ if (mode === "--exhibits") {
       label("bitnami-redis-staging", { Exhibit: "version-ladder" });
       cub(["variant", "create", "production", "bitnami-redis-base", "--space-pattern", "template:bitnami-redis-prod", "--environment", "Prod", "--namespace", "redis-prod", "--unit-delete-gate", "showroom-keep", "--unit-destroy-gate", "showroom-keep"]);
       label("bitnami-redis-prod", { Exhibit: "version-ladder" });
+      wireProdGates("bitnami-redis-prod");
       cub(["run", "set-replicas", "--replicas", "2", "--space", "bitnami-redis-staging", "--unit", firstUnit("bitnami-redis-staging", "statefulset-redis-redis-replicas"), "--change-desc", "Staging departure: 2 replicas, a local decision that must survive upstream refreshes"]);
       cub(["installer", "setup", "--pull", join(repoRoot, "packages/bitnami/redis/27.0.0"), "--base", "default", "--work-dir", workDir, "--non-interactive", "--namespace", "redis"]);
       cub(["installer", "upload", "--work-dir", workDir, "--space", "bitnami-redis-base", "--yes"]);
@@ -397,6 +408,7 @@ if (mode === "--exhibits") {
       if (region) args.push("--region", region);
       cub(args);
       label(`bitnami-nginx-fleet-${env}`, { Exhibit: "fleet" });
+      if (envLabel === "Prod") wireProdGates(`bitnami-nginx-fleet-${env}`);
     }
     cub(["run", "set-replicas", "--replicas", "3", "--space", fleetBase, "--unit", firstUnit(fleetBase, "deployment"), "--change-desc", "Fleet release: 3 replicas everywhere"]);
     for (const env of ["dev", "staging", "prod-us"]) {
@@ -429,6 +441,7 @@ if (mode === "--exhibits") {
     for (const [env, envLabel, gates] of envs) {
       cub(["variant", "create", env === "prod" ? "production" : env, "hashicorp-vault-demo-base", "--space-pattern", `template:hashicorp-vault-env-${env}`, "--environment", envLabel, "--namespace", `vault-${env}`, ...gates]);
       label(`hashicorp-vault-env-${env}`, { Exhibit: "promotion-interplay" });
+      if (envLabel === "Prod") wireProdGates(`hashicorp-vault-env-${env}`);
     }
     const sts = "statefulset-vault-vault";
     cub(["run", "set-annotation", "--annotation-key", "cost.confighub.com/center", "--annotation-value", "dev-sandbox", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Dev departure: tag the sandbox for cost attribution"]);
