@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · ConfigHub Helm Ops</title>
-  <meta name="description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/journey.html">
-  <meta property="og:title" content="Apps Guide · ConfigHub Helm Ops">
-  <meta property="og:description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
+  <title>The Demo Org · ConfigHub Helm Ops</title>
+  <meta name="description" content="The demo org: ten catalog charts living in a real ConfigHub organization, with version ladders, a fleet, secrets and CRD stories, and live checks.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/demo-org.html">
+  <meta property="og:title" content="The Demo Org · ConfigHub Helm Ops">
+  <meta property="og:description" content="The demo org: ten catalog charts living in a real ConfigHub organization, with version ladders, a fleet, secrets and CRD stories, and live checks.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/journey.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/demo-org.html">
   <style>
     :root {
       color-scheme: light;
@@ -379,14 +379,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
-    .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
-    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .82rem; margin-bottom: 8px; }
-    .app-step h3 { margin: 0 0 8px; }
-    .app-step p { margin: 0; font-size: .9rem; }
-    @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) { .app-flow { grid-template-columns: 1fr; } }
-
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -473,20 +465,18 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>AI Apps</h1>
-    <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
-    <p class="quiet-line">Between the two sits <a href="./demo-org.html">the demo org</a>: catalog charts already living in a ConfigHub organization, with the variant trees and promotions this page describes.</p>
-    <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
-    <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
-    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. If the suggestion changes what Helm renders, it becomes a new or updated base variant. If it changes an already-rendered object, it becomes a reviewed ConfigHub diff. When the application is upgraded, ConfigHub keeps the approved changes in the next version.</p>
+    <h1>The catalog, living in a ConfigHub org</h1>
+    <p class="lead">The chart pages show the evidence. This page shows the same charts running as configuration inside a real ConfigHub organization: base variants as root Spaces, derived variants as their children, promotions as recorded history, and checks as live warnings and gates. Ten charts, chosen for the stories they tell.</p>
+    <p style="margin-top:14px;font-size:.95rem"><a href="./charts/index.html">Helm Ops Catalog</a> · <a href="./how-it-works.html">How it works</a> · <a href="./journey.html">Apps</a></p>
   </header>
   <main>
-    <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">What Counts As An Application?</h2>
-      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this demo org page.</p>
+    <section aria-labelledby="what">
+      <h2 id="what">What is in the org</h2>
+      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries its <code>recipe</code> unit (the source record: chart, version, values profile, routing intent) beside the objects it produced, labels for Component, Variant, ChartVersion and routes, and live validation checks. The org holds 29 Spaces, about 530 units, and about 830 links.</p>
       <div class="card"><table>
-        <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>One public chart</td><td>A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated.</td></tr><tr><td>Several charts</td><td>A group of charts that must be released together, such as an application, database, cache, and monitoring.</td></tr><tr><td>Platform services</td><td>Shared services such as ingress, certificates, policy, monitoring, logging, or identity.</td></tr><tr><td>Your own Kubernetes files</td><td>Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team.</td></tr><tr><td>Something already running</td><td>An application that already exists in Argo, Flux, rendered YAML, a Helm release, or a live cluster.</td></tr></tbody>
+        <thead><tr><th>Chart</th><th>Base variants</th><th>The story it tells</th></tr></thead>
+        <tbody><tr><td>bitnami/redis</td><td>default, reuse-existing-secret</td><td>The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved.</td></tr><tr><td>argo-cd/argo-cd</td><td>default, no-crds</td><td>The CRD split: the same chart with CRDs bundled or separated, side by side.</td></tr><tr><td>hashicorp/vault</td><td>dev-mode, default, ha-raft-ui</td><td>Variant diversity: three operating shapes of one chart.</td></tr><tr><td>ingress-nginx/ingress-nginx</td><td>default, internal-clusterip, admission-disabled</td><td>The admission-webhook certificate quirk, three ways.</td></tr><tr><td>prometheus-community/prometheus</td><td>default, server-only-ephemeral</td><td>The Get Started chart, as it lands in an org.</td></tr><tr><td>prometheus-community/kube-prometheus-stack</td><td>no-crds</td><td>The serious chart: seven recorded lifecycle routes in its recipe unit.</td></tr><tr><td>grafana/grafana</td><td>existing-secret-ingress, static-passwords</td><td>Secrets handled two ways.</td></tr><tr><td>bitnami/mysql</td><td>existing-secret, static-passwords</td><td>The secrets story: staged credential beside generated credential, diffable.</td></tr><tr><td>bitnami/rabbitmq</td><td>existing-secret, static-passwords</td><td>A recipe unit whose routing metadata honestly says: nothing to route.</td></tr><tr><td>bitnami/nginx</td><td>http-clusterip, existing-tls-ingress</td><td>The fleet: four environments from one base, one deliberately behind.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -494,77 +484,29 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <p class="quiet-line">Ten charts rather than a hundred, on purpose: link budget went to depth (derived variants, promotions, exhibits) instead of breadth. The full hundred-chart evidence stays on the <a href="./charts/index.html">chart pages</a>.</p>
     </section>
 
-    <section aria-labelledby="entry">
-      <h2 id="entry">Ways To Start</h2>
-      <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Catalog chart</td><td>Pick a chart page, choose a base variant, and render the files.</td><td>Trying a public chart first.</td></tr><tr><td>Existing Argo or Flux app</td><td>Read the source, target, rendered objects, and current status.</td><td>Teams that already use GitOps.</td></tr><tr><td>Rendered YAML</td><td>Import the files and show which objects ConfigHub would manage.</td><td>Applications already rendered by CI or Helm.</td></tr><tr><td>Live cluster</td><td>Inventory what is running before making any change.</td><td>Teams that need to understand an existing namespace.</td></tr><tr><td>Your own application</td><td>Bring your Deployments, Services, ConfigMaps, and policies beside catalog charts.</td><td>Private services and platform components.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="exhibits">
+      <h2 id="exhibits">Five things to look at</h2>
+      <p><strong>The version ladder.</strong> <code>bitnami-redis-base</code>, <code>-staging</code>, <code>-prod</code>. Staging made a local change (2 replicas). The base was refreshed from chart 25.5.3 to 27.0.0 and promoted. Open the staging ConfigMap's revision history: the upgrade arrived, the local change survived. That is the claim Helm cannot make, recorded as revisions.</p>
+      <p><strong>The fleet.</strong> <code>bitnami-nginx-fleet-dev</code>, <code>-staging</code>, <code>-prod-us</code>, <code>-prod-eu</code>. One base change, promoted to three environments; prod-eu deliberately still needs its upgrade, so fleet queries return a real pending release. Both prod Spaces carry delete and destroy gates.</p>
+      <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
+      <p><strong>The CRD split.</strong> The two argo-cd Spaces show CRDs bundled and separated; the no-crds root is the contract that the cluster owns them.</p>
+      <p><strong>The hooks.</strong> <code>hook-probe-base</code> holds a Job whose Argo hook annotations are readable in the unit data: a routing choice as configuration, not as tribal knowledge.</p>
     </section>
 
-    <section aria-labelledby="app-flow">
-      <h2 id="app-flow">The Normal Order</h2>
-      <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
-      <div class="app-flow">
-        <div class="app-step"><h3>Start with something real</h3><p>Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files.</p></div>
-        <div class="app-step"><h3>Show the objects first</h3><p>List the files and Kubernetes objects before ConfigHub changes how anything is delivered.</p></div>
-        <div class="app-step"><h3>Name what belongs together</h3><p>Group the objects that make up one application so a reviewer can see the whole thing.</p></div>
-        <div class="app-step"><h3>Make versions</h3><p>Create development, staging, production, region, or customer versions without copying values files by hand.</p></div>
-        <div class="app-step"><h3>Release and check it</h3><p>Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports.</p></div>
-      </div>
+    <section aria-labelledby="checks">
+      <h2 id="checks">The checks are live, and honest</h2>
+      <p>Every Space runs schema and placeholder validation as blocking checks: zero gates across the org. Two advisory checks surface real quality findings as warnings: images not pinned by digest, and containers without probes. Those warnings match open work the catalog already tracks; the org shows known debt instead of hiding it. A check that does not reflect a real validation would be a lie in the UI, so there are none of those.</p>
+      <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <code>data/helm-org/</code>; the org is regenerable and drift-checkable like every other catalog surface. The org itself is member-visible today; these pages, the receipts, and the walkthroughs are the public record of it.</p>
     </section>
 
-    <section aria-labelledby="existing">
-      <h2 id="existing">Can I Start From An Existing App?</h2>
-      <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First action</th><th>What you see</th></tr></thead>
-        <tbody><tr><td>Argo CD app</td><td>Read or import the Argo app.</td><td>Source repo, target cluster, namespace, rendered objects, and current sync status.</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>Read or import the Flux object.</td><td>Controller source, target namespace, rendered objects, and ownership.</td></tr><tr><td>Rendered YAML</td><td>Import or preview the files.</td><td>Objects, labels, namespaces, Secrets, CRDs, and likely review points.</td></tr><tr><td>Live cluster</td><td>Inventory the namespace or selected objects.</td><td>What is running now, who appears to own it, and what would need review before adoption.</td></tr><tr><td>Platform services</td><td>Group related charts and files.</td><td>Which shared services belong with the application and which are separate platform dependencies.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card">
-        <h3>Start read-only</h3>
-        <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub gitops discover --space my-space my-k8s-target
-cub gitops import --space my-space my-k8s-target my-render-target \
-  --where-resource "metadata.namespace = 'argocd'"
-kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
-cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You see the resources, namespace, target, and source. At this stage nothing has been moved to ConfigHub delivery.</p>
-      </div>
-      <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="d/docs/user/adopting-existing-apps.html">Adopting Existing Apps</a>.</p>
-    </section>
-
-    <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
-      <div class="card"><table>
-        <thead><tr><th>Example</th><th>What ConfigHub helps with</th></tr></thead>
-        <tbody><tr><td>Redis app</td><td>One public chart can be rendered from a base variant, checked, changed for each environment, and released again.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release.</td></tr><tr><td>Platform services</td><td>Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them.</td></tr><tr><td>Your service plus chart services</td><td>Your own service can sit beside a database, queue, cache, or monitoring chart.</td></tr><tr><td>Existing app</td><td>An application already in a cluster can be inventoried first, then brought under review when you are ready.</td></tr><tr><td>AI-suggested change</td><td>AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
+    <section aria-labelledby="next">
+      <h2 id="next">Do it with your own app</h2>
+      <p>The same chain works for a plain application: upload, make staging and production derived variants, promote, deliver through OCI to the GitOps controller you already run. The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> covers the commands with the why behind each flag, and <a href="./journey.html">Apps</a> covers bringing your own applications alongside the catalog.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. This page explains applications; operations, verification, and commercial boundaries live on their own pages.</footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this demo org page.</p><p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
 </body>
 </html>

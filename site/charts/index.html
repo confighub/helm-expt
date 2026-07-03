@@ -395,6 +395,7 @@
     <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected base variant locally.</p>
     <p>This site has 100 public chart pages and 100 public chart packages. The installer OCI catalog currently tracks 110 published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
+    <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>

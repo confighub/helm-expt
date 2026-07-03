@@ -94,6 +94,7 @@ const sitemapPath = join(siteRoot, "sitemap.xml");
 const robotsPath = join(siteRoot, "robots.txt");
 const llmsPath = join(siteRoot, "llms.txt");
 const docPagesRoot = join(siteRoot, "d");
+const demoOrgPath = join(siteRoot, "demo-org.html");
 
 function confighubOutboundUrl(baseUrl, campaign) {
   const base = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
@@ -133,6 +134,7 @@ const SITE_PAGE_RELPATHS = {
   journeyHtml: "journey.html",
   day1OperationsHtml: "day1-operations.html",
   chartIndexHtml: "charts/index.html",
+  demoOrgHtml: "demo-org.html",
   matrixHtml: "matrix.html",
 };
 
@@ -170,6 +172,7 @@ const PAGE_DESCRIPTIONS = {
   "private/index.html": "Upgrade to ConfigHub: the commercial edition for private charts, teams, policies, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
   "charts/index.html": "The Helm Ops Catalog: pick a chart, choose a base variant, and read its rendered objects, checks, and evidence.",
+  "demo-org.html": "The demo org: ten catalog charts living in a real ConfigHub organization, with version ladders, a fleet, secrets and CRD stories, and live checks.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
 };
 const mode = process.argv[2] ?? "--generate";
@@ -206,6 +209,7 @@ if (mode === "--generate") {
   write(day1OperationsPath, site.day1OperationsHtml);
   write(join(siteRoot, "matrix.html"), site.matrixHtml);
   write(chartIndexPath, site.chartIndexHtml);
+  write(demoOrgPath, site.demoOrgHtml);
   for (const page of site.chartPages) write(page.path, page.html);
   for (const page of site.docPages) write(page.path, page.html);
   for (const script of site.presetScripts) write(script.path, script.content);
@@ -276,6 +280,8 @@ if (mode === "--generate") {
   check(existsSync(join(siteRoot, "matrix.html")), "site/matrix.html is missing; run npm run site:generate");
   check(readFileSync(join(siteRoot, "matrix.html"), "utf8") === site.matrixHtml, "site/matrix.html is stale (regen master matrix first)");
   check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
+  check(existsSync(demoOrgPath), "site/demo-org.html is missing; run npm run site:generate");
+  check(readFileSync(demoOrgPath, "utf8") === site.demoOrgHtml, "site/demo-org.html is stale");
   const expectedChartPages = new Map(site.chartPages.map((page) => [page.fileName, page]));
   const actualChartPages = readdirSync(chartPagesRoot).filter((name) => name.endsWith(".html") && name !== "index.html").sort();
   check(actualChartPages.length === expectedChartPages.size, `expected ${expectedChartPages.size} generated chart page(s), found ${actualChartPages.length}`);
@@ -573,6 +579,7 @@ function buildSite(generatedAt) {
     journeyHtml: calmPage(journeyHtml(catalog)),
     day1OperationsHtml: legacyOperationsRedirectHtml(),
     chartIndexHtml: chartIndexHtml(catalog),
+    demoOrgHtml: calmPage(demoOrgHtml(catalog)),
     chartPages,
     matrixHtml: rebaseRelativeLinks(
       readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.html"), "utf8"),
@@ -3579,6 +3586,72 @@ function privateHtml(catalog) {
 `;
 }
 
+function demoOrgHtml(catalog) {
+  const keepRows = [
+    ["bitnami/redis", "default, reuse-existing-secret", "The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved."],
+    ["argo-cd/argo-cd", "default, no-crds", "The CRD split: the same chart with CRDs bundled or separated, side by side."],
+    ["hashicorp/vault", "dev-mode, default, ha-raft-ui", "Variant diversity: three operating shapes of one chart."],
+    ["ingress-nginx/ingress-nginx", "default, internal-clusterip, admission-disabled", "The admission-webhook certificate quirk, three ways."],
+    ["prometheus-community/prometheus", "default, server-only-ephemeral", "The Get Started chart, as it lands in an org."],
+    ["prometheus-community/kube-prometheus-stack", "no-crds", "The serious chart: seven recorded lifecycle routes in its recipe unit."],
+    ["grafana/grafana", "existing-secret-ingress, static-passwords", "Secrets handled two ways."],
+    ["bitnami/mysql", "existing-secret, static-passwords", "The secrets story: staged credential beside generated credential, diffable."],
+    ["bitnami/rabbitmq", "existing-secret, static-passwords", "A recipe unit whose routing metadata honestly says: nothing to route."],
+    ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "The fleet: four environments from one base, one deliberately behind."],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Demo Org · ConfigHub Helm Ops</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>The catalog, living in a ConfigHub org</h1>
+    <p class="lead">The chart pages show the evidence. This page shows the same charts running as configuration inside a real ConfigHub organization: base variants as root Spaces, derived variants as their children, promotions as recorded history, and checks as live warnings and gates. Ten charts, chosen for the stories they tell.</p>
+    ${humanLinks([["Helm Ops Catalog", "./charts/index.html"], ["How it works", "./how-it-works.html"], ["Apps", "./journey.html"]])}
+  </header>
+  <main>
+    ${generatedStamp(catalog, "demo org page")}
+    <section aria-labelledby="what">
+      <h2 id="what">What is in the org</h2>
+      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries its <code>recipe</code> unit (the source record: chart, version, values profile, routing intent) beside the objects it produced, labels for Component, Variant, ChartVersion and routes, and live validation checks. The org holds 29 Spaces, about 530 units, and about 830 links.</p>
+      ${markdownLikeTable([
+        ["Chart", "Base variants", "The story it tells"],
+        ...keepRows,
+      ])}
+      <p class="quiet-line">Ten charts rather than a hundred, on purpose: link budget went to depth (derived variants, promotions, exhibits) instead of breadth. The full hundred-chart evidence stays on the <a href="./charts/index.html">chart pages</a>.</p>
+    </section>
+
+    <section aria-labelledby="exhibits">
+      <h2 id="exhibits">Five things to look at</h2>
+      <p><strong>The version ladder.</strong> <code>bitnami-redis-base</code>, <code>-staging</code>, <code>-prod</code>. Staging made a local change (2 replicas). The base was refreshed from chart 25.5.3 to 27.0.0 and promoted. Open the staging ConfigMap's revision history: the upgrade arrived, the local change survived. That is the claim Helm cannot make, recorded as revisions.</p>
+      <p><strong>The fleet.</strong> <code>bitnami-nginx-fleet-dev</code>, <code>-staging</code>, <code>-prod-us</code>, <code>-prod-eu</code>. One base change, promoted to three environments; prod-eu deliberately still needs its upgrade, so fleet queries return a real pending release. Both prod Spaces carry delete and destroy gates.</p>
+      <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
+      <p><strong>The CRD split.</strong> The two argo-cd Spaces show CRDs bundled and separated; the no-crds root is the contract that the cluster owns them.</p>
+      <p><strong>The hooks.</strong> <code>hook-probe-base</code> holds a Job whose Argo hook annotations are readable in the unit data: a routing choice as configuration, not as tribal knowledge.</p>
+    </section>
+
+    <section aria-labelledby="checks">
+      <h2 id="checks">The checks are live, and honest</h2>
+      <p>Every Space runs schema and placeholder validation as blocking checks: zero gates across the org. Two advisory checks surface real quality findings as warnings: images not pinned by digest, and containers without probes. Those warnings match open work the catalog already tracks; the org shows known debt instead of hiding it. A check that does not reflect a real validation would be a lie in the UI, so there are none of those.</p>
+      <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <code>data/helm-org/</code>; the org is regenerable and drift-checkable like every other catalog surface. The org itself is member-visible today; these pages, the receipts, and the walkthroughs are the public record of it.</p>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">Do it with your own app</h2>
+      <p>The same chain works for a plain application: upload, make staging and production derived variants, promote, deliver through OCI to the GitOps controller you already run. The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> covers the commands with the why behind each flag, and <a href="./journey.html">Apps</a> covers bringing your own applications alongside the catalog.</p>
+    </section>
+  </main>
+  <footer>${generatedStamp(catalog, "demo org page")}<p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
+</body>
+</html>
+`;
+}
+
 function tiersRedirectHtml() {
   return `<!doctype html>
 <html lang="en">
@@ -3638,6 +3711,7 @@ function journeyHtml(catalog) {
     ${topNav(".")}
     <h1>AI Apps</h1>
     <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
+    <p class="quiet-line">Between the two sits <a href="./demo-org.html">the demo org</a>: catalog charts already living in a ConfigHub organization, with the variant trees and promotions this page describes.</p>
     <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
     <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
     <p>AI can help suggest values or file edits, but it uses the same review path as any other change. If the suggestion changes what Helm renders, it becomes a new or updated base variant. If it changes an already-rendered object, it becomes a reviewed ConfigHub diff. When the application is upgraded, ConfigHub keeps the approved changes in the next version.</p>
@@ -4522,6 +4596,7 @@ function chartIndexHtml(catalog) {
     <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected base variant locally.</p>
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
+    <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>
