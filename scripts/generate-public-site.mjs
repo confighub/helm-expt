@@ -1325,6 +1325,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
+    <p class="install-cub-note">The five words and four stages on one page: <a href="./d/docs/user/model-and-vocabulary.html">the model and its words</a>.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
   </div>
 </header>
@@ -2551,6 +2552,7 @@ function docsHtml(catalog) {
     ["Future and managed ideas", "What exists now, what is roadmap, and what belongs in a managed service.", "./future.html"],
     ["Answer hard questions", "Direct answers about hooks, upgrades, AI changes, limits, and refusals.", "./hard-questions.html"],
     ["Known Gaps", "The known problems this project names instead of hiding.", "./known-gaps.html"],
+    ["The model and its words", "The five words, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
     ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
     ["Expected results and clusters", "Which commands need a cluster and what output to expect.", "../docs/user/expected-results-and-clusters.md"],
