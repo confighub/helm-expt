@@ -47,6 +47,90 @@ function parseCsv(text) {
   });
 }
 
+// routes.csv quotes comma-laden fields (hook_phases), so it needs a real
+// quote-aware split — the naive parseCsv above would shift its columns.
+function splitCsvLine(line) {
+  const cells = [];
+  let cell = "", inQuotes = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') { cell += '"'; i += 1; }
+      else if (ch === '"') inQuotes = false;
+      else cell += ch;
+    } else if (ch === '"') inQuotes = true;
+    else if (ch === ",") { cells.push(cell); cell = ""; }
+    else cell += ch;
+  }
+  cells.push(cell);
+  return cells;
+}
+
+function parseCsvQuoted(text) {
+  const [headerLine, ...lines] = text.split("\n").filter(Boolean);
+  const headers = splitCsvLine(headerLine);
+  return lines.map((line) => {
+    const cells = splitCsvLine(line);
+    return Object.fromEntries(headers.map((h, i) => [h, cells[i] ?? ""]));
+  });
+}
+
+function renderRecordYaml() {
+  return `apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderRecord"
+metadata:
+  name: "hashicorp-vault-demo-base"
+  labels:
+    sketch: "unbuilt-entity"
+spec:
+  recipeUnit: "recipe"
+  chart:
+    name: "hashicorp/vault"
+    version: "0.32.0"
+  base: "default"
+  renderedBy: "cub installer (client-side render; the server never saw the act)"
+  renderedAt: "2026-07-03T08:07:00Z"
+  outputUnits: 13
+  renderLinks: "one exemplar rendered-from Link on statefulset-vault-vault (org link quota is nearly spent; the full set is this record)"
+  status: "sketch"
+  note: >-
+    This unit sketches an entity the product does not have. Rendering happens
+    client-side today; the server records no render operation, no inputs, no
+    provenance. When render records become first-class product objects, this
+    convention collapses into one.
+`;
+}
+
+function lifecycleRouteYaml(r) {
+  const list = (value) => value.split(";").map((v) => v.trim()).filter(Boolean).map((v) => `    - "${v}"`).join("\n");
+  return `apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "${r.route_name}"
+  labels:
+    sketch: "unbuilt-entity"
+    quirkClass: "${r.quirk_class}"
+spec:
+  chart: "${r.chart}"
+  version: "${r.version}"
+  quirkClass: "${r.quirk_class}"
+  hookPhases: "${r.hook_phases}"
+  routeName: "${r.route_name}"
+  executionMode: "${r.execution_mode}"
+  automatic: false
+  alternatives:
+${list(r.alternatives)}
+  disposition: "${r.disposition}"
+  evidence:
+${list(r.evidence_or_next_action)}
+  note: >-
+    Sketch of an entity the product does not have: a lifecycle route as an
+    addressable object. Today this row lives in repo CSV, space labels, and
+    unit annotations; automatic stays false until the product executes the
+    route and committed evidence proves it.
+`;
+}
+
 // Route labels mirror the committed matrix fields verbatim; sparse data stays
 // visibly sparse (none-recorded) rather than being dressed up. CrdRoute is
 // structural: a chart that ships a no-crds base variant has separable CRDs.
@@ -269,6 +353,10 @@ if (mode === "--exhibits") {
       results.push([exhibit, "labeled", spaces.join(" + ")]);
     }
   }
+  // The no-crds root wears the committed receipt that backs its contract.
+  if (spaceExists("argo-cd-argo-cd-9-5-15-no-crds")) {
+    label("argo-cd-argo-cd-9-5-15-no-crds", { ProofReceipt: "crd-ordering-gap" });
+  }
 
   // E4 hooks-argo: the receipted hook fixture; the Job unit's data carries the
   // Argo hook annotations, so the routing choice is inspectable config.
@@ -281,7 +369,7 @@ if (mode === "--exhibits") {
         write(join(stage, file), readFileSync(join(repoRoot, "tests/fixtures/hook-replacement-probe", file), "utf8"));
       }
       cub(["variant", "upload", "--component", "hook-probe", "--variant", "base", "--space", "hook-probe-base", "--granularity", "per-resource", stage]);
-      label("hook-probe-base", { Exhibit: "hooks-argo", HookRoute: "argo-hook-annotations" });
+      label("hook-probe-base", { Exhibit: "hooks-argo", HookRoute: "argo-hook-annotations", ProofReceipt: "hook-execution-proof", DeliveryReceipt: "oci-hook-delivery-proof" });
       results.push(["hooks-argo", "created", "hook-probe-base from tests/fixtures/hook-replacement-probe"]);
     } finally {
       rmSync(stage, { recursive: true, force: true });
@@ -315,6 +403,94 @@ if (mode === "--exhibits") {
       cub(["variant", "promote", `bitnami-nginx-fleet-${env}`, "--change-desc", "Fleet release: pull 3 replicas"]);
     }
     results.push(["fleet", "created", "4 envs; dev/staging/prod-us promoted; prod-eu deliberately needs-upgrade"]);
+  }
+
+  // E6 promotion-interplay: what happens when environment departures meet base
+  // releases. A mutable demo base derives from the immutable vault root; three
+  // environments star off it with distinct departures; the base then ships two
+  // releases (annotations) and every environment promotes. Field-level
+  // departures (replicas) merge with the releases; dev's departure edits the
+  // same annotations map the releases write to, so promote keeps dev's map and
+  // reports success without the releases arriving — dev adopts them with
+  // explicit reconcile commits instead. Both behaviours are the exhibit.
+  const vaultRoot = "hashicorp-vault-0-32-0-default";
+  if (!spaceExists(vaultRoot)) {
+    results.push(["promotion-interplay", "FAILED", `missing wave-1 space ${vaultRoot}`]);
+  } else if (spaceExists("hashicorp-vault-demo-base")) {
+    results.push(["promotion-interplay", "exists", "hashicorp-vault-demo-base present; skipped"]);
+  } else {
+    cub(["variant", "create", "demo", vaultRoot, "--space-pattern", "template:hashicorp-vault-demo-base", "--namespace", "vault-demo"]);
+    label("hashicorp-vault-demo-base", { Exhibit: "promotion-interplay" });
+    const envs = [
+      ["dev", "Dev", []],
+      ["staging", "Staging", []],
+      ["prod", "Prod", ["--unit-delete-gate", "showroom-keep", "--unit-destroy-gate", "showroom-keep"]],
+    ];
+    for (const [env, envLabel, gates] of envs) {
+      cub(["variant", "create", env === "prod" ? "production" : env, "hashicorp-vault-demo-base", "--space-pattern", `template:hashicorp-vault-env-${env}`, "--environment", envLabel, "--namespace", `vault-${env}`, ...gates]);
+      label(`hashicorp-vault-env-${env}`, { Exhibit: "promotion-interplay" });
+    }
+    const sts = "statefulset-vault-vault";
+    cub(["run", "set-annotation", "--annotation-key", "cost.confighub.com/center", "--annotation-value", "dev-sandbox", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Dev departure: tag the sandbox for cost attribution"]);
+    cub(["run", "set-replicas", "--replicas", "2", "--space", "hashicorp-vault-env-staging", "--unit", sts, "--change-desc", "Staging departure: two replicas to catch clustering issues early"]);
+    cub(["run", "set-replicas", "--replicas", "3", "--space", "hashicorp-vault-env-prod", "--unit", sts, "--change-desc", "Prod departure: three replicas for quorum"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/telemetry", "--annotation-value", "enabled", "--space", "hashicorp-vault-demo-base", "--unit", sts, "--change-desc", "Base release: enable telemetry everywhere"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/release-track", "--annotation-value", "stable", "--space", "hashicorp-vault-demo-base", "--unit", sts, "--change-desc", "Base release 2: stamp release track"]);
+    for (const [env] of envs) {
+      cub(["variant", "promote", `hashicorp-vault-env-${env}`, "--change-desc", `Pull the telemetry release into ${env}`]);
+    }
+    // Dev's same-map departure means the releases did not arrive there; adopt
+    // them explicitly so the revision history teaches the reconcile move.
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/telemetry", "--annotation-value", "enabled", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base telemetry release alongside the dev departure (same-map departures do not auto-merge)"]);
+    cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/release-track", "--annotation-value", "stable", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base release-track stamp"]);
+    results.push(["promotion-interplay", "created", "demo base + 3 envs; replicas departures merged with releases; dev same-map departure reconciled explicitly"]);
+  }
+
+  // E7 sketches of the unbuilt: the things the catalog talks about that have
+  // no product entity yet beyond the recipe unit — the act of rendering,
+  // render provenance, and lifecycle routes. Same move as the recipe unit: a
+  // convention in today's primitives that collapses into the product object
+  // when it exists. Link quota is nearly spent (measured 977/1000), so
+  // provenance gets ONE exemplar Link; the render-record unit describes the
+  // full set.
+  if (spaceExists("hashicorp-vault-demo-base")) {
+    let rr = "exists";
+    try { cub(["unit", "get", "render-record", "--space", "hashicorp-vault-demo-base"]); } catch { rr = "absent"; }
+    if (rr === "absent") {
+      const sketchDir = mkdtempSync(join(tmpdir(), "sketch-"));
+      try {
+        const recordPath = join(sketchDir, "render-record.yaml");
+        write(recordPath, renderRecordYaml());
+        cub(["unit", "create", "--space", "hashicorp-vault-demo-base", "render-record", recordPath, "--change-desc", "Sketch the render-record entity the product does not have yet: records the act of rendering that today happens client-side and unrecorded"]);
+        cub(["link", "create", "--space", "hashicorp-vault-demo-base", "rendered-from-recipe", "statefulset-vault-vault", "recipe"]);
+      } finally {
+        rmSync(sketchDir, { recursive: true, force: true });
+      }
+    }
+    results.push(["sketch-render-record", rr === "absent" ? "created" : "exists", "render-record unit + one exemplar rendered-from-recipe Link in hashicorp-vault-demo-base"]);
+  } else {
+    results.push(["sketch-render-record", "FAILED", "missing hashicorp-vault-demo-base"]);
+  }
+  if (spaceExists("route-sketch-kube-prometheus-stack")) {
+    results.push(["route-sketch", "exists", "route-sketch-kube-prometheus-stack present; skipped"]);
+  } else {
+    cub(["space", "create", "route-sketch-kube-prometheus-stack",
+      "--label", "Component=prometheus-community-kube-prometheus-stack",
+      "--label", "Exhibit=route-sketch", "--label", "Sketch=unbuilt-entity",
+      "--label", "ProofReceipt=hook-lifecycle"]);
+    const routeRows = parseCsvQuoted(readFileSync(join(repoRoot, "data", "lifecycle-routes", "routes.csv"), "utf8"))
+      .filter((r) => r.chart === "prometheus-community/kube-prometheus-stack");
+    const stage = mkdtempSync(join(tmpdir(), "routes-"));
+    try {
+      for (const r of routeRows) {
+        const p = join(stage, `route-${r.route_name}.yaml`);
+        write(p, lifecycleRouteYaml(r));
+        cub(["unit", "create", "--space", "route-sketch-kube-prometheus-stack", `route-${r.route_name}`, p, "--change-desc", "Sketch lifecycle route as an addressable unit (unbuilt product entity); mirrors data/lifecycle-routes verbatim"]);
+      }
+      results.push(["route-sketch", "created", `${routeRows.length} LifecycleRoute unit(s), namespace-less so no Link cost`]);
+    } finally {
+      rmSync(stage, { recursive: true, force: true });
+    }
   }
 
   const csv = [["exhibit", "result", "detail"], ...results].map((row) => row.join(",")).join("\n");
