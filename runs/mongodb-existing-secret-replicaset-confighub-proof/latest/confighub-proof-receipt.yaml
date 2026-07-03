@@ -71,7 +71,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/mongodb-existing-secret-replicaset --space helm-mongodb-existing-secret-replicaset-confighub-proof --component MongoDB --layer App --environment Demo --owner ConfigHubHelm --variant existing-secret-replicaset --unit-label Component=MongoDB --unit-label HelmChart=bitnami-mongodb --unit-label HelmChartVersion=19.0.7 --unit-label Variant=existing-secret-replicaset --unit-label Proof=mongodb-existing-secret-replicaset-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-mongodb-existing-secret-replicaset-confighub-proof"
     unitCount: 12
     kubernetesUnitCount: 11
@@ -112,6 +112,6 @@ spec:
       - "helm-mongodb-existing-secret-replicaset-confighub-proof"
       - "MongoDB-existing-secret-replicaset-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

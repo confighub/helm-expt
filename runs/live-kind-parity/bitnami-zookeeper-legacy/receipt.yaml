@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install zookeeper zookeeper --repo https://charts.bitnami.com/bitnami
-        --version 13.8.7 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-zookeeper-legacy/regular-helm-values.yaml
+        --version 13.8.7 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-zookeeper-legacy/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 98d1db5810c626fce54ff8a5b297cd7c50102367e064eb0610bb418072944260
@@ -165,7 +165,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/zookeeper/13.8.7
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/zookeeper/13.8.7
         --base legacy --work-dir /tmp/helm-expt-kind-parity-hx-zookee-968c6-t80e-zookeeper
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

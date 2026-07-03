@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/kyverno-default --space helm-kyverno-confighub-proof --component Kyverno --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Kyverno --unit-label HelmChart=kyverno-kyverno --unit-label HelmChartVersion=3.8.1 --unit-label Variant=default --unit-label Proof=kyverno-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-kyverno-confighub-proof"
     unitCount: 71
     kubernetesUnitCount: 70
@@ -78,6 +78,6 @@ spec:
       - "helm-kyverno-confighub-proof"
       - "Kyverno-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

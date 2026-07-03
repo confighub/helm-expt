@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
-        --version 10.0.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
+        --version 10.0.3 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373
       objectCount: 10
@@ -146,7 +146,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
         --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -995,7 +995,7 @@ spec:
     elapsedSeconds: 486.308
     timeoutSeconds: 900
     command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
-      --version 10.0.3 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
+      --version 10.0.3 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1003,7 +1003,7 @@ spec:
     finishedAt: '2026-06-19T08:52:34Z'
     elapsedSeconds: 0.468
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
       --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1012,9 +1012,9 @@ spec:
     finishedAt: '2026-06-19T08:52:34Z'
     elapsedSeconds: 0.137
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig
       --context kind-helm-expt-parity-spark-mqkol7fy-1p2 apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -1029,7 +1029,7 @@ spec:
     finishedAt: '2026-06-19T08:55:22Z'
     elapsedSeconds: 0.329
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
       --base legacy --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-spark-mqkol7fy-1p2-spark
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1064,7 +1064,7 @@ spec:
     elapsedSeconds: 1.109
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-spark-mqkol7fy-1p2-cluster spark-parity-app
-      /Users/alexis/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/argo-application.json
+      $HOME/code/helm-expt-claude-clone/runs/live-helm-confighub-compare/bitnami-spark-legacy/argo-application.json
       --target helm-expt-parity-spark-mqkol7fy-1p2-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1094,11 +1094,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-spark-mqkol7fy-1p2\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-spark-mqkol7fy-1p2\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1109,7 +1109,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-spark-mqkol7fy-1p2\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-spark-mqkol7fy-1p2\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-spark-mqkol7fy-1p2.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\n"
   - name: target-facts-regular-helm

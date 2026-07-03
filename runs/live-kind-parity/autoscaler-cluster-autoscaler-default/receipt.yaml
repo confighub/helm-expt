@@ -41,7 +41,7 @@ spec:
       result: watch
       command: helm upgrade --install cluster-autoscaler cluster-autoscaler --repo
         https://kubernetes.github.io/autoscaler --version 9.57.0 --namespace default
-        --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/autoscaler-cluster-autoscaler-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/autoscaler/cluster-autoscaler/9.57.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/autoscaler/cluster-autoscaler/9.57.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-cluste-4087e-o60n-cluster-autoscaler
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

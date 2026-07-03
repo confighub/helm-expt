@@ -43,7 +43,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install consul consul --repo https://helm.releases.hashicorp.com
-        --version 2.0.0 --namespace consul --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
+        --version 2.0.0 --namespace consul --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: consul
       manifestSHA256: 0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468
@@ -91,7 +91,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/consul/2.0.0
         --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-kind-parity-hx-consul-8b514-roz6-consul
         --non-interactive --namespace consul
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -223,7 +223,7 @@ spec:
         - token
         lane: regularHelm
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -249,5 +249,5 @@ spec:
         - token
         lane: cubInstallerApply
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-installer.yaml
     requiredValues: []

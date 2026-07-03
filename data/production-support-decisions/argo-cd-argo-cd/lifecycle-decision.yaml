@@ -48,7 +48,7 @@ spec:
       observedAt: "2026-06-09T09:07:02Z"
       targetFacts:
         cubInstallerApply:
-          path: "/Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-default/target-facts-installer.yaml"
+          path: "$HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-cd-default/target-facts-installer.yaml"
           result: "pass"
           stagedCRDs:
             []

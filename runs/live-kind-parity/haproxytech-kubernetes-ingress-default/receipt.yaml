@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo
         https://haproxytech.github.io/helm-charts --version 1.52.0 --namespace default
-        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubern-dba61-b5wq-kubernetes-ingress
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

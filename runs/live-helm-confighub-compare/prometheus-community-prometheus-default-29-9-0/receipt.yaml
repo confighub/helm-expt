@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-        --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
+        --version 29.9.0 --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36
       objectCount: 23
@@ -82,7 +82,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1155,7 +1155,7 @@ spec:
     elapsedSeconds: 72.142
     timeoutSeconds: 900
     command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-      --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
+      --version 29.9.0 --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1163,7 +1163,7 @@ spec:
     finishedAt: '2026-06-14T21:09:27Z'
     elapsedSeconds: 0.501
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
       --non-interactive --namespace monitoring-apply
   - name: configHub-direct-apply
@@ -1172,9 +1172,9 @@ spec:
     finishedAt: '2026-06-14T21:09:28Z'
     elapsedSeconds: 0.241
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig
       --context kind-helm-expt-parity-prometheus-mqe9ydrc-geb apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/direct-apply-manifest.yaml
     objectCount: 23
   - name: configHub-direct-readiness
     result: pass
@@ -1189,7 +1189,7 @@ spec:
     finishedAt: '2026-06-14T21:10:30Z'
     elapsedSeconds: 0.433
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe9ydrc-geb-prometheus
       --non-interactive --namespace monitoring-oci
   - name: configHub-oci-upload
@@ -1224,7 +1224,7 @@ spec:
     elapsedSeconds: 1.185
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-prometheus-mqe9ydrc-geb-cluster
-      prometheus-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argo-application.json
+      prometheus-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-default-29-9-0/argo-application.json
       --target helm-expt-parity-prometheus-mqe9ydrc-geb-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1254,11 +1254,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheus-mqe9ydrc-geb\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheus-mqe9ydrc-geb\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1269,7 +1269,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-prometheus-mqe9ydrc-geb\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mqe9ydrc-geb\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe9ydrc-geb.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm

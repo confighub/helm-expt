@@ -18,16 +18,16 @@ spec:
     target: codex-live-evidence-es-default-0611-cluster/oci
     namespace: external-secrets
     kubeContext: kind-codex-live-evidence-es-default-0611
-    kubeconfig: /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig
     keptForInspection: false
   commands:
     preflightClusters: kind get clusters
     setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-live-evidence-es-default-0611
-    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-default --namespace external-secrets --rig codex-live-evidence-es-default-0611 --base default --helm-expt /Users/alexis/code/helm-expt --wait 420 --keep --json
-    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
-    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get deploy,pods,svc,secret -n external-secrets -o wide
-    inspectWebhook: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 describe pod -n external-secrets -l app.kubernetes.io/name=external-secrets-webhook
-    inspectCertController: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 logs -n external-secrets deploy/external-secrets-cert-controller --tail=40
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-default --namespace external-secrets --rig codex-live-evidence-es-default-0611 --base default --helm-expt $HOME/code/helm-expt --wait 420 --keep --json
+    inspectApplications: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get deploy,pods,svc,secret -n external-secrets -o wide
+    inspectWebhook: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 describe pod -n external-secrets -l app.kubernetes.io/name=external-secrets-webhook
+    inspectCertController: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 logs -n external-secrets deploy/external-secrets-cert-controller --tail=40
     teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-live-evidence-es-default-0611 --force
     postTeardownClusters: kind get clusters
   oci:

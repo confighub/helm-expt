@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts
-        --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/regular-helm-values.yaml
+        --version 2.0.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: bd128b8d66e06802da2e56a74216e817033ebe8ed59abe878df05886ec008086
       objectCount: 17
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqekqpn0-adw-pyroscope
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1148,7 +1148,7 @@ spec:
     elapsedSeconds: 73.174
     timeoutSeconds: 900
     command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts
-      --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/regular-helm-values.yaml
+      --version 2.0.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1156,7 +1156,7 @@ spec:
     finishedAt: '2026-06-15T02:11:54Z'
     elapsedSeconds: 0.398
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqekqpn0-adw-pyroscope
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1165,9 +1165,9 @@ spec:
     finishedAt: '2026-06-15T02:11:55Z'
     elapsedSeconds: 0.171
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig
       --context kind-helm-expt-parity-pyroscope-mqekqpn0-adw apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/direct-apply-manifest.yaml
     objectCount: 17
   - name: configHub-direct-readiness
     result: watch
@@ -1182,7 +1182,7 @@ spec:
     finishedAt: '2026-06-15T02:17:05Z'
     elapsedSeconds: 0.413
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqekqpn0-adw-pyroscope
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1217,7 +1217,7 @@ spec:
     elapsedSeconds: 1.016
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-pyroscope-mqekqpn0-adw-cluster
-      pyroscope-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/argo-application.json
+      pyroscope-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/argo-application.json
       --target helm-expt-parity-pyroscope-mqekqpn0-adw-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1247,11 +1247,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-pyroscope-mqekqpn0-adw\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-pyroscope-mqekqpn0-adw\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1262,7 +1262,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-pyroscope-mqekqpn0-adw\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pyroscope-mqekqpn0-adw\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqekqpn0-adw.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
-        --version 2.19.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
+        --version 2.19.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7
@@ -88,7 +88,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: blocked
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kedacore/keda/2.19.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-keda-33086-2sqs-keda
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

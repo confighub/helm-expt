@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
-        --version 1.19.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
+        --version 1.19.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488
       objectCount: 4
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pxc-operator/1.19.1
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -840,7 +840,7 @@ spec:
     elapsedSeconds: 23.353
     timeoutSeconds: 900
     command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
-      --version 1.19.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
+      --version 1.19.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -848,7 +848,7 @@ spec:
     finishedAt: '2026-06-14T18:45:27Z'
     elapsedSeconds: 0.363
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pxc-operator/1.19.1
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -857,9 +857,9 @@ spec:
     finishedAt: '2026-06-14T18:45:27Z'
     elapsedSeconds: 0.084
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig
       --context kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/direct-apply-manifest.yaml
     objectCount: 4
   - name: configHub-direct-readiness
     result: pass
@@ -874,7 +874,7 @@ spec:
     finishedAt: '2026-06-14T18:45:43Z'
     elapsedSeconds: 0.251
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pxc-operator/1.19.1
       --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pxcoperator-mqe4ua51-6g6-pxc-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -909,7 +909,7 @@ spec:
     elapsedSeconds: 1.057
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster
-      pxc-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/argo-application.json
+      pxc-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/percona-pxc-operator-no-crds/argo-application.json
       --target helm-expt-parity-pxcoperator-mqe4ua51-6g6-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -939,11 +939,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-pxcoperator-mqe4ua51-6g6\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-pxcoperator-mqe4ua51-6g6\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -954,7 +954,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pxcoperator-mqe4ua51-6g6\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pxcoperator-mqe4ua51-6g6.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
   - name: target-facts-regular-helm

@@ -84,7 +84,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-nginx-24-0-4-existing-tls-ingress --space helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof --component Nginx2404 --layer App --environment Demo --owner ConfigHubHelm --variant existing-tls-ingress --unit-label Component=Nginx2404 --unit-label HelmChart=bitnami-nginx --unit-label HelmChartVersion=24.0.4 --unit-label Variant=existing-tls-ingress --unit-label Proof=cl-nginx-24-0-4-existing-tls-ingress-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof"
     unitCount: 8
     kubernetesUnitCount: 7
@@ -117,6 +117,6 @@ spec:
       - "helm-cl-nginx-24-0-4-existing-tls-ingress-confighub-proof"
       - "Nginx2404-existing-tls-ingress-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

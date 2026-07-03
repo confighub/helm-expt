@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install opensearch opensearch --repo https://charts.bitnami.com/bitnami
-        --version 2.0.10 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-opensearch-ha/regular-helm-values.yaml
+        --version 2.0.10 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-opensearch-ha/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564
@@ -841,7 +841,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/opensearch/2.0.10
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/opensearch/2.0.10
         --base ha --work-dir /tmp/helm-expt-kind-parity-hx-opense-eda97-6mtu-opensearch
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

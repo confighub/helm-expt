@@ -49,7 +49,7 @@ spec:
       result: blocked
       command: helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner
         --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-        --version 4.0.18 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
+        --version 4.0.18 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28
       objectCount: 7
@@ -100,7 +100,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner
       --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/ --version
-      4.0.18 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
+      4.0.18 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -108,7 +108,7 @@ spec:
     finishedAt: '2026-06-16T14:31:03Z'
     elapsedSeconds: 0.466
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-live-lane/packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
+    command: cub installer setup --pull $HOME/code/helm-expt-live-lane/packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp-nfs-subdir-external-provisioner
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -117,18 +117,18 @@ spec:
     finishedAt: '2026-06-16T14:31:03Z'
     elapsedSeconds: 0.104
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig
       --context kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt-live-lane/runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/direct-apply-manifest.yaml
     objectCount: 7
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -139,7 +139,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-nfssubdirexte7a746-mqgqje1v-jhp.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"a"
   - name: target-facts-regular-helm

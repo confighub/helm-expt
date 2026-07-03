@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install prometheus-operator-crds prometheus-operator-crds
         --repo https://prometheus-community.github.io/helm-charts --version 29.0.0
-        --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
+        --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4
       objectCount: 10
@@ -72,7 +72,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -901,7 +901,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install prometheus-operator-crds prometheus-operator-crds
       --repo https://prometheus-community.github.io/helm-charts --version 29.0.0 --namespace
-      default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
+      default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -909,7 +909,7 @@ spec:
     finishedAt: '2026-06-14T19:51:33Z'
     elapsedSeconds: 1.78
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
       --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
@@ -918,9 +918,9 @@ spec:
     finishedAt: '2026-06-14T19:51:38Z'
     elapsedSeconds: 0.659
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig
       --context kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/confighub-rendered-crds.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/confighub-rendered-crds.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -934,7 +934,7 @@ spec:
     finishedAt: '2026-06-14T19:51:58Z'
     elapsedSeconds: 1.596
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-operator-crds/29.0.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-prometheus-operator-crds
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -970,7 +970,7 @@ spec:
     elapsedSeconds: 1.101
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster
-      prometheus-operator-crds-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/argo-application.json
+      prometheus-operator-crds-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-operator-crds-default/argo-application.json
       --target helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -999,11 +999,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -1014,7 +1014,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheusope3e2d5-mqe77k2s-xa6.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind."
   - name: target-facts-regular-helm
     result: pass

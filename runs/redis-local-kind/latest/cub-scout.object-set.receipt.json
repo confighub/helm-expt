@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
+    "claim": "live object set matches rendered manifests from $HOME/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
     "scope": {
       "kind": "ObjectSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "objectSet": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
           "digest": "8cd8029a805b5cf08da046333d401102abf86485a10664709fd65eefd10cc42e",
           "objectCount": 14
         },

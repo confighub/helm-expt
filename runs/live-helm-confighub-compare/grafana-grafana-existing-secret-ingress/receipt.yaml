@@ -51,7 +51,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install grafana grafana --repo https://grafana.github.io/helm-charts
-        --version 10.5.15 --namespace grafana-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/regular-helm-values.yaml
+        --version 10.5.15 --namespace grafana-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60
       objectCount: 9
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/grafana/10.5.15
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/grafana/10.5.15
         --base existing-secret-ingress --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-grafana-mqb1rhr4-rvp-grafana
         --non-interactive --namespace grafana-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -148,11 +148,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-grafana-mqb1rhr4-rvp\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-grafana-mqb1rhr4-rvp\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -163,7 +163,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-grafana-mqb1rhr4-rvp\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-grafana-mqb1rhr4-rvp\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-grafana-mqb1rhr4-rvp.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: "
   - name: target-profile
@@ -205,7 +205,7 @@ spec:
         lane: regularHelm
         sourceNamespace: grafana
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -217,7 +217,7 @@ spec:
         lane: configHubKubectlApply
         sourceNamespace: grafana
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -229,4 +229,4 @@ spec:
         lane: configHubOciArgo
         sourceNamespace: grafana
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-grafana-existing-secret-ingress/target-facts-confighub-oci.yaml

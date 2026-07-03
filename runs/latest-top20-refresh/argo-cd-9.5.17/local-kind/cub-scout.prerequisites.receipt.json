@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "declared prerequisites from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml are present in the live cluster",
+    "claim": "declared prerequisites from $HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml are present in the live cluster",
     "scope": {
       "kind": "Prerequisites",
       "name": "install-prerequisites",
@@ -39,7 +39,7 @@
       "prerequisites": {
         "source": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml",
+          "ref": "$HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml",
           "digest": "bebd387933023f85f1ce0979535caf5025e2a2a0972b950a8715a4dc4d399252",
           "objectCount": 1
         },

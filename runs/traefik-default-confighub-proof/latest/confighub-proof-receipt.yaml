@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/traefik-default --space helm-traefik-default-confighub-proof --component Traefik --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Traefik --unit-label HelmChart=traefik-traefik --unit-label HelmChartVersion=40.2.0 --unit-label Variant=default --unit-label Proof=traefik-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-traefik-default-confighub-proof"
     unitCount: 33
     kubernetesUnitCount: 32
@@ -78,6 +78,6 @@ spec:
       - "helm-traefik-default-confighub-proof"
       - "Traefik-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

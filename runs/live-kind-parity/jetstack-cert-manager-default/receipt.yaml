@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
-        --version v1.20.2 --namespace cert-manager --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/regular-helm-values.yaml
+        --version v1.20.2 --namespace cert-manager --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: cert-manager
       manifestSHA256: 45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce
@@ -75,7 +75,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-certma-06bd4-rze3-cert-manager
         --non-interactive --namespace cert-manager
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -234,7 +234,7 @@ spec:
         sourceVariant: crds-enabled
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -258,7 +258,7 @@ spec:
         sourceVariant: crds-enabled
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

@@ -65,7 +65,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/prometheus-node-exporter-default --space helm-prometheus-node-exporter-default-confighub-proof --component PrometheusNodeExporter --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=PrometheusNodeExporter --unit-label HelmChart=prometheus-community-prometheus-node-exporter --unit-label HelmChartVersion=4.55.0 --unit-label Variant=default --unit-label Proof=prometheus-node-exporter-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-prometheus-node-exporter-default-confighub-proof"
     unitCount: 5
     kubernetesUnitCount: 4
@@ -106,6 +106,6 @@ spec:
       - "helm-prometheus-node-exporter-default-confighub-proof"
       - "PrometheusNodeExporter-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

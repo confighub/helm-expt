@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mysql mysql --repo https://charts.bitnami.com/bitnami
-        --version 14.0.3 --namespace mysql --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/regular-helm-values.yaml
+        --version 14.0.3 --namespace mysql --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mysql
       manifestSHA256: 024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mysql/14.0.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mysql/14.0.3
         --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-mysql-fae9d-vfcn-mysql
         --non-interactive --namespace mysql
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -141,7 +141,7 @@ spec:
         - mysql-password
         - mysql-replication-password
         - mysql-root-password
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -151,4 +151,4 @@ spec:
         - mysql-password
         - mysql-replication-password
         - mysql-root-password
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/bitnami-mysql-existing-secret/target-facts-installer.yaml

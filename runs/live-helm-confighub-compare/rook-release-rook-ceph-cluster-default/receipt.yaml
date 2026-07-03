@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
-        --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+        --version v1.19.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 5ac8f526459d6393552b66ab60f690c6c85a1e86bba45ea82d5bbf219694b010
       objectCount: 27
@@ -79,7 +79,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1170,7 +1170,7 @@ spec:
     elapsedSeconds: 2.2
     timeoutSeconds: 900
     command: helm upgrade --install rook-ceph-cluster rook-ceph-cluster --repo https://charts.rook.io/release
-      --version v1.19.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
+      --version v1.19.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1178,7 +1178,7 @@ spec:
     finishedAt: '2026-06-15T04:46:21Z'
     elapsedSeconds: 0.363
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1187,9 +1187,9 @@ spec:
     finishedAt: '2026-06-15T04:46:27Z'
     elapsedSeconds: 0.181
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig
       --context kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/direct-apply-manifest.yaml
     objectCount: 27
   - name: configHub-direct-readiness
     result: pass
@@ -1203,7 +1203,7 @@ spec:
     finishedAt: '2026-06-15T04:46:38Z'
     elapsedSeconds: 0.221
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/rook-release/rook-ceph-cluster/v1.19.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-rook-ceph-cluster
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1239,7 +1239,7 @@ spec:
     elapsedSeconds: 0.934
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster
-      rook-ceph-cluster-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/argo-application.json
+      rook-ceph-cluster-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/argo-application.json
       --target helm-expt-parity-rookcephcluster-mqeqbgz7-10vd-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1268,11 +1268,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1283,7 +1283,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-rookcephcluster-mqeqbgz7-10vd\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-rookcephcluster-mqeqbgz7-10vd.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\nap"
   - name: target-facts-regular-helm

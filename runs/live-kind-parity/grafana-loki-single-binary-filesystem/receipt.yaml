@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install loki loki --repo https://grafana.github.io/helm-charts
-        --version 7.0.0 --namespace loki --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
+        --version 7.0.0 --namespace loki --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-loki-single-binary-filesystem/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: loki
       manifestSHA256: 6c1e4c38271f2c48cb66ac6e39be8643524e774fec8cf363875c66bf3ea2bb30
@@ -76,7 +76,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/loki/7.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/loki/7.0.0
         --base single-binary-filesystem --work-dir /tmp/helm-expt-kind-parity-hx-loki-a68de-txoh-loki
         --non-interactive --namespace loki
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

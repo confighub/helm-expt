@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/rook-ceph-default --space helm-rook-ceph-default-confighub-proof --component RookCeph --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=RookCeph --unit-label HelmChart=rook-release-rook-ceph --unit-label HelmChartVersion=v1.19.5 --unit-label Variant=default --unit-label Proof=rook-ceph-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-rook-ceph-default-confighub-proof"
     unitCount: 135
     kubernetesUnitCount: 134
@@ -85,7 +85,7 @@ spec:
       - "helm-rook-ceph-default-confighub-proof"
       - "RookCeph-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

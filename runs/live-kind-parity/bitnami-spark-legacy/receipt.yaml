@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install spark spark --repo https://charts.bitnami.com/bitnami
-        --version 10.0.3 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-spark-legacy/regular-helm-values.yaml
+        --version 10.0.3 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/bitnami-spark-legacy/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 05921876ce0d142a26b495df363557abefd1d460251b66c4777370838f8c9373
@@ -270,7 +270,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/bitnami/spark/10.0.3
         --base legacy --work-dir /tmp/helm-expt-kind-parity-hx-spark-014df-ea8b-spark
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

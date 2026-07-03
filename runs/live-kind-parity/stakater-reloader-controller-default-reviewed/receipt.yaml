@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install reloader reloader --repo https://stakater.github.io/stakater-charts
-        --version 2.2.12 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/stakater-reloader-controller-default-reviewed/regular-helm-values.yaml
+        --version 2.2.12 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/stakater-reloader-controller-default-reviewed/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/stakater/reloader/2.2.12
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/stakater/reloader/2.2.12
         --base controller-default-reviewed --work-dir /tmp/helm-expt-kind-parity-hx-reload-9863d-c8c6-reloader
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

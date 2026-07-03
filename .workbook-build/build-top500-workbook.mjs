@@ -17,7 +17,7 @@ import { promisify } from "node:util";
 import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
 
 const execFileP = promisify(execFile);
-const repoRoot = "/Users/alexis/code/helm-expt";
+const repoRoot = "$HOME/code/helm-expt";
 const outputDir = join(repoRoot, "outputs", "helm_top500_matrix");
 const outputPath = join(outputDir, "helm_top500_import_feature_matrix.xlsx");
 const rawRowsPath = join(outputDir, "helm_top500_import_feature_matrix.raw.json");

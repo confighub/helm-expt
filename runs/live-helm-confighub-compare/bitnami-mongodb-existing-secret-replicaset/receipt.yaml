@@ -116,7 +116,7 @@ spec:
     - 'statefulset-mongodb-oci-mongodb.yaml: StatefulSet/mongodb: materialized spec.volumeClaimTemplates[datadir].spec.volumeMode=Filesystem'
     rationale: Normalize Kubernetes API zero/default fields before publishing the
       OCI GitOps artifact; semantic parity remains checked against Helm.
-    receipt: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/gitops-canonicalization-k8s-zero-defaults.yaml
+    receipt: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/gitops-canonicalization-k8s-zero-defaults.yaml
   run:
     rig: helm-expt-parity-mongodb-mqb6mdqq-23a3
     kubeContext: kind-helm-expt-parity-mongodb-mqb6mdqq-23a3
@@ -144,7 +144,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
-        --version 19.0.7 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
+        --version 19.0.7 --namespace mongodb-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231
       objectCount: 10
@@ -166,7 +166,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.7
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.7
         --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqb6mdqq-23a3-mongodb
         --non-interactive --namespace mongodb-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -261,11 +261,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqb6mdqq-23a3\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-mongodb-mqb6mdqq-23a3\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -276,7 +276,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqb6mdqq-23a3\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqb6mdqq-23a3\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-mongodb-mqb6mdqq-23a3.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace "
   - name: target-facts-regular-helm
@@ -318,7 +318,7 @@ spec:
         lane: regularHelm
         sourceNamespace: mongodb
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -330,7 +330,7 @@ spec:
         lane: configHubKubectlApply
         sourceNamespace: mongodb
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -342,4 +342,4 @@ spec:
         lane: configHubOciArgo
         sourceNamespace: mongodb
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/target-facts-confighub-oci.yaml

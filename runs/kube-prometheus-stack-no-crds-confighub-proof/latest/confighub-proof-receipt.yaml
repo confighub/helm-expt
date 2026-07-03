@@ -217,7 +217,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/kube-prometheus-stack-no-crds --space helm-kube-prometheus-stack-no-crds-confighub-proof --component KubePrometheusStack --layer App --environment Demo --owner ConfigHubHelm --variant no-crds --unit-label Component=KubePrometheusStack --unit-label HelmChart=prometheus-community-kube-prometheus-stack --unit-label HelmChartVersion=85.3.3 --unit-label Variant=no-crds --unit-label Proof=kube-prometheus-stack-no-crds-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-kube-prometheus-stack-no-crds-confighub-proof"
     unitCount: 114
     kubernetesUnitCount: 113
@@ -251,7 +251,7 @@ spec:
       - "helm-kube-prometheus-stack-no-crds-confighub-proof"
       - "KubePrometheusStack-no-crds-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install cloudnative-pg cloudnative-pg --repo https://cloudnative-pg.github.io/charts
-        --version 0.28.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
+        --version 0.28.2 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 2b48d08cac37e72b6840cff94c0f89c31721c9fa5c124ec2c671614f904b849d
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/cloudnative-pg/cloudnative-pg/0.28.2
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-cloudn-40f34-v5e4-cloudnative-pg
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -192,7 +192,7 @@ spec:
         sourceVariant: default
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -234,7 +234,7 @@ spec:
         sourceVariant: default
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/cloudnative-pg-cloudnative-pg-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

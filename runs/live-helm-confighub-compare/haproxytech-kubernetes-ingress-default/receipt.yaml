@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo
         https://haproxytech.github.io/helm-charts --version 1.52.0 --namespace default-helm
-        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: d04b79ade525cfe276e761918d319794e8e662ef896ae3418a42e7c781ded544
       objectCount: 7
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -878,7 +878,7 @@ spec:
     elapsedSeconds: 33.433
     timeoutSeconds: 900
     command: helm upgrade --install kubernetes-ingress kubernetes-ingress --repo https://haproxytech.github.io/helm-charts
-      --version 1.52.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
+      --version 1.52.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -886,7 +886,7 @@ spec:
     finishedAt: '2026-06-15T02:50:48Z'
     elapsedSeconds: 0.356
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -895,9 +895,9 @@ spec:
     finishedAt: '2026-06-15T02:50:48Z'
     elapsedSeconds: 0.152
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig
       --context kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/direct-apply-manifest.yaml
     objectCount: 7
   - name: configHub-direct-readiness
     result: pass
@@ -912,7 +912,7 @@ spec:
     finishedAt: '2026-06-15T02:51:14Z'
     elapsedSeconds: 0.246
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/haproxytech/kubernetes-ingress/1.52.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubernetesingress-mqem6bzu-1i32-kubernetes-ingress
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -948,7 +948,7 @@ spec:
     elapsedSeconds: 0.911
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster
-      kubernetes-ingress-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/argo-application.json
+      kubernetes-ingress-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/haproxytech-kubernetes-ingress-default/argo-application.json
       --target helm-expt-parity-kubernetesingress-mqem6bzu-1i32-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -978,11 +978,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kubernetesingress-mqem6bzu-1i32\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -993,7 +993,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubernetesingress-mqem6bzu-1i32\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubernetesingress-mqem6bzu-1i32.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind."
   - name: target-facts-regular-helm
     result: pass

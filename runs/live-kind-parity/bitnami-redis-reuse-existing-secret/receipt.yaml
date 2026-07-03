@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install redis oci://registry-1.docker.io/bitnamicharts/redis
-        --version 27.0.0 --namespace redis --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/regular-helm-values.yaml
+        --version 27.0.0 --namespace redis --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: redis
       manifestSHA256: ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4
@@ -75,7 +75,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/redis/27.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/redis/27.0.0
         --base reuse-existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-redis-7aacd-w8b5-redis
         --non-interactive --namespace redis
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -181,7 +181,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/target-facts-helm.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -193,7 +193,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-redis-reuse-existing-secret/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

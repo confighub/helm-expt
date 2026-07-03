@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rabbitmq rabbitmq --repo https://charts.bitnami.com/bitnami
-        --version 16.0.14 --namespace rabbitmq --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-static-passwords/regular-helm-values.yaml
+        --version 16.0.14 --namespace rabbitmq --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/bitnami-rabbitmq-static-passwords/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: rabbitmq
       manifestSHA256: 81187ce4367f5196ddbaa35ea55b972698f8a474d78a2cdc2908b12290c89f31
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/rabbitmq/16.0.14
         --base static-passwords --work-dir /tmp/helm-expt-kind-parity-hx-rabbit-f13f6-bibr-rabbitmq
         --non-interactive --namespace rabbitmq
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

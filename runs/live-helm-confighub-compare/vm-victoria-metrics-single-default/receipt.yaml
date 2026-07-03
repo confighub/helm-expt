@@ -51,7 +51,7 @@ spec:
       result: pass
       command: helm upgrade --install victoria-metrics-single victoria-metrics-single
         --repo https://victoriametrics.github.io/helm-charts --version 0.39.0 --namespace
-        default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
+        default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8
       objectCount: 3
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -826,7 +826,7 @@ spec:
     timeoutSeconds: 900
     command: helm upgrade --install victoria-metrics-single victoria-metrics-single
       --repo https://victoriametrics.github.io/helm-charts --version 0.39.0 --namespace
-      default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
+      default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -834,7 +834,7 @@ spec:
     finishedAt: '2026-06-14T20:01:05Z'
     elapsedSeconds: 0.341
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -843,9 +843,9 @@ spec:
     finishedAt: '2026-06-14T20:01:05Z'
     elapsedSeconds: 0.082
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig
       --context kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/direct-apply-manifest.yaml
     objectCount: 3
   - name: configHub-direct-readiness
     result: pass
@@ -860,7 +860,7 @@ spec:
     finishedAt: '2026-06-14T20:01:41Z'
     elapsedSeconds: 0.243
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-victoria-metrics-single
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -896,7 +896,7 @@ spec:
     elapsedSeconds: 1.056
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster
-      victoria-metrics-single-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/argo-application.json
+      victoria-metrics-single-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/vm-victoria-metrics-single-default/argo-application.json
       --target helm-expt-parity-victoriametri752f4-mqe7jegq-1j76-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -926,11 +926,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -941,7 +941,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-victoriametri752f4-mqe7jegq-1j76\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-victoriametri752f4-mqe7jegq-1j76.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"a"
   - name: target-facts-regular-helm
     result: pass

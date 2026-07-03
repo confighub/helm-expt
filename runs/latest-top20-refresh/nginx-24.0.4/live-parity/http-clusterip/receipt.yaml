@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
-        --version 24.0.4 --namespace nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/live-parity/http-clusterip/regular-helm-values.yaml
+        --version 24.0.4 --namespace nginx --create-namespace --values $HOME/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/live-parity/http-clusterip/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: nginx
       manifestSHA256: 5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4
         --base http-clusterip --work-dir /tmp/helm-expt-kind-parity-hx-nginx-a0471-1quq-nginx
         --non-interactive --namespace nginx
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/coredns-default --space helm-coredns-confighub-proof --component Coredns --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Coredns --unit-label HelmChart=coredns-coredns --unit-label HelmChartVersion=1.45.2 --unit-label Variant=default --unit-label Proof=coredns-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-coredns-confighub-proof"
     unitCount: 7
     kubernetesUnitCount: 6
@@ -57,7 +57,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/coredns-default"
     result: "pass"
-    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-coredns-confighub-proof:\n  ~ deployment-default-coredns\n      New changes from update from /Users/alexis/code/helm-expt-claude-clone/.tmp/confighub-proof/coredns-default/out/manifests/deployment-default-coredns.yaml:\n      Resource: apps/v1/Deployment default/coredns\n        - [Delete] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0  (#2)\n          containerPort: 53\n          name: udp-53\n          protocol: UDP\n        ~ [Update] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0.name  (#2)"
+    summary: "Plan: 0 to add, 2 to change, 0 to delete.\nSpace helm-coredns-confighub-proof:\n  ~ deployment-default-coredns\n      New changes from update from $HOME/code/helm-expt-claude-clone/.tmp/confighub-proof/coredns-default/out/manifests/deployment-default-coredns.yaml:\n      Resource: apps/v1/Deployment default/coredns\n        - [Delete] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0  (#2)\n          containerPort: 53\n          name: udp-53\n          protocol: UDP\n        ~ [Update] spec.template.spec.containers.?name=coredns;@0.ports.?containerPort=53;@0.name  (#2)"
   serverSideVariant:
     command: "cub variant create staging helm-coredns-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
@@ -77,6 +77,6 @@ spec:
       - "helm-coredns-confighub-proof"
       - "Coredns-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

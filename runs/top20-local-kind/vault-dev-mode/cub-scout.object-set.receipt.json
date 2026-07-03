@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
+    "claim": "live object set matches rendered manifests from $HOME/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
     "scope": {
       "kind": "ObjectSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "objectSet": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/top20-local-kind/vault-dev-mode/cub-scout.desired.yaml",
           "digest": "095c199935fb23d76b71eac36e061b9da9bdf94a1a26e53b027244579263985a",
           "objectCount": 11
         },

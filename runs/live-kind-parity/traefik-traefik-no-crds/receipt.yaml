@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install traefik traefik --repo https://traefik.github.io/charts
-        --version 40.2.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/traefik-traefik-no-crds/regular-helm-values.yaml
+        --version 40.2.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/traefik-traefik-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/traefik/traefik/40.2.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/traefik/traefik/40.2.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-traefi-72aa9-xbfv-traefik
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

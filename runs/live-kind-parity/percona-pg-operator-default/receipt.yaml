@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pg-operator pg-operator --repo https://percona.github.io/percona-helm-charts/
-        --version 3.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pg-operator-default/regular-helm-values.yaml
+        --version 3.0.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/percona-pg-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pg-operator/3.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pg-operator/3.0.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-pgoper-166f7-bl2q-pg-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

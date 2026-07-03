@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install eck-operator eck-operator --repo https://helm.elastic.co
-        --version 3.4.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-eck-operator-default/regular-helm-values.yaml
+        --version 3.4.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-eck-operator-default/regular-helm-values.yaml
         --wait --timeout 600s
       manifestSHA256: 11bd8f291f9da0611bf6795dbbbe41a9e4e5ae9fe4cd58e9bad69dd883aee278
       objectCount: 22
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/eck-operator/3.4.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/eck-operator/3.4.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-eck-operator-default-1781307558-elastic-eck-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -375,11 +375,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-eck-operator-default-1781307558\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-eck-operator-default-1781307558.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-eck-operator-default-1781307558.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-eck-operator-default-1781307558\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -390,7 +390,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-eck-operator-default-1781307558\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-eck-operator-default-1781307558\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-eck-operator-default-1781307558.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-eck-operator-default-1781307558.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\""
   - name: target-facts-regular-helm

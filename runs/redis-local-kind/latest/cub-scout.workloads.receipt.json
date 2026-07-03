@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml converged to a ready state in the live cluster",
+    "claim": "desired workloads from $HOME/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml converged to a ready state in the live cluster",
     "scope": {
       "kind": "WorkloadSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "workloads": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/redis-local-kind/latest/cub-scout.desired.yaml",
           "digest": "8cd8029a805b5cf08da046333d401102abf86485a10664709fd65eefd10cc42e",
           "objectCount": 14
         },

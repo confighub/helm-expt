@@ -410,7 +410,7 @@ Space: helm-redis-confighub-proof
 Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
 <p>Create the operation record:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset create \
+  <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset create \
   redis-safe-ops-20260527 \
   --space helm-redis-confighub-proof \
   --description &quot;Redis ConfigHub proof safe operation lane&quot; \
@@ -418,14 +418,14 @@ Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
   --label Lane=safe-ops \
   --allow-exists</code></pre>
 <p>Update it with the proof scope:</p>
-<pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub changeset update \
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset update \
   redis-safe-ops-20260527 \
   --space helm-redis-confighub-proof \
   --description &quot;Redis safe-ops proof: approve reviewed revisions, dry-run apply only&quot; \
   --annotation proof.confighub.com/scope=local-test \
   --annotation proof.confighub.com/live-apply=false</code></pre>
 <p>Approve a representative reviewed Unit:</p>
-<pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit approve \
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit approve \
   statefulset-redis-redis-master \
   --space helm-redis-confighub-proof \
   --revision HeadRevisionNum \
@@ -435,7 +435,7 @@ Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
 <pre><code>Unit statefulset-redis-redis-master (...) has been approved
 Awaiting triggers...</code></pre>
 <p>Attempt dry-run apply:</p>
-<pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit apply \
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit apply \
   --space helm-redis-confighub-proof \
   --where &quot;Labels.Proof = 'redis-confighub-proof'&quot; \
   --dry-run \
@@ -444,7 +444,7 @@ Awaiting triggers...</code></pre>
 <p>Result:</p>
 <pre><code>Failed: cannot invoke action on a unit without a target</code></pre>
 <p>Cancel is safe:</p>
-<pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub unit cancel \
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub unit cancel \
   --space helm-redis-confighub-proof \
   --where &quot;Labels.Proof = 'redis-confighub-proof'&quot;</code></pre>
 <p>Result:</p>

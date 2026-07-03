@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install external-dns external-dns --repo https://kubernetes-sigs.github.io/external-dns/
-        --version 1.21.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/regular-helm-values.yaml
+        --version 1.21.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-dns/external-dns/1.21.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/external-dns/external-dns/1.21.1
         --base dry-run-txt-registry --work-dir /tmp/helm-expt-kind-parity-hx-extern-ada90-7crk-external-dns
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

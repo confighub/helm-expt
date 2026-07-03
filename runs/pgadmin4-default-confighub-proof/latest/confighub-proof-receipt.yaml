@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/pgadmin4-default --space helm-pgadmin4-default-confighub-proof --component Pgadmin4 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Pgadmin4 --unit-label HelmChart=runix-pgadmin4 --unit-label HelmChartVersion=1.62.0 --unit-label Variant=default --unit-label Proof=pgadmin4-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-pgadmin4-default-confighub-proof"
     unitCount: 6
     kubernetesUnitCount: 5
@@ -85,7 +85,7 @@ spec:
       - "helm-pgadmin4-default-confighub-proof"
       - "Pgadmin4-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -44,7 +44,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/crossplane-default --space helm-crossplane-default-confighub-proof --component Crossplane --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Crossplane --unit-label HelmChart=crossplane-stable-crossplane --unit-label HelmChartVersion=2.3.1 --unit-label Variant=default --unit-label Proof=crossplane-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-crossplane-default-confighub-proof"
     unitCount: 22
     kubernetesUnitCount: 21
@@ -87,7 +87,7 @@ spec:
       - "helm-crossplane-default-confighub-proof"
       - "Crossplane-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

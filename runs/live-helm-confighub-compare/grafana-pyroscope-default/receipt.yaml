@@ -47,7 +47,7 @@ spec:
   legs:
     regularHelm:
       result: pass
-      command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
+      command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
       manifestSHA256: 24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5
       objectCount: 18
       liveHelmManifestSHA256: 545a4e01f99742e9fcc7f14973973b6968d4b481a0f395db49d72752c567f09f
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: 4b49088a94d0189f2691db46a2ee8f15891e38ed51177297f7b1c756b3c40f8d
       objectCount: 19
@@ -661,21 +661,21 @@ spec:
     finishedAt: '2026-06-14T16:25:10Z'
     elapsedSeconds: 94.939
     timeoutSeconds: 900
-    command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
+    command: helm upgrade --install pyroscope pyroscope --repo https://grafana.github.io/helm-charts --version 2.0.2 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/regular-helm-values.yaml --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
     startedAt: '2026-06-14T16:25:52Z'
     finishedAt: '2026-06-14T16:25:53Z'
     elapsedSeconds: 0.373
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-apply
   - name: configHub-direct-crd-apply
     result: pass
     startedAt: '2026-06-14T16:25:53Z'
     finishedAt: '2026-06-14T16:25:53Z'
     elapsedSeconds: 0.045
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/confighub-rendered-crds.yaml
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/confighub-rendered-crds.yaml
     objectCount: 1
   - name: configHub-direct-apply
     result: pass
@@ -683,7 +683,7 @@ spec:
     finishedAt: '2026-06-14T16:25:53Z'
     elapsedSeconds: 0.169
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/direct-apply-manifest.yaml
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i apply --server-side --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/direct-apply-manifest.yaml
     objectCount: 17
   - name: configHub-direct-readiness
     result: watch
@@ -698,7 +698,7 @@ spec:
     finishedAt: '2026-06-14T16:31:04Z'
     elapsedSeconds: 0.434
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-oci
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/pyroscope/2.0.2 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-pyroscope-mqdzsdyc-1g4i-pyroscope --non-interactive --namespace default-oci
   - name: configHub-oci-upload
     result: pass
     startedAt: '2026-06-14T16:31:04Z'
@@ -728,7 +728,7 @@ spec:
     finishedAt: '2026-06-14T16:37:07Z'
     elapsedSeconds: 1.051
     timeoutSeconds: 180
-    command: cub unit create --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster pyroscope-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/argo-application.json --target helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci --allow-exists
+    command: cub unit create --space helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster pyroscope-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/grafana-pyroscope-default/argo-application.json --target helm-expt-parity-pyroscope-mqdzsdyc-1g4i-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
     startedAt: '2026-06-14T16:37:07Z'
@@ -756,11 +756,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig)...\nCreating cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" ...\n \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig\n\nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\nInstalling Argo CD...\nCreatin"
+    detail: "Creating kind cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig)...\nCreating cluster \"helm-expt-parity-pyroscope-mqdzsdyc-1g4i\" ...\n \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-pyroscope-mqdzsdyc-1g4i\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-pyroscope-mqdzsdyc-1g4i.kubeconfig\n\nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\nInstalling Argo CD...\nCreatin"
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=0 crds=0

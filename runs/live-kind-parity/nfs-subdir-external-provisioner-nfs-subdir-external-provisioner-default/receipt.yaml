@@ -41,7 +41,7 @@ spec:
       result: blocked
       command: helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner
         --repo https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-        --version 4.0.18 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
+        --version 4.0.18 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28

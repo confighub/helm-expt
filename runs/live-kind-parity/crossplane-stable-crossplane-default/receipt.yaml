@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install crossplane crossplane --repo https://charts.crossplane.io/stable
-        --version 2.3.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/crossplane-stable-crossplane-default/regular-helm-values.yaml
+        --version 2.3.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/crossplane-stable-crossplane-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996
@@ -71,7 +71,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/crossplane-stable/crossplane/2.3.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/crossplane-stable/crossplane/2.3.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-crossp-6e9d0-534u-crossplane
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

@@ -73,7 +73,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/minio-tenant-default --space helm-minio-tenant-default-confighub-proof --component MinioTenant --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=MinioTenant --unit-label HelmChart=minio-operator-tenant --unit-label HelmChartVersion=7.1.1 --unit-label Variant=default --unit-label Proof=minio-tenant-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-minio-tenant-default-confighub-proof"
     unitCount: 3
     kubernetesUnitCount: 2
@@ -114,7 +114,7 @@ spec:
       - "helm-minio-tenant-default-confighub-proof"
       - "MinioTenant-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

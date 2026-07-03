@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
-        --version 19.0.9 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/regular-helm-values.yaml
+        --version 19.0.9 --namespace mongodb-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68
       objectCount: 8
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
         --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqed3wo0-1fat-mongodb
         --non-interactive --namespace mongodb-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -861,7 +861,7 @@ spec:
     elapsedSeconds: 58.839
     timeoutSeconds: 900
     command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
-      --version 19.0.9 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/regular-helm-values.yaml
+      --version 19.0.9 --namespace mongodb-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -869,7 +869,7 @@ spec:
     finishedAt: '2026-06-14T22:36:56Z'
     elapsedSeconds: 0.667
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
       --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqed3wo0-1fat-mongodb
       --non-interactive --namespace mongodb-apply
   - name: configHub-direct-apply
@@ -878,9 +878,9 @@ spec:
     finishedAt: '2026-06-14T22:36:57Z'
     elapsedSeconds: 0.171
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig
       --context kind-helm-expt-parity-mongodb-mqed3wo0-1fat apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/direct-apply-manifest.yaml
     objectCount: 8
   - name: configHub-direct-readiness
     result: pass
@@ -895,7 +895,7 @@ spec:
     finishedAt: '2026-06-14T22:37:33Z'
     elapsedSeconds: 0.432
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
       --base static-passwords --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqed3wo0-1fat-mongodb
       --non-interactive --namespace mongodb-oci
   - name: configHub-oci-upload
@@ -930,7 +930,7 @@ spec:
     elapsedSeconds: 1.38
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-mongodb-mqed3wo0-1fat-cluster
-      mongodb-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/argo-application.json
+      mongodb-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-static-passwords-19-0-9/argo-application.json
       --target helm-expt-parity-mongodb-mqed3wo0-1fat-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -960,11 +960,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqed3wo0-1fat\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-mongodb-mqed3wo0-1fat\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -975,7 +975,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqed3wo0-1fat\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqed3wo0-1fat\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-mongodb-mqed3wo0-1fat.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
   - name: target-facts-regular-helm

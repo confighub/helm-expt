@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
-        --version 22.1.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/regular-helm-values.yaml
+        --version 22.1.6 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4
       objectCount: 21
@@ -318,7 +318,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
         --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqgeyy60-1773-elasticsearch
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1922,7 +1922,7 @@ spec:
     elapsedSeconds: 491.544
     timeoutSeconds: 900
     command: helm upgrade --install elasticsearch elasticsearch --repo https://charts.bitnami.com/bitnami
-      --version 22.1.6 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/regular-helm-values.yaml
+      --version 22.1.6 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1930,7 +1930,7 @@ spec:
     finishedAt: '2026-06-16T09:11:52Z'
     elapsedSeconds: 0.568
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
       --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqgeyy60-1773-elasticsearch
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1939,9 +1939,9 @@ spec:
     finishedAt: '2026-06-16T09:11:52Z'
     elapsedSeconds: 0.186
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig
       --context kind-helm-expt-parity-elasticsearch-mqgeyy60-1773 apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/direct-apply-manifest.yaml
     objectCount: 21
   - name: configHub-direct-readiness
     result: watch
@@ -1956,7 +1956,7 @@ spec:
     finishedAt: '2026-06-16T09:12:10Z'
     elapsedSeconds: 0.264
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/elasticsearch/22.1.6
       --base ha --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-elasticsearch-mqgeyy60-1773-elasticsearch
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1992,7 +1992,7 @@ spec:
     elapsedSeconds: 1.052
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster
-      elasticsearch-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/argo-application.json
+      elasticsearch-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/argo-application.json
       --target helm-expt-parity-elasticsearch-mqgeyy60-1773-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -2022,11 +2022,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-elasticsearch-mqgeyy60-1773\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-elasticsearch-mqgeyy60-1773\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -2037,7 +2037,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-elasticsearch-mqgeyy60-1773\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-elasticsearch-mqgeyy60-1773\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-elasticsearch-mqgeyy60-1773.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Insta"
   - name: target-facts-regular-helm

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install kyverno-policies kyverno-policies --repo https://kyverno.github.io/kyverno/
-        --version 3.8.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/regular-helm-values.yaml
+        --version 3.8.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9
@@ -63,7 +63,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kyverno/kyverno-policies/3.8.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-kyvern-792e5-dcni-kyverno-policies
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -142,7 +142,7 @@ spec:
         sourceVariant: kyverno/kyverno@3.8.1/default
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -151,7 +151,7 @@ spec:
         sourceVariant: kyverno/kyverno@3.8.1/default
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-policies-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install postgresql oci://registry-1.docker.io/bitnamicharts/postgresql
-        --version 18.7.0 --namespace postgresql --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/regular-helm-values.yaml
+        --version 18.7.0 --namespace postgresql --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: postgresql
       manifestSHA256: bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/postgresql/18.7.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/postgresql/18.7.0
         --base existing-secret --work-dir /tmp/helm-expt-kind-parity-hx-postgr-9aed0-kas0-postgresql
         --non-interactive --namespace postgresql
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -164,7 +164,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-helm.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -176,7 +176,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-postgresql-existing-secret/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

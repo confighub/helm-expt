@@ -18,11 +18,11 @@ spec:
     target: "codex-ingress-internal-063211-cluster/oci"
     namespace: "ingress-nginx"
     kubeContext: "kind-codex-ingress-internal-063211"
-    kubeconfig: "/Users/alexis/.confighub/lk/codex-ingress-internal-063211.kubeconfig"
+    kubeconfig: "$HOME/.confighub/lk/codex-ingress-internal-063211.kubeconfig"
     keptForInspection: false
   commands:
     setupRig: "CONFIGHUB_AGENT=1 cub lk up --name codex-ingress-internal-063211"
-    workload: "CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx-internal --namespace ingress-nginx --rig codex-ingress-internal-063211 --base internal-clusterip --helm-expt /Users/alexis/code/helm-expt --wait 420 --json"
+    workload: "CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx-internal --namespace ingress-nginx --rig codex-ingress-internal-063211 --base internal-clusterip --helm-expt $HOME/code/helm-expt --wait 420 --json"
     teardown: "CONFIGHUB_AGENT=1 cub lk down --name codex-ingress-internal-063211"
   oci:
     repoURL: "oci://oci.hub.confighub.com:443/target/codex-ingress-internal-063211-cluster/oci"

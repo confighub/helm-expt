@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install apache apache --repo https://charts.bitnami.com/bitnami
-        --version 11.4.29 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/regular-helm-values.yaml
+        --version 11.4.29 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c
       objectCount: 5
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/apache/11.4.29
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/apache/11.4.29
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-apache-mqfq2b74-mtp-apache
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -988,7 +988,7 @@ spec:
     elapsedSeconds: 486.209
     timeoutSeconds: 900
     command: helm upgrade --install apache apache --repo https://charts.bitnami.com/bitnami
-      --version 11.4.29 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/regular-helm-values.yaml
+      --version 11.4.29 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -996,7 +996,7 @@ spec:
     finishedAt: '2026-06-15T21:37:59Z'
     elapsedSeconds: 0.435
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/apache/11.4.29
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/apache/11.4.29
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-apache-mqfq2b74-mtp-apache
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1005,9 +1005,9 @@ spec:
     finishedAt: '2026-06-15T21:37:59Z'
     elapsedSeconds: 0.113
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig
       --context kind-helm-expt-parity-apache-mqfq2b74-mtp apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/direct-apply-manifest.yaml
     objectCount: 5
   - name: configHub-direct-readiness
     result: watch
@@ -1022,7 +1022,7 @@ spec:
     finishedAt: '2026-06-15T21:43:09Z'
     elapsedSeconds: 0.408
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/apache/11.4.29
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/apache/11.4.29
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-apache-mqfq2b74-mtp-apache
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1057,7 +1057,7 @@ spec:
     elapsedSeconds: 1.024
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-apache-mqfq2b74-mtp-cluster
-      apache-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/argo-application.json
+      apache-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-apache-default/argo-application.json
       --target helm-expt-parity-apache-mqfq2b74-mtp-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1087,11 +1087,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-apache-mqfq2b74-mtp\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-apache-mqfq2b74-mtp\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1102,7 +1102,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-apache-mqfq2b74-mtp\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-apache-mqfq2b74-mtp\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-apache-mqfq2b74-mtp.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\n"
   - name: target-facts-regular-helm

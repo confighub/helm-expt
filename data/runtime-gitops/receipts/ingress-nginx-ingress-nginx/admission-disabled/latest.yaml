@@ -18,13 +18,13 @@ spec:
     target: codex-live-evidence-ingress-0611-cluster/oci
     namespace: ingress-nginx
     kubeContext: kind-codex-live-evidence-ingress-0611
-    kubeconfig: /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig
+    kubeconfig: $HOME/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig
     keptForInspection: false
   commands:
     setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-live-evidence-ingress-0611
-    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx --namespace ingress-nginx --rig codex-live-evidence-ingress-0611 --base admission-disabled --helm-expt /Users/alexis/code/helm-expt-codex-live-evidence --wait 300 --keep --json
-    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
-    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get deploy,pods,svc -n ingress-nginx -o wide
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx --namespace ingress-nginx --rig codex-live-evidence-ingress-0611 --base admission-disabled --helm-expt $HOME/code/helm-expt-codex-live-evidence --wait 300 --keep --json
+    inspectApplications: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig $HOME/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get deploy,pods,svc -n ingress-nginx -o wide
     teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-live-evidence-ingress-0611
   oci:
     repoURL: oci://oci.hub.confighub.com:443/target/codex-live-evidence-ingress-0611-cluster/oci

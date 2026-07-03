@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-        --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/regular-helm-values.yaml
+        --version 29.9.0 --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b
       objectCount: 6
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
         --base server-only-ephemeral --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe8gr23-o2s-prometheus
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -859,7 +859,7 @@ spec:
     elapsedSeconds: 58.156
     timeoutSeconds: 900
     command: helm upgrade --install prometheus prometheus --repo https://prometheus-community.github.io/helm-charts
-      --version 29.9.0 --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/regular-helm-values.yaml
+      --version 29.9.0 --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -867,7 +867,7 @@ spec:
     finishedAt: '2026-06-14T20:27:27Z'
     elapsedSeconds: 0.379
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
       --base server-only-ephemeral --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe8gr23-o2s-prometheus
       --non-interactive --namespace monitoring-apply
   - name: configHub-direct-apply
@@ -876,9 +876,9 @@ spec:
     finishedAt: '2026-06-14T20:27:28Z'
     elapsedSeconds: 0.126
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig
       --context kind-helm-expt-parity-prometheus-mqe8gr23-o2s apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: pass
@@ -893,7 +893,7 @@ spec:
     finishedAt: '2026-06-14T20:28:24Z'
     elapsedSeconds: 0.279
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus/29.9.0
       --base server-only-ephemeral --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-prometheus-mqe8gr23-o2s-prometheus
       --non-interactive --namespace monitoring-oci
   - name: configHub-oci-upload
@@ -928,7 +928,7 @@ spec:
     elapsedSeconds: 1.223
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-prometheus-mqe8gr23-o2s-cluster
-      prometheus-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/argo-application.json
+      prometheus-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-prometheus-server-only-ephemeral-29-9-0/argo-application.json
       --target helm-expt-parity-prometheus-mqe8gr23-o2s-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -958,11 +958,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-prometheus-mqe8gr23-o2s\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-prometheus-mqe8gr23-o2s\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -973,7 +973,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-prometheus-mqe8gr23-o2s\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-prometheus-mqe8gr23-o2s\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-prometheus-mqe8gr23-o2s.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
   - name: target-facts-regular-helm

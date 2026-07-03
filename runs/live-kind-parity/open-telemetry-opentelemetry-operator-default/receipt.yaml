@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install opentelemetry-operator opentelemetry-operator
         --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-        0.114.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
+        0.114.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-opente-09456-10tp-opentelemetry-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -166,7 +166,7 @@ spec:
         sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -184,7 +184,7 @@ spec:
         sourceVariant: jetstack/cert-manager@v1.20.2/crds-enabled
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-default/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

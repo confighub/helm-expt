@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/longhorn-default --space helm-longhorn-confighub-proof --component Longhorn --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Longhorn --unit-label HelmChart=longhorn-longhorn --unit-label HelmChartVersion=1.11.2 --unit-label Variant=default --unit-label Proof=longhorn-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-longhorn-confighub-proof"
     unitCount: 43
     kubernetesUnitCount: 42
@@ -86,6 +86,6 @@ spec:
       - "helm-longhorn-confighub-proof"
       - "Longhorn-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

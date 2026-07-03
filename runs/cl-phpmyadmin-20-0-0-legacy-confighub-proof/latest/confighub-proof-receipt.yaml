@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-phpmyadmin-20-0-0-legacy --space helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof --component Phpmyadmin2000 --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=Phpmyadmin2000 --unit-label HelmChart=bitnami-phpmyadmin --unit-label HelmChartVersion=20.0.0 --unit-label Variant=legacy --unit-label Proof=cl-phpmyadmin-20-0-0-legacy-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof"
     unitCount: 7
     kubernetesUnitCount: 6
@@ -86,6 +86,6 @@ spec:
       - "helm-cl-phpmyadmin-20-0-0-legacy-confighub-proof"
       - "Phpmyadmin2000-legacy-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

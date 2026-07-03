@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install goldilocks goldilocks --repo https://charts.fairwinds.com/stable
-        --version 10.3.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/fairwinds-stable-goldilocks-default/regular-helm-values.yaml
+        --version 10.3.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/fairwinds-stable-goldilocks-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5
@@ -73,7 +73,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fairwinds-stable/goldilocks/10.3.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/fairwinds-stable/goldilocks/10.3.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-goldil-48d0f-08y0-goldilocks
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

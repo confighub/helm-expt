@@ -56,7 +56,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
-        --version 0.32.0 --namespace vault-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
+        --version 0.32.0 --namespace vault-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f
       objectCount: 18
@@ -176,7 +176,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/vault/0.32.0
         --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
         --non-interactive --namespace vault-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1367,7 +1367,7 @@ spec:
     elapsedSeconds: 17.257
     timeoutSeconds: 900
     command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
-      --version 0.32.0 --namespace vault-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
+      --version 0.32.0 --namespace vault-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1375,7 +1375,7 @@ spec:
     finishedAt: '2026-06-14T15:17:22Z'
     elapsedSeconds: 0.392
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/vault/0.32.0
       --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
       --non-interactive --namespace vault-apply
   - name: configHub-direct-apply
@@ -1384,9 +1384,9 @@ spec:
     finishedAt: '2026-06-14T15:17:22Z'
     elapsedSeconds: 0.19
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig
       --context kind-helm-expt-parity-vault-mqdxae1t-1fwo apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/direct-apply-manifest.yaml
     objectCount: 18
   - name: configHub-direct-readiness
     result: watch
@@ -1401,7 +1401,7 @@ spec:
     finishedAt: '2026-06-14T15:22:49Z'
     elapsedSeconds: 0.372
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/vault/0.32.0
       --base ha-raft-ui --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-vault-mqdxae1t-1fwo-vault
       --non-interactive --namespace vault-oci
   - name: configHub-oci-upload
@@ -1436,7 +1436,7 @@ spec:
     elapsedSeconds: 1.011
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-vault-mqdxae1t-1fwo-cluster
-      vault-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/argo-application.json
+      vault-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/argo-application.json
       --target helm-expt-parity-vault-mqdxae1t-1fwo-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1466,11 +1466,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-vault-mqdxae1t-1fwo\" (kubeconfig:\
-      \ /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig)...\n\
+      \ $HOME/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-vault-mqdxae1t-1fwo\" ...\n • Ensuring node\
       \ image (kindest/node:v1.35.0) \U0001F5BC  ...\n ✓ Ensuring node image (kindest/node:v1.35.0)\
       \ \U0001F5BC\n • Preparing nodes \U0001F4E6 \U0001F4E6 \U0001F4E6 \U0001F4E6\
@@ -1482,7 +1482,7 @@ spec:
       \ worker nodes \U0001F69C  ...\n ✓ Joining worker nodes \U0001F69C\nSet kubectl\
       \ context to \"kind-helm-expt-parity-vault-mqdxae1t-1fwo\"\nYou can now use\
       \ your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-vault-mqdxae1t-1fwo\
-      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/clusters/helm-expt-parity-vault-mqdxae1t-1fwo.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating nam"
   - name: target-profile
     result: pass

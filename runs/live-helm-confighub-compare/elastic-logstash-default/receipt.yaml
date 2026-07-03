@@ -48,7 +48,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
-        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-default/regular-helm-values.yaml
+        --version 8.5.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd
       objectCount: 3
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/logstash/8.5.1
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-logstash-1781293723-logstash
         --non-interactive --namespace default
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -143,11 +143,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-logstash-1781293723\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-logstash-1781293723\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -158,7 +158,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-logstash-1781293723\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-1781293723\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
       \ {}\nsta"

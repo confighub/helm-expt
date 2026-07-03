@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install kyverno kyverno --repo https://kyverno.github.io/kyverno/
-        --version 3.8.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/regular-helm-values.yaml
+        --version 3.8.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 3a1b0dd0d65607586ee0a3ace591e776a0a13c8047cb31b43f7128febcd93227
@@ -79,7 +79,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kyverno/kyverno/3.8.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kyverno/kyverno/3.8.1
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-kyvern-c0dc8-tx4s-kyverno
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -264,7 +264,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -337,7 +337,7 @@ spec:
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/kyverno-kyverno-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

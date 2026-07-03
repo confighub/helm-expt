@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cluster-autoscaler-controller-default-reviewed --space helm-cluster-autoscaler-confighub-proof --component ClusterAutoscaler --layer App --environment Demo --owner ConfigHubHelm --variant controller-default-reviewed --unit-label Component=ClusterAutoscaler --unit-label HelmChart=autoscaler-cluster-autoscaler --unit-label HelmChartVersion=9.57.0 --unit-label Variant=controller-default-reviewed --unit-label Proof=cluster-autoscaler-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cluster-autoscaler-confighub-proof"
     unitCount: 9
     kubernetesUnitCount: 8
@@ -78,6 +78,6 @@ spec:
       - "helm-cluster-autoscaler-confighub-proof"
       - "ClusterAutoscaler-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

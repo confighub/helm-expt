@@ -80,7 +80,7 @@ spec:
     appName: "keda-apiservice"
     clusterSpace: "codex-keda-api-984hur-cluster"
     kubeContext: "kind-codex-keda-api-984hur"
-    kubeconfig: "/Users/alexis/.confighub/lk/codex-keda-api-984hur.kubeconfig"
+    kubeconfig: "$HOME/.confighub/lk/codex-keda-api-984hur.kubeconfig"
     mode: "cub-lk-argo-oci-apiservice-witness"
     namespace: "default"
     postTeardownKindClusters: ""

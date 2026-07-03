@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb oci://registry-1.docker.io/bitnamicharts/mongodb
-        --version 19.1.0 --namespace mongodb --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
+        --version 19.1.0 --namespace mongodb --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: mongodb
       manifestSHA256: b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd
@@ -73,7 +73,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/bitnami/mongodb/19.1.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/bitnami/mongodb/19.1.0
         --base existing-secret-replicaset --work-dir /tmp/helm-expt-kind-parity-hx-mongod-0b56d-w33m-mongodb
         --non-interactive --namespace mongodb
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -179,7 +179,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -192,7 +192,7 @@ spec:
       stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml
+      path: $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

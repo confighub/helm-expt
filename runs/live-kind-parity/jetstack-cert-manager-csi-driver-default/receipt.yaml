@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install cert-manager-csi-driver cert-manager-csi-driver
         --repo https://charts.jetstack.io --version v0.14.0 --namespace default --create-namespace
-        --values /Users/alexis/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-csi-driver-default/regular-helm-values.yaml
+        --values $HOME/code/helm-expt/runs/live-kind-parity/jetstack-cert-manager-csi-driver-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 2fa28f4f4c912710babcc4f46818889df3c51396a400dbce6c0245afc20056f3
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager-csi-driver/v0.14.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/cert-manager-csi-driver/v0.14.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-certma-7fb29-uo0r-cert-manager-csi-driver
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

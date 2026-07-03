@@ -46,7 +46,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/eck-operator-ha --space helm-eck-operator-ha-confighub-proof --component ECKOperator --layer App --environment Demo --owner ConfigHubHelm --variant ha --unit-label Component=ECKOperator --unit-label HelmChart=elastic-eck-operator --unit-label HelmChartVersion=3.4.0 --unit-label Variant=ha --unit-label Proof=eck-operator-ha-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-eck-operator-ha-confighub-proof"
     unitCount: 23
     kubernetesUnitCount: 22
@@ -87,7 +87,7 @@ spec:
       - "helm-eck-operator-ha-confighub-proof"
       - "ECKOperator-ha-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

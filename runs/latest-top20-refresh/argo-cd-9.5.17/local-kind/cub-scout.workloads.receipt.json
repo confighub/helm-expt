@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "claim": "desired workloads from $HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
     "scope": {
       "kind": "WorkloadSet",
       "name": "rendered-install",
@@ -39,7 +39,7 @@
       "workloads": {
         "desiredSource": {
           "type": "file",
-          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml",
+          "ref": "$HOME/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml",
           "digest": "d4bbb64ca119094e52c0402d9d6662e748f5f8b38c3b798bd2d680c41270cc12",
           "objectCount": 7
         },

@@ -70,7 +70,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-redis-27-0-0-reuse-existing-secret --space helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof --component Redis2700 --layer App --environment Demo --owner ConfigHubHelm --variant reuse-existing-secret --unit-label Component=Redis2700 --unit-label HelmChart=bitnami-redis --unit-label HelmChartVersion=27.0.0 --unit-label Variant=reuse-existing-secret --unit-label Proof=cl-redis-27-0-0-reuse-existing-secret-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
     unitCount: 15
     kubernetesUnitCount: 14
@@ -103,6 +103,6 @@ spec:
       - "helm-cl-redis-27-0-0-reuse-existing-secret-confighub-proof"
       - "Redis2700-reuse-existing-secret-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

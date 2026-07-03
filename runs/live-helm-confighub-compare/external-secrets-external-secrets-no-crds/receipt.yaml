@@ -49,7 +49,7 @@ spec:
       result: pass
       command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
         --version 2.5.0 --namespace external-secrets-helm --create-namespace --values
-        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
+        $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
         --wait --timeout 10m
       manifestSHA256: da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b
       objectCount: 19
@@ -74,7 +74,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-eso2-external-secrets-external-secrets
         --non-interactive --namespace external-secrets-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -358,10 +358,10 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-eso2\" (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-eso2.kubeconfig)...\n\
+    detail: "Creating kind cluster \"helm-expt-parity-eso2\" (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-eso2.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-eso2\" ...\n \u2022 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image (kindest/node:v1.35.0)\
       \ \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n \u2713 Preparing nodes\
@@ -372,7 +372,7 @@ spec:
       \ StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\n\
       Set kubectl context to \"kind-helm-expt-parity-eso2\"\nYou can now use your\
       \ cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-eso2\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-eso2.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-eso2.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersion:\
       \ v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: {}\nstatus: {}\nnamespac"
@@ -588,7 +588,7 @@ spec:
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
         lane: configHubKubectlApply
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -668,7 +668,7 @@ spec:
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
         lane: configHubOciArgo
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-secrets-external-secrets-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

@@ -38,7 +38,7 @@ spec:
       result: pass
       command: helm upgrade --install secrets-store-csi-driver secrets-store-csi-driver
         --repo https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts --version
-        1.6.0 --namespace kube-system --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/regular-helm-values.yaml
+        1.6.0 --namespace kube-system --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: kube-system
       manifestSHA256: 2490f14dd08f7e309f8f78cd1c2f1b05eb5b8995343b33ad6b3b243401a39ead
@@ -83,7 +83,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-secret-2265f-whag-secrets-store-csi-driver
         --non-interactive --namespace kube-system
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install phpmyadmin oci://registry-1.docker.io/bitnamicharts/phpmyadmin
-        --version 20.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/regular-helm-values.yaml
+        --version 20.0.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a
       objectCount: 5
@@ -118,7 +118,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -995,7 +995,7 @@ spec:
     elapsedSeconds: 481.614
     timeoutSeconds: 900
     command: helm upgrade --install phpmyadmin oci://registry-1.docker.io/bitnamicharts/phpmyadmin
-      --version 20.0.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/regular-helm-values.yaml
+      --version 20.0.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1003,7 +1003,7 @@ spec:
     finishedAt: '2026-06-16T07:27:28Z'
     elapsedSeconds: 0.49
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1012,9 +1012,9 @@ spec:
     finishedAt: '2026-06-16T07:27:28Z'
     elapsedSeconds: 0.115
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig
       --context kind-helm-expt-parity-phpmyadmin-mqgb9186-qhf apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/direct-apply-manifest.yaml
     objectCount: 5
   - name: configHub-direct-readiness
     result: watch
@@ -1029,7 +1029,7 @@ spec:
     finishedAt: '2026-06-16T07:27:44Z'
     elapsedSeconds: 0.266
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/phpmyadmin/20.0.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-phpmyadmin-mqgb9186-qhf-phpmyadmin
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1064,7 +1064,7 @@ spec:
     elapsedSeconds: 0.959
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster
-      phpmyadmin-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/argo-application.json
+      phpmyadmin-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/argo-application.json
       --target helm-expt-parity-phpmyadmin-mqgb9186-qhf-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1094,11 +1094,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-phpmyadmin-mqgb9186-qhf\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-phpmyadmin-mqgb9186-qhf\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1109,7 +1109,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-phpmyadmin-mqgb9186-qhf\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-phpmyadmin-mqgb9186-qhf\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-phpmyadmin-mqgb9186-qhf.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadat"
   - name: target-facts-regular-helm

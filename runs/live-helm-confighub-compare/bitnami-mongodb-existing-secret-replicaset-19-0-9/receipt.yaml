@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
-        --version 19.0.9 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/regular-helm-values.yaml
+        --version 19.0.9 --namespace mongodb-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2
       objectCount: 10
@@ -72,7 +72,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
         --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqec9nnj-s2o-mongodb
         --non-interactive --namespace mongodb-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -961,7 +961,7 @@ spec:
     elapsedSeconds: 92.524
     timeoutSeconds: 900
     command: helm upgrade --install mongodb mongodb --repo https://charts.bitnami.com/bitnami
-      --version 19.0.9 --namespace mongodb-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/regular-helm-values.yaml
+      --version 19.0.9 --namespace mongodb-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -969,7 +969,7 @@ spec:
     finishedAt: '2026-06-14T22:14:53Z'
     elapsedSeconds: 0.75
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
       --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqec9nnj-s2o-mongodb
       --non-interactive --namespace mongodb-apply
   - name: configHub-direct-apply
@@ -978,9 +978,9 @@ spec:
     finishedAt: '2026-06-14T22:14:53Z'
     elapsedSeconds: 0.142
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig
       --context kind-helm-expt-parity-mongodb-mqec9nnj-s2o apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/direct-apply-manifest.yaml
     objectCount: 10
   - name: configHub-direct-readiness
     result: pass
@@ -995,7 +995,7 @@ spec:
     finishedAt: '2026-06-14T22:16:26Z'
     elapsedSeconds: 0.554
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/mongodb/19.0.9
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/mongodb/19.0.9
       --base existing-secret-replicaset --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-mongodb-mqec9nnj-s2o-mongodb
       --non-interactive --namespace mongodb-oci
   - name: configHub-oci-upload
@@ -1030,7 +1030,7 @@ spec:
     elapsedSeconds: 0.962
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-mongodb-mqec9nnj-s2o-cluster
-      mongodb-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/argo-application.json
+      mongodb-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/argo-application.json
       --target helm-expt-parity-mongodb-mqec9nnj-s2o-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1060,11 +1060,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-mongodb-mqec9nnj-s2o\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-mongodb-mqec9nnj-s2o\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1075,7 +1075,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-mongodb-mqec9nnj-s2o\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-mongodb-mqec9nnj-s2o\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-mongodb-mqec9nnj-s2o.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec: "
   - name: target-facts-regular-helm
@@ -1133,7 +1133,7 @@ spec:
         sourceNamespace: mongodb
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1146,7 +1146,7 @@ spec:
         sourceNamespace: mongodb
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1159,7 +1159,7 @@ spec:
         sourceNamespace: mongodb
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset-19-0-9/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

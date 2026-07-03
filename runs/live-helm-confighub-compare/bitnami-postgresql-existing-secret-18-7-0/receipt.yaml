@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
-        --version 18.7.0 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/regular-helm-values.yaml
+        --version 18.7.0 --namespace postgresql-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2
       objectCount: 6
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/postgresql/18.7.0
         --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqeh8nnx-1mzq-postgresql
         --non-interactive --namespace postgresql-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -858,7 +858,7 @@ spec:
     elapsedSeconds: 43.01
     timeoutSeconds: 900
     command: helm upgrade --install postgresql postgresql --repo https://charts.bitnami.com/bitnami
-      --version 18.7.0 --namespace postgresql-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/regular-helm-values.yaml
+      --version 18.7.0 --namespace postgresql-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -866,7 +866,7 @@ spec:
     finishedAt: '2026-06-15T00:32:24Z'
     elapsedSeconds: 0.661
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/postgresql/18.7.0
       --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqeh8nnx-1mzq-postgresql
       --non-interactive --namespace postgresql-apply
   - name: configHub-direct-apply
@@ -875,9 +875,9 @@ spec:
     finishedAt: '2026-06-15T00:32:25Z'
     elapsedSeconds: 0.106
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig
       --context kind-helm-expt-parity-postgresql-mqeh8nnx-1mzq apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: pass
@@ -892,7 +892,7 @@ spec:
     finishedAt: '2026-06-15T00:33:01Z'
     elapsedSeconds: 0.564
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/postgresql/18.7.0
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/postgresql/18.7.0
       --base existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-postgresql-mqeh8nnx-1mzq-postgresql
       --non-interactive --namespace postgresql-oci
   - name: configHub-oci-upload
@@ -927,7 +927,7 @@ spec:
     elapsedSeconds: 1.455
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-postgresql-mqeh8nnx-1mzq-cluster
-      postgresql-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/argo-application.json
+      postgresql-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/argo-application.json
       --target helm-expt-parity-postgresql-mqeh8nnx-1mzq-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -957,11 +957,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-postgresql-mqeh8nnx-1mzq\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-postgresql-mqeh8nnx-1mzq\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -972,7 +972,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-postgresql-mqeh8nnx-1mzq\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-postgresql-mqeh8nnx-1mzq\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-postgresql-mqeh8nnx-1mzq.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo C"
   - name: target-facts-regular-helm
@@ -1027,7 +1027,7 @@ spec:
         sourceNamespace: postgresql
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1039,7 +1039,7 @@ spec:
         sourceNamespace: postgresql
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1051,7 +1051,7 @@ spec:
         sourceNamespace: postgresql
       stagedCRDs: []
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-postgresql-existing-secret-18-7-0/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

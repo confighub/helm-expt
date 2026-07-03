@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install istiod istiod --repo https://istio-release.storage.googleapis.com/charts
-        --version 1.30.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/istio-istiod-default/regular-helm-values.yaml
+        --version 1.30.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/istio-istiod-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf
@@ -69,7 +69,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/istio/istiod/1.30.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/istio/istiod/1.30.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-istiod-72554-1x4h-istiod
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

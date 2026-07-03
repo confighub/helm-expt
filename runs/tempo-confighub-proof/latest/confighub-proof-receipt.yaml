@@ -75,7 +75,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/tempo-local-persistent --space helm-tempo-confighub-proof --component Tempo --layer App --environment Demo --owner ConfigHubHelm --variant local-persistent --unit-label Component=Tempo --unit-label HelmChart=grafana-tempo --unit-label HelmChartVersion=1.24.4 --unit-label Variant=local-persistent --unit-label Proof=tempo-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-tempo-confighub-proof"
     unitCount: 6
     kubernetesUnitCount: 5
@@ -116,6 +116,6 @@ spec:
       - "helm-tempo-confighub-proof"
       - "Tempo-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

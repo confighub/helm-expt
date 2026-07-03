@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install gatekeeper gatekeeper --repo https://open-policy-agent.github.io/gatekeeper/charts
-        --version 3.22.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/gatekeeper-gatekeeper-default/regular-helm-values.yaml
+        --version 3.22.2 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/gatekeeper-gatekeeper-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 757e7fe97f5331bd964463ed228d147bdc090f3bb6d7c34b319522124efd2e5d
@@ -75,7 +75,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/gatekeeper/gatekeeper/3.22.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/gatekeeper/gatekeeper/3.22.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-gateke-dd140-14ne-gatekeeper
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

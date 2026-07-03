@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
-        --version 4.15.1 --namespace ingress-nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/regular-helm-values.yaml
+        --version 4.15.1 --namespace ingress-nginx --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: ingress-nginx
       manifestSHA256: a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a
@@ -60,7 +60,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
         --base internal-clusterip --work-dir /tmp/helm-expt-kind-parity-hx-ingres-dc143-8l7s-ingress-nginx
         --non-interactive --namespace ingress-nginx
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

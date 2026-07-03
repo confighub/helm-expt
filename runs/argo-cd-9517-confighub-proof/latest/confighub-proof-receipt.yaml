@@ -92,7 +92,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/argo-cd-9517-default --space helm-argo-cd-9517-confighub-proof --component ArgoCD9517 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoCD9517 --unit-label HelmChart=argo-cd-argo-cd --unit-label HelmChartVersion=9.5.17 --unit-label Variant=default --unit-label Proof=argo-cd-9517-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-argo-cd-9517-confighub-proof"
     unitCount: 49
     kubernetesUnitCount: 48
@@ -126,7 +126,7 @@ spec:
       - "helm-argo-cd-9517-confighub-proof"
       - "ArgoCD9517-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

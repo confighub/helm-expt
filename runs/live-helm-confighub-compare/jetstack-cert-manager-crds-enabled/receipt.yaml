@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install cert-manager cert-manager --repo https://charts.jetstack.io
         --version v1.20.2 --namespace cert-manager-helm --create-namespace --values
-        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
+        $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-cert-manager-crds-enabled/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0
       objectCount: 48
@@ -65,7 +65,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/cert-manager/v1.20.2
         --base crds-enabled --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-certmanager-mq153vzp-1pbp-cert-manager
         --non-interactive --namespace cert-manager-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -157,7 +157,7 @@ spec:
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-certmanager-mq153vzp-1pbp\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-certmanager-mq153vzp-1pbp\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -168,7 +168,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-certmanager-mq153vzp-1pbp\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-certmanager-mq153vzp-1pbp\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-certmanager-mq153vzp-1pbp.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo C"
   - name: regular-helm-live

@@ -65,7 +65,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-postgresql-18-6-10-static-passwords --space helm-cl-postgresql-18-6-10-static-passwords-confighub-proof --component Postgresql18610 --layer App --environment Demo --owner ConfigHubHelm --variant static-passwords --unit-label Component=Postgresql18610 --unit-label HelmChart=bitnami-postgresql --unit-label HelmChartVersion=18.6.10 --unit-label Variant=static-passwords --unit-label Proof=cl-postgresql-18-6-10-static-passwords-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-postgresql-18-6-10-static-passwords-confighub-proof"
     unitCount: 8
     kubernetesUnitCount: 7
@@ -106,7 +106,7 @@ spec:
       - "helm-cl-postgresql-18-6-10-static-passwords-confighub-proof"
       - "Postgresql18610-static-passwords-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

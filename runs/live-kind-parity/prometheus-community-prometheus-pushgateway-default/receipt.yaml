@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install prometheus-pushgateway prometheus-pushgateway
         --repo https://prometheus-community.github.io/helm-charts --version 3.6.0
-        --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
+        --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/prometheus-community-prometheus-pushgateway-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/prometheus-pushgateway/3.6.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-promet-26d3c-ln4o-prometheus-pushgateway
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

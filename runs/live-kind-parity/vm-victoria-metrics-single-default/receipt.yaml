@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install victoria-metrics-single victoria-metrics-single
         --repo https://victoriametrics.github.io/helm-charts --version 0.39.0 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/vm-victoria-metrics-single-default/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/vm-victoria-metrics-single-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/vm/victoria-metrics-single/0.39.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-victor-2ab0c-4hdw-victoria-metrics-single
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

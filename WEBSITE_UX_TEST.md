@@ -14,7 +14,7 @@ record findings, then make a focused follow-up change.
 ## 1. Sync And Verify
 
 ```sh
-cd /Users/alexis/code/helm-expt
+cd $HOME/code/helm-expt
 git fetch origin
 git pull --ff-only
 npm run site:verify
@@ -28,7 +28,7 @@ UX walkthrough from stale generated HTML.
 Prefer port `8766`.
 
 ```sh
-python3 -m http.server 8766 --bind 127.0.0.1 --directory /Users/alexis/code/helm-expt/site
+python3 -m http.server 8766 --bind 127.0.0.1 --directory $HOME/code/helm-expt/site
 ```
 
 Open:
@@ -40,7 +40,7 @@ http://127.0.0.1:8766/
 If the port is already in use, pick another port:
 
 ```sh
-python3 -m http.server 8767 --bind 127.0.0.1 --directory /Users/alexis/code/helm-expt/site
+python3 -m http.server 8767 --bind 127.0.0.1 --directory $HOME/code/helm-expt/site
 ```
 
 ## 3. Test From Another Laptop
@@ -53,7 +53,7 @@ If the server should run on this machine and be viewed from another laptop on
 the same network, bind to all interfaces:
 
 ```sh
-python3 -m http.server 8766 --bind 0.0.0.0 --directory /Users/alexis/code/helm-expt/site
+python3 -m http.server 8766 --bind 0.0.0.0 --directory $HOME/code/helm-expt/site
 ```
 
 Find this machine's LAN IP:

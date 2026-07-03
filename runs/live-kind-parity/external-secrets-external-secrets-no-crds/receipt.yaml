@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install external-secrets external-secrets --repo https://charts.external-secrets.io
-        --version 2.5.0 --namespace external-secrets --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
+        --version 2.5.0 --namespace external-secrets --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: external-secrets
       manifestSHA256: da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/external-secrets/external-secrets/2.5.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-extern-41245-1kwy-external-secrets
         --non-interactive --namespace external-secrets
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -244,7 +244,7 @@ spec:
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -318,4 +318,4 @@ spec:
       - name: webhooks.generators.external-secrets.io
         sourceVariant: default
         lane: cubInstallerApply
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/external-secrets-external-secrets-no-crds/target-facts-installer.yaml

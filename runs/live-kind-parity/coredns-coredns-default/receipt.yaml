@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install coredns coredns --repo https://coredns.github.io/helm
-        --version 1.45.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone/runs/live-kind-parity/coredns-coredns-default/regular-helm-values.yaml
+        --version 1.45.2 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone/runs/live-kind-parity/coredns-coredns-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone/packages/coredns/coredns/1.45.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone/packages/coredns/coredns/1.45.2
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-coredn-9c242-ah2t-coredns
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

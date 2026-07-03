@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
-        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/elastic-logstash-default/regular-helm-values.yaml
+        --version 8.5.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/elastic-logstash-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/elastic/logstash/8.5.1
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-logsta-8b429-joo6-logstash
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

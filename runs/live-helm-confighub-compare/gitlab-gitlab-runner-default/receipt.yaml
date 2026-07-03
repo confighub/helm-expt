@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
-        --version 0.89.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
+        --version 0.89.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e
       objectCount: 2
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -894,7 +894,7 @@ spec:
     elapsedSeconds: 303.38
     timeoutSeconds: 900
     command: helm upgrade --install gitlab-runner gitlab-runner --repo https://charts.gitlab.io
-      --version 0.89.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
+      --version 0.89.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -902,7 +902,7 @@ spec:
     finishedAt: '2026-06-17T18:42:16Z'
     elapsedSeconds: 0.448
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -911,9 +911,9 @@ spec:
     finishedAt: '2026-06-17T18:42:16Z'
     elapsedSeconds: 0.071
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig
       --context kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps apply --server-side
-      --force-conflicts -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/direct-apply-manifest.yaml
+      --force-conflicts -f $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/direct-apply-manifest.yaml
     objectCount: 2
   - name: configHub-direct-readiness
     result: watch
@@ -928,7 +928,7 @@ spec:
     finishedAt: '2026-06-17T18:47:26Z'
     elapsedSeconds: 0.402
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/gitlab/gitlab-runner/0.89.0
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-gitlabrunner-mqievt8e-9ps-gitlab-runner
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -963,7 +963,7 @@ spec:
     elapsedSeconds: 1.042
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster
-      gitlab-runner-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/argo-application.json
+      gitlab-runner-parity-app $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/argo-application.json
       --target helm-expt-parity-gitlabrunner-mqievt8e-9ps-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -993,11 +993,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-gitlabrunner-mqievt8e-9ps\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-gitlabrunner-mqievt8e-9ps\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -1008,7 +1008,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-gitlabrunner-mqievt8e-9ps\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-gitlabrunner-mqievt8e-9ps.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo C"
   - name: target-facts-regular-helm

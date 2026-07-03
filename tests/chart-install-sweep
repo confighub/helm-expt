@@ -26,8 +26,8 @@ def resolve_helm_expt(explicit):
     if explicit:
         return Path(explicit).expanduser().resolve()
     for c in [ROOT,
-              Path("/Users/alexis/Public/github-repos/helm-expt"),
-              Path("/Users/alexis/code/helm-expt")]:
+              Path("$HOME/Public/github-repos/helm-expt"),
+              Path("$HOME/code/helm-expt")]:
         if c.exists():
             return c
     return ROOT

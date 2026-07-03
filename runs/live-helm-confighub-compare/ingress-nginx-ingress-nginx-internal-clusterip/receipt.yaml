@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
         --version 4.15.1 --namespace ingress-nginx-helm --create-namespace --values
-        /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/regular-helm-values.yaml
+        $HOME/code/helm-expt/runs/live-helm-confighub-compare/ingress-nginx-ingress-nginx-internal-clusterip/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: a94ba2b56636baf7e732766c12c98d808b57c276156fa7a3a752b4137bf5f46a
       objectCount: 9
@@ -57,7 +57,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
         --base internal-clusterip --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-ingressnginx-mq73y283-241h-ingress-nginx
         --non-interactive --namespace ingress-nginx-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -134,11 +134,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-ingressnginx-mq73y283-241h\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq73y283-241h.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-ingressnginx-mq73y283-241h.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-ingressnginx-mq73y283-241h\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
@@ -149,7 +149,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-ingressnginx-mq73y283-241h\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-ingressnginx-mq73y283-241h\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-ingressnginx-mq73y283-241h.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-ingressnginx-mq73y283-241h.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing "
   - name: target-facts-regular-helm

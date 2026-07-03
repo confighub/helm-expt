@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/istio-gateway-default --space helm-istio-gateway-default-confighub-proof --component IstioGateway --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=IstioGateway --unit-label HelmChart=istio-gateway --unit-label HelmChartVersion=1.30.0 --unit-label Variant=default --unit-label Proof=istio-gateway-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-istio-gateway-default-confighub-proof"
     unitCount: 8
     kubernetesUnitCount: 7
@@ -86,6 +86,6 @@ spec:
       - "helm-istio-gateway-default-confighub-proof"
       - "IstioGateway-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

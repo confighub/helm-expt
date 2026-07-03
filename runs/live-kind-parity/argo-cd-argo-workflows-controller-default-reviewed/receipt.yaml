@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-workflows argo-workflows --repo https://argoproj.github.io/argo-helm
-        --version 1.0.14 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/regular-helm-values.yaml
+        --version 1.0.14 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc
@@ -71,7 +71,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
         --base controller-default-reviewed --work-dir /tmp/helm-expt-kind-parity-hx-argowo-726a6-5j4k-argo-workflows
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -219,7 +219,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -250,7 +250,7 @@ spec:
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-controller-default-reviewed/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

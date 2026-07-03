@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install fluent-bit fluent-bit --repo https://fluent.github.io/helm-charts
-        --version 0.57.6 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/fluent-fluent-bit-default/regular-helm-values.yaml
+        --version 0.57.6 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/fluent-fluent-bit-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/fluent/fluent-bit/0.57.6
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/fluent/fluent-bit/0.57.6
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-fluent-4a575-yc9j-fluent-bit
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

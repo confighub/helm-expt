@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: blocked
       command: helm upgrade --install velero velero --repo https://vmware-tanzu.github.io/helm-charts
-        --version 12.0.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/velero-velero-default/regular-helm-values.yaml
+        --version 12.0.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/velero-velero-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b

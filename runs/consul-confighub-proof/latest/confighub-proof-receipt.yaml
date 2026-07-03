@@ -85,7 +85,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/consul-default-control-plane --space helm-consul-confighub-proof --component Consul --layer App --environment Demo --owner ConfigHubHelm --variant default-control-plane --unit-label Component=Consul --unit-label HelmChart=hashicorp-consul --unit-label HelmChartVersion=2.0.0 --unit-label Variant=default-control-plane --unit-label Proof=consul-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-consul-confighub-proof"
     unitCount: 70
     kubernetesUnitCount: 69
@@ -98,7 +98,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/consul-default-control-plane"
     result: "pass"
-    summary: "Plan: 0 to add, 3 to change, 0 to delete.\nSpace helm-consul-confighub-proof:\n  ~ service-consul-consul-consul-dns\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/consul-default-control-plane/out/manifests/service-consul-consul-consul-dns.yaml:\n      Resource: v1/Service consul/consul-consul-dns\n        - [Delete] spec.ports.?port=53;@0  (#2)\n          name: dns-tcp\n          port: 53\n          protocol: TCP\n          targetPort: dns-tcp"
+    summary: "Plan: 0 to add, 3 to change, 0 to delete.\nSpace helm-consul-confighub-proof:\n  ~ service-consul-consul-consul-dns\n      New changes from update from $HOME/code/helm-expt/.tmp/confighub-proof/consul-default-control-plane/out/manifests/service-consul-consul-consul-dns.yaml:\n      Resource: v1/Service consul/consul-consul-dns\n        - [Delete] spec.ports.?port=53;@0  (#2)\n          name: dns-tcp\n          port: 53\n          protocol: TCP\n          targetPort: dns-tcp"
   serverSideVariant:
     command: "cub variant create staging helm-consul-confighub-proof --environment Staging --region local --namespace consul --space-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
@@ -126,6 +126,6 @@ spec:
       - "helm-consul-confighub-proof"
       - "Consul-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

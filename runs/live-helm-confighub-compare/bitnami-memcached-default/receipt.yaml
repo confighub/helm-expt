@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install memcached memcached --repo https://charts.bitnami.com/bitnami
-        --version 8.5.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
+        --version 8.5.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558
       objectCount: 5
@@ -66,7 +66,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/memcached/8.5.5
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -845,7 +845,7 @@ spec:
     elapsedSeconds: 23.229
     timeoutSeconds: 900
     command: helm upgrade --install memcached memcached --repo https://charts.bitnami.com/bitnami
-      --version 8.5.5 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
+      --version 8.5.5 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -853,7 +853,7 @@ spec:
     finishedAt: '2026-06-14T22:06:52Z'
     elapsedSeconds: 0.344
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/memcached/8.5.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -862,9 +862,9 @@ spec:
     finishedAt: '2026-06-14T22:06:52Z'
     elapsedSeconds: 0.124
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig
       --context kind-helm-expt-parity-memcached-mqec1ec7-dfo apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/direct-apply-manifest.yaml
     objectCount: 5
   - name: configHub-direct-readiness
     result: pass
@@ -879,7 +879,7 @@ spec:
     finishedAt: '2026-06-14T22:07:08Z'
     elapsedSeconds: 0.247
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/memcached/8.5.5
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/memcached/8.5.5
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-memcached-mqec1ec7-dfo-memcached
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -914,7 +914,7 @@ spec:
     elapsedSeconds: 0.968
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-memcached-mqec1ec7-dfo-cluster
-      memcached-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/argo-application.json
+      memcached-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-memcached-default/argo-application.json
       --target helm-expt-parity-memcached-mqec1ec7-dfo-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -944,11 +944,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-memcached-mqec1ec7-dfo\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-memcached-mqec1ec7-dfo\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -959,7 +959,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-memcached-mqec1ec7-dfo\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-memcached-mqec1ec7-dfo\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-memcached-mqec1ec7-dfo.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  n"
   - name: target-facts-regular-helm

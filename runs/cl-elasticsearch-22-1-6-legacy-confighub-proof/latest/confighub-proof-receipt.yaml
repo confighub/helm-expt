@@ -46,7 +46,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-elasticsearch-22-1-6-legacy --space helm-cl-elasticsearch-22-1-6-legacy-confighub-proof --component Elasticsearch2216 --layer App --environment Demo --owner ConfigHubHelm --variant legacy --unit-label Component=Elasticsearch2216 --unit-label HelmChart=bitnami-elasticsearch --unit-label HelmChartVersion=22.1.6 --unit-label Variant=legacy --unit-label Proof=cl-elasticsearch-22-1-6-legacy-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-elasticsearch-22-1-6-legacy-confighub-proof"
     unitCount: 23
     kubernetesUnitCount: 22
@@ -87,6 +87,6 @@ spec:
       - "helm-cl-elasticsearch-22-1-6-legacy-confighub-proof"
       - "Elasticsearch2216-legacy-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -37,7 +37,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
-        --version 0.32.0 --namespace vault --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-vault-dev-mode/regular-helm-values.yaml
+        --version 0.32.0 --namespace vault --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/hashicorp-vault-dev-mode/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: vault
       manifestSHA256: f07ae80c317a1156f1f6ae6dc849300de0ba4683eb3ffae67cdcfcd6e8072955
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/hashicorp/vault/0.32.0
         --base dev-mode --work-dir /tmp/helm-expt-kind-parity-hx-vault-18e1f-7521-vault
         --non-interactive --namespace vault
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

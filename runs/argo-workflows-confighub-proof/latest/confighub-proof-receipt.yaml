@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/argo-workflows-controller-default-reviewed --space helm-argo-workflows-confighub-proof --component ArgoWorkflows --layer App --environment Demo --owner ConfigHubHelm --variant controller-default-reviewed --unit-label Component=ArgoWorkflows --unit-label HelmChart=argo-cd-argo-workflows --unit-label HelmChartVersion=1.0.14 --unit-label Variant=controller-default-reviewed --unit-label Proof=argo-workflows-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-argo-workflows-confighub-proof"
     unitCount: 21
     kubernetesUnitCount: 20
@@ -78,6 +78,6 @@ spec:
       - "helm-argo-workflows-confighub-proof"
       - "ArgoWorkflows-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

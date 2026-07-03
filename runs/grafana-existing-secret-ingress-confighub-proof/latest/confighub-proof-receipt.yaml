@@ -71,7 +71,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/grafana-existing-secret-ingress --space helm-grafana-existing-secret-ingress-confighub-proof --component Grafana --layer App --environment Demo --owner ConfigHubHelm --variant existing-secret-ingress --unit-label Component=Grafana --unit-label HelmChart=grafana-grafana --unit-label HelmChartVersion=10.5.15 --unit-label Variant=existing-secret-ingress --unit-label Proof=grafana-existing-secret-ingress-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-grafana-existing-secret-ingress-confighub-proof"
     unitCount: 11
     kubernetesUnitCount: 10
@@ -84,7 +84,7 @@ spec:
       result: "expected-missing-upload-state"
     command: "cub installer plan --work-dir .tmp/confighub-proof/grafana-existing-secret-ingress"
     result: "pass"
-    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-existing-secret-ingress-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from /Users/alexis/code/helm-expt/.tmp/confighub-proof/grafana-existing-secret-ingress/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#2)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#2)"
+    summary: "Plan: 0 to add, 1 to change, 0 to delete.\nSpace helm-grafana-existing-secret-ingress-confighub-proof:\n  ~ deployment-grafana-grafana\n      New changes from update from $HOME/code/helm-expt/.tmp/confighub-proof/grafana-existing-secret-ingress/out/manifests/deployment-grafana-grafana.yaml:\n      Resource: apps/v1/Deployment grafana/grafana\n        - [Delete] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1  (#2)\n          containerPort: 9094\n          name: gossip-tcp\n          protocol: TCP\n        ~ [Update] spec.template.spec.containers.?name=grafana;@0.ports.?containerPort=9094;@1.name  (#2)"
   serverSideVariant:
     command: "cub variant create staging helm-grafana-existing-secret-ingress-confighub-proof --environment Staging --region local --namespace grafana --space-pattern template:Grafana-existing-secret-ingress-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
     result: "pass"
@@ -112,6 +112,6 @@ spec:
       - "helm-grafana-existing-secret-ingress-confighub-proof"
       - "Grafana-existing-secret-ingress-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

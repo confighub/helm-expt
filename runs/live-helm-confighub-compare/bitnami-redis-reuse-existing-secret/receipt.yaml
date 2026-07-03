@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install redis redis --repo https://charts.bitnami.com/bitnami
-        --version 25.5.3 --namespace redis-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/regular-helm-values.yaml
+        --version 25.5.3 --namespace redis-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 55f424589dfd8581580a51659cdf46e52180961ddbf9f6b7b244d0aacc42546f
       objectCount: 13
@@ -64,7 +64,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/bitnami/redis/25.5.3
         --base reuse-existing-secret --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-redis-mqavbiun-m9s-redis
         --non-interactive --namespace redis-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -163,11 +163,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-redis-mqavbiun-m9s\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-redis-mqavbiun-m9s\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -178,7 +178,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-redis-mqavbiun-m9s\"\nYou can\
       \ now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-redis-mqavbiun-m9s\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-redis-mqavbiun-m9s.kubeconfig\n\
       \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
       Installing Argo CD...\nCreating namespace \"argocd\"...\napiVer"
   - name: target-facts-regular-helm
@@ -229,7 +229,7 @@ spec:
         lane: regularHelm
         sourceNamespace: redis
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-regular-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -245,7 +245,7 @@ spec:
         lane: configHubKubectlApply
         sourceNamespace: redis
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -261,4 +261,4 @@ spec:
         lane: configHubOciArgo
         sourceNamespace: redis
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/bitnami-redis-reuse-existing-secret/target-facts-confighub-oci.yaml

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install descheduler descheduler --repo https://kubernetes-sigs.github.io/descheduler/
-        --version 0.36.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/descheduler-descheduler-default/regular-helm-values.yaml
+        --version 0.36.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/descheduler-descheduler-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707
@@ -78,7 +78,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/descheduler/descheduler/0.36.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/descheduler/descheduler/0.36.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-desche-1d534-ji8m-descheduler
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

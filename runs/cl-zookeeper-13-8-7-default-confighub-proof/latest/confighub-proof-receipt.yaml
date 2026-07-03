@@ -46,7 +46,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/cl-zookeeper-13-8-7-default --space helm-cl-zookeeper-13-8-7-default-confighub-proof --component Zookeeper1387 --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=Zookeeper1387 --unit-label HelmChart=bitnami-zookeeper --unit-label HelmChartVersion=13.8.7 --unit-label Variant=default --unit-label Proof=cl-zookeeper-13-8-7-default-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-cl-zookeeper-13-8-7-default-confighub-proof"
     unitCount: 9
     kubernetesUnitCount: 8
@@ -87,6 +87,6 @@ spec:
       - "helm-cl-zookeeper-13-8-7-default-confighub-proof"
       - "Zookeeper1387-default-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

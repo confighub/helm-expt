@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pgadmin4 pgadmin4 --repo https://helm.runix.net
-        --version 1.62.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/runix-pgadmin4-default/regular-helm-values.yaml
+        --version 1.62.0 --namespace default --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/runix-pgadmin4-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/runix/pgadmin4/1.62.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/runix/pgadmin4/1.62.0
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-pgadmi-2244d-nrgm-pgadmin4
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
-        --version 1.24.4 --namespace tempo --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/regular-helm-values.yaml
+        --version 1.24.4 --namespace tempo --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: tempo
       manifestSHA256: 4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed
@@ -70,7 +70,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/tempo/1.24.4
         --base s3-query-observability --work-dir /tmp/helm-expt-kind-parity-hx-tempo-b030a-q44y-tempo
         --non-interactive --namespace tempo
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -160,7 +160,7 @@ spec:
         serviceName: tempo-object-store
         bucket: tempo-traces
         lane: regularHelm
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -180,5 +180,5 @@ spec:
         serviceName: tempo-object-store
         bucket: tempo-traces
         lane: cubInstallerApply
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-installer.yaml
     requiredValues: []

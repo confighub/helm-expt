@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install opentelemetry-operator opentelemetry-operator
         --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-        0.114.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
+        0.114.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-opente-77130-vdcg-opentelemetry-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -177,7 +177,7 @@ spec:
         sourceVariant: default
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets:
@@ -207,7 +207,7 @@ spec:
         sourceVariant: default
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

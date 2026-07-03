@@ -38,13 +38,13 @@ data/outcome-coverage/base-outcomes.csv
 Use the ConfigHub Pilot checkout on this laptop:
 
 ```text
-/Users/alexis/code/confighub-ai-demo
+$HOME/code/confighub-ai-demo
 ```
 
 The repo-local front door is:
 
 ```sh
-/Users/alexis/code/confighub-ai-demo/scripts/pilot
+$HOME/code/confighub-ai-demo/scripts/pilot
 ```
 
 Start with the automated read-only package gate over all 20 current installer
@@ -94,20 +94,20 @@ Kubernetes runtime observation, and cleanup/closeout receipts.
 Useful single-chart probes:
 
 ```sh
-cd /Users/alexis/code/confighub-ai-demo
+cd $HOME/code/confighub-ai-demo
 ./scripts/pilot start \
-  --repo /Users/alexis/code/helm-expt \
-  --task-brief-file /Users/alexis/code/helm-expt/docs/planning/pilot-adversarial-testing.md \
+  --repo $HOME/code/helm-expt \
+  --task-brief-file $HOME/code/helm-expt/docs/planning/pilot-adversarial-testing.md \
   --out-dir /tmp/helm-expt-pilot-start \
   --json
 
 ./scripts/pilot installer-render-preview \
-  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --source $HOME/code/helm-expt/packages/bitnami/redis/25.5.3 \
   --out-dir /tmp/helm-expt-pilot-redis-preview \
   --json
 
 ./scripts/pilot installer-e2e-gate \
-  --source /Users/alexis/code/helm-expt/packages/bitnami/redis/25.5.3 \
+  --source $HOME/code/helm-expt/packages/bitnami/redis/25.5.3 \
   --out-dir /tmp/helm-expt-pilot-redis-gate \
   --json
 ```
@@ -171,7 +171,7 @@ recommended fix
 Use this as the main Pilot instruction:
 
 ```text
-You are Pilot running an adversarial test of /Users/alexis/code/helm-expt.
+You are Pilot running an adversarial test of $HOME/code/helm-expt.
 
 Your job is to falsify, not flatter, the ConfigHub Helm proof claims.
 

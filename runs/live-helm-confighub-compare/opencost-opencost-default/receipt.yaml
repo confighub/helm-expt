@@ -49,7 +49,7 @@ spec:
     regularHelm:
       result: watch
       command: helm upgrade --install opencost opencost --repo https://opencost.github.io/opencost-helm-chart
-        --version 2.5.21 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
+        --version 2.5.21 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc
       objectCount: 6
@@ -114,7 +114,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: watch
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -1001,7 +1001,7 @@ spec:
     elapsedSeconds: 482.886
     timeoutSeconds: 900
     command: helm upgrade --install opencost opencost --repo https://opencost.github.io/opencost-helm-chart
-      --version 2.5.21 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
+      --version 2.5.21 --namespace default-helm --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
@@ -1009,7 +1009,7 @@ spec:
     finishedAt: '2026-06-17T19:08:09Z'
     elapsedSeconds: 0.418
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
@@ -1018,9 +1018,9 @@ spec:
     finishedAt: '2026-06-17T19:08:09Z'
     elapsedSeconds: 0.122
     timeoutSeconds: 300
-    command: kubectl --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig
       --context kind-helm-expt-parity-opencost-mqifp7vp-a81 apply --server-side --force-conflicts
-      -f /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/direct-apply-manifest.yaml
+      -f $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/direct-apply-manifest.yaml
     objectCount: 6
   - name: configHub-direct-readiness
     result: watch
@@ -1035,7 +1035,7 @@ spec:
     finishedAt: '2026-06-17T19:08:45Z'
     elapsedSeconds: 0.297
     timeoutSeconds: 360
-    command: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
+    command: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/opencost/opencost/2.5.21
       --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opencost-mqifp7vp-a81-opencost
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
@@ -1070,7 +1070,7 @@ spec:
     elapsedSeconds: 0.942
     timeoutSeconds: 180
     command: cub unit create --space helm-expt-parity-opencost-mqifp7vp-a81-cluster
-      opencost-parity-app /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/argo-application.json
+      opencost-parity-app $HOME/code/helm-expt-claude-clone-wt-688/runs/live-helm-confighub-compare/opencost-opencost-default/argo-application.json
       --target helm-expt-parity-opencost-mqifp7vp-a81-cluster/oci --allow-exists
   - name: configHub-oci-app-apply
     result: pass
@@ -1100,11 +1100,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-opencost-mqifp7vp-a81\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-opencost-mqifp7vp-a81\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -1115,7 +1115,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-opencost-mqifp7vp-a81\"\nYou\
       \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opencost-mqifp7vp-a81\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opencost-mqifp7vp-a81.kubeconfig\n\
       \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
       \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: a"
   - name: target-facts-regular-helm

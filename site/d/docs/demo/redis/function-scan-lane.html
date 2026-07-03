@@ -410,19 +410,19 @@ Space: helm-redis-confighub-proof
 Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
 <p>Commands:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-format \
+  <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-format \
   --space helm-redis-confighub-proof \
   --where &quot;Labels.Proof = 'redis-confighub-proof'&quot; \
   --output json \
   --wait
 
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-placeholders \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-placeholders \
   --space helm-redis-confighub-proof \
   --where &quot;Labels.Proof = 'redis-confighub-proof'&quot; \
   --output json \
   --wait
 
-CUB_CONFIG=/Users/alexis/.confighub/config.yaml cub function vet vet-merge-keys \
+CUB_CONFIG=$HOME/.confighub/config.yaml cub function vet vet-merge-keys \
   --space helm-redis-confighub-proof \
   --where &quot;Labels.Proof = 'redis-confighub-proof'&quot; \
   --output json \

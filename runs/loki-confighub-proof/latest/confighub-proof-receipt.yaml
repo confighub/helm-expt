@@ -45,7 +45,7 @@ spec:
   upload:
     command: "cub installer upload --work-dir .tmp/confighub-proof/loki-single-binary-filesystem --space helm-loki-confighub-proof --component Loki --layer App --environment Demo --owner ConfigHubHelm --variant single-binary-filesystem --unit-label Component=Loki --unit-label HelmChart=grafana-loki --unit-label HelmChartVersion=7.0.0 --unit-label Variant=single-binary-filesystem --unit-label Proof=loki-confighub-proof --retry"
     result: "pass"
-    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    workaround: "CUB_CONFIG=$HOME/.confighub/config.yaml"
     space: "helm-loki-confighub-proof"
     unitCount: 21
     kubernetesUnitCount: 20
@@ -86,6 +86,6 @@ spec:
       - "helm-loki-confighub-proof"
       - "Loki-staging"
   observedFriction:
-    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup ($HOME/.confighub/config.yaml)."
     - "pre-upload cub installer plan is expected to fail until upload state exists."
     - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

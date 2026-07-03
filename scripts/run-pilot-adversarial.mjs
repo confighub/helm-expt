@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { basename, dirname, join, relative, resolve } from "node:path";
 
 const repoRoot = resolve(dirname(new URL(import.meta.url).pathname), "..");
-const defaultPilotRoot = "/Users/alexis/code/confighub-ai-demo";
+const defaultPilotRoot = "$HOME/code/confighub-ai-demo";
 
 function argValue(name, fallback = "") {
   const exact = process.argv.find((arg) => arg.startsWith(`${name}=`));

@@ -48,7 +48,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
-        --version 2.19.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/kedacore-keda-no-crds/regular-helm-values.yaml
+        --version 2.19.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/kedacore-keda-no-crds/regular-helm-values.yaml
         --wait --timeout 600s
       manifestSHA256: c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7
       objectCount: 23
@@ -74,7 +74,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kedacore/keda/2.19.0
         --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-keda-no-crds-1781312712-kedacore-keda
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -430,11 +430,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-keda-no-crds-1781312712\" (kubeconfig:\
-      \ /Users/alexis/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig)...\n\
+      \ $HOME/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-keda-no-crds-1781312712\" ...\n \u2022 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
       \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
@@ -445,7 +445,7 @@ spec:
       \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
       \nSet kubectl context to \"kind-helm-expt-parity-keda-no-crds-1781312712\"\n\
       You can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-keda-no-crds-1781312712\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-keda-no-crds-1781312712.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
       \ \U0001F642\nInstalling Argo CD...\nC"
   - name: target-facts-regular-helm

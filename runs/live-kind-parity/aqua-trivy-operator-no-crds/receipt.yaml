@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install trivy-operator trivy-operator --repo https://aquasecurity.github.io/helm-charts/
-        --version 0.32.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/regular-helm-values.yaml
+        --version 0.32.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492
@@ -71,7 +71,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/aqua/trivy-operator/0.32.1
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-trivyo-1b6ad-4onm-trivy-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
@@ -197,7 +197,7 @@ spec:
         sourceVariant: default
         lane: regularHelm
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-helm.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
@@ -239,7 +239,7 @@ spec:
         sourceVariant: default
         lane: cubInstallerApply
       stagedObjectStores: []
-      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-installer.yaml
+      path: $HOME/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

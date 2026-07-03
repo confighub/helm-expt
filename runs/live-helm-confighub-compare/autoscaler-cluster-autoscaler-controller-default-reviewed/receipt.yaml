@@ -50,7 +50,7 @@ spec:
       result: pass
       command: helm upgrade --install cluster-autoscaler cluster-autoscaler --repo
         https://kubernetes.github.io/autoscaler --version 9.57.0 --namespace default-helm
-        --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/regular-helm-values.yaml
+        --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/autoscaler-cluster-autoscaler-controller-default-reviewed/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: b89d1d1b0acbcfc12528c4aa8b29451000eb5734e04818aeedabf713c958837a
       objectCount: 8
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/autoscaler/cluster-autoscaler/9.57.0
         --base controller-default-reviewed --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-clusterautoscaler-mqcasosi-151d-cluster-autoscaler
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -292,11 +292,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-clusterautoscaler-mqcasosi-151d\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-clusterautoscaler-mqcasosi-151d\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -307,7 +307,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-clusterautoscaler-mqcasosi-151d\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-clusterautoscaler-mqcasosi-151d\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-clusterautoscaler-mqcasosi-151d.kubeconfig\n\
       \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
       argocd\""
   - name: target-facts-regular-helm

@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install alloy alloy --repo https://grafana.github.io/helm-charts
-        --version 1.8.2 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-alloy-no-crds/regular-helm-values.yaml
+        --version 1.8.2 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-alloy-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22
@@ -67,7 +67,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/alloy/1.8.2
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/alloy/1.8.2
         --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-alloy-516f7-q9pj-alloy
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

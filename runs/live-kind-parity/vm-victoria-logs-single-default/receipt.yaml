@@ -41,7 +41,7 @@ spec:
       result: pass
       command: helm upgrade --install victoria-logs-single victoria-logs-single --repo
         https://victoriametrics.github.io/helm-charts --version 0.12.5 --namespace
-        default --create-namespace --values /Users/alexis/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/vm-victoria-logs-single-default/regular-helm-values.yaml
+        default --create-namespace --values $HOME/code/helm-expt-claude-clone-wt-688/runs/live-kind-parity/vm-victoria-logs-single-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04
@@ -68,7 +68,7 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt-claude-clone-wt-688/packages/vm/victoria-logs-single/0.12.5
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt-claude-clone-wt-688/packages/vm/victoria-logs-single/0.12.5
         --base default --work-dir /tmp/helm-expt-kind-parity-hx-victor-0cb4b-anl5-victoria-logs-single
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated

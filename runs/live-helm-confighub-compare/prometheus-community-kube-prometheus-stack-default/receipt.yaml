@@ -42,7 +42,7 @@ spec:
       result: pass
       command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
         --repo https://prometheus-community.github.io/helm-charts --version 85.3.3
-        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
+        --namespace monitoring-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491
       objectCount: 124
@@ -78,7 +78,7 @@ spec:
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
+      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
         --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz-kube-prometheus-stack
         --non-interactive --namespace monitoring-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
@@ -200,11 +200,11 @@ spec:
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
   - name: cub-lk-up
     result: pass
     detail: "Creating kind cluster \"helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz\"\
-      \ (kubeconfig: /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz.kubeconfig)...\n\
+      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz.kubeconfig)...\n\
       Creating cluster \"helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
@@ -215,7 +215,7 @@ spec:
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
       \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz\"\
       \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz\
-      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz.kubeconfig\n\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-kubeprometheudecd9-mq6gxaw5-jvz.kubeconfig\n\
       \nHave a question, bug, or feature request? Let us know! https://kind."
   - name: target-facts-regular-helm
     result: pass
@@ -277,7 +277,7 @@ spec:
         - key
         lane: configHubKubectlApply
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/target-facts-confighub-apply.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -288,4 +288,4 @@ spec:
         - key
         lane: configHubOciArgo
       stagedCRDs: []
-      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/target-facts-confighub-oci.yaml
+      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/target-facts-confighub-oci.yaml
