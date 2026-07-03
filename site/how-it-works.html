@@ -497,7 +497,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
-    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#presets">preset chart configuration</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
   </div>
 </header>
 <main>
@@ -532,7 +532,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
-  <p>Each chart ships a recommended <strong>default</strong> chart preset plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>Each chart ships a recommended <strong>default</strong> base variant plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
@@ -545,8 +545,8 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
-  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → render variant) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
-  <p>For any chart preset, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
+  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>For any base variant, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
   <table class="gtable">
     <tr><th>What to open</th><th>What it tells you</th></tr>
     <tr><td><code>rendered/release-objects.yaml</code></td><td>The Kubernetes objects captured from one reviewed render. This is the output, not the whole model.</td></tr>
@@ -561,10 +561,10 @@ em{font-style:italic;color:var(--ink);}
   </div>
 
   <div class="fstage star">
-    <span class="ftag">RENDER</span><span class="codetag">F2 · base → render variant</span>
+    <span class="ftag">RENDER</span><span class="codetag">F2 · base → rendered output</span>
     <h3>Render: inputs first, then the frozen objects</h3>
-    <p>A <strong>base variant</strong> is the repo term for a <a href="./charts/index.html#presets">preset chart configuration</a>: a named render choice such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>render variant</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The render variant is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new chart preset; change only the operating context → no re-render.</p>
-    <p><strong>Example:</strong> Redis <code>default</code> has a package users pull, <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code>; a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> that records the Helm inputs; and a full rendered YAML output, <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repo source for that preset. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="d/data/helm-render-intents/summary.html">the render-intent summary</a>.</p>
+    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice — chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>rendered output</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The rendered output is never re-rendered — it's what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em>: change the object set → a new base variant; change only the operating context → no re-render.</p>
+    <p><strong>Example:</strong> Redis <code>default</code> has a package users pull, <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code>; a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> that records the Helm inputs; and a full rendered YAML output, <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repo source for that base variant. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="d/data/helm-render-intents/summary.html">the render-intent summary</a>.</p>
   </div>
 
   <div class="fstage">
@@ -577,7 +577,7 @@ em{font-style:italic;color:var(--ink);}
     <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
     <h3>Route: the work Helm leaves at the edges</h3>
     <p>Helm can do more than produce ordinary YAML. A chart may install CRDs first, run setup jobs, create webhook certificates, generate Secrets, or expect a cloud account, StorageClass, IngressClass, namespace, or existing Secret to be ready.</p>
-    <p>We help you make the right choice for each chart, then track that choice with recorded inputs, generated output, tests, and receipts. For each chart preset, the catalog records the decision: include the CRDs, offer a no-CRDs preset because the cluster owns them, run a tested setup step, require an existing Secret or target fact, or mark the path blocked when there is no safe default. A route is that recorded choice and evidence boundary. It is not automatic execution unless the route says so and the evidence proves it.</p>
+    <p>We help you make the right choice for each chart, then track that choice with recorded inputs, generated output, tests, and receipts. For each base variant, the catalog records the decision: include the CRDs, offer a no-CRDs base variant because the cluster owns them, run a tested setup step, require an existing Secret or target fact, or mark the path blocked when there is no safe default. A route is that recorded choice and evidence boundary. It is not automatic execution unless the route says so and the evidence proves it.</p>
   </div>
 
   <div class="fstage star">
@@ -589,7 +589,7 @@ em{font-style:italic;color:var(--ink);}
   <h3>The three kinds of variant: Variants, in one picture</h3>
   <table class="gtable">
     <tr><th>Kind</th><th>What it is</th><th>Re-renders Helm?</th><th>Lives in</th></tr>
-    <tr><td><strong>Base variant / chart preset</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new chart preset.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
+    <tr><td><strong>Base variant / base variant</strong></td><td>A reviewed install <em>shape</em> (default, no-crds, ha…). Changing what gets installed means a new base variant.</td><td>Yes — and it's checked against Helm</td><td>the recipe</td></tr>
     <tr><td><strong>Render variant</strong></td><td>The <em>frozen, checksummed output</em> of a base — the exact objects.</td><td>No — it's already rendered</td><td>the recipe</td></tr>
     <tr><td><strong>Derived variant</strong></td><td>A change derived from a base — per-environment context or later edits.</td><td>No</td><td>ConfigHub</td></tr>
   </table>
@@ -600,7 +600,7 @@ em{font-style:italic;color:var(--ink);}
     <tr><th>We chose to…</th><th>…because</th></tr>
     <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
     <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers — no re-render drift between review and runtime.</td></tr>
-    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per chart preset.</td></tr>
+    <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
     <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
     <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
@@ -632,7 +632,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>Check file</th><th>Question it answers</th></tr>
     <tr><td><code>render-receipt</code></td><td>Did the same inputs produce the same Kubernetes objects twice?</td></tr>
-    <tr><td><code>helm-equivalence-receipt</code></td><td>Does the cub render match plain <code>helm template</code> for this chart preset?</td></tr>
+    <tr><td><code>helm-equivalence-receipt</code></td><td>Does the cub render match plain <code>helm template</code> for this base variant?</td></tr>
     <tr><td><code>scan-receipt</code></td><td>What security findings were found in the rendered objects?</td></tr>
     <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
     <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
@@ -700,7 +700,7 @@ spec:
     <tr><th>Status or label</th><th>What it means</th></tr>
     <tr><td><code>pass</code></td><td>The named check has committed evidence. Open the receipt if you need to see exactly what was tested.</td></tr>
     <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
-    <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another chart preset, use Helm directly, or add the missing setup work.</td></tr>
+    <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another base variant, use Helm directly, or add the missing setup work.</td></tr>
     <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
     <tr><td>GitOps delivery</td><td>Argo from OCI has end-to-end receipts. Flux from OCI and no-controller paths stay labelled in progress until they have the same proof.</td></tr>
   </table>

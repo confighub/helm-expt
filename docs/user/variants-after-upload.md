@@ -1,8 +1,8 @@
 # After Upload: Create A Variant And Promote Changes
 
-**UNOFFICIAL/EXPERIMENTAL.** Commands on this page were verified against `cub <verb> --help` and a live end-to-end run (upload, two variants, base edit, promotions, cleanup) on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per chart preset.
+**UNOFFICIAL/EXPERIMENTAL.** Commands on this page were verified against `cub <verb> --help` and a live end-to-end run (upload, two variants, base edit, promotions, cleanup) on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per base variant.
 
-You ran a preset's `confighub.sh` (or `cub installer upload` yourself). Your rendered chart objects now live in a ConfigHub Space as Units. This page is the next step: make an environment version of that Space, change it safely, and pull reviewed base changes forward when the base moves.
+You ran a base variant's `confighub.sh` (or `cub installer upload` yourself). Your rendered chart objects now live in a ConfigHub Space as Units. This page is the next step: make an environment version of that Space, change it safely, and pull reviewed base changes forward when the base moves.
 
 ## The whole chain, with the variants labeled
 
@@ -14,7 +14,7 @@ chart -> base variant (chosen with --base) -> OCI package
       -> derived variants (staging, production) -> promote
 ```
 
-A **base variant** is a preset: a named Helm render choice such as default, no-crds, or reuse-existing-secret. The chart page calls it a preset chart configuration; `--base` picks it. A **derived variant** is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.
+A **base variant** is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret; `--base` picks it. A **derived variant** is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.
 
 ## The one decision, restated
 
@@ -94,6 +94,6 @@ Validation triggers run on the changed Units. A failing check attaches an apply 
 ## Honest boundaries
 
 - Only Spaces created by `cub variant create` can be promoted with `cub variant promote`. It follows the upstream link recorded at create time; a Space made any other way has no such link.
-- Rendered Secrets are not uploaded. Stage them out of band; the preset's `try.sh` and chart page record what each preset needs.
+- Rendered Secrets are not uploaded. Stage them out of band; the base variant's `try.sh` and chart page record what each base variant needs.
 - `cub variant upload` also exists, as a general way to seed a base Space from any rendered manifests. The catalog path uses `cub installer upload`, which additionally records the package.
-- The committed proof for this flow is the [master catalog matrix](../../data/master-catalog-matrix/summary.md) Promotion lane per chart preset. This page is the user-facing walkthrough of the same mechanism, not a separate proof.
+- The committed proof for this flow is the [master catalog matrix](../../data/master-catalog-matrix/summary.md) Promotion lane per base variant. This page is the user-facing walkthrough of the same mechanism, not a separate proof.
