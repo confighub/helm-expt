@@ -1,15 +1,15 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HookOciDeliveryProofReceipt"
 metadata:
-  name: "hx-ocihook-20260621-wxl"
+  name: "hx-ocihook-20260703-k3m"
 spec:
   fixture: "tests/fixtures/hook-replacement-probe"
   ociHost: "oci.hub.confighub.com:443"
-  observedAt: "2026-06-21T12:30:34.002Z"
+  observedAt: "2026-07-03T08:41:50.263Z"
   result: "pass"
   claim: "ConfigHub publishes the routed hook fixture ONCE to its OCI registry, and the same OCI bundle is consumed by Argo CD (OCI Application), Flux (OCIRepository), and cub-direct (oras pull + kubectl) — with the routed hook observed running under each. OCI is the single transport; the delivery tool is a choice."
   run:
-    rig: "hx-ocihook-20260621-wxl"
+    rig: "hx-ocihook-20260703-k3m"
     publish: "pass"
     cleanup:
       result: "pass"

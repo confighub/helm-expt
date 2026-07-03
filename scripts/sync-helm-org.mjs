@@ -47,6 +47,90 @@ function parseCsv(text) {
   });
 }
 
+// routes.csv quotes comma-laden fields (hook_phases), so it needs a real
+// quote-aware split — the naive parseCsv above would shift its columns.
+function splitCsvLine(line) {
+  const cells = [];
+  let cell = "", inQuotes = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') { cell += '"'; i += 1; }
+      else if (ch === '"') inQuotes = false;
+      else cell += ch;
+    } else if (ch === '"') inQuotes = true;
+    else if (ch === ",") { cells.push(cell); cell = ""; }
+    else cell += ch;
+  }
+  cells.push(cell);
+  return cells;
+}
+
+function parseCsvQuoted(text) {
+  const [headerLine, ...lines] = text.split("\n").filter(Boolean);
+  const headers = splitCsvLine(headerLine);
+  return lines.map((line) => {
+    const cells = splitCsvLine(line);
+    return Object.fromEntries(headers.map((h, i) => [h, cells[i] ?? ""]));
+  });
+}
+
+function renderRecordYaml() {
+  return `apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderRecord"
+metadata:
+  name: "hashicorp-vault-demo-base"
+  labels:
+    sketch: "unbuilt-entity"
+spec:
+  recipeUnit: "recipe"
+  chart:
+    name: "hashicorp/vault"
+    version: "0.32.0"
+  base: "default"
+  renderedBy: "cub installer (client-side render; the server never saw the act)"
+  renderedAt: "2026-07-03T08:07:00Z"
+  outputUnits: 13
+  renderLinks: "one exemplar rendered-from Link on statefulset-vault-vault (org link quota is nearly spent; the full set is this record)"
+  status: "sketch"
+  note: >-
+    This unit sketches an entity the product does not have. Rendering happens
+    client-side today; the server records no render operation, no inputs, no
+    provenance. When render records become first-class product objects, this
+    convention collapses into one.
+`;
+}
+
+function lifecycleRouteYaml(r) {
+  const list = (value) => value.split(";").map((v) => v.trim()).filter(Boolean).map((v) => `    - "${v}"`).join("\n");
+  return `apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "${r.route_name}"
+  labels:
+    sketch: "unbuilt-entity"
+    quirkClass: "${r.quirk_class}"
+spec:
+  chart: "${r.chart}"
+  version: "${r.version}"
+  quirkClass: "${r.quirk_class}"
+  hookPhases: "${r.hook_phases}"
+  routeName: "${r.route_name}"
+  executionMode: "${r.execution_mode}"
+  automatic: false
+  alternatives:
+${list(r.alternatives)}
+  disposition: "${r.disposition}"
+  evidence:
+${list(r.evidence_or_next_action)}
+  note: >-
+    Sketch of an entity the product does not have: a lifecycle route as an
+    addressable object. Today this row lives in repo CSV, space labels, and
+    unit annotations; automatic stays false until the product executes the
+    route and committed evidence proves it.
+`;
+}
+
 // Route labels mirror the committed matrix fields verbatim; sparse data stays
 // visibly sparse (none-recorded) rather than being dressed up. CrdRoute is
 // structural: a chart that ships a no-crds base variant has separable CRDs.
@@ -360,6 +444,53 @@ if (mode === "--exhibits") {
     cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/telemetry", "--annotation-value", "enabled", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base telemetry release alongside the dev departure (same-map departures do not auto-merge)"]);
     cub(["run", "set-annotation", "--annotation-key", "vault.confighub.com/release-track", "--annotation-value", "stable", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Reconcile: adopt the base release-track stamp"]);
     results.push(["promotion-interplay", "created", "demo base + 3 envs; replicas departures merged with releases; dev same-map departure reconciled explicitly"]);
+  }
+
+  // E7 sketches of the unbuilt: the things the catalog talks about that have
+  // no product entity yet beyond the recipe unit — the act of rendering,
+  // render provenance, and lifecycle routes. Same move as the recipe unit: a
+  // convention in today's primitives that collapses into the product object
+  // when it exists. Link quota is nearly spent (measured 977/1000), so
+  // provenance gets ONE exemplar Link; the render-record unit describes the
+  // full set.
+  if (spaceExists("hashicorp-vault-demo-base")) {
+    let rr = "exists";
+    try { cub(["unit", "get", "render-record", "--space", "hashicorp-vault-demo-base"]); } catch { rr = "absent"; }
+    if (rr === "absent") {
+      const sketchDir = mkdtempSync(join(tmpdir(), "sketch-"));
+      try {
+        const recordPath = join(sketchDir, "render-record.yaml");
+        write(recordPath, renderRecordYaml());
+        cub(["unit", "create", "--space", "hashicorp-vault-demo-base", "render-record", recordPath, "--change-desc", "Sketch the render-record entity the product does not have yet: records the act of rendering that today happens client-side and unrecorded"]);
+        cub(["link", "create", "--space", "hashicorp-vault-demo-base", "rendered-from-recipe", "statefulset-vault-vault", "recipe"]);
+      } finally {
+        rmSync(sketchDir, { recursive: true, force: true });
+      }
+    }
+    results.push(["sketch-render-record", rr === "absent" ? "created" : "exists", "render-record unit + one exemplar rendered-from-recipe Link in hashicorp-vault-demo-base"]);
+  } else {
+    results.push(["sketch-render-record", "FAILED", "missing hashicorp-vault-demo-base"]);
+  }
+  if (spaceExists("route-sketch-kube-prometheus-stack")) {
+    results.push(["route-sketch", "exists", "route-sketch-kube-prometheus-stack present; skipped"]);
+  } else {
+    cub(["space", "create", "route-sketch-kube-prometheus-stack",
+      "--label", "Component=prometheus-community-kube-prometheus-stack",
+      "--label", "Exhibit=route-sketch", "--label", "Sketch=unbuilt-entity",
+      "--label", "ProofReceipt=hook-lifecycle"]);
+    const routeRows = parseCsvQuoted(readFileSync(join(repoRoot, "data", "lifecycle-routes", "routes.csv"), "utf8"))
+      .filter((r) => r.chart === "prometheus-community/kube-prometheus-stack");
+    const stage = mkdtempSync(join(tmpdir(), "routes-"));
+    try {
+      for (const r of routeRows) {
+        const p = join(stage, `route-${r.route_name}.yaml`);
+        write(p, lifecycleRouteYaml(r));
+        cub(["unit", "create", "--space", "route-sketch-kube-prometheus-stack", `route-${r.route_name}`, p, "--change-desc", "Sketch lifecycle route as an addressable unit (unbuilt product entity); mirrors data/lifecycle-routes verbatim"]);
+      }
+      results.push(["route-sketch", "created", `${routeRows.length} LifecycleRoute unit(s), namespace-less so no Link cost`]);
+    } finally {
+      rmSync(stage, { recursive: true, force: true });
+    }
   }
 
   const csv = [["exhibit", "result", "detail"], ...results].map((row) => row.join(",")).join("\n");

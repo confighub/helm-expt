@@ -33,3 +33,26 @@ Also observed while building: `set-env-var` no-ops (with success output) when
 the variable is not already present in the pod spec; and `Config data changed`
 is a substring of `Config data not changed`, so scripted greps must match the
 full line.
+
+## Live delivery leg + sketches (2026-07-03)
+
+The hooks exhibit's claim ran live from this org: the fixture published once to
+the org's OCI registry, pulled by Argo CD, Flux, and the no-controller direct
+applier on a throwaway cub-lk rig — hook Job observed completing under each,
+**all three legs pass** (`runs/oci-hook-delivery-proof/receipt.yaml`, rig
+`hx-ocihook-20260703-k3m`, cleaned after). The CRD-ordering contract was
+re-proven the same session: bundle-order apply fails with the named error,
+CRD-first-with-wait succeeds (`runs/crd-ordering-gap/receipt.yaml`, `watch` by
+design — the gap is the finding).
+
+Sketches of the unbuilt (the #4369-shaped entities, expressed in today's
+primitives, same move as the recipe unit): `render-record` unit + one exemplar
+`rendered-from-recipe` Link in `hashicorp-vault-demo-base`; seven addressable
+`LifecycleRoute` units in `route-sketch-kube-prometheus-stack`, each honestly
+`automatic: false` with evidence pointers.
+
+**Quota correction:** cloned variant spaces DO carry links (they appear
+asynchronously after clone; an earlier count read zero). Org total measured at
+**977/1,000** after the sketches — 23 headroom. Render provenance therefore
+ships as one exemplar Link, not one per unit; further trees need quota room or
+a raise.

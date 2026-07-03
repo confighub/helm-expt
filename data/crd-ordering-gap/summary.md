@@ -8,7 +8,7 @@ The doctrine's third delivery path — **cub-direct** (pull the OCI bundle + `ku
 
 | Action | Custom resource created? |
 | --- | --- |
-| `kubectl apply -f <bundle>` (CRD + CR together) | **no** — `error: resource mapping not found for name: "my-widget" namespace: "default" from "/var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/crdgap-Q` |
+| `kubectl apply -f <bundle>` (CRD + CR together) | **no** — `error: resource mapping not found for name: "my-widget" namespace: "default" from "/var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/crdgap-b` |
 | apply CRD → `wait --for=condition=established` → apply CR | yes (the fix) |
 
 Overall: **watch**. Confirmed: the cub-direct first install of a CRD-bearing bundle fails — the CR applies before the CRD is established. Ordering CRD-first + waiting fixes it. So the no-controller path must install CRDs first (or wait/retry), or use a controller. Same theme as the prune gap: cub-direct is apply-only.
