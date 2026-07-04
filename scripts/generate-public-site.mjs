@@ -919,7 +919,7 @@ function docTitleOf(markdown, repoPath) {
 
 function docPageCss() {
   return `
-    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .94rem; }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
     .doc-body th { background: var(--panel); }
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
@@ -1092,7 +1092,7 @@ function audienceLabel(text) {
 
 function humanLinks(links = []) {
   if (!links.length) return "";
-  return `<p style="margin-top:14px;font-size:.95rem">${links.map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`).join(" · ")}</p>`;
+  return `<p style="margin-top:14px;font-size:.9rem">${links.map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`).join(" · ")}</p>`;
 }
 
 function referenceStartHtml(body = "The rest of this page is reference material: commands, data links, proof notes, and edge cases.") {
@@ -1306,14 +1306,14 @@ function howItWorksHtml(catalog) {
 .vs .col.helm{background:var(--panel);}
 .vs h3{margin:0 0 8px;font-size:1rem;}
 .vs ul{margin:0;padding-left:18px;}
-.vs li{margin:4px 0;font-size:.95rem;color:var(--ink);}
+.vs li{margin:4px 0;font-size:.9rem;color:var(--ink);}
 .fstage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px 16px;margin:10px 0;background:var(--surface);}
 .fstage .ftag{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);font-weight:700;letter-spacing:.03em;}
-.fstage h3{margin:3px 0 6px;font-size:1.1rem;}
-.fstage p{margin:0;font-size:.96rem;}
+.fstage h3{margin:3px 0 6px;font-size:1.06rem;}
+.fstage p{margin:0;font-size:.9rem;}
 .fstage.star{border-left-color:var(--good);background:#f4faf5;}
-.pill{display:inline-block;font-size:.7rem;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px;}
-.codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
+.pill{display:inline-block;font-size:.72rem;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px;}
+.codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
 .honest{border:1px solid #f0c36d;background:#fff8e5;border-radius:8px;padding:14px 16px;margin:16px 0;}
 .honest h3{margin:0 0 6px;font-size:1rem;}
 .honest p,.honest li{color:#6d4b00;}
@@ -1322,8 +1322,8 @@ function howItWorksHtml(catalog) {
 .count{border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center;background:var(--surface);}
 .count b{display:block;font-size:1.2rem;}
 .count.pass b{color:var(--good);}.count.watch b{color:var(--warn);}.count.bad b{color:var(--bad);}
-.count span{font-size:.76rem;color:var(--muted);}
-.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem;}
+.count span{font-size:.72rem;color:var(--muted);}
+.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
 .gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
 .gtable th{background:var(--panel);}
 .yes{color:var(--good);font-weight:700;}.no{color:var(--bad);font-weight:700;}.part{color:var(--warn);font-weight:700;}
@@ -2146,7 +2146,7 @@ function legacyOfferingHtml(catalog) {
     .hero { padding-top: 56px; }
     .hero h1 { max-width: 900px; }
     .route { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 18px 0; }
-    .route div { border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--panel); font-size: .92rem; }
+    .route div { border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--panel); font-size: .9rem; }
     .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     nav { color: var(--muted); margin-bottom: 24px; }
     @media (max-width: 900px) { .route, .split { grid-template-columns: 1fr; } }
@@ -2324,18 +2324,18 @@ function tryHtml(catalog) {
 <style>${siteCss()}
 .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
 .callout p{margin:0;color:var(--ink);}
-.steps-line{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.86rem;color:var(--muted);}
+.steps-line{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.9rem;color:var(--muted);}
 .steps-line b{color:var(--accent);}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
 .two .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
 .two .box h3{margin:0 0 6px;font-size:1rem;}
 .rapply{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;}
 .rapply .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
-.rapply .box .n{font-family:ui-monospace,monospace;font-size:.74rem;color:var(--good);}
+.rapply .box .n{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--good);}
 .rapply .box h3{margin:2px 0 6px;font-size:1rem;}
-.tag{font-size:.74rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);}
+.tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);}
 .win{color:var(--good);font-weight:700;}
-.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem;}
+.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
 .gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
 .gtable th{background:var(--panel);}
 em{font-style:italic;color:var(--ink);}
@@ -3755,7 +3755,7 @@ function journeyHtml(catalog) {
   <style>${siteCss()}
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
-    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .82rem; margin-bottom: 8px; }
+    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
     .app-step h3 { margin: 0 0 8px; }
     .app-step p { margin: 0; font-size: .9rem; }
     @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
@@ -4471,7 +4471,7 @@ function installerOciStatusText(entry) {
 }
 
 function installerOciCell(entry) {
-  return `<code>${escapeHtml(installerOciRefForEntry(entry))}</code><br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(installerOciStatusText(entry))}</span>`;
+  return `<code>${escapeHtml(installerOciRefForEntry(entry))}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerOciStatusText(entry))}</span>`;
 }
 
 function firstPathCell(entry, row) {
@@ -4481,20 +4481,20 @@ function firstPathCell(entry, row) {
   if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
   else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
   else if (row?.row_kind === "base") note = "Recommended base variant to try first.";
-  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(note)}</span>`;
+  return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
 }
 
 function catalogUseCell(entry, row) {
   if (row?.row_kind === "candidate") {
-    return `<strong>Not ready yet</strong><br><span style="color:var(--muted);font-size:.86rem">This is a planned useful base, not a runnable package.</span>`;
+    return `<strong>Not ready yet</strong><br><span style="color:var(--muted);font-size:.9rem">This is a planned useful base, not a runnable package.</span>`;
   }
   if (entry.proof_surface === "top20-catalog-supported") {
-    return `<strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.86rem">This is one of the strongest public starting points.</span>`;
+    return `<strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span>`;
   }
   if (entry.proof_surface === "next80-proof-grade") {
-    return `<strong>Review first</strong><br><span style="color:var(--muted);font-size:.86rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span>`;
+    return `<strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span>`;
   }
-  return `<strong>${escapeHtml(catalogLayerLabel(entry))}</strong><br><span style="color:var(--muted);font-size:.86rem">Open the chart page for current status.</span>`;
+  return `<strong>${escapeHtml(catalogLayerLabel(entry))}</strong><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for current status.</span>`;
 }
 
 function featurePlain(feature) {
@@ -4540,7 +4540,7 @@ function configHubOptionsCell(entry, rows) {
   const baseText = bases.length
     ? `${bases.length} base option${bases.length === 1 ? "" : "s"}: ${visible.join(", ")}${bases.length > visible.length ? ", ..." : ""}`
     : entry.supported_variants || entry.candidate_variants || "Open chart page.";
-  const suffix = candidates.length ? `<br><span style="color:var(--muted);font-size:.86rem">${escapeHtml(candidates.length)} candidate or derived path${candidates.length === 1 ? "" : "s"} also shown.</span>` : "";
+  const suffix = candidates.length ? `<br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(candidates.length)} candidate or derived path${candidates.length === 1 ? "" : "s"} also shown.</span>` : "";
   return `${escapeHtml(baseText)}${suffix}`;
 }
 
@@ -4687,7 +4687,7 @@ function chartIndexHtml(catalog) {
           <label>Hooks<br><select id="hook-filter"><option value="">any</option><option value="yes">has hook/action signal</option><option value="no">no hook/action signal</option></select></label>
           <label>CRDs<br><select id="crd-filter"><option value="">any</option><option value="yes">has CRD signal</option><option value="no">no CRD signal</option></select></label>
         </div>
-        <p class="mono" id="chart-filter-count" style="font-size:.86rem"></p>
+        <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">
         <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First base variant</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Package OCI and evidence</th></tr></thead>
@@ -5182,7 +5182,7 @@ function chartPageHtml(catalog, entry) {
     <p>This page does not claim every values combination for this chart. It shows the supported base variants we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
     <p>Use this page to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
-    <p class="mono" style="font-size:.85rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
+    <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
@@ -5254,7 +5254,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       <h2 id="matrix-options">Base Variants And Options</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
-      <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
+      <p class="mono" style="font-size:.9rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
 
@@ -6238,7 +6238,7 @@ function homePageCss() {
     }
     .home-list-item p {
       margin: 0;
-      font-size: .94rem;
+      font-size: .9rem;
     }
     .home-list-item p + p {
       margin-top: 8px;
@@ -6318,7 +6318,7 @@ function siteCss() {
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
-      font-size: .92rem;
+      font-size: .9rem;
     }
     .topbar .brand {
       font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
@@ -6353,7 +6353,7 @@ function siteCss() {
     }
     .install-cub-note {
       color: var(--muted);
-      font-size: .92rem;
+      font-size: .9rem;
     }
     a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
     code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
@@ -6366,12 +6366,12 @@ function siteCss() {
       background: var(--term);
       color: #dcebfa;
       white-space: pre-wrap;
-      font-size: .86rem;
+      font-size: .9rem;
       line-height: 1.55;
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
-    .stat-strip { font-size: .95rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
     .stat-strip strong { color: var(--ink); }
     .hero-copy {
       max-width: 880px;
@@ -6421,7 +6421,7 @@ function siteCss() {
       font-weight: 600;
     }
     .quiet-line {
-      font-size: .94rem;
+      font-size: .9rem;
       color: var(--muted);
     }
     .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
@@ -6435,7 +6435,7 @@ function siteCss() {
     .door h3 { font-size: 1.06rem; margin: 0; }
     .door h3 a { color: var(--ink); text-decoration: none; }
     .door h3 a:hover { color: var(--accent); }
-    .door p { font-size: .92rem; margin: 0; }
+    .door p { font-size: .9rem; margin: 0; }
     .door pre { margin: 6px 0 0; }
     .door .go { margin-top: auto; font-size: .9rem; }
     .journey-flow {
@@ -6460,7 +6460,7 @@ function siteCss() {
     .journey-step:hover { border-color: var(--accent); }
     .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
     .journey-step h3 { font-size: 1.06rem; margin: 0; }
-    .journey-step p { font-size: .92rem; margin: 0; color: var(--muted); }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
     .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
     .journey-arrow {
       align-self: center;
@@ -6472,7 +6472,7 @@ function siteCss() {
     .chain a {
       counter-increment: step;
       border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
-      padding: 10px 10px 10px 12px; font-size: .85rem; color: var(--ink); text-decoration: none;
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
       position: relative;
     }
     .chain a:hover { border-color: var(--accent); }
@@ -6484,8 +6484,8 @@ function siteCss() {
     .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
     .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
     .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
-    .tier h3 { font-size: .98rem; }
-    .tier p { font-size: .85rem; margin: 0; }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
     .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
     .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
     .tier .badge.planned { color: var(--muted); background: var(--panel); }
@@ -6498,7 +6498,7 @@ function siteCss() {
     }
     .metric { background: var(--panel); }
     .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .82rem; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
     .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
     .card dt { color: var(--muted); }
@@ -6516,22 +6516,22 @@ function siteCss() {
     }
     .faq-card.later { border-color: #efca92; background: #fffdf8; }
     .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .faq-head h3 { margin: 0; font-size: 1.04rem; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
     .faq-status {
       flex: 0 0 auto;
       border: 1px solid var(--line);
       border-radius: 999px;
       padding: 2px 8px;
-      font-size: .76rem;
+      font-size: .72rem;
       color: var(--muted);
       background: var(--panel);
     }
     .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
     .faq-card p { max-width: none; margin: 0; }
-    .faq-links { margin-top: auto; font-size: .88rem; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
     .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-    .faq-card table { font-size: .82rem; }
-    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .8rem; border: 1px solid var(--line); }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
     .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
     .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
@@ -6553,12 +6553,12 @@ function siteCss() {
       border-radius: 999px;
       padding: 2px 8px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .74rem;
+      font-size: .72rem;
       color: var(--muted);
       background: var(--panel);
       white-space: nowrap;
     }
-    .row-purpose { margin: 0; font-size: .88rem; color: var(--muted); min-height: 2.6em; }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
     .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
     .matrix-row-card dt { color: var(--muted); }
     .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
@@ -6577,14 +6577,14 @@ function siteCss() {
       text-align: center;
       overflow: hidden;
     }
-    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .77rem; line-height: 1; }
-    .lane-pill em { font-style: normal; font-size: .66rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
     .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
     .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-    .row-links { margin: 0; font-size: .84rem; }
+    .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
     .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
@@ -6650,7 +6650,7 @@ function siteCss() {
       .journey-step { padding: 13px; gap: 6px; }
       .journey-step h3 { font-size: 1rem; }
       .journey-step p { font-size: .9rem; }
-      pre { font-size: .8rem; }
+      pre { font-size: .85rem; }
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 `;
@@ -6706,7 +6706,7 @@ function calmPageCss() {
     .calm-page dd code,
     .calm-page .mono-line code {
       font-family: inherit;
-      font-size: .95em;
+      font-size: .92em;
     }
     .calm-page pre,
     .calm-page pre code,
@@ -6769,7 +6769,7 @@ function installPageCss() {
       padding: 4px 10px;
       color: var(--muted);
       background: var(--panel);
-      font-size: .84rem;
+      font-size: .9rem;
     }
     .install-hero .terminal-card {
       margin-top: 28px;
@@ -6813,7 +6813,7 @@ function installPageCss() {
       border-bottom: 1px solid rgba(255,255,255,.12);
       color: #b7c3cf;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .82rem;
+      font-size: .78rem;
       background: #111922;
     }
     .terminal-body {
@@ -6836,7 +6836,7 @@ function installPageCss() {
     .term-prompt { color: #78d99d; font-weight: 700; }
     .mono-line {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .88rem;
+      font-size: .9rem;
       overflow-wrap: anywhere;
     }
     @media (max-width: 640px) {
