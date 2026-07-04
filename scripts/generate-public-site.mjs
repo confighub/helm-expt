@@ -1279,6 +1279,11 @@ stringData:
       <p>Some charts need extra setup before they run. Our Helm Ops Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
       <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
+
+    <section aria-labelledby="editing-vs-buying">
+      <h2 id="editing-vs-buying">Editing charts versus buying charts</h2>
+      <p>Chart catalogs change hands, licenses, and registries. When that happens, teams that only consume a catalog migrate on someone else's schedule. Teams that hold their rendered config as data can read every image reference, change it with a recorded edit, and prove the change landed in every environment. That is the difference between editing your charts and buying them.</p>
+    </section>
   </main>
   <footer>
     Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
