@@ -98,6 +98,8 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .95rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
     .hero-copy {
       max-width: 880px;
     }
@@ -396,6 +398,7 @@
   <main>
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
+      <p class="stat-strip">crds-enabled base variant: <strong>48</strong> rendered objects · <strong>3</strong> images · <strong>0</strong> lifecycle routes · <strong>7/7</strong> proof lanes passing. Every number is extracted from committed data.</p>
       <div class="grid">
         <div class="metric"><strong>crds-enabled</strong><span>Recommended first base variant</span></div>
         <div class="metric"><strong>2</strong><span>Supported base variants</span></div>

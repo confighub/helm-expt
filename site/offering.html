@@ -98,6 +98,8 @@
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .95rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
     .hero-copy {
       max-width: 880px;
     }
@@ -510,6 +512,16 @@
       <h2 id="offer">What The Offering Is</h2>
       <p>A public catalog of maintained Helm-derived packages, plus a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=offering">free ConfigHub account</a> that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
       <p>The free lane lets you browse, inspect, template, and install catalog chart bases without a ConfigHub account. With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=offering">free account</a> you can also edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane covers private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <div class="card"><table>
+        <thead><tr><th>What you get</th><th>No account</th><th>Free account</th><th>Paid</th></tr></thead>
+        <tbody><tr><td>Browse, inspect, and template catalog charts</td><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><td>Install a chart base and read the exact objects</td><td>Yes</td><td>Yes</td><td>Yes</td></tr><tr><td>Edit a rendered field and keep it through upgrades</td><td>No</td><td>Yes</td><td>Yes</td></tr><tr><td>Environment variants, diffs, and scans</td><td>No</td><td>Basic</td><td>Full</td></tr><tr><td>Private charts and custom catalogs</td><td>No</td><td>No</td><td>Yes</td></tr><tr><td>Teams, policies, and approvals</td><td>No</td><td>No</td><td>Yes</td></tr><tr><td>Fleet operations, GitOps and OCI at scale</td><td>No</td><td>No</td><td>Yes</td></tr><tr><td>Patch and upgrade services, production support</td><td>No</td><td>No</td><td>Yes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
