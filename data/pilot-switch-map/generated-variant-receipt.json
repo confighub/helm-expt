@@ -1,0 +1,36 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "PilotGeneratedVariantReceipt",
+  "intent": "A standalone redis cache with Prometheus metrics exposed.",
+  "switches": [
+    "architecture=standalone",
+    "metrics.enabled"
+  ],
+  "chart": "oci://registry-1.docker.io/bitnamicharts/redis@25.5.3",
+  "baselineObjects": 14,
+  "generatedObjects": 12,
+  "gate": {
+    "composition": {
+      "predictedAdds": 1,
+      "predictedRemoves": 4,
+      "actualAdds": 2,
+      "actualRemoves": 4,
+      "interactionObserved": true,
+      "pass": true
+    },
+    "determinism": {
+      "shaA": "06bf02a9163204f1ad964169d98f4e62750fcc0b0808050488a4c85fb5d36999",
+      "shaB": "06bf02a9163204f1ad964169d98f4e62750fcc0b0808050488a4c85fb5d36999",
+      "pass": true
+    },
+    "routes": {
+      "routedObjects": [
+        "monitoring.coreos.com/v1/ServiceMonitor/redis"
+      ],
+      "note": "Renders a ServiceMonitor, which needs the Prometheus Operator CRDs on the target. Routed as a target prerequisite, not shipped silently.",
+      "pass": true
+    },
+    "passed": true
+  },
+  "conclusion": "Parity gate passed. The generated variant is the genuine chart output for these switches, reproducible, with routed quirks named. It may exist as a ConfigHub variant."
+}

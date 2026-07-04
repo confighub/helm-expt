@@ -1,0 +1,113 @@
+{
+  "chart": "oci://registry-1.docker.io/bitnamicharts/redis@25.5.3",
+  "baselineObjects": 14,
+  "rows": [
+    {
+      "switch": "architecture=standalone",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 10,
+      "added": [],
+      "removed": [
+        "policy/v1/PodDisruptionBudget/redis-replicas",
+        "v1/ServiceAccount/redis-replica",
+        "v1/Service/redis-replicas",
+        "apps/v1/StatefulSet/redis-replicas"
+      ]
+    },
+    {
+      "switch": "sentinel.enabled",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 10,
+      "added": [
+        "policy/v1/PodDisruptionBudget/redis-node",
+        "v1/ServiceAccount/redis",
+        "v1/Service/redis",
+        "apps/v1/StatefulSet/redis-node"
+      ],
+      "removed": [
+        "policy/v1/PodDisruptionBudget/redis-master",
+        "policy/v1/PodDisruptionBudget/redis-replicas",
+        "v1/ServiceAccount/redis-master",
+        "v1/ServiceAccount/redis-replica",
+        "v1/Service/redis-master",
+        "v1/Service/redis-replicas",
+        "apps/v1/StatefulSet/redis-master",
+        "apps/v1/StatefulSet/redis-replicas"
+      ]
+    },
+    {
+      "switch": "metrics.enabled",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 15,
+      "added": [
+        "v1/Service/redis-metrics"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "tls.enabled",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 15,
+      "added": [
+        "v1/Secret/redis-crt"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "networkPolicy.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 13,
+      "added": [],
+      "removed": [
+        "networking.k8s.io/v1/NetworkPolicy/redis"
+      ]
+    },
+    {
+      "switch": "serviceBindings.enabled",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 15,
+      "added": [
+        "v1/Secret/redis-svcbind"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "podSecurityPolicy.enabled",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "volumePermissions.enabled",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "replica.replicaCount=5",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "master.count=2",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    }
+  ]
+}
