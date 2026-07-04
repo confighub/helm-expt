@@ -2182,6 +2182,17 @@ function legacyOfferingHtml(catalog) {
       <h2 id="offer">What The Offering Is</h2>
       <p>A public catalog of maintained Helm-derived packages, plus a ${signupLink("offering", "free ConfigHub account")} that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
       <p>The free lane lets you browse, inspect, template, and install catalog chart bases without a ConfigHub account. With a ${signupLink("offering", "free account")} you can also edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane covers private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      ${markdownLikeTable([
+        ["What you get", "No account", "Free account", "Paid"],
+        ["Browse, inspect, and template catalog charts", "Yes", "Yes", "Yes"],
+        ["Install a chart base and read the exact objects", "Yes", "Yes", "Yes"],
+        ["Edit a rendered field and keep it through upgrades", "No", "Yes", "Yes"],
+        ["Environment variants, diffs, and scans", "No", "Basic", "Full"],
+        ["Private charts and custom catalogs", "No", "No", "Yes"],
+        ["Teams, policies, and approvals", "No", "No", "Yes"],
+        ["Fleet operations, GitOps and OCI at scale", "No", "No", "Yes"],
+        ["Patch and upgrade services, production support", "No", "No", "Yes"],
+      ])}
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -4991,6 +5002,40 @@ function extractBaseImages(entry, variant) {
   }
 }
 
+// Count the Kubernetes objects in a base variant's reviewed rendered output.
+function countRenderedObjects(entry, variant) {
+  const revisionsDir = join(repoRoot, "recipes", entry.chart, entry.version, "revisions", variant);
+  try {
+    const revisions = readdirSync(revisionsDir).filter((name) => /^r\d+$/.test(name)).sort();
+    if (!revisions.length) return 0;
+    const rendered = readFileSync(join(revisionsDir, revisions[revisions.length - 1], "rendered", "release-objects.yaml"), "utf8");
+    return (rendered.match(/^kind:\s*\S+/gm) || []).length;
+  } catch {
+    return 0;
+  }
+}
+
+// One row of extracted numbers for a chart's starting base variant: rendered
+// objects, image references, lifecycle routes, and proof lanes passing. Every
+// figure comes from committed data, so the strip renders only what exists.
+function chartStatStrip(entry, firstRunnableRow) {
+  const variant = firstRunnableRow?.variant || entry.start_variant;
+  if (!variant) return "";
+  const objects = countRenderedObjects(entry, variant);
+  const images = extractBaseImages(entry, variant).length;
+  const routes = Number.parseInt(firstRunnableRow?.lifecycle_route_count || "0", 10) || 0;
+  const laneKeys = Object.keys(firstRunnableRow || {}).filter((key) => key.startsWith("lane_"));
+  const laneValues = laneKeys.map((key) => firstRunnableRow[key]);
+  const lanesScored = laneValues.filter((value) => value === "yes" || value === "no").length;
+  const lanesPassing = laneValues.filter((value) => value === "yes").length;
+  const stats = [];
+  if (objects) stats.push(`<strong>${objects}</strong> rendered objects`);
+  stats.push(`<strong>${images}</strong> image${images === 1 ? "" : "s"}`);
+  stats.push(`<strong>${routes}</strong> lifecycle route${routes === 1 ? "" : "s"}`);
+  if (lanesScored) stats.push(`<strong>${lanesPassing}/${lanesScored}</strong> proof lanes passing`);
+  return `<p class="stat-strip">${variant} base variant: ${stats.join(" · ")}. Every number is extracted from committed data.</p>`;
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -5143,6 +5188,7 @@ function chartPageHtml(catalog, entry) {
   <main>
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
+      ${chartStatStrip(entry, firstRunnableRow)}
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base variant</span></div>
         <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
@@ -6324,6 +6370,8 @@ function siteCss() {
     }
     pre code { background: transparent; border: 0; padding: 0; color: inherit; }
     .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .95rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
     .hero-copy {
       max-width: 880px;
     }
