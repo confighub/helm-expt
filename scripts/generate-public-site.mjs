@@ -4971,6 +4971,26 @@ function buildPresetScripts(catalog) {
   return scripts;
 }
 
+// Image references per base variant, extracted from the reviewed rendered
+// output (the newest revision's release-objects.yaml). Empty when a variant
+// has no recipe revision on disk; the section renders only what exists.
+function extractBaseImages(entry, variant) {
+  const revisionsDir = join(repoRoot, "recipes", entry.chart, entry.version, "revisions", variant);
+  try {
+    const revisions = readdirSync(revisionsDir).filter((name) => /^r\d+$/.test(name)).sort();
+    if (!revisions.length) return [];
+    const rendered = readFileSync(join(revisionsDir, revisions[revisions.length - 1], "rendered", "release-objects.yaml"), "utf8");
+    const images = new Set();
+    for (const match of rendered.matchAll(/^\s*(?:-\s+)?image:\s*["']?([^"'\n]+?)["']?\s*$/gm)) {
+      const image = match[1].trim();
+      if (image && !image.includes("{{")) images.add(image);
+    }
+    return [...images].sort();
+  } catch {
+    return [];
+  }
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -5190,6 +5210,22 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       <p class="mono" style="font-size:.86rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
+
+    ${(() => {
+      const imageRows = matrixRows
+        .filter((row) => row.row_kind === "base")
+        .map((row) => [row.variant, extractBaseImages(entry, row.variant)])
+        .filter(([, images]) => images.length);
+      if (!imageRows.length) return "";
+      return `<section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>
+      ${markdownLikeTable([
+        ["Base variant", "Images"],
+        ...imageRows.map(([variant, images]) => [variant, images.map((image) => `<code>${escapeHtml(image)}</code>`).join("<br>")]),
+      ], { rawSecondColumn: true })}
+    </section>`;
+    })()}
 
     ${chartAdoptionCaveatHtml(adoptionCaveat)}
 

@@ -533,6 +533,21 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </article></div>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below comes from the reviewed rendered output. What you see is what the cluster pulls. These references are data: you can change a registry or pin a digest with a recorded edit, and prove the change landed in every environment.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Images</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>registry.k8s.io/descheduler/descheduler:v0.36.0</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
       <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
