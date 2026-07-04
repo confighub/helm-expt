@@ -1332,7 +1332,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
-    <p class="install-cub-note">Read <a href="./d/docs/user/model-and-vocabulary.html">the model and its words</a> on one page. Then open <a href="./demo-org.html">the demo org</a> and see all five words as real objects across ten running charts.</p>
+    <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
   </div>
 </header>
@@ -2572,7 +2572,7 @@ function docsHtml(catalog) {
     ["Future and managed ideas", "What exists now, what is roadmap, and what belongs in a managed service.", "./future.html"],
     ["Answer hard questions", "Direct answers about hooks, upgrades, AI changes, limits, and refusals.", "./hard-questions.html"],
     ["Known Gaps", "The known problems this project names instead of hiding.", "./known-gaps.html"],
-    ["The model and its words", "The five words, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
+    ["Model and taxonomy", "The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
     ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
     ["App to live, end to end", "A plain app into ConfigHub, staging and prod variants, OCI to Argo delivery, and a staged rollout: the whole chain, run live.", "../docs/user/app-to-live-walkthrough.md"],
@@ -3650,7 +3650,7 @@ function demoOrgHtml(catalog) {
 
     <section aria-labelledby="sketches">
       <h2 id="sketches">The sketches, explained</h2>
-      <p>This catalog keeps needing four ideas that the product's entity model does not have yet. Rather than leave them as words in documents, the org sketches each one using plain Units, Links, and labels, the primitives that exist today. A sketch here means a proposal you can open, query, and argue with, not a shipped feature. The point is that the design conversation gets concrete objects to point at, and the gap between the vocabulary and the product stays visible instead of buried.</p>
+      <p>This catalog keeps needing four ideas that the product's entity model does not have yet. Rather than leave them as words in documents, the org sketches each one using plain Units, Links, and labels, the primitives that exist today. A sketch here means a proposal you can open, query, and argue with, not a shipped feature. The point is that the design conversation gets concrete objects to point at, and the gap between the taxonomy and the product stays visible instead of buried.</p>
       ${markdownLikeTable([
         ["The idea", "What the product has today", "The sketch standing in for it", "Where to look"],
         ["A recipe, the DRY source of a base variant: chart, version, declared inputs, and routing intent", "A plain Unit whose data happens to be recipe YAML; the server cannot tell it from a ConfigMap", "The recipe unit in every chart Space", "Any Space, unit recipe, data tab"],
