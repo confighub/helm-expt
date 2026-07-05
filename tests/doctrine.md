@@ -140,6 +140,14 @@ when the parity gate passes, and the gate has three parts:
   survive a config-only render (a CRD dependency, a hook) is named as a
   route, never shipped silently (per #1).
 
+**A refusal must name the correct route forward, never just the block** (the
+same rule 6b applies to Helm migrants): the receipt says what to do instead in
+this paradigm — an existing-secret reference, a routed prerequisite, a declared
+input — so the next attempt is the right one. The proof that this works is the
+receipt trilogy: the refusal named the existing-secret route, the corrected
+mapping followed it, and the gate passed with determinism identical
+([corrected-route-receipt](../data/pilot-switch-map/corrected-route-receipt.md)).
+
 **Refusal is a first-class outcome with a receipt.** The first live refusal
 is the canonical example: an agent mapped "TLS with auto-generated certs",
 the render was plausible, and determinism diverged because the chart mints

@@ -98,6 +98,11 @@ try {
 
   gate.passed = gate.composition.pass && gate.determinism.pass && gate.routes.pass;
 
+  // Doctrine #9: a refusal must name the correct route forward in this
+  // paradigm, never just the block. The route is keyed to the failing check
+  // and the switches that caused it.
+  const route = correctRouteForward(gate, SWITCHES);
+
   const receipt = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "PilotGeneratedVariantReceipt",
@@ -108,9 +113,10 @@ try {
     baselineObjects: baseline.size,
     generatedObjects: generated.size,
     gate,
+    ...(route ? { correctRouteForward: route } : {}),
     conclusion: gate.passed
       ? "Parity gate passed. The generated variant is the genuine chart output for these switches, reproducible, with routed quirks named. It may exist as a ConfigHub variant."
-      : "Parity gate FAILED. The variant is not allowed to exist until the failing check is resolved.",
+      : "Parity gate FAILED. The variant is not allowed to exist as mapped. The correct route forward is named in this receipt.",
   };
   const outDir = join(repoRoot, "data", "pilot-switch-map");
   mkdirSync(outDir, { recursive: true });
@@ -123,9 +129,36 @@ try {
   console.log(`determinism: ${gate.determinism.pass ? "identical" : "DIVERGED"}`);
   console.log(`routes: ${crdKinds.length ? crdKinds.join(", ") : "none"}`);
   console.log(`\nparity gate: ${gate.passed ? "PASS — variant may exist" : "FAIL — variant refused"}`);
+  if (route) console.log(`correct route forward: ${route}`);
   process.exit(gate.passed ? 0 : 1);
 } finally {
   rmSync(tmp, { recursive: true, force: true });
+}
+
+// The route forward, keyed to what failed. Never a bare block: each branch
+// says what to do instead, in this paradigm (declared inputs, existing-secret
+// references, routed prerequisites), so the refusal teaches the model.
+function correctRouteForward(gate, switches) {
+  if (gate.passed) return "";
+  if (!gate.determinism.pass) {
+    const tlsInvolved = switches.some((s) => /tls/i.test(s.name));
+    if (tlsInvolved) {
+      return [
+        "Render-time TLS generation mints new certificates on every render, so the output can never be reproducible config.",
+        "Keep certificate material out of the render. Use the chart's existing-secret form (for redis: tls.enabled with tls.existingSecret and the cert/key/CA filenames) against a pre-staged Secret, or let cert-manager own issuance and rotation on the target.",
+        "Then regenerate: the render becomes deterministic, the Secret lives in a SecretStore instead of the rendered output, and the variant can exist.",
+      ].join(" ");
+    }
+    return [
+      "Something in these switches generates fresh material at render time (a password, token, or certificate), so two renders are never byte-identical.",
+      "Replace the generated value with a declared input: the chart's existing-secret style reference against a pre-staged Secret, or a values-pinned input recorded in the recipe.",
+      "Then regenerate; same inputs must render the same bytes.",
+    ].join(" ");
+  }
+  if (!gate.composition.pass) {
+    return "The object-set delta does not reconcile with the switch-effect map. Regenerate the map for this chart version (npm run pilot:switch-map -- --chart <name>) and re-render. If the delta is still unexplained, record the switch interaction as a finding before the variant may exist.";
+  }
+  return "A gate check failed without a known remediation pattern. Record the failure as a finding; the variant may not exist until the route forward is named.";
 }
 
 function loadMap() {
@@ -206,6 +239,14 @@ ${g.routes.note}
 ## Verdict
 
 **${g.passed ? "PASS" : "FAIL"}.** ${receipt.conclusion}
+${receipt.correctRouteForward ? `
+## The correct route forward
+
+${receipt.correctRouteForward}
+
+A refusal is not a wall. The block names the failing check; this section names
+what to do instead in this paradigm, so the next attempt is the right one.
+` : ""}
 
 ## Why this is not a hallucination
 

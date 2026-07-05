@@ -86,3 +86,21 @@ The variant was refused ([refused-variant-receipt.md](./refused-variant-receipt.
 This is the anti-hallucination claim demonstrated on a real mistake: the
 agent's choice looked reasonable, rendered cleanly, and was still caught,
 with the reason named.
+
+## Update: refusals name the correct route forward, and the route works
+
+Doctrine #9 now requires more than the block. On failure the gate names what
+to do instead in this paradigm, keyed to the failing check, in the receipt
+itself. The full loop is receipted as a trilogy:
+
+1. **Refused** ([refused-variant-receipt.md](./refused-variant-receipt.md)):
+   auto-generated TLS certs, determinism diverged, and the receipt names the
+   route: keep certificates out of the render, use `tls.existingSecret`
+   against a pre-staged Secret, or let cert-manager own issuance.
+2. **Corrected** ([corrected-route-receipt.md](./corrected-route-receipt.md)):
+   the same intent remapped to the named route. Determinism identical, gate
+   PASS, variant may exist.
+3. The fixture PASS receipt stands as the baseline case.
+
+A refusal is not a wall. It is a redirect, with the receipt teaching the
+config-as-data route.

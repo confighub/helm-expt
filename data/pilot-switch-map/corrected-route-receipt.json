@@ -1,0 +1,35 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "PilotGeneratedVariantReceipt",
+  "intent": "A standalone redis with TLS, certificates from a pre-staged Secret (the route the refusal named)",
+  "mappedBy": "claude (corrected mapping, following the refusal's route)",
+  "switches": [
+    "architecture=standalone",
+    "tls.enabled+existingSecret"
+  ],
+  "chart": "oci://registry-1.docker.io/bitnamicharts/redis@25.5.3",
+  "baselineObjects": 14,
+  "generatedObjects": 10,
+  "gate": {
+    "composition": {
+      "predictedAdds": 0,
+      "predictedRemoves": 4,
+      "actualAdds": 0,
+      "actualRemoves": 4,
+      "interactionObserved": false,
+      "pass": true
+    },
+    "determinism": {
+      "shaA": "22ede17bddc59615fb44173d42cccb5a475a964ac759a12fef623589e8d103bf",
+      "shaB": "22ede17bddc59615fb44173d42cccb5a475a964ac759a12fef623589e8d103bf",
+      "pass": true
+    },
+    "routes": {
+      "routedObjects": [],
+      "note": "No routed quirks introduced by these switches.",
+      "pass": true
+    },
+    "passed": true
+  },
+  "conclusion": "Parity gate passed. The generated variant is the genuine chart output for these switches, reproducible, with routed quirks named. It may exist as a ConfigHub variant."
+}
