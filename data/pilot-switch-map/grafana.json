@@ -1,0 +1,106 @@
+{
+  "chart": "https://grafana.github.io/helm-charts#grafana@10.5.15",
+  "baselineObjects": 12,
+  "rows": [
+    {
+      "switch": "autoscaling.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 13,
+      "added": [
+        "autoscaling/v2/HorizontalPodAutoscaler/grafana"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "testFramework.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 9,
+      "added": [],
+      "removed": [
+        "v1/ServiceAccount/grafana-test",
+        "v1/ConfigMap/grafana-test",
+        "v1/Pod/grafana-test"
+      ]
+    },
+    {
+      "switch": "service.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 11,
+      "added": [],
+      "removed": [
+        "v1/Service/grafana"
+      ]
+    },
+    {
+      "switch": "serviceMonitor.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 13,
+      "added": [
+        "monitoring.coreos.com/v1/ServiceMonitor/grafana"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "ingress.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 13,
+      "added": [
+        "networking.k8s.io/v1/Ingress/grafana"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "persistence.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 13,
+      "added": [
+        "v1/PersistentVolumeClaim/grafana"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "initChownData.enabled=false",
+      "kind": "field",
+      "baselineObjects": 12,
+      "variantObjects": 12,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "ldap.enabled=true",
+      "kind": "field",
+      "baselineObjects": 12,
+      "variantObjects": 12,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "imageRenderer.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 15,
+      "added": [
+        "networking.k8s.io/v1/NetworkPolicy/grafana-image-renderer-ingress",
+        "v1/Service/grafana-image-renderer",
+        "apps/v1/Deployment/grafana-image-renderer"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "networkPolicy.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 12,
+      "variantObjects": 13,
+      "added": [
+        "networking.k8s.io/v1/NetworkPolicy/grafana"
+      ],
+      "removed": []
+    }
+  ]
+}

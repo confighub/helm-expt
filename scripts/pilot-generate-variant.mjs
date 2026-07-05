@@ -28,13 +28,33 @@ const CHART = {
 };
 const BASE_VALUES = `image:\n  digest: ${CHART.imageDigest}\nauth:\n  password: "confighub-redis-password"\n`;
 
-// The intent, in plain words, and the switches Pilot maps it to. This is the
-// only step an AI performs; everything after is deterministic and proven.
-const INTENT = "A standalone redis cache with Prometheus metrics exposed.";
-const SWITCHES = [
-  { name: "architecture=standalone", values: "architecture: standalone\n" },
-  { name: "metrics.enabled", values: "metrics:\n  enabled: true\n  serviceMonitor:\n    enabled: true\n" },
-];
+// The intent, in plain words, and the switches an agent maps it to. That
+// mapping is the only step an AI performs; everything after is deterministic
+// and proven. The mapping arrives from OUTSIDE at run time (the Pilot checkout
+// or any agent) via --intent / --switches; the built-in fixture keeps the
+// script runnable standalone and in CI.
+//   node scripts/pilot-generate-variant.mjs \
+//     --intent "standalone redis with metrics" \
+//     --switches /path/to/switches.json --mapped-by pilot
+// where switches.json is [{"name": "...", "values": "..."}, ...].
+const FIXTURE = {
+  intent: "A standalone redis cache with Prometheus metrics exposed.",
+  mappedBy: "fixture (authoring-time constant; pass --switches to drive from an agent)",
+  switches: [
+    { name: "architecture=standalone", values: "architecture: standalone\n" },
+    { name: "metrics.enabled", values: "metrics:\n  enabled: true\n  serviceMonitor:\n    enabled: true\n" },
+  ],
+};
+const argv = process.argv.slice(2);
+const argValue = (flag) => (argv.includes(flag) ? argv[argv.indexOf(flag) + 1] : undefined);
+const INTENT = argValue("--intent") ?? FIXTURE.intent;
+const MAPPED_BY = argValue("--mapped-by") ?? (argValue("--switches") ? "external agent" : FIXTURE.mappedBy);
+const switchesPath = argValue("--switches");
+const SWITCHES = switchesPath ? JSON.parse(readFileSync(switchesPath, "utf8")) : FIXTURE.switches;
+if (!Array.isArray(SWITCHES) || SWITCHES.some((s) => !s.name || typeof s.values !== "string")) {
+  console.error("--switches must be a JSON array of {name, values}");
+  process.exit(2);
+}
 
 const tmp = mkdtempSync(join(tmpdir(), "pilot-generate-"));
 const gate = { composition: null, determinism: null, routes: null, passed: false };
@@ -82,6 +102,7 @@ try {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "PilotGeneratedVariantReceipt",
     intent: INTENT,
+    mappedBy: MAPPED_BY,
     switches: SWITCHES.map((s) => s.name),
     chart: `${CHART.ref}@${CHART.version}`,
     baselineObjects: baseline.size,
@@ -159,7 +180,9 @@ function renderMarkdown(receipt, added, removed) {
 
 **Intent:** ${receipt.intent}
 
-**Switches Pilot mapped it to:** ${receipt.switches.map((s) => `\`${s}\``).join(", ")}
+**Switches the agent mapped it to:** ${receipt.switches.map((s) => `\`${s}\``).join(", ")}
+
+**Mapped by:** ${receipt.mappedBy}
 
 The intent is the only step an AI performed. The chart's renderer produced the
 objects; the parity gate below certifies they are the genuine chart output.

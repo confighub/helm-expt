@@ -1,0 +1,154 @@
+{
+  "chart": "oci://registry-1.docker.io/bitnamicharts/rabbitmq@16.0.14",
+  "baselineObjects": 10,
+  "rows": [
+    {
+      "switch": "serviceBindings.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 10,
+      "variantObjects": 11,
+      "added": [
+        "v1/Secret/rabbitmq-svcbind"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "diagnosticMode.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "memoryHighWatermark.enabled=true",
+      "kind": "render-error",
+      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-m",
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "clustering.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "loadDefinition.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "tcpListenOptions.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "ldap.enabled=true",
+      "kind": "render-error",
+      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-m",
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "podSecurityContext.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "containerSecurityContext.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "livenessProbe.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "readinessProbe.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "startupProbe.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "persistence.enabled=false",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "persistentVolumeClaimRetentionPolicy.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "ingress.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 10,
+      "variantObjects": 11,
+      "added": [
+        "networking.k8s.io/v1/Ingress/rabbitmq"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "networkPolicy.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 10,
+      "variantObjects": 9,
+      "added": [],
+      "removed": [
+        "networking.k8s.io/v1/NetworkPolicy/rabbitmq"
+      ]
+    },
+    {
+      "switch": "metrics.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "volumePermissions.enabled=true",
+      "kind": "field",
+      "baselineObjects": 10,
+      "variantObjects": 10,
+      "added": [],
+      "removed": []
+    }
+  ]
+}
