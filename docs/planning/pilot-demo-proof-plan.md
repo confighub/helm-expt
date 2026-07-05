@@ -94,3 +94,9 @@ The demo Pilot can give that bare Claude cannot, using only shipped pieces:
 
 Each of these is a receipt-backed set piece; the benchmark lane turns the
 contrast with the bare arm into numbers.
+## Task 1 status: RUN (2026-07-05)
+
+Executed live on kind cluster hx-bench-1, both arms, torn down after. Receipt:
+[task1-upgrade-keeps-edit.md](../../data/pilot-benchmark/task1-upgrade-keeps-edit.md).
+Honest result: both arms can keep the change; plain helm silently reverts it on
+one forgotten upgrade flag, the substrate keeps it by merge and records why.
