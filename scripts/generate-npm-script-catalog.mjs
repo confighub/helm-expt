@@ -68,6 +68,7 @@ function categorize(name) {
   if (name.startsWith("lane-tests:")) return "live-parity-gitops";
   if (name.startsWith("refresh:") || name.startsWith("legacy-patch:")) return "latest-version-refresh";
   if (name.startsWith("installer:") || name.startsWith("receipts:") || name.startsWith("p0:") || name.startsWith("docs:") || name.startsWith("knowledge:") || name.startsWith("verify") || name.startsWith("variant:command-surface")) return "repo-integrity";
+  if (name === "pilot:switch-map" || name === "pilot:generate-variant") return "pilot-variant-model";
   if (name.startsWith("pilot:")) return "adversarial-live";
   if (name === "generate") return "catalog-data";
   return "other";
@@ -87,6 +88,7 @@ function classifyExternalState(name, command, mode) {
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "none-for-verify";
   if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "local-kubernetes";
   if (name.includes("local-e2e") || name.startsWith("kind-parity") || command.includes("kubectl") || command.includes("kind")) return "local-kubernetes";
+  if (name === "pilot:switch-map" || name === "pilot:generate-variant") return "network-or-helm-repo";
   if (name.includes("confighub-proof") || name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("derived-variants:target-bound") || name.startsWith("external-scan") || name.startsWith("pilot:")) return "confighub-or-live-cluster";
   if (name.startsWith("top20:latest") || command.includes("helm pull") || command.includes("helm template")) return "network-or-helm-repo";
   return "none-for-verify";
@@ -119,6 +121,7 @@ function why(category) {
     "evidence-workdown": "Maintains claims, pain points, blast radius, graph, and workdown surfaces.",
     "repo-integrity": "Checks command surfaces, docs, artifacts, receipts, schemas, and broad corpus consistency.",
     "adversarial-live": "Runs adversarial live testing through the configured external harness.",
+    "pilot-variant-model": "Builds or gates the agent-driven variant model: switch-effect maps classified by rendering, and generate-on-demand variants that must pass the parity gate to exist. Local helm renders only; no cluster or ConfigHub org.",
     other: "Unclassified helper; inspect package.json and the owning script before using it.",
   }[category];
 }

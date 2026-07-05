@@ -1,10 +1,10 @@
 # Pilot-generated variant, parity receipt
 
-**Intent:** A standalone redis cache with Prometheus metrics exposed.
+**Intent:** A standalone redis with TLS, certificates from a pre-staged Secret (the route the refusal named)
 
-**Switches the agent mapped it to:** `architecture=standalone`, `metrics.enabled`
+**Switches the agent mapped it to:** `architecture=standalone`, `tls.enabled+existingSecret`
 
-**Mapped by:** fixture (authoring-time constant; pass --switches to drive from an agent)
+**Mapped by:** claude (corrected mapping, following the refusal's route)
 
 The intent is the only step an AI performed. The chart's renderer produced the
 objects; the parity gate below certifies they are the genuine chart output.
@@ -13,17 +13,17 @@ objects; the parity gate below certifies they are the genuine chart output.
 
 | Check | Result |
 | --- | --- |
-| Composition | +2 objects, -4 objects vs baseline (14); interaction observed: true |
-| Determinism | byte-identical across two renders (`06bf02a9163204f1…`) |
-| Route disposition | `monitoring.coreos.com/v1/ServiceMonitor/redis` |
+| Composition | +0 objects, -4 objects vs baseline (14); interaction observed: false |
+| Determinism | byte-identical across two renders (`22ede17bddc59615…`) |
+| Route disposition | none |
 
-**Objects added:** `v1/Service/redis-metrics`, `monitoring.coreos.com/v1/ServiceMonitor/redis`
+**Objects added:** none
 
 **Objects removed:** `policy/v1/PodDisruptionBudget/redis-replicas`, `v1/ServiceAccount/redis-replica`, `v1/Service/redis-replicas`, `apps/v1/StatefulSet/redis-replicas`
 
 ## Routing
 
-Renders a ServiceMonitor, which needs the Prometheus Operator CRDs on the target. Routed as a target prerequisite, not shipped silently.
+No routed quirks introduced by these switches.
 
 ## Verdict
 
