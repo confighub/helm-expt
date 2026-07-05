@@ -7,7 +7,7 @@ spec:
   version: 1.21.1
   base: no-crds
   result: pass
-  observedAt: '2026-06-13T08:23:20Z'
+  observedAt: '2026-07-05T08:55:05Z'
   package:
     path: packages/external-dns/external-dns/1.21.1
   recipe:
@@ -22,24 +22,25 @@ spec:
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-externaldns-mqc38x6w-ohr
-    kubeContext: kind-helm-expt-parity-externaldns-mqc38x6w-ohr
+    rig: helm-expt-parity-externaldns-mr7k2h5w-jkt
+    kubeContext: kind-helm-expt-parity-externaldns-mr7k2h5w-jkt
     namespace: default
+    namespaceMode: isolated-leg-namespaces
     legNamespaces:
       regularHelm: default-helm
       configHubKubectlApply: default-apply
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-externaldns-mqc38x6w-ohr --force
+      command: cub lk down --name helm-expt-parity-externaldns-mr7k2h5w-jkt --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-externaldns-mqc38x6w-ohr"...
+      detail: 'Deleting kind cluster "helm-expt-parity-externaldns-mr7k2h5w-jkt"...
 
-        Deleting cluster "helm-expt-parity-externaldns-mqc38x6w-ohr" ...
+        Deleting cluster "helm-expt-parity-externaldns-mr7k2h5w-jkt" ...
 
-        Deleted nodes: ["helm-expt-parity-externaldns-mqc38x6w-ohr-control-plane"]
+        Deleted nodes: ["helm-expt-parity-externaldns-mr7k2h5w-jkt-control-plane"]
 
-        Deleting Space "helm-expt-parity-externaldns-mqc38x6w-ohr-cluster" (recursive:
+        Deleting Space "helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -57,8 +58,8 @@ spec:
       namespace: default-helm
       runtime:
         result: pass
-        workloads: deployment.apps/external-dns   1/1   1     1     23s
-        pods: external-dns-9f77ccdf9-99zsr   1/1   Running   0     23s
+        workloads: deployment.apps/external-dns   1/1   1     1     25s
+        pods: external-dns-9f77ccdf9-qrwth   1/1   Running   0     25s
         notReady: []
         ignoredJobPods: []
       stderr: ''
@@ -66,7 +67,7 @@ spec:
     configHubKubectlApply:
       result: pass
       renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/external-dns/external-dns/1.21.1
-        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: f51d045f84d9da5eb6dbcf9ad91d1d50a70e2a3e4d4f5e6370b7ef011afd059b
@@ -82,11 +83,12 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/external-dns   1/1   1     1     20s'
+          deployment.apps/external-dns   1/1   1     1     21s'
         pods: '# default
 
-          external-dns-9f77ccdf9-v52df   1/1   Running   0     20s'
+          external-dns-9f77ccdf9-dnmpg   1/1   Running   0     21s'
         notReady: []
+        terminalReadinessBlockers: {}
       cleanupBeforeOci:
         namespaces:
         - default-apply
@@ -111,7 +113,7 @@ spec:
           parity rigs
     configHubOciArgo:
       result: pass
-      workloadSpace: helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
+      workloadSpace: helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
       controller: Argo CD OCI
       app: external-dns-parity
       manifestSHA256: bc6979420abce9058353ddf45741d94e267220d0a8095ffaf2ee37585cb50b98
@@ -122,10 +124,14 @@ spec:
       - default-oci
       runtimeNamespaces: &id002
       - default
-      ociRevision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+      ociRevision: sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
       sync: Synced
       health: Healthy
       separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
       argoStatus:
         result: recorded
         sync:
@@ -134,17 +140,36 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-externaldns-mqc38x6w-ohr-external-dns
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mqc38x6w-ohr-cluster/oci
+              path: ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci
               targetRevision: latest
-          revision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+          revision: sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T08:25:50Z'
+          lastTransitionTime: '2026-07-05T08:57:39Z'
           status: Healthy
+        summary:
+          images:
+          - registry.k8s.io/external-dns/external-dns:v0.21.0
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
+          startedAt: '2026-07-05T08:57:39Z'
+          finishedAt: '2026-07-05T08:57:41Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 6
+          syncResultStatusCounts:
+            Synced: 6
+        history:
+        - id: 0
+          revision: sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
+          deployedAt: '2026-07-05T08:57:41Z'
+          deployStartedAt: '2026-07-05T08:57:39Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
         conditions: []
         resources:
         - group: ''
@@ -153,6 +178,7 @@ spec:
           name: default-oci
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: Service
@@ -160,6 +186,7 @@ spec:
           name: external-dns
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: ''
           kind: ServiceAccount
@@ -167,6 +194,7 @@ spec:
           name: external-dns
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: apps
           kind: Deployment
@@ -174,6 +202,7 @@ spec:
           name: external-dns
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRole
@@ -181,6 +210,7 @@ spec:
           name: external-dns
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: rbac.authorization.k8s.io
           kind: ClusterRoleBinding
@@ -188,7 +218,278 @@ spec:
           name: external-dns-viewer
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         external-dns-parity\nNamespace:    argocd\nLabels:\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster:argoproj.io/Application:argocd/external-dns-parity\n\
+              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
+              \ 91f45647-fda5-4397-9d55-be738749d8f2\n              confighub.com/UnitSlug:\
+              \ external-dns-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-05T08:57:38Z\n\
+              \  Generation:          7\n  Resource Version:    1119\n  UID:     \
+              \            ad36d85d-ea41-41cd-a660-06a79ccc68c9\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-05T08:57:39Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-07-05T08:57:39Z\n    Deployed At:        2026-07-05T08:57:41Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-05T08:57:41Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-07-05T08:57:39Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/external-dns serverside-applied\n        Name:  \
+              \      external-dns\n        Namespace:   default\n        Status: \
+              \     Synced\n        Sync Phase:  Sync\n        Version:     v1\n \
+              \       Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/external-dns\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ rules added:\n                       {Verbs:[list watch] APIGroups:[]\
+              \ Resources:[nodes] ResourceNames:[] NonResourceURLs:[]}\n         \
+              \              {Verbs:[get watch list] APIGroups:[] Resources:[pods]\
+              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
+              \ watch list] APIGroups:[] Resources:[services] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get watch list] APIGroups:[discovery.k8s.io]\
+              \ Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\
+              \                       {Verbs:[get watch list] APIGroups:[extensions\
+              \ networking.k8s.io] Resources:[ingresses] ResourceNames:[] NonResourceURLs:[]}.\
+              \ clusterrole.rbac.authorization.k8s.io/external-dns serverside-applied\n\
+              \        Name:        external-dns\n        Namespace:   default-oci\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        ClusterRoleBinding\n       \
+              \ Message:     clusterrolebinding.rbac.authorization.k8s.io/external-dns-viewer\
+              \ reconciled. reconciliation required create\n                     missing\
+              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
+              \ Name:external-dns Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/external-dns-viewer\
+              \ serverside-applied\n        Name:        external-dns-viewer\n   \
+              \     Namespace:   default-oci\n        Status:      Synced\n      \
+              \  Sync Phase:  Sync\n        Version:     v1\n        Group:      \
+              \ \n        Hook Phase:  Running\n        Kind:        Service\n   \
+              \     Message:     service/external-dns serverside-applied\n       \
+              \ Name:        external-dns\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       apps\n        Hook Phase:  Running\n        Images:\n\
+              \          registry.k8s.io/external-dns/external-dns:v0.21.0\n     \
+              \   Kind:        Deployment\n        Message:     deployment.apps/external-dns\
+              \ serverside-applied\n        Name:        external-dns\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n      Revision:      sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-05T08:57:41Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Kind:       Namespace\n\
+              \    Name:       default-oci\n   "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                            MESSAGE
+
+              10s         Normal   OperationStarted     application/external-dns-parity   Initiated
+              automated sync to ''sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5''
+
+              10s         Normal   ResourceUpdated      application/external-dns-parity   Updated
+              sync status:  -> OutOfSync
+
+              10s         Normal   ResourceUpdated      application/external-dns-parity   Updated
+              health status:  -> Healthy
+
+              8s          Normal   OperationCompleted   application/external-dns-parity   Sync
+              operation to sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
+              succeeded
+
+              7s          Normal   ResourceUpdated      application/external-dns-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 6
+              artifact:
+                path: argocd-core-child.json
+                sha256: bc48119366aca412a31e2c7bec8a5571478338fc6d89f8817130c53e497fd507
+                bytes: 11976
+              output: "{\n  \"metadata\": {\n    \"name\": \"external-dns-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ad36d85d-ea41-41cd-a660-06a79ccc68c9\"\
+                ,\n    \"resourceVersion\": \"1140\",\n    \"generation\": 8,\n  \
+                \  \"creationTimestamp\": \"2026-07-05T08:57:38Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster:argoproj.io/Application:argocd/external-dns-parity\"\
+                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
+                : \"91f45647-fda5-4397-9d55-be738749d8f2\",\n      \"confighub.com/UnitSlug\"\
+                : \"external-dns-parity-app\"\n    },\n    \"managedFields\": [\n\
+                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
+                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-07-05T08:57:38Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
+                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
+                : {}\n            }\n          },\n          \"f:spec\": {\n     \
+                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
+                \              \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
+                \          \"f:selfHeal\": {}\n              },\n              \"\
+                f:syncOptions\": {}\n            }\n          }\n        }\n     \
+                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
+                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
+                argoproj.io/v1alpha1\",\n        \"time\": \"2026-07-05T08:57:57Z\"\
+                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
+                \          \"f:status\": {\n            \".\": {},\n            \"\
+                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
+                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
+                \              \"f:status\": {}\n            },\n            \"f:history\"\
+                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
+                \              \"f:finishedAt\": {},\n              \"f:message\"\
+                : {},\n              \"f:operation\": {\n                \".\": {},\n\
+                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
+                \                  \"f:automated\": {}\n                },\n     \
+                \           \"f:retry\": {\n                  \".\": {},\n       \
+                \           \"f:limit\": {}\n                },\n                \"\
+                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
+                : {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
+                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
+                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
+                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
+                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
+                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
+                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
+                : \"external-dns\",\n        \"status\": \"Synced\",\n        \"health\"\
+                : {\n          \"status\": \"Healthy\"\n        }\n      },\n    \
+                \  {\n        \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"external-dns\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"external-dns\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRole\",\n        \"name\": \"\
+                external-dns\",\n        \"status\": \"Synced\"\n      },\n      {\n\
+                \        \"group\": \"rbac.authorization.k8s.io\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ClusterRoleBinding\",\n        \"name\"\
+                : \"external-dns-viewer\",\n        \"status\": \"Synced\"\n     \
+                \ }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\",\n    \
+                \  \"comparedTo\": {\n        \"source\": {\n          \"repoURL"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b8f3288fa4c276e255cac68cf909573e5ab2191b40518a2fadaa7062bc484c95
+                bytes: 1357
+              output: "Name:               argocd/external-dns-parity\nProject:  \
+                \          default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:62226/applications/external-dns-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                               STATUS  HEALTH\
+                \   AGE  MESSAGE                                          REASON\n\
+                Namespace/default-oci                   Synced           65s     \
+                \                                              \nService/external-dns\
+                \                    Synced  Healthy  92s  service/external-dns serverside-applied\
+                \          \nServiceAccount/external-dns             Synced      \
+                \     92s  serviceaccount/external-dns serverside-applied   \nDeployment/external-dns\
+                \                 Synced  Healthy  92s  deployment.apps/external-dns\
+                \ serverside-applied  \n\u2514\u2500ReplicaSet/external-dns-9f77ccdf9\
+                \             Healthy  92s                                       \
+                \            \n  \u2514\u2500Pod/external-dns-9f77ccdf9-dnmpg    \
+                \        Healthy  92s                                            \
+                \       \nClusterRole/external-dns                Synced         \
+                \  24s                                                   \nClusterRoleBinding/external-dns-viewer\
+                \  Synced           24s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"external-dns-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/external-dns-parity\",\n      \"syncStatus\": \"\
+              Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"external-dns-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       rootArgoStatus:
         result: recorded
         sync:
@@ -197,17 +498,34 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-externaldns-mqc38x6w-ohr-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mqc38x6w-ohr-cluster/oci
+              path: ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster
+              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci
               targetRevision: latest
-          revision: sha256:fde35c5506498358434107942354dee04b730af1b7b035c4f9ea2ffdba9b767e
+          revision: sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
           status: Synced
         health:
-          lastTransitionTime: '2026-06-13T08:24:18Z'
+          lastTransitionTime: '2026-07-05T08:56:11Z'
           status: Healthy
+        summary: {}
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
+          startedAt: '2026-07-05T08:57:36Z'
+          finishedAt: '2026-07-05T08:57:38Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
+          deployedAt: '2026-07-05T08:57:38Z'
+          deployStartedAt: '2026-07-05T08:57:36Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci
+            targetRevision: latest
+            path: ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster
         conditions: []
         resources:
         - group: argoproj.io
@@ -216,24 +534,283 @@ spec:
           name: external-dns-parity
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-externaldns-mqc38x6w-ohr-cluster
+          name: helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster
           status: Synced
           health: ''
+          healthMessage: ''
           hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
+              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
+              \  Creation Timestamp:  2026-07-05T08:55:59Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
+              \  Generation:        8\n  Resource Version:  1094\n  UID:         \
+              \      cab4ac53-8f44-48fd-8b47-40d8b88a8032\nSpec:\n  Destination:\n\
+              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-07-05T08:56:11Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-05T08:57:36Z\n\
+              \    Deployed At:        2026-07-05T08:57:38Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \    Source:\n      Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-05T08:57:38Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \        Source:\n          Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-05T08:57:36Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/external-dns-parity serverside-applied\n\
+              \        Name:        external-dns-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \      Source:\n        Path:              ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-05T08:57:38Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       external-dns-parity\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n    Namespace:\
+              \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
+              \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
+              \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
+              \     https://kubernetes.default.svc\n      Source:\n        Path: \
+              \            ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n \
+              \       Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+              \        Target Revision:  latest\n    Revision:             sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  ResourceUpdated     115s  argocd-application-controller  Updated\
+              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     115s  argocd-application-controller\
+              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
+              \  30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
+              \  28s   argocd-application-controller  Sync operation to sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\
+              \ succeeded\n  Normal  ResourceUpdated     27s   argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                          MESSAGE
+
+              115s        Normal   ResourceUpdated      application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Updated
+              sync status:  -> Unknown
+
+              115s        Normal   ResourceUpdated      application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Updated
+              health status:  -> Healthy
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Initiated
+              automated sync to ''sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Updated
+              sync status: Unknown -> OutOfSync
+
+              28s         Normal   OperationCompleted   application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Sync
+              operation to sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 3c01cd02aea0111a9e4c52e21436b81c6c72c3e669bd25520884f49900e2abf3
+                bytes: 9400
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"cab4ac53-8f44-48fd-8b47-40d8b88a8032\"\
+                ,\n    \"resourceVersion\": \"1166\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-07-05T08:55:59Z\",\n    \"annotations\"\
+                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
+                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
+                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
+                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
+                \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\\\",\\\"namespace\\\
+                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
+                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \"./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\\\",\\\"repoURL\\\
+                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-07-05T08:55:59Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-07-05T08:58:14Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\"\
+                ,\n      \"path\": \"./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
+                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
+                \ \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"external-dns-parity\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \"Synced\",\n      \"comparedTo\": {\n    \
+                \    \"source\": {\n          \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\"\
+                ,\n          \"path\": \"./helm-expt-parity-e"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 0de29f3f51292b74072517632f27e1122c3dfd0728e48c078b64bd03b4f22f22
+                bytes: 1162
+              output: "Name:               argocd/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:62337/applications/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci\n\
+                \  Target:           latest\n  Path:             ./helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\n\
+                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
+                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
+                \   Healthy\n\nKIND/NAME                                         \
+                \             STATUS  HEALTH  AGE    MESSAGE                     \
+                \                                                                \
+                \  REASON\nApplication/external-dns-parity                       \
+                \         Synced          45s    application.argoproj.io/external-dns-parity\
+                \ serverside-applied                                \nApplication/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\
+                \  Synced          2m24s  application.argoproj.io/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"external-dns-parity\",\n      \"namespace\": \"argocd\",\n     \
+              \ \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/external-dns-parity\",\n      \"syncStatus\": \"\
+              Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\",\n      \"namespace\"\
+              : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
+              ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:3ad071d6f6f67d6d9e5df1d1ece2a689f3e2bc19d0c254cfa0777efb206293a5\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"external-dns-parity\",\n      \"namespace\": \"\
+              argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\": \"\
+              OCIRepository\",\n      \"name\": \"helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/external-dns   1/1   1     1     72s'
+          deployment.apps/external-dns   1/1   1     1     111s'
         pods: '# default
 
-          external-dns-9f77ccdf9-v52df   1/1   Running   0     72s'
+          external-dns-9f77ccdf9-dnmpg   1/1   Running   0     111s'
         notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
@@ -258,15 +835,119 @@ spec:
       semanticDiffs: []
       semanticNormalizations: []
       comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-07-05T08:55:59Z'
+    finishedAt: '2026-07-05T08:56:27Z'
+    elapsedSeconds: 27.889
+    timeoutSeconds: 900
+    command: helm upgrade --install external-dns external-dns --repo https://kubernetes-sigs.github.io/external-dns/
+      --version 1.21.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-07-05T08:56:33Z'
+    finishedAt: '2026-07-05T08:56:33Z'
+    elapsedSeconds: 0.584
+    timeoutSeconds: 360
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/external-dns/external-dns/1.21.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-07-05T08:56:33Z'
+    finishedAt: '2026-07-05T08:56:33Z'
+    elapsedSeconds: 0.114
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-externaldns-mr7k2h5w-jkt.kubeconfig
+      --context kind-helm-expt-parity-externaldns-mr7k2h5w-jkt apply --server-side
+      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/direct-apply-manifest.yaml
+    objectCount: 5
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-07-05T08:56:33Z'
+    finishedAt: '2026-07-05T08:56:54Z'
+    elapsedSeconds: 20.455
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-07-05T08:56:59Z'
+    finishedAt: '2026-07-05T08:57:00Z'
+    elapsedSeconds: 0.408
+    timeoutSeconds: 360
+    command: cub installer setup --pull $HOME/code/helm-expt/packages/external-dns/external-dns/1.21.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-07-05T08:57:00Z'
+    finishedAt: '2026-07-05T08:57:22Z'
+    elapsedSeconds: 22.551
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+      --space helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns --target helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci
+    objectCount: 6
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-07-05T08:57:22Z'
+    finishedAt: '2026-07-05T08:57:23Z'
+    elapsedSeconds: 0.516
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+  - name: configHub-oci-unit-apply
+    result: pass
+    startedAt: '2026-07-05T08:57:23Z'
+    finishedAt: '2026-07-05T08:57:26Z'
+    elapsedSeconds: 3.606
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-externaldns-mr7k2h5w-jkt-external-dns
+      --unit <6 unit(s)> --wait --timeout 5m
+    unitCount: 6
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-07-05T08:57:26Z'
+    finishedAt: '2026-07-05T08:57:27Z'
+    elapsedSeconds: 1.057
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster
+      external-dns-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/external-dns-external-dns-no-crds/argo-application.json
+      --target helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster/oci --allow-exists
+  - name: configHub-oci-app-apply
+    result: pass
+    startedAt: '2026-07-05T08:57:27Z'
+    finishedAt: '2026-07-05T08:57:28Z'
+    elapsedSeconds: 1.034
+    timeoutSeconds: 360
+    command: cub unit apply --space helm-expt-parity-externaldns-mr7k2h5w-jkt-cluster
+      --unit <1 unit(s)> --wait --timeout 5m
+    unitCount: 1
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-07-05T08:57:29Z'
+    finishedAt: '2026-07-05T08:57:49Z'
+    elapsedSeconds: 20.129
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-07-05T08:58:24Z'
+    finishedAt: '2026-07-05T08:58:24Z'
+    elapsedSeconds: 0.1
+    timeoutSeconds: 180
+    namespaces: default
   checks:
   - name: live-lane-lock
     result: pass
     detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
-  - name: cub-lk-up
+  - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-externaldns-mqc38x6w-ohr\" (kubeconfig:\
-      \ $HOME/.confighub/lk/helm-expt-parity-externaldns-mqc38x6w-ohr.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-externaldns-mqc38x6w-ohr\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-externaldns-mr7k2h5w-jkt\" (kubeconfig:\
+      \ $HOME/.confighub/lk/helm-expt-parity-externaldns-mr7k2h5w-jkt.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-externaldns-mr7k2h5w-jkt\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -274,36 +955,36 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-externaldns-mqc38x6w-ohr\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-externaldns-mqc38x6w-ohr\
-      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-externaldns-mqc38x6w-ohr.kubeconfig\n\
-      \nNot sure what to do next? \U0001F605  Check out https://kind.sigs.k8s.io/docs/user/quick-start/\n\
-      Installing Argo CD...\nC"
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-externaldns-mr7k2h5w-jkt\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-externaldns-mr7k2h5w-jkt\
+      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-externaldns-mr7k2h5w-jkt.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\napiVersion: v1\nkind: Namespace\nm"
   - name: target-facts-regular-helm
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"external-dns\" does not exist. Installing it now.\nNAME: external-dns\n\
-      LAST DEPLOYED: Sat Jun 13 09:24:18 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      LAST DEPLOYED: Sun Jul  5 09:56:02 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n***********************************************************************\n\
       * External DNS                                                        *\n***********************************************************************\n\
       \  Chart version: 1.21.1\n  App version:   0.21.0\n  Image tag:     registry.k8s.io/external-dns/external-dns:v0.21.0\n\
       ***********************************************************************"
   - name: target-facts-confighub-apply
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
   - name: confighub-kubectl-apply-live
     result: pass
     detail: '# default
 
-      deployment.apps/external-dns   1/1   1     1     20s'
+      deployment.apps/external-dns   1/1   1     1     21s'
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=2
   - name: target-facts-confighub-oci
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
   - name: confighub-oci-argo-live
     result: pass
     detail: sync=Synced health=Healthy after 20s
@@ -315,14 +996,20 @@ spec:
       result: pass
       stagedSecrets: []
       stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
     configHubKubectlApply:
       result: pass
       stagedSecrets: []
       stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
     configHubOciArgo:
       result: pass
       stagedSecrets: []
       stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
   operatingPolicy:
     regularHelm:
       result: pass
