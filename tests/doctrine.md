@@ -124,3 +124,32 @@ form each reader actually uses:
 A truth that exists on only one surface is not published; it is buried. When the
 three surfaces disagree, the disagreement is itself a finding to surface, not to
 paper over.
+
+## 9. Agents author intent, never YAML; parity decides whether the result may exist
+When an AI agent (Pilot or any other) produces a chart variant, the agent's
+only output is the **intent and the switch settings**. The chart's own
+renderer produces the objects. A generated variant is allowed to exist only
+when the parity gate passes, and the gate has three parts:
+- **Provenance** — the recipe points at a real upstream chart at a pinned
+  version; the thing rendered is the thing claimed.
+- **Render parity** — a live double-render equality check computed at
+  generation time (no pre-blessed baseline needed): same inputs,
+  byte-identical output, and the object-set delta reconciled against the
+  switch-effect map, with interactions reported rather than assumed.
+- **Route disposition** — anything the switches introduce that does not
+  survive a config-only render (a CRD dependency, a hook) is named as a
+  route, never shipped silently (per #1).
+
+**Refusal is a first-class outcome with a receipt.** The first live refusal
+is the canonical example: an agent mapped "TLS with auto-generated certs",
+the render was plausible, and determinism diverged because the chart mints
+new certificates on every render — exactly the nondeterminism that breaks
+config-as-data. The variant was refused with the reason named
+([refused-variant-receipt](../data/pilot-switch-map/refused-variant-receipt.md)).
+
+**The agent is the author, never the authority.** A generated variant becomes
+an ordinary governed object (versioned, gated, promotable) once accepted; an
+agent must not continuously mutate a live variant, and every receipt records
+who mapped the intent (`mappedBy`). The switch-effect maps follow the same
+rule: classifications are computed by rendering, never asserted
+([data/pilot-switch-map/](../data/pilot-switch-map/summary.md)).

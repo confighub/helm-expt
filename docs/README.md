@@ -385,6 +385,7 @@ not the primary user path.
 | [independent-review-brief.md](./planning/independent-review-brief.md) | Brief for an independent product/technical review. |
 | [review-prompts.md](./planning/review-prompts.md) | Longer review prompts for structured critique. |
 | [pilot-adversarial-testing.md](./planning/pilot-adversarial-testing.md) | Plan for adversarial testing with external automation. |
+| [pilot-demo-proof-plan.md](./planning/pilot-demo-proof-plan.md) | The demo-proof plan: the head-to-head benchmark design (bare model+helm versus Pilot+substrate), the agent-drivable variant generator, and the switch-effect maps, with the honest-run protocol. |
 | [outside-user-test.md](./planning/outside-user-test.md) | Fifteen-minute outside-user protocol for testing whether the public site and docs explain the product. |
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |

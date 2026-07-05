@@ -365,3 +365,34 @@ That gives us the honest public message:
 Same Helm chart output, clearer variants, visible risks, and receipts proving
 what happened. Live-tested where appropriate; blocked or gated where not.
 ```
+
+## The demo kit (added 2026-07-04)
+
+Pilot's job grew a second half. The runbook above is Pilot attacking the
+proof set; the demo kit is Pilot showing what the assembled system can do
+that a bare model cannot. Doctrine #9 governs both: agents author intent,
+never YAML, and parity decides whether a generated artifact may exist.
+
+What Pilot now has to work with:
+
+- **Switch-effect maps** for five charts, classified by rendering
+  (`npm run pilot:switch-map -- --all`;
+  [data/pilot-switch-map/](../../data/pilot-switch-map/summary.md)).
+  "What does `sentinel.enabled` actually do" is answerable in seconds with
+  the exact object diff.
+- **Generate-on-demand with the parity gate**
+  (`npm run pilot:generate-variant -- --intent "<words>" --switches <file>
+  --mapped-by pilot`). Pilot does the intent-to-switches mapping at run
+  time; the gate proves composition, determinism, and route disposition, and
+  refuses otherwise. The receipt records who mapped.
+- **The refusal receipt as the model for wins**
+  ([refused-variant-receipt](../../data/pilot-switch-map/refused-variant-receipt.md)):
+  a live agent mapping chose auto-generated TLS certs, determinism diverged,
+  the variant was refused with the reason named. An adversarial run that ends
+  in a *correct refusal with a receipt* is a pass, not a failure.
+- **The head-to-head benchmark design**
+  ([pilot-demo-proof-plan.md](./pilot-demo-proof-plan.md)): six trap-tasks,
+  bare arm versus Pilot arm, scored on correctness, silent failures,
+  receipts, and reversibility. The bare-arm sandbox is the open build item;
+  when it exists, this runbook's adversarial method becomes one arm of a
+  scored comparison.

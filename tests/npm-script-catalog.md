@@ -31,8 +31,9 @@ scripts: 517
 | `scale-proof` | 8 |
 | `confighub-proof` | 7 |
 | `user-install-verification` | 7 |
-| `adversarial-live` | 4 |
+| `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
+| `pilot-variant-model` | 2 |
 
 ## By Mode
 
@@ -50,9 +51,9 @@ scripts: 517
 | External state | Scripts |
 | --- | ---: |
 | `none-for-verify` | 476 |
-| `confighub-or-live-cluster` | 15 |
 | `local-kubernetes` | 14 |
-| `network-or-helm-repo` | 7 |
+| `confighub-or-live-cluster` | 13 |
+| `network-or-helm-repo` | 9 |
 | `user-supplied-cluster-or-confighub` | 5 |
 
 ## Regenerate

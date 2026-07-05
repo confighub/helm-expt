@@ -29,6 +29,7 @@ green-for-its-own-sake. The bar is **verified disposition, not "everything green
 | **G. Careless-dev randomness** (an *ordinary* dev making silly decisions, repeatedly, at volume) | random-bad-decisions fuzz |
 | **cub-installer fuzz** (bad or weird input aimed at our tool) | cub installer fuzz · namespace/input/image validation · injection checks |
 | **H. Helm-fluent migrant friction** (valid Helm habits applied to cub) | Helm idioms rejected safely, with migration guidance measured |
+| **I. Agent-generated variants** (an agent authors intent; parity decides existence — doctrine #9) | switch-effect maps classified by rendering · generate-on-demand parity gate (composition, determinism, routes) · refusal receipts |
 
 ## The coverage matrix
 
@@ -57,6 +58,7 @@ Legend: ● exercises · ○ partial/indirect · – n/a. Counts are indicative 
 | Random-bad-decisions fuzz | ● | ○ | – | – | `run-bad-decisions-fuzz`, [bad-decisions-fuzz](../data/bad-decisions-fuzz/summary.md) | 180 cases, 0 unclassified (rejected 1% / leaked 33% / absorbed 66%) |
 | cub-installer fuzz | – | ○ | – | ● | `cub-installer:fuzz`, [cub-installer-fuzz](../data/cub-installer-fuzz/summary.md) | pass — 96 cases, 0 serious bugs; namespace validation rough edges visible |
 | Helm-fluent migrant friction | ● | – | – | ● | `helm-habit:friction`, [helm-habit-friction](../data/helm-habit-friction/summary.md), [Helm→cub migration guide](../docs/user/helm-to-cub-migration.md) | pass for safety — 72/72 valid Helm idioms rejected; watch the 72/72 opaque guidance gap |
+| Agent-generated variants (parity-gated) | ● | – | ○ | ● | `pilot:switch-map`, `pilot:generate-variant`, [pilot-switch-map](../data/pilot-switch-map/summary.md), [demo-proof plan](../docs/planning/pilot-demo-proof-plan.md) | prototype — 5 charts mapped (65 switches classified by rendering); one PASS and one REFUSED receipt (doctrine #9); head-to-head benchmark designed, not yet run |
 | cub-installer determinism | – | – | – | ● | `cub-installer:determinism`, [cub-installer-determinism](../data/cub-installer-determinism/summary.md) | pass — 12/12 packages rendered byte-identically twice |
 | Default credential check | – | – | ○ | ● | `default-credential:check`, [default-credential-check](../data/default-credential-check/summary.md) | watch — 5/12 default bases ship fixed placeholder credentials; 4 names are misleading |
 | cub-scout drift field coverage | – | ● | ○ | ● | `drift-gap:proof`, [drift-detection-gap](../data/drift-detection-gap/summary.md) | watch — replicas drift detected; container env-var drift missed |
