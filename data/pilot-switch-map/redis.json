@@ -3,6 +3,14 @@
   "baselineObjects": 14,
   "rows": [
     {
+      "switch": "diagnosticMode.enabled=true",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    },
+    {
       "switch": "architecture=standalone",
       "kind": "structural",
       "baselineObjects": 14,
@@ -16,7 +24,17 @@
       ]
     },
     {
-      "switch": "sentinel.enabled",
+      "switch": "auth.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 14,
+      "variantObjects": 13,
+      "added": [],
+      "removed": [
+        "v1/Secret/redis"
+      ]
+    },
+    {
+      "switch": "sentinel.enabled=true",
       "kind": "structural",
       "baselineObjects": 14,
       "variantObjects": 10,
@@ -38,22 +56,12 @@
       ]
     },
     {
-      "switch": "metrics.enabled",
+      "switch": "serviceBindings.enabled=true",
       "kind": "structural",
       "baselineObjects": 14,
       "variantObjects": 15,
       "added": [
-        "v1/Service/redis-metrics"
-      ],
-      "removed": []
-    },
-    {
-      "switch": "tls.enabled",
-      "kind": "structural",
-      "baselineObjects": 14,
-      "variantObjects": 15,
-      "added": [
-        "v1/Secret/redis-crt"
+        "v1/Secret/redis-svcbind"
       ],
       "removed": []
     },
@@ -68,17 +76,32 @@
       ]
     },
     {
-      "switch": "serviceBindings.enabled",
+      "switch": "podSecurityPolicy.enabled=true",
+      "kind": "field",
+      "baselineObjects": 14,
+      "variantObjects": 14,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "tls.enabled=true",
+      "kind": "render-error",
+      "error": "Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-map-QCjHW6/",
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "metrics.enabled=true",
       "kind": "structural",
       "baselineObjects": 14,
       "variantObjects": 15,
       "added": [
-        "v1/Secret/redis-svcbind"
+        "v1/Service/redis-metrics"
       ],
       "removed": []
     },
     {
-      "switch": "podSecurityPolicy.enabled",
+      "switch": "volumePermissions.enabled=true",
       "kind": "field",
       "baselineObjects": 14,
       "variantObjects": 14,
@@ -86,7 +109,7 @@
       "removed": []
     },
     {
-      "switch": "volumePermissions.enabled",
+      "switch": "sysctl.enabled=true",
       "kind": "field",
       "baselineObjects": 14,
       "variantObjects": 14,
@@ -94,15 +117,7 @@
       "removed": []
     },
     {
-      "switch": "replica.replicaCount=5",
-      "kind": "field",
-      "baselineObjects": 14,
-      "variantObjects": 14,
-      "added": [],
-      "removed": []
-    },
-    {
-      "switch": "master.count=2",
+      "switch": "useExternalDNS.enabled=true",
       "kind": "field",
       "baselineObjects": 14,
       "variantObjects": 14,

@@ -2,6 +2,7 @@
   "apiVersion": "helm-expt.confighub.com/v1alpha1",
   "kind": "PilotGeneratedVariantReceipt",
   "intent": "A standalone redis cache with Prometheus metrics exposed.",
+  "mappedBy": "fixture (authoring-time constant; pass --switches to drive from an agent)",
   "switches": [
     "architecture=standalone",
     "metrics.enabled"
@@ -11,7 +12,7 @@
   "generatedObjects": 12,
   "gate": {
     "composition": {
-      "predictedAdds": 1,
+      "predictedAdds": 0,
       "predictedRemoves": 4,
       "actualAdds": 2,
       "actualRemoves": 4,

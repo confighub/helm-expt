@@ -1,0 +1,35 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "PilotGeneratedVariantReceipt",
+  "intent": "A standalone redis with TLS on, certs auto-generated",
+  "mappedBy": "claude (live mapping, this session)",
+  "switches": [
+    "architecture=standalone",
+    "tls.enabled"
+  ],
+  "chart": "oci://registry-1.docker.io/bitnamicharts/redis@25.5.3",
+  "baselineObjects": 14,
+  "generatedObjects": 11,
+  "gate": {
+    "composition": {
+      "predictedAdds": 0,
+      "predictedRemoves": 4,
+      "actualAdds": 1,
+      "actualRemoves": 4,
+      "interactionObserved": true,
+      "pass": true
+    },
+    "determinism": {
+      "shaA": "d1f24071118db51116fea94569923c8598d582902eafc55bd0d8b42d4e54ab68",
+      "shaB": "4d68148b2ec74c4ee1bdffeeeec42f874eaaac880cc18f0a7b4e3cad805c6c42",
+      "pass": false
+    },
+    "routes": {
+      "routedObjects": [],
+      "note": "No routed quirks introduced by these switches.",
+      "pass": true
+    },
+    "passed": false
+  },
+  "conclusion": "Parity gate FAILED. The variant is not allowed to exist until the failing check is resolved."
+}

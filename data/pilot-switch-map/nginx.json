@@ -1,0 +1,137 @@
+{
+  "chart": "oci://registry-1.docker.io/bitnamicharts/nginx@24.0.2",
+  "baselineObjects": 6,
+  "rows": [
+    {
+      "switch": "diagnosticMode.enabled=true",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "tls.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 5,
+      "added": [],
+      "removed": [
+        "v1/Secret/nginx-tls"
+      ]
+    },
+    {
+      "switch": "podSecurityContext.enabled=false",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "containerSecurityContext.enabled=false",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "startupProbe.enabled=true",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "livenessProbe.enabled=false",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "readinessProbe.enabled=false",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "autoscaling.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 7,
+      "added": [
+        "autoscaling/v2/HorizontalPodAutoscaler/nginx"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "cloneStaticSiteFromGit.enabled=true",
+      "kind": "render-error",
+      "error": "Command failed: helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-map-QCjHW6/",
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "networkPolicy.enabled=false",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 5,
+      "added": [],
+      "removed": [
+        "networking.k8s.io/v1/NetworkPolicy/nginx"
+      ]
+    },
+    {
+      "switch": "httpRoute.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 7,
+      "added": [
+        "gateway.networking.k8s.io/v1/HTTPRoute/nginx"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "backendTLSPolicy.enabled=true",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    },
+    {
+      "switch": "ingress.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 7,
+      "added": [
+        "networking.k8s.io/v1/Ingress/nginx"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "healthIngress.enabled=true",
+      "kind": "structural",
+      "baselineObjects": 6,
+      "variantObjects": 7,
+      "added": [
+        "networking.k8s.io/v1/Ingress/nginx-health"
+      ],
+      "removed": []
+    },
+    {
+      "switch": "metrics.enabled=true",
+      "kind": "field",
+      "baselineObjects": 6,
+      "variantObjects": 6,
+      "added": [],
+      "removed": []
+    }
+  ]
+}

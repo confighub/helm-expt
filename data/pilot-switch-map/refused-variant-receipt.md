@@ -1,10 +1,10 @@
 # Pilot-generated variant, parity receipt
 
-**Intent:** A standalone redis cache with Prometheus metrics exposed.
+**Intent:** A standalone redis with TLS on, certs auto-generated
 
-**Switches the agent mapped it to:** `architecture=standalone`, `metrics.enabled`
+**Switches the agent mapped it to:** `architecture=standalone`, `tls.enabled`
 
-**Mapped by:** fixture (authoring-time constant; pass --switches to drive from an agent)
+**Mapped by:** claude (live mapping, this session)
 
 The intent is the only step an AI performed. The chart's renderer produced the
 objects; the parity gate below certifies they are the genuine chart output.
@@ -13,21 +13,21 @@ objects; the parity gate below certifies they are the genuine chart output.
 
 | Check | Result |
 | --- | --- |
-| Composition | +2 objects, -4 objects vs baseline (14); interaction observed: true |
-| Determinism | byte-identical across two renders (`06bf02a9163204f1…`) |
-| Route disposition | `monitoring.coreos.com/v1/ServiceMonitor/redis` |
+| Composition | +1 objects, -4 objects vs baseline (14); interaction observed: true |
+| Determinism | DIVERGED (`d1f24071118db511…`) |
+| Route disposition | none |
 
-**Objects added:** `v1/Service/redis-metrics`, `monitoring.coreos.com/v1/ServiceMonitor/redis`
+**Objects added:** `v1/Secret/redis-crt`
 
 **Objects removed:** `policy/v1/PodDisruptionBudget/redis-replicas`, `v1/ServiceAccount/redis-replica`, `v1/Service/redis-replicas`, `apps/v1/StatefulSet/redis-replicas`
 
 ## Routing
 
-Renders a ServiceMonitor, which needs the Prometheus Operator CRDs on the target. Routed as a target prerequisite, not shipped silently.
+No routed quirks introduced by these switches.
 
 ## Verdict
 
-**PASS.** Parity gate passed. The generated variant is the genuine chart output for these switches, reproducible, with routed quirks named. It may exist as a ConfigHub variant.
+**FAIL.** Parity gate FAILED. The variant is not allowed to exist until the failing check is resolved.
 
 ## Why this is not a hallucination
 
