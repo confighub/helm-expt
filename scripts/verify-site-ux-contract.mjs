@@ -28,7 +28,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Everything we know about this Helm chart is on this page", "Pass means backed by evidence", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["This page exists so you do not have to guess your way through this Helm chart", "Pass means backed by evidence", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",

@@ -4,25 +4,25 @@
 
 The Redis starting point for the environment promotion demo.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
+## Why this example exists
+
+Helm can install Redis. The harder operations problem is what happens after install, when teams create staging and production versions and later upgrade the chart.
+
+This example keeps the base chart output and the later environment changes separate enough to audit.
+
+## What this example shows
 
 - A chart render can become an application base instead of a one-off install.
 - The base receives upstream chart refreshes. Environment Spaces can then take those refreshes without losing their local edits.
 - This is the beginning of the 25.5.3 to 27.0.0 Redis upgrade story.
 
-## Open in Hub
+## What to inspect in Hub
 
 - This README.
 - The Redis workload YAML to see the captured render.
 - `bitnami-redis-staging` and `bitnami-redis-prod` to see environment versions.
-
-## Why it exists
-
-Helm can install Redis. The harder operations problem is what happens after install, when teams create staging and production versions and later upgrade the chart.
-
-This example keeps the base chart output and the later environment changes separate enough to audit.
 
 ## Evidence and source
 

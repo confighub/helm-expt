@@ -4,25 +4,25 @@
 
 The Vault base used to show environment variants, placeholders, promotion, and recorded render context.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
+## Why this example exists
+
+Vault is useful because it is sensitive and operationally specific. It forces the demo to show how config records, variants, and gates fit together.
+
+The base is where the chart output and the recorded render context meet.
+
+## What this example shows
 
 - A rendered chart can carry a render record next to the workload YAML.
 - Environment variants can inherit from the base and add their own settings, policies, and release choices.
 - Placeholder checks prevent a known placeholder value from reaching a cluster by accident.
 
-## Open in Hub
+## What to inspect in Hub
 
 - This README.
 - The render-record YAML.
 - `hashicorp-vault-env-dev`, `hashicorp-vault-env-staging`, and `hashicorp-vault-env-prod`.
-
-## Why it exists
-
-Vault is useful because it is sensitive and operationally specific. It forces the demo to show how config records, variants, and gates fit together.
-
-The base is where the chart output and the recorded render context meet.
 
 ## Evidence and source
 

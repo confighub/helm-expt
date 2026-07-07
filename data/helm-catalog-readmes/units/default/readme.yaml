@@ -23,24 +23,24 @@ spec:
 
     A landing space for the demo org. Start with the chart and demo spaces instead of treating this as a chart example.
 
-    Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+    Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-    ## What to look at
-
-    - ConfigHub always has a default Space, so the demo org has one too.
-    - It is not the main Helm Catalog demo. Use it as orientation, then open one of the named chart, fleet, route, or environment spaces.
-
-    ## Open in Hub
-
-    - This README first.
-    - `platform` for the shared checks used by the demo org.
-    - Any chart preset Space whose name starts with a chart name.
-
-    ## Why it exists
+    ## Why this example exists
 
     The demo org is easier to understand when every Space explains what it is for.
 
     This README prevents a first-time user from landing in an empty or administrative place and thinking the demo is thin.
+
+    ## What this example shows
+
+    - ConfigHub always has a default Space, so the demo org has one too.
+    - It is not the main Helm Catalog demo. Use it as orientation, then open one of the named chart, fleet, route, or environment spaces.
+
+    ## What to inspect in Hub
+
+    - This README first.
+    - `platform` for the shared checks used by the demo org.
+    - Any chart preset Space whose name starts with a chart name.
 
     ## Evidence and source
 

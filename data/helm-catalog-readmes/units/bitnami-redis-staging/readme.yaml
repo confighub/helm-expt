@@ -23,24 +23,24 @@ spec:
 
     A staging variant that keeps a local replica choice while the Redis base moves forward.
 
-    Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+    Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-    ## What to look at
-
-    - Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.
-    - The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.
-
-    ## Open in Hub
-
-    - This README.
-    - The Redis StatefulSet YAML and its revision history.
-    - `bitnami-redis-base` for the upstream base.
-
-    ## Why it exists
+    ## Why this example exists
 
     This is the everyday Helm problem: a team needs one environment to differ from the base, then needs the next chart upgrade not to wipe that difference.
 
     ConfigHub makes the local decision visible and keeps it during upgrade.
+
+    ## What this example shows
+
+    - Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.
+    - The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.
+
+    ## What to inspect in Hub
+
+    - This README.
+    - The Redis StatefulSet YAML and its revision history.
+    - `bitnami-redis-base` for the upstream base.
 
     ## Evidence and source
 

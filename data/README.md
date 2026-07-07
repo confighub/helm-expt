@@ -77,7 +77,7 @@ smallest generated surface that answers it.
 | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | Compact GitHub orientation for the master catalog matrix. |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
-| [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset config becomes ConfigHub Units: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
+| [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
 | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action. |
 | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) | Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work. |
 | [status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) | Current non-pass live parity rows with the exact support artifact that should be handled before rerun. |

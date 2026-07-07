@@ -4,25 +4,25 @@
 
 A small fixture proving that hook-like work can be packaged once and delivered through Argo CD, Flux, or a direct apply path.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
+## Why this example exists
+
+The claim is not that every hook can be translated automatically.
+
+The claim is that most real cases can be handled with chart-specific presets and tested patterns, then recorded so teams can maintain them.
+
+## What this example shows
 
 - Some Helm work is not just static objects. Hooks and setup jobs need an execution plan.
 - This fixture packages that work as an explicit route and proves the same OCI bundle can be consumed three ways.
 - Argo CD, Flux, and a no-controller path all observed the routed hook running in the live proof.
 
-## Open in Hub
+## What to inspect in Hub
 
 - This README.
 - The hook fixture YAML.
 - The proof receipt linked below.
-
-## Why it exists
-
-The claim is not that every hook can be translated automatically.
-
-The claim is that most real cases can be handled with chart-specific presets and tested patterns, then recorded so teams can maintain them.
 
 ## Evidence and source
 

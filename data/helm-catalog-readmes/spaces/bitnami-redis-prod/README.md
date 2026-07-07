@@ -4,24 +4,24 @@
 
 The production Redis variant, with gates and promotion history separated from staging.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
-
-- Production can receive reviewed changes after staging proves them.
-- Production gates live in the platform model instead of being buried in a Helm command.
-
-## Open in Hub
-
-- This README.
-- Redis workload YAML and revision history.
-- The `platform` Space for shared gates.
-
-## Why it exists
+## Why this example exists
 
 Teams need a way to explain why production differs, what was promoted, and which gates applied.
 
 This is the production side of the Redis environment demo.
+
+## What this example shows
+
+- Production can receive reviewed changes after staging proves them.
+- Production gates live in the platform model instead of being buried in a Helm command.
+
+## What to inspect in Hub
+
+- This README.
+- Redis workload YAML and revision history.
+- The `platform` Space for shared gates.
 
 ## Evidence and source
 

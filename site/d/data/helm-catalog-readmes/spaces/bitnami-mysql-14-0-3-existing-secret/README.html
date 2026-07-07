@@ -393,22 +393,22 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
     <h1>bitnami/mysql 14.0.3 - existing-secret</h1>
-    <p class="lead">This is the website copy of the README for this demo Space. In Hub, the same text appears as the README for that Space. <a href="../../../../../../data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.md">View source markdown</a>.</p>
+    <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: generated README for this demo Space.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>This is the <code>existing-secret</code> preset for <code>bitnami/mysql@14.0.3</code>. Use this when secret material should come from a Secret you create, not from a generated chart default.</p>
-<p>It keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence for this preset.</p>
-<p>Use this README as the short guide for this Hub Space. It explains what this preset is for, what to inspect, how to repeat it, and where the proof lives.</p>
+<p>This Space exists to answer one practical question: what is a safe, repeatable way to run <code>bitnami/mysql@14.0.3</code> for this operating choice?</p>
+<p>For this Space, the answer is the <code>existing-secret</code> preset. Use this when secret material should come from a Secret you create, not from a generated chart default.</p>
+<p>The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.</p>
+<h2 id="why-this-preset-exists">Why this preset exists</h2>
+<p>With plain Helm, a values file and a successful install do not explain enough later. It can be hard to tell which values, Secrets, CRDs, hooks, target assumptions, and local edits mattered. A future upgrade can also wipe changes made after install.</p>
+<p>This preset gives the team a named starting point instead of a private guess. You can test it without a ConfigHub account, upload it when you want Hub records and variants, and reuse it as a base for dev, staging, production, regions, or customers.</p>
 <h2 id="what-this-preset-contains">What this preset contains</h2>
 <ul><li>Preset: <code>existing-secret</code>.</li><li>Kubernetes YAML: 7 object(s), mainly Service x2, ConfigMap x1, NetworkPolicy x1, PodDisruptionBudget x1, ServiceAccount x1, StatefulSet x1.</li><li>Needs before install: 1 Secret.</li><li>Extra Helm work: no hook route is recorded for this preset.</li></ul>
-<p>This is not a new chart language. It is a checked way to use this Helm chart with a named, repeatable starting point.</p>
+<p>This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ol><li>Read this page first.</li><li>Open the workload YAML stored in ConfigHub.</li><li>Open revision history when you want to see what changed over time.</li><li>Use the links below for the chart page, render intent, rendered YAML, and scripts.</li></ol>
-<h2 id="why-this-is-useful">Why this is useful</h2>
-<p>Plain Helm rebuilds a release from templates each time. That is fine for a first install. It gets harder when you need to know which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered later.</p>
-<p>This preset gives the team a named starting point. You can test it without a ConfigHub account, upload it when you want records and variants, and reuse it as a base for dev, staging, production, regions, or customers.</p>
+<ol><li>Read this page first.</li><li>Open the Kubernetes YAML to see the objects this preset manages.</li><li>Open the render intent to see the Helm inputs behind those objects.</li><li>Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.</li><li>Open revision history when you want to see what changed over time.</li></ol>
 <h2 id="try-it">Try it</h2>
 <p>Run without a ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-existing-secret/try.sh)</code></pre>

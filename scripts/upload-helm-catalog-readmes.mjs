@@ -9,6 +9,7 @@ import { check, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 const mode = process.argv[2] ?? "--check";
 const unitsRoot = join(repoRoot, "data", "helm-catalog-readmes", "units");
 const changeDesc = "Refresh helm-catalog demo README";
+const cubContext = process.env.CUB_CONTEXT ?? "";
 
 if (mode === "--upload") {
   const spaces = sourceSpaces();
@@ -73,11 +74,11 @@ function verifyLive(spaces) {
     check(readmeLike.length === 1 && readmeLike[0] === "readme", `${space} has readme-like Units: ${readmeLike.join(", ") || "(none)"}`);
     checked += 1;
   }
-  console.log(`verified one readme Unit in ${checked} helm-catalog Space(s)`);
+  console.log(`verified one README in ${checked} helm-catalog Space(s)`);
 }
 
 function unitExists(space, slug) {
-  const result = spawnSync("cub", ["unit", "get", "--space", space, slug, "-o", "name", "--quiet"], {
+  const result = spawnSync("cub", [...contextArgs(), "unit", "get", "--space", space, slug, "-o", "name", "--quiet"], {
     cwd: repoRoot,
     encoding: "utf8",
   });
@@ -85,7 +86,7 @@ function unitExists(space, slug) {
 }
 
 function listUnits(space) {
-  const result = spawnSync("cub", ["unit", "list", "--space", space, "--quiet", "-o", "json"], {
+  const result = spawnSync("cub", [...contextArgs(), "unit", "list", "--space", space, "--quiet", "-o", "json"], {
     cwd: repoRoot,
     encoding: "utf8",
     maxBuffer: 1024 * 1024 * 100,
@@ -95,10 +96,14 @@ function listUnits(space) {
 }
 
 function runCub(args) {
-  const result = spawnSync("cub", args, {
+  const result = spawnSync("cub", [...contextArgs(), ...args], {
     cwd: repoRoot,
     encoding: "utf8",
     stdio: ["ignore", "inherit", "inherit"],
   });
   check(result.status === 0, `cub ${args.join(" ")} failed`);
+}
+
+function contextArgs() {
+  return cubContext ? ["--context", cubContext] : [];
 }

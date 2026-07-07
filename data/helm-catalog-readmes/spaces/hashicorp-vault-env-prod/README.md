@@ -4,25 +4,25 @@
 
 The prod Vault environment variant in the promotion and placeholder demo.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
+## Why this example exists
+
+This is a careful example of custom application delivery, not just chart installation.
+
+The important thing to inspect is how the environment records what changed and why.
+
+## What this example shows
 
 - The environment starts from the Vault base and can carry local choices.
 - Production is wired with approval gates.
 - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
-## Open in Hub
+## What to inspect in Hub
 
 - This README.
 - Vault StatefulSet and Service YAML.
 - `hashicorp-vault-demo-base` for the upstream base.
-
-## Why it exists
-
-This is a careful example of custom application delivery, not just chart installation.
-
-The important thing to inspect is how the environment records what changed and why.
 
 ## Evidence and source
 

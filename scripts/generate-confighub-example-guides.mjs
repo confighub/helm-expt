@@ -181,9 +181,15 @@ function guideMd(model) {
 
 # ${title}
 
-This guide shows how this Helm chart preset config becomes ConfigHub Units. It is generated from the same records that build the package, chart page, render intent, scripts, and receipts.
+This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.
 
-Start here when you want the short version. The proof links are lower down.
+It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.
+
+## Why this preset exists
+
+Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.
+
+This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.
 
 ## What this is
 
@@ -197,7 +203,7 @@ We keep the Helm chart. We lock \`${chart}@${version}\`, choose the \`${base}\` 
 
 That captured output is the render variant: [\`${renderedObjects}\`](${githubUrl(renderedObjects)}). It contains ${inventory.objectCount} Kubernetes object(s)${mainKinds ? `: ${mainKinds}` : ""}.
 
-The public package is \`${pkg.installer_oci_ref}\`. Users can pull it without cloning this repo. When someone runs \`cub installer upload\`, ConfigHub stores the rendered objects as Units in a Space. The example script defaults to Space \`${displaySpace}\`, but users can choose another name with \`CUB_SPACE=...\`.
+The public package is \`${pkg.installer_oci_ref}\`. Users can pull it without cloning this repo. When someone runs \`cub installer upload\`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space \`${displaySpace}\`, but users can choose another name with \`CUB_SPACE=...\`.
 
 ## What to check
 
@@ -207,7 +213,7 @@ ${routeSentence}
 
 ${whatChanged}
 
-## Why this is correct
+## Why you can trust it
 
 ${correctness.map((item) => `- ${item}`).join("\n")}
 
