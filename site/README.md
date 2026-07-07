@@ -30,6 +30,8 @@ Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
 Open `site/verification.html` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
+Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered
+README index for the live `helm-catalog` demo org.
 Open `site/known-gaps.html` for current watch findings the project surfaces deliberately.
 Open `site/hard-questions.html` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.

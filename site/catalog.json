@@ -31,6 +31,7 @@
     "lifecycleRoutes": "data/lifecycle-routes/routes.json",
     "lifecycleRouteActions": "data/lifecycle-route-actions/actions.json",
     "lifecycleByVariant": "data/lifecycle-routes-by-variant/by-variant.json",
+    "helmCatalogReadmes": "data/helm-catalog-readmes/readmes.csv",
     "installerOciPackages": "data/installer-oci-packages/packages.csv",
     "chartSkills": "data/chart-skills/skills.json",
     "chartEvidenceRouter": "data/chart-evidence-router/router.csv",
@@ -25443,6 +25444,320 @@
       "lifecycle_route_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://victoriametrics.github.io/helm-charts"
+    }
+  ],
+  "helmCatalogReadmes": [
+    {
+      "space": "default",
+      "kind": "org",
+      "title": "helm-catalog default space",
+      "summary": "A landing space for the demo org. Start with the chart and demo spaces instead of treating this as a chart example.",
+      "source_path": "data/helm-catalog-readmes/spaces/default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/default/readme.yaml"
+    },
+    {
+      "space": "platform",
+      "kind": "org",
+      "title": "Shared checks and gates for the demo org",
+      "summary": "Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.",
+      "source_path": "data/helm-catalog-readmes/spaces/platform/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/platform/readme.yaml"
+    },
+    {
+      "space": "argo-cd-argo-cd-9-5-15-default",
+      "kind": "preset",
+      "title": "argo-cd/argo-cd 9.5.15 - default",
+      "summary": "A ready-to-use preset config for argo-cd/argo-cd@9.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/argo-cd-argo-cd-9-5-15-default/readme.yaml"
+    },
+    {
+      "space": "argo-cd-argo-cd-9-5-15-no-crds",
+      "kind": "preset",
+      "title": "argo-cd/argo-cd 9.5.15 - no-crds",
+      "summary": "A ready-to-use preset config for argo-cd/argo-cd@9.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/argo-cd-argo-cd-9-5-15-no-crds/readme.yaml"
+    },
+    {
+      "space": "bitnami-mysql-14-0-3-existing-secret",
+      "kind": "preset",
+      "title": "bitnami/mysql 14.0.3 - existing-secret",
+      "summary": "A ready-to-use preset config for bitnami/mysql@14.0.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-mysql-14-0-3-existing-secret/readme.yaml"
+    },
+    {
+      "space": "bitnami-mysql-14-0-3-static-passwords",
+      "kind": "preset",
+      "title": "bitnami/mysql 14.0.3 - static-passwords",
+      "summary": "A ready-to-use preset config for bitnami/mysql@14.0.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-static-passwords/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-mysql-14-0-3-static-passwords/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-24-0-2-existing-tls-ingress",
+      "kind": "preset",
+      "title": "bitnami/nginx 24.0.2 - existing-tls-ingress",
+      "summary": "A ready-to-use preset config for bitnami/nginx@24.0.2. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-24-0-2-existing-tls-ingress/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-24-0-2-http-clusterip",
+      "kind": "preset",
+      "title": "bitnami/nginx 24.0.2 - http-clusterip",
+      "summary": "A ready-to-use preset config for bitnami/nginx@24.0.2. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-http-clusterip/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-24-0-2-http-clusterip/readme.yaml"
+    },
+    {
+      "space": "bitnami-rabbitmq-16-0-14-existing-secret",
+      "kind": "preset",
+      "title": "bitnami/rabbitmq 16.0.14 - existing-secret",
+      "summary": "A ready-to-use preset config for bitnami/rabbitmq@16.0.14. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-existing-secret/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-rabbitmq-16-0-14-existing-secret/readme.yaml"
+    },
+    {
+      "space": "bitnami-rabbitmq-16-0-14-static-passwords",
+      "kind": "preset",
+      "title": "bitnami/rabbitmq 16.0.14 - static-passwords",
+      "summary": "A ready-to-use preset config for bitnami/rabbitmq@16.0.14. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-rabbitmq-16-0-14-static-passwords/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-25-5-3-default",
+      "kind": "preset",
+      "title": "bitnami/redis 25.5.3 - default",
+      "summary": "A ready-to-use preset config for bitnami/redis@25.5.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-25-5-3-default/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-25-5-3-reuse-existing-secret",
+      "kind": "preset",
+      "title": "bitnami/redis 25.5.3 - reuse-existing-secret",
+      "summary": "A ready-to-use preset config for bitnami/redis@25.5.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-25-5-3-reuse-existing-secret/readme.yaml"
+    },
+    {
+      "space": "grafana-grafana-10-5-15-existing-secret-ingress",
+      "kind": "preset",
+      "title": "grafana/grafana 10.5.15 - existing-secret-ingress",
+      "summary": "A ready-to-use preset config for grafana/grafana@10.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/grafana-grafana-10-5-15-existing-secret-ingress/readme.yaml"
+    },
+    {
+      "space": "grafana-grafana-10-5-15-static-passwords",
+      "kind": "preset",
+      "title": "grafana/grafana 10.5.15 - static-passwords",
+      "summary": "A ready-to-use preset config for grafana/grafana@10.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-static-passwords/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/grafana-grafana-10-5-15-static-passwords/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-0-32-0-default",
+      "kind": "preset",
+      "title": "hashicorp/vault 0.32.0 - default",
+      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-default/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-0-32-0-dev-mode",
+      "kind": "preset",
+      "title": "hashicorp/vault 0.32.0 - dev-mode",
+      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-dev-mode/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-0-32-0-ha-raft-ui",
+      "kind": "preset",
+      "title": "hashicorp/vault 0.32.0 - ha-raft-ui",
+      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-ha-raft-ui/readme.yaml"
+    },
+    {
+      "space": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
+      "kind": "preset",
+      "title": "ingress-nginx/ingress-nginx 4.15.1 - admission-disabled",
+      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/readme.yaml"
+    },
+    {
+      "space": "ingress-nginx-ingress-nginx-4-15-1-default",
+      "kind": "preset",
+      "title": "ingress-nginx/ingress-nginx 4.15.1 - default",
+      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-default/readme.yaml"
+    },
+    {
+      "space": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
+      "kind": "preset",
+      "title": "ingress-nginx/ingress-nginx 4.15.1 - internal-clusterip",
+      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/readme.yaml"
+    },
+    {
+      "space": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+      "kind": "preset",
+      "title": "prometheus-community/kube-prometheus-stack 85.3.3 - no-crds",
+      "summary": "A ready-to-use preset config for prometheus-community/kube-prometheus-stack@85.3.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/readme.yaml"
+    },
+    {
+      "space": "prometheus-community-prometheus-29-8-0-default",
+      "kind": "preset",
+      "title": "prometheus-community/prometheus 29.8.0 - default",
+      "summary": "A ready-to-use preset config for prometheus-community/prometheus@29.8.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-default/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-prometheus-29-8-0-default/readme.yaml"
+    },
+    {
+      "space": "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
+      "kind": "preset",
+      "title": "prometheus-community/prometheus 29.8.0 - server-only-ephemeral",
+      "summary": "A ready-to-use preset config for prometheus-community/prometheus@29.8.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-base",
+      "kind": "environment",
+      "title": "Redis base application",
+      "summary": "The Redis starting point for the environment promotion demo.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-base/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-prod",
+      "kind": "environment",
+      "title": "Redis production application",
+      "summary": "The production Redis variant, with gates and promotion history separated from staging.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-prod/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-prod/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-staging",
+      "kind": "environment",
+      "title": "Redis staging application",
+      "summary": "A staging variant that keeps a local replica choice while the Redis base moves forward.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-staging/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-demo-base",
+      "kind": "environment",
+      "title": "Vault base application",
+      "summary": "The Vault base used to show environment variants, placeholders, promotion, and recorded render context.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-demo-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-demo-base/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-env-dev",
+      "kind": "environment",
+      "title": "Vault dev environment",
+      "summary": "The dev Vault environment variant in the promotion and placeholder demo.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-env-dev/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-env-dev/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-env-prod",
+      "kind": "environment",
+      "title": "Vault prod environment",
+      "summary": "The prod Vault environment variant in the promotion and placeholder demo.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-env-prod/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-env-prod/readme.yaml"
+    },
+    {
+      "space": "hashicorp-vault-env-staging",
+      "kind": "environment",
+      "title": "Vault staging environment",
+      "summary": "The staging Vault environment variant in the promotion and placeholder demo.",
+      "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-env-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-env-staging/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-fleet-dev",
+      "kind": "fleet",
+      "title": "Nginx fleet dev",
+      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-dev/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-dev/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-fleet-prod-eu",
+      "kind": "fleet",
+      "title": "Nginx fleet prod-eu",
+      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-eu/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-prod-eu/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-fleet-prod-us",
+      "kind": "fleet",
+      "title": "Nginx fleet prod-us",
+      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-us/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-prod-us/readme.yaml"
+    },
+    {
+      "space": "bitnami-nginx-fleet-staging",
+      "kind": "fleet",
+      "title": "Nginx fleet staging",
+      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-staging/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-27-0-0-default-pilot-live-20260705",
+      "kind": "pilot",
+      "title": "Redis 27.0.0 default pilot run",
+      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default lane.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-default-pilot-live-20260705/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-27-0-0-prod-pilot-live-20260705",
+      "kind": "pilot",
+      "title": "Redis 27.0.0 prod pilot run",
+      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the prod lane.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-prod-pilot-live-20260705/readme.yaml"
+    },
+    {
+      "space": "bitnami-redis-27-0-0-stage-pilot-live-20260705",
+      "kind": "pilot",
+      "title": "Redis 27.0.0 stage pilot run",
+      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the stage lane.",
+      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-stage-pilot-live-20260705/readme.yaml"
+    },
+    {
+      "space": "hook-probe-base",
+      "kind": "route",
+      "title": "Hook delivery proof fixture",
+      "summary": "A small fixture proving that hook-like work can be packaged once and delivered through Argo CD, Flux, or a direct apply path.",
+      "source_path": "data/helm-catalog-readmes/spaces/hook-probe-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/hook-probe-base/readme.yaml"
+    },
+    {
+      "space": "route-sketch-kube-prometheus-stack",
+      "kind": "route",
+      "title": "Kube Prometheus Stack route sketch",
+      "summary": "A design sketch for handling the work around a complex chart: CRDs, setup jobs, webhook certificates, target facts, and receipts.",
+      "source_path": "data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/route-sketch-kube-prometheus-stack/readme.yaml"
     }
   ],
   "installerOciPackages": [

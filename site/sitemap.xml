@@ -336,6 +336,46 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/prometheus-community-kube-prometheus-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-proof-gaps/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-static-passwords/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-http-clusterip/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-dev/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-eu/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-us/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-existing-secret/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-prod/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-static-passwords/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-demo-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-env-dev/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-env-prod/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hashicorp-vault-env-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/hook-probe-base/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-default/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-habit-friction/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-org/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-render-intents/contract.html</loc></url>
