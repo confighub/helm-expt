@@ -23,24 +23,24 @@ spec:
 
     Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.
 
-    Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+    Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-    ## What to look at
-
-    - Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.
-    - The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.
-
-    ## Open in Hub
-
-    - This README.
-    - The checks and filters used by the demo org.
-    - Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter.
-
-    ## Why it exists
+    ## Why this example exists
 
     A catalog is not only rendered YAML. It also needs the rules that say when a change is safe to move.
 
     The platform Space shows those rules separately so chart examples do not hide policy decisions inside prose.
+
+    ## What this example shows
+
+    - Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.
+    - The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.
+
+    ## What to inspect in Hub
+
+    - This README.
+    - The checks and filters used by the demo org.
+    - Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter.
 
     ## Evidence and source
 

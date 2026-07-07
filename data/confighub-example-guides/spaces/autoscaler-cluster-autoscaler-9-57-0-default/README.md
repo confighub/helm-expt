@@ -2,9 +2,15 @@
 
 # autoscaler/cluster-autoscaler 9.57.0 - default
 
-This guide shows how this Helm chart preset config becomes ConfigHub Units. It is generated from the same records that build the package, chart page, render intent, scripts, and receipts.
+This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.
 
-Start here when you want the short version. The proof links are lower down.
+It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.
+
+## Why this preset exists
+
+Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.
+
+This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.
 
 ## What this is
 
@@ -18,7 +24,7 @@ We keep the Helm chart. We lock `autoscaler/cluster-autoscaler@9.57.0`, choose t
 
 That captured output is the render variant: [`recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml). It contains 7 Kubernetes object(s): ClusterRole x1, ClusterRoleBinding x1, PodDisruptionBudget x1, Role x1, RoleBinding x1, Service x1, ServiceAccount x1.
 
-The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered objects as Units in a Space. The example script defaults to Space `helm-cluster-autoscaler-default`, but users can choose another name with `CUB_SPACE=...`.
+The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0`. Users can pull it without cloning this repo. When someone runs `cub installer upload`, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space `helm-cluster-autoscaler-default`, but users can choose another name with `CUB_SPACE=...`.
 
 ## What to check
 
@@ -28,7 +34,7 @@ No hook or lifecycle route is recorded for this preset config.
 
 For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
 
-## Why this is correct
+## Why you can trust it
 
 - The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.
 - The render variant is committed as YAML and contains 7 Kubernetes object(s).

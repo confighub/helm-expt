@@ -93,7 +93,7 @@ const QUIRKS = [
   },
   {
     id: "files-get",
-    label: ".Files.Get payloads",
+    label: ".Files.Get bundled files",
     risk: 4,
     detect: (row) => count(row.filesGet) > 0,
     sourceDetail: (row) => `${count(row.filesGet)} .Files.Get call site(s)`,

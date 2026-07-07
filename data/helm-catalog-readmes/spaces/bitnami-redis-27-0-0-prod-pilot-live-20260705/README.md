@@ -4,25 +4,25 @@
 
 A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the prod lane.
 
-Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
-## What to look at
+## Why this example exists
+
+This example makes the pilot concrete. It is easier to trust the story when the actual run has a place in the org.
+
+The lesson is practical: keep the Helm chart, but record the change so an upgrade does not depend on remembering the right flag.
+
+## What this example shows
 
 - The chart upgrade was tested against a real throwaway cluster.
 - The important question was whether a local operations edit survived the chart upgrade.
 - The result was recorded so someone can inspect the run later instead of trusting a demo claim.
 
-## Open in Hub
+## What to inspect in Hub
 
 - This README.
 - Redis workload YAML.
 - Revision history for the changed YAML.
-
-## Why it exists
-
-This example makes the pilot concrete. It is easier to trust the story when the actual run has a place in the org.
-
-The lesson is practical: keep the Helm chart, but record the change so an upgrade does not depend on remembering the right flag.
 
 ## Evidence and source
 

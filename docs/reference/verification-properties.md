@@ -20,9 +20,9 @@ For a catalog chart that passes a full test run, you can expect:
    stored Helm-rendered object set.
 
 2. **Installs via `cub installer` on the maintained catalog path.**
-   For rows with the relevant receipts, the chart becomes ConfigHub Units, can
-   be published or applied through OCI, and can be reconciled by an in-cluster
-   Argo or Flux controller into a running workload.
+   For rows with the relevant receipts, ConfigHub stores the rendered YAML as
+   reviewable records, publishes or applies it through OCI, and reconciles it
+   through an in-cluster Argo or Flux controller into a running workload.
    *Verified by:* ConfigHub proof receipts, local-kind e2e receipts, runtime
    GitOps receipts, and the live parity lanes recorded in the outcome coverage.
 

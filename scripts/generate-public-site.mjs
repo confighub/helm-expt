@@ -654,7 +654,7 @@ function pageDescription(html, relPath) {
   if (relPath.startsWith("d/")) {
     return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
   }
-  return `${subject}: chart status, base varianturations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.`;
+  return `${subject}: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.`;
 }
 
 function injectHeadMeta(html, relPath) {
@@ -697,7 +697,7 @@ function buildLlmsTxt() {
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: charts, base variants, packages, counts, and the repo data paths they come from.
-- [Helm Ops Catalog](${SITE_BASE_URL}charts/): the catalog index, one page per chart version with base varianturations, rendered objects, and evidence links.
+- [Helm Ops Catalog](${SITE_BASE_URL}charts/): the catalog index, one page per chart version with base variants, rendered objects, and evidence links.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Get Started](${SITE_BASE_URL}try.html): the no-account try path for installing catalog charts.
@@ -971,7 +971,7 @@ function docPageLead(repoPath, sourceHref) {
     return `The website index for the README pages used in the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
   }
   if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
-    return `This is the website copy of the README for this demo Space. In Hub, the same text appears as the README for that Space. <a href="${sourceHref}">View source markdown</a>.`;
+    return `This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="${sourceHref}">View source markdown</a>.`;
   }
   return `A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.`;
 }
@@ -987,7 +987,7 @@ function docGeneratedStamp(catalog, repoPath) {
     return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README index for the <code>helm-catalog</code> demo org.</p>`;
   }
   if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
-    return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README for this demo Space.</p>`;
+    return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>`;
   }
   return generatedStamp(catalog, docGeneratedLabel(repoPath));
 }
@@ -2609,7 +2609,7 @@ function docsHtml(catalog) {
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
     ["Choose a chart", "Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.", "./charts/index.html"],
-    ["Demo org examples", "The README pages used by the current helm-catalog demo Spaces.", "../data/helm-catalog-readmes/summary.md"],
+    ["Demo org examples", "The README pages for live Hub demo Spaces. Each one says why the Space exists, what problem it shows, and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
@@ -2649,7 +2649,7 @@ function docsHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
-    ["Demo org README files", "The README text used by each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
+    ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Verification landing page", "Choose the right npm proof command.", "./verification.html"],
@@ -3669,16 +3669,16 @@ function demoOrgHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>The catalog, living in a ConfigHub org</h1>
-    <p class="lead">The chart pages show the evidence. This page shows the same charts running as configuration inside a real ConfigHub organization: base variants as root Spaces, derived variants as their children, promotions as recorded history, and checks as live warnings and gates. Ten charts, chosen for the stories they tell.</p>
+    <p class="lead">The chart pages show the evidence. The demo org shows why the evidence matters in a working ConfigHub account: one chart becomes shared configuration, environment versions, recorded promotions, live checks, and readable examples. Ten charts, chosen for the problems they explain.</p>
     ${humanLinks([["Helm Ops Catalog", "./charts/index.html"], ["How it works", "./how-it-works.html"], ["Apps", "./journey.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "demo org page")}
     <section aria-labelledby="readmes">
       <h2 id="readmes">Start With The README In Each Space</h2>
-      <p>The live <code>helm-catalog</code> org now has one <code>readme</code> Unit in every current Space. These are the front-door notes for someone starting inside Hub: what the Space shows, what to open, why it matters, what is proven, and where the website and repo evidence live.</p>
-      <p>In Hub, open ${signupLink("demo-org-readmes", "hub.confighub.com")}, choose the <code>helm-catalog</code> org, open a Space, then open its <code>readme</code> Unit first.</p>
-      <p>The same material is rendered on this website, so you can read it before opening Hub or link it from a chart page. Start with the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
+      <p>The live <code>helm-catalog</code> org has one README in every current Space. Start there. The README explains why that Space exists, which Helm problem it demonstrates, what to open first, what is proven, and where the website and repo evidence live.</p>
+      <p>In Hub, open ${signupLink("demo-org-readmes", "hub.confighub.com")}, choose the <code>helm-catalog</code> org, open a Space, then open its README first.</p>
+      <p>The same README pages are rendered on this website, so you can read them before opening Hub or link them from a chart page. Start with the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
       ${markdownLikeTable([
         ["README kind", "Spaces"],
         ...readmeCountRows,
@@ -3689,13 +3689,13 @@ function demoOrgHtml(catalog) {
     <section aria-labelledby="config-as-data">
       <h2 id="config-as-data">Why This Org Matters</h2>
       <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
-      <p>The demo org shows the ConfigHub answer. The rendered Kubernetes YAML is stored as Units. The README tells you how the Space got there. The Units are what ConfigHub can search, compare, change with review, and send to the cluster.</p>
+      <p>The demo org shows the ConfigHub answer. The rendered Kubernetes YAML is stored as reviewable records in a Space. The README tells you why that Space exists and how it got there. The YAML records are what ConfigHub can search, compare, change with review, and send to the cluster.</p>
       <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
     </section>
 
     <section aria-labelledby="what">
       <h2 id="what">What is in the org</h2>
-      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries a README, the rendered objects, labels for Component, Variant, ChartVersion and routes, and live validation checks. Some Spaces also carry recipe, render-record, route, or proof Units for the deeper examples.</p>
+      <p>Every base variant below is a root Space: one supported Helm render, stored as readable Kubernetes YAML. Each Space carries a README, the rendered objects, labels for component, variant, chart version and routes, and live validation checks. Some Spaces also carry recipe, render-record, route, or proof files for the deeper examples.</p>
       ${markdownLikeTable([
         ["Chart", "Base variants", "The story it tells"],
         ...keepRows,
@@ -4703,22 +4703,22 @@ function chartIndexHtml(catalog) {
   <header>
     ${topNav("..")}
     <h1>Helm Ops Catalog</h1>
-    <p class="lead">Start here. Pick a Helm chart, then choose a ready-to-use <a href="#base-variants">base variant</a> for how you want to run it.</p>
-    <p>A base variant is a named Helm configuration we support and test: default, no-CRDs, existing Secret, server-only, HA, internal service, and similar operating patterns. In the repo data, a base variant is called a base variant.</p>
-    <p>This is the main catalog offer. We are not trying to generate every possible Helm values combination. Most real cases can be handled with chart-specific base variants and patterns. That is enough when the choices are recorded, tested, and maintained.</p>
-    <p>AI helps with the maintenance work: reading chart behavior, proposing useful base variants, updating them across chart versions, and checking the rendered output. The catalog evidence decides what lands.</p>
+    <p class="lead">Start here when a Helm chart gives you too many choices. Pick the chart, then choose a ready-to-use <a href="#base-variants">base variant</a> for the way you want to run it.</p>
+    <p>The problem is not that Helm lacks options. The problem is that teams have to guess which options are safe, which CRDs or Secrets must already exist, which hooks or setup jobs matter, and what will happen on the next upgrade.</p>
+    <p>A base variant is our named answer for a common operating choice: default, no-CRDs, existing Secret, server-only, HA, internal service, and similar patterns. We are not trying to generate every possible Helm values combination. Most real cases can be handled with chart-specific base variants and patterns when the choices are recorded, tested, and maintained.</p>
+    <p>AI helps with the maintenance work: reading chart behavior, proposing useful base variants, updating them across chart versions, and checking the rendered output. Tests and evidence decide what lands in the catalog.</p>
     <p>Each base variant has a full rendered YAML output file, usually named <code>release-objects.yaml</code>. The chart page links that file, then links the render intent, revision, package base, routes, and receipts that explain where it came from and what still needs attention.</p>
     <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected base variant locally.</p>
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
-    <p>Inside that org, every demo Space starts with a README. The same README text is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the example. The Kubernetes YAML in the Space is what ConfigHub can search, compare, change with review, and send to the cluster.</p>
+    <p>Inside that org, every demo Space starts with a README. The same README text is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. Each README says why the Space exists, which problem it demonstrates, and what to inspect first. The Kubernetes YAML in the Space is what ConfigHub can search, compare, change with review, and send to the cluster.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>
     <section aria-labelledby="base variants">
       <h2 id="base-variants">Base Variants, Not Every Values Combination</h2>
-      <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides base variants for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that base variant.</p>
+      <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides base variants for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that choice.</p>
       <p>If your values file changes what Helm renders, it can become another base variant. If it only fills or refines already-rendered objects after upload, it belongs in a derived ConfigHub variant. If it needs a cluster, Secret, CRD owner, cloud account, or hook-like setup step, the chart page should say so before you install.</p>
       <p>Read each base variant in this order: full YAML output first, render context second, hooks/CRDs/setup work third. The YAML shows what Kubernetes would receive; the context and routes explain how that output was produced and what has to happen around it.</p>
       ${markdownLikeTable([
@@ -5239,10 +5239,10 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
-    <p>Everything we know about this Helm chart is on this page: how to run it, which base variants exist, what we have proven, and what still needs work.</p>
-    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
-    <p>This page does not claim every values combination for this chart. It shows the supported base variants we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
-    <p>Use this page to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
+    <p>This page exists so you do not have to guess your way through this Helm chart. It shows the useful ways we know how to run it, the Kubernetes YAML each choice produces, and the evidence behind the current claim.</p>
+    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a supported Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only.</p>
+    <p>The page does not claim every values combination for this chart. It shows the supported base variants we have recorded, what problem each one solves, and the chart-specific work that still needs a decision.</p>
+    <p>Use it to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see what is proven before you install or promote anything.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
@@ -5274,8 +5274,9 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What A Base Variant Records</h2>
-      <p>Each <a href="./index.html#base-variants">base variant</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the ${firstRenderedObjectsLink} to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
-      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
+      <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
+      <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. Then use the render intent, receipts, and chart-extras section to see the inputs, checks, and CRD/hook/setup decisions around it.</p>
+      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant that can be reviewed and kept through upgrades.</p>
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
         ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, `The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. ${INSTALLER_OCI_AUTH_NOTE}`],
@@ -5302,7 +5303,7 @@ function chartPageHtml(catalog, entry) {
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
         ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}${firstHubReadmePath ? `
-        <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the same README on this site</a>.</p>` : ""}
+        <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the demo README</a> to see why that Space exists, what problem it demonstrates, and what to inspect first.</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;

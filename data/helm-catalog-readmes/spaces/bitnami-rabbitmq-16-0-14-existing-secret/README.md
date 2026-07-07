@@ -2,11 +2,17 @@
 
 # bitnami/rabbitmq 16.0.14 - existing-secret
 
-This is the `existing-secret` preset for `bitnami/rabbitmq@16.0.14`. Use this when secret material should come from a Secret you create, not from a generated chart default.
+This Space exists to answer one practical question: what is a safe, repeatable way to run `bitnami/rabbitmq@16.0.14` for this operating choice?
 
-It keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence for this preset.
+For this Space, the answer is the `existing-secret` preset. Use this when secret material should come from a Secret you create, not from a generated chart default.
 
-Use this README as the short guide for this Hub Space. It explains what this preset is for, what to inspect, how to repeat it, and where the proof lives.
+The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.
+
+## Why this preset exists
+
+With plain Helm, a values file and a successful install do not explain enough later. It can be hard to tell which values, Secrets, CRDs, hooks, target assumptions, and local edits mattered. A future upgrade can also wipe changes made after install.
+
+This preset gives the team a named starting point instead of a private guess. You can test it without a ConfigHub account, upload it when you want Hub records and variants, and reuse it as a base for dev, staging, production, regions, or customers.
 
 ## What this preset contains
 
@@ -15,20 +21,15 @@ Use this README as the short guide for this Hub Space. It explains what this pre
 - Needs before install: 2 Secrets.
 - Extra Helm work: no hook route is recorded for this preset.
 
-This is not a new chart language. It is a checked way to use this Helm chart with a named, repeatable starting point.
+This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.
 
 ## What to inspect in Hub
 
 1. Read this page first.
-2. Open the workload YAML stored in ConfigHub.
-3. Open revision history when you want to see what changed over time.
-4. Use the links below for the chart page, render intent, rendered YAML, and scripts.
-
-## Why this is useful
-
-Plain Helm rebuilds a release from templates each time. That is fine for a first install. It gets harder when you need to know which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered later.
-
-This preset gives the team a named starting point. You can test it without a ConfigHub account, upload it when you want records and variants, and reuse it as a base for dev, staging, production, regions, or customers.
+2. Open the Kubernetes YAML to see the objects this preset manages.
+3. Open the render intent to see the Helm inputs behind those objects.
+4. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
+5. Open revision history when you want to see what changed over time.
 
 ## Try it
 

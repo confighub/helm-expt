@@ -398,20 +398,23 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This guide shows how this Helm chart preset config becomes ConfigHub Units. It is generated from the same records that build the package, chart page, render intent, scripts, and receipts.</p>
-<p>Start here when you want the short version. The proof links are lower down.</p>
+<p>This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.</p>
+<p>It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.</p>
+<h2 id="why-this-preset-exists">Why this preset exists</h2>
+<p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
+<p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
 <p>This is the <code>default</code> preset config for <code>minio-operator/operator@7.1.1</code>. The repo also calls this a base variant. Use this when you want to start from the chart author's normal path, with the inputs recorded.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html">minio-operator/operator@7.1.1</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>minio-operator/operator@7.1.1</code>, choose the <code>default</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml</code></a>. It contains 8 Kubernetes object(s): CustomResourceDefinition x2, Service x2, ClusterRole x1, ClusterRoleBinding x1, Deployment x1, ServiceAccount x1.</p>
-<p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered objects as Units in a Space. The example script defaults to Space <code>helm-operator-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
+<p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-operator-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
 <p>No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.</p>
 <p>No hook or lifecycle route is recorded for this preset config.</p>
 <p>Known limitation: no-crds (template-baked CRDs; no clean chart toggle yet).</p>
-<h2 id="why-this-is-correct">Why this is correct</h2>
+<h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 8 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
 <h2 id="repeat-it">Repeat it</h2>

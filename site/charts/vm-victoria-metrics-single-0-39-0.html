@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>vm/victoria-metrics-single 0.39.0 · ConfigHub Helm Ops</title>
-  <meta name="description" content="vm/victoria-metrics-single 0.39.0: chart status, base varianturations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta name="description" content="vm/victoria-metrics-single 0.39.0: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html">
   <meta property="og:title" content="vm/victoria-metrics-single 0.39.0 · ConfigHub Helm Ops">
-  <meta property="og:description" content="vm/victoria-metrics-single 0.39.0: chart status, base varianturations, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:description" content="vm/victoria-metrics-single 0.39.0: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html">
   <style>
@@ -386,10 +386,10 @@
   <header>
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
     <h1>vm/victoria-metrics-single</h1>
-    <p>Everything we know about this Helm chart is on this page: how to run it, which base variants exist, what we have proven, and what still needs work.</p>
-    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a named Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only. In the repo data, the same thing is called a base variant.</p>
-    <p>This page does not claim every values combination for this chart. It shows the supported base variants we have recorded, the generated output for each one, and the chart-specific work that still needs a decision.</p>
-    <p>Use this page to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see which evidence backs the current claim.</p>
+    <p>This page exists so you do not have to guess your way through this Helm chart. It shows the useful ways we know how to run it, the Kubernetes YAML each choice produces, and the evidence behind the current claim.</p>
+    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a supported Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only.</p>
+    <p>The page does not claim every values combination for this chart. It shows the supported base variants we have recorded, what problem each one solves, and the chart-specific work that still needs a decision.</p>
+    <p>Use it to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see what is proven before you install or promote anything.</p>
     <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=victoria-metrics-single&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">proof-grade / machine-proof-only page for vm/victoria-metrics-single@0.39.0.</p>
@@ -420,8 +420,9 @@
 
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What A Base Variant Records</h2>
-      <p>Each <a href="./index.html#base-variants">base variant</a> records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes. Open the <a href="../../recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output; use the render intent and receipts to see the context around it.</p>
-      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant.</p>
+      <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
+      <p>Open the <a href="../../recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output. Then use the render intent, receipts, and chart-extras section to see the inputs, checks, and CRD/hook/setup decisions around it.</p>
+      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant that can be reviewed and kept through upgrades.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
         <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>None recorded for the recommended base variant.<br>No separate setup command recorded.</td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/vm-victoria-metrics-single-0-39-0-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
