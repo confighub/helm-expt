@@ -955,7 +955,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
     <p class="lead">${lead}</p>
   </header>
   <main>
-    ${generatedStamp(catalog, "rendered repository document")}
+    ${docGeneratedStamp(catalog, repoPath)}
     <article class="doc-body">
 ${body}
     </article>
@@ -968,12 +968,28 @@ ${body}
 
 function docPageLead(repoPath, sourceHref) {
   if (repoPath === "data/helm-catalog-readmes/summary.md") {
-    return `The website index for the same README material uploaded to the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
+    return `The website index for the README pages used in the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
   }
   if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
-    return `The same text used by the <code>readme</code> Unit for this Space in the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
+    return `This is the website copy of the README for this demo Space. In Hub, the same text appears as the README for that Space. <a href="${sourceHref}">View source markdown</a>.`;
   }
   return `A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.`;
+}
+
+function docGeneratedLabel(repoPath) {
+  if (repoPath === "data/helm-catalog-readmes/summary.md") return "demo org README index";
+  if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) return "README for this demo Space";
+  return "rendered repository document";
+}
+
+function docGeneratedStamp(catalog, repoPath) {
+  if (repoPath === "data/helm-catalog-readmes/summary.md") {
+    return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README index for the <code>helm-catalog</code> demo org.</p>`;
+  }
+  if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
+    return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README for this demo Space.</p>`;
+  }
+  return generatedStamp(catalog, docGeneratedLabel(repoPath));
 }
 
 function collectMdTargets(site) {
@@ -1279,7 +1295,7 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and one README Unit in every Space.</p>
+      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
       <div class="home-list">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
@@ -2581,7 +2597,7 @@ function docsHtml(catalog) {
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
-    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub, with one README Unit per Space and Kubernetes YAML stored as editable Units."],
+    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use your own application", `<a href="./journey.html">Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
     ["Check a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm check that matches the claim instead of treating every test as the same thing."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
@@ -2593,7 +2609,7 @@ function docsHtml(catalog) {
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
     ["Choose a chart", "Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.", "./charts/index.html"],
-    ["Demo org READMEs", "The same plain-English text as the readme Unit in every current helm-catalog Space.", "../data/helm-catalog-readmes/summary.md"],
+    ["Demo org examples", "The README pages used by the current helm-catalog demo Spaces.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
@@ -2633,7 +2649,7 @@ function docsHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
-    ["Demo org README payloads", "One readme Unit per current helm-catalog Space, plus the Markdown source rendered on this site.", "../data/helm-catalog-readmes/summary.md"],
+    ["Demo org README files", "The README text used by each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Verification landing page", "Choose the right npm proof command.", "./verification.html"],
@@ -4696,7 +4712,7 @@ function chartIndexHtml(catalog) {
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
-    <p>Inside that org, every Space has one <code>readme</code> Unit. The same README source is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the Space. The Units are the Kubernetes YAML ConfigHub can search, compare, change with review, and send to the cluster.</p>
+    <p>Inside that org, every demo Space starts with a README. The same README text is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the example. The Kubernetes YAML in the Space is what ConfigHub can search, compare, change with review, and send to the cluster.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>
@@ -5163,7 +5179,7 @@ function chartPageHtml(catalog, entry) {
     ["Helm render intents", "data/helm-render-intents/summary.md"],
     ["First render intent", firstRenderIntent?.intent_path ?? ""],
     ["Full rendered YAML", firstRenderedObjectsPath ?? ""],
-    ["Hub README for first preset", firstHubReadmePath],
+    ["Demo README for first preset", firstHubReadmePath],
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
     ["Installer OCI package catalog", "data/installer-oci-packages/summary.md"],
@@ -5286,7 +5302,7 @@ function chartPageHtml(catalog, entry) {
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
         ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}${firstHubReadmePath ? `
-        <p>In the live <code>helm-catalog</code> demo org, this preset has a <code>readme</code> Unit. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the same README on this site</a>.</p>` : ""}
+        <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the same README on this site</a>.</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -5711,7 +5727,7 @@ function matrixRowLinks(row, catalog) {
     links.push(`<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`);
   };
   if (row.row_kind === "base") {
-    maybe("Hub README", helmCatalogReadmePath(catalog, row.chart, row.version, row.variant));
+    maybe("Demo README", helmCatalogReadmePath(catalog, row.chart, row.version, row.variant));
   }
   maybe("catalog", row.recipe_catalog_path);
   maybe("variant", row.variant_path);

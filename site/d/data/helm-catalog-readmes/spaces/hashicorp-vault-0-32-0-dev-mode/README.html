@@ -393,23 +393,24 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
     <h1>hashicorp/vault 0.32.0 - dev-mode</h1>
-    <p class="lead">The same text used by the <code>readme</code> Unit for this Space in the live <code>helm-catalog</code> demo org. <a href="../../../../../../data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.md">View source markdown</a>.</p>
+    <p class="lead">This is the website copy of the README for this demo Space. In Hub, the same text appears as the README for that Space. <a href="../../../../../../data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: generated README for this demo Space.</p>
     <article class="doc-body">
-<p>This Space is a ready-to-use preset config for <code>hashicorp/vault@0.32.0</code>. We keep the Helm chart. The catalog records the values, namespace, release name, Kubernetes capabilities, and source lock used for this preset config, then stores the rendered Kubernetes objects as ConfigHub Units.</p>
-<p>Use this README as the first stop inside Hub. It tells you why this Space exists, what to open, what is already proven, and where to find the deeper chart evidence.</p>
-<h2 id="what-this-space-shows">What this Space shows</h2>
-<ul><li>Preset config: <code>dev-mode</code>. Use this for a development or local test shape, not as a production claim.</li><li>Rendered objects: 11 object(s), mainly Service x3, ClusterRoleBinding x2, ServiceAccount x2, ClusterRole x1, Deployment x1, MutatingWebhookConfiguration x1, StatefulSet x1.</li><li>Prerequisites: no chart-specific prerequisites recorded.</li><li>Lifecycle work: no hook route is recorded for this preset config.</li></ul>
-<p>This is not a new chart language. It is a checked, repeatable way to use this Helm chart.</p>
-<h2 id="what-to-open-in-hub">What to open in Hub</h2>
-<ol><li>Start with this <code>readme</code> Unit.</li><li>Open the workload Units to see the Kubernetes objects ConfigHub will manage.</li><li>Open revision history when you want to see how the Space changed.</li><li>Use the links below for the chart page, render intent, rendered YAML, and scripts.</li></ol>
-<h2 id="why-this-matters">Why this matters</h2>
-<p>Plain Helm rebuilds the release from templates each time. That works for a first install, but it is easy to lose track of which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered.</p>
-<p>This preset config gives the team a named starting point. It can be tested without a ConfigHub account, uploaded when you want records and variants, and reused as a base for dev, staging, production, regions, or customers.</p>
-<h2 id="repeat-it">Repeat it</h2>
-<p>No-account test:</p>
+<p>This is the <code>dev-mode</code> preset for <code>hashicorp/vault@0.32.0</code>. Use this for a development or local test shape, not as a production claim.</p>
+<p>It keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence for this preset.</p>
+<p>Use this README as the short guide for this Hub Space. It explains what this preset is for, what to inspect, how to repeat it, and where the proof lives.</p>
+<h2 id="what-this-preset-contains">What this preset contains</h2>
+<ul><li>Preset: <code>dev-mode</code>.</li><li>Kubernetes YAML: 11 object(s), mainly Service x3, ClusterRoleBinding x2, ServiceAccount x2, ClusterRole x1, Deployment x1, MutatingWebhookConfiguration x1, StatefulSet x1.</li><li>Needs before install: no chart-specific prerequisites recorded.</li><li>Extra Helm work: no hook route is recorded for this preset.</li></ul>
+<p>This is not a new chart language. It is a checked way to use this Helm chart with a named, repeatable starting point.</p>
+<h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
+<ol><li>Read this page first.</li><li>Open the workload YAML stored in ConfigHub.</li><li>Open revision history when you want to see what changed over time.</li><li>Use the links below for the chart page, render intent, rendered YAML, and scripts.</li></ol>
+<h2 id="why-this-is-useful">Why this is useful</h2>
+<p>Plain Helm rebuilds a release from templates each time. That is fine for a first install. It gets harder when you need to know which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered later.</p>
+<p>This preset gives the team a named starting point. You can test it without a ConfigHub account, upload it when you want records and variants, and reuse it as a base for dev, staging, production, regions, or customers.</p>
+<h2 id="try-it">Try it</h2>
+<p>Run without a ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-dev-mode/try.sh)</code></pre>
 <p>Upload to ConfigHub:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-dev-mode/confighub.sh)</code></pre>
@@ -417,14 +418,14 @@
 <table><thead><tr><th>Item</th><th>Link</th></tr></thead><tbody><tr><td>Catalog chart page</td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html">hashicorp/vault@0.32.0</a></td></tr>
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml">data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml</a></td></tr>
 <tr><td>Rendered YAML</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml">recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml</a></td></tr>
-<tr><td>Full generated guide</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md">data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md</a></td></tr>
+<tr><td>Detailed guide</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md">data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md</a></td></tr>
 <tr><td>No-account script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-dev-mode/try.sh">try.sh</a></td></tr>
 <tr><td>ConfigHub upload script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-dev-mode/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="what-is-proven">What is proven</h2>
 <ul><li>Render parity: <code>yes</code>.</li><li>Local kind run: <code>yes</code>.</li><li>GitOps OCI live run: <code>yes</code>.</li><li>Live Helm versus ConfigHub comparison: <code>yes</code>.</li></ul>
-<p>These claims apply to this recorded preset config. They do not mean every possible values combination for the chart has been tested.</p>
+<p>These claims apply to this preset. They do not mean every possible values combination for the chart has been tested.</p>
 <h2 id="limits">Limits</h2>
-<ul><li>This README covers this recorded preset config, not every possible values file.</li><li>No hook route is recorded for this preset config.</li></ul>
+<ul><li>This README covers this recorded preset, not every possible values file.</li><li>No hook route is recorded for this preset.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.md</code>. The source file is the authoritative version.</p></footer>

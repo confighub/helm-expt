@@ -4,20 +4,20 @@
 
 A landing space for the demo org. Start with the chart and demo spaces instead of treating this as a chart example.
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
-- This Space exists because ConfigHub always has a default Space.
+- ConfigHub always has a default Space, so the demo org has one too.
 - It is not the main Helm Catalog demo. Use it as orientation, then open one of the named chart, fleet, route, or environment spaces.
 
-## What to open in Hub
+## Open in Hub
 
-- The `readme` Unit first.
+- This README first.
 - `platform` for the shared checks used by the demo org.
 - Any chart preset Space whose name starts with a chart name.
 
-## Why this matters
+## Why it exists
 
 The demo org is easier to understand when every Space explains what it is for.
 
@@ -30,4 +30,4 @@ This README prevents a first-time user from landing in an empty or administrativ
 
 ## Limits
 
-- This Space is not a chart recipe, a rendered app, or a production example.
+- This is not a chart recipe, a rendered app, or a production example.

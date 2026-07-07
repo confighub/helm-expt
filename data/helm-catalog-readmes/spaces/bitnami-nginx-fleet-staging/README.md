@@ -4,21 +4,21 @@
 
 One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
 - A chart can become several named application versions without forking the chart.
 - Different lanes can receive base changes at different times.
 - This lane shows the normal path for carrying a reviewed base change forward.
 
-## What to open in Hub
+## Open in Hub
 
-- The `readme` Unit.
-- Nginx Deployment and Service Units.
+- This README.
+- Nginx Deployment and Service YAML.
 - Sibling fleet Spaces to compare the lanes.
 
-## Why this matters
+## Why it exists
 
 The fleet demo is about scale. Once one chart becomes dev, staging, production, regions, or customers, values files and manual notes become hard to trust.
 

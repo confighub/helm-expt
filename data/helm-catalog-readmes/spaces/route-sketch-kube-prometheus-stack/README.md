@@ -4,21 +4,21 @@
 
 A design sketch for handling the work around a complex chart: CRDs, setup jobs, webhook certificates, target facts, and receipts.
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
 - Large Helm charts often need more than a rendered Deployment and Service.
-- This Space names seven lifecycle routes so the extra work is reviewable instead of hidden in an install.
+- This example names seven lifecycle routes so the extra work is reviewable instead of hidden in an install.
 - Routes stay marked `automatic: false` until a live proof earns automation.
 
-## What to open in Hub
+## Open in Hub
 
-- The `readme` Unit.
-- LifecycleRoute Units.
+- This README.
+- Lifecycle route YAML.
 - The Kube Prometheus Stack chart page.
 
-## Why this matters
+## Why it exists
 
 Use this Space to see how we handle the hard parts around a Helm chart without pretending there is one universal answer.
 

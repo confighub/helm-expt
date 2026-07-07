@@ -4,21 +4,21 @@
 
 The dev Vault environment variant in the promotion and placeholder demo.
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
 - The environment starts from the Vault base and can carry local choices.
 - This lane can accept or test changes before production.
 - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
-## What to open in Hub
+## Open in Hub
 
-- The `readme` Unit.
-- Vault StatefulSet and Service Units.
+- This README.
+- Vault StatefulSet and Service YAML.
 - `hashicorp-vault-demo-base` for the upstream base.
 
-## Why this matters
+## Why it exists
 
 This is a careful example of custom application delivery, not just chart installation.
 

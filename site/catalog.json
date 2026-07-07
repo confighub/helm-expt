@@ -25467,7 +25467,7 @@
       "space": "argo-cd-argo-cd-9-5-15-default",
       "kind": "preset",
       "title": "argo-cd/argo-cd 9.5.15 - default",
-      "summary": "A ready-to-use preset config for argo-cd/argo-cd@9.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for argo-cd/argo-cd@9.5.15. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-default/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/argo-cd-argo-cd-9-5-15-default/readme.yaml"
     },
@@ -25475,7 +25475,7 @@
       "space": "argo-cd-argo-cd-9-5-15-no-crds",
       "kind": "preset",
       "title": "argo-cd/argo-cd 9.5.15 - no-crds",
-      "summary": "A ready-to-use preset config for argo-cd/argo-cd@9.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for argo-cd/argo-cd@9.5.15. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/argo-cd-argo-cd-9-5-15-no-crds/readme.yaml"
     },
@@ -25483,7 +25483,7 @@
       "space": "bitnami-mysql-14-0-3-existing-secret",
       "kind": "preset",
       "title": "bitnami/mysql 14.0.3 - existing-secret",
-      "summary": "A ready-to-use preset config for bitnami/mysql@14.0.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/mysql@14.0.3. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-existing-secret/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-mysql-14-0-3-existing-secret/readme.yaml"
     },
@@ -25491,7 +25491,7 @@
       "space": "bitnami-mysql-14-0-3-static-passwords",
       "kind": "preset",
       "title": "bitnami/mysql 14.0.3 - static-passwords",
-      "summary": "A ready-to-use preset config for bitnami/mysql@14.0.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/mysql@14.0.3. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-mysql-14-0-3-static-passwords/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-mysql-14-0-3-static-passwords/readme.yaml"
     },
@@ -25499,7 +25499,7 @@
       "space": "bitnami-nginx-24-0-2-existing-tls-ingress",
       "kind": "preset",
       "title": "bitnami/nginx 24.0.2 - existing-tls-ingress",
-      "summary": "A ready-to-use preset config for bitnami/nginx@24.0.2. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/nginx@24.0.2. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-24-0-2-existing-tls-ingress/readme.yaml"
     },
@@ -25507,7 +25507,7 @@
       "space": "bitnami-nginx-24-0-2-http-clusterip",
       "kind": "preset",
       "title": "bitnami/nginx 24.0.2 - http-clusterip",
-      "summary": "A ready-to-use preset config for bitnami/nginx@24.0.2. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/nginx@24.0.2. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-24-0-2-http-clusterip/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-24-0-2-http-clusterip/readme.yaml"
     },
@@ -25515,7 +25515,7 @@
       "space": "bitnami-rabbitmq-16-0-14-existing-secret",
       "kind": "preset",
       "title": "bitnami/rabbitmq 16.0.14 - existing-secret",
-      "summary": "A ready-to-use preset config for bitnami/rabbitmq@16.0.14. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/rabbitmq@16.0.14. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-existing-secret/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-rabbitmq-16-0-14-existing-secret/readme.yaml"
     },
@@ -25523,7 +25523,7 @@
       "space": "bitnami-rabbitmq-16-0-14-static-passwords",
       "kind": "preset",
       "title": "bitnami/rabbitmq 16.0.14 - static-passwords",
-      "summary": "A ready-to-use preset config for bitnami/rabbitmq@16.0.14. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/rabbitmq@16.0.14. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-rabbitmq-16-0-14-static-passwords/readme.yaml"
     },
@@ -25531,7 +25531,7 @@
       "space": "bitnami-redis-25-5-3-default",
       "kind": "preset",
       "title": "bitnami/redis 25.5.3 - default",
-      "summary": "A ready-to-use preset config for bitnami/redis@25.5.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/redis@25.5.3. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-default/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-25-5-3-default/readme.yaml"
     },
@@ -25539,7 +25539,7 @@
       "space": "bitnami-redis-25-5-3-reuse-existing-secret",
       "kind": "preset",
       "title": "bitnami/redis 25.5.3 - reuse-existing-secret",
-      "summary": "A ready-to-use preset config for bitnami/redis@25.5.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for bitnami/redis@25.5.3. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-25-5-3-reuse-existing-secret/readme.yaml"
     },
@@ -25547,7 +25547,7 @@
       "space": "grafana-grafana-10-5-15-existing-secret-ingress",
       "kind": "preset",
       "title": "grafana/grafana 10.5.15 - existing-secret-ingress",
-      "summary": "A ready-to-use preset config for grafana/grafana@10.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for grafana/grafana@10.5.15. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/grafana-grafana-10-5-15-existing-secret-ingress/readme.yaml"
     },
@@ -25555,7 +25555,7 @@
       "space": "grafana-grafana-10-5-15-static-passwords",
       "kind": "preset",
       "title": "grafana/grafana 10.5.15 - static-passwords",
-      "summary": "A ready-to-use preset config for grafana/grafana@10.5.15. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for grafana/grafana@10.5.15. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-static-passwords/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/grafana-grafana-10-5-15-static-passwords/readme.yaml"
     },
@@ -25563,7 +25563,7 @@
       "space": "hashicorp-vault-0-32-0-default",
       "kind": "preset",
       "title": "hashicorp/vault 0.32.0 - default",
-      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for hashicorp/vault@0.32.0. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-default/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-default/readme.yaml"
     },
@@ -25571,7 +25571,7 @@
       "space": "hashicorp-vault-0-32-0-dev-mode",
       "kind": "preset",
       "title": "hashicorp/vault 0.32.0 - dev-mode",
-      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for hashicorp/vault@0.32.0. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-dev-mode/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-dev-mode/readme.yaml"
     },
@@ -25579,7 +25579,7 @@
       "space": "hashicorp-vault-0-32-0-ha-raft-ui",
       "kind": "preset",
       "title": "hashicorp/vault 0.32.0 - ha-raft-ui",
-      "summary": "A ready-to-use preset config for hashicorp/vault@0.32.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for hashicorp/vault@0.32.0. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/hashicorp-vault-0-32-0-ha-raft-ui/readme.yaml"
     },
@@ -25587,7 +25587,7 @@
       "space": "ingress-nginx-ingress-nginx-4-15-1-admission-disabled",
       "kind": "preset",
       "title": "ingress-nginx/ingress-nginx 4.15.1 - admission-disabled",
-      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/readme.yaml"
     },
@@ -25595,7 +25595,7 @@
       "space": "ingress-nginx-ingress-nginx-4-15-1-default",
       "kind": "preset",
       "title": "ingress-nginx/ingress-nginx 4.15.1 - default",
-      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-default/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-default/readme.yaml"
     },
@@ -25603,7 +25603,7 @@
       "space": "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip",
       "kind": "preset",
       "title": "ingress-nginx/ingress-nginx 4.15.1 - internal-clusterip",
-      "summary": "A ready-to-use preset config for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for ingress-nginx/ingress-nginx@4.15.1. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/readme.yaml"
     },
@@ -25611,7 +25611,7 @@
       "space": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
       "kind": "preset",
       "title": "prometheus-community/kube-prometheus-stack 85.3.3 - no-crds",
-      "summary": "A ready-to-use preset config for prometheus-community/kube-prometheus-stack@85.3.3. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for prometheus-community/kube-prometheus-stack@85.3.3. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/readme.yaml"
     },
@@ -25619,7 +25619,7 @@
       "space": "prometheus-community-prometheus-29-8-0-default",
       "kind": "preset",
       "title": "prometheus-community/prometheus 29.8.0 - default",
-      "summary": "A ready-to-use preset config for prometheus-community/prometheus@29.8.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for prometheus-community/prometheus@29.8.0. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-default/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-prometheus-29-8-0-default/readme.yaml"
     },
@@ -25627,7 +25627,7 @@
       "space": "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
       "kind": "preset",
       "title": "prometheus-community/prometheus 29.8.0 - server-only-ephemeral",
-      "summary": "A ready-to-use preset config for prometheus-community/prometheus@29.8.0. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.",
+      "summary": "A ready-to-use preset for prometheus-community/prometheus@29.8.0. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.",
       "source_path": "data/helm-catalog-readmes/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml"
     },

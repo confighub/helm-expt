@@ -27,10 +27,10 @@ const DEMO_SPACES = [
     kind: "org",
     summary: "A landing space for the demo org. Start with the chart and demo spaces instead of treating this as a chart example.",
     shows: [
-      "This Space exists because ConfigHub always has a default Space.",
+      "ConfigHub always has a default Space, so the demo org has one too.",
       "It is not the main Helm Catalog demo. Use it as orientation, then open one of the named chart, fleet, route, or environment spaces.",
     ],
-    open: ["The `readme` Unit first.", "`platform` for the shared checks used by the demo org.", "Any chart preset Space whose name starts with a chart name."],
+    open: ["This README first.", "`platform` for the shared checks used by the demo org.", "Any chart preset Space whose name starts with a chart name."],
     why: [
       "The demo org is easier to understand when every Space explains what it is for.",
       "This README prevents a first-time user from landing in an empty or administrative place and thinking the demo is thin.",
@@ -39,7 +39,7 @@ const DEMO_SPACES = [
       ["Org sync summary", "data/helm-org/summary.md"],
       ["Helm Ops Catalog", "site/charts/index.html"],
     ],
-    limits: ["This Space is not a chart recipe, a rendered app, or a production example."],
+    limits: ["This is not a chart recipe, a rendered app, or a production example."],
   },
   {
     space: "platform",
@@ -50,7 +50,7 @@ const DEMO_SPACES = [
       "Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.",
       "The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.",
     ],
-    open: ["The `readme` Unit.", "Trigger and filter Units that name the checks applied to other Spaces.", "Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter."],
+    open: ["This README.", "The checks and filters used by the demo org.", "Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter."],
     why: [
       "A catalog is not only rendered YAML. It also needs the rules that say when a change is safe to move.",
       "The platform Space shows those rules separately so chart examples do not hide policy decisions inside prose.",
@@ -59,7 +59,7 @@ const DEMO_SPACES = [
       ["Gate-scope fix in org summary", "data/helm-org/summary.md"],
       ["Verification landing page", "site/verification.html"],
     ],
-    limits: ["This Space explains shared demo mechanics. It is not a replacement for a company policy model."],
+    limits: ["This example explains shared demo mechanics. It is not a replacement for a company policy model."],
   },
   {
     space: "bitnami-redis-base",
@@ -71,10 +71,10 @@ const DEMO_SPACES = [
       "The base receives upstream chart refreshes. Environment Spaces can then take those refreshes without losing their local edits.",
       "This is the beginning of the 25.5.3 to 27.0.0 Redis upgrade story.",
     ],
-    open: ["The `readme` Unit.", "Redis workload Units to see the captured render.", "`bitnami-redis-staging` and `bitnami-redis-prod` to see environment versions."],
+    open: ["This README.", "The Redis workload YAML to see the captured render.", "`bitnami-redis-staging` and `bitnami-redis-prod` to see environment versions."],
     why: [
       "Helm can install Redis. The harder operations problem is what happens after install, when teams create staging and production versions and later upgrade the chart.",
-      "This Space keeps the base chart output and the later environment changes separate enough to audit.",
+      "This example keeps the base chart output and the later environment changes separate enough to audit.",
     ],
     evidence: [
       ["Redis chart page", "site/charts/bitnami-redis-25-5-3.html"],
@@ -92,7 +92,7 @@ const DEMO_SPACES = [
       "Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.",
       "The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.",
     ],
-    open: ["The `readme` Unit.", "Redis StatefulSet Units and their revision history.", "`bitnami-redis-base` for the upstream base."],
+    open: ["This README.", "The Redis StatefulSet YAML and its revision history.", "`bitnami-redis-base` for the upstream base."],
     why: [
       "This is the everyday Helm problem: a team needs one environment to differ from the base, then needs the next chart upgrade not to wipe that difference.",
       "ConfigHub makes the local decision visible and keeps it during upgrade.",
@@ -112,10 +112,10 @@ const DEMO_SPACES = [
       "Production can receive reviewed changes after staging proves them.",
       "Production gates live in the platform model instead of being buried in a Helm command.",
     ],
-    open: ["The `readme` Unit.", "Redis workload Units and revision history.", "The `platform` Space for shared gates."],
+    open: ["This README.", "Redis workload YAML and revision history.", "The `platform` Space for shared gates."],
     why: [
       "Teams need a way to explain why production differs, what was promoted, and which gates applied.",
-      "This Space is the production side of the Redis environment demo.",
+      "This is the production side of the Redis environment demo.",
     ],
     evidence: [
       ["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"],
@@ -133,9 +133,9 @@ const DEMO_SPACES = [
       "The important question was whether a local operations edit survived the chart upgrade.",
       "The result was recorded so someone can inspect the run later instead of trusting a demo claim.",
     ],
-    open: ["The `readme` Unit.", "Redis workload Units.", "Revision history for the changed Units."],
+    open: ["This README.", "Redis workload YAML.", "Revision history for the changed YAML."],
     why: [
-      "This Space exists to make the pilot concrete. It is easier to trust the story when the actual run has a place in the org.",
+      "This example makes the pilot concrete. It is easier to trust the story when the actual run has a place in the org.",
       "The lesson is practical: keep the Helm chart, but record the change so an upgrade does not depend on remembering the right flag.",
     ],
     evidence: [["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"]],
@@ -153,7 +153,7 @@ const DEMO_SPACES = [
         ? "This lane deliberately lags so the demo has an obvious upgrade to inspect."
         : "This lane shows the normal path for carrying a reviewed base change forward.",
     ],
-    open: ["The `readme` Unit.", "Nginx Deployment and Service Units.", "Sibling fleet Spaces to compare the lanes."],
+    open: ["This README.", "Nginx Deployment and Service YAML.", "Sibling fleet Spaces to compare the lanes."],
     why: [
       "The fleet demo is about scale. Once one chart becomes dev, staging, production, regions, or customers, values files and manual notes become hard to trust.",
       "ConfigHub keeps each lane named and inspectable while preserving the shared base.",
@@ -170,11 +170,11 @@ const DEMO_SPACES = [
     kind: "environment",
     summary: "The Vault base used to show environment variants, placeholders, promotion, and recorded render context.",
     shows: [
-      "A rendered chart can carry a render record next to the workload Units.",
+      "A rendered chart can carry a render record next to the workload YAML.",
       "Environment variants can inherit from the base and add their own settings, policies, and release choices.",
       "Placeholder checks prevent a known placeholder value from reaching a cluster by accident.",
     ],
-    open: ["The `readme` Unit.", "The render-record Unit.", "`hashicorp-vault-env-dev`, `hashicorp-vault-env-staging`, and `hashicorp-vault-env-prod`."],
+    open: ["This README.", "The render-record YAML.", "`hashicorp-vault-env-dev`, `hashicorp-vault-env-staging`, and `hashicorp-vault-env-prod`."],
     why: [
       "Vault is useful because it is sensitive and operationally specific. It forces the demo to show how config records, variants, and gates fit together.",
       "The base is where the chart output and the recorded render context meet.",
@@ -183,7 +183,7 @@ const DEMO_SPACES = [
       ["Vault chart page", "site/charts/hashicorp-vault-0-32-0.html"],
       ["Org summary", "data/helm-org/summary.md"],
     ],
-    limits: ["The render-record pattern is shown as an example in this org, not yet one record per rendered Unit."],
+    limits: ["The render-record pattern is shown as an example in this org, not yet one record per rendered object."],
   },
   ...["dev", "staging", "prod"].map((lane) => ({
     space: `hashicorp-vault-env-${lane}`,
@@ -197,7 +197,7 @@ const DEMO_SPACES = [
         : "This lane can accept or test changes before production.",
       "The placeholder example shows how a local real value can stay local while new safe base fields move forward.",
     ],
-    open: ["The `readme` Unit.", "Vault StatefulSet and Service Units.", "`hashicorp-vault-demo-base` for the upstream base."],
+    open: ["This README.", "Vault StatefulSet and Service YAML.", "`hashicorp-vault-demo-base` for the upstream base."],
     why: [
       "This is a careful example of custom application delivery, not just chart installation.",
       "The important thing to inspect is how the environment records what changed and why.",
@@ -220,10 +220,10 @@ const DEMO_SPACES = [
       "This fixture packages that work as an explicit route and proves the same OCI bundle can be consumed three ways.",
       "Argo CD, Flux, and a no-controller path all observed the routed hook running in the live proof.",
     ],
-    open: ["The `readme` Unit.", "The hook fixture Units.", "The proof receipt linked below."],
+    open: ["This README.", "The hook fixture YAML.", "The proof receipt linked below."],
     why: [
       "The claim is not that every hook can be translated automatically.",
-      "The claim is that most real cases can be handled with chart-specific preset configs and tested patterns, then recorded so teams can maintain them.",
+      "The claim is that most real cases can be handled with chart-specific presets and tested patterns, then recorded so teams can maintain them.",
     ],
     evidence: [["Hook OCI delivery proof", "runs/oci-hook-delivery-proof/receipt.yaml"]],
     limits: ["This is one fixture. Real charts still need chart-specific decisions for hook semantics."],
@@ -235,10 +235,10 @@ const DEMO_SPACES = [
     summary: "A design sketch for handling the work around a complex chart: CRDs, setup jobs, webhook certificates, target facts, and receipts.",
     shows: [
       "Large Helm charts often need more than a rendered Deployment and Service.",
-      "This Space names seven lifecycle routes so the extra work is reviewable instead of hidden in an install.",
+      "This example names seven lifecycle routes so the extra work is reviewable instead of hidden in an install.",
       "Routes stay marked `automatic: false` until a live proof earns automation.",
     ],
-    open: ["The `readme` Unit.", "LifecycleRoute Units.", "The Kube Prometheus Stack chart page."],
+    open: ["This README.", "Lifecycle route YAML.", "The Kube Prometheus Stack chart page."],
     why: [
       "Use this Space to see how we handle the hard parts around a Helm chart without pretending there is one universal answer.",
       "We keep the chart, then write down the chart-specific choices for CRDs, hooks, certificates, setup jobs, and target facts. Each choice can be tested, reused, and improved instead of rediscovered by every team.",
@@ -329,41 +329,43 @@ function buildPresetReadme(row, guide) {
     ? guide.prerequisite_summary
     : "no chart-specific prerequisites recorded";
   const title = `${chart} ${version} - ${base}`;
-  const summary = `A ready-to-use preset config for ${chart}@${version}. It keeps the Helm chart, records the values and render context, and stores the rendered objects as ConfigHub Units.`;
+  const summary = `A ready-to-use preset for ${chart}@${version}. It keeps the Helm chart and records the settings, render context, rendered YAML, and evidence for this preset.`;
   const presetReason = guide.preset_reason || presetReasonFor(base);
   const markdown = `<!-- Generated by npm run helm-catalog-readmes. Do not edit by hand. -->
 
 # ${title}
 
-This Space is a ready-to-use preset config for \`${chart}@${version}\`. We keep the Helm chart. The catalog records the values, namespace, release name, Kubernetes capabilities, and source lock used for this preset config, then stores the rendered Kubernetes objects as ConfigHub Units.
+This is the \`${base}\` preset for \`${chart}@${version}\`. ${presetReason}
 
-Use this README as the first stop inside Hub. It tells you why this Space exists, what to open, what is already proven, and where to find the deeper chart evidence.
+It keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence for this preset.
 
-## What this Space shows
+Use this README as the short guide for this Hub Space. It explains what this preset is for, what to inspect, how to repeat it, and where the proof lives.
 
-- Preset config: \`${base}\`. ${presetReason}
-- Rendered objects: ${guide.object_count || "recorded"} object(s)${guide.main_kinds ? `, mainly ${guide.main_kinds}` : ""}.
-- Prerequisites: ${prereqSummary}.
-- Lifecycle work: ${routeCount ? `${routeCount} recorded route(s) for hook or surrounding work.` : "no hook route is recorded for this preset config."}
+## What this preset contains
 
-This is not a new chart language. It is a checked, repeatable way to use this Helm chart.
+- Preset: \`${base}\`.
+- Kubernetes YAML: ${guide.object_count || "recorded"} object(s)${guide.main_kinds ? `, mainly ${guide.main_kinds}` : ""}.
+- Needs before install: ${prereqSummary}.
+- Extra Helm work: ${routeCount ? `${routeCount} recorded route(s) for hooks or surrounding setup work.` : "no hook route is recorded for this preset."}
 
-## What to open in Hub
+This is not a new chart language. It is a checked way to use this Helm chart with a named, repeatable starting point.
 
-1. Start with this \`readme\` Unit.
-2. Open the workload Units to see the Kubernetes objects ConfigHub will manage.
-3. Open revision history when you want to see how the Space changed.
+## What to inspect in Hub
+
+1. Read this page first.
+2. Open the workload YAML stored in ConfigHub.
+3. Open revision history when you want to see what changed over time.
 4. Use the links below for the chart page, render intent, rendered YAML, and scripts.
 
-## Why this matters
+## Why this is useful
 
-Plain Helm rebuilds the release from templates each time. That works for a first install, but it is easy to lose track of which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered.
+Plain Helm rebuilds a release from templates each time. That is fine for a first install. It gets harder when you need to know which values, target assumptions, Secrets, CRDs, hooks, and local edits mattered later.
 
-This preset config gives the team a named starting point. It can be tested without a ConfigHub account, uploaded when you want records and variants, and reused as a base for dev, staging, production, regions, or customers.
+This preset gives the team a named starting point. You can test it without a ConfigHub account, upload it when you want records and variants, and reuse it as a base for dev, staging, production, regions, or customers.
 
-## Repeat it
+## Try it
 
-No-account test:
+Run without a ConfigHub account:
 
 \`\`\`sh
 bash <(curl -fsSL ${scriptBase}/try.sh)
@@ -382,7 +384,7 @@ bash <(curl -fsSL ${scriptBase}/confighub.sh)
 | Catalog chart page | [${chart}@${version}](${chartPage}) |
 | Render intent | [${intentPath}](${renderIntentUrl}) |
 | Rendered YAML | ${renderedObjects ? `[${renderedObjects}](${renderedUrl})` : "Recorded in the generated guide"} |
-| Full generated guide | [${guidePath}](${githubBlob(guidePath)}) |
+| Detailed guide | [${guidePath}](${githubBlob(guidePath)}) |
 | No-account script | [try.sh](${scriptBase}/try.sh) |
 | ConfigHub upload script | [confighub.sh](${scriptBase}/confighub.sh) |
 
@@ -393,7 +395,7 @@ bash <(curl -fsSL ${scriptBase}/confighub.sh)
 - GitOps OCI live run: \`${guide.gitops_oci_live || "not recorded"}\`.
 - Live Helm versus ConfigHub comparison: \`${guide.live_dual_parity || "not recorded"}\`.
 
-These claims apply to this recorded preset config. They do not mean every possible values combination for the chart has been tested.
+These claims apply to this preset. They do not mean every possible values combination for the chart has been tested.
 
 ## Limits
 
@@ -422,17 +424,17 @@ function buildDemoReadme(model) {
 
 ${model.summary}
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
 ${model.shows.map((item) => `- ${item}`).join("\n")}
 
-## What to open in Hub
+## Open in Hub
 
 ${model.open.map((item) => `- ${item}`).join("\n")}
 
-## Why this matters
+## Why it exists
 
 ${model.why.join("\n\n")}
 
@@ -497,11 +499,11 @@ ${indent(markdown.trimEnd(), 4)}
 
 function summaryMd(readmes) {
   const byKind = countBy(readmes, "kind");
-  return `# Helm Catalog README Payloads
+  return `# Helm Catalog Demo READMEs
 
 Generated by \`scripts/generate-helm-catalog-readmes.mjs\`.
 
-These files are the source of the \`readme\` Unit in each Space of the \`helm-catalog\` ConfigHub demo org. The rule is one Space, one README. If a Space already has \`readme\`, the upload updates it. If a Space is missing it, the upload creates it. The upload must not create \`readme-2\` or any other duplicate.
+These are the README pages for the \`helm-catalog\` ConfigHub demo org. The rule is simple: one demo Space, one README. If the Space already has a README, the upload updates it. If it is missing a README, the upload creates one. It must not create duplicates such as \`readme-2\`.
 
 The README is for someone who starts inside [hub.confighub.com](https://hub.confighub.com), opens the demo org, and wants to understand the example without reading this repository first.
 
@@ -512,15 +514,15 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 ${[...byKind.entries()].sort((a, b) => sortKind(a[0]).localeCompare(sortKind(b[0]))).map(([kind, count]) => `| ${kind} | ${count} |`).join("\n")}
 | total | ${readmes.length} |
 
-## Outputs
+## Files
 
-- Human source: \`data/helm-catalog-readmes/spaces/<space>/README.md\`
-- Exact Unit payload: \`data/helm-catalog-readmes/units/<space>/readme.yaml\`
+- README text: \`data/helm-catalog-readmes/spaces/<space>/README.md\`
+- Upload YAML: \`data/helm-catalog-readmes/units/<space>/readme.yaml\`
 - Inventory: [readmes.csv](./readmes.csv)
 
 ## Spaces
 
-| Space | Kind | README source | Unit payload |
+| Space | Kind | README text | Upload YAML |
 | --- | --- | --- | --- |
 ${readmes.map((item) => `| \`${item.space}\` | ${item.kind} | [README](${relativeLink(root, item.markdownPath)}) | [readme.yaml](${relativeLink(root, item.unitPath)}) |`).join("\n")}
 `;
@@ -550,9 +552,9 @@ function presetReasonFor(base) {
 }
 
 function presetLimits(base, routeCount) {
-  const limits = ["This README covers this recorded preset config, not every possible values file."];
+  const limits = ["This README covers this recorded preset, not every possible values file."];
   if (base.includes("static-password")) limits.push("Do not use a static password preset as a production credential strategy.");
-  if (!routeCount) limits.push("No hook route is recorded for this preset config.");
+  if (!routeCount) limits.push("No hook route is recorded for this preset.");
   return limits;
 }
 
@@ -595,7 +597,7 @@ function relativeLink(from, to) {
 
 function indent(text, spaces) {
   const prefix = " ".repeat(spaces);
-  return text.split("\n").map((line) => `${prefix}${line}`).join("\n");
+  return text.split("\n").map((line) => (line ? `${prefix}${line}` : "")).join("\n");
 }
 
 function yamlString(value) {
