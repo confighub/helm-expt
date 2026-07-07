@@ -1279,7 +1279,7 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The same records you inspect are the records you edit, approve, and deliver. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and one README Unit in every Space.</p>
+      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and one README Unit in every Space.</p>
       <div class="home-list">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
@@ -2581,7 +2581,7 @@ function docsHtml(catalog) {
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
-    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub, with one README Unit per Space and desired Kubernetes objects stored as editable Units."],
+    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub, with one README Unit per Space and Kubernetes YAML stored as editable Units."],
     ["Use your own application", `<a href="./journey.html">Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
     ["Check a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm check that matches the claim instead of treating every test as the same thing."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
@@ -3673,7 +3673,7 @@ function demoOrgHtml(catalog) {
     <section aria-labelledby="config-as-data">
       <h2 id="config-as-data">Why This Org Matters</h2>
       <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
-      <p>The demo org shows the ConfigHub answer. The rendered objects are stored as Units. The README tells you how the Space got there; the Units are the configuration records you can inspect, query, diff, revise, approve, and deliver.</p>
+      <p>The demo org shows the ConfigHub answer. The rendered Kubernetes YAML is stored as Units. The README tells you how the Space got there. The Units are what ConfigHub can search, compare, change with review, and send to the cluster.</p>
       <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
     </section>
 
@@ -4696,7 +4696,7 @@ function chartIndexHtml(catalog) {
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
-    <p>Inside that org, every Space has one <code>readme</code> Unit. The same README source is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the Space; the Units are the desired Kubernetes objects ConfigHub can query, diff, revise, and deliver.</p>
+    <p>Inside that org, every Space has one <code>readme</code> Unit. The same README source is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the Space. The Units are the Kubernetes YAML ConfigHub can search, compare, change with review, and send to the cluster.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>

@@ -493,7 +493,7 @@
     <section aria-labelledby="config-as-data">
       <h2 id="config-as-data">Why This Org Matters</h2>
       <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
-      <p>The demo org shows the ConfigHub answer. The rendered objects are stored as Units. The README tells you how the Space got there; the Units are the configuration records you can inspect, query, diff, revise, approve, and deliver.</p>
+      <p>The demo org shows the ConfigHub answer. The rendered Kubernetes YAML is stored as Units. The README tells you how the Space got there. The Units are what ConfigHub can search, compare, change with review, and send to the cluster.</p>
       <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
     </section>
 
