@@ -4,20 +4,20 @@
 
 A staging variant that keeps a local replica choice while the Redis base moves forward.
 
-Use this README as the first stop inside Hub. It explains what this Space is for, what to open, why it matters, and where the evidence lives.
+Start here when you open this Space in Hub. This page explains what the example is for, what to inspect, why it exists, and where the evidence lives.
 
-## What this Space shows
+## What to look at
 
 - Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.
 - The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.
 
-## What to open in Hub
+## Open in Hub
 
-- The `readme` Unit.
-- Redis StatefulSet Units and their revision history.
+- This README.
+- The Redis StatefulSet YAML and its revision history.
 - `bitnami-redis-base` for the upstream base.
 
-## Why this matters
+## Why it exists
 
 This is the everyday Helm problem: a team needs one environment to differ from the base, then needs the next chart upgrade not to wipe that difference.
 
