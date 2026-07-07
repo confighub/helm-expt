@@ -406,7 +406,7 @@
 <pre><code>chart + values + flags -&gt; rendered Kubernetes objects -&gt; ConfigHub Units</code></pre>
 <p>That is useful for a one-off ConfigHub load.</p>
 <p>The maintained recipe path is different:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>chart or wrapper chart
 plus values, overlays, dependency closure, and render context
 -&gt; cub installer recipe/package

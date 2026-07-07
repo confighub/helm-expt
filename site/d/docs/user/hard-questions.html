@@ -404,11 +404,11 @@
 <h2 id="is-this-just-helm-with-extra-paperwork">Is this just Helm with extra paperwork?</h2>
 <p>No. Helm still renders. The catalog turns selected render paths into durable <code>cub installer</code> packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
 <p>Use direct Helm commands when you only need one render:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub helm template
+<pre><code>cub helm template
 cub helm install</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>
-<pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
+  <pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
 <p>Public catalog pages show the installer package OCI ref for each chart version, so a real command uses <code>--pull oci://...</code>, not a checkout-local path. See <a href="choosing-commands.html">Choosing Commands</a> and <a href="installer-oci-packages.html">Installer Package OCI Refs</a>.</p>
 <h2 id="do-i-have-to-rewrite-my-charts">Do I have to rewrite my charts?</h2>
 <p>No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.</p>

@@ -460,8 +460,7 @@ npm run blast-radius:accuracy:verify
 npm run kind-parity:verify
 npm run live-parity:verify</code></pre>
 <p>For a fresh upgrade on a new chart or private values file, the same workflow would be run with new rendered inputs and new receipts. The ConfigHub operation then becomes a reviewed change, not a blind upgrade:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code># Pseudo-command shape. Use the current cub commands for your space and target.
+<pre><code># Pseudo-command shape. Use the current cub commands for your space and target.
 cub unit diff --space &lt;candidate-space&gt;
 cub changeset create --space &lt;candidate-space&gt; &lt;upgrade-review&gt;
 cub function vet --space &lt;candidate-space&gt;

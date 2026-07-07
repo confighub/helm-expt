@@ -425,8 +425,7 @@ target fact -&gt; required live prerequisite</code></pre>
 <p><a href="../../data/edge-recovery/summary.html">Edge Recovery</a></p>
 <h2 id="what-is-already-in-the-corpus">What Is Already In The Corpus</h2>
 <p>The current public corpus contains:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>110 recipe/package proof artifacts
+<pre><code>110 recipe/package proof artifacts
 20 top-chart catalog entries with bespoke base variants
 20 top-20 charts with chart-level local kind runtime receipts
 20 top-20 charts with chart-level ConfigHub upload, scan, and safe-operation receipt sets
@@ -471,7 +470,8 @@ selected GitOps/OCI and live parity receipts</code></pre>
 <h2 id="what-is-still-product-work">What Is Still Product Work</h2>
 <p>The repo is a proof corpus and product design surface. Some workflows are still scripted, narrow, or represented by receipts rather than polished commands.</p>
 <p>Candidate product surfaces and workflow work include:</p>
-<pre><code>cub installer import helm
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
+  <pre><code>cub installer import helm
 cub installer analyze
 cub installer compare/prove
 cub installer scan

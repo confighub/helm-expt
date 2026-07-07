@@ -406,8 +406,7 @@
 <p>The workload is <code>deployment-nginx-nginx</code>, with two containers that carry the image: an init container <code>preserve-logs-symlinks</code> and the main container <code>nginx</code>.</p>
 <h2 id="1-rewrite-the-registry-on-the-base">1. Rewrite the registry on the base</h2>
 <p>Repoint both containers on the base to the internal mirror. The digest stays; only the host changes. Each edit is a recorded revision.</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>NEW=&quot;registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f&quot;
+<pre><code>NEW=&quot;registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f&quot;
 
 for container in preserve-logs-symlinks nginx; do
   cub run set-container-image \

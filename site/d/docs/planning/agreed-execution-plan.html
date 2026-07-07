@@ -424,7 +424,7 @@ safe operations
 immediate proof</code></pre>
 <h2 id="canonical-object-model">Canonical Object Model</h2>
 <p>Use this model consistently in docs, demos, labels, attributes, receipts, and repo artifacts:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>Chart = upstream source.
 Recipe = reusable cub installer mapping for that source.
 Variant = named install shape from a recipe.
@@ -990,7 +990,7 @@ npm run verify</code></pre>
 <p><code>verify</code> should verify hashes and references for receipts and fail on missing or changed content.</p>
 <h2 id="legacy-reference-redis-demo">Legacy Reference Redis Demo</h2>
 <p><code>docs/reference/direct-cub-helm-model.md</code> explains the current fast Helm command paths and keeps the Redis compatibility script using real <code>cub installer</code> commands from <code>confighub/installer</code>, not target command names.</p>
-<p>This path is retained for reference only:</p>
+<p>This path is retained for reference only. It is a developer source-build path, not the public cub install path. The public cub install command installs the released cub CLI only; the <code>cub installer</code> plugin is not yet publicly released.</p>
 <pre><code>go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH=&quot;$PATH:$(go env GOPATH)/bin&quot;
 cub plugin install confighub/installer --source-repo --name installer --force

@@ -418,7 +418,7 @@
 <ul><li><b>Argo CD (OCI <code>Application</code>) - proven.</b> <code>render → ConfigHub → OCI → Argo (Synced / Healthy) → runtime</code>.</li><li><b>Flux (<code>OCIRepository</code> + <code>Kustomization</code>) - proven.</b> Same bundle; the OCI pull secret is copied into flux-system (never printed).</li><li><b>cub-direct (no controller) - managed path proven.</b> The same OCI artifact can be applied without a controller, and the managed applier proof covers CRD ordering, prune, and product-readable server-side-apply conflicts.</li></ul>
 <p>The routed hook ran under each delivery shape (workload applied + hook completed): OCI is genuinely <b>one transport</b>, not three pipelines. For cub-direct, use the managed applier when CRDs, upgrades, or manual live edits are in scope.</p>
 <h2 id="try-it">Try it</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub auth login
 cub plugin install jesperfj/cub-lk
 cub lk up --name myrig                      # provisions kind + Argo + the OCI worker

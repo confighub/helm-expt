@@ -488,32 +488,37 @@ em{font-style:italic;color:var(--ink);}
   <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. No ConfigHub account needed to start.</p>
+    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. This path needs the unreleased installer plugin, but it does not need a ConfigHub account.</p>
     <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
   </div>
 </header>
 <main>
   <h2 id="install-cub">Install cub</h2>
-  <p>Every command below uses the <code>cub</code> CLI. Install it once:</p>
-  <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code></pre>
-  <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub docs</a>.</p>
-  <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+  <p>Every command below uses the <code>cub</code> CLI and its installer plugin. Install the public CLI once:</p>
+  <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash
+$ export PATH=~/.confighub/bin:$PATH</code></pre>
+  <p>The first command puts the binary at <code>~/.confighub/bin/cub</code>; the PATH line makes it callable (a symlink works too). Full setup notes are in the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub docs</a>.</p>
+  <p class="install-cub-note">The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. The scripts below check for <code>cub installer</code> before they touch a cluster.</p>
+  <p>No ConfigHub account is needed for the catalog paths on this page once the installer plugin is available.</p>
 
   <h2>The fastest first run</h2>
-  <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <p>These commands render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received. The installer check happens before the cluster step, so a public cub-only install stops early with a clear message.</p>
   <pre><code># 1. Install cub (one time)
 curl -fsSL https://hub.confighub.com/cub/install.sh | bash &amp;&amp; export PATH=~/.confighub/bin:$PATH
 
-# 2. A throwaway cluster (needs Docker; skip if you already have one)
+# 2. Check the installer command before creating a cluster
+cub installer --help
+
+# 3. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
 
-# 3. Render the Redis base variant and install it
+# 4. Render the Redis base variant and install it
 bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/default/try.sh)
 
-# 4. It is running
+# 5. It is running
 kubectl -n redis get pods
 
-# 5. It is all files you can read; this one is what the cluster received
+# 6. It is all files you can read; this one is what the cluster received
 cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
   <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; base variants that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
 

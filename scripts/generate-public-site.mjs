@@ -86,6 +86,9 @@ const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
 const CUB_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+const CUB_INSTALLER_RELEASE_URL = "https://github.com/confighub/installer";
+const CUB_INSTALLER_MISSING_MESSAGE = `The cub installer command is not available. It is a cub plugin that is not yet publicly released. Watch ${CUB_INSTALLER_RELEASE_URL} for the public plugin release. This script stops before it touches your cluster.`;
+const CUB_INSTALLER_SITE_NOTE = `The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="${CUB_INSTALLER_RELEASE_URL}">confighub/installer</a> for the public plugin release.`;
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
@@ -616,15 +619,16 @@ function pageBasePrefix(relPath) {
 // or a link to it are left alone.
 function injectInstallCubNote(html, relPath) {
   if (html.includes('id="install-cub"') || html.includes("try.html#install-cub")) return html;
+  if (!/\bcub installer\b/.test(html)) return html;
   const base = pageBasePrefix(relPath);
-  const note = `<p class="install-cub-note">New to <code>cub</code>? <a href="${base}/try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>`;
+  const note = `<p class="install-cub-note">New to <code>cub</code>? <a href="${base}/try.html#install-cub">Install the cub CLI</a> first. ${CUB_INSTALLER_SITE_NOTE} No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>`;
   const headerEnd = html.indexOf("</header>");
   for (const match of html.matchAll(/<pre[^>]*>[\s\S]*?<\/pre>/g)) {
     if (match.index <= headerEnd) continue;
-    if (!/\bcub /.test(match[0])) continue;
+    if (!/\bcub installer\b/.test(match[0])) continue;
     return `${html.slice(0, match.index)}${note}\n  ${html.slice(match.index)}`;
   }
-  const inlineCommandCub = /<code[^>]*>[^<]*\bcub /.test(html);
+  const inlineCommandCub = /<code[^>]*>[^<]*\bcub installer\b/.test(html);
   const mainMatch = html.match(/<main[^>]*>/);
   if (inlineCommandCub && mainMatch) {
     const insertAt = mainMatch.index + mainMatch[0].length;
@@ -1244,7 +1248,7 @@ stringData:
       <h2 id="try-now">Try It Now with Kubernetes</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
-      <p class="install-cub-note">Install cub first: <code>${CUB_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
+      <p class="install-cub-note">Install cub first: <code>${CUB_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. ${CUB_INSTALLER_SITE_NOTE} <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -2347,32 +2351,37 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. No ConfigHub account needed to start.</p>
+    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. This path needs the unreleased installer plugin, but it does not need a ConfigHub account.</p>
     <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
   </div>
 </header>
 <main>
   <h2 id="install-cub">Install cub</h2>
-  <p>Every command below uses the <code>cub</code> CLI. Install it once:</p>
-  <pre><code>$ ${CUB_INSTALL_COMMAND}</code></pre>
-  <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
-  <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+  <p>Every command below uses the <code>cub</code> CLI and its installer plugin. Install the public CLI once:</p>
+  <pre><code>$ ${CUB_INSTALL_COMMAND}
+$ export PATH=~/.confighub/bin:$PATH</code></pre>
+  <p>The first command puts the binary at <code>~/.confighub/bin/cub</code>; the PATH line makes it callable (a symlink works too). Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
+  <p class="install-cub-note">${CUB_INSTALLER_SITE_NOTE} The scripts below check for <code>cub installer</code> before they touch a cluster.</p>
+  <p>No ConfigHub account is needed for the catalog paths on this page once the installer plugin is available.</p>
 
   <h2>The fastest first run</h2>
-  <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <p>These commands render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received. The installer check happens before the cluster step, so a public cub-only install stops early with a clear message.</p>
   <pre><code># 1. Install cub (one time)
 ${CUB_INSTALL_COMMAND} &amp;&amp; export PATH=~/.confighub/bin:$PATH
 
-# 2. A throwaway cluster (needs Docker; skip if you already have one)
+# 2. Check the installer command before creating a cluster
+cub installer --help
+
+# 3. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
 
-# 3. Render the Redis base variant and install it
+# 4. Render the Redis base variant and install it
 bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/default/try.sh)
 
-# 4. It is running
+# 5. It is running
 kubectl -n redis get pods
 
-# 5. It is all files you can read; this one is what the cluster received
+# 6. It is all files you can read; this one is what the cluster received
 cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
   <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; base variants that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
 
@@ -4829,6 +4838,11 @@ function presetScriptPreamble(entry, row, purposeLines) {
     "",
     "if ! command -v cub >/dev/null 2>&1; then",
     `  printf 'cub is not installed. Install it with:\\n  ${CUB_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
+    "  exit 1",
+    "fi",
+    "",
+    "if ! cub installer --help >/dev/null 2>&1; then",
+    `  printf '%s\\n' '${CUB_INSTALLER_MISSING_MESSAGE}' >&2`,
     "  exit 1",
     "fi",
   ];

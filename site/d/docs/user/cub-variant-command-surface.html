@@ -401,8 +401,7 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>This page records the current <code>cub variant</code> surface used by the tutorial and Creator-style docs. Treat local CLI help as the source of truth.</p>
 <p>Current commands:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub variant create
+<pre><code>cub variant create
 cub variant promote
 cub variant upload</code></pre>
 <p>Not current local command:</p>
@@ -425,7 +424,8 @@ cub variant upload</code></pre>
 <p>The clone should preserve the reviewed Unit data. Any post-clone data change needs an explicit allowed mutation path and receipt. If decoded Kubernetes data changes without that receipt, classify it as drift and repair or block the variant before promotion.</p>
 <h2 id="space-and-unit-mapping">Space And Unit Mapping</h2>
 <p>The upstream Space usually comes from <code>cub installer upload</code>.</p>
-<pre><code>cub installer package/base
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
+  <pre><code>cub installer package/base
 -&gt; cub installer upload
 -&gt; upstream ConfigHub Space with Units
 -&gt; cub variant create

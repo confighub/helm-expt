@@ -431,7 +431,7 @@
 <p>Design insight: the best entry page for a CLI is a faithful transcript of a great run. The terminal output is the documentation, which means the page and the CLI output are designed together, and most of the docs work is CLI output design. Draft:</p>
 <hr>
 <h1 id="install-any-helm-chart-keep-the-proof">Install any Helm chart. Keep the proof.</h1>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer setup --pull oci://example/catalog/bitnami/redis:25.5.3 --base default --namespace redis --non-interactive</code></pre>
 <p>Works like <code>helm install</code>. Same speed, same result, one difference: you can see everything before it happens, and prove everything after.</p>
 <h2 id="what-youll-see">What you'll see</h2>

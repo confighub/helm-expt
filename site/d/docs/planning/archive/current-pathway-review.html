@@ -581,7 +581,7 @@ data/top500/
 <pre><code>upgrade-simulation-receipt.yaml
 rollback-simulation-receipt.yaml</code></pre>
 <p>Current Redis package proof status:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>packages/bitnami/redis/25.5.3 exists
 cub installer package is byte-deterministic across two local runs
 cub installer setup --base default matches Helm semantically, plus Namespace

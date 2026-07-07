@@ -451,7 +451,7 @@
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0 --base default --work-dir ./jaegertracing-jaeger-operator-2-57-0-default --non-interactive --namespace default</code></p>
         <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/jaegertracing-jaeger-operator-2-57-0/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/jaegertracing-jaeger-operator-2-57-0/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>
         <h3>You should see something like this</h3>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>

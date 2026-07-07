@@ -434,7 +434,7 @@ raw manifests</code></pre>
 <tr><td>Add raw manifests through <code>extraDeploy</code>.</td><td>Arbitrary Kubernetes objects need scan/gate proof.</td></tr></tbody></table>
 <p>The new base should have its own rendered objects, render parity, scan/gate results, and receipts.</p>
 <p>This keeps the rule simple:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>Extension slot changes that affect render output go through cub installer.
 Post-render operational changes go through ConfigHub variants.</code></pre>
 <h2 id="nginx-example">NGINX Example</h2>

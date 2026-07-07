@@ -1455,7 +1455,9 @@ changed content.
 paths and keeps the Redis compatibility script using real `cub installer`
 commands from `confighub/installer`, not target command names.
 
-This path is retained for reference only:
+This path is retained for reference only. It is a developer source-build path,
+not the public cub install path. The public cub install command installs the
+released cub CLI only; the `cub installer` plugin is not yet publicly released.
 
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1

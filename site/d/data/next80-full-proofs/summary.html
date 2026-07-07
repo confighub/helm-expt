@@ -402,7 +402,7 @@
 <p>Each row has:</p>
 <ul><li><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with Recipe, HelmPlan, ChartDossier, control points, Variant, VariantRevision, rendered objects, and receipts.</li><li><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with a <code>cub installer</code> package.</li><li>A Helm equivalence receipt proving regular Helm output matches <code>cub installer setup</code>, aside from allowed installer support objects.</li><li>A render receipt, scan receipt, install gate, and installer package receipt.</li></ul>
 <p>Selection rule:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>regular helm template output
   == cub installer setup output
   plus the allowed Namespace support object</code></pre>

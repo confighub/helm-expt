@@ -396,6 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/README.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the starting page for <b>all</b> helm-expt testing. It maps every test class across the four systems we exercise - <b>Helm · Kubernetes · ConfigHub · cub</b> - to where it lives and its honest coverage. The detailed strategy, command runbooks, runners, and UX surfaces are the layers beneath it (see <a href="#the-layers">The layers</a>).</p>
@@ -470,8 +471,7 @@
 <h2 id="clusterruntime-runners-resolve-the-repo-from-their-own-location">Cluster/runtime runners (resolve the repo from their own location)</h2>
 <ul><li><code>chart-install-test</code> - install one chart/base via <code>cub installer</code> → ConfigHub → OCI → Argo on a cub-lk rig; verify runtime + three-way agreement; emit a receipt.</li><li><code>chart-install-sweep</code> - shardable top-20 driver: <code>--rig &lt;cub-lk&gt; [--shard i/n] [--slugs a,b]</code>.</li><li><code>live-helm-installer-kind-parity-test</code> - strict two-cluster Helm-vs-installer parity (no cub-lk needed).</li><li><code>live-helm-confighub-parity-test</code> - live Helm vs ConfigHub delivery, dual compare.</li><li><code>target-bound-derived-variant-test</code> - <code>cub variant create --target</code>, deliver cloned Units via OCI/Argo, verify runtime, emit a receipt.</li><li><code>existing-secret-proof</code> - the F3 fix path: pre-provision the Secret, install the existing-secret base, confirm Ready.</li><li>Lifecycle proofs: <code>npm run hook-test:proof</code> / <code>hook-execution:proof</code> (and <code>:verify</code>) - route a hook as an explicit, receipted action on a throwaway kind cluster.</li></ul>
 <h2 id="run-standalone">Run (standalone)</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub auth login                      # verify: cub organization list (NOT cub info)
+<pre><code>cub auth login                      # verify: cub organization list (NOT cub info)
 cub plugin install jesperfj/cub-lk  # verify: cub lk version
 cub lk up --name myrig
 tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \

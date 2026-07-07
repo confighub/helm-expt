@@ -404,7 +404,7 @@
 <h2 id="the-one-rule">The one rule</h2>
 <blockquote><p>Don't ask users to abandon Helm behavior. Capture it, classify the change, render exact objects, prove Helm-equivalence, then deliver only digest-bound variants with receipts. <b>The package source tree (<code>./package/</code>) is read-only to consumers</b> - never <code>kustomize edit</code> it; the next <code>setup --pull</code> overwrites it.</p></blockquote>
 <h2 id="the-model-behind-the-menu-chart-recipes-base-variants-derived-variants">The model behind the menu (chart → recipes → base variants → derived variants)</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>1 Helm chart
  └─ N recipes  (incl. a default recipe)                     - the cub installer mapping(s)        [helm-expt]
       └─ N base variants, placeholdered  (incl. a default)  - render-time shapes; placeholders    [helm-expt]

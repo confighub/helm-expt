@@ -396,6 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../WEBSITE_UX_TEST.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>_A UX test (website walkthrough) in the <a href="tests/README.html">helm-expt test map</a>._</p>
@@ -442,7 +443,7 @@ npm run site:verify</code></pre>
 <p>Question:</p>
 <pre><code>Is the first useful command obvious?</code></pre>
 <p>Expected:</p>
-<ul><li>Redis is the simple path;</li><li>kube-prometheus-stack is the serious chart path;</li><li>commands are copyable;</li><li>the page says what should happen after each command.</li></ul>
+<ul><li>Redis is the simple path;</li><li>kube-prometheus-stack is the serious chart path;</li><li>commands are copyable;</li><li>the install step says the <code>cub installer</code> plugin is not yet publicly released;</li><li>the first-run path checks <code>cub installer --help</code> before creating a cluster;</li><li>the page says what should happen after each command.</li></ul>
 <h3 id="step-3-apps">Step 3: Apps</h3>
 <p>URL:</p>
 <pre><code>/journey.html</code></pre>

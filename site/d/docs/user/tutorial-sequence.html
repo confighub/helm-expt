@@ -414,9 +414,8 @@ git status --short --branch</code></pre>
 <p>If you already have a checkout, run from the repository root for the optional <code>npm run ...</code> proof checks. The <code>cub installer setup --pull oci://...</code> commands pull public installer packages and do not require a repo-local <code>packages/...</code> path.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <p>Install or verify the local tools before Tutorial 1:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub version
-cub plugin install confighub/installer
 cub installer --help
 
 command -v kustomize || brew install kustomize
@@ -424,6 +423,7 @@ command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest
 
 cub context get -o json
 cub space list -o json</code></pre>
+<p>The public cub install command currently installs the released cub CLI only. <code>cub installer</code> is a separate plugin and is not yet publicly released. If <code>cub installer --help</code> fails, stop there and watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the plugin release.</p>
 <p><code>cub installer setup</code> shells out to <code>kustomize build</code>; the first setup fails if <code>kustomize</code> is not on <code>PATH</code>. The tutorials do not require <code>helm</code>.</p>
 <p><code>cub context get -o json</code> proves a context is selected. <code>cub space list -o json</code> is the useful auth check for the upload tutorials. If it fails with an authentication problem, run:</p>
 <pre><code>cub auth login</code></pre>

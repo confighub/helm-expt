@@ -417,7 +417,7 @@
 <tr><td>Run the broad repo gate.</td><td><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></td><td><code>npm run verify</code></td></tr></tbody></table>
 <h2 id="product-commands-versus-repo-proof-commands">Product Commands Versus Repo Proof Commands</h2>
 <p>Product commands do work for a user:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default
 helm install ...
 kubectl apply ...</code></pre>

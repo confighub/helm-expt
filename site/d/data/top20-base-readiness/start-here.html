@@ -436,7 +436,7 @@ target-scoped draft decisions: 1</code></pre>
 <tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>sync-secret-rotation</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0 --base sync-secret-rotation --work-dir &lt;tmp&gt; --non-interactive --namespace kube-system</code></td><td>check production decision for secrets-store-csi-driver/secrets-store-csi-driver</td></tr></tbody></table>
 <h2 id="after-setup">After Setup</h2>
 <p>Replace <code>&lt;tmp&gt;</code> with the work directory from the row you used.</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer render --work-dir &lt;tmp&gt;
 cub installer plan --work-dir &lt;tmp&gt;</code></pre>
 <p>For a direct local Kubernetes check, apply separated Secrets first only when the work directory contains <code>out/secrets</code>, then apply the manifests:</p>

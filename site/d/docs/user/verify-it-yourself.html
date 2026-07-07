@@ -410,7 +410,7 @@ npm run data:index:verify</code></pre>
 <p>That command is intentionally larger. Use it before publishing or reviewing a large change, not after every small edit.</p>
 <h2 id="check-a-rendered-install">Check A Rendered Install</h2>
 <p>For Redis, render a catalog base and verify that your rendered output matches the catalog acceptance contract:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base default \

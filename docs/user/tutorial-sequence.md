@@ -42,7 +42,6 @@ Install or verify the local tools before Tutorial 1:
 
 ```sh
 cub version
-cub plugin install confighub/installer
 cub installer --help
 
 command -v kustomize || brew install kustomize
@@ -51,6 +50,12 @@ command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest
 cub context get -o json
 cub space list -o json
 ```
+
+The public cub install command currently installs the released cub CLI only.
+`cub installer` is a separate plugin and is not yet publicly released. If
+`cub installer --help` fails, stop there and watch
+[confighub/installer](https://github.com/confighub/installer) for the plugin
+release.
 
 `cub installer setup` shells out to `kustomize build`; the first setup fails if
 `kustomize` is not on `PATH`. The tutorials do not require `helm`.

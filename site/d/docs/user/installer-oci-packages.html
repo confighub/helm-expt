@@ -402,7 +402,7 @@
 <p>The catalog should let a user try a chart without cloning this repo. That is why each chart version now has an installer package OCI ref.</p>
 <p>Current status: the catalog records 110 published installer package OCI refs. 100 are public catalog chart packages; the extra refs are retained chart-version packages used by refresh and comparison work. The refs are published in Google Artifact Registry with public read access. The local setup path does not require a ConfigHub account, a Google registry login, or a clone of this repo.</p>
 <p>The user-facing command is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/&lt;repo&gt;-&lt;chart&gt;:&lt;version&gt; \
   --base &lt;preset&gt; \
   --work-dir ./out \

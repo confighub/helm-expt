@@ -483,6 +483,7 @@
     <p>AI can help suggest values or file edits, but it uses the same review path as any other change. If the suggestion changes what Helm renders, it becomes a new or updated base variant. If it changes an already-rendered object, it becomes a reviewed ConfigHub diff. When the application is upgraded, ConfigHub keeps the approved changes in the next version.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
     <section aria-labelledby="app-kinds">
       <h2 id="app-kinds">What Counts As An Application?</h2>
       <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
@@ -541,8 +542,7 @@
       <div class="card">
         <h3>Start read-only</h3>
         <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub gitops discover --space my-space my-k8s-target
+        <pre><code>cub gitops discover --space my-space my-k8s-target
 cub gitops import --space my-space my-k8s-target my-render-target \
   --where-resource "metadata.namespace = 'argocd'"
 kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml

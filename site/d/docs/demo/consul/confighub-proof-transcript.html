@@ -404,7 +404,7 @@
 runs/consul-confighub-proof/latest/function-scan-receipt.yaml
 runs/consul-confighub-proof/latest/safe-ops-receipt.yaml</code></pre>
 <h2 id="commands">Commands</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>cub installer doc packages/hashicorp/consul/2.0.0 --json
 cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir .tmp/confighub-proof/consul-default-control-plane --non-interactive --namespace consul
 cub installer render --work-dir .tmp/confighub-proof/consul-default-control-plane

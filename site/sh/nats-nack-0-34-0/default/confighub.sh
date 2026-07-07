@@ -14,6 +14,11 @@ if ! command -v cub >/dev/null 2>&1; then
   exit 1
 fi
 
+if ! cub installer --help >/dev/null 2>&1; then
+  printf '%s\n' 'The cub installer command is not available. It is a cub plugin that is not yet publicly released. Watch https://github.com/confighub/installer for the public plugin release. This script stops before it touches your cluster.' >&2
+  exit 1
+fi
+
 SPACE="${CUB_SPACE:-helm-nack-default}"
 
 say "Check ConfigHub auth"

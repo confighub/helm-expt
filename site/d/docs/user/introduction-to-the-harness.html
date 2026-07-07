@@ -405,7 +405,7 @@ It is an AI-assisted engineering workflow with mechanical proof.</code></pre>
 <p>AI helps analyze public Helm charts, draft artifacts, and spot control points. The workflow decides whether the result is believable by comparing outputs, binding digests, running scans, checking gates, and recording receipts.</p>
 <h2 id="what-to-say-when-someone-asks-what-prompt-did-you-use">What To Say When Someone Asks &quot;What Prompt Did You Use?&quot;</h2>
 <p>Say this:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>We do not generate recipes from one prompt. We use AI as an analyst and code
 assistant inside a deterministic recipe-construction workflow. The workflow
 decides where each Helm behavior belongs, then cub installer and verifiers prove

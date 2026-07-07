@@ -414,7 +414,7 @@ ConfigHub OCI/Argo evidence: pass for the declared support scope
 production support decision: supported for cub-lk vanilla kind, namespace=monitoring</code></pre>
 <p>That means regular Helm and the <code>cub installer</code> path produce equivalent desired objects for the recorded inputs, and the selected ConfigHub delivery path reached the recorded live state for the declared target scope.</p>
 <p>The <code>no-crds</code> base is deliberately different:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
   <pre><code>render parity: pass
 two-cluster kind parity: pass
 target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-admission Secret

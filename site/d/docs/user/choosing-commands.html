@@ -462,8 +462,7 @@
 <h3 id="cub-variant-promote"><code>cub variant promote</code></h3>
 <p>Use this when a downstream Space was created by <code>cub variant create</code> and the reviewed upstream Space has changed. This is a normal ConfigHub server operation for components represented as upstream/downstream Spaces, not a helm-expt-only workflow.</p>
 <p>Start with:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub variant promote &lt;downstream-space&gt; --dry-run -o mutations</code></pre>
+<pre><code>cub variant promote &lt;downstream-space&gt; --dry-run -o mutations</code></pre>
 <p>Good for:</p>
 <ul><li>seeing which downstream Units are behind their upstream Units;</li><li>previewing mutation paths before writing;</li><li>cloning Units that were added upstream after the downstream variant was created;</li><li>associating the change with a ConfigHub changeset and change description.</li></ul>
 <p>It should not be treated as a Helm upgrade by another name. If the upstream change required a Helm rerender, that rerender belongs in the <code>cub installer</code> recipe/package path first. <code>cub variant promote</code> then carries the reviewed upstream changes into the downstream ConfigHub variant.</p>
@@ -492,7 +491,8 @@
 <tr><td>&quot;Prove Helm and installer reach the same live outcome.&quot;</td><td><code>npm run kind-parity:run ...</code> or the live parity lane</td></tr></tbody></table>
 <h2 id="the-proposed-bridge">The Proposed Bridge</h2>
 <p>The proposed bridge is an import command:</p>
-<pre><code>cub installer import helm ...</code></pre>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
+  <pre><code>cub installer import helm ...</code></pre>
 <p>or equivalent product wording.</p>
 <p>That bridge should turn a direct Helm chart, values file, or existing <code>cub helm install</code> path into a maintained recipe/package candidate. Until that exists as a product command, helm-expt uses repo generators and proof scripts to build the same artifact chain.</p>
 <h2 id="repo-verifiers">Repo Verifiers</h2>

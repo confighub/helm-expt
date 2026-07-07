@@ -410,8 +410,7 @@ open data/live-parity-rerun-plan/summary.md</code></pre>
 <p>Read the current large-app support artifact:</p>
 <pre><code>open recipes/hashicorp/consul/2.0.0/gitops-runtime-review.yaml</code></pre>
 <p>Inspect ConfigHub Units when the run is live:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub unit list --space &lt;space&gt;
+<pre><code>cub unit list --space &lt;space&gt;
 cub unit data &lt;unit&gt; --space &lt;space&gt;</code></pre>
 <p>Inspect GitOps state when the run is live:</p>
 <pre><code>kubectl --kubeconfig &lt;kubeconfig&gt; get applications -n argocd

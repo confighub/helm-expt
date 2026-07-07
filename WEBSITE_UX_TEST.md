@@ -124,6 +124,8 @@ Expected:
 - Redis is the simple path;
 - kube-prometheus-stack is the serious chart path;
 - commands are copyable;
+- the install step says the `cub installer` plugin is not yet publicly released;
+- the first-run path checks `cub installer --help` before creating a cluster;
 - the page says what should happen after each command.
 
 ### Step 3: Apps

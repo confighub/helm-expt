@@ -143,6 +143,10 @@ variant support, proof, and maintenance.
 Use these commands to reproduce the current Redis `cub installer` compatibility
 check:
 
+This is a developer source-build check. It is not the public cub install path.
+The public cub install command installs the released cub CLI only; the
+`cub installer` plugin is not yet publicly released.
+
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH="$PATH:$(go env GOPATH)/bin"

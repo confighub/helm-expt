@@ -411,8 +411,7 @@ Server: https://hub.confighub.com
 Space: helm-redis-confighub-proof
 Selector: Labels.Proof = 'redis-confighub-proof'</code></pre>
 <p>Create the operation record:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset create \
+<pre><code>CUB_CONFIG=$HOME/.confighub/config.yaml cub changeset create \
   redis-safe-ops-20260527 \
   --space helm-redis-confighub-proof \
   --description &quot;Redis ConfigHub proof safe operation lane&quot; \

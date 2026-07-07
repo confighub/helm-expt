@@ -408,8 +408,7 @@
 <tr><td><code>cub helm install</code></td><td>Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. It handles values files, <code>--set</code>, CRD splitting, target assignment, and wait behavior.</td><td>You want a one-shot ConfigHub load from a chart, values, and flags.</td><td>A maintained recipe with supported variants, receipts, and update policy.</td></tr>
 <tr><td><code>cub installer</code> package path</td><td>Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks.</td><td>You want repeatable, supportable, variant-aware Helm-derived configs.</td><td>The shortest one-off render/install command.</td></tr></tbody></table>
 <h2 id="direct-render">Direct Render</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub helm template redis redis \
+<pre><code>cub helm template redis redis \
   --repo https://charts.bitnami.com/bitnami \
   --version 25.5.3 \
   --namespace redis \
@@ -433,7 +432,8 @@
 <p>It does not, by itself, answer the maintained-catalog questions:</p>
 <ul><li>Which base variants are supported?</li><li>Which values, facts, capabilities, hooks, CRDs, and secrets were reviewed?</li><li>Is the output equivalent to regular Helm under recorded inputs?</li><li>Which scans, gates, promotion rules, live checks, and receipts apply?</li><li>How will future chart versions and old-version patches be maintained?</li></ul>
 <h2 id="maintained-catalog-path">Maintained Catalog Path</h2>
-<pre><code>chart + values + flags
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
+  <pre><code>chart + values + flags
 -&gt; cub helm template baseline
 -&gt; recipe analysis
 -&gt; cub installer recipe/package
@@ -468,6 +468,7 @@ promotion or production user
 <p>That is the big-picture rule for the Helm command family. Fast paths should stay fast. The catalog path should be chosen when the user wants repeatability, variant support, proof, and maintenance.</p>
 <h2 id="current-redis-compatibility-check">Current Redis Compatibility Check</h2>
 <p>Use these commands to reproduce the current Redis <code>cub installer</code> compatibility check:</p>
+<p>This is a developer source-build check. It is not the public cub install path. The public cub install command installs the released cub CLI only; the <code>cub installer</code> plugin is not yet publicly released.</p>
 <pre><code>go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH=&quot;$PATH:$(go env GOPATH)/bin&quot;
 cub plugin install confighub/installer --source-repo --name installer --force

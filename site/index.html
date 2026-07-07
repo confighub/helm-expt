@@ -609,7 +609,7 @@ stringData:
       <h2 id="try-now">Try It Now with Kubernetes</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
-      <p class="install-cub-note">Install cub first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
+      <p class="install-cub-note">Install cub first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. The public cub install command installs the released cub CLI only. The <code>cub installer</code> command used below is a separate cub plugin and is not yet publicly released. Watch <a href="https://github.com/confighub/installer">confighub/installer</a> for the public plugin release. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for public catalog package pulls once that plugin is available.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
