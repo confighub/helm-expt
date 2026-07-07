@@ -102,6 +102,7 @@ Use Helm charts. Ship ConfigHub variants.
 Look for:
 
 - a clear first action;
+- a clear "What this is" block that states the experiment and evidence path;
 - plain explanation of why visible Helm stages matter;
 - no requirement to understand every receipt before continuing.
 
@@ -250,6 +251,7 @@ Minimum depth sample:
 | Starting page | Deeper page to test | Why |
 | --- | --- | --- |
 | Home | `how-it-works.html` | Checks whether the four-move model is actionable. |
+| Home | `demo-org.html` | Checks whether a reader can get from a named claim to a committed receipt in one click. |
 | Home | `docs.html` | Checks whether "Guides" are useful and not just a raw doc dump. |
 | Get Started | `../docs/user/expected-results-and-clusters.md` | Checks cluster guidance and optional npm proof language. |
 | Helm Catalog | Redis chart page | Checks simple chart run path, variants, caveats, and next action. |
