@@ -261,6 +261,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
 | `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
+| `helm-catalog-readmes` | [helm-catalog-readmes/summary.md](./helm-catalog-readmes/summary.md) | supporting generated evidence |
 | `helm-org` | [helm-org/summary.md](./helm-org/summary.md) | supporting generated evidence |
 | `helm-render-intents` | [helm-render-intents/summary.md](./helm-render-intents/summary.md) | ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
@@ -344,7 +345,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 166 CSV files. Each row records the path, audience,
+It includes 167 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
