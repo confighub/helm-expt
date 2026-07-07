@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Example Guides · ConfigHub Helm Ops</title>
+  <meta name="description" content="ConfigHub Example Guides: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/summary.html">
+  <meta property="og:title" content="ConfigHub Example Guides · ConfigHub Helm Ops">
+  <meta property="og:description" content="ConfigHub Example Guides: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/confighub-example-guides/summary.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15191d;
+      --muted: #5b6872;
+      --line: #dde3e9;
+      --panel: #f6f8fa;
+      --accent: #0b6bcb;
+      --good: #1e8e3e;
+      --warn: #b06000;
+      --bad: #d93025;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        display: inline-block;
+        margin-bottom: 9px;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 0 0 7px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>ConfigHub Example Guides</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/confighub-example-guides/summary.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Generated by <code>scripts/generate-confighub-example-guides.mjs</code>.</p>
+<p>These guides explain each public chart preset config as a short path into ConfigHub. They are generated from the same committed records that create the package, chart page, render intent, scripts, and receipts.</p>
+<p>They are for humans first. A reader should not need to understand the whole repo before they can answer:</p>
+<pre><code>What did we do to this Helm chart?
+Why is this preset config the right starting point?
+How do I repeat it?
+What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to handle?</code></pre>
+<h2 id="counts">Counts</h2>
+<table><thead><tr><th>Count</th><th>Value</th></tr></thead><tbody><tr><td>Public package charts</td><td>100</td></tr>
+<tr><td>Public preset config guides</td><td>179</td></tr>
+<tr><td>Guides with prerequisites</td><td>38</td></tr>
+<tr><td>Guides with recorded lifecycle routes</td><td>8</td></tr></tbody></table>
+<h2 id="how-to-use-this">How To Use This</h2>
+<ol><li>Start from the Helm Ops Catalog chart page.</li><li>Pick the preset config you want to try.</li><li>Open the guide for that preset config.</li><li>Run <code>try.sh</code> for a no-account test, or <code>confighub.sh</code> to upload the rendered objects into a ConfigHub Space.</li></ol>
+<p>The generated CSV is <a href="../../../../data/confighub-example-guides/guides.csv">guides.csv</a>.</p>
+<h2 id="guides">Guides</h2>
+<table><thead><tr><th>Chart</th><th>Preset config</th><th>Why this preset exists</th><th>Guide</th><th>Chart page</th></tr></thead><tbody><tr><td><code>aqua/trivy-operator@0.32.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/aqua-trivy-operator-0-32-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html">chart page</a></td></tr>
+<tr><td><code>aqua/trivy-operator@0.32.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/aqua-trivy-operator-0-32-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/argo-cd-argo-cd-9-5-15-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/argo-cd-argo-cd-9-5-15-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-events@2.4.21</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/argo-cd-argo-events-2-4-21-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-events@2.4.21</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/argo-cd-argo-events-2-4-21-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-events-2-4-21.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-rollouts@2.40.9</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/argo-cd-argo-rollouts-2-40-9-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-rollouts@2.40.9</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/argo-cd-argo-rollouts-2-40-9-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-rollouts-2-40-9.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td><code>controller-default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/argo-cd-argo-workflows-1-0-14-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td><code>minimal-crds</code></td><td>Use this when this package should bring the CRDs needed for the install.</td><td><a href="spaces/argo-cd-argo-workflows-1-0-14-minimal-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-workflows-1-0-14.html">chart page</a></td></tr>
+<tr><td><code>argo-cd/argocd-image-updater@1.2.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/argo-cd-argocd-image-updater-1-2-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html">chart page</a></td></tr>
+<tr><td><code>autoscaler/cluster-autoscaler@9.57.0</code></td><td><code>controller-default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html">chart page</a></td></tr>
+<tr><td><code>autoscaler/cluster-autoscaler@9.57.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/autoscaler-cluster-autoscaler-9-57-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html">chart page</a></td></tr>
+<tr><td><code>autoscaler/vertical-pod-autoscaler@0.9.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/autoscaler-vertical-pod-autoscaler-0-9-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html">chart page</a></td></tr>
+<tr><td><code>autoscaler/vertical-pod-autoscaler@0.9.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/autoscaler-vertical-pod-autoscaler-0-9-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html">chart page</a></td></tr>
+<tr><td><code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html">chart page</a></td></tr>
+<tr><td><code>bitnami/apache@11.4.29</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-apache-11-4-29-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html">chart page</a></td></tr>
+<tr><td><code>bitnami/apache@11.4.29</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-apache-11-4-29-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html">chart page</a></td></tr>
+<tr><td><code>bitnami/contour@21.1.4</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-contour-21-1-4-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html">chart page</a></td></tr>
+<tr><td><code>bitnami/contour@21.1.4</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-contour-21-1-4-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html">chart page</a></td></tr>
+<tr><td><code>bitnami/contour@21.1.4</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/bitnami-contour-21-1-4-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html">chart page</a></td></tr>
+<tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-elasticsearch-22-1-6-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html">chart page</a></td></tr>
+<tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/bitnami-elasticsearch-22-1-6-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html">chart page</a></td></tr>
+<tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-elasticsearch-22-1-6-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html">chart page</a></td></tr>
+<tr><td><code>bitnami/memcached@8.5.5</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-memcached-8-5-5-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-memcached-8-5-5.html">chart page</a></td></tr>
+<tr><td><code>bitnami/mongodb@19.0.7</code></td><td><code>existing-secret-replicaset</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/bitnami-mongodb-19-0-7-existing-secret-replicaset/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/mongodb@19.0.7</code></td><td><code>static-passwords</code></td><td>Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</td><td><a href="spaces/bitnami-mongodb-19-0-7-static-passwords/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mongodb-19-0-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/mysql@14.0.3</code></td><td><code>existing-secret</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/bitnami-mysql-14-0-3-existing-secret/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/mysql@14.0.3</code></td><td><code>static-passwords</code></td><td>Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</td><td><a href="spaces/bitnami-mysql-14-0-3-static-passwords/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/nginx@24.0.2</code></td><td><code>existing-tls-ingress</code></td><td>Use this when service exposure, TLS, or ingress ownership is the important operating choice.</td><td><a href="spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html">chart page</a></td></tr>
+<tr><td><code>bitnami/nginx@24.0.2</code></td><td><code>http-clusterip</code></td><td>Use this when the service should stay inside the cluster or platform network.</td><td><a href="spaces/bitnami-nginx-24-0-2-http-clusterip/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html">chart page</a></td></tr>
+<tr><td><code>bitnami/opensearch@2.0.10</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-opensearch-2-0-10-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html">chart page</a></td></tr>
+<tr><td><code>bitnami/opensearch@2.0.10</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/bitnami-opensearch-2-0-10-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html">chart page</a></td></tr>
+<tr><td><code>bitnami/opensearch@2.0.10</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-opensearch-2-0-10-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html">chart page</a></td></tr>
+<tr><td><code>bitnami/phpmyadmin@20.0.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-phpmyadmin-20-0-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html">chart page</a></td></tr>
+<tr><td><code>bitnami/phpmyadmin@20.0.0</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-phpmyadmin-20-0-0-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-phpmyadmin-20-0-0.html">chart page</a></td></tr>
+<tr><td><code>bitnami/postgresql@18.6.7</code></td><td><code>existing-secret</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/bitnami-postgresql-18-6-7-existing-secret/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/postgresql@18.6.7</code></td><td><code>static-passwords</code></td><td>Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</td><td><a href="spaces/bitnami-postgresql-18-6-7-static-passwords/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-postgresql-18-6-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/rabbitmq@16.0.14</code></td><td><code>existing-secret</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/bitnami-rabbitmq-16-0-14-existing-secret/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html">chart page</a></td></tr>
+<tr><td><code>bitnami/rabbitmq@16.0.14</code></td><td><code>static-passwords</code></td><td>Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</td><td><a href="spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html">chart page</a></td></tr>
+<tr><td><code>bitnami/redis@25.5.3</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-redis-25-5-3-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/redis@25.5.3</code></td><td><code>reuse-existing-secret</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/spark@10.0.3</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-spark-10-0-3-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/spark@10.0.3</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/bitnami-spark-10-0-3-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/spark@10.0.3</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-spark-10-0-3-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html">chart page</a></td></tr>
+<tr><td><code>bitnami/zookeeper@13.8.7</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/bitnami-zookeeper-13-8-7-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/zookeeper@13.8.7</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/bitnami-zookeeper-13-8-7-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html">chart page</a></td></tr>
+<tr><td><code>bitnami/zookeeper@13.8.7</code></td><td><code>legacy</code></td><td>Use this when this package must use the legacy image location for the chart's containers.</td><td><a href="spaces/bitnami-zookeeper-13-8-7-legacy/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html">chart page</a></td></tr>
+<tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/cloudnative-pg-cloudnative-pg-0-28-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html">chart page</a></td></tr>
+<tr><td><code>cloudnative-pg/cloudnative-pg@0.28.2</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html">chart page</a></td></tr>
+<tr><td><code>coredns/coredns@1.45.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/coredns-coredns-1-45-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html">chart page</a></td></tr>
+<tr><td><code>crossplane-stable/crossplane@2.3.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/crossplane-stable-crossplane-2-3-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html">chart page</a></td></tr>
+<tr><td><code>descheduler/descheduler@0.36.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/descheduler-descheduler-0-36-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html">chart page</a></td></tr>
+<tr><td><code>dex/dex@0.24.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/dex-dex-0-24-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/dex-dex-0-24-0.html">chart page</a></td></tr>
+<tr><td><code>elastic/eck-operator@3.4.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/elastic-eck-operator-3-4-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html">chart page</a></td></tr>
+<tr><td><code>elastic/eck-operator@3.4.0</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/elastic-eck-operator-3-4-0-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html">chart page</a></td></tr>
+<tr><td><code>elastic/eck-operator@3.4.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/elastic-eck-operator-3-4-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-eck-operator-3-4-0.html">chart page</a></td></tr>
+<tr><td><code>elastic/filebeat@8.5.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/elastic-filebeat-8-5-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>elastic/filebeat@8.5.1</code></td><td><code>node-or-cluster-collector</code></td><td>Use this for a node or cluster collector shape.</td><td><a href="spaces/elastic-filebeat-8-5-1-node-or-cluster-collector/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>elastic/kibana@8.5.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/elastic-kibana-8-5-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-kibana-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>elastic/logstash@8.5.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/elastic-logstash-8-5-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>elastic/logstash@8.5.1</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/elastic-logstash-8-5-1-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-logstash-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>elastic/metricbeat@8.5.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/elastic-metricbeat-8-5-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/elastic-metricbeat-8-5-1.html">chart page</a></td></tr>
+<tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/external-dns-external-dns-1-21-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html">chart page</a></td></tr>
+<tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>dry-run-txt-registry</code></td><td>external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1.</td><td><a href="spaces/external-dns-external-dns-1-21-1-dry-run-txt-registry/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html">chart page</a></td></tr>
+<tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/external-dns-external-dns-1-21-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/external-dns-external-dns-1-21-1.html">chart page</a></td></tr>
+<tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/external-secrets-external-secrets-2-5-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html">chart page</a></td></tr>
+<tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/external-secrets-external-secrets-2-5-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/external-secrets-external-secrets-2-5-0.html">chart page</a></td></tr>
+<tr><td><code>fairwinds-stable/goldilocks@10.3.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/fairwinds-stable-goldilocks-10-3-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-goldilocks-10-3-0.html">chart page</a></td></tr>
+<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/fairwinds-stable-vpa-4-11-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html">chart page</a></td></tr>
+<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/fairwinds-stable-vpa-4-11-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/fairwinds-stable-vpa-4-11-0.html">chart page</a></td></tr>
+<tr><td><code>falcosecurity/falco@9.0.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/falcosecurity-falco-9-0-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/falcosecurity-falco-9-0-0.html">chart page</a></td></tr>
+<tr><td><code>falcosecurity/falcosidekick@0.13.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/falcosecurity-falcosidekick-0-13-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/falcosecurity-falcosidekick-0-13-1.html">chart page</a></td></tr>
+<tr><td><code>fluent/fluent-bit@0.57.6</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/fluent-fluent-bit-0-57-6-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/fluent-fluent-bit-0-57-6.html">chart page</a></td></tr>
+<tr><td><code>fluent/fluentd@0.5.3</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/fluent-fluentd-0-5-3-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/fluent-fluentd-0-5-3.html">chart page</a></td></tr>
+<tr><td><code>gatekeeper/gatekeeper@3.22.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/gatekeeper-gatekeeper-3-22-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html">chart page</a></td></tr>
+<tr><td><code>gatekeeper/gatekeeper@3.22.2</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/gatekeeper-gatekeeper-3-22-2-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/gatekeeper-gatekeeper-3-22-2.html">chart page</a></td></tr>
+<tr><td><code>gitlab/gitlab-runner@0.89.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/gitlab-gitlab-runner-0-89-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/gitlab-gitlab-runner-0-89-0.html">chart page</a></td></tr>
+<tr><td><code>grafana/alloy@1.8.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/grafana-alloy-1-8-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html">chart page</a></td></tr>
+<tr><td><code>grafana/alloy@1.8.2</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/grafana-alloy-1-8-2-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-alloy-1-8-2.html">chart page</a></td></tr>
+<tr><td><code>grafana/grafana@10.5.15</code></td><td><code>existing-secret-ingress</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html">chart page</a></td></tr>
+<tr><td><code>grafana/grafana@10.5.15</code></td><td><code>static-passwords</code></td><td>Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</td><td><a href="spaces/grafana-grafana-10-5-15-static-passwords/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html">chart page</a></td></tr>
+<tr><td><code>grafana/loki@7.0.0</code></td><td><code>simple-scalable-minio</code></td><td>loki simple scalable with MinIO variant rendered from grafana/loki@7.0.0.</td><td><a href="spaces/grafana-loki-7-0-0-simple-scalable-minio/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html">chart page</a></td></tr>
+<tr><td><code>grafana/loki@7.0.0</code></td><td><code>single-binary-filesystem</code></td><td>Use this when you want a smaller operating shape for first tests or local use.</td><td><a href="spaces/grafana-loki-7-0-0-single-binary-filesystem/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-loki-7-0-0.html">chart page</a></td></tr>
+<tr><td><code>grafana/promtail@6.17.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/grafana-promtail-6-17-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-promtail-6-17-1.html">chart page</a></td></tr>
+<tr><td><code>grafana/pyroscope@2.0.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/grafana-pyroscope-2-0-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html">chart page</a></td></tr>
+<tr><td><code>grafana/pyroscope@2.0.2</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/grafana-pyroscope-2-0-2-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html">chart page</a></td></tr>
+<tr><td><code>grafana/pyroscope@2.0.2</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/grafana-pyroscope-2-0-2-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-pyroscope-2-0-2.html">chart page</a></td></tr>
+<tr><td><code>grafana/rollout-operator@0.49.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/grafana-rollout-operator-0-49-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html">chart page</a></td></tr>
+<tr><td><code>grafana/rollout-operator@0.49.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/grafana-rollout-operator-0-49-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-rollout-operator-0-49-0.html">chart page</a></td></tr>
+<tr><td><code>grafana/tempo@1.24.4</code></td><td><code>local-persistent</code></td><td>tempo local persistent single-binary variant rendered from grafana/tempo@1.24.4.</td><td><a href="spaces/grafana-tempo-1-24-4-local-persistent/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html">chart page</a></td></tr>
+<tr><td><code>grafana/tempo@1.24.4</code></td><td><code>s3-query-observability</code></td><td>tempo S3 query and observability variant rendered from grafana/tempo@1.24.4.</td><td><a href="spaces/grafana-tempo-1-24-4-s3-query-observability/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/grafana-tempo-1-24-4.html">chart page</a></td></tr>
+<tr><td><code>haproxytech/kubernetes-ingress@1.52.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/haproxytech-kubernetes-ingress-1-52-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/haproxytech-kubernetes-ingress-1-52-0.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/consul@2.0.0</code></td><td><code>default-control-plane</code></td><td>consul default control plane variant rendered from hashicorp/consul@2.0.0.</td><td><a href="spaces/hashicorp-consul-2-0-0-default-control-plane/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/consul@2.0.0</code></td><td><code>secure-mesh-existing-secrets</code></td><td>Use this when secret material should come from a Secret you create, not from a generated chart default.</td><td><a href="spaces/hashicorp-consul-2-0-0-secure-mesh-existing-secrets/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-consul-2-0-0.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/terraform@1.1.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/hashicorp-terraform-1-1-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform-1-1-2.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/terraform@1.1.2</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/hashicorp-terraform-1-1-2-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-terraform-1-1-2.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/hashicorp-vault-0-32-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td><code>dev-mode</code></td><td>Use this for a development or local test shape, not as a production claim.</td><td><a href="spaces/hashicorp-vault-0-32-0-dev-mode/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html">chart page</a></td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td><code>ha-raft-ui</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html">chart page</a></td></tr>
+<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td><code>admission-disabled</code></td><td>ingress-nginx admission webhook disabled variant rendered from ingress-nginx/ingress-nginx@4.15.1.</td><td><a href="spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html">chart page</a></td></tr>
+<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/ingress-nginx-ingress-nginx-4-15-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html">chart page</a></td></tr>
+<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td><code>internal-clusterip</code></td><td>Use this when the service should stay inside the cluster or platform network.</td><td><a href="spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/ingress-nginx-ingress-nginx-4-15-1.html">chart page</a></td></tr>
+<tr><td><code>istio/gateway@1.30.0</code></td><td><code>controller-default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/istio-gateway-1-30-0-controller-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/istio-gateway-1-30-0.html">chart page</a></td></tr>
+<tr><td><code>istio/gateway@1.30.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/istio-gateway-1-30-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/istio-gateway-1-30-0.html">chart page</a></td></tr>
+<tr><td><code>istio/istiod@1.30.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/istio-istiod-1-30-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/istio-istiod-1-30-0.html">chart page</a></td></tr>
+<tr><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/jaegertracing-jaeger-operator-2-57-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html">chart page</a></td></tr>
+<tr><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/jaegertracing-jaeger-operator-2-57-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-operator-2-57-0.html">chart page</a></td></tr>
+<tr><td><code>jaegertracing/jaeger@4.8.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/jaegertracing-jaeger-4-8-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jaegertracing-jaeger-4-8-0.html">chart page</a></td></tr>
+<tr><td><code>jetstack/cert-manager-csi-driver@v0.14.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/jetstack-cert-manager-csi-driver-v0-14-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-csi-driver-v0-14-0.html">chart page</a></td></tr>
+<tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td><code>crds-enabled</code></td><td>Use this when this package should bring the CRDs needed for the install.</td><td><a href="spaces/jetstack-cert-manager-v1-20-2-crds-enabled/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html">chart page</a></td></tr>
+<tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/jetstack-cert-manager-v1-20-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html">chart page</a></td></tr>
+<tr><td><code>jetstack/trust-manager@v0.22.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/jetstack-trust-manager-v0-22-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html">chart page</a></td></tr>
+<tr><td><code>jetstack/trust-manager@v0.22.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/jetstack-trust-manager-v0-22-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html">chart page</a></td></tr>
+<tr><td><code>kedacore/keda@2.19.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/kedacore-keda-2-19-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html">chart page</a></td></tr>
+<tr><td><code>kedacore/keda@2.19.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/kedacore-keda-2-19-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html">chart page</a></td></tr>
+<tr><td><code>kyverno/kyverno-policies@3.8.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/kyverno-kyverno-policies-3-8-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-policies-3-8-0.html">chart page</a></td></tr>
+<tr><td><code>kyverno/kyverno@3.8.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/kyverno-kyverno-3-8-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html">chart page</a></td></tr>
+<tr><td><code>kyverno/kyverno@3.8.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/kyverno-kyverno-3-8-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html">chart page</a></td></tr>
+<tr><td><code>linkerd/linkerd-crds@1.8.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/linkerd-linkerd-crds-1-8-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/linkerd-linkerd-crds-1-8-0.html">chart page</a></td></tr>
+<tr><td><code>longhorn/longhorn@1.11.2</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/longhorn-longhorn-1-11-2-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html">chart page</a></td></tr>
+<tr><td><code>longhorn/longhorn@1.11.2</code></td><td><code>ui-ingress</code></td><td>Use this when service exposure, TLS, or ingress ownership is the important operating choice.</td><td><a href="spaces/longhorn-longhorn-1-11-2-ui-ingress/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/longhorn-longhorn-1-11-2.html">chart page</a></td></tr>
+<tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/metrics-server-metrics-server-3-13-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html">chart page</a></td></tr>
+<tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td><code>external-tls-ca</code></td><td>Use this when TLS CA material is supplied outside the chart.</td><td><a href="spaces/metrics-server-metrics-server-3-13-0-external-tls-ca/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/metrics-server-metrics-server-3-13-0.html">chart page</a></td></tr>
+<tr><td><code>minio-operator/operator@7.1.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/minio-operator-operator-7-1-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/minio-operator-operator-7-1-1.html">chart page</a></td></tr>
+<tr><td><code>minio-operator/tenant@7.1.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/minio-operator-tenant-7-1-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/minio-operator-tenant-7-1-1.html">chart page</a></td></tr>
+<tr><td><code>nats/nack@0.34.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/nats-nack-0-34-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html">chart page</a></td></tr>
+<tr><td><code>nats/nack@0.34.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/nats-nack-0-34-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-nack-0-34-0.html">chart page</a></td></tr>
+<tr><td><code>nats/nats@2.14.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/nats-nats-2-14-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html">chart page</a></td></tr>
+<tr><td><code>nats/nats@2.14.0</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/nats-nats-2-14-0-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html">chart page</a></td></tr>
+<tr><td><code>nats/surveyor@0.20.9</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/nats-surveyor-0-20-9-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html">chart page</a></td></tr>
+<tr><td><code>nats/surveyor@0.20.9</code></td><td><code>default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/nats-surveyor-0-20-9-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html">chart page</a></td></tr>
+<tr><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html">chart page</a></td></tr>
+<tr><td><code>open-telemetry/opentelemetry-operator@0.114.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/open-telemetry-opentelemetry-operator-0-114-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html">chart page</a></td></tr>
+<tr><td><code>open-telemetry/opentelemetry-operator@0.114.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/open-telemetry-opentelemetry-operator-0-114-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html">chart page</a></td></tr>
+<tr><td><code>opencost/opencost@2.5.21</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/opencost-opencost-2-5-21-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html">chart page</a></td></tr>
+<tr><td><code>percona/pg-operator@3.0.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/percona-pg-operator-3-0-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html">chart page</a></td></tr>
+<tr><td><code>percona/pg-operator@3.0.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/percona-pg-operator-3-0-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-pg-operator-3-0-0.html">chart page</a></td></tr>
+<tr><td><code>percona/psmdb-operator@1.22.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/percona-psmdb-operator-1-22-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html">chart page</a></td></tr>
+<tr><td><code>percona/psmdb-operator@1.22.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/percona-psmdb-operator-1-22-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-psmdb-operator-1-22-0.html">chart page</a></td></tr>
+<tr><td><code>percona/pxc-operator@1.19.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/percona-pxc-operator-1-19-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html">chart page</a></td></tr>
+<tr><td><code>percona/pxc-operator@1.19.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/percona-pxc-operator-1-19-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/percona-pxc-operator-1-19-1.html">chart page</a></td></tr>
+<tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/projectcalico-tigera-operator-v3-32-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/projectcalico-tigera-operator-v3-32-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-alertmanager-1-37-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td><code>ha</code></td><td>Use this when you want the reviewed high-availability shape instead of the simplest default.</td><td><a href="spaces/prometheus-community-alertmanager-1-37-0-ha/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-kube-prometheus-stack-85-3-3-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/kube-state-metrics@7.4.0</code></td><td><code>cluster-metrics-readonly</code></td><td>Use this for a read-only cluster metrics shape.</td><td><a href="spaces/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/kube-state-metrics@7.4.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-kube-state-metrics-7-4-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-state-metrics-7-4-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td><code>apiservice-v1-capability</code></td><td>Use this when the target cluster serves apiregistration.k8s.io/v1.</td><td><a href="spaces/prometheus-community-prometheus-adapter-5-3-0-apiservice-v1-capability/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td><code>cluster-metrics-readonly</code></td><td>Use this for a read-only cluster metrics shape.</td><td><a href="spaces/prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-adapter-5-3-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-adapter-5-3-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-blackbox-exporter@11.10.0</code></td><td><code>cluster-metrics-readonly</code></td><td>Use this for a read-only cluster metrics shape.</td><td><a href="spaces/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-blackbox-exporter@11.10.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-blackbox-exporter-11-10-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-blackbox-exporter-11-10-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-node-exporter@4.55.0</code></td><td><code>cluster-metrics-readonly</code></td><td>Use this for a read-only cluster metrics shape.</td><td><a href="spaces/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-node-exporter@4.55.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-node-exporter-4-55-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-operator-crds@29.0.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-operator-crds-29-0-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-operator-crds-29-0-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus-pushgateway@3.6.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-pushgateway-3-6-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-pushgateway-3-6-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/prometheus-community-prometheus-29-8-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html">chart page</a></td></tr>
+<tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td><code>server-only-ephemeral</code></td><td>Use this when you want a smaller operating shape for first tests or local use.</td><td><a href="spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html">chart page</a></td></tr>
+<tr><td><code>rook-release/rook-ceph-cluster@v1.19.5</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/rook-release-rook-ceph-cluster-v1-19-5-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-cluster-v1-19-5.html">chart page</a></td></tr>
+<tr><td><code>rook-release/rook-ceph@v1.19.5</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/rook-release-rook-ceph-v1-19-5-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/rook-release-rook-ceph-v1-19-5.html">chart page</a></td></tr>
+<tr><td><code>runix/pgadmin4@1.62.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/runix-pgadmin4-1-62-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/runix-pgadmin4-1-62-0.html">chart page</a></td></tr>
+<tr><td><code>sealed-secrets/sealed-secrets@2.18.6</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/sealed-secrets-sealed-secrets-2-18-6-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html">chart page</a></td></tr>
+<tr><td><code>sealed-secrets/sealed-secrets@2.18.6</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/sealed-secrets-sealed-secrets-2-18-6-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/sealed-secrets-sealed-secrets-2-18-6.html">chart page</a></td></tr>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html">chart page</a></td></tr>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>sync-secret-rotation</code></td><td>Use this when Secret sync and rotation are the operating choice you want to test.</td><td><a href="spaces/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-sync-secret-rotation/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html">chart page</a></td></tr>
+<tr><td><code>stakater/reloader@2.2.12</code></td><td><code>controller-default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/stakater-reloader-2-2-12-controller-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html">chart page</a></td></tr>
+<tr><td><code>stakater/reloader@2.2.12</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/stakater-reloader-2-2-12-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/stakater-reloader-2-2-12.html">chart page</a></td></tr>
+<tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/strimzi-strimzi-kafka-operator-1-0-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html">chart page</a></td></tr>
+<tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/strimzi-strimzi-kafka-operator-1-0-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html">chart page</a></td></tr>
+<tr><td><code>traefik/traefik@40.2.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/traefik-traefik-40-2-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html">chart page</a></td></tr>
+<tr><td><code>traefik/traefik@40.2.0</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/traefik-traefik-40-2-0-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html">chart page</a></td></tr>
+<tr><td><code>velero/velero@12.0.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/velero-velero-12-0-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html">chart page</a></td></tr>
+<tr><td><code>velero/velero@12.0.1</code></td><td><code>no-crds</code></td><td>Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.</td><td><a href="spaces/velero-velero-12-0-1-no-crds/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html">chart page</a></td></tr>
+<tr><td><code>vm/victoria-logs-single@0.12.5</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/vm-victoria-logs-single-0-12-5-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html">chart page</a></td></tr>
+<tr><td><code>vm/victoria-metrics-single@0.39.0</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/vm-victoria-metrics-single-0-39-0-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html">chart page</a></td></tr>
+<tr><td><code>vm/victoria-metrics-single@0.39.0</code></td><td><code>default-reviewed</code></td><td>Use this when you want a catalog-reviewed starting shape instead of the raw default name.</td><td><a href="spaces/vm-victoria-metrics-single-0-39-0-default-reviewed/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/vm-victoria-metrics-single-0-39-0.html">chart page</a></td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/confighub-example-guides/summary.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

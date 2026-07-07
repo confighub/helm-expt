@@ -402,6 +402,8 @@
     "helm-render-intents:verify": "node scripts/generate-helm-render-intents.mjs --verify",
     "installer-oci:catalog": "node scripts/generate-installer-oci-catalog.mjs --generate",
     "installer-oci:catalog:verify": "node scripts/generate-installer-oci-catalog.mjs --verify",
+    "confighub-example-guides": "node scripts/generate-confighub-example-guides.mjs --generate",
+    "confighub-example-guides:verify": "node scripts/generate-confighub-example-guides.mjs --verify",
     "installer-oci:publish": "node scripts/publish-installer-oci-packages.mjs",
     "cub-scout-diff:generate": "node scripts/verify-cub-scout-diff.mjs --generate",
     "cub-scout-diff:verify": "node scripts/verify-cub-scout-diff.mjs --verify",

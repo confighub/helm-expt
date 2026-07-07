@@ -9,6 +9,12 @@ preset** in tables and compact UI. The repo word is **base variant**. They mean
 the same thing in this context: a named, supported way to render one Helm chart
 version.
 
+For the plain-English path from one chart preset into ConfigHub, use the
+generated [ConfigHub Example Guides](../../data/confighub-example-guides/summary.md).
+Each guide shows what was rendered, why that preset is a reasonable starting
+point, how to repeat it, and which CRDs, Secrets, hooks, setup jobs, or other
+requirements still need attention.
+
 ## The Claim
 
 We do not claim to prove every possible Helm values combination. Most charts

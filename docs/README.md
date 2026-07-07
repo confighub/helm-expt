@@ -45,6 +45,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [../data/chart-use-guide/summary.md](../data/chart-use-guide/summary.md) | Generated chart-use guide: one short answer per top-100 chart for use now, promotion review, base-variant work, or limitation decision. |
+| [../data/confighub-example-guides/summary.md](../data/confighub-example-guides/summary.md) | Generated plain-English guides for each public chart preset config: what was rendered, why it is the right starting point, how to repeat it, and what prerequisites or lifecycle work remain visible. |
 | [../data/master-catalog-matrix/matrix.html](../data/master-catalog-matrix/matrix.html) | Browser view of the full chart/version/base matrix: user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action. |
 | [../data/cub-adoption-caveats/summary.md](../data/cub-adoption-caveats/summary.md) | Per-chart adoption caveats: for each of the 100 charts, which "worse-than / more-confusing-than plain Helm" rough edges apply (baked shared password, CRD-first ordering) with the exact remediation, plus the three universal cub-direct caveats — the per-chart companion to the adoption audit. CSV + colored HTML alongside. |
 | [hard-questions.md](./user/hard-questions.md) | Skeptical user route: hooks, upgrades, overlays, false-green sync, free versus managed, and how to challenge the model. |
@@ -146,6 +147,7 @@ recovery steps, and repo-specific AX notes here.
 | `data/status-dashboard/summary.md` | Generated front-door status dashboard for top100, proof lanes, hooks, quirks, GitOps, and live parity. |
 | `data/outcome-evidence-contract/summary.md` | Generated front-door map from user-visible outcomes to evidence, verifier commands, limits, and next action. |
 | `data/chart-use-guide/summary.md` | Generated front-door guide for whether one top-100 chart can be used now, promoted after review, improved with a better base, or held for a limitation decision. |
+| `data/confighub-example-guides/summary.md` | Generated per-preset guides for the chart journey into ConfigHub, including the render intent, render variant, package OCI ref, scripts, prerequisites, and evidence boundary. |
 | `data/master-catalog-matrix/matrix.html` | Generated browser front door for chart/version/base status, user route, strongest evidence, production scope, and visible gaps. |
 | `data/useful-base-design-queue/summary.md` | Generated front-door queue for proof-grade top-100 charts whose current base is too default-shaped to recommend. |
 | `data/claims-register/summary.md` | Generated claim-to-evidence register used to keep public claims scoped and reviewable. |

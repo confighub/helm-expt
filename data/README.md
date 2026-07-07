@@ -21,6 +21,7 @@ smallest generated surface that answers it.
 | I want the broad chart/version/base status in one browser sheet. | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html)<br>[master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md)<br>[master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
 | I want to know if I can use a specific chart. | [chart-use-guide/summary.md](./chart-use-guide/summary.md)<br>[chart-use-guide/chart-use-guide.csv](./chart-use-guide/chart-use-guide.csv) |
+| I want the plain-English path from one chart preset into ConfigHub. | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md)<br>[confighub-example-guides/guides.csv](./confighub-example-guides/guides.csv) |
 | I want to know if I can use a chart AND how: support level beside evidence depth, prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md)<br>[chart-fact-sheets/fact-sheets.html](./chart-fact-sheets/fact-sheets.html)<br>[chart-fact-sheets/fact-sheets.csv](./chart-fact-sheets/fact-sheets.csv) |
 | I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
@@ -76,6 +77,7 @@ smallest generated surface that answers it.
 | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | Compact GitHub orientation for the master catalog matrix. |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
+| [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset config becomes ConfigHub Units: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
 | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action. |
 | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) | Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work. |
 | [status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) | Current non-pass live parity rows with the exact support artifact that should be handled before rerun. |
@@ -243,6 +245,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `chart-skills` | [chart-skills/summary.md](./chart-skills/summary.md) | advisory chart-to-skill mapping: which docs/skills/ playbooks apply to each chart and why |
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |
+| `confighub-example-guides` | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | supporting generated evidence |
 | `coverage-completion-plan` | [coverage-completion-plan/summary.md](./coverage-completion-plan/summary.md) | ranked plan to 100% verified matrix disposition: non-green cells collapsed into action families by cells-cleared-per-action, owner lane, expected status, and linked issues, with variant promotion as a first-class family |
 | `cub-adoption-caveats` | [cub-adoption-caveats/summary.md](./cub-adoption-caveats/summary.md) | supporting generated evidence |
 | `cub-scout-diff` | [cub-scout-diff/summary.md](./cub-scout-diff/summary.md) | supporting generated evidence |
@@ -258,6 +261,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
 | `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
+| `helm-org` | [helm-org/summary.md](./helm-org/summary.md) | supporting generated evidence |
 | `helm-render-intents` | [helm-render-intents/summary.md](./helm-render-intents/summary.md) | ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
 | `hook-coverage` | [hook-coverage/summary.md](./hook-coverage/summary.md) | top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans |
@@ -340,7 +344,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 163 CSV files. Each row records the path, audience,
+It includes 166 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
