@@ -473,9 +473,33 @@
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this demo org page.</p>
+    <section aria-labelledby="readmes">
+      <h2 id="readmes">Start With The README In Each Space</h2>
+      <p>The live <code>helm-catalog</code> org now has one <code>readme</code> Unit in every current Space. These are the front-door notes for someone starting inside Hub: what the Space shows, what to open, why it matters, what is proven, and where the website and repo evidence live.</p>
+      <p>In Hub, open <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=demo-org-readmes">hub.confighub.com</a>, choose the <code>helm-catalog</code> org, open a Space, then open its <code>readme</code> Unit first.</p>
+      <p>The same material is rendered on this website, so you can read it before opening Hub or link it from a chart page. Start with the <a href="d/data/helm-catalog-readmes/summary.html">demo org README index</a>.</p>
+      <div class="card"><table>
+        <thead><tr><th>README kind</th><th>Spaces</th></tr></thead>
+        <tbody><tr><td>preset</td><td>21</td></tr><tr><td>environment</td><td>7</td></tr><tr><td>fleet</td><td>4</td></tr><tr><td>pilot</td><td>3</td></tr><tr><td>route</td><td>2</td></tr><tr><td>org</td><td>2</td></tr><tr><td>total</td><td>39</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
+    <section aria-labelledby="config-as-data">
+      <h2 id="config-as-data">Why This Org Matters</h2>
+      <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
+      <p>The demo org shows the ConfigHub answer. The rendered objects are stored as Units. The README tells you how the Space got there; the Units are the configuration records you can inspect, query, diff, revise, approve, and deliver.</p>
+      <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
+    </section>
+
     <section aria-labelledby="what">
       <h2 id="what">What is in the org</h2>
-      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries its <code>recipe</code> unit (the source record: chart, version, values profile, routing intent) beside the objects it produced, labels for Component, Variant, ChartVersion and routes, and live validation checks. The org holds 29 Spaces, about 530 units, and about 830 links.</p>
+      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries a README, the rendered objects, labels for Component, Variant, ChartVersion and routes, and live validation checks. Some Spaces also carry recipe, render-record, route, or proof Units for the deeper examples.</p>
       <div class="card"><table>
         <thead><tr><th>Chart</th><th>Base variants</th><th>The story it tells</th></tr></thead>
         <tbody><tr><td>bitnami/redis</td><td>default, reuse-existing-secret</td><td>The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved.</td></tr><tr><td>argo-cd/argo-cd</td><td>default, no-crds</td><td>The CRD split: the same chart with CRDs bundled or separated, side by side.</td></tr><tr><td>hashicorp/vault</td><td>dev-mode, default, ha-raft-ui</td><td>Variant diversity: three operating shapes of one chart.</td></tr><tr><td>ingress-nginx/ingress-nginx</td><td>default, internal-clusterip, admission-disabled</td><td>The admission-webhook certificate quirk, three ways.</td></tr><tr><td>prometheus-community/prometheus</td><td>default, server-only-ephemeral</td><td>The Get Started chart, as it lands in an org.</td></tr><tr><td>prometheus-community/kube-prometheus-stack</td><td>no-crds</td><td>The serious chart: seven recorded lifecycle routes in its recipe unit.</td></tr><tr><td>grafana/grafana</td><td>existing-secret-ingress, static-passwords</td><td>Secrets handled two ways.</td></tr><tr><td>bitnami/mysql</td><td>existing-secret, static-passwords</td><td>The secrets story: staged credential beside generated credential, diffable.</td></tr><tr><td>bitnami/rabbitmq</td><td>existing-secret, static-passwords</td><td>A recipe unit whose routing metadata honestly says: nothing to route.</td></tr><tr><td>bitnami/nginx</td><td>http-clusterip, existing-tls-ingress</td><td>The fleet: four environments from one base, one deliberately behind.</td></tr></tbody>

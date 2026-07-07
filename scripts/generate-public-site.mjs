@@ -63,6 +63,7 @@ const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-productio
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
+const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
@@ -372,6 +373,7 @@ function buildSite(generatedAt) {
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
   const helmRenderIntents = existsSync(helmRenderIntentsPath) ? parseCsv(readFileSync(helmRenderIntentsPath, "utf8")) : [];
+  const helmCatalogReadmes = existsSync(helmCatalogReadmesPath) ? parseCsv(readFileSync(helmCatalogReadmesPath, "utf8")) : [];
   check(existsSync(installerOciCatalogPath), "data/installer-oci-packages/packages.csv is missing; run npm run installer-oci:catalog");
   const installerOciPackages = parseCsv(readFileSync(installerOciCatalogPath, "utf8"));
   const installerOciByKey = new Map(installerOciPackages.map((row) => [`${row.chart}|${row.version}`, row]));
@@ -474,6 +476,7 @@ function buildSite(generatedAt) {
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
       lifecycleRouteActions: "data/lifecycle-route-actions/actions.json",
       lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
+      helmCatalogReadmes: "data/helm-catalog-readmes/readmes.csv",
       installerOciPackages: "data/installer-oci-packages/packages.csv",
       chartSkills: "data/chart-skills/skills.json",
       chartEvidenceRouter: "data/chart-evidence-router/router.csv",
@@ -540,6 +543,7 @@ function buildSite(generatedAt) {
     lifecycleRoutes,
     lifecycleRouteActionSummary,
     helmRenderIntents,
+    helmCatalogReadmes,
     installerOciPackages,
     lifecycleByVariant,
     matrixDisposition,
@@ -935,6 +939,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   const body = renderMarkdownBody(markdown.replace(/^#\s+.+$/m, ""), repoPath, renderedDocs);
   const outDir = posix.dirname(`site/${relPath}`);
   const sourceHref = posix.relative(outDir, repoPath);
+  const lead = docPageLead(repoPath, sourceHref);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -947,7 +952,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   <header class="hero human-hero">
     ${topNav(base)}
     <h1>${escapeHtml(title)}</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.</p>
+    <p class="lead">${lead}</p>
   </header>
   <main>
     ${generatedStamp(catalog, "rendered repository document")}
@@ -959,6 +964,16 @@ ${body}
 </body>
 </html>
 `;
+}
+
+function docPageLead(repoPath, sourceHref) {
+  if (repoPath === "data/helm-catalog-readmes/summary.md") {
+    return `The website index for the same README material uploaded to the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
+  }
+  if (repoPath.startsWith("data/helm-catalog-readmes/spaces/")) {
+    return `The same text used by the <code>readme</code> Unit for this Space in the live <code>helm-catalog</code> demo org. <a href="${sourceHref}">View source markdown</a>.`;
+  }
+  return `A repository document, rendered for the site. <a href="${sourceHref}">View source markdown</a>.`;
 }
 
 function collectMdTargets(site) {
@@ -1264,7 +1279,7 @@ stringData:
 
     <section aria-labelledby="control-value">
       <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, and hooks that ran live.</p>
+      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The same records you inspect are the records you edit, approve, and deliver. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and one README Unit in every Space.</p>
       <div class="home-list">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
@@ -1354,9 +1369,10 @@ em{font-style:italic;color:var(--ink);}
       </ul>
     </div>
     <div class="col">
-      <h3>Us: kept as files you can edit</h3>
+      <h3>ConfigHub: kept as data you can query and edit</h3>
       <ul>
-        <li>Render once to plain YAML files you can read.</li>
+        <li>Render once to plain YAML Units you can read.</li>
+        <li>Query the same records across apps and environments, without scraping clusters or hunting through templates first.</li>
         <li>Change <em>any</em> field afterward, by hand, a script, or an AI agent.</li>
         <li>The next upgrade <strong>keeps</strong> your change instead of wiping it.</li>
       </ul>
@@ -2565,6 +2581,7 @@ function docsHtml(catalog) {
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
+    ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub, with one README Unit per Space and desired Kubernetes objects stored as editable Units."],
     ["Use your own application", `<a href="./journey.html">Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
     ["Check a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm check that matches the claim instead of treating every test as the same thing."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
@@ -2576,6 +2593,7 @@ function docsHtml(catalog) {
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
     ["Choose a chart", "Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.", "./charts/index.html"],
+    ["Demo org READMEs", "The same plain-English text as the readme Unit in every current helm-catalog Space.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
@@ -2615,6 +2633,7 @@ function docsHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
+    ["Demo org README payloads", "One readme Unit per current helm-catalog Space, plus the Markdown source rendered on this site.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Verification landing page", "Choose the right npm proof command.", "./verification.html"],
@@ -3617,6 +3636,11 @@ function demoOrgHtml(catalog) {
     ["bitnami/rabbitmq", "existing-secret, static-passwords", "A recipe unit whose routing metadata honestly says: nothing to route."],
     ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "The fleet: four environments from one base, one deliberately behind."],
   ];
+  const readmeRows = catalog.helmCatalogReadmes ?? [];
+  const readmeKindCounts = countBy(readmeRows, "kind");
+  const readmeCountRows = ["preset", "environment", "fleet", "pilot", "route", "org"]
+    .filter((kind) => readmeKindCounts[kind])
+    .map((kind) => [kind, String(readmeKindCounts[kind])]);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -3634,9 +3658,28 @@ function demoOrgHtml(catalog) {
   </header>
   <main>
     ${generatedStamp(catalog, "demo org page")}
+    <section aria-labelledby="readmes">
+      <h2 id="readmes">Start With The README In Each Space</h2>
+      <p>The live <code>helm-catalog</code> org now has one <code>readme</code> Unit in every current Space. These are the front-door notes for someone starting inside Hub: what the Space shows, what to open, why it matters, what is proven, and where the website and repo evidence live.</p>
+      <p>In Hub, open ${signupLink("demo-org-readmes", "hub.confighub.com")}, choose the <code>helm-catalog</code> org, open a Space, then open its <code>readme</code> Unit first.</p>
+      <p>The same material is rendered on this website, so you can read it before opening Hub or link it from a chart page. Start with the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
+      ${markdownLikeTable([
+        ["README kind", "Spaces"],
+        ...readmeCountRows,
+        ["total", String(readmeRows.length)],
+      ])}
+    </section>
+
+    <section aria-labelledby="config-as-data">
+      <h2 id="config-as-data">Why This Org Matters</h2>
+      <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
+      <p>The demo org shows the ConfigHub answer. The rendered objects are stored as Units. The README tells you how the Space got there; the Units are the configuration records you can inspect, query, diff, revise, approve, and deliver.</p>
+      <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
+    </section>
+
     <section aria-labelledby="what">
       <h2 id="what">What is in the org</h2>
-      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries its <code>recipe</code> unit (the source record: chart, version, values profile, routing intent) beside the objects it produced, labels for Component, Variant, ChartVersion and routes, and live validation checks. The org holds 29 Spaces, about 530 units, and about 830 links.</p>
+      <p>Every base variant below is a root Space: the rendered objects as Units, one per manifest, with links inferred between them. Each Space carries a README, the rendered objects, labels for Component, Variant, ChartVersion and routes, and live validation checks. Some Spaces also carry recipe, render-record, route, or proof Units for the deeper examples.</p>
       ${markdownLikeTable([
         ["Chart", "Base variants", "The story it tells"],
         ...keepRows,
@@ -4653,6 +4696,7 @@ function chartIndexHtml(catalog) {
     <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
     <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
     <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
+    <p>Inside that org, every Space has one <code>readme</code> Unit. The same README source is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. The README explains the Space; the Units are the desired Kubernetes objects ConfigHub can query, diff, revise, and deliver.</p>
     <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
   </header>
   <main>
@@ -5096,6 +5140,7 @@ function chartPageHtml(catalog, entry) {
   const proofEvidenceRows = proofRows.length ? proofRows : proofMatrixRows;
   const firstRenderIntent = catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version && row.base === entry.start_variant)
     ?? catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const firstHubReadmePath = firstRunnableRow ? helmCatalogReadmePath(catalog, entry.chart, entry.version, firstRunnableRow.variant) : "";
   const firstRenderIntentLink = firstRenderIntent?.intent_path
     ? `<a href="../../${escapeHtml(firstRenderIntent.intent_path)}">${escapeHtml(firstRenderIntent.base)} render intent</a>`
     : `<a href="../../data/helm-render-intents/summary.md">render-intent summary</a>`;
@@ -5118,6 +5163,7 @@ function chartPageHtml(catalog, entry) {
     ["Helm render intents", "data/helm-render-intents/summary.md"],
     ["First render intent", firstRenderIntent?.intent_path ?? ""],
     ["Full rendered YAML", firstRenderedObjectsPath ?? ""],
+    ["Hub README for first preset", firstHubReadmePath],
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
     ["Installer OCI package catalog", "data/installer-oci-packages/summary.md"],
@@ -5239,7 +5285,8 @@ function chartPageHtml(catalog, entry) {
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>Recommended first command</h3>
         <p>${firstRunnableCommand}</p>
-        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}
+        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}${firstHubReadmePath ? `
+        <p>In the live <code>helm-catalog</code> demo org, this preset has a <code>readme</code> Unit. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the same README on this site</a>.</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
@@ -5255,7 +5302,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
       <p class="mono" style="font-size:.9rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
-      ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
+      ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry, catalog)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
 
     ${(() => {
@@ -5528,7 +5575,7 @@ function sentenceCase(value) {
   return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }
 
-function matrixRowCard(row, entry) {
+function matrixRowCard(row, entry, catalog) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
   const scriptDir = presetScriptDir(entry, row);
@@ -5538,7 +5585,7 @@ function matrixRowCard(row, entry) {
   const nextAction = cleanPageActionText(row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "");
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
   const humanReason = reason ? humanizeReasonList(reason) : "";
-  const rowLinks = matrixRowLinks(row);
+  const rowLinks = matrixRowLinks(row, catalog);
   const laneBadges = [
     ["R", "Render", row.lane_render_parity],
     ["C", "ConfigHub", row.lane_confighub_scan_ops],
@@ -5657,12 +5704,15 @@ function matrixActionOwnerSummary(row) {
   return `${labels.join(", ")}; ${suffix}`;
 }
 
-function matrixRowLinks(row) {
+function matrixRowLinks(row, catalog) {
   const links = [];
   const maybe = (label, path) => {
     if (!path) return;
     links.push(`<a href="../../${escapeHtml(path)}">${escapeHtml(label)}</a>`);
   };
+  if (row.row_kind === "base") {
+    maybe("Hub README", helmCatalogReadmePath(catalog, row.chart, row.version, row.variant));
+  }
   maybe("catalog", row.recipe_catalog_path);
   maybe("variant", row.variant_path);
   maybe("full YAML", renderedObjectsPathFromRevision(row.variant_revision_path));
@@ -5736,6 +5786,20 @@ function helmRenderIntentFileName(chart, version, base) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "") + ".yaml";
+}
+
+function helmCatalogReadmeSlug(chart, version, base) {
+  return `${chart}-${version}-${base}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function helmCatalogReadmePath(catalog, chart, version, base) {
+  if (!chart || !version || !base) return "";
+  const slug = helmCatalogReadmeSlug(chart, version, base);
+  const row = (catalog.helmCatalogReadmes ?? []).find((item) => item.space === slug);
+  return row?.source_path ?? "";
 }
 
 function productionSummaryForChart(catalog, entry) {
@@ -6882,6 +6946,8 @@ Open \`../docs/user/installer-oci-packages.md\` for the catalog package OCI refs
 that users pull with \`cub installer setup --pull oci://...\`.
 Open \`site/verification.html\` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
+Open \`site/d/data/helm-catalog-readmes/summary.html\` for the website-rendered
+README index for the live \`helm-catalog\` demo org.
 Open \`site/known-gaps.html\` for current watch findings the project surfaces deliberately.
 Open \`site/hard-questions.html\` for the FAQ: hooks, upgrades,
 custom values, target prerequisites, false-green sync, and refusal boundaries.
