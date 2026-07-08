@@ -1,0 +1,7 @@
+$ cub revision list statefulset-vault-vault --space hashicorp-vault-env-prod
+NUM    UNIT                       CHANGESET    TIME                                    USER                    SOURCE         DESCRIPTION                                                           APPLY-GATES                                 TAGS 
+5      statefulset-vault-vault                 2026-07-03 08:18:10.55799 +0000 UTC     alexis@confighub.com    UpgradeUnit    Pull the release-track stamp into prod                                platform/require-approval/vet-approvedby    None    
+4      statefulset-vault-vault                 2026-07-03 08:14:30.121494 +0000 UTC    alexis@confighub.com    UpgradeUnit    Pull the telemetry release into prod                                  platform/require-approval/vet-approvedby    None    
+3      statefulset-vault-vault                 2026-07-03 08:07:52.77758 +0000 UTC     alexis@confighub.com    Invoke         Prod departure: three replicas for quorum| Functions: set-replicas    platform/require-approval/vet-approvedby    None    
+2      statefulset-vault-vault                 2026-07-03 08:07:44.721014 +0000 UTC    alexis@confighub.com    Invoke         Functions: set-namespace                                              platform/require-approval/vet-approvedby    None    
+1      statefulset-vault-vault                 2026-07-03 08:07:42.411301 +0000 UTC    alexis@confighub.com    CloneUnit      Initial Data: 4346 bytes                                              platform/require-approval/vet-approvedby    None    

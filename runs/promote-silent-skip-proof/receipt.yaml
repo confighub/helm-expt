@@ -1,0 +1,48 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PromoteSilentSkipProofReceipt"
+metadata:
+  name: "promoteskip-20260707-rcp"
+spec:
+  exhibit: "data/helm-org/summary.md — 'Exhibit finding: promote and same-map departures (2026-07-03)'"
+  citedIn: "confighubai/confighub#4698"
+  org: "helm-catalog"
+  orgId: "bd84a856-3b16-4446-b490-56ff40db0107"
+  observedAt: "2026-07-07T11:14:32.000Z"
+  readOnly: true
+  result: "watch"
+  claim: "On a variant whose local departure edited the same map a base release writes to (dev's cost.confighub.com/center annotation vs the base's vault.confighub.com/* annotation keys), `cub variant promote` reported success and advanced UpstreamRevisionNum to the base head across three consecutive base releases — while creating zero UpgradeUnit revisions and delivering none of the base's annotation keys. Sibling variants with field-level departures (staging replicas 2, prod replicas 3) received the same releases as UpgradeUnit revisions with their departures intact. The environment reads as caught up while permanently missing the releases on that map; the silence is the finding."
+  evidence:
+    baseThreeReleases:
+      file: "revision-list-base.txt"
+      shows: "base revs 3/4/5 are three consecutive set-annotation releases (telemetry, release-track, probe); rev 6 removes the probe key"
+    baseRevisionData:
+      files: ["revision-data-base-rev2.yaml", "revision-data-base-rev3.yaml", "revision-data-base-rev4.yaml", "revision-data-base-rev5.yaml", "revision-data-base-rev6.yaml"]
+      shows: "annotation keys accreting rev-by-rev: {} -> telemetry -> +release-track -> +probe -> probe removed"
+    devZeroUpgradeRevisions:
+      file: "revision-list-dev.txt"
+      shows: "dev has NO UpgradeUnit revision at all — every revision is CloneUnit or Invoke; revs 5/6 are the two explicit by-hand reconcile commits (set-annotation), the exhibit's teaching move"
+    devPointerAdvanced:
+      file: "unit-get-dev.json"
+      shows: "dev Unit: HeadRevisionNum=6, UpstreamRevisionNum=5 — the pointer reads caught-up-to-base-rev-5 with no UpgradeUnit revision to account for it"
+    devSameMapDeparture:
+      files: ["revision-data-dev-rev4.yaml", "revision-data-dev-rev5.yaml", "revision-data-dev-rev6.yaml", "unit-data-dev-head.yaml"]
+      shows: "rev 4 carries only the departure key cost.confighub.com/center on the annotations map (base keys absent); revs 5/6 add telemetry then release-track by hand; the probe key never arrived while the pointer read rev 5"
+    controlEnvsDelivered:
+      files: ["revision-list-staging.txt", "revision-list-prod.txt", "revision-data-staging-rev3.yaml", "revision-data-staging-rev4.yaml", "revision-data-staging-rev5.yaml", "revision-data-prod-rev3.yaml", "revision-data-prod-rev4.yaml", "revision-data-prod-rev5.yaml"]
+      shows: "staging/prod revs 4/5 are UpgradeUnit revisions delivering the annotation keys with replicas departures (2/3) intact at every revision"
+    upstreamChain:
+      files: ["unit-get-base.json", "unit-get-dev.json", "unit-get-staging.json", "unit-get-prod.json"]
+      shows: "dev/staging/prod all carry UpstreamUnitID c5c81eee-07aa-448a-b79e-d5ea196c0ca5 = the base unit's UnitID"
+    derivedSummary:
+      file: "extract-annotations-replicas.txt"
+      shows: "per-revision annotations + replicas table derived locally from the captured YAML"
+  driftSinceFinding:
+    - "Base head is now rev 8: revs 7/8 (2026-07-03 10:33-10:34 UTC) are set-env steps from the confighubai/confighub#4697 reproduction; unrelated to and after the finding."
+    - "Staging head is now rev 7: revs 6/7 are the #4697 reproduction (rev 7 is a further UpgradeUnit), advancing staging UpstreamRevisionNum to 8."
+    - "Prod UpstreamRevisionNum is 6 (its rev-5 pull ran ~1s after base rev 6 removed the probe key, so the rev-5 pulls delivered telemetry+release-track only)."
+    - "Every state element cited in the finding remains reproducible: base annotation releases at revs 3-5, dev zero-UpgradeUnit history with UpstreamRevisionNum=5, staging/prod UpgradeUnit revs 4/5 with departures intact."
+  captureNotes:
+    - "All commands read-only: cub revision list / cub revision data / cub unit get / cub unit data. No unit was mutated."
+    - "One query (prod rev 5 data) hit a transient 'net/http: TLS handshake timeout' on first attempt and was re-run cleanly; the committed file is the clean re-run."
+    - "Each capture file's first line is the exact command that produced the rest of the file."
+  conclusion: "Confirmed live on 2026-07-07, four days after the finding: the org state still shows promote advancing dev's upstream pointer past three base releases with no UpgradeUnit revision and no delivered keys, while field-level-departure siblings received the same releases normally. Departures-win may be intended policy; the absence of any signal (no revision, no warning, Success output, pointer advanced) is the exhibit finding, now backed by committed command output rather than prose."
