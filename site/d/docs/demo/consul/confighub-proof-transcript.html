@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/demo/consul/confighub-proof-transcript.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Run date: 2026-05-27</p>
 <p>Receipts:</p>
@@ -405,6 +405,7 @@ runs/consul-confighub-proof/latest/function-scan-receipt.yaml
 runs/consul-confighub-proof/latest/safe-ops-receipt.yaml</code></pre>
 <h2 id="commands">Commands</h2>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>cub installer doc packages/hashicorp/consul/2.0.0 --json
 cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir .tmp/confighub-proof/consul-default-control-plane --non-interactive --namespace consul
 cub installer render --work-dir .tmp/confighub-proof/consul-default-control-plane

@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/strategy.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>_The Coverage Ladder layer of the <a href="README.html">helm-expt test map</a>._</p>
 <p>This file explains when to run each class of test and what kind of claim each test can support. It complements <a href="npm-scripts.html">npm-scripts.md</a>, which lists the individual commands.</p>
@@ -466,6 +466,7 @@ receipt path</code></pre>
 <h2 id="strict-helm-vs-installer-parity">Strict Helm-vs-Installer Parity</h2>
 <p>The preferred parity test uses two identical vanilla kind clusters:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>cluster A: regular Helm install
 cluster B: cub installer setup + kubectl apply
 compare intended objects and live outcomes</code></pre>

@@ -87,6 +87,14 @@ const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
 const CUB_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+// Single source for the installer availability message. The cub installer
+// subcommand is a plugin, and the public cub install script above delivers a
+// cub build without it. Every page and generated script that shows the
+// command must carry this note, and the scripts must stop before any cluster
+// work when the plugin is missing. Keep this free of single quotes, percent
+// signs, and backslashes; it is embedded in shell printf strings.
+const INSTALLER_AVAILABILITY_NOTE =
+  "The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.";
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
@@ -558,7 +566,7 @@ function buildSite(generatedAt) {
     html: chartPageHtml(catalog, entry),
   }));
   const site = {
-    catalogJson: `${JSON.stringify(siteSafe(catalog), null, 2)}\n`,
+    catalogJson: `${JSON.stringify(siteSafe({ generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_AVAILABILITY_NOTE, ...catalog }), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -635,6 +643,34 @@ function injectInstallCubNote(html, relPath) {
     return `${html.slice(0, insertAt)}\n  ${note}${html.slice(insertAt)}`;
   }
   return html;
+}
+
+// The one availability note for the installer plugin, shown wherever the
+// command appears. The marker class lets pages place the note by hand and
+// keeps the injector from adding a second copy.
+function installerAvailabilityNoteHtml() {
+  return `<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> ${escapeHtml(INSTALLER_AVAILABILITY_NOTE)} The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>`;
+}
+
+// Every page that shows the cub installer command must carry the availability
+// note. Insert it before the first command block that uses the command, or at
+// the top of the page body when the mention is inline only.
+function injectInstallerAvailabilityNote(html) {
+  if (!html.includes("installer setup")) return html;
+  if (html.includes("installer-availability-note")) return html;
+  const note = installerAvailabilityNoteHtml();
+  const headerEnd = html.indexOf("</header>");
+  for (const match of html.matchAll(/<pre[^>]*>[\s\S]*?<\/pre>/g)) {
+    if (match.index <= headerEnd) continue;
+    if (!match[0].includes("installer setup")) continue;
+    return `${html.slice(0, match.index)}${note}\n  ${html.slice(match.index)}`;
+  }
+  const mainMatch = html.match(/<main[^>]*>/);
+  if (mainMatch) {
+    const insertAt = mainMatch.index + mainMatch[0].length;
+    return `${html.slice(0, insertAt)}\n  ${note}${html.slice(insertAt)}`;
+  }
+  return `${note}\n${html}`;
 }
 
 function canonicalUrl(relPath) {
@@ -1051,7 +1087,8 @@ function buildDocPages(catalog, site) {
 
 function finalizePage(html, relPath, renderedDocs = new Set()) {
   const withInstallNote = injectInstallCubNote(html, relPath);
-  const withMeta = injectHeadMeta(withInstallNote, relPath);
+  const withAvailabilityNote = injectInstallerAvailabilityNote(withInstallNote);
+  const withMeta = injectHeadMeta(withAvailabilityNote, relPath);
   return rewriteMdHrefs(withMeta, relPath, renderedDocs);
 }
 
@@ -1263,6 +1300,12 @@ stringData:
     </div>
   </header>
   <main>
+    <section aria-labelledby="what-this-is">
+      <h2 id="what-this-is">What this is</h2>
+      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
+      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
+    </section>
+
     <section aria-labelledby="look-first">
       <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
@@ -1276,6 +1319,7 @@ stringData:
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
       <p class="install-cub-note">Install cub first: <code>${CUB_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
+      ${installerAvailabilityNoteHtml()}
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -2389,6 +2433,7 @@ em{font-style:italic;color:var(--ink);}
   <pre><code>$ ${CUB_INSTALL_COMMAND}</code></pre>
   <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+  ${installerAvailabilityNoteHtml()}
 
   <h2>The fastest first run</h2>
   <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
@@ -3684,6 +3729,7 @@ function demoOrgHtml(catalog) {
         ...readmeCountRows,
         ["total", String(readmeRows.length)],
       ])}
+      <p class="quiet-line">Space counts as of ${escapeHtml(String(catalog.generatedAt).slice(0, 10))} (UTC), from the committed README data for the <code>helm-catalog</code> org.</p>
     </section>
 
     <section aria-labelledby="config-as-data">
@@ -3712,7 +3758,7 @@ function demoOrgHtml(catalog) {
       <p><strong>The CRD split.</strong> The two argo-cd Spaces show CRDs bundled and separated; the no-crds root is the contract that the cluster owns them. The contract's teeth were re-proven live: applying a bundle whose custom resource precedes its CRD fails with the named Kubernetes error, and the CRD-first-with-wait fix succeeds; the receipt behind the Space's <code>ProofReceipt</code> label carries today's observation.</p>
       <p><strong>The hooks.</strong> <code>hook-probe-base</code> holds a Job whose Argo hook annotations are readable in the unit data: a routing choice as configuration, not as tribal knowledge. This is not just readable, it ran: the same fixture was published once to the org's OCI registry and pulled by Argo CD, Flux, and a no-controller direct applier on a live cluster, with the hook Job observed completing under each. All three legs pass; the Space wears the receipt pointers as <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels.</p>
       <p><strong>How departures meet releases.</strong> <code>hashicorp-vault-demo-base</code> and its three environments, built to answer one question precisely: what happens when an environment has local changes and the base ships a release? Dev tagged itself for cost attribution, staging went to 2 replicas, prod went to 3. Then the base released a telemetry annotation and a release-track stamp, and each environment promoted. Staging and prod show the good case: the releases arrived as <code>UpgradeUnit</code> revisions and the replica departures survived. Dev shows the case to know about: its departure edited the same annotations map the releases wrote to, and on that unit promote kept dev's version and reported success, so the releases never arrived; dev adopted them with two explicit, recorded reconcile commits instead. Field-level departures merge; same-map departures are yours to reconcile, and the revision history shows exactly which happened.</p>
-      <p>The tree also carries a rehearsal of a real rollout pattern, left visible on purpose: an audience env var was set on staging first with its real value, and the base later gained the same var as <code>confighubplaceholder</code> plus a shared issuer var. Promote kept staging's real value, delivered the issuer, and <code>vet-placeholders</code> gated the base so the placeholder can never reach a cluster. Container env merges entry by entry, unlike the annotations map above. That promote also carried the base's new <code>render-record</code> unit down into staging: new base units flow downstream. The receipt for the whole rehearsal is committed with the org's other receipts.</p>
+      <p>The tree also carries a rehearsal of a real rollout pattern, left visible on purpose: an audience env var was set on staging first with its real value, and the base later gained the same var as <code>confighubplaceholder</code> plus a shared issuer var. Promote kept staging's real value, delivered the issuer, and <code>vet-placeholders</code> gated the base so the placeholder can never reach a cluster. Container env merges entry by entry, unlike the annotations map above. That promote also carried the base's new <code>render-record</code> unit down into staging: new base units flow downstream. The receipt for the whole rehearsal is committed at <a href="https://github.com/confighub/helm-expt/tree/main/runs/promote-silent-skip-proof"><code>runs/promote-silent-skip-proof</code></a>.</p>
       <p><strong>The sketches of the unbuilt.</strong> Four things this catalog talks about have no product entity yet: the recipe, the act of rendering, render provenance, and lifecycle routes. The org sketches each one with today's primitives, the same move as the <code>recipe</code> unit. The two sections below explain the live runs and the sketches carefully; the short version is that <code>hashicorp-vault-demo-base</code> now records its own rendering, one Link shows provenance, and <code>route-sketch-kube-prometheus-stack</code> makes routes addressable for the first time.</p>
     </section>
 
@@ -3721,7 +3767,7 @@ function demoOrgHtml(catalog) {
       <p>Two of the exhibits above make claims about behaviour on a real cluster, so both were executed, observed, and receipted rather than asserted. Here is what happened, and what it does and does not prove.</p>
       <p><strong>The hook delivery proof.</strong> The claim is that ConfigHub publishes a bundle <em>once</em> to its OCI registry, and the delivery tool is a free choice, not a fork in behaviour. To test it, the hook fixture (a workload ConfigMap plus a migration Job carrying Argo hook annotations) was published from this org to the org's OCI registry, and three consumers pulled <em>the same artifact</em> on a throwaway kind cluster. Argo CD used an OCI-sourced Application. Flux used an OCIRepository and a Kustomization. A no-controller path pulled the bundle and applied it directly. Under each of the three, the workload landed <em>and the hook Job ran to completion on the cluster</em>. All three legs pass. This does not prove every chart, every hook shape, or production scale. It proves the transport claim for the routed fixture, on one rig, on the recorded day. The receipt names the rig, the times, and each observation.</p>
       <p><strong>The CRD-ordering proof.</strong> This claim is a limitation, stated honestly. The no-controller path has no dependency ordering, so on a first install of a bundle where a custom resource precedes its CRD, plain apply fails. The run reproduced that failure. The custom resource was refused with the named Kubernetes error and never created. The fix, CRDs first with a wait for them to establish, made the same bundle succeed. We record this as <em>watch</em>, not pass, because the gap is the finding. It is also why the catalog routes CRD-carrying charts to Argo or Flux, which order and retry, and why the no-crds base variants exist as a contract that the cluster owns its CRDs.</p>
-      <p class="quiet-line">Both receipts are committed in the repo (<code>runs/oci-hook-delivery-proof</code>, <code>runs/crd-ordering-gap</code>) and summarized under <code>data/</code>; the Spaces involved wear the receipt names as labels. The rig was torn down after the run; nothing in the org depends on it.</p>
+      <p class="quiet-line">Both receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>) and summarized under <code>data/</code>; the Spaces involved wear the receipt names as labels. The rig was torn down after the run; nothing in the org depends on it.</p>
     </section>
 
     <section aria-labelledby="sketches">
@@ -3753,7 +3799,7 @@ function demoOrgHtml(catalog) {
     <section aria-labelledby="checks">
       <h2 id="checks">The checks are live, and honest</h2>
       <p>Every Space runs schema and placeholder validation as blocking checks: zero correctness gates across the org. Two advisory checks surface real quality findings as warnings: images not pinned by digest, and containers without probes. Those warnings match open work the catalog already tracks; the org shows known debt instead of hiding it. The four production Spaces additionally require approval before apply, so their units carry standing approval gates until someone approves a release. Non-production Spaces and the sketch units deliberately carry none, because no human workflow stands behind approving them. Each Space also wears its recorded proof lanes as labels (render parity, ConfigHub proof, GitOps live), mirrored verbatim from the committed receipts. And the repo checks the org the same way it checks every other surface: <code>npm run helm-org:verify</code> compares the live org, including each Space's recipe unit, against the committed catalog. A check that does not reflect a real validation would be a lie in the UI, so there are none of those.</p>
-      <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <code>data/helm-org/</code>; the org is regenerable and drift-checkable like every other catalog surface. The org itself is member-visible today; these pages, the receipts, and the walkthroughs are the public record of it.</p>
+      <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>; the org is regenerable and drift-checkable like every other catalog surface. The org is named <code>helm-catalog</code> and is member-visible today; non-members should use the committed receipts, these pages, and the walkthroughs as the public record of it.</p>
     </section>
 
     <section aria-labelledby="next">
@@ -4889,6 +4935,13 @@ function presetScriptPreamble(entry, row, purposeLines) {
     "",
     "if ! command -v cub >/dev/null 2>&1; then",
     `  printf 'cub is not installed. Install it with:\\n  ${CUB_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
+    "  exit 1",
+    "fi",
+    "",
+    "# The installer subcommand is a plugin and is not in the public cub build",
+    "# yet. Stop here, before this script touches any cluster.",
+    "if ! cub installer --help >/dev/null 2>&1; then",
+    `  printf '${INSTALLER_AVAILABILITY_NOTE}\\nThis cub build does not have it, so this script stops now, before any cluster work.\\n' >&2`,
     "  exit 1",
     "fi",
   ];
@@ -6961,6 +7014,7 @@ Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/op
 Open \`site/docs.html\` for the public documentation hub.
 Open \`../docs/user/installer-oci-packages.md\` for the catalog package OCI refs
 that users pull with \`cub installer setup --pull oci://...\`.
+${INSTALLER_AVAILABILITY_NOTE}
 Open \`site/verification.html\` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open \`site/d/data/helm-catalog-readmes/summary.html\` for the website-rendered

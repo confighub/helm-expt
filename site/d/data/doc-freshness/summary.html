@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/doc-freshness/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>The corpus's generated docs cannot go stale silently: their verifiers fail the build. The authored docs (README, docs/) CAN - they describe evidence that keeps moving. This snapshot answers &quot;which authored doc needs review right now&quot;: a doc is <b>review-due</b> when an evidence source it links to (under <code>data</code>, <code>scripts</code>, <code>tests</code>, <code>recipes</code>, <code>packages</code>, <code>CATALOG.md</code>) changed more recently than the doc itself.</p>
 <p>Colored rendering: <a href="../../../../data/doc-freshness/freshness.html">freshness.html</a> (open in a browser). Snapshot as of 2026-07-05 (commit <code>7e7053317</code>). Refresh with <code>npm run doc-freshness</code> - cheap, ride it on any docs PR. The verifier gates completeness (every authored doc is in the snapshot) without breaking the build as history moves.</p>

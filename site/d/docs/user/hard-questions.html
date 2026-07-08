@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/hard-questions.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>This page is for a skeptical Helm user, platform engineer, or reviewer. It answers the questions that should be asked before using the public catalog or moving a chart into ConfigHub-managed operations.</p>
@@ -408,7 +408,8 @@
   <pre><code>cub helm template
 cub helm install</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>
-<pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
+<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
 <p>Public catalog pages show the installer package OCI ref for each chart version, so a real command uses <code>--pull oci://...</code>, not a checkout-local path. See <a href="choosing-commands.html">Choosing Commands</a> and <a href="installer-oci-packages.html">Installer Package OCI Refs</a>.</p>
 <h2 id="do-i-have-to-rewrite-my-charts">Do I have to rewrite my charts?</h2>
 <p>No. The point is to keep using public Helm charts where they are already the right source, then make selected install paths explicit, reviewable, variant-aware, and observable.</p>

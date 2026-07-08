@@ -396,7 +396,8 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/proof-kit-migration.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <h2 id="problem">Problem</h2>
 <p>Each <code>scripts/&lt;chart&gt;-proof.mjs</code> historically carried a near-identical ~1,000-line copy of the same generate / verify / package machinery. With 19 charts that is <b>~24,300 lines, ~85–90% duplicated</b>. Consequences:</p>

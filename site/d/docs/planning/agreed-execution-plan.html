@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/agreed-execution-plan.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is a consolidated doctrine and historical execution record for the Helm/ConfigHub proof. It preserves the project model, acceptance ideas, and older milestone reasoning.</p>
 <p>Do not use this file for current counts or live status. Use these current sources instead:</p>
@@ -602,7 +602,8 @@ Third screen: Raw receipts.</code></pre>
 <tr><td>Admission behavior</td><td>target admission/dry-run receipt</td><td>target gate or block</td></tr>
 <tr><td>Live state</td><td>observation receipt policy</td><td>stale/unknown until observed</td></tr></tbody></table>
 <p>Current executable target-fact invariant:</p>
-<pre><code>recipe variant targetFacts.requiredSecrets
+<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <pre><code>recipe variant targetFacts.requiredSecrets
   -&gt; matching installer package base externalRequires
   -&gt; package collector records targetFacts into out/spec/facts.yaml
   -&gt; installer package receipt records targetFactMode/targetFactsBound

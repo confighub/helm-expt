@@ -397,7 +397,7 @@
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>Status:</b> DOCTRINE (2026-06-02). The north-star claim of the catalog and the contract every chart must meet.</p>
 <h2 id="the-claim">The claim</h2>
@@ -421,7 +421,8 @@
 <h2 id="where-we-are-vs-the-contract">Where we are vs. the contract</h2>
 <p>The current measured state is in <code>data/model-completeness/summary.md</code>.</p>
 <p>This report is a model-support view, not the whole live outcome. Level 2 means the chart has a complete, honest, reproducible model for its declared scope. The full catalog outcome still needs the outcome coverage:</p>
-<pre><code>default and declared main choices
+<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <pre><code>default and declared main choices
 -&gt; Helm-equivalence and installer setup
 -&gt; ConfigHub upload, scan, clone/check, and safe-ops proof
 -&gt; live Kubernetes observation

@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/planning/archive/current-pathway-review.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This review intentionally excludes source-feature-only reconnaissance as product proof:</p>
 <pre><code>data/top500-catalog-analysis/source/source-feature-scan.raw.json</code></pre>
@@ -582,6 +582,7 @@ data/top500/
 rollback-simulation-receipt.yaml</code></pre>
 <p>Current Redis package proof status:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>packages/bitnami/redis/25.5.3 exists
 cub installer package is byte-deterministic across two local runs
 cub installer setup --base default matches Helm semantically, plus Namespace
