@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../data/confighub-example-guides/spaces/bitnami-phpmyadmin-20-0-0-default/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This guide explains the journey from a public Helm chart to a ConfigHub Space. Use it when you want to know why this preset exists, what problem it solves, how to repeat it, and what still needs care.</p>
 <p>It is generated from the same records that build the package, chart page, render intent, scripts, and receipts. The proof links are lower down.</p>
@@ -424,6 +424,7 @@
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-phpmyadmin-20-0-0-default/confighub.sh)</code></pre>
 <p>The core render command is:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0 --base default --work-dir ./bitnami-phpmyadmin-20-0-0-default --non-interactive --namespace default</code></pre>
 <p>After upload, create environment versions with <code>cub variant create</code> and move reviewed changes with <code>cub variant promote</code>. The walkthrough is <a href="../../../../docs/user/variants-after-upload.html">After Upload: Create A Variant And Promote Changes</a>.</p>
 <h2 id="preset-details">Preset details</h2>

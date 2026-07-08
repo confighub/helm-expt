@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/ux-proposal-redis-quick-start-tutorial.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>Companion to <a href="tutorial-sequence.html">Tutorial Sequence</a>.</p>
@@ -475,7 +475,8 @@ receipts:
   - renderReceipt
   - uploadReceipt</code></pre>
 <h2 id="mapping-back-to-current-primitives">Mapping Back To Current Primitives</h2>
-<pre><code>Creator-style intent = create a reviewed Redis/default base.
+<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <pre><code>Creator-style intent = create a reviewed Redis/default base.
 Formal contract = chart, base, namespace, labels, checks, and receipts.
 cub installer setup = render substrate.
 cub installer upload = ConfigHub Unit creation substrate.

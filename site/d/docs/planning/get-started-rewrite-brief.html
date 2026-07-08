@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/get-started-rewrite-brief.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> A brief for Codex: restructure the generated Get Started page (<code>site/try.html</code>, built in <code>scripts/generate-public-site.mjs</code>) around the parity-of-outcomes message, lead with the whole install, then decompose, then offer GitOps - and finally explain the <code>--pull</code> flag and where packages live. House voice (<code>house-voice.md</code>) throughout.</p>
 <h2 id="whats-wrong-now">What's wrong now</h2>
@@ -414,6 +414,7 @@
 <p>Prometheus comes up in the <code>monitoring</code> namespace.</p>
 <p>The ConfigHub way - render the reviewed package, then apply it:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
   --base default --work-dir ./prom --non-interactive --namespace monitoring
 kubectl apply -f ./prom/out/manifests</code></pre>

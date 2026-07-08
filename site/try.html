@@ -498,6 +498,7 @@ em{font-style:italic;color:var(--ink);}
   <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code></pre>
   <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
 
   <h2>The fastest first run</h2>
   <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
@@ -603,6 +604,6 @@ $ npm run redis:verify-install:render -- \
   <p class="closing-line">Get Started needs no ConfigHub account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet. To see where that leads, open <a href="./demo-org.html">the demo org</a>.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer><p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path. A <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub account</a> is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+<footer><p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path. A <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub account</a> is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
 </html>

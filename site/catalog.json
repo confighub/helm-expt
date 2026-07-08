@@ -1,6 +1,7 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
-  "generatedAt": "2026-06-30T17:49:34.631Z",
+  "generatedAt": "2026-07-08T10:07:00.645Z",
+  "installerAvailability": "The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",

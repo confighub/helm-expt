@@ -396,8 +396,9 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/serverless-oci-gitops-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> Live receipt by <code>scripts/run-serverless-oci-gitops-proof.mjs</code>; do not hand-edit. Regenerate with <code>npm run serverless-oci-gitops:proof</code>.</p>
 <p><b>Claim.</b> A SERVERLESS cub flow can publish to OCI for an existing GitOps controller instead of kubectl-applying. With no ConfigHub login: cub installer setup renders the catalog Redis base locally; <code>flux push artifact</code> pushes the RENDERED bundle (manifests + the Secret) to an OCI registry; an existing Flux (OCIRepository + Kustomization) pulls it FROM OCI and applies it. The Secret is delivered because it is in the bundle - the tradeoff being it then lives in the registry, unlike the ConfigHub path which separates secret material. <code>cub installer push</code> is NOT this path (it pushes the un-rendered installer package); the rendered-bundle push is the GitOps-consumable one.</p>

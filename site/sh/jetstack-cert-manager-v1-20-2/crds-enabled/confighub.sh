@@ -14,6 +14,13 @@ if ! command -v cub >/dev/null 2>&1; then
   exit 1
 fi
 
+# The installer subcommand is a plugin and is not in the public cub build
+# yet. Stop here, before this script touches any cluster.
+if ! cub installer --help >/dev/null 2>&1; then
+  printf 'The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.\nThis cub build does not have it, so this script stops now, before any cluster work.\n' >&2
+  exit 1
+fi
+
 SPACE="${CUB_SPACE:-helm-cert-manager-crds-enabled}"
 
 say "Check ConfigHub auth"

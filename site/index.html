@@ -594,6 +594,12 @@ stringData:
     </div>
   </header>
   <main>
+    <section aria-labelledby="what-this-is">
+      <h2 id="what-this-is">What this is</h2>
+      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
+      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
+    </section>
+
     <section aria-labelledby="look-first">
       <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
@@ -610,6 +616,7 @@ stringData:
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
       <p class="install-cub-note">Install cub first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
+      <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>

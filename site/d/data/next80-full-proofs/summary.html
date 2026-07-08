@@ -396,13 +396,14 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/next80-full-proofs/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This corpus adds 80 public Helm charts beyond the first 20 bespoke proofs.</p>
 <p>Each row has:</p>
 <ul><li><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with Recipe, HelmPlan, ChartDossier, control points, Variant, VariantRevision, rendered objects, and receipts.</li><li><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with a <code>cub installer</code> package.</li><li>A Helm equivalence receipt proving regular Helm output matches <code>cub installer setup</code>, aside from allowed installer support objects.</li><li>A render receipt, scan receipt, install gate, and installer package receipt.</li></ul>
 <p>Selection rule:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>regular helm template output
   == cub installer setup output
   plus the allowed Namespace support object</code></pre>

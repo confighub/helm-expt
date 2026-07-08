@@ -396,7 +396,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/where-does-my-hook-go.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-06-30T17:49:34.631Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b> - analysis and solution proposal.</p>
 <p><i>...and every other Helm behavior that isn't in the rendered YAML.</i></p>
@@ -511,6 +511,7 @@ refusal-with-reason             we will not do this automatically; here is why</
 <p>If the current product does not execute a route, the chart must say so plainly. If a route can only be documented, its honest disposition is <b>per-target</b>, <b>refused</b>, or a <code>todo</code> with a next action - never a <i>routed</i> that secretly means &quot;you do it&quot; without saying so.</p>
 <p><b>(b) One-command happy path.</b> Today <code>cub installer setup</code> renders and verifies. The gap is auto-satisfying routed prerequisites and running the lifecycle actions in the same flow. Target shape:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
   <pre><code>cub installer setup --pull &lt;pkg&gt; --base &lt;base&gt; --namespace &lt;ns&gt; \
   --install-prerequisites      # resolve Tier-1 blockers in the same command
 # → renders, satisfies prereqs (CRDs/namespace/placeholder secret),
