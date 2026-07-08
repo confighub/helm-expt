@@ -1,0 +1,1291 @@
+$ cub revision list statefulset-vault-vault --space hashicorp-vault-env-dev --select * -o json
+[
+  {
+    "Revision": {
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:17:41.364309Z",
+      "CursorID": 108908,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "Description": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "09e215be-437e-44b8-9c7b-15fc3a5806c4",
+      "RevisionNum": 6,
+      "Source": "Invoke",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.362806Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 2
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  },
+  {
+    "Revision": {
+      "ApplyGates": {
+        "platform/require-approval/vet-approvedby": true
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": 1897933474,
+      "CreatedAt": "2026-07-03T08:17:40.124187Z",
+      "CursorID": 108907,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCnNwZWM6CiAgcG9kTWFuYWdlbWVudFBvbGljeTogUGFyYWxsZWwKICByZXBsaWNhczogMQogIHNlbGVjdG9yOgogICAgbWF0Y2hMYWJlbHM6CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICBjb21wb25lbnQ6IHNlcnZlcgogIHNlcnZpY2VOYW1lOiB2YXVsdC1pbnRlcm5hbAogIHRlbXBsYXRlOgogICAgbWV0YWRhdGE6CiAgICAgIGFubm90YXRpb25zOiBudWxsCiAgICAgIGxhYmVsczoKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgaGVsbS5zaC9jaGFydDogdmF1bHQtMC4zMi4wCiAgICBzcGVjOgogICAgICBhZmZpbml0eToKICAgICAgICBwb2RBbnRpQWZmaW5pdHk6CiAgICAgICAgICByZXF1aXJlZER1cmluZ1NjaGVkdWxpbmdJZ25vcmVkRHVyaW5nRXhlY3V0aW9uOgogICAgICAgICAgLSBsYWJlbFNlbGVjdG9yOgogICAgICAgICAgICAgIG1hdGNoTGFiZWxzOgogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9uYW1lOiB2YXVsdAogICAgICAgICAgICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICAgICAgICAgICAgdG9wb2xvZ3lLZXk6IGt1YmVybmV0ZXMuaW8vaG9zdG5hbWUKICAgICAgY29udGFpbmVyczoKICAgICAgLSBhcmdzOgogICAgICAgIC0gfAogICAgICAgICAgY3AgL3ZhdWx0L2NvbmZpZy9leHRyYWNvbmZpZy1mcm9tLXZhbHVlcy5oY2wgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVF9JUH0iIF0gJiYgc2VkIC1FaSAic3xIT1NUX0lQfCR7SE9TVF9JUD99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1BPRF9JUH0iIF0gJiYgc2VkIC1FaSAic3xQT0RfSVB8JHtQT0RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtIT1NUTkFNRX0iIF0gJiYgc2VkIC1FaSAic3xIT1NUTkFNRXwke0hPU1ROQU1FP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7QVBJX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8QVBJX0FERFJ8JHtBUElfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1RSQU5TSVRfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xUUkFOU0lUX0FERFJ8JHtUUkFOU0lUX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtSQUZUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8UkFGVF9BRERSfCR7UkFGVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIC91c3IvbG9jYWwvYmluL2RvY2tlci1lbnRyeXBvaW50LnNoIHZhdWx0IHNlcnZlciAtY29uZmlnPS90bXAvc3RvcmFnZWNvbmZpZy5oY2wKICAgICAgICBjb21tYW5kOgogICAgICAgIC0gL2Jpbi9zaAogICAgICAgIC0gLWVjCiAgICAgICAgZW52OgogICAgICAgIC0gbmFtZTogSE9TVF9JUAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHN0YXR1cy5ob3N0SVAKICAgICAgICAtIG5hbWU6IFBPRF9JUAogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IHN0YXR1cy5wb2RJUAogICAgICAgIC0gbmFtZTogVkFVTFRfSzhTX1BPRF9OQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogVkFVTFRfSzhTX05BTUVTUEFDRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWVzcGFjZQogICAgICAgIC0gbmFtZTogVkFVTFRfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHA6Ly8xMjcuMC4wLjE6ODIwMAogICAgICAgIC0gbmFtZTogVkFVTFRfQVBJX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vJChQT0RfSVApOjgyMDAKICAgICAgICAtIG5hbWU6IFNLSVBfQ0hPV04KICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IFNLSVBfU0VUQ0FQCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBIT1NUTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0NMVVNURVJfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHBzOi8vJChIT1NUTkFNRSkudmF1bHQtaW50ZXJuYWw6ODIwMQogICAgICAgIC0gbmFtZTogSE9NRQogICAgICAgICAgdmFsdWU6IC9ob21lL3ZhdWx0CiAgICAgICAgaW1hZ2U6IGhhc2hpY29ycC92YXVsdDoxLjIxLjIKICAgICAgICBpbWFnZVB1bGxQb2xpY3k6IElmTm90UHJlc2VudAogICAgICAgIGxpZmVjeWNsZToKICAgICAgICAgIHByZVN0b3A6CiAgICAgICAgICAgIGV4ZWM6CiAgICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgICAtIC9iaW4vc2gKICAgICAgICAgICAgICAtIC1jCiAgICAgICAgICAgICAgLSBzbGVlcCA1ICYmIGtpbGwgLVNJR1RFUk0gJChwaWRvZiB2YXVsdCkKICAgICAgICBuYW1lOiB2YXVsdAogICAgICAgIHBvcnRzOgogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMAogICAgICAgICAgbmFtZTogaHR0cAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMQogICAgICAgICAgbmFtZTogaHR0cHMtaW50ZXJuYWwKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDIKICAgICAgICAgIG5hbWU6IGh0dHAtcmVwCiAgICAgICAgcmVhZGluZXNzUHJvYmU6CiAgICAgICAgICBleGVjOgogICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAtIC9iaW4vc2gKICAgICAgICAgICAgLSAtZWMKICAgICAgICAgICAgLSB2YXVsdCBzdGF0dXMgLXRscy1za2lwLXZlcmlmeQogICAgICAgICAgZmFpbHVyZVRocmVzaG9sZDogMgogICAgICAgICAgaW5pdGlhbERlbGF5U2Vjb25kczogNQogICAgICAgICAgcGVyaW9kU2Vjb25kczogNQogICAgICAgICAgc3VjY2Vzc1RocmVzaG9sZDogMQogICAgICAgICAgdGltZW91dFNlY29uZHM6IDMKICAgICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgICBhbGxvd1ByaXZpbGVnZUVzY2FsYXRpb246IGZhbHNlCiAgICAgICAgdm9sdW1lTW91bnRzOgogICAgICAgIC0gbW91bnRQYXRoOiAvdmF1bHQvZGF0YQogICAgICAgICAgbmFtZTogZGF0YQogICAgICAgIC0gbW91bnRQYXRoOiAvdmF1bHQvY29uZmlnCiAgICAgICAgICBuYW1lOiBjb25maWcKICAgICAgICAtIG1vdW50UGF0aDogL2hvbWUvdmF1bHQKICAgICAgICAgIG5hbWU6IGhvbWUKICAgICAgICByZXNvdXJjZXM6CiAgICAgICAgICByZXF1ZXN0czoKICAgICAgICAgICAgY3B1OiAxMjhtCiAgICAgICAgICAgIG1lbW9yeTogMTI4TWkKICAgICAgaG9zdE5ldHdvcms6IGZhbHNlCiAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICBmc0dyb3VwOiAxMDAwCiAgICAgICAgcnVuQXNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzTm9uUm9vdDogdHJ1ZQogICAgICAgIHJ1bkFzVXNlcjogMTAwCiAgICAgIHNlcnZpY2VBY2NvdW50TmFtZTogdmF1bHQKICAgICAgdGVybWluYXRpb25HcmFjZVBlcmlvZFNlY29uZHM6IDEwCiAgICAgIHZvbHVtZXM6CiAgICAgIC0gY29uZmlnTWFwOgogICAgICAgICAgbmFtZTogdmF1bHQtY29uZmlnCiAgICAgICAgbmFtZTogY29uZmlnCiAgICAgIC0gZW1wdHlEaXI6IHt9CiAgICAgICAgbmFtZTogaG9tZQogIHVwZGF0ZVN0cmF0ZWd5OgogICAgdHlwZTogT25EZWxldGUKICB2b2x1bWVDbGFpbVRlbXBsYXRlczoKICAtIGFwaVZlcnNpb246IHYxCiAgICBraW5kOiBQZXJzaXN0ZW50Vm9sdW1lQ2xhaW0KICAgIG1ldGFkYXRhOgogICAgICBuYW1lOiBkYXRhCiAgICBzcGVjOgogICAgICBhY2Nlc3NNb2RlczoKICAgICAgLSBSZWFkV3JpdGVPbmNlCiAgICAgIHJlc291cmNlczoKICAgICAgICByZXF1ZXN0czoKICAgICAgICAgIHN0b3JhZ2U6IDEwR2kK",
+      "DataHash": "4a72e865889cad852596fa91dedf101c2fe359f72467190d962d26e624bca6c0",
+      "Description": "Reconcile: adopt the base telemetry release alongside the dev departure (same-map departures do not auto-merge)| Functions: set-annotation",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "6e268abb-15ef-48f6-a16e-4d9d2ac146af",
+      "RevisionNum": 5,
+      "Source": "Invoke",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T08:17:40.520215Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 1
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  },
+  {
+    "Revision": {
+      "ApplyGates": {
+        "platform/require-approval/vet-approvedby": true
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": -1687606232,
+      "CreatedAt": "2026-07-03T08:14:25.861262Z",
+      "CursorID": 108901,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKc3BlYzoKICBwb2RNYW5hZ2VtZW50UG9saWN5OiBQYXJhbGxlbAogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgc2VydmljZU5hbWU6IHZhdWx0LWludGVybmFsCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgYW5ub3RhdGlvbnM6IG51bGwKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICAgICAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICAgIHNwZWM6CiAgICAgIGFmZmluaXR5OgogICAgICAgIHBvZEFudGlBZmZpbml0eToKICAgICAgICAgIHJlcXVpcmVkRHVyaW5nU2NoZWR1bGluZ0lnbm9yZWREdXJpbmdFeGVjdXRpb246CiAgICAgICAgICAtIGxhYmVsU2VsZWN0b3I6CiAgICAgICAgICAgICAgbWF0Y2hMYWJlbHM6CiAgICAgICAgICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgICAgICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgICAgICB0b3BvbG9neUtleToga3ViZXJuZXRlcy5pby9ob3N0bmFtZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSB8CiAgICAgICAgICBjcCAvdmF1bHQvY29uZmlnL2V4dHJhY29uZmlnLWZyb20tdmFsdWVzLmhjbCAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtIT1NUX0lQfSIgXSAmJiBzZWQgLUVpICJzfEhPU1RfSVB8JHtIT1NUX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UE9EX0lQfSIgXSAmJiBzZWQgLUVpICJzfFBPRF9JUHwke1BPRF9JUD99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1ROQU1FfSIgXSAmJiBzZWQgLUVpICJzfEhPU1ROQU1FfCR7SE9TVE5BTUU/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtBUElfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xBUElfQUREUnwke0FQSV9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7VFJBTlNJVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFRSQU5TSVRfQUREUnwke1RSQU5TSVRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1JBRlRfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xSQUZUX0FERFJ8JHtSQUZUX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgL3Vzci9sb2NhbC9iaW4vZG9ja2VyLWVudHJ5cG9pbnQuc2ggdmF1bHQgc2VydmVyIC1jb25maWc9L3RtcC9zdG9yYWdlY29uZmlnLmhjbAogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvYmluL3NoCiAgICAgICAgLSAtZWMKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBIT1NUX0lQCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3RhdHVzLmhvc3RJUAogICAgICAgIC0gbmFtZTogUE9EX0lQCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3RhdHVzLnBvZElQCiAgICAgICAgLSBuYW1lOiBWQVVMVF9LOFNfUE9EX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9LOFNfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBWQVVMVF9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLzEyNy4wLjAuMTo4MjAwCiAgICAgICAgLSBuYW1lOiBWQVVMVF9BUElfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHA6Ly8kKFBPRF9JUCk6ODIwMAogICAgICAgIC0gbmFtZTogU0tJUF9DSE9XTgogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogU0tJUF9TRVRDQVAKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IEhPU1ROQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogVkFVTFRfQ0xVU1RFUl9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cHM6Ly8kKEhPU1ROQU1FKS52YXVsdC1pbnRlcm5hbDo4MjAxCiAgICAgICAgLSBuYW1lOiBIT01FCiAgICAgICAgICB2YWx1ZTogL2hvbWUvdmF1bHQKICAgICAgICBpbWFnZTogaGFzaGljb3JwL3ZhdWx0OjEuMjEuMgogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGlmZWN5Y2xlOgogICAgICAgICAgcHJlU3RvcDoKICAgICAgICAgICAgZXhlYzoKICAgICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAgIC0gL2Jpbi9zaAogICAgICAgICAgICAgIC0gLWMKICAgICAgICAgICAgICAtIHNsZWVwIDUgJiYga2lsbCAtU0lHVEVSTSAkKHBpZG9mIHZhdWx0KQogICAgICAgIG5hbWU6IHZhdWx0CiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAwCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAxCiAgICAgICAgICBuYW1lOiBodHRwcy1pbnRlcm5hbAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMgogICAgICAgICAgbmFtZTogaHR0cC1yZXAKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGV4ZWM6CiAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgIC0gL2Jpbi9zaAogICAgICAgICAgICAtIC1lYwogICAgICAgICAgICAtIHZhdWx0IHN0YXR1cyAtdGxzLXNraXAtdmVyaWZ5CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAyCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiA1CiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA1CiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMwogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC92YXVsdC9kYXRhCiAgICAgICAgICBuYW1lOiBkYXRhCiAgICAgICAgLSBtb3VudFBhdGg6IC92YXVsdC9jb25maWcKICAgICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAgIC0gbW91bnRQYXRoOiAvaG9tZS92YXVsdAogICAgICAgICAgbmFtZTogaG9tZQogICAgICAgIHJlc291cmNlczoKICAgICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgICBjcHU6IDEyOG0KICAgICAgICAgICAgbWVtb3J5OiAxMjhNaQogICAgICBob3N0TmV0d29yazogZmFsc2UKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc0dyb3VwOiAxMDAwCiAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgcnVuQXNVc2VyOiAxMDAKICAgICAgc2VydmljZUFjY291bnROYW1lOiB2YXVsdAogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMTAKICAgICAgdm9sdW1lczoKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBuYW1lOiB2YXVsdC1jb25maWcKICAgICAgICBuYW1lOiBjb25maWcKICAgICAgLSBlbXB0eURpcjoge30KICAgICAgICBuYW1lOiBob21lCiAgdXBkYXRlU3RyYXRlZ3k6CiAgICB0eXBlOiBPbkRlbGV0ZQogIHZvbHVtZUNsYWltVGVtcGxhdGVzOgogIC0gYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFBlcnNpc3RlbnRWb2x1bWVDbGFpbQogICAgbWV0YWRhdGE6CiAgICAgIG5hbWU6IGRhdGEKICAgIHNwZWM6CiAgICAgIGFjY2Vzc01vZGVzOgogICAgICAtIFJlYWRXcml0ZU9uY2UKICAgICAgcmVzb3VyY2VzOgogICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgc3RvcmFnZTogMTBHaQo=",
+      "DataHash": "420fc462b52dd1cf573ebec17e58fd706d38b9da4e6e713f50effc4d0da7fe9a",
+      "Description": "Dev departure: tag the sandbox for cost attribution| Functions: set-annotation",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "9923b484-cc65-4718-85b2-4f92136aaa14",
+      "RevisionNum": 4,
+      "Source": "Invoke",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T08:14:26.22589Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 1
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  },
+  {
+    "Revision": {
+      "ApplyGates": {
+        "platform/require-approval/vet-approvedby": true
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": 261612642,
+      "CreatedAt": "2026-07-03T08:08:29.77975Z",
+      "CursorID": 108896,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "a07281e50e5a48e73fa578cefc8a8bd66ee6c6993ef7e192562f362f7832962d",
+      "Description": "Dev departure: pin minimal default resource requests| Functions: set-container-resources-defaults",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "3e605974-2754-4ff0-a2a9-487349c93938",
+      "RevisionNum": 3,
+      "Source": "Invoke",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T08:08:30.20288Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 1
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  },
+  {
+    "Revision": {
+      "ApplyGates": {
+        "platform/require-approval/vet-approvedby": true
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": -367907349,
+      "CreatedAt": "2026-07-03T08:07:25.586215Z",
+      "CursorID": 108836,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "5a0fa480f37193596cd6f4f5c4e1afd1210e8f4ac43833203e64a34b51ad50c3",
+      "Description": "Functions: set-namespace",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "6abab0b8-b92b-4e06-81b5-e941b4690456",
+      "RevisionNum": 2,
+      "Source": "Invoke",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T08:07:26.094028Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 1
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  },
+  {
+    "Revision": {
+      "ApplyGates": {
+        "platform/require-approval/vet-approvedby": true
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ContentHash": 1039951054,
+      "CreatedAt": "2026-07-03T08:07:23.30946Z",
+      "CursorID": 108822,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRlbW8Kc3BlYzoKICBwb2RNYW5hZ2VtZW50UG9saWN5OiBQYXJhbGxlbAogIHJlcGxpY2FzOiAxCiAgc2VsZWN0b3I6CiAgICBtYXRjaExhYmVsczoKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgc2VydmljZU5hbWU6IHZhdWx0LWludGVybmFsCiAgdGVtcGxhdGU6CiAgICBtZXRhZGF0YToKICAgICAgYW5ub3RhdGlvbnM6IG51bGwKICAgICAgbGFiZWxzOgogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICAgICAgICBoZWxtLnNoL2NoYXJ0OiB2YXVsdC0wLjMyLjAKICAgIHNwZWM6CiAgICAgIGFmZmluaXR5OgogICAgICAgIHBvZEFudGlBZmZpbml0eToKICAgICAgICAgIHJlcXVpcmVkRHVyaW5nU2NoZWR1bGluZ0lnbm9yZWREdXJpbmdFeGVjdXRpb246CiAgICAgICAgICAtIGxhYmVsU2VsZWN0b3I6CiAgICAgICAgICAgICAgbWF0Y2hMYWJlbHM6CiAgICAgICAgICAgICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgICAgICAgICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgICAgICB0b3BvbG9neUtleToga3ViZXJuZXRlcy5pby9ob3N0bmFtZQogICAgICBjb250YWluZXJzOgogICAgICAtIGFyZ3M6CiAgICAgICAgLSB8CiAgICAgICAgICBjcCAvdmF1bHQvY29uZmlnL2V4dHJhY29uZmlnLWZyb20tdmFsdWVzLmhjbCAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtIT1NUX0lQfSIgXSAmJiBzZWQgLUVpICJzfEhPU1RfSVB8JHtIT1NUX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UE9EX0lQfSIgXSAmJiBzZWQgLUVpICJzfFBPRF9JUHwke1BPRF9JUD99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1ROQU1FfSIgXSAmJiBzZWQgLUVpICJzfEhPU1ROQU1FfCR7SE9TVE5BTUU/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtBUElfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xBUElfQUREUnwke0FQSV9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7VFJBTlNJVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFRSQU5TSVRfQUREUnwke1RSQU5TSVRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke1JBRlRfQUREUn0iIF0gJiYgc2VkIC1FaSAic3xSQUZUX0FERFJ8JHtSQUZUX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgL3Vzci9sb2NhbC9iaW4vZG9ja2VyLWVudHJ5cG9pbnQuc2ggdmF1bHQgc2VydmVyIC1jb25maWc9L3RtcC9zdG9yYWdlY29uZmlnLmhjbAogICAgICAgIGNvbW1hbmQ6CiAgICAgICAgLSAvYmluL3NoCiAgICAgICAgLSAtZWMKICAgICAgICBlbnY6CiAgICAgICAgLSBuYW1lOiBIT1NUX0lQCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3RhdHVzLmhvc3RJUAogICAgICAgIC0gbmFtZTogUE9EX0lQCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogc3RhdHVzLnBvZElQCiAgICAgICAgLSBuYW1lOiBWQVVMVF9LOFNfUE9EX05BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9LOFNfTkFNRVNQQUNFCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZXNwYWNlCiAgICAgICAgLSBuYW1lOiBWQVVMVF9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLzEyNy4wLjAuMTo4MjAwCiAgICAgICAgLSBuYW1lOiBWQVVMVF9BUElfQUREUgogICAgICAgICAgdmFsdWU6IGh0dHA6Ly8kKFBPRF9JUCk6ODIwMAogICAgICAgIC0gbmFtZTogU0tJUF9DSE9XTgogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogU0tJUF9TRVRDQVAKICAgICAgICAgIHZhbHVlOiAidHJ1ZSIKICAgICAgICAtIG5hbWU6IEhPU1ROQU1FCiAgICAgICAgICB2YWx1ZUZyb206CiAgICAgICAgICAgIGZpZWxkUmVmOgogICAgICAgICAgICAgIGZpZWxkUGF0aDogbWV0YWRhdGEubmFtZQogICAgICAgIC0gbmFtZTogVkFVTFRfQ0xVU1RFUl9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cHM6Ly8kKEhPU1ROQU1FKS52YXVsdC1pbnRlcm5hbDo4MjAxCiAgICAgICAgLSBuYW1lOiBIT01FCiAgICAgICAgICB2YWx1ZTogL2hvbWUvdmF1bHQKICAgICAgICBpbWFnZTogaGFzaGljb3JwL3ZhdWx0OjEuMjEuMgogICAgICAgIGltYWdlUHVsbFBvbGljeTogSWZOb3RQcmVzZW50CiAgICAgICAgbGlmZWN5Y2xlOgogICAgICAgICAgcHJlU3RvcDoKICAgICAgICAgICAgZXhlYzoKICAgICAgICAgICAgICBjb21tYW5kOgogICAgICAgICAgICAgIC0gL2Jpbi9zaAogICAgICAgICAgICAgIC0gLWMKICAgICAgICAgICAgICAtIHNsZWVwIDUgJiYga2lsbCAtU0lHVEVSTSAkKHBpZG9mIHZhdWx0KQogICAgICAgIG5hbWU6IHZhdWx0CiAgICAgICAgcG9ydHM6CiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAwCiAgICAgICAgICBuYW1lOiBodHRwCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAxCiAgICAgICAgICBuYW1lOiBodHRwcy1pbnRlcm5hbAogICAgICAgIC0gY29udGFpbmVyUG9ydDogODIwMgogICAgICAgICAgbmFtZTogaHR0cC1yZXAKICAgICAgICByZWFkaW5lc3NQcm9iZToKICAgICAgICAgIGV4ZWM6CiAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgIC0gL2Jpbi9zaAogICAgICAgICAgICAtIC1lYwogICAgICAgICAgICAtIHZhdWx0IHN0YXR1cyAtdGxzLXNraXAtdmVyaWZ5CiAgICAgICAgICBmYWlsdXJlVGhyZXNob2xkOiAyCiAgICAgICAgICBpbml0aWFsRGVsYXlTZWNvbmRzOiA1CiAgICAgICAgICBwZXJpb2RTZWNvbmRzOiA1CiAgICAgICAgICBzdWNjZXNzVGhyZXNob2xkOiAxCiAgICAgICAgICB0aW1lb3V0U2Vjb25kczogMwogICAgICAgIHNlY3VyaXR5Q29udGV4dDoKICAgICAgICAgIGFsbG93UHJpdmlsZWdlRXNjYWxhdGlvbjogZmFsc2UKICAgICAgICB2b2x1bWVNb3VudHM6CiAgICAgICAgLSBtb3VudFBhdGg6IC92YXVsdC9kYXRhCiAgICAgICAgICBuYW1lOiBkYXRhCiAgICAgICAgLSBtb3VudFBhdGg6IC92YXVsdC9jb25maWcKICAgICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAgIC0gbW91bnRQYXRoOiAvaG9tZS92YXVsdAogICAgICAgICAgbmFtZTogaG9tZQogICAgICBob3N0TmV0d29yazogZmFsc2UKICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgIGZzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc0dyb3VwOiAxMDAwCiAgICAgICAgcnVuQXNOb25Sb290OiB0cnVlCiAgICAgICAgcnVuQXNVc2VyOiAxMDAKICAgICAgc2VydmljZUFjY291bnROYW1lOiB2YXVsdAogICAgICB0ZXJtaW5hdGlvbkdyYWNlUGVyaW9kU2Vjb25kczogMTAKICAgICAgdm9sdW1lczoKICAgICAgLSBjb25maWdNYXA6CiAgICAgICAgICBuYW1lOiB2YXVsdC1jb25maWcKICAgICAgICBuYW1lOiBjb25maWcKICAgICAgLSBlbXB0eURpcjoge30KICAgICAgICBuYW1lOiBob21lCiAgdXBkYXRlU3RyYXRlZ3k6CiAgICB0eXBlOiBPbkRlbGV0ZQogIHZvbHVtZUNsYWltVGVtcGxhdGVzOgogIC0gYXBpVmVyc2lvbjogdjEKICAgIGtpbmQ6IFBlcnNpc3RlbnRWb2x1bWVDbGFpbQogICAgbWV0YWRhdGE6CiAgICAgIG5hbWU6IGRhdGEKICAgIHNwZWM6CiAgICAgIGFjY2Vzc01vZGVzOgogICAgICAtIFJlYWRXcml0ZU9uY2UKICAgICAgcmVzb3VyY2VzOgogICAgICAgIHJlcXVlc3RzOgogICAgICAgICAgc3RvcmFnZTogMTBHaQo=",
+      "DataHash": "ad5e803fce230690eef3b4d2118156de5f2d77fc3c375aa0b470fa88a62784c9",
+      "Description": "Initial Data: 4346 bytes",
+      "EntityType": "Revision",
+      "LiveAt": "0001-01-01T00:00:00Z",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {},
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-demo/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "RevisionID": "2040873a-cd59-465e-a2a0-e43066e457a3",
+      "RevisionNum": 1,
+      "Source": "CloneUnit",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T08:07:24.485495Z",
+      "UserAgent": "ConfigHub",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Version": 1
+    },
+    "Unit": {
+      "Annotations": {
+        "PackageVersion": ""
+      },
+      "ApplyWarnings": {
+        "platform/digest-pinned-images/vet-cel": true,
+        "platform/probes-declared/vet-cel": true
+      },
+      "ApprovedBy": [],
+      "ContentHash": 427341946,
+      "CreatedAt": "2026-07-03T08:07:23.302804Z",
+      "CursorID": 58733,
+      "Data": "YXBpVmVyc2lvbjogYXBwcy92MQpraW5kOiBTdGF0ZWZ1bFNldAptZXRhZGF0YToKICBsYWJlbHM6CiAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgIGFwcC5rdWJlcm5ldGVzLmlvL21hbmFnZWQtYnk6IEhlbG0KICAgIGFwcC5rdWJlcm5ldGVzLmlvL25hbWU6IHZhdWx0CiAgbmFtZTogdmF1bHQKICBuYW1lc3BhY2U6IHZhdWx0LWRldgogIGFubm90YXRpb25zOgogICAgY29zdC5jb25maWdodWIuY29tL2NlbnRlcjogZGV2LXNhbmRib3gKICAgIHZhdWx0LmNvbmZpZ2h1Yi5jb20vdGVsZW1ldHJ5OiBlbmFibGVkCiAgICB2YXVsdC5jb25maWdodWIuY29tL3JlbGVhc2UtdHJhY2s6IHN0YWJsZQpzcGVjOgogIHBvZE1hbmFnZW1lbnRQb2xpY3k6IFBhcmFsbGVsCiAgcmVwbGljYXM6IDEKICBzZWxlY3RvcjoKICAgIG1hdGNoTGFiZWxzOgogICAgICBhcHAua3ViZXJuZXRlcy5pby9pbnN0YW5jZTogdmF1bHQKICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgY29tcG9uZW50OiBzZXJ2ZXIKICBzZXJ2aWNlTmFtZTogdmF1bHQtaW50ZXJuYWwKICB0ZW1wbGF0ZToKICAgIG1ldGFkYXRhOgogICAgICBhbm5vdGF0aW9uczogbnVsbAogICAgICBsYWJlbHM6CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vaW5zdGFuY2U6IHZhdWx0CiAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICBjb21wb25lbnQ6IHNlcnZlcgogICAgICAgIGhlbG0uc2gvY2hhcnQ6IHZhdWx0LTAuMzIuMAogICAgc3BlYzoKICAgICAgYWZmaW5pdHk6CiAgICAgICAgcG9kQW50aUFmZmluaXR5OgogICAgICAgICAgcmVxdWlyZWREdXJpbmdTY2hlZHVsaW5nSWdub3JlZER1cmluZ0V4ZWN1dGlvbjoKICAgICAgICAgIC0gbGFiZWxTZWxlY3RvcjoKICAgICAgICAgICAgICBtYXRjaExhYmVsczoKICAgICAgICAgICAgICAgIGFwcC5rdWJlcm5ldGVzLmlvL2luc3RhbmNlOiB2YXVsdAogICAgICAgICAgICAgICAgYXBwLmt1YmVybmV0ZXMuaW8vbmFtZTogdmF1bHQKICAgICAgICAgICAgICAgIGNvbXBvbmVudDogc2VydmVyCiAgICAgICAgICAgIHRvcG9sb2d5S2V5OiBrdWJlcm5ldGVzLmlvL2hvc3RuYW1lCiAgICAgIGNvbnRhaW5lcnM6CiAgICAgIC0gYXJnczoKICAgICAgICAtIHwKICAgICAgICAgIGNwIC92YXVsdC9jb25maWcvZXh0cmFjb25maWctZnJvbS12YWx1ZXMuaGNsIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0hPU1RfSVB9IiBdICYmIHNlZCAtRWkgInN8SE9TVF9JUHwke0hPU1RfSVA/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtQT0RfSVB9IiBdICYmIHNlZCAtRWkgInN8UE9EX0lQfCR7UE9EX0lQP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7SE9TVE5BTUV9IiBdICYmIHNlZCAtRWkgInN8SE9TVE5BTUV8JHtIT1NUTkFNRT99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICBbIC1uICIke0FQSV9BRERSfSIgXSAmJiBzZWQgLUVpICJzfEFQSV9BRERSfCR7QVBJX0FERFI/fXxnIiAvdG1wL3N0b3JhZ2Vjb25maWcuaGNsOwogICAgICAgICAgWyAtbiAiJHtUUkFOU0lUX0FERFJ9IiBdICYmIHNlZCAtRWkgInN8VFJBTlNJVF9BRERSfCR7VFJBTlNJVF9BRERSP318ZyIgL3RtcC9zdG9yYWdlY29uZmlnLmhjbDsKICAgICAgICAgIFsgLW4gIiR7UkFGVF9BRERSfSIgXSAmJiBzZWQgLUVpICJzfFJBRlRfQUREUnwke1JBRlRfQUREUj99fGciIC90bXAvc3RvcmFnZWNvbmZpZy5oY2w7CiAgICAgICAgICAvdXNyL2xvY2FsL2Jpbi9kb2NrZXItZW50cnlwb2ludC5zaCB2YXVsdCBzZXJ2ZXIgLWNvbmZpZz0vdG1wL3N0b3JhZ2Vjb25maWcuaGNsCiAgICAgICAgY29tbWFuZDoKICAgICAgICAtIC9iaW4vc2gKICAgICAgICAtIC1lYwogICAgICAgIGVudjoKICAgICAgICAtIG5hbWU6IEhPU1RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMuaG9zdElQCiAgICAgICAgLSBuYW1lOiBQT0RfSVAKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBzdGF0dXMucG9kSVAKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19QT0RfTkFNRQogICAgICAgICAgdmFsdWVGcm9tOgogICAgICAgICAgICBmaWVsZFJlZjoKICAgICAgICAgICAgICBmaWVsZFBhdGg6IG1ldGFkYXRhLm5hbWUKICAgICAgICAtIG5hbWU6IFZBVUxUX0s4U19OQU1FU1BBQ0UKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lc3BhY2UKICAgICAgICAtIG5hbWU6IFZBVUxUX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwOi8vMTI3LjAuMC4xOjgyMDAKICAgICAgICAtIG5hbWU6IFZBVUxUX0FQSV9BRERSCiAgICAgICAgICB2YWx1ZTogaHR0cDovLyQoUE9EX0lQKTo4MjAwCiAgICAgICAgLSBuYW1lOiBTS0lQX0NIT1dOCiAgICAgICAgICB2YWx1ZTogInRydWUiCiAgICAgICAgLSBuYW1lOiBTS0lQX1NFVENBUAogICAgICAgICAgdmFsdWU6ICJ0cnVlIgogICAgICAgIC0gbmFtZTogSE9TVE5BTUUKICAgICAgICAgIHZhbHVlRnJvbToKICAgICAgICAgICAgZmllbGRSZWY6CiAgICAgICAgICAgICAgZmllbGRQYXRoOiBtZXRhZGF0YS5uYW1lCiAgICAgICAgLSBuYW1lOiBWQVVMVF9DTFVTVEVSX0FERFIKICAgICAgICAgIHZhbHVlOiBodHRwczovLyQoSE9TVE5BTUUpLnZhdWx0LWludGVybmFsOjgyMDEKICAgICAgICAtIG5hbWU6IEhPTUUKICAgICAgICAgIHZhbHVlOiAvaG9tZS92YXVsdAogICAgICAgIGltYWdlOiBoYXNoaWNvcnAvdmF1bHQ6MS4yMS4yCiAgICAgICAgaW1hZ2VQdWxsUG9saWN5OiBJZk5vdFByZXNlbnQKICAgICAgICBsaWZlY3ljbGU6CiAgICAgICAgICBwcmVTdG9wOgogICAgICAgICAgICBleGVjOgogICAgICAgICAgICAgIGNvbW1hbmQ6CiAgICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgICAgLSAtYwogICAgICAgICAgICAgIC0gc2xlZXAgNSAmJiBraWxsIC1TSUdURVJNICQocGlkb2YgdmF1bHQpCiAgICAgICAgbmFtZTogdmF1bHQKICAgICAgICBwb3J0czoKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDAKICAgICAgICAgIG5hbWU6IGh0dHAKICAgICAgICAtIGNvbnRhaW5lclBvcnQ6IDgyMDEKICAgICAgICAgIG5hbWU6IGh0dHBzLWludGVybmFsCiAgICAgICAgLSBjb250YWluZXJQb3J0OiA4MjAyCiAgICAgICAgICBuYW1lOiBodHRwLXJlcAogICAgICAgIHJlYWRpbmVzc1Byb2JlOgogICAgICAgICAgZXhlYzoKICAgICAgICAgICAgY29tbWFuZDoKICAgICAgICAgICAgLSAvYmluL3NoCiAgICAgICAgICAgIC0gLWVjCiAgICAgICAgICAgIC0gdmF1bHQgc3RhdHVzIC10bHMtc2tpcC12ZXJpZnkKICAgICAgICAgIGZhaWx1cmVUaHJlc2hvbGQ6IDIKICAgICAgICAgIGluaXRpYWxEZWxheVNlY29uZHM6IDUKICAgICAgICAgIHBlcmlvZFNlY29uZHM6IDUKICAgICAgICAgIHN1Y2Nlc3NUaHJlc2hvbGQ6IDEKICAgICAgICAgIHRpbWVvdXRTZWNvbmRzOiAzCiAgICAgICAgc2VjdXJpdHlDb250ZXh0OgogICAgICAgICAgYWxsb3dQcml2aWxlZ2VFc2NhbGF0aW9uOiBmYWxzZQogICAgICAgIHZvbHVtZU1vdW50czoKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2RhdGEKICAgICAgICAgIG5hbWU6IGRhdGEKICAgICAgICAtIG1vdW50UGF0aDogL3ZhdWx0L2NvbmZpZwogICAgICAgICAgbmFtZTogY29uZmlnCiAgICAgICAgLSBtb3VudFBhdGg6IC9ob21lL3ZhdWx0CiAgICAgICAgICBuYW1lOiBob21lCiAgICAgICAgcmVzb3VyY2VzOgogICAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICAgIGNwdTogMTI4bQogICAgICAgICAgICBtZW1vcnk6IDEyOE1pCiAgICAgIGhvc3ROZXR3b3JrOiBmYWxzZQogICAgICBzZWN1cml0eUNvbnRleHQ6CiAgICAgICAgZnNHcm91cDogMTAwMAogICAgICAgIHJ1bkFzR3JvdXA6IDEwMDAKICAgICAgICBydW5Bc05vblJvb3Q6IHRydWUKICAgICAgICBydW5Bc1VzZXI6IDEwMAogICAgICBzZXJ2aWNlQWNjb3VudE5hbWU6IHZhdWx0CiAgICAgIHRlcm1pbmF0aW9uR3JhY2VQZXJpb2RTZWNvbmRzOiAxMAogICAgICB2b2x1bWVzOgogICAgICAtIGNvbmZpZ01hcDoKICAgICAgICAgIG5hbWU6IHZhdWx0LWNvbmZpZwogICAgICAgIG5hbWU6IGNvbmZpZwogICAgICAtIGVtcHR5RGlyOiB7fQogICAgICAgIG5hbWU6IGhvbWUKICB1cGRhdGVTdHJhdGVneToKICAgIHR5cGU6IE9uRGVsZXRlCiAgdm9sdW1lQ2xhaW1UZW1wbGF0ZXM6CiAgLSBhcGlWZXJzaW9uOiB2MQogICAga2luZDogUGVyc2lzdGVudFZvbHVtZUNsYWltCiAgICBtZXRhZGF0YToKICAgICAgbmFtZTogZGF0YQogICAgc3BlYzoKICAgICAgYWNjZXNzTW9kZXM6CiAgICAgIC0gUmVhZFdyaXRlT25jZQogICAgICByZXNvdXJjZXM6CiAgICAgICAgcmVxdWVzdHM6CiAgICAgICAgICBzdG9yYWdlOiAxMEdpCg==",
+      "DataHash": "c604336549400697bea144aa6960db6153dd2b51346217d58ebe55ff225ab417",
+      "DisplayName": "statefulset-vault-vault",
+      "DriftReconciliationMode": "OnDemand",
+      "EntityType": "Unit",
+      "FromLinkID": [
+        "1ff57e6f-7933-4642-a397-6887809b4370"
+      ],
+      "HeadMutationNum": 6,
+      "HeadRevisionNum": 6,
+      "Labels": {
+        "Package": "hashicorp-vault"
+      },
+      "LastChangeDescription": "Reconcile: adopt the base release-track stamp| Functions: set-annotation",
+      "MutationSources": [
+        {
+          "Aliases": {
+            "vault-demo/vault": {},
+            "vault-dev/vault": {}
+          },
+          "AliasesWithoutScopes": {
+            "vault": {}
+          },
+          "PathMutationMap": {
+            "metadata.annotations": {
+              "Index": 4,
+              "MutationType": "Add",
+              "Value": "cost.confighub.com/center: dev-sandbox\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/release-track": {
+              "Index": 6,
+              "MutationType": "Add",
+              "Value": "stable\n"
+            },
+            "metadata.annotations.vault~1confighub~1com/telemetry": {
+              "Index": 5,
+              "MutationType": "Add",
+              "Value": "enabled\n"
+            },
+            "metadata.namespace": {
+              "Index": 2,
+              "MutationType": "Update",
+              "Value": "vault-dev\n"
+            },
+            "spec.template.spec.containers.?name=vault;@0.resources": {
+              "Index": 3,
+              "MutationType": "Add",
+              "Value": "requests:\n  cpu: 128m\n  memory: 128Mi\n"
+            }
+          },
+          "Resource": {
+            "ResourceCategory": "Resource",
+            "ResourceName": "vault-dev/vault",
+            "ResourceNameWithoutScope": "vault",
+            "ResourceType": "apps/v1/StatefulSet"
+          },
+          "ResourceMutationInfo": {
+            "Index": 1,
+            "MutationType": "Add",
+            "Predicate": true,
+            "Value": "apiVersion: apps/v1\nkind: StatefulSet\nmetadata:\n  labels:\n    app.kubernetes.io/instance: vault\n    app.kubernetes.io/managed-by: Helm\n    app.kubernetes.io/name: vault\n  name: vault\n  namespace: vault-demo\nspec:\n  podManagementPolicy: Parallel\n  replicas: 1\n  selector:\n    matchLabels:\n      app.kubernetes.io/instance: vault\n      app.kubernetes.io/name: vault\n      component: server\n  serviceName: vault-internal\n  template:\n    metadata:\n      annotations: null\n      labels:\n        app.kubernetes.io/instance: vault\n        app.kubernetes.io/name: vault\n        component: server\n        helm.sh/chart: vault-0.32.0\n    spec:\n      affinity:\n        podAntiAffinity:\n          requiredDuringSchedulingIgnoredDuringExecution:\n          - labelSelector:\n              matchLabels:\n                app.kubernetes.io/instance: vault\n                app.kubernetes.io/name: vault\n                component: server\n            topologyKey: kubernetes.io/hostname\n      containers:\n      - args:\n        - |\n          cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n          [ -n \"${HOST_IP}\" ] \u0026\u0026 sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${POD_IP}\" ] \u0026\u0026 sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${HOSTNAME}\" ] \u0026\u0026 sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${API_ADDR}\" ] \u0026\u0026 sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${TRANSIT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          [ -n \"${RAFT_ADDR}\" ] \u0026\u0026 sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n          /usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n        command:\n        - /bin/sh\n        - -ec\n        env:\n        - name: HOST_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.hostIP\n        - name: POD_IP\n          valueFrom:\n            fieldRef:\n              fieldPath: status.podIP\n        - name: VAULT_K8S_POD_NAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_K8S_NAMESPACE\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.namespace\n        - name: VAULT_ADDR\n          value: http://127.0.0.1:8200\n        - name: VAULT_API_ADDR\n          value: http://$(POD_IP):8200\n        - name: SKIP_CHOWN\n          value: \"true\"\n        - name: SKIP_SETCAP\n          value: \"true\"\n        - name: HOSTNAME\n          valueFrom:\n            fieldRef:\n              fieldPath: metadata.name\n        - name: VAULT_CLUSTER_ADDR\n          value: https://$(HOSTNAME).vault-internal:8201\n        - name: HOME\n          value: /home/vault\n        image: hashicorp/vault:1.21.2\n        imagePullPolicy: IfNotPresent\n        lifecycle:\n          preStop:\n            exec:\n              command:\n              - /bin/sh\n              - -c\n              - sleep 5 \u0026\u0026 kill -SIGTERM $(pidof vault)\n        name: vault\n        ports:\n        - containerPort: 8200\n          name: http\n        - containerPort: 8201\n          name: https-internal\n        - containerPort: 8202\n          name: http-rep\n        readinessProbe:\n          exec:\n            command:\n            - /bin/sh\n            - -ec\n            - vault status -tls-skip-verify\n          failureThreshold: 2\n          initialDelaySeconds: 5\n          periodSeconds: 5\n          successThreshold: 1\n          timeoutSeconds: 3\n        securityContext:\n          allowPrivilegeEscalation: false\n        volumeMounts:\n        - mountPath: /vault/data\n          name: data\n        - mountPath: /vault/config\n          name: config\n        - mountPath: /home/vault\n          name: home\n      hostNetwork: false\n      securityContext:\n        fsGroup: 1000\n        runAsGroup: 1000\n        runAsNonRoot: true\n        runAsUser: 100\n      serviceAccountName: vault\n      terminationGracePeriodSeconds: 10\n      volumes:\n      - configMap:\n          name: vault-config\n        name: config\n      - emptyDir: {}\n        name: home\n  updateStrategy:\n    type: OnDelete\n  volumeClaimTemplates:\n  - apiVersion: v1\n    kind: PersistentVolumeClaim\n    metadata:\n      name: data\n    spec:\n      accessModes:\n      - ReadWriteOnce\n      resources:\n        requests:\n          storage: 10Gi\n"
+          }
+        }
+      ],
+      "OrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "ProvidedPaths": [
+        {
+          "AttributeName": "resource-name",
+          "DataType": "string",
+          "Details": {
+            "BoundLinkID": "00000000-0000-0000-0000-000000000000",
+            "GetterInvocation": {
+              "Arguments": [
+                {
+                  "ParameterName": "resource-type",
+                  "Value": "apps/v1/StatefulSet"
+                }
+              ],
+              "FunctionName": "get-resources-of-type"
+            },
+            "IsProvided": true,
+            "ProvidedProperties": {
+              "ResourceType": "apps/v1/StatefulSet"
+            }
+          },
+          "Path": "metadata.name",
+          "ResourceCategory": "Resource",
+          "ResourceName": "vault-dev/vault",
+          "ResourceNameWithoutScope": "vault",
+          "ResourceType": "apps/v1/StatefulSet"
+        }
+      ],
+      "Slug": "statefulset-vault-vault",
+      "SpaceID": "68942fa8-1800-4d7c-a0dc-d98193be4e9e",
+      "SpaceSlug": "hashicorp-vault-env-dev",
+      "ToolchainType": "Kubernetes/YAML",
+      "UnitID": "1eaaa267-304e-43aa-972a-5f485464ac0f",
+      "UpdatedAt": "2026-07-03T09:10:58.353594Z",
+      "UpstreamOrganizationID": "c4deb63d-3437-4239-8794-0992c769c5cd",
+      "UpstreamRevisionNum": 5,
+      "UpstreamSpaceID": "8dcfd914-a595-4605-afb3-12925e8ccb3b",
+      "UpstreamUnitID": "c5c81eee-07aa-448a-b79e-d5ea196c0ca5",
+      "ValidationResults": {
+        "platform/digest-pinned-images/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel"
+          }
+        ],
+        "platform/probes-declared/vet-cel": [
+          {
+            "Details": [
+              "resource vault-dev/vault failed validation"
+            ],
+            "FunctionName": "vet-cel",
+            "Index": 1
+          }
+        ]
+      },
+      "Version": 36
+    },
+    "User": {
+      "CreatedAt": "2025-04-24T09:32:50.884524Z",
+      "CursorID": 13,
+      "DisplayName": "Alexis Richardson",
+      "EntityType": "User",
+      "ExternalID": "ed35b0be-d37a-4fc1-babf-374f9dd73732",
+      "ProfilePictureURL": "https://workoscdn.com/images/v1/sd6fzMASrbcala6Z5NPcZAXKyvUh9pHcL9tbhb-TFPg",
+      "Slug": "user_01jm2ff30dxjzw69w3hr7rd36s",
+      "UpdatedAt": "2025-04-24T09:32:50.884524Z",
+      "UserID": "c5818f81-ae4b-4d17-987f-743f19bdb0ca",
+      "Username": "alexis@confighub.com",
+      "Version": 1
+    }
+  }
+]

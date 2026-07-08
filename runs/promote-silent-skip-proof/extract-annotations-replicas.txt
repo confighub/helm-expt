@@ -1,0 +1,18 @@
+Derived locally from the captured revision-data-*.yaml / unit-data-dev-head.yaml files in this directory
+(metadata.annotations filtered to vault.confighub.com/* keys, spec.replicas).
+
+revision-data-base-rev2.yaml: replicas=1 annotations={}
+revision-data-base-rev3.yaml: replicas=1 annotations={'vault.confighub.com/telemetry': 'enabled'}
+revision-data-base-rev4.yaml: replicas=1 annotations={'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
+revision-data-base-rev5.yaml: replicas=1 annotations={'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable', 'vault.confighub.com/probe': 'three'}
+revision-data-base-rev6.yaml: replicas=1 annotations={'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
+revision-data-dev-rev4.yaml: replicas=1 annotations={'cost.confighub.com/center': 'dev-sandbox'}
+revision-data-dev-rev5.yaml: replicas=1 annotations={'cost.confighub.com/center': 'dev-sandbox', 'vault.confighub.com/telemetry': 'enabled'}
+revision-data-dev-rev6.yaml: replicas=1 annotations={'cost.confighub.com/center': 'dev-sandbox', 'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
+revision-data-prod-rev3.yaml: replicas=3 annotations={}
+revision-data-prod-rev4.yaml: replicas=3 annotations={'vault.confighub.com/telemetry': 'enabled'}
+revision-data-prod-rev5.yaml: replicas=3 annotations={'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
+revision-data-staging-rev3.yaml: replicas=2 annotations={}
+revision-data-staging-rev4.yaml: replicas=2 annotations={'vault.confighub.com/telemetry': 'enabled'}
+revision-data-staging-rev5.yaml: replicas=2 annotations={'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
+unit-data-dev-head.yaml: replicas=1 annotations={'cost.confighub.com/center': 'dev-sandbox', 'vault.confighub.com/telemetry': 'enabled', 'vault.confighub.com/release-track': 'stable'}
