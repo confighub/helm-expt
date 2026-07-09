@@ -33,8 +33,9 @@ const mdPath = join(repoRoot, outDir, "summary.md");
 const htmlPath = join(repoRoot, outDir, "by-variant.html");
 
 const CSV_HEADERS = [
-  "chart", "recipe_version", "base", "quirk_class", "route_name", "lifecycle_phase",
+  "chart", "recipe_version", "base", "route_source_version", "quirk_class", "route_name", "lifecycle_phase",
   "action_kind", "execution_mode", "base_disposition", "automatic", "who_runs", "delta", "reason", "command",
+  "evidence", "next_action", "evidence_required", "source_drift",
 ];
 
 // --- CSV (proven helpers, mirrored from generate-lifecycle-route-actions.mjs) ---
@@ -92,9 +93,9 @@ function whoRuns(execMode, actionKind, disposition) {
     return "Your delivery — an explicit, receipted step";
   }
   if (execMode === "target-owned") {
-    if (actionKind === "preserve-ordering") return "Your applier — applies objects in order, automatically";
+    if (actionKind === "preserve-ordering") return "Your applier — must apply CRDs before dependent objects";
     if (actionKind === "accept-target-policy") return "Your cluster — at uninstall, automatically";
-    if (actionKind === "observe-webhook") return "Your cluster — sets up the webhook certificate, automatically";
+    if (actionKind === "observe-webhook") return "Your delivery and cluster — stage any declared certificate, then check webhook readiness";
     return "Your cluster — handles it automatically";
   }
   if (execMode === "not-yet-executable" || disposition === "blocked") return "Blocked — a prerequisite must be met first";
@@ -103,6 +104,18 @@ function whoRuns(execMode, actionKind, disposition) {
 }
 function cleanCommand(cmd) {
   return (cmd ?? "").replace(/\s*#\s*placeholder\s*$/i, "").trim();
+}
+function evidenceParts(value) {
+  return String(value ?? "").split(/[;|]/).map((part) => part.trim()).filter(Boolean);
+}
+function isRepoEvidencePath(value) {
+  return /^(?:data|docs|packages|recipes|runs|schemas|scripts|site)\//.test(value) && !/\s/.test(value);
+}
+function evidencePaths(value) {
+  return evidenceParts(value).filter(isRepoEvidencePath);
+}
+function evidenceNotes(value) {
+  return evidenceParts(value).filter((part) => !isRepoEvidencePath(part));
 }
 // matrix hook_disposition -> route disposition vocabulary
 function matrixDispToRoute(hd) {
@@ -119,7 +132,7 @@ function matrixDispToRoute(hd) {
 function builtVariants(chart) {
   const base = join(repoRoot, "recipes", chart);
   if (!existsSync(base)) return [];
-  const byBase = new Map();
+  const variants = [];
   for (const ver of readdirSync(base, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
     const vdir = join(base, ver, "variants");
     if (!existsSync(vdir)) continue;
@@ -127,11 +140,10 @@ function builtVariants(chart) {
       const yp = join(vdir, b, "variant.yaml");
       if (!existsSync(yp)) continue;
       const yaml = readYaml(yp);
-      // sorted-asc iteration → highest version wins per base
-      byBase.set(b, { base: b, version: ver, yaml });
+      variants.push({ base: b, version: ver, yaml });
     }
   }
-  return [...byBase.values()].sort((a, b) => a.base.localeCompare(b.base));
+  return variants.sort((a, b) => a.version.localeCompare(b.version) || a.base.localeCompare(b.base));
 }
 function requiredCrds(yaml) {
   const r = yaml?.spec?.targetFacts?.requiredCRDs;
@@ -180,6 +192,11 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       command: cleanCommand(route.human_command),
       delta,
       reason,
+      sourceVersion: route.version,
+      evidence: evidencePaths(route.evidence_or_next_action).join(";"),
+      nextAction: evidenceNotes(route.evidence_or_next_action).join("; "),
+      evidenceRequired: route.evidence_required,
+      sourceDrift: route.source_drift,
     };
   });
 }
@@ -191,11 +208,13 @@ function build() {
     if (!routesByChart.has(a.chart)) routesByChart.set(a.chart, []);
     routesByChart.get(a.chart).push(a);
   }
-  // per-base hook_disposition from the matrix (key chart|base; highest version wins)
+  // Per-version/base hook disposition from the matrix. Keeping the version in
+  // the key prevents a newer chart's route decision from being copied onto an
+  // older render intent without evidence.
   const matrixDisp = new Map();
   for (const row of readCsvObjects(MATRIX_CSV)) {
     if (row.row_kind !== "base") continue;
-    if (row.hook_disposition) matrixDisp.set(`${row.chart}|${row.variant}`, row.hook_disposition);
+    if (row.hook_disposition) matrixDisp.set(`${row.chart}|${row.version}|${row.variant}`, row.hook_disposition);
   }
 
   const charts = [];
@@ -203,14 +222,14 @@ function build() {
   for (const chart of [...routesByChart.keys()].sort()) {
     const chartRoutes = routesByChart.get(chart);
     const variants = builtVariants(chart);
-    const entry = { chart, hasBuiltVariants: variants.length > 1, note: "", variants: [] };
+    const entry = { chart, hasBuiltVariants: new Set(variants.map((variant) => variant.base)).size > 1, note: "", variants: [] };
     if (variants.length === 0) {
       entry.note = "No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.";
       entry.variants.push(emit(chart, { base: "(chart-level)", version: "" }, chartRoutes, null, csvRows, 0));
     } else {
       if (variants.length === 1) entry.note = "One built base — its hook routes do not differ by variant.";
       for (const v of variants) {
-        const md = matrixDisp.get(`${chart}|${v.base}`) ?? null;
+        const md = matrixDisp.get(`${chart}|${v.version}|${v.base}`) ?? null;
         entry.variants.push(emit(chart, v, chartRoutes, md, csvRows, requiredCrds(v.yaml)));
       }
     }
@@ -223,10 +242,11 @@ function emit(chart, variant, chartRoutes, matrixDispVal, csvRows, crdCount) {
   const routes = routesForBase(chartRoutes, variant, matrixDispVal);
   for (const r of routes) {
     csvRows.push({
-      chart, recipe_version: variant.version, base: variant.base, quirk_class: r.quirk_class,
+      chart, recipe_version: variant.version, base: variant.base, route_source_version: r.sourceVersion, quirk_class: r.quirk_class,
       route_name: r.route_name, lifecycle_phase: r.lifecycle_phase, action_kind: r.action_kind,
       execution_mode: r.execution_mode, base_disposition: r.disposition, automatic: "false",
       who_runs: r.whoRuns, delta: r.delta, reason: r.reason, command: r.command,
+      evidence: r.evidence, next_action: r.nextAction, evidence_required: r.evidenceRequired, source_drift: r.sourceDrift,
     });
   }
   return { base: variant.base, recipeVersion: variant.version, requiredCrdCount: crdCount, routes };
@@ -252,7 +272,7 @@ function summaryMd(model) {
     for (const v of c.variants) {
       for (const r of v.routes) {
         const change = r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` (${r.reason})` : ""}`;
-        lines.push(`| ${v.base}${v.requiredCrdCount ? ` (needs ${v.requiredCrdCount} CRDs)` : ""} | ${r.quirk_class} → \`${r.route_name}\` | ${r.whoRuns} | ${change} |`);
+        lines.push(`| ${v.base}@${v.recipeVersion}${v.requiredCrdCount ? ` (needs ${v.requiredCrdCount} CRDs)` : ""} | ${r.quirk_class} → \`${r.route_name}\` | ${r.whoRuns} | ${change} |`);
       }
     }
     lines.push("");
@@ -291,7 +311,7 @@ function summaryHtml(model) {
           <td>${r.delta === "kept" ? '<span class="muted">—</span>' : `<span class="chip ${deltaClass(r.delta)}">${esc(r.delta)}</span>${r.reason ? `<div class="reason">${esc(r.reason)}</div>` : ""}`}</td>
         </tr>`).join("\n");
     return `      <div class="base">
-        <div class="base-h">${esc(v.base)}${v.requiredCrdCount ? ` <span class="muted">· needs ${v.requiredCrdCount} CRDs supplied first</span>` : ""}</div>
+        <div class="base-h">${esc(v.base)}@${esc(v.recipeVersion)}${v.requiredCrdCount ? ` <span class="muted">· needs ${v.requiredCrdCount} CRDs supplied first</span>` : ""}</div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>

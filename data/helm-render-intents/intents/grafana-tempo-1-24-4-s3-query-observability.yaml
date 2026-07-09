@@ -57,7 +57,62 @@ spec:
     variantRoutes:
       []
   targetFacts:
-    status: "no-target-prerequisite-action-recorded"
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+          sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+      requiredObjectStores:
+        -
+          bucket: "tempo-traces"
+          credentialsSecret:
+            accessKey: "access_key"
+            name: "tempo-s3-credentials"
+            secretKey: "secret_key"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+          endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+          kind: "S3CompatibleObjectStore"
+          name: "tempo-object-store"
+          namespace: "tempo"
+          purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+          serviceName: "tempo-object-store"
+      requiredSecrets:
+        -
+          keys:
+            - "access_key"
+            - "secret_key"
+          name: "tempo-s3-credentials"
+          namespace: "tempo"
+          purpose: "S3 access credentials referenced by Tempo environment variables"
+      requiredValues:
+        -
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.endpoint"
+          purpose: "S3-compatible endpoint that Tempo will write traces to"
+          stage: "pre-render"
+        -
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.bucket"
+          purpose: "Existing bucket for Tempo trace blocks"
+          stage: "pre-render"
+        -
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.region"
+          purpose: "Object-store region used with the selected endpoint and bucket"
+          stage: "pre-render"
     actions:
       []
   provenance:
@@ -84,5 +139,6 @@ status:
   claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
   limits:
     - "Candidate and custom-discussion rows are not emitted as runnable render intents."
-    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
     - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

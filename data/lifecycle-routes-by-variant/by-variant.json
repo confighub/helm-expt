@@ -21,7 +21,12 @@
               "whoRuns": "Blocked — a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "8.9.0",
+              "evidence": "data/hook-disposition/evidence/airflow-helm-airflow/evidence.yaml;data/hook-disposition/evidence/airflow-helm-airflow/hook-resources.yaml;data/hook-disposition/evidence/airflow-helm-airflow/live-rehearsal-blocker-receipt.yaml",
+              "nextAction": "decide the supported migration mode (Deployment vs hook Job) at recipe time; rehearse after image preconditions clear; blocked before attempt: dependency closure + image-availability preconditions (see blocker receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -48,7 +53,12 @@
               "whoRuns": "Prerequisite — verify the render before apply",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "1.21.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "verify values-conditional lifecycle Jobs before claiming hook-free; route rendered migration Jobs as managed actions with receipts",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -75,7 +85,12 @@
               "whoRuns": "Prerequisite — supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)"
+              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         },
@@ -95,7 +110,12 @@
               "whoRuns": "Prerequisite — supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)"
+              "reason": "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         },
@@ -115,7 +135,12 @@
               "whoRuns": "Handled — this base installs the CRDs",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "resolved",
-              "reason": "this base installs the required CRDs (observed live)"
+              "reason": "this base installs the required CRDs (observed live)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -142,7 +167,12 @@
               "whoRuns": "Blocked — a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "32.4.3",
+              "evidence": "data/hook-disposition/evidence/bitnami-kafka/evidence.yaml;data/hook-disposition/evidence/bitnami-kafka/hook-resources.yaml;data/hook-disposition/evidence/bitnami-kafka/live-rehearsal-blocker-receipt.yaml",
+              "nextAction": "create an image-override or digest-pinned base, then re-run the provisioning-Job route rehearsal; blocked: pinned default image tag no longer exists upstream (see blocker receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -169,7 +199,12 @@
               "whoRuns": "Blocked — a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "17.0.21",
+              "evidence": "data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/rehearsal-receipt.yaml;data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/render-summary.json;data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/hook-job.yaml",
+              "nextAction": "choose a supported image override or newer chart version, then re-run the provisioning-Job managed-action rehearsal; blocked: pinned MinIO image tags no longer resolve upstream (see rehearsal receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -196,7 +231,12 @@
               "whoRuns": "Blocked — a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "17.3.1",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "create Thanos recipe; distinguish provisioning-off and provisioning-enabled bases; reuse MinIO provisioning receipt shape when the hook renders; none",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -223,7 +263,12 @@
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.214.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "split normal and GKE Autopilot target scopes; route allowlist hooks as preflight and migration Job as lifecycle action with receipt; none",
+              "evidenceRequired": "a recorded target decision plus a live receipt for that scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -250,7 +295,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "0.57.6",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -263,7 +313,12 @@
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "0.57.6",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         }
@@ -290,7 +345,12 @@
               "whoRuns": "Your delivery — a GitOps sync hook (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "10.0.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "treat as a serious-chart review; choose a supported base; confirm whether the vendored hook renders; then write maintained route receipt or hook-inert fact; none",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -317,7 +377,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "7.14.0",
+              "evidence": "data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/evidence.yaml;data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/hook-resources.yaml",
+              "nextAction": "record hook-inert-under-default-values for the default base at recipe time; keep the route plan for postgres-mode bases; none (default base is hook-inert; no rehearsal needed for it)",
+              "evidenceRequired": "a live lifecycle receipt showing this route ran for the supported target scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -344,7 +409,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.2.0",
+              "evidence": "data/hook-disposition/evidence/kong-kong/evidence.yaml;data/hook-disposition/evidence/kong-kong/hook-resources.yaml",
+              "nextAction": "create the recipe with DB-less and postgres bases; rehearse the migration pair against a database; none (postgres-mode rehearsal needs a database and pullable images)",
+              "evidenceRequired": "a live lifecycle receipt showing this route ran for the supported target scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -371,7 +441,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-cleanup-policy",
@@ -384,7 +459,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -397,7 +477,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -410,7 +495,12 @@
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -420,10 +510,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier — applies objects in order, automatically",
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -436,7 +531,12 @@
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         },
@@ -456,7 +556,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-cleanup-policy",
@@ -469,7 +574,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -482,7 +592,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -495,7 +610,12 @@
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -505,10 +625,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier — applies objects in order, automatically",
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
               "command": "",
               "delta": "reduced",
-              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -521,7 +646,12 @@
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
-              "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
+              "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         }
@@ -532,6 +662,272 @@
       "hasBuiltVariants": true,
       "note": "",
       "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "85.3.3",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "85.3.3",
+          "requiredCrdCount": 10,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster — at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "command": "",
+              "delta": "reduced",
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "strengthened",
+              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            }
+          ]
+        },
         {
           "base": "default",
           "recipeVersion": "86.1.0",
@@ -548,7 +944,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -561,7 +962,12 @@
               "whoRuns": "Your delivery — a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -574,7 +980,12 @@
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -587,7 +998,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -597,10 +1013,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier — applies objects in order, automatically",
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -613,7 +1034,12 @@
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -623,10 +1049,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster — sets up the webhook certificate, automatically",
+              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             }
           ]
         },
@@ -646,7 +1077,12 @@
               "whoRuns": "Your cluster — at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -659,7 +1095,12 @@
               "whoRuns": "Your delivery — a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -672,7 +1113,12 @@
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -685,7 +1131,12 @@
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -695,10 +1146,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier — applies objects in order, automatically",
+              "whoRuns": "Your applier — must apply CRDs before dependent objects",
               "command": "",
               "delta": "reduced",
-              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -711,7 +1167,12 @@
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
-              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
+              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -721,10 +1182,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster — sets up the webhook certificate, automatically",
+              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             }
           ]
         }

@@ -35,7 +35,7 @@
     <section>
       <h2>argo-cd/argo-workflows</h2>
       <div class="base">
-        <div class="base-h">controller-default-reviewed <span class="muted">· needs 8 CRDs supplied first</span></div>
+        <div class="base-h">controller-default-reviewed@1.0.14 <span class="muted">· needs 8 CRDs supplied first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -48,7 +48,7 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">default <span class="muted">· needs 8 CRDs supplied first</span></div>
+        <div class="base-h">default@1.0.14 <span class="muted">· needs 8 CRDs supplied first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -61,7 +61,7 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">minimal-crds</div>
+        <div class="base-h">minimal-crds@1.0.14</div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -77,7 +77,7 @@
     <section>
       <h2>kyverno/kyverno</h2>
       <div class="base">
-        <div class="base-h">default</div>
+        <div class="base-h">default@3.8.1</div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -103,7 +103,7 @@
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — applies objects in order, automatically</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -115,7 +115,7 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">no-crds <span class="muted">· needs 22 CRDs supplied first</span></div>
+        <div class="base-h">no-crds@3.8.1 <span class="muted">· needs 22 CRDs supplied first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -141,7 +141,7 @@
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — applies objects in order, automatically</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
           <td><span class="chip gray">reduced</span><div class="reason">CRD-first ordering is not needed in a base that installs no CRDs</div></td>
         </tr>
         <tr>
@@ -156,7 +156,7 @@
     <section>
       <h2>prometheus-community/kube-prometheus-stack</h2>
       <div class="base">
-        <div class="base-h">default</div>
+        <div class="base-h">default@85.3.3</div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -182,7 +182,7 @@
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — applies objects in order, automatically</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -192,14 +192,14 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your cluster — sets up the webhook certificate, automatically</span></td>
+          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
         </table>
       </div>
       <div class="base">
-        <div class="base-h">no-crds <span class="muted">· needs 10 CRDs supplied first</span></div>
+        <div class="base-h">no-crds@85.3.3 <span class="muted">· needs 10 CRDs supplied first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -225,7 +225,7 @@
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — applies objects in order, automatically</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
           <td><span class="chip gray">reduced</span><div class="reason">CRD-first ordering is not needed in a base that installs no CRDs</div></td>
         </tr>
         <tr>
@@ -235,7 +235,93 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your cluster — sets up the webhook certificate, automatically</span></td>
+          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="base">
+        <div class="base-h">default@86.1.0</div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
+          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">postsync-check-or-observation</span></td>
+          <td><span class="chip green">Your delivery — a post-apply check (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">preflight-or-presync</span></td>
+          <td><span class="chip green">Your delivery — a preflight step before apply (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
+          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="base">
+        <div class="base-h">no-crds@86.1.0 <span class="muted">· needs 10 CRDs supplied first</span></div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
+          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">postsync-check-or-observation</span></td>
+          <td><span class="chip green">Your delivery — a post-apply check (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">preflight-or-presync</span></td>
+          <td><span class="chip green">Your delivery — a preflight step before apply (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
+          <td><span class="chip gray">reduced</span><div class="reason">CRD-first ordering is not needed in a base that installs no CRDs</div></td>
+        </tr>
+        <tr>
+          <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
+          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="chip amber">strengthened</span><div class="reason">this base needs 10 CRDs supplied before deploy (the default base installs them for you)</div></td>
+        </tr>
+        <tr>
+          <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
+          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>

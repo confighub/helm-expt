@@ -232,14 +232,21 @@
           "type": "object",
           "required": [
             "status",
+            "declared",
             "actions"
           ],
           "properties": {
             "status": {
               "type": "string"
             },
+            "declared": {
+              "type": "object",
+              "description": "Target facts declared by the base variant, including required Secrets, CRDs, namespaces, values, storage, DNS names, or topology.",
+              "additionalProperties": true
+            },
             "actions": {
               "type": "array",
+              "description": "Follow-up action records derived from observed prerequisite failures. These are separate from the base declaration.",
               "items": {
                 "type": "object"
               }

@@ -9,7 +9,9 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 - The row is a real base variant, not a candidate row.
 - The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
-- Lifecycle routes and target-prerequisite actions are attached when committed data exists.
+- Target facts declared in the base variant are copied onto the object.
+- Lifecycle routes are attached by exact chart version and base, including the recorded Argo CD and Flux handling.
+- Action records derived from observed prerequisite failures stay separate from declared target facts.
 
 ## What It Does Not Claim
 
@@ -23,4 +25,4 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 
 Generated objects: 199.
 
-The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix and joined route/prerequisite data.
+The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix, variant declarations, or joined route/prerequisite data.

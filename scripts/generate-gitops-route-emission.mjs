@@ -22,7 +22,7 @@ const csvPath = join(repoRoot, outDir, "emission.csv");
 const jsonPath = join(repoRoot, outDir, "emission.json");
 const mdPath = join(repoRoot, outDir, "summary.md");
 const htmlPath = join(repoRoot, outDir, "emission.html");
-const CSV_HEADERS = ["chart", "base", "route_name", "action_kind", "emit", "argo", "flux"];
+const CSV_HEADERS = ["chart", "recipe_version", "base", "route_name", "action_kind", "emit", "argo", "flux"];
 
 function csvCell(v) { const t = v === undefined || v === null ? "" : String(v); return /[",\n]/.test(t) ? `"${t.replaceAll('"', '""')}"` : t; }
 function toCsv(headers, rows) { return `${[headers.join(","), ...rows.map((r) => headers.map((h) => csvCell(r[h])).join(","))].join("\n")}\n`; }
@@ -39,7 +39,23 @@ function argoSnippet(hook, wave, syncOptions) {
 function emissionFor(route) {
   const kind = route.action_kind;
   const phase = route.lifecycle_phase;
-  if (kind === "preserve-ordering" || kind === "accept-target-policy" || kind === "observe-webhook") {
+  if (kind === "preserve-ordering") {
+    return {
+      emit: false,
+      argo: "no extra hook — keep CRDs before dependent objects",
+      flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+      snippet: "",
+    };
+  }
+  if (kind === "observe-webhook") {
+    return {
+      emit: false,
+      argo: "observe webhook and workload health after sync",
+      flux: "use post-apply health checks; stage any declared certificate first",
+      snippet: "",
+    };
+  }
+  if (kind === "accept-target-policy") {
     return { emit: false, argo: "none — your cluster handles it", flux: "none — your cluster handles it", snippet: "" };
   }
   if (kind === "stage-target-facts") {
@@ -82,9 +98,10 @@ function build() {
     hasBuiltVariants: c.hasBuiltVariants,
     variants: c.variants.map((v) => ({
       base: v.base,
+      recipeVersion: v.recipeVersion,
       routes: v.routes.map((r) => {
         const e = emissionFor(r);
-        csvRows.push({ chart: c.chart, base: v.base, route_name: r.route_name, action_kind: r.action_kind, emit: e.emit ? "yes" : "no", argo: e.argo, flux: e.flux });
+        csvRows.push({ chart: c.chart, recipe_version: v.recipeVersion, base: v.base, route_name: r.route_name, action_kind: r.action_kind, emit: e.emit ? "yes" : "no", argo: e.argo, flux: e.flux });
         return { route_name: r.route_name, action_kind: r.action_kind, quirk_class: r.quirk_class, ...e };
       }),
     })),
@@ -107,7 +124,7 @@ function summaryMd(model) {
     lines.push("| Base | Route | Argo CD | Flux |");
     lines.push("| --- | --- | --- | --- |");
     for (const v of c.variants) {
-      for (const r of v.routes) lines.push(`| ${v.base} | ${r.quirk_class} → \`${r.route_name}\` | ${r.argo} | ${r.flux} |`);
+      for (const r of v.routes) lines.push(`| ${v.base}@${v.recipeVersion} | ${r.quirk_class} → \`${r.route_name}\` | ${r.argo} | ${r.flux} |`);
     }
     lines.push("");
   }
@@ -125,7 +142,7 @@ function summaryMd(model) {
 function summaryHtml(model) {
   const withV = model.charts.filter((c) => c.hasBuiltVariants);
   const section = (c) => `    <section><h2>${esc(c.chart)}</h2>${c.variants.map((v) => `
-      <h4>${esc(v.base)}</h4>
+      <h4>${esc(v.base)}@${esc(v.recipeVersion)}</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
 ${v.routes.map((r) => `        <tr><td>${esc(r.quirk_class)} <span class="rt">${esc(r.route_name)}</span></td><td>${r.emit ? `<span class="chip ok">${esc(r.argo)}</span>` : `<span class="chip muted">${esc(r.argo)}</span>`}</td><td>${esc(r.flux)}</td></tr>`).join("\n")}
       </tbody></table>`).join("\n")}

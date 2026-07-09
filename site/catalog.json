@@ -32,6 +32,7 @@
     "lifecycleRoutes": "data/lifecycle-routes/routes.json",
     "lifecycleRouteActions": "data/lifecycle-route-actions/actions.json",
     "lifecycleByVariant": "data/lifecycle-routes-by-variant/by-variant.json",
+    "gitopsRouteEmission": "data/gitops-route-emission/emission.json",
     "helmCatalogReadmes": "data/helm-catalog-readmes/readmes.csv",
     "installerOciPackages": "data/installer-oci-packages/packages.csv",
     "chartSkills": "data/chart-skills/skills.json",
@@ -20691,6 +20692,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://aquasecurity.github.io/helm-charts/"
     },
@@ -20715,6 +20718,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "12",
       "target_fact_action_count": "0",
       "source_repository_url": "https://aquasecurity.github.io/helm-charts/"
     },
@@ -20739,6 +20744,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20763,6 +20770,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "4",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20787,6 +20796,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20811,6 +20822,8 @@
       "variant_promotion": "missing-confighub-proof",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "4",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20835,6 +20848,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20859,6 +20874,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20883,6 +20900,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20907,6 +20926,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20931,6 +20952,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "todo",
       "lifecycle_route_count": "1",
+      "gitops_route_count": "1",
+      "declared_target_fact_count": "8",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20955,6 +20978,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "todo",
       "lifecycle_route_count": "1",
+      "gitops_route_count": "1",
+      "declared_target_fact_count": "8",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -20979,6 +21004,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "todo",
       "lifecycle_route_count": "1",
+      "gitops_route_count": "1",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -21003,6 +21030,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://argoproj.github.io/argo-helm"
     },
@@ -21027,6 +21056,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/autoscaler"
     },
@@ -21051,6 +21082,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://kubernetes.github.io/autoscaler"
     },
@@ -21075,6 +21108,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/autoscaler"
     },
@@ -21099,6 +21134,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/autoscaler"
     },
@@ -21123,6 +21160,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
     },
@@ -21147,6 +21186,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21171,6 +21212,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21195,6 +21238,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21219,6 +21264,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21243,6 +21290,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21267,6 +21316,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21291,6 +21342,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21315,6 +21368,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21339,6 +21394,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21363,6 +21420,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21387,6 +21446,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21411,6 +21472,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21435,6 +21498,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21459,6 +21524,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21483,6 +21550,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21507,6 +21576,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21531,6 +21602,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21555,6 +21628,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21579,6 +21654,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21603,6 +21680,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21627,6 +21706,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21651,6 +21732,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21675,6 +21758,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21699,6 +21784,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21723,6 +21810,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21747,6 +21836,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21771,6 +21862,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21795,6 +21888,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21819,6 +21914,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21843,6 +21940,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21867,6 +21966,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21891,6 +21992,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21915,6 +22018,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21939,6 +22044,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21963,6 +22070,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -21987,6 +22096,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22011,6 +22122,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22035,6 +22148,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22059,6 +22174,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22083,6 +22200,8 @@
       "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22107,6 +22226,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22131,6 +22252,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22155,6 +22278,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22179,6 +22304,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22203,6 +22330,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22227,6 +22356,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.bitnami.com/bitnami"
     },
@@ -22251,6 +22382,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://cloudnative-pg.github.io/charts"
     },
@@ -22275,6 +22408,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "11",
       "target_fact_action_count": "0",
       "source_repository_url": "https://cloudnative-pg.github.io/charts"
     },
@@ -22299,6 +22434,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://coredns.github.io/helm"
     },
@@ -22323,6 +22460,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.crossplane.io/stable"
     },
@@ -22347,6 +22486,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/descheduler/"
     },
@@ -22371,6 +22512,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://charts.dexidp.io"
     },
@@ -22395,6 +22538,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22419,6 +22564,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22443,6 +22590,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22467,6 +22616,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22491,6 +22642,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22515,6 +22668,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22539,6 +22694,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22563,6 +22720,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22587,6 +22746,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://helm.elastic.co"
     },
@@ -22611,6 +22772,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/external-dns/"
     },
@@ -22635,6 +22798,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/external-dns/"
     },
@@ -22659,6 +22824,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/external-dns/"
     },
@@ -22683,6 +22850,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.external-secrets.io"
     },
@@ -22707,6 +22876,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "24",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.external-secrets.io"
     },
@@ -22731,6 +22902,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.fairwinds.com/stable"
     },
@@ -22755,6 +22928,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "1",
       "source_repository_url": "https://charts.fairwinds.com/stable"
     },
@@ -22779,6 +22954,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "3",
       "target_fact_action_count": "1",
       "source_repository_url": "https://charts.fairwinds.com/stable"
     },
@@ -22803,6 +22980,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://falcosecurity.github.io/charts"
     },
@@ -22827,6 +23006,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://falcosecurity.github.io/charts"
     },
@@ -22851,6 +23032,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "2",
+      "gitops_route_count": "2",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://fluent.github.io/helm-charts"
     },
@@ -22875,6 +23058,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://fluent.github.io/helm-charts"
     },
@@ -22899,6 +23084,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://open-policy-agent.github.io/gatekeeper/charts"
     },
@@ -22923,6 +23110,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "17",
       "target_fact_action_count": "0",
       "source_repository_url": "https://open-policy-agent.github.io/gatekeeper/charts"
     },
@@ -22947,6 +23136,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://charts.gitlab.io"
     },
@@ -22971,6 +23162,8 @@
       "variant_promotion": "blocked",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -22995,6 +23188,8 @@
       "variant_promotion": "blocked",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23019,6 +23214,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23043,6 +23240,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23067,6 +23266,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23091,6 +23292,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23115,6 +23318,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23139,6 +23344,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23163,6 +23370,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23187,6 +23396,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23211,6 +23422,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23235,6 +23448,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23259,6 +23474,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23283,6 +23500,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "6",
       "target_fact_action_count": "0",
       "source_repository_url": "https://grafana.github.io/helm-charts"
     },
@@ -23307,6 +23526,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://haproxytech.github.io/helm-charts"
     },
@@ -23331,6 +23552,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23355,6 +23578,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "4",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23379,6 +23604,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23403,6 +23630,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23427,6 +23656,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23451,6 +23682,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23475,6 +23708,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://helm.releases.hashicorp.com"
     },
@@ -23499,6 +23734,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/ingress-nginx"
     },
@@ -23523,6 +23760,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/ingress-nginx"
     },
@@ -23547,6 +23786,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes.github.io/ingress-nginx"
     },
@@ -23571,6 +23812,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://istio-release.storage.googleapis.com/charts"
     },
@@ -23595,6 +23838,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://istio-release.storage.googleapis.com/charts"
     },
@@ -23619,6 +23864,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://istio-release.storage.googleapis.com/charts"
     },
@@ -23643,6 +23890,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://jaegertracing.github.io/helm-charts"
     },
@@ -23667,6 +23916,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://jaegertracing.github.io/helm-charts"
     },
@@ -23691,6 +23942,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://jaegertracing.github.io/helm-charts"
     },
@@ -23715,6 +23968,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.jetstack.io"
     },
@@ -23739,6 +23994,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.jetstack.io"
     },
@@ -23763,6 +24020,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "6",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.jetstack.io"
     },
@@ -23787,6 +24046,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "4",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.jetstack.io"
     },
@@ -23811,6 +24072,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "5",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.jetstack.io"
     },
@@ -23835,6 +24098,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kedacore.github.io/charts"
     },
@@ -23859,6 +24124,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://kedacore.github.io/charts"
     },
@@ -23883,6 +24150,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "6",
+      "gitops_route_count": "6",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kyverno.github.io/kyverno/"
     },
@@ -23907,6 +24176,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "6",
+      "gitops_route_count": "6",
+      "declared_target_fact_count": "22",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kyverno.github.io/kyverno/"
     },
@@ -23931,6 +24202,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kyverno.github.io/kyverno/"
     },
@@ -23955,6 +24228,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.linkerd.io/stable"
     },
@@ -23979,6 +24254,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.longhorn.io"
     },
@@ -24003,6 +24280,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.longhorn.io"
     },
@@ -24027,6 +24306,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/metrics-server/"
     },
@@ -24051,6 +24332,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "2",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/metrics-server/"
     },
@@ -24075,6 +24358,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://operator.min.io"
     },
@@ -24099,6 +24384,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://operator.min.io"
     },
@@ -24123,6 +24410,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24147,6 +24436,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24171,6 +24462,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24195,6 +24488,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24219,6 +24514,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24243,6 +24540,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://nats-io.github.io/k8s/helm/charts/"
     },
@@ -24267,6 +24566,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/"
     },
@@ -24291,6 +24592,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "3",
       "target_fact_action_count": "0",
       "source_repository_url": "https://open-telemetry.github.io/opentelemetry-helm-charts"
     },
@@ -24315,6 +24618,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "7",
       "target_fact_action_count": "0",
       "source_repository_url": "https://open-telemetry.github.io/opentelemetry-helm-charts"
     },
@@ -24339,6 +24644,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "2",
       "source_repository_url": "https://opencost.github.io/opencost-helm-chart"
     },
@@ -24363,6 +24670,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24387,6 +24696,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24411,6 +24722,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24435,6 +24748,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24459,6 +24774,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24483,6 +24800,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://percona.github.io/percona-helm-charts/"
     },
@@ -24507,6 +24826,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://docs.tigera.io/calico/charts"
     },
@@ -24531,6 +24852,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24555,6 +24878,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24579,6 +24904,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "7",
+      "gitops_route_count": "7",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24603,6 +24930,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "7",
+      "gitops_route_count": "7",
+      "declared_target_fact_count": "11",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24627,6 +24956,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "7",
+      "gitops_route_count": "7",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24651,6 +24982,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "7",
+      "gitops_route_count": "7",
+      "declared_target_fact_count": "11",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24675,6 +25008,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24699,6 +25034,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24723,6 +25060,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24747,6 +25086,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24771,6 +25112,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24795,6 +25138,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24819,6 +25164,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24843,6 +25190,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24867,6 +25216,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24891,6 +25242,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24915,6 +25268,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24939,6 +25294,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "1",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24963,6 +25320,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -24987,6 +25346,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -25011,6 +25372,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://prometheus-community.github.io/helm-charts"
     },
@@ -25035,6 +25398,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "5",
       "target_fact_action_count": "2",
       "source_repository_url": "https://charts.rook.io/release"
     },
@@ -25059,6 +25424,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://charts.rook.io/release"
     },
@@ -25083,6 +25450,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://helm.runix.net"
     },
@@ -25107,6 +25476,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://bitnami-labs.github.io/sealed-secrets"
     },
@@ -25131,6 +25502,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://bitnami-labs.github.io/sealed-secrets"
     },
@@ -25155,6 +25528,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
     },
@@ -25179,6 +25554,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts"
     },
@@ -25203,6 +25580,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://stakater.github.io/stakater-charts"
     },
@@ -25227,6 +25606,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://stakater.github.io/stakater-charts"
     },
@@ -25251,6 +25632,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://strimzi.io/charts/"
     },
@@ -25275,6 +25658,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://strimzi.io/charts/"
     },
@@ -25299,6 +25684,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://traefik.github.io/charts"
     },
@@ -25323,6 +25710,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://traefik.github.io/charts"
     },
@@ -25347,6 +25736,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://vmware-tanzu.github.io/helm-charts"
     },
@@ -25371,6 +25762,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "1",
       "source_repository_url": "https://vmware-tanzu.github.io/helm-charts"
     },
@@ -25395,6 +25788,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://victoriametrics.github.io/helm-charts"
     },
@@ -25419,6 +25814,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://victoriametrics.github.io/helm-charts"
     },
@@ -25443,6 +25840,8 @@
       "variant_promotion": "proven",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
+      "gitops_route_count": "0",
+      "declared_target_fact_count": "0",
       "target_fact_action_count": "0",
       "source_repository_url": "https://victoriametrics.github.io/helm-charts"
     }
@@ -28315,7 +28714,12 @@
               "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "8.9.0",
+              "evidence": "data/hook-disposition/evidence/airflow-helm-airflow/evidence.yaml;data/hook-disposition/evidence/airflow-helm-airflow/hook-resources.yaml;data/hook-disposition/evidence/airflow-helm-airflow/live-rehearsal-blocker-receipt.yaml",
+              "nextAction": "decide the supported migration mode (Deployment vs hook Job) at recipe time; rehearse after image preconditions clear; blocked before attempt: dependency closure + image-availability preconditions (see blocker receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28342,7 +28746,12 @@
               "whoRuns": "Prerequisite - verify the render before apply",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "1.21.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "verify values-conditional lifecycle Jobs before claiming hook-free; route rendered migration Jobs as managed actions with receipts",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28369,7 +28778,12 @@
               "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)"
+              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         },
@@ -28389,7 +28803,12 @@
               "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)"
+              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         },
@@ -28409,7 +28828,12 @@
               "whoRuns": "Handled - this base installs the CRDs",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "resolved",
-              "reason": "this base installs the required CRDs (observed live)"
+              "reason": "this base installs the required CRDs (observed live)",
+              "sourceVersion": "1.0.14",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28436,7 +28860,12 @@
               "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "32.4.3",
+              "evidence": "data/hook-disposition/evidence/bitnami-kafka/evidence.yaml;data/hook-disposition/evidence/bitnami-kafka/hook-resources.yaml;data/hook-disposition/evidence/bitnami-kafka/live-rehearsal-blocker-receipt.yaml",
+              "nextAction": "create an image-override or digest-pinned base, then re-run the provisioning-Job route rehearsal; blocked: pinned default image tag no longer exists upstream (see blocker receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28463,7 +28892,12 @@
               "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "17.0.21",
+              "evidence": "data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/rehearsal-receipt.yaml;data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/render-summary.json;data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/hook-job.yaml",
+              "nextAction": "choose a supported image override or newer chart version, then re-run the provisioning-Job managed-action rehearsal; blocked: pinned MinIO image tags no longer resolve upstream (see rehearsal receipt)",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28490,7 +28924,12 @@
               "whoRuns": "Blocked - a prerequisite must be met first",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "17.3.1",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "create Thanos recipe; distinguish provisioning-off and provisioning-enabled bases; reuse MinIO provisioning receipt shape when the hook renders; none",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28517,7 +28956,12 @@
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.214.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "split normal and GKE Autopilot target scopes; route allowlist hooks as preflight and migration Job as lifecycle action with receipt; none",
+              "evidenceRequired": "a recorded target decision plus a live receipt for that scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28544,7 +28988,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "0.57.6",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -28557,7 +29006,12 @@
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "0.57.6",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28584,7 +29038,12 @@
               "whoRuns": "Your delivery - a GitOps sync hook (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "10.0.0",
+              "evidence": "data/hook-route-candidates/candidates.csv",
+              "nextAction": "treat as a serious-chart review; choose a supported base; confirm whether the vendored hook renders; then write maintained route receipt or hook-inert fact; none",
+              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28611,7 +29070,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "7.14.0",
+              "evidence": "data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/evidence.yaml;data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/hook-resources.yaml",
+              "nextAction": "record hook-inert-under-default-values for the default base at recipe time; keep the route plan for postgres-mode bases; none (default base is hook-inert; no rehearsal needed for it)",
+              "evidenceRequired": "a live lifecycle receipt showing this route ran for the supported target scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28638,7 +29102,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.2.0",
+              "evidence": "data/hook-disposition/evidence/kong-kong/evidence.yaml;data/hook-disposition/evidence/kong-kong/hook-resources.yaml",
+              "nextAction": "create the recipe with DB-less and postgres bases; rehearse the migration pair against a database; none (postgres-mode rehearsal needs a database and pullable images)",
+              "evidenceRequired": "a live lifecycle receipt showing this route ran for the supported target scope",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28665,7 +29134,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-cleanup-policy",
@@ -28678,7 +29152,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -28691,7 +29170,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -28704,7 +29188,12 @@
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -28714,10 +29203,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier - applies objects in order, automatically",
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -28730,7 +29224,12 @@
               "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         },
@@ -28750,7 +29249,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-cleanup-policy",
@@ -28763,7 +29267,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -28776,7 +29285,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "explicit-test-check",
@@ -28789,7 +29303,12 @@
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -28799,10 +29318,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier - applies objects in order, automatically",
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
               "command": "",
               "delta": "reduced",
-              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -28815,7 +29339,12 @@
               "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
-              "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)"
+              "reason": "this base needs 22 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "3.8.1",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
             }
           ]
         }
@@ -28826,6 +29355,272 @@
       "hasBuiltVariants": true,
       "note": "",
       "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "85.3.3",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster - at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery and cluster - stage any declared certificate, then check webhook readiness",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "85.3.3",
+          "requiredCrdCount": 10,
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "accept-target-policy",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your cluster - at uninstall, automatically",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "post-apply",
+              "action_kind": "run-check",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a post-apply check (receipted)",
+              "command": "",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
+              "command": "",
+              "delta": "reduced",
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "quirk_class": "target-facts",
+              "lifecycle_phase": "preflight",
+              "action_kind": "stage-target-facts",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
+              "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
+              "delta": "strengthened",
+              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "quirk_class": "webhook-readiness",
+              "lifecycle_phase": "observe",
+              "action_kind": "observe-webhook",
+              "execution_mode": "target-owned",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery and cluster - stage any declared certificate, then check webhook readiness",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            }
+          ]
+        },
         {
           "base": "default",
           "recipeVersion": "86.1.0",
@@ -28842,7 +29637,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -28855,7 +29655,12 @@
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -28868,7 +29673,12 @@
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -28881,7 +29691,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -28891,10 +29706,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier - applies objects in order, automatically",
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -28907,7 +29727,12 @@
               "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -28917,10 +29742,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster - sets up the webhook certificate, automatically",
+              "whoRuns": "Your delivery and cluster - stage any declared certificate, then check webhook readiness",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             }
           ]
         },
@@ -28940,7 +29770,12 @@
               "whoRuns": "Your cluster - at uninstall, automatically",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -28953,7 +29788,12 @@
               "whoRuns": "Your delivery - a post-apply check (receipted)",
               "command": "",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -28966,7 +29806,12 @@
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -28979,7 +29824,12 @@
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -28989,10 +29839,15 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your applier - applies objects in order, automatically",
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
               "command": "",
               "delta": "reduced",
-              "reason": "CRD-first ordering is not needed in a base that installs no CRDs"
+              "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -29005,7 +29860,12 @@
               "whoRuns": "Prerequisite - supply once (Secret / CRD / storage), like values",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
-              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
+              "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -29015,10 +29875,695 @@
               "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Your cluster - sets up the webhook certificate, automatically",
+              "whoRuns": "Your delivery and cluster - stage any declared certificate, then check webhook readiness",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
-              "reason": ""
+              "reason": "",
+              "sourceVersion": "85.3.0",
+              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "gitopsRouteEmission": [
+    {
+      "chart": "airflow-helm/airflow",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "apache-airflow/airflow",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "recipe-time-lifecycle-verification",
+              "action_kind": "verify-render",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "controller-default-reviewed",
+          "recipeVersion": "1.0.14",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "1.0.14",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        },
+        {
+          "base": "minimal-crds",
+          "recipeVersion": "1.0.14",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync-crd-apply",
+              "action_kind": "install-crd",
+              "quirk_class": "crd-install",
+              "emit": true,
+              "argo": "PreSync · sync-wave -2 · ServerSideApply",
+              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/kafka",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/minio",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "bitnami/thanos",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "explicit-managed-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "datadog/datadog",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "target-class-preflight-and-upgrade-action",
+              "action_kind": "run-preflight",
+              "quirk_class": "per-target-hook",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "fluent/fluent-bit",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "0.57.6",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "gitlab/gitlab",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "argocd-or-flux-lifecycle-hook",
+              "action_kind": "gitops-sync-hook",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "native sync hook - this is already the GitOps path",
+              "flux": "native sync hook",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "k8s-dashboard/kubernetes-dashboard",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kong/kong",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "(chart-level)",
+          "recipeVersion": "",
+          "routes": [
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "3.8.1",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "3.8.1",
+          "routes": [
+            {
+              "route_name": "delete-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "explicit-test-check",
+              "action_kind": "run-test",
+              "quirk_class": "hook-test",
+              "emit": true,
+              "argo": "PostSync test Job (Argo has no native helm test)",
+              "flux": "HelmRelease .spec.test.enable=true",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "85.3.3",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "85.3.3",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none - your cluster handles it",
+              "flux": "none - your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none - supply the inputs before sync",
+              "flux": "none - supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
             }
           ]
         }

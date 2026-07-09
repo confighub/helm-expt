@@ -641,15 +641,15 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
       <h4>default</h4><div class="card"><table>
-        <thead><tr><th>Hook (route)</th><th>After you deploy, who runs it?</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>-</td></tr></tbody>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <tbody><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>none - your cluster handles it</td><td>none - your cluster handles it</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>PostSync test Job (Argo has no native helm test)</td><td>HelmRelease .spec.test.enable=true</td><td>-</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style>
+      </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-lifecycle/receipt-index.csv">data/hook-lifecycle/receipt-index.csv</a><br><a href="../../data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml">data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml</a></p>
     </section>
 
     <section aria-labelledby="production">

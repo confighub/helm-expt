@@ -66,6 +66,7 @@ const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "int
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
+const gitopsRouteEmissionJsonPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
@@ -390,6 +391,7 @@ function buildSite(generatedAt) {
     automatic: lifecycleRouteActions.filter((action) => action.automatic === true || action.automatic === "true").length,
   };
   const lifecycleByVariant = existsSync(lifecycleByVariantJsonPath) ? JSON.parse(readFileSync(lifecycleByVariantJsonPath, "utf8")).charts : [];
+  const gitopsRouteEmission = existsSync(gitopsRouteEmissionJsonPath) ? JSON.parse(readFileSync(gitopsRouteEmissionJsonPath, "utf8")).charts : [];
   const chartSkills = existsSync(chartSkillsJsonPath) ? JSON.parse(readFileSync(chartSkillsJsonPath, "utf8")).charts : [];
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
@@ -484,6 +486,7 @@ function buildSite(generatedAt) {
       lifecycleRoutes: "data/lifecycle-routes/routes.json",
       lifecycleRouteActions: "data/lifecycle-route-actions/actions.json",
       lifecycleByVariant: "data/lifecycle-routes-by-variant/by-variant.json",
+      gitopsRouteEmission: "data/gitops-route-emission/emission.json",
       helmCatalogReadmes: "data/helm-catalog-readmes/readmes.csv",
       installerOciPackages: "data/installer-oci-packages/packages.csv",
       chartSkills: "data/chart-skills/skills.json",
@@ -554,6 +557,7 @@ function buildSite(generatedAt) {
     helmCatalogReadmes,
     installerOciPackages,
     lifecycleByVariant,
+    gitopsRouteEmission,
     matrixDisposition,
     chartSkills: publicChartSkills,
     chartEvidenceRouter: publicChartEvidenceRouter,
@@ -1494,6 +1498,7 @@ em{font-style:italic;color:var(--ink);}
     <h3>Route: the work Helm leaves at the edges</h3>
     <p>Helm can do more than produce ordinary YAML. A chart may install CRDs first, run setup jobs, create webhook certificates, generate Secrets, or expect a cloud account, StorageClass, IngressClass, namespace, or existing Secret to be ready.</p>
     <p>We help you make the right choice for each chart, then track that choice with recorded inputs, generated output, tests, and receipts. For each base variant, the catalog records the decision: include the CRDs, offer a no-CRDs base variant because the cluster owns them, run a tested setup step, require an existing Secret or target fact, or mark the path blocked when there is no safe default. A route is that recorded choice and evidence boundary. It is not automatic execution unless the route says so and the evidence proves it.</p>
+    <p>The render intent separates requirements declared by the base from follow-up actions learned in live tests. For a recorded lifecycle route, it also says what Argo CD does and what Flux does for that exact chart version and base.</p>
   </div>
 
   <div class="fstage star">
@@ -3550,15 +3555,30 @@ function knownGapsHtml(catalog) {
 `;
 }
 
-function whoRunsVariantTables(c) {
+function whoRunsVariantTables(c, emissionChart = null) {
+  const showVersion = new Set(c.variants.map((variant) => variant.recipeVersion).filter(Boolean)).size > 1;
   return c.variants.map((v) => {
-    const rows = v.routes.map((r) => [
-      `${r.quirk_class} (${r.route_name})`,
-      r.whoRuns,
-      r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` — ${r.reason}` : ""}`,
-    ]);
-    const heading = `${v.base}${v.requiredCrdCount ? `: needs ${v.requiredCrdCount} CRDs supplied first` : ""}`;
-    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook (route)", "After you deploy, who runs it?", "Change for this variant"], ...rows])}`;
+    const emissionVariant = emissionChart?.variants?.find((candidate) =>
+      candidate.base === v.base && (!candidate.recipeVersion || candidate.recipeVersion === v.recipeVersion));
+    const rows = v.routes.map((r) => {
+      const emission = emissionVariant?.routes?.find((candidate) =>
+        candidate.route_name === r.route_name && candidate.action_kind === r.action_kind);
+      return [
+        `${r.quirk_class} (${r.route_name})`,
+        r.whoRuns,
+        emission?.argo || "No Argo CD step recorded.",
+        emission?.flux || "No Flux step recorded.",
+        r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` — ${r.reason}` : ""}`,
+      ];
+    });
+    const evidence = [...new Set(v.routes.flatMap((route) => splitDisposition(route.evidence)))];
+    const nextActions = [...new Set(v.routes.map((route) => route.nextAction).filter(Boolean))];
+    const version = showVersion && v.recipeVersion ? `@${v.recipeVersion}` : "";
+    const heading = `${v.base}${version}${v.requiredCrdCount ? `: needs ${v.requiredCrdCount} CRDs supplied first` : ""}`;
+    const evidenceLine = evidence.length || nextActions.length
+      ? `<p class="small">${evidence.length ? `<strong>Evidence:</strong> ${pathLinks(evidence.join(";"))}` : ""}${evidence.length && nextActions.length ? "<br>" : ""}${nextActions.length ? `<strong>Next:</strong> ${escapeHtml(nextActions.join("; "))}` : ""}</p>`
+      : "";
+    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook or setup step", "Who handles it?", "Argo CD", "Flux", "Change for this variant"], ...rows])}${evidenceLine}`;
   }).join("\n");
 }
 
@@ -3567,7 +3587,10 @@ function hooksWhoRunsSection(catalog) {
   if (!charts.length) return "";
   const withVariants = charts.filter((c) => c.hasBuiltVariants);
   const flat = charts.filter((c) => !c.hasBuiltVariants);
-  const chartBlock = (c) => `<div class="card"><h3>${escapeHtml(c.chart)}</h3>${whoRunsVariantTables(c)}</div>`;
+  const chartBlock = (c) => {
+    const emission = (catalog.gitopsRouteEmission ?? []).find((candidate) => candidate.chart === c.chart);
+    return `<div class="card"><h3>${escapeHtml(c.chart)}</h3>${whoRunsVariantTables(c, emission)}</div>`;
+  };
   return `
     <section aria-labelledby="whoruns">
       <h2 id="whoruns">After You Deploy, Who Runs Each Hook?</h2>
@@ -5227,6 +5250,16 @@ function chartPageHtml(catalog, entry) {
   const packageRequirementTableRows = packageRequirementRows.length
     ? packageRequirementRows
     : [["None recorded for the recommended base variant.", "No separate setup command recorded."]];
+  const basePrerequisiteRows = matrixRows
+    .filter((row) => row.row_kind === "base")
+    .flatMap((row) => packageRequirementsForBase(entry, row.variant).map((requirement) => [
+      row.variant,
+      requirement.name || requirement.kind || "required target input",
+      requirement.suggestedSource
+        ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
+        : "Create or confirm this before apply.",
+      `<a href="../../data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}">full render intent</a>`,
+    ]));
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
     ["Helm render intents", "data/helm-render-intents/summary.md"],
@@ -5254,7 +5287,7 @@ function chartPageHtml(catalog, entry) {
     ["Live Helm-vs-ConfigHub", baseRows.length ? allBaseStatus(baseRows, "live_helm_vs_confighub_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_live_dual_parity")],
     ["Two-cluster kind", baseRows.length ? allBaseStatus(baseRows, "two_cluster_kind_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_two_cluster_kind")],
   ];
-  const lifecycleRoutes = catalog.lifecycleRoutes.filter((row) => row.chart === entry.chart);
+  const lifecycleRoutes = catalog.lifecycleRoutes.filter((row) => row.chart === entry.chart && (!row.version || row.version === entry.version));
   const lifecycleRows = lifecycleRoutes.map((row) => [
     row.quirk_class,
     row.route_name,
@@ -5262,7 +5295,18 @@ function chartPageHtml(catalog, entry) {
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "-",
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
-  const lifecycleByVariantEntry = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
+  const lifecycleByVariantChart = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
+  const lifecycleVariants = lifecycleByVariantChart?.variants?.filter((variant) =>
+    !variant.recipeVersion || variant.recipeVersion === entry.version) ?? [];
+  const lifecycleByVariantEntry = lifecycleVariants.length
+    ? { ...lifecycleByVariantChart, variants: lifecycleVariants }
+    : null;
+  const gitopsRouteEmissionChart = (catalog.gitopsRouteEmission ?? []).find((candidate) => candidate.chart === entry.chart);
+  const gitopsRouteEmissionVariants = gitopsRouteEmissionChart?.variants?.filter((variant) =>
+    !variant.recipeVersion || variant.recipeVersion === entry.version) ?? [];
+  const gitopsRouteEmissionEntry = gitopsRouteEmissionVariants.length
+    ? { ...gitopsRouteEmissionChart, variants: gitopsRouteEmissionVariants }
+    : null;
   const lifecyclePolicyRows = lifecyclePolicyTableRows(readLifecyclePolicy(entry.recipe_path));
   const dispositionActionRows = productionDispositionActionRows(production);
   const skillRows = chartSkill?.applicable?.map((skill) => [
@@ -5438,10 +5482,16 @@ ${teaching ? `\n    ${teaching}\n` : ""}
 
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
-      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>${basePrerequisiteRows.length ? `
+      <h3>What each base needs before apply</h3>
+      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
+      ${markdownLikeTable([
+        ["Base variant", "Required resource", "How to provide it", "Full record"],
+        ...basePrerequisiteRows,
+      ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
       ${lifecycleByVariantEntry
-        ? whoRunsVariantTables(lifecycleByVariantEntry)
+        ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length
           ? markdownLikeTable([
               ["Behavior", "Route", "Who runs it", "Off-ramps", "Safe to automate?"],

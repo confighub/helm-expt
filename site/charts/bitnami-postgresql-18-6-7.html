@@ -640,6 +640,18 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
+      <h3>What each base needs before apply</h3>
+      <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Required resource</th><th>How to provide it</th><th>Full record</th></tr></thead>
+        <tbody><tr><td>existing-secret</td><td>Secret postgresql/postgresql-auth key postgres-password</td><td><code>kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=&quot;$(openssl rand -base64 32)&quot;</code></td><td><a href="../../data/helm-render-intents/intents/bitnami-postgresql-18-6-7-existing-secret.yaml">full render intent</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
       <div class="card"><table>
         <thead><tr><th>Modeled action area</th><th>Current status</th></tr></thead>
