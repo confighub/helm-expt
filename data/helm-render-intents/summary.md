@@ -14,7 +14,9 @@ The generator emits files only for real base rows in the master matrix. Candidat
 | Generated HelmRenderIntent objects | 199 |
 | Candidate/custom-discussion rows skipped | 74 |
 | Intents with lifecycle routes attached | 10 |
-| Intents with target-prerequisite actions attached | 34 |
+| Intents whose routes name the Argo CD and Flux handling | 10 |
+| Intents with target facts declared by the base variant | 48 |
+| Intents with action records from observed prerequisite failures | 34 |
 
 ## By Catalog Layer
 
@@ -48,6 +50,8 @@ chart/version
                 promotions / targets / observations
 ```
 
+A render intent keeps two kinds of prerequisite information separate. `targetFacts.declared` copies what the base says must exist, such as a Secret or CRD. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes also state how Argo CD and Flux handle each step for that exact chart version and base.
+
 ## Render Variant Examples
 
 A render variant is the captured output of one base render. Open `rendered/release-objects.yaml` for the full Kubernetes YAML. That file is the object output, not the whole record. The render intent, `variant-revision`, lifecycle routes, target facts, and receipts explain the inputs, checksums, hooks, CRDs, setup work, and prerequisites around that output.
@@ -56,7 +60,8 @@ A render variant is the captured output of one base render. Open `rendered/relea
 | --- | --- | --- | --- | --- | --- | --- |
 | bitnami/redis 25.5.3 | `default` | [bitnami-redis-25-5-3-default](./intents/bitnami-redis-25-5-3-default.yaml) | [release-objects.yaml](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [revision](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [package base](../../packages/bitnami/redis/25.5.3/bases/default) | The Redis default render. Use it to compare with the existing-secret render. |
 | bitnami/redis 25.5.3 | `reuse-existing-secret` | [bitnami-redis-25-5-3-reuse-existing-secret](./intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [release-objects.yaml](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [revision](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [package base](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) | A Redis render that points at an existing Secret instead of using generated password material. |
-| argo-cd/argo-cd 9.5.17 | `no-crds` | [argo-cd-argo-cd-9-5-17-no-crds](./intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [release-objects.yaml](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17` | [revision](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [package base](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) | An Argo CD render that keeps CRDs out of this base so CRD ordering can be handled explicitly. |
+| argo-cd/argo-cd 9.5.15 | `no-crds` | [argo-cd-argo-cd-9-5-15-no-crds](./intents/argo-cd-argo-cd-9-5-15-no-crds.yaml) | [release-objects.yaml](../../recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | [revision](../../recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml) and [package base](../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds) | An Argo CD render that keeps CRDs out of this base so CRD ordering can be handled explicitly. |
+| prometheus-community/kube-prometheus-stack 85.3.3 | `no-crds` | [prometheus-community-kube-prometheus-stack-85-3-3-no-crds](./intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml) | [release-objects.yaml](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | [revision](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml) and [package base](../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds) | A kube-prometheus-stack render with CRDs owned outside the base and seven recorded lifecycle routes. |
 | prometheus-community/prometheus 29.8.0 | `server-only-ephemeral` | [prometheus-community-prometheus-29-8-0-server-only-ephemeral](./intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [release-objects.yaml](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml) | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | [revision](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [package base](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) | A Prometheus render for the server path without the extra default components. |
 
 ## Files

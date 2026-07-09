@@ -53,7 +53,8 @@ These examples are current catalog rows:
 | --- | --- | --- | --- | --- | --- |
 | Redis 25.5.3 | `default` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [`bitnami-redis-25-5-3-default.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml) | [`release-objects.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml) and [`packages/.../bases/default`](../../packages/bitnami/redis/25.5.3/bases/default) |
 | Redis 25.5.3 | `reuse-existing-secret` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3` | [`bitnami-redis-25-5-3-reuse-existing-secret.yaml`](../../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) | [`release-objects.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml) and [`packages/.../bases/reuse-existing-secret`](../../packages/bitnami/redis/25.5.3/bases/reuse-existing-secret) |
-| Argo CD 9.5.17 | `no-crds` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17` | [`argo-cd-argo-cd-9-5-17-no-crds.yaml`](../../data/helm-render-intents/intents/argo-cd-argo-cd-9-5-17-no-crds.yaml) | [`release-objects.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml) and [`packages/.../bases/no-crds`](../../packages/argo-cd/argo-cd/9.5.17/bases/no-crds) |
+| Argo CD 9.5.15 | `no-crds` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15` | [`argo-cd-argo-cd-9-5-15-no-crds.yaml`](../../data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml) | [`release-objects.yaml`](../../recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml) and [`packages/.../bases/no-crds`](../../packages/argo-cd/argo-cd/9.5.15/bases/no-crds) |
+| kube-prometheus-stack 85.3.3 | `no-crds` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3` | [`prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml`](../../data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml) | [`release-objects.yaml`](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml) | The intent lists ten required CRDs, the admission Secret, and the Argo CD and Flux handling for each lifecycle route. |
 | Prometheus 29.8.0 | `server-only-ephemeral` | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0` | [`prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml`](../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) | [`release-objects.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml) | [`variant-revision.yaml`](../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml) and [`packages/.../bases/server-only-ephemeral`](../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral) |
 
 The `default` and `reuse-existing-secret` Redis rows are different base
@@ -90,6 +91,20 @@ A render intent records:
 - which evidence lanes exist for the row;
 - which lifecycle routes and target prerequisites are known.
 
+The target-prerequisite section has two parts:
+
+- `targetFacts.declared` is copied from the base variant. It names the Secrets,
+  CRDs, namespaces, values, storage, DNS names, or topology that must already
+  exist.
+- `targetFacts.actions` contains follow-up work derived from an observed failed
+  or blocked run. A base can have declared facts even when no failure has
+  produced an action record.
+
+For a chart with lifecycle routes, each route names the exact chart version and
+base it applies to. It also records what Argo CD does, what Flux does, and
+whether either controller needs an extra step. This prevents a route proven for
+a newer chart version from being shown as evidence for an older one.
+
 ## Why We Generate It
 
 The render intent gives people and agents one file that names the render inputs
@@ -118,8 +133,9 @@ The verifier is:
 npm run helm-render-intents:verify
 ```
 
-That verifier checks the generated objects against the master matrix,
-lifecycle-route data, and target-prerequisite action data.
+That verifier checks the generated objects against the master matrix, the base
+variant's declared target facts, lifecycle-route data, GitOps route mappings,
+and target-prerequisite action data.
 
 ## What This Does Not Claim
 

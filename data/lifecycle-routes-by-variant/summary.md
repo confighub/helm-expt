@@ -10,45 +10,59 @@ Charts: 13 · with a real per-variant delta: 3 (argo-cd/argo-workflows, kyverno/
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| controller-default-reviewed (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — supply the CRDs once (default base or your platform) | prerequisite (this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)) |
-| default (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — supply the CRDs once (default base or your platform) | prerequisite (this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)) |
-| minimal-crds | crd-install → `preflight-or-presync-crd-apply` | Handled — this base installs the CRDs | resolved (this base installs the required CRDs (observed live)) |
+| controller-default-reviewed@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — supply the CRDs once (default base or your platform) | prerequisite (this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)) |
+| default@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — supply the CRDs once (default base or your platform) | prerequisite (this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)) |
+| minimal-crds@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | Handled — this base installs the CRDs | resolved (this base installs the required CRDs (observed live)) |
 
 ## kyverno/kyverno
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| default | hook-delete-policy → `delete-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| default | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| default | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| default | hook-test → `explicit-test-check` | Opt-in check — run from CI or on demand (tests are explicit by design) | — |
-| default | hook-weight-ordering → `preserve-ordering` | Your applier — applies objects in order, automatically | — |
-| default | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
-| no-crds (needs 22 CRDs) | hook-delete-policy → `delete-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| no-crds (needs 22 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| no-crds (needs 22 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| no-crds (needs 22 CRDs) | hook-test → `explicit-test-check` | Opt-in check — run from CI or on demand (tests are explicit by design) | — |
-| no-crds (needs 22 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — applies objects in order, automatically | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
-| no-crds (needs 22 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 22 CRDs supplied before deploy (the default base installs them for you)) |
+| default@3.8.1 | hook-delete-policy → `delete-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@3.8.1 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@3.8.1 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| default@3.8.1 | hook-test → `explicit-test-check` | Opt-in check — run from CI or on demand (tests are explicit by design) | — |
+| default@3.8.1 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
+| default@3.8.1 | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
+| no-crds@3.8.1 (needs 22 CRDs) | hook-delete-policy → `delete-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| no-crds@3.8.1 (needs 22 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| no-crds@3.8.1 (needs 22 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| no-crds@3.8.1 (needs 22 CRDs) | hook-test → `explicit-test-check` | Opt-in check — run from CI or on demand (tests are explicit by design) | — |
+| no-crds@3.8.1 (needs 22 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
+| no-crds@3.8.1 (needs 22 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 22 CRDs supplied before deploy (the default base installs them for you)) |
 
 ## prometheus-community/kube-prometheus-stack
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| default | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| default | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
-| default | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| default | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| default | hook-weight-ordering → `preserve-ordering` | Your applier — applies objects in order, automatically | — |
-| default | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
-| default | webhook-readiness → `webhook-readiness-observation` | Your cluster — sets up the webhook certificate, automatically | — |
-| no-crds (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| no-crds (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
-| no-crds (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| no-crds (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| no-crds (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — applies objects in order, automatically | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
-| no-crds (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
-| no-crds (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your cluster — sets up the webhook certificate, automatically | — |
+| default@85.3.3 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@85.3.3 | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| default@85.3.3 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| default@85.3.3 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| default@85.3.3 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
+| default@85.3.3 | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
+| default@85.3.3 | webhook-readiness → `webhook-readiness-observation` | Your delivery and cluster — stage any declared certificate, then check webhook readiness | — |
+| no-crds@85.3.3 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| no-crds@85.3.3 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
+| no-crds@85.3.3 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
+| no-crds@85.3.3 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery and cluster — stage any declared certificate, then check webhook readiness | — |
+| default@86.1.0 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@86.1.0 | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| default@86.1.0 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| default@86.1.0 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| default@86.1.0 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
+| default@86.1.0 | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
+| default@86.1.0 | webhook-readiness → `webhook-readiness-observation` | Your delivery and cluster — stage any declared certificate, then check webhook readiness | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
+| no-crds@86.1.0 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
+| no-crds@86.1.0 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery and cluster — stage any declared certificate, then check webhook readiness | — |
 
 ## Charts without a per-variant delta yet
 

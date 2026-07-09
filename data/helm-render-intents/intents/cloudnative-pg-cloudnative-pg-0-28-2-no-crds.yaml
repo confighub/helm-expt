@@ -56,7 +56,111 @@ spec:
     variantRoutes:
       []
   targetFacts:
-    status: "no-target-prerequisite-action-recorded"
+    status: "declared-target-facts"
+    declared:
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "backups.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusterimagecatalogs.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "clusters.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "databases.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "failoverquorums.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "imagecatalogs.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "poolers.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "publications.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scheduledbackups.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "subscriptions.postgresql.cnpg.io"
+          purpose: "CloudNativePG CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "cnpg-webhook-cert"
+          namespace: "default"
+          purpose: "CloudNativePG admission webhook TLS material required before the no-crds operator pod can become ready"
     actions:
       []
   provenance:
@@ -83,5 +187,6 @@ status:
   claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
   limits:
     - "Candidate and custom-discussion rows are not emitted as runnable render intents."
-    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
     - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

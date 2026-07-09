@@ -66,8 +66,21 @@ spec:
         disposition: "observed"
         delta: "resolved"
         reason: "this base installs the required CRDs (observed live)"
+        routeSourceVersion: "1.0.14"
+        evidence:
+          - "data/hook-route-candidates/candidates.csv"
+        nextAction: "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base"
+        evidenceRequired: "resolve the named prerequisite/blocker, then capture a live receipt"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -2 · ServerSideApply"
+          flux: "HelmRelease .spec.install.crds=Create (or apply CRDs first)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
   targetFacts:
-    status: "no-target-prerequisite-action-recorded"
+    status: "none-declared-or-observed"
+    declared:
+      {}
     actions:
       []
   provenance:
@@ -94,5 +107,6 @@ status:
   claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green."
   limits:
     - "Candidate and custom-discussion rows are not emitted as runnable render intents."
-    - "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed."
+    - "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration."
+    - "Missing lifecycle route data is not treated as proof that no route is needed."
     - "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object."

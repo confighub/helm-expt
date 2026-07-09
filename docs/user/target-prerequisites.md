@@ -18,6 +18,12 @@ Examples:
 - An APIService may only become healthy after the backing service is ready.
 - A Helm startup check may need to become a post-apply observation.
 
+Each base records its requirements in the variant file and in the generated
+render intent. In the render intent, `targetFacts.declared` is the list the base
+expects before deployment. `targetFacts.actions` is different: it records work
+derived from a failed or blocked live run. An empty action list does not cancel
+a declared Secret or CRD requirement.
+
 The useful product claim is not only:
 
 ```text
@@ -109,6 +115,8 @@ Evidence:
 ## How To Use This As A User
 
 Before deploying a base, check the per-chart catalog page and the variant file.
+The chart page links the matching render intent, where the declaration, rendered
+objects, lifecycle routes, and Argo CD or Flux handling are kept together.
 
 If the base lists target prerequisites:
 

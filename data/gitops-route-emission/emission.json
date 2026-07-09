@@ -6,6 +6,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -26,6 +27,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "recipe-time-lifecycle-verification",
@@ -46,6 +48,7 @@
       "variants": [
         {
           "base": "controller-default-reviewed",
+          "recipeVersion": "1.0.14",
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
@@ -60,6 +63,7 @@
         },
         {
           "base": "default",
+          "recipeVersion": "1.0.14",
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
@@ -74,6 +78,7 @@
         },
         {
           "base": "minimal-crds",
+          "recipeVersion": "1.0.14",
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
@@ -94,6 +99,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -114,6 +120,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -134,6 +141,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -154,6 +162,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "target-class-preflight-and-upgrade-action",
@@ -174,6 +183,7 @@
       "variants": [
         {
           "base": "default",
+          "recipeVersion": "0.57.6",
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -203,6 +213,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "argocd-or-flux-lifecycle-hook",
@@ -223,6 +234,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "upgrade-action-with-receipt",
@@ -243,6 +255,7 @@
       "variants": [
         {
           "base": "(chart-level)",
+          "recipeVersion": "",
           "routes": [
             {
               "route_name": "upgrade-action-with-receipt",
@@ -263,6 +276,7 @@
       "variants": [
         {
           "base": "default",
+          "recipeVersion": "3.8.1",
           "routes": [
             {
               "route_name": "delete-cleanup-policy",
@@ -305,8 +319,8 @@
               "action_kind": "preserve-ordering",
               "quirk_class": "hook-weight-ordering",
               "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
               "snippet": ""
             },
             {
@@ -322,6 +336,7 @@
         },
         {
           "base": "no-crds",
+          "recipeVersion": "3.8.1",
           "routes": [
             {
               "route_name": "delete-cleanup-policy",
@@ -364,8 +379,8 @@
               "action_kind": "preserve-ordering",
               "quirk_class": "hook-weight-ordering",
               "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
               "snippet": ""
             },
             {
@@ -387,6 +402,7 @@
       "variants": [
         {
           "base": "default",
+          "recipeVersion": "85.3.3",
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -429,8 +445,8 @@
               "action_kind": "preserve-ordering",
               "quirk_class": "hook-weight-ordering",
               "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
               "snippet": ""
             },
             {
@@ -447,14 +463,15 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
               "snippet": ""
             }
           ]
         },
         {
           "base": "no-crds",
+          "recipeVersion": "85.3.3",
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -497,8 +514,8 @@
               "action_kind": "preserve-ordering",
               "quirk_class": "hook-weight-ordering",
               "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
               "snippet": ""
             },
             {
@@ -515,8 +532,146 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "default",
+          "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
               "argo": "none — your cluster handles it",
               "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
+              "snippet": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "86.1.0",
+          "routes": [
+            {
+              "route_name": "preserve-cleanup-policy",
+              "action_kind": "accept-target-policy",
+              "quirk_class": "hook-delete-policy",
+              "emit": false,
+              "argo": "none — your cluster handles it",
+              "flux": "none — your cluster handles it",
+              "snippet": ""
+            },
+            {
+              "route_name": "postsync-check-or-observation",
+              "action_kind": "run-check",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preserve-ordering",
+              "action_kind": "preserve-ordering",
+              "quirk_class": "hook-weight-ordering",
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "snippet": ""
+            },
+            {
+              "route_name": "target-facts-or-preflight",
+              "action_kind": "stage-target-facts",
+              "quirk_class": "target-facts",
+              "emit": false,
+              "argo": "none — supply the inputs before sync",
+              "flux": "none — supply the inputs before sync",
+              "snippet": ""
+            },
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "observe webhook and workload health after sync",
+              "flux": "use post-apply health checks; stage any declared certificate first",
               "snippet": ""
             }
           ]

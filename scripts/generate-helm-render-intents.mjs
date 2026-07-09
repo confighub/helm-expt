@@ -11,6 +11,7 @@ const root = join(repoRoot, "data", "helm-render-intents");
 const intentsRoot = join(root, "intents");
 const matrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const lifecycleByVariantPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
+const gitopsRouteEmissionPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const targetPrereqActionsPath = join(repoRoot, "data", "target-prerequisite-actions", "actions.csv");
 
 const outputs = {
@@ -57,39 +58,62 @@ function buildReport() {
   const lifecycleByVariant = existsSync(lifecycleByVariantPath)
     ? JSON.parse(readFileSync(lifecycleByVariantPath, "utf8")).charts ?? []
     : [];
+  const gitopsRouteEmission = existsSync(gitopsRouteEmissionPath)
+    ? JSON.parse(readFileSync(gitopsRouteEmissionPath, "utf8")).charts ?? []
+    : [];
   const targetPrereqRows = existsSync(targetPrereqActionsPath)
     ? parseCsv(readFileSync(targetPrereqActionsPath, "utf8"))
     : [];
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
-  const intents = realBases.map((row) => buildIntent(row, lifecycleByVariant, targetPrereqRows)).sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
+  const intents = realBases.map((row) => buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqRows)).sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
   const csv = renderCsv(intents);
   const contract = contractMd(intents, candidates);
   return { intents, candidates, summary, csv, contract };
 }
 
-function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
+function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqRows) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
   const variantLifecycle = chartLifecycle?.variants?.find((item) => item.base === row.variant && (!item.recipeVersion || item.recipeVersion === row.version));
+  const chartGitops = gitopsRouteEmission.find((item) => item.chart === row.chart);
+  const variantGitops = chartGitops?.variants?.find((item) => item.base === row.variant && (!item.recipeVersion || item.recipeVersion === row.version));
   const targetFacts = targetPrereqRows.filter((item) => item.chart === row.chart && item.version === row.version && item.base === row.variant);
   const sourceLock = row.source_lock_path && existsSync(join(repoRoot, row.source_lock_path)) ? readYaml(join(repoRoot, row.source_lock_path)) : null;
   const chartName = sourceLock?.spec?.ref || (sourceLock?.spec?.repositoryName && sourceLock?.spec?.chart ? `${sourceLock.spec.repositoryName}/${sourceLock.spec.chart}` : row.chart);
   const name = intentSlug(row.chart, row.version, row.variant);
-  const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => ({
-    routeName: route.route_name,
-    quirkClass: route.quirk_class,
-    lifecyclePhase: route.lifecycle_phase,
-    actionKind: route.action_kind,
-    executionMode: route.execution_mode,
-    automatic: route.automatic === true,
-    whoRuns: route.whoRuns,
-    command: route.command,
-    disposition: route.disposition,
-    delta: route.delta,
-    reason: route.reason,
-  }));
+  const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
+    const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
+    check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
+    const routeEvidence = splitList(route.evidence);
+    check(route.sourceVersion, `missing route source version for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
+    check(routeEvidence.length > 0, `missing route evidence for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
+    return {
+      routeName: route.route_name,
+      quirkClass: route.quirk_class,
+      lifecyclePhase: route.lifecycle_phase,
+      actionKind: route.action_kind,
+      executionMode: route.execution_mode,
+      automatic: route.automatic === true,
+      whoRuns: route.whoRuns,
+      command: route.command,
+      disposition: route.disposition,
+      delta: route.delta,
+      reason: route.reason,
+      routeSourceVersion: route.sourceVersion,
+      evidence: routeEvidence,
+      nextAction: route.nextAction,
+      evidenceRequired: route.evidenceRequired,
+      sourceDrift: route.sourceDrift,
+      gitOps: {
+        emitsControllerStep: emission.emit === true,
+        argoCd: emission.argo,
+        flux: emission.flux,
+        argoCdSnippet: emission.snippet,
+      },
+    };
+  });
   const targetActions = targetFacts.map((fact) => ({
     lane: fact.lane,
     prerequisiteKind: fact.prerequisite_kind,
@@ -103,7 +127,15 @@ function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
     sourceReceipt: fact.source_receipt,
     rerunCommand: fact.rerun_command,
   }));
-  const targetStatus = targetActions.length ? "target-prerequisite-actions-recorded" : "no-target-prerequisite-action-recorded";
+  const declaredTargetFacts = variantSpec.targetFacts ?? {};
+  const declaredTargetFactCount = targetFactCount(declaredTargetFacts);
+  const targetStatus = declaredTargetFactCount > 0 && targetActions.length > 0
+    ? "declared-target-facts-and-observed-action-records"
+    : declaredTargetFactCount > 0
+      ? "declared-target-facts"
+      : targetActions.length > 0
+        ? "observed-action-records"
+        : "none-declared-or-observed";
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmRenderIntent",
@@ -167,6 +199,7 @@ function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
       },
       targetFacts: {
         status: targetStatus,
+        declared: declaredTargetFacts,
         actions: targetActions,
       },
       provenance: {
@@ -196,7 +229,8 @@ function buildIntent(row, lifecycleByVariant, targetPrereqRows) {
       claim: "This intent describes a committed real base variant and its render inputs. It is not a claim that every live delivery lane is green.",
       limits: [
         "Candidate and custom-discussion rows are not emitted as runnable render intents.",
-        "Lifecycle routes and target prerequisites are attached from committed data when present; missing route data is not treated as proof that no route is needed.",
+        "Declared target facts are copied from the base variant. Observed action records appear only when committed failure evidence exists; their absence does not erase the declaration.",
+        "Missing lifecycle route data is not treated as proof that no route is needed.",
         "ConfigHub server objects and managed variants are created after upload. This file records the render intent, not a live server object.",
       ],
     },
@@ -208,6 +242,14 @@ function readVariantSpec(path) {
   const absolute = join(repoRoot, path);
   if (!existsSync(absolute)) return {};
   return readYaml(absolute).spec ?? {};
+}
+
+function targetFactCount(targetFacts) {
+  return Object.values(targetFacts ?? {}).reduce((count, value) => count + (Array.isArray(value) ? value.length : 0), 0);
+}
+
+function splitList(value) {
+  return String(value ?? "").split(";").map((item) => item.trim()).filter(Boolean);
 }
 
 function resolveVariantPath(variantPath, value) {
@@ -270,6 +312,8 @@ function renderCsv(intents) {
     "variant_promotion",
     "lifecycle_route_contract",
     "lifecycle_route_count",
+    "gitops_route_count",
+    "declared_target_fact_count",
     "target_fact_action_count",
     "source_repository_url",
   ];
@@ -295,6 +339,8 @@ function renderCsv(intents) {
       variant_promotion: intent.spec.evidence.variantPromotion,
       lifecycle_route_contract: intent.spec.lifecycle.routeContract,
       lifecycle_route_count: intent.spec.lifecycle.routeCount,
+      gitops_route_count: String(intent.spec.lifecycle.variantRoutes.filter((route) => route.gitOps).length),
+      declared_target_fact_count: String(targetFactCount(intent.spec.targetFacts.declared)),
       target_fact_action_count: String(intent.spec.targetFacts.actions.length),
       source_repository_url: intent.spec.chart.sourceRepository,
     };
@@ -306,6 +352,8 @@ function renderCsv(intents) {
 function summaryMd(intents, matrixRows, candidates) {
   const byLayer = countBy(intents, (intent) => intent.spec.provenance.catalogLayer);
   const routeCount = intents.filter((intent) => Number(intent.spec.lifecycle.routeCount || 0) > 0).length;
+  const gitopsRouteCount = intents.filter((intent) => intent.spec.lifecycle.variantRoutes.some((route) => route.gitOps)).length;
+  const declaredTargetFactCount = intents.filter((intent) => targetFactCount(intent.spec.targetFacts.declared) > 0).length;
   const targetActionCount = intents.filter((intent) => intent.spec.targetFacts.actions.length > 0).length;
   const realBaseRows = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-")).length;
   const o = [];
@@ -323,7 +371,9 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push(`| Generated HelmRenderIntent objects | ${intents.length} |`);
   o.push(`| Candidate/custom-discussion rows skipped | ${candidates} |`);
   o.push(`| Intents with lifecycle routes attached | ${routeCount} |`);
-  o.push(`| Intents with target-prerequisite actions attached | ${targetActionCount} |`);
+  o.push(`| Intents whose routes name the Argo CD and Flux handling | ${gitopsRouteCount} |`);
+  o.push(`| Intents with target facts declared by the base variant | ${declaredTargetFactCount} |`);
+  o.push(`| Intents with action records from observed prerequisite failures | ${targetActionCount} |`);
   o.push("");
   o.push("## By Catalog Layer", "");
   o.push("| Layer | Intents |");
@@ -353,6 +403,8 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("              managed variants");
   o.push("                promotions / targets / observations");
   o.push("```");
+  o.push("");
+  o.push("A render intent keeps two kinds of prerequisite information separate. `targetFacts.declared` copies what the base says must exist, such as a Secret or CRD. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes also state how Argo CD and Flux handle each step for that exact chart version and base.");
   o.push("");
   const examples = renderVariantExamples(intents);
   if (examples.length) {
@@ -391,8 +443,12 @@ function renderVariantExamples(intents) {
       reason: "A Redis render that points at an existing Secret instead of using generated password material.",
     },
     {
-      name: "argo-cd-argo-cd-9-5-17-no-crds",
+      name: "argo-cd-argo-cd-9-5-15-no-crds",
       reason: "An Argo CD render that keeps CRDs out of this base so CRD ordering can be handled explicitly.",
+    },
+    {
+      name: "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+      reason: "A kube-prometheus-stack render with CRDs owned outside the base and seven recorded lifecycle routes.",
     },
     {
       name: "prometheus-community-prometheus-29-8-0-server-only-ephemeral",
@@ -428,7 +484,9 @@ A \`HelmRenderIntent\` is a generated config object for one real base variant in
 - The row is a real base variant, not a candidate row.
 - The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
-- Lifecycle routes and target-prerequisite actions are attached when committed data exists.
+- Target facts declared in the base variant are copied onto the object.
+- Lifecycle routes are attached by exact chart version and base, including the recorded Argo CD and Flux handling.
+- Action records derived from observed prerequisite failures stay separate from declared target facts.
 
 ## What It Does Not Claim
 
@@ -442,7 +500,7 @@ A \`HelmRenderIntent\` is a generated config object for one real base variant in
 
 Generated objects: ${intents.length}.
 
-The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix and joined route/prerequisite data.
+The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix, variant declarations, or joined route/prerequisite data.
 `;
 }
 
