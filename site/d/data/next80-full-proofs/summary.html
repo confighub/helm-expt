@@ -408,7 +408,7 @@
 <ul><li><code>recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with Recipe, HelmPlan, ChartDossier, control points, Variant, VariantRevision, rendered objects, and receipts.</li><li><code>packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> with a <code>cub installer</code> package.</li><li>A Helm equivalence receipt proving regular Helm output matches <code>cub installer setup</code>, aside from allowed installer support objects.</li><li>A render receipt, scan receipt, install gate, and installer package receipt.</li></ul>
 <p>Selection rule:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>regular helm template output
   == cub installer setup output
   plus the allowed Namespace support object</code></pre>
