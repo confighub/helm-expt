@@ -401,7 +401,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-scripts.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -467,7 +467,7 @@ npm run npm-scripts:catalog:verify</code></pre>
 <tr><td><code>npm run verify</code></td><td>Full repository verification chain: proof contracts, docs, command surface, recipes, packages, receipts, catalog data, site data, scans, and model completeness.</td><td>Before merging broad changes.</td></tr>
 <tr><td><code>npm run p0:contracts</code></td><td>P0 proof contracts: schemas, capability profiles, freshness SLO, corpus invariants, and scale data.</td><td>When changing schemas, proof model, or scale/corpus data.</td></tr>
 <tr><td><code>npm run docs:verify</code></td><td>Markdown files live in expected locations and links resolve.</td><td>When adding, moving, or renaming docs.</td></tr>
-<tr><td><code>npm run installer:command-surface:verify</code></td><td>Static stale-command check: rejects old <code>cub install</code> wording, old command-array forms, and known stale variant examples. It does not compare every flag against live <code>cub --help</code>.</td><td>When touching docs/scripts with CLI examples.</td></tr>
+<tr><td><code>npm run installer:command-surface:verify</code></td><td>Static stale-command check: rejects the obsolete installer spelling that omits the final <code>er</code>, old command-array forms, and known stale variant examples. It does not compare every flag against live <code>cub --help</code>.</td><td>When touching docs/scripts with CLI examples.</td></tr>
 <tr><td><code>npm run variant:command-surface:verify</code></td><td>Static <code>cub variant</code> command check: accepts current <code>cub variant create</code>, rejects non-current subcommands unless they are clearly described as planned/future, and rejects stale <code>--extends</code> or <code>--space</code> examples.</td><td>When touching <code>cub variant</code> examples, derived-variant docs, ConfigHub proof receipts, or production-disposition receipts.</td></tr>
 <tr><td><code>npm run lane-tests:verify</code></td><td>Generated lane-test matrix is current for every chart-recipe-variant row. Missing live lanes are reported as backlog, not hidden.</td><td>When adding variants, receipts, or live-test lanes.</td></tr>
 <tr><td><code>npm run site:verify</code></td><td>Generated static site files match current catalog data.</td><td>When changing catalog data surfaced by <code>site/</code>.</td></tr>
@@ -574,7 +574,7 @@ tests/chart-install-sweep
 tests/existing-secret-proof</code></pre>
 <p>Those are for <code>cub</code> + cluster execution. The <code>npm</code> scripts are the repo verification and artifact-generation layer.</p>
 <h2 id="recommended-checks-by-change-type">Recommended Checks By Change Type</h2>
-<table><thead><tr><th>Change</th><th>Minimum checks</th></tr></thead><tbody><tr><td>Documentation only</td><td><code>npm run docs:verify</code>; add <code>npm run installer:command-surface:verify</code> or <code>npm run variant:command-surface:verify</code> when the changed docs include <code>cub installer</code>, <code>cub install</code>, or <code>cub variant</code> examples</td></tr>
+<table><thead><tr><th>Change</th><th>Minimum checks</th></tr></thead><tbody><tr><td>Documentation only</td><td><code>npm run docs:verify</code>; add <code>npm run installer:command-surface:verify</code> or <code>npm run variant:command-surface:verify</code> when the changed docs include <code>cub installer</code> or <code>cub variant</code> examples, or discuss the obsolete installer spelling</td></tr>
 <tr><td>Generated data or catalog</td><td>The owner generator's matching <code>*:verify</code>; add downstream <code>*:verify</code> checks only when that downstream surface reads the changed data</td></tr>
 <tr><td>Recipe or package</td><td>Chart-specific verify scripts if curated, plus <code>npm run verify:artifact-chain</code></td></tr>
 <tr><td>Top-20 chart proof</td><td><code>&lt;chart&gt;:compare</code>, <code>&lt;chart&gt;:verify-proof</code>, <code>&lt;chart&gt;:verify-package</code>, and <code>npm run top20:verify-local-e2e</code> if receipts changed</td></tr>

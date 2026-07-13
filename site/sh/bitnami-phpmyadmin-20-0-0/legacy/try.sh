@@ -9,14 +9,14 @@ set -euo pipefail
 say() { printf '\n>> %s\n' "$*"; }
 
 if ! command -v cub >/dev/null 2>&1; then
-  printf 'cub is not installed. Install it with:\n  curl -fsSL https://hub.confighub.com/cub/install.sh | bash\nthen add ~/.confighub/bin to your PATH and re-run this script.\n' >&2
+  printf 'cub is not installed. Install the cub CLI with:\n  curl -fsSL https://hub.confighub.com/cub/install.sh | bash\nthen add ~/.confighub/bin to your PATH and re-run this script.\n' >&2
   exit 1
 fi
 
-# The installer subcommand is a plugin and is not in the public cub build
-# yet. Stop here, before this script touches any cluster.
+# Public cub releases include the installer command. This guard catches
+# an older or incomplete CLI before this script does any work.
 if ! cub installer --help >/dev/null 2>&1; then
-  printf 'The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.\nThis cub build does not have it, so this script stops now, before any cluster work.\n' >&2
+  printf 'This cub build does not include cub installer. Install or upgrade the cub CLI with:\n  curl -fsSL https://hub.confighub.com/cub/install.sh | bash\nthen add ~/.confighub/bin to your PATH and re-run this script.\n' >&2
   exit 1
 fi
 

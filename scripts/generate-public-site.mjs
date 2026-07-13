@@ -87,15 +87,13 @@ const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
 const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
-const CUB_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
-// Single source for the installer availability message. The cub installer
-// subcommand is a plugin, and the public cub install script above delivers a
-// cub build without it. Every page and generated script that shows the
-// command must carry this note, and the scripts must stop before any cluster
-// work when the plugin is missing. Keep this free of single quotes, percent
-// signs, and backslashes; it is embedded in shell printf strings.
-const INSTALLER_AVAILABILITY_NOTE =
-  "The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.";
+const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+// Single source for what the public installer command does. Every page and
+// generated script that shows the command must distinguish local rendering
+// from delivery to Kubernetes. Keep this free of single quotes, percent signs,
+// and backslashes; it is embedded in shell printf strings.
+const INSTALLER_COMMAND_NOTE =
+  "The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.";
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
@@ -342,6 +340,7 @@ if (mode === "--generate") {
     check(existsSync(page.path), `site/${relPath} is missing; run npm run site:generate`);
     check(readFileSync(page.path, "utf8") === page.html, `site/${relPath} is stale`);
   }
+  verifyInstallerCommandCopy();
   verifySiteLinks();
   console.log("verified generated public site outputs");
 } else {
@@ -570,7 +569,7 @@ function buildSite(generatedAt) {
     html: chartPageHtml(catalog, entry),
   }));
   const site = {
-    catalogJson: `${JSON.stringify(siteSafe({ generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_AVAILABILITY_NOTE, ...catalog }), null, 2)}\n`,
+    catalogJson: `${JSON.stringify(siteSafe({ generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -649,20 +648,20 @@ function injectInstallCubNote(html, relPath) {
   return html;
 }
 
-// The one availability note for the installer plugin, shown wherever the
-// command appears. The marker class lets pages place the note by hand and
-// keeps the injector from adding a second copy.
-function installerAvailabilityNoteHtml() {
-  return `<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> ${escapeHtml(INSTALLER_AVAILABILITY_NOTE)} The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>`;
+// The one explanation of the installer command, shown wherever the command
+// appears. The marker class lets pages place the note by hand and keeps the
+// injector from adding a second copy.
+function installerCommandNoteHtml() {
+  return `<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> ${escapeHtml(INSTALLER_COMMAND_NOTE)} The generated scripts stop before doing any work when they detect an older CLI without the command.</p>`;
 }
 
-// Every page that shows the cub installer command must carry the availability
-// note. Insert it before the first command block that uses the command, or at
-// the top of the page body when the mention is inline only.
-function injectInstallerAvailabilityNote(html) {
+// Every page that shows the cub installer command must explain that setup
+// renders locally and does not deliver to Kubernetes. Insert the note before
+// the first command block, or at the top when the mention is inline only.
+function injectInstallerCommandNote(html) {
   if (!html.includes("installer setup")) return html;
-  if (html.includes("installer-availability-note")) return html;
-  const note = installerAvailabilityNoteHtml();
+  if (html.includes("installer-command-note")) return html;
+  const note = installerCommandNoteHtml();
   const headerEnd = html.indexOf("</header>");
   for (const match of html.matchAll(/<pre[^>]*>[\s\S]*?<\/pre>/g)) {
     if (match.index <= headerEnd) continue;
@@ -1091,8 +1090,8 @@ function buildDocPages(catalog, site) {
 
 function finalizePage(html, relPath, renderedDocs = new Set()) {
   const withInstallNote = injectInstallCubNote(html, relPath);
-  const withAvailabilityNote = injectInstallerAvailabilityNote(withInstallNote);
-  const withMeta = injectHeadMeta(withAvailabilityNote, relPath);
+  const withCommandNote = injectInstallerCommandNote(withInstallNote);
+  const withMeta = injectHeadMeta(withCommandNote, relPath);
   return rewriteMdHrefs(withMeta, relPath, renderedDocs);
 }
 
@@ -1151,6 +1150,53 @@ function verifySiteLinks() {
     `site link check failed: ${failures.length} broken relative link(s), first ${Math.min(failures.length, 20)}:\n${failures.slice(0, 20).map((failure) => `  - ${failure}`).join("\n")}`,
   );
   console.log(`verified site relative links across ${htmlFiles.length} page(s) (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
+}
+
+function verifyInstallerCommandCopy() {
+  const files = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      if (statSync(full).isDirectory()) walk(full);
+      else if (/\.(?:html|md|json|sh)$/.test(name)) files.push(full);
+    }
+  };
+  walk(siteRoot);
+
+  const forbiddenPhrases = [
+    "not yet publicly available",
+    "plugin that ships separately",
+    "not in the public cub build",
+    "standard cub " + "install script",
+  ];
+  const staleCommand = "cub " + "install";
+  const runnableStaleCommand = new RegExp(`(?:^|\\n)\\s*(?:\\$\\s*)?${staleCommand}(?!er\\b)(?=\\s|$)`);
+  const failures = [];
+  for (const file of files) {
+    const relPath = posix.relative(repoRoot, file);
+    const text = readFileSync(file, "utf8");
+    for (const phrase of forbiddenPhrases) {
+      if (text.toLowerCase().includes(phrase)) failures.push(`${relPath}: stale installer claim: ${phrase}`);
+    }
+    if (file.endsWith(".html")) {
+      if (text.includes("installer setup") && !text.includes("installer-command-note")) {
+        failures.push(`${relPath}: cub installer setup is shown without the command explanation`);
+      }
+      for (const code of text.matchAll(/<code[^>]*>([\s\S]*?)<\/code>/g)) {
+        if (runnableStaleCommand.test(code[1])) {
+          failures.push(`${relPath}: runnable example uses the stale installer command name`);
+        }
+      }
+    }
+    if (file.endsWith(".sh") && runnableStaleCommand.test(text)) {
+      failures.push(`${relPath}: script uses the stale installer command name`);
+    }
+  }
+  check(
+    failures.length === 0,
+    `site installer command check failed: ${failures.length} finding(s):\n${failures.slice(0, 40).map((failure) => `  - ${failure}`).join("\n")}`,
+  );
+  console.log(`verified cub installer wording across ${files.length} generated site file(s)`);
 }
 
 function topNav(base = ".") {
@@ -1257,7 +1303,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Hooks, CRDs, prerequisites, and known footguns are tracked per chart, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>No server, no cluster, and no account required. The installer plugin is not publicly available yet</p>
+        <p>Try a catalog package with no server, no cluster, and no account</p>
         <p>Preview your installs, with hooks, CRDs, prerequisites, and known footguns tracked per chart</p>
         <p>Change any field after install, and keep it through upgrades</p>
         <p>Run many customised installs as one fleet, without the upgrade pain</p>
@@ -1313,7 +1359,7 @@ stringData:
 
     <section aria-labelledby="look-first">
       <h2 id="look-first">Try It Now without a server and without Kubernetes</h2>
-      <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
+      <p class="closing-line"><code>cub installer setup</code> runs locally so you can inspect a catalog package without connecting to ConfigHub or Kubernetes. Keep Helm, Argo CD, Flux, and the tools you already use. This first test changes nothing.</p>
       <div class="home-list light-grid">
         ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
@@ -1323,8 +1369,8 @@ stringData:
       <h2 id="try-now">Try It Now with Kubernetes</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
-      <p class="install-cub-note">Install cub first: <code>${CUB_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
-      ${installerAvailabilityNoteHtml()}
+      <p class="install-cub-note">Install the cub CLI first: <code>${CUB_CLI_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
+      ${installerCommandNoteHtml()}
       <div class="install-compare">
         <div class="terminal-card" aria-label="Plain Helm install command">
           <div class="terminal-title">plain Helm</div>
@@ -2429,22 +2475,22 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Run <code>helm install</code> and <code>cub installer</code> side by side and check that the result is the same. No ConfigHub account needed to start.</p>
+    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Compare <code>helm install</code> with <code>cub installer setup</code> followed by <code>kubectl apply</code>, and check that both paths deliver the same Kubernetes objects. No ConfigHub account is needed to start.</p>
     <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
   </div>
 </header>
 <main>
-  <h2 id="install-cub">Install cub</h2>
+  <h2 id="install-cub">Install the cub CLI</h2>
   <p>Every command below uses the <code>cub</code> CLI. Install it once:</p>
-  <pre><code>$ ${CUB_INSTALL_COMMAND}</code></pre>
-  <p>The installer puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
+  <pre><code>$ ${CUB_CLI_INSTALL_COMMAND}</code></pre>
+  <p>The CLI installation script puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
-  ${installerAvailabilityNoteHtml()}
+  ${installerCommandNoteHtml()}
 
   <h2>The fastest first run</h2>
   <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
-  <pre><code># 1. Install cub (one time)
-${CUB_INSTALL_COMMAND} &amp;&amp; export PATH=~/.confighub/bin:$PATH
+  <pre><code># 1. Install the cub CLI (one time)
+${CUB_CLI_INSTALL_COMMAND} &amp;&amp; export PATH=~/.confighub/bin:$PATH
 
 # 2. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
@@ -2535,7 +2581,7 @@ stringData:
   </table>
 
   <h2>Check it yourself</h2>
-  <p>These npm commands check the catalog's own evidence. They're not how you install. Use them to confirm what we claim; you install with <code>cub installer setup</code>, <code>helm install</code>, or <code>kubectl apply</code>.</p>
+  <p>These npm commands check the catalog's own evidence. They are not installation commands. To try a catalog package, render it with <code>cub installer setup</code>, then deliver the files with <code>kubectl</code>, Argo CD, or Flux. Plain Helm remains available through <code>helm install</code>.</p>
   <pre><code># confirm the render matches Helm (a check, not an install)
 $ npm run redis:verify-install:render -- \\
     --base default --work-dir ./redis-default --namespace redis</code></pre>
@@ -4958,14 +5004,14 @@ function presetScriptPreamble(entry, row, purposeLines) {
     "say() { printf '\\n>> %s\\n' \"$*\"; }",
     "",
     "if ! command -v cub >/dev/null 2>&1; then",
-    `  printf 'cub is not installed. Install it with:\\n  ${CUB_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
+    `  printf 'cub is not installed. Install the cub CLI with:\\n  ${CUB_CLI_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
     "  exit 1",
     "fi",
     "",
-    "# The installer subcommand is a plugin and is not in the public cub build",
-    "# yet. Stop here, before this script touches any cluster.",
+    "# Public cub releases include the installer command. This guard catches",
+    "# an older or incomplete CLI before this script does any work.",
     "if ! cub installer --help >/dev/null 2>&1; then",
-    `  printf '${INSTALLER_AVAILABILITY_NOTE}\\nThis cub build does not have it, so this script stops now, before any cluster work.\\n' >&2`,
+    `  printf 'This cub build does not include cub installer. Install or upgrade the cub CLI with:\\n  ${CUB_CLI_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
     "  exit 1",
     "fi",
   ];
@@ -7070,7 +7116,7 @@ Open \`site/day1-operations.html\` only as a compatibility redirect to \`site/op
 Open \`site/docs.html\` for the public documentation hub.
 Open \`../docs/user/installer-oci-packages.md\` for the catalog package OCI refs
 that users pull with \`cub installer setup --pull oci://...\`.
-${INSTALLER_AVAILABILITY_NOTE}
+${INSTALLER_COMMAND_NOTE}
 Open \`site/verification.html\` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open \`site/d/data/helm-catalog-readmes/summary.html\` for the website-rendered

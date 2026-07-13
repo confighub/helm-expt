@@ -1,7 +1,7 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
   "generatedAt": "2026-07-08T10:07:00.645Z",
-  "installerAvailability": "The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it.",
+  "installerAvailability": "The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",

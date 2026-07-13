@@ -408,7 +408,7 @@
 <p>Current status: the catalog records 110 published installer package OCI refs. 100 are public catalog chart packages; the extra refs are retained chart-version packages used by refresh and comparison work. The refs are published in Google Artifact Registry with public read access. The local setup path does not require a ConfigHub account, a Google registry login, or a clone of this repo.</p>
 <p>The user-facing command is:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/&lt;repo&gt;-&lt;chart&gt;:&lt;version&gt; \
   --base &lt;preset&gt; \
   --work-dir ./out \

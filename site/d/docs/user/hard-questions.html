@@ -413,7 +413,7 @@
   <pre><code>cub helm template
 cub helm install</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>
-<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
 <p>Public catalog pages show the installer package OCI ref for each chart version, so a real command uses <code>--pull oci://...</code>, not a checkout-local path. See <a href="choosing-commands.html">Choosing Commands</a> and <a href="installer-oci-packages.html">Installer Package OCI Refs</a>.</p>
 <h2 id="do-i-have-to-rewrite-my-charts">Do I have to rewrite my charts?</h2>

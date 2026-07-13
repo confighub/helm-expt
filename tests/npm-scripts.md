@@ -123,7 +123,7 @@ current supported version
 | `npm run verify` | Full repository verification chain: proof contracts, docs, command surface, recipes, packages, receipts, catalog data, site data, scans, and model completeness. | Before merging broad changes. |
 | `npm run p0:contracts` | P0 proof contracts: schemas, capability profiles, freshness SLO, corpus invariants, and scale data. | When changing schemas, proof model, or scale/corpus data. |
 | `npm run docs:verify` | Markdown files live in expected locations and links resolve. | When adding, moving, or renaming docs. |
-| `npm run installer:command-surface:verify` | Static stale-command check: rejects old `cub install` wording, old command-array forms, and known stale variant examples. It does not compare every flag against live `cub --help`. | When touching docs/scripts with CLI examples. |
+| `npm run installer:command-surface:verify` | Static stale-command check: rejects the obsolete installer spelling that omits the final `er`, old command-array forms, and known stale variant examples. It does not compare every flag against live `cub --help`. | When touching docs/scripts with CLI examples. |
 | `npm run variant:command-surface:verify` | Static `cub variant` command check: accepts current `cub variant create`, rejects non-current subcommands unless they are clearly described as planned/future, and rejects stale `--extends` or `--space` examples. | When touching `cub variant` examples, derived-variant docs, ConfigHub proof receipts, or production-disposition receipts. |
 | `npm run lane-tests:verify` | Generated lane-test matrix is current for every chart-recipe-variant row. Missing live lanes are reported as backlog, not hidden. | When adding variants, receipts, or live-test lanes. |
 | `npm run site:verify` | Generated static site files match current catalog data. | When changing catalog data surfaced by `site/`. |
@@ -328,7 +328,7 @@ verification and artifact-generation layer.
 
 | Change | Minimum checks |
 | --- | --- |
-| Documentation only | `npm run docs:verify`; add `npm run installer:command-surface:verify` or `npm run variant:command-surface:verify` when the changed docs include `cub installer`, `cub install`, or `cub variant` examples |
+| Documentation only | `npm run docs:verify`; add `npm run installer:command-surface:verify` or `npm run variant:command-surface:verify` when the changed docs include `cub installer` or `cub variant` examples, or discuss the obsolete installer spelling |
 | Generated data or catalog | The owner generator's matching `*:verify`; add downstream `*:verify` checks only when that downstream surface reads the changed data |
 | Recipe or package | Chart-specific verify scripts if curated, plus `npm run verify:artifact-chain` |
 | Top-20 chart proof | `<chart>:compare`, `<chart>:verify-proof`, `<chart>:verify-package`, and `npm run top20:verify-local-e2e` if receipts changed |

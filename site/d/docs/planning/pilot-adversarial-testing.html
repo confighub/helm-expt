@@ -489,7 +489,7 @@ artifact paths
 recommended fix</code></pre>
 <h2 id="pilot-mission-prompt">Pilot Mission Prompt</h2>
 <p>Use this as the main Pilot instruction:</p>
-<p class="install-cub-note installer-availability-note"><strong>Availability note.</strong> The cub installer command is a plugin that ships separately from the cub CLI and is not yet publicly available. The standard cub install script does not include it. The generated try scripts check for the plugin and stop before any cluster work when it is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>You are Pilot running an adversarial test of $HOME/code/helm-expt.
 
 Your job is to falsify, not flatter, the ConfigHub Helm proof claims.
