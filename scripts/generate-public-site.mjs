@@ -1257,6 +1257,7 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Hooks, CRDs, prerequisites, and known footguns are tracked per chart, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
+        <p>Try it with no server, no cluster, and no account</p>
         <p>Preview your installs, with hooks, CRDs, prerequisites, and known footguns tracked per chart</p>
         <p>Change any field after install, and keep it through upgrades</p>
         <p>Run many customised installs as one fleet, without the upgrade pain</p>
@@ -1311,7 +1312,7 @@ stringData:
     </section>
 
     <section aria-labelledby="look-first">
-      <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
+      <h2 id="look-first">Try It Now without a server and without Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
       <div class="home-list light-grid">
         ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
