@@ -49,7 +49,13 @@
     }
     .topbar .brand {
       font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
     }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
@@ -353,7 +359,6 @@
         padding: 9px 0 10px;
       }
       .topbar .brand {
-        display: inline-block;
         margin-bottom: 9px;
       }
       .navlinks {
@@ -524,11 +529,12 @@
 </head>
 <body>
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html">ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: 20 with full catalog proof, 80 proof-grade and being promoted. Hooks, CRDs, prerequisites, and known footguns are tracked per chart, with the evidence linked. The 100 public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
+        <p>No server, no cluster, and no account required. The installer plugin is not publicly available yet</p>
         <p>Preview your installs, with hooks, CRDs, prerequisites, and known footguns tracked per chart</p>
         <p>Change any field after install, and keep it through upgrades</p>
         <p>Run many customised installs as one fleet, without the upgrade pain</p>
@@ -601,7 +607,7 @@ stringData:
     </section>
 
     <section aria-labelledby="look-first">
-      <h2 id="look-first">Try It Now without a server and with Kubernetes</h2>
+      <h2 id="look-first">Try It Now without a server and without Kubernetes</h2>
       <p class="closing-line">Cub install has a no-server mode for you to validate and compare with Helm. You switch nothing. Keep Helm. Keep Argo or Flux. Keep your AI. You look first, and there is nothing to undo, because you just ran a simple test.</p>
       <div class="home-list light-grid">
         <div class="home-list-item"><h3>See what will bite you</h3><p>The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps.</p></div>
