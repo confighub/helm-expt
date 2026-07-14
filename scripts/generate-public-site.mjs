@@ -1272,8 +1272,8 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
   const seeCards = [
     ["See what will bite you", "The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps."],
-    ["Catch classic errors", "AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry."],
-    ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
+    ["Catch classic errors", "AI keys, generated passwords, and other Secrets slip into renders. Catch them before they land in a cluster or registry."],
+    ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there."],
     ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, and target assumptions."],
   ];
   const valueCards = [
@@ -1295,16 +1295,15 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Each chart's traps are tracked, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once and let you change any field afterward, even ones the chart never let you set. Your change survives every upgrade. New AI-friendly Helm tools ship alongside a catalog of the top 100 charts, with every chart's traps tracked and the evidence linked.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
         <p>Try a catalog package with no server, no cluster, and no account</p>
         <p>Preview your installs, with the traps named before anything reaches the cluster</p>
-        <p>Change any field after install, and keep it through upgrades</p>
-        <p>Run many customised installs as one fleet, without the upgrade pain</p>
+        <p>Change any field, keep it through upgrades, and grow one install into a fleet</p>
       </div>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">For example, have you ever forgotten to change your AI API key before a new install? Now you can unwind this error at any time, even after rollout.</div>
+      <div class="terminal-title">Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
@@ -1317,12 +1316,12 @@ stringData:
 <span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
     </div>
-    <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
+    <p class="ai-proof">AI makes Helm faster. ConfigHub makes it safe. You review the exact objects and diffs before anything ships, and you can fix errors after rollout too.</p>
   </header>
   <main>
     <section aria-labelledby="look-first">
       <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
-      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally so you can read what a catalog package will actually install, without connecting to ConfigHub or Kubernetes. Keep Helm, Argo CD, Flux, and the tools you already use. This first test changes nothing.</p>
+      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
       <div class="home-list light-grid">
         ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
@@ -1330,8 +1329,7 @@ stringData:
 
     <section aria-labelledby="try-now">
       <h2 id="try-now">Prove it on a cluster</h2>
-      <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
-      <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
+      <p>Run Helm and cub side by side on a throwaway cluster. The same chart gives the same running result, and our <a href="./verification.html">npm proof commands</a> verify it. Helm renders and applies in one jump; cub writes the objects first, so you get a review point before the install.</p>
       <p class="install-cub-note">Install the cub CLI first: <code>${CUB_CLI_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
       ${installerCommandNoteHtml()}
       <div class="install-compare">
@@ -1366,7 +1364,7 @@ stringData:
 
     <section aria-labelledby="limits">
       <h2 id="limits">What the catalog gives you</h2>
-      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges.</p>
+      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges. It covers the top 100 charts, ${catalog.summary.catalogSupported} with full catalog proof and ${catalog.summary.proofGrade} proof-grade and being promoted. All ${publicCatalogPackageCount} public packages pull with no ConfigHub account and no registry login.</p>
       <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for chart extras. For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output.</p>
       <p>Hooks, CRDs, setup jobs, and other extras do not disappear. The catalog turns them into named routes, checks, variants, or handoff notes, and where there is no one safe option it says so.</p>
       <p><a href="./charts/index.html">Browse the catalog</a> · <a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>

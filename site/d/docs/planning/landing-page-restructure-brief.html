@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Ops</title>
-  <meta name="description" content="Render a Helm chart once, change any field afterward, and keep it through upgrades: AI-friendly Helm tools and an evidence-backed catalog of the top 100 charts.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/">
-  <meta property="og:title" content="ConfigHub Helm Ops">
-  <meta property="og:description" content="Render a Helm chart once, change any field afterward, and keep it through upgrades: AI-friendly Helm tools and an evidence-backed catalog of the top 100 charts.">
+  <title>Landing page restructure brief · ConfigHub Helm Ops</title>
+  <meta name="description" content="Landing page restructure brief: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/landing-page-restructure-brief.html">
+  <meta property="og:title" content="Landing page restructure brief · ConfigHub Helm Ops">
+  <meta property="og:description" content="Landing page restructure brief: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/landing-page-restructure-brief.html">
   <style>
     :root {
       color-scheme: light;
@@ -386,246 +386,43 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .install-compare {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
-    .term-catch {
-      display: inline-block;
-      width: 100%;
-      margin: 2px 0;
-      padding: 2px 6px;
-      border-left: 3px solid #f0c36d;
-      background: rgba(240,195,109,.18);
-      color: #ffe3a1;
-      font-weight: 700;
-    }
-    .terminal-caption {
-      margin: 0;
-      padding: 12px 14px;
-      border-top: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--ink);
-      font-size: .9rem;
-      font-weight: 600;
-    }
-    .ai-proof {
-      margin-top: 16px;
-      max-width: 820px;
-      color: #374151;
-      font-weight: 600;
-    }
-    .value-callout {
-      margin: 18px 0 0;
-      padding: 0;
-      max-width: 880px;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-    }
-    .value-callout p {
-      margin: 0;
-      max-width: none;
-      color: #374151;
-      font-size: 1.08rem;
-      line-height: 1.4;
-      font-weight: 650;
-    }
-    .value-callout p + p {
-      margin-top: 3px;
-      padding-top: 0;
-      border-top: 0;
-    }
-    .audience-block {
-      max-width: 920px;
-      margin-top: 24px;
-    }
-    .start-block {
-      margin-top: 32px;
-    }
-    .start-block h2 {
-      margin-top: 0;
-      font-size: 2.1rem;
-      line-height: 1.08;
-    }
-    .audience-block h2 {
-      margin-top: 0;
-      font-size: 2.1rem;
-      line-height: 1.08;
-    }
-    .audience-note {
-      margin-top: 16px;
-      padding: 0 0 0 12px;
-      border-left: 2px solid var(--line);
-      background: transparent;
-      color: var(--ink);
-    }
-    .audience-frame {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-      color: #374151;
-      font-weight: 600;
-    }
-    .home-list {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-      margin-top: 18px;
-    }
-    .home-list-item {
-      border-top: 1px solid var(--line);
-      padding-top: 14px;
-    }
-    .home-list-item h3 {
-      margin: 0 0 6px;
-    }
-    .home-list-item p {
-      margin: 0;
-      font-size: .9rem;
-    }
-    .home-list-item p + p {
-      margin-top: 8px;
-    }
-    .home-hero .journey-flow {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      align-items: start;
-      gap: 22px;
-      margin: 24px 0 8px;
-    }
-    .home-hero .journey-step {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      padding: 14px 0 0;
-      gap: 7px;
-      transition: none;
-    }
-    .home-hero .journey-step:hover {
-      border-color: var(--line);
-    }
-    .home-hero .journey-step:hover h3 {
-      color: var(--accent);
-    }
-    .home-hero .journey-step .go {
-      margin-top: 4px;
-    }
-    .home-hero .journey-arrow {
-      display: none;
-    }
-    @media (max-width: 980px) {
-      .home-list { grid-template-columns: 1fr 1fr; }
-      .home-hero .journey-flow { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .install-compare { grid-template-columns: 1fr; }
-      .home-list { grid-template-columns: 1fr; }
-      .home-hero .journey-step { padding: 12px 0 0; }
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
 <body>
-  <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <div class="hero-copy">
-      <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once and let you change any field afterward, even ones the chart never let you set. Your change survives every upgrade. New AI-friendly Helm tools ship alongside a catalog of the top 100 charts, with every chart's traps tracked and the evidence linked.</p>
-      <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Try a catalog package with no server, no cluster, and no account</p>
-        <p>Preview your installs, with the traps named before anything reaches the cluster</p>
-        <p>Change any field, keep it through upgrades, and grow one install into a fleet</p>
-      </div>
-    </div>
-    <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</div>
-      <pre class="terminal-body"><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: ai-provider
-type: Opaque
-stringData:
-<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
-
-<span class="term-comment"># AI keys often live too long; catch them while this is still a file</span>
-<span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
-<span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
-    </div>
-    <p class="ai-proof">AI makes Helm faster. ConfigHub makes it safe. You review the exact objects and diffs before anything ships, and you can fix errors after rollout too.</p>
+  <header class="hero human-hero">
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Landing page restructure brief</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/landing-page-restructure-brief.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="look-first">
-      <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
-      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
-      <div class="home-list light-grid">
-        <div class="home-list-item"><h3>See what will bite you</h3><p>The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps.</p></div>
-        <div class="home-list-item"><h3>Catch classic errors</h3><p>AI keys, generated passwords, and other Secrets slip into renders. Catch them before they land in a cluster or registry.</p></div>
-        <div class="home-list-item"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there.</p></div>
-        <div class="home-list-item"><h3>Bringing AI?</h3><p>Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, and target assumptions.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="try-now">
-      <h2 id="try-now">Prove it on a cluster</h2>
-      <p>Run Helm and cub side by side on a throwaway cluster. The same chart gives the same running result, and our <a href="./verification.html">npm proof commands</a> verify it. Helm renders and applies in one jump; cub writes the objects first, so you get a review point before the install.</p>
-      <p class="install-cub-note">Install the cub CLI first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
-      <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
-      <div class="install-compare">
-        <div class="terminal-card" aria-label="Plain Helm install command">
-          <div class="terminal-title">plain Helm</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \
-    -n monitoring --create-namespace</code></pre>
-        </div>
-        <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
-          <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
-    --base default --work-dir ./prom --non-interactive --namespace monitoring
-<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
-        </div>
-      </div>
-      <p class="quiet-line">Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-        <a class="button secondary" href="./how-it-works.html">How it works</a>
-        <a class="button secondary" href="./verification.html">Check Tests</a>
-      </div>
-    </section>
-
-    <section aria-labelledby="control-value">
-      <h2 id="control-value">Change it and keep it</h2>
-      <p>Once a chart runs, you will want to change something. A variant is a supported way to run that chart, rendered to plain files you can read, check, and edit. A basic <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">ConfigHub account</a> is free: it stores your variants, records every edit, and keeps your changes through upgrades, even on fields the chart never exposed. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
-      <div class="home-list">
-        <div class="home-list-item"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="home-list-item"><h3>Edit and keep your versions</h3><p>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">free account</a>, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="home-list-item"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
-        <div class="home-list-item"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="limits">
-      <h2 id="limits">What the catalog gives you</h2>
-      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges. It covers the top 100 charts, 20 with full catalog proof and 80 proof-grade and being promoted. All 100 public packages pull with no ConfigHub account and no registry login.</p>
-      <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for chart extras. For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output.</p>
-      <p>Hooks, CRDs, setup jobs, and other extras do not disappear. The catalog turns them into named routes, checks, variants, or handoff notes, and where there is no one safe option it says so.</p>
-      <p><a href="./charts/index.html">Browse the catalog</a> · <a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
-    </section>
-
-    <section aria-labelledby="editing-vs-buying">
-      <h2 id="editing-vs-buying">Editing charts versus buying charts</h2>
-      <p>Chart catalogs change hands, licenses, and registries. When that happens, teams that only consume a catalog migrate on someone else's schedule. Teams that hold their rendered config as data can read every image reference, change it with a recorded edit, and prove the change landed in every environment. That is the difference between editing your charts and buying them.</p>
-    </section>
-
-    <section aria-labelledby="what-this-is">
-      <h2 id="what-this-is">What this is</h2>
-      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
-      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
-    </section>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> A brief for Codex: restructure the generated homepage (<code>site/index.html</code>, built by <code>parityFirstHomeHtml</code> in <code>scripts/generate-public-site.mjs</code>) around one narrative spine - look first, prove it on a cluster, change it and keep it - so the page makes one pitch instead of nine. House voice (<code>house-voice.md</code>) and house layout (<code>house-layout.md</code>) throughout.</p>
+<h2 id="where-this-came-from">Where this came from</h2>
+<p>A reader walked the site with the maintainer and reported three problems: the no-server message was buried, the Get Started page was easier to follow than the homepage, and the chart/recipe/variant vocabulary was hard to explain. PR #1098 and #1099 fixed the buried claim (hero now leads with &quot;Try a catalog package with no server, no cluster, and no account&quot;) and the self-contradicting heading. This brief executes the rest.</p>
+<h2 id="whats-wrong-now">What's wrong now</h2>
+<ul><li><b>The page is a stack of complete pitches, not one pitch.</b> After the hero there are eight more sections (How we help, Examples, What this is, four separate &quot;Try It Now with …&quot; sections, Editing versus buying), and each restates the whole story. The Get Started page reads better because it has a spine: pick a chart → read what it installs → check what it needs → change it and keep it. The homepage should borrow that spine, not compete with it.</li><li><b>The litany repeats.</b> &quot;Hooks, CRDs, prerequisites, and known footguns&quot; appears three times verbatim, plus close variants. House voice caps lists at three and says a noun pile-up signals breadth and informs nothing. Say it in full once.</li><li><b>Six nouns carry three ideas.</b> Chart, package, recipe, base variant, variant, and render intent all appear on one page, and &quot;variants&quot; is used before it is defined. A first-time reader cannot retell the model, which is the test that failed in the field.</li></ul>
+<h2 id="the-new-structure">The new structure</h2>
+<p>Seven sections down from ten. The hero stays as landed in #1098/#1099.</p>
+<ol><li><b>Hero</b> - unchanged. H1, lead, the four promise lines, the AI-key terminal card. It already leads with the no-server claim.</li><li><b>Look first (no server, no Kubernetes, no account)</b> - merge the current &quot;Try It Now without a server and without Kubernetes&quot; section with the &quot;Pre-flight checks&quot; journey card. This is the top of the funnel and the first step of the spine. The full hooks/CRDs/prerequisites/footguns list lives here and only here.</li><li><b>Prove it on a cluster</b> - the current &quot;Try It Now with Kubernetes&quot; section, kept tight: the two terminal cards (plain Helm; cub render then apply), the parity sentence, the installer availability note, one link to Get Started.</li><li><b>Change it and keep it</b> - the current &quot;Try It Now with ConfigHub&quot; section. This is where &quot;variant&quot; gets its one-sentence definition (see vocabulary). Keep the four cards (store, edit-and-keep, custom apps, promote) and the demo-org link; they are the account-tier value ladder.</li><li><b>The catalog</b> - fold the &quot;Helm Ops Catalog&quot; journey card and the &quot;Try It Now with our Helm Ops Catalog&quot; section into one short section: what a chart page gives you (rendered objects, render record, route information), one example link, one link to the catalog index.</li><li><b>Editing charts versus buying charts</b> - keep as is (landed in #1078).</li><li><b>What this is</b> - keep the honesty section, moved to the end as the footer note before the actual footer. Proven versus sketched, demo org, unofficial.</li></ol>
+<p>The three &quot;Examples&quot; audience notes (values files, upgrades, private platform) restate the pitch; move them to <code>how-it-works.html</code> or cut them. If kept anywhere on the homepage, they must shrink to one line each and appear once. The CTA button row (Get started / Pick a chart / How it works / Check Tests) moves to the end of section 3, where the reader has just seen the commands.</p>
+<h2 id="vocabulary">Vocabulary</h2>
+<p>One sentence per noun, used identically wherever the noun first appears on a page:</p>
+<ul><li>A <b>chart</b> is what the vendor ships: a template for Kubernetes objects.</li><li>A <b>variant</b> is a supported way to run that chart, rendered to plain files you can read, check, and edit.</li><li>A <b>recipe</b> is the recorded instructions that produced a variant: the values, version locks, and checks.</li></ul>
+<p>The homepage teaches only chart → variant. &quot;Recipe&quot; comes off the homepage entirely: <code>how-it-works.html</code> and the chart pages define it, and the &quot;What this is&quot; section already says recipes are sketches, so the front page must not sell them. &quot;Package&quot; may appear only next to a <code>--pull</code> command, where it names a concrete thing the reader is pulling.</p>
+<h2 id="generator-notes-for-codex">Generator notes for Codex</h2>
+<ul><li><code>site/index.html</code> is byte-checked by <code>npm run site:verify</code>, so this is a <code>generate-public-site.mjs</code> change, not a hand-edit. Regenerate with <code>HELM_EXPT_SITE_GENERATED_AT</code> pinned to the committed <code>site/generated-at.txt</code> value so the diff stays content-only. Run only <code>site:generate</code>, <code>site:verify</code>, and <code>site:ux:verify</code>; the full verify suite is not needed for a homepage change.</li><li>Update the <code>checks</code> entry for <code>site/index.html</code> in <code>scripts/verify-site-ux-contract.mjs</code>. It currently pins &quot;Examples&quot;, &quot;Try It Now with ConfigHub&quot;, &quot;Try It Now with our Helm Ops Catalog&quot;, and &quot;Store chart configurations&quot; - several of these headings disappear. Pick stable replacements from the new section names (for example &quot;Look first&quot;, &quot;Editing charts versus buying charts&quot;, &quot;What this is&quot;).</li><li>The <code>guideOpeningChecks</code> header terms for <code>site/index.html</code> (&quot;Helm Ops made simple&quot;, &quot;AI-friendly Helm tools&quot;, &quot;Preview your installs&quot;) describe the hero, which does not change; they should keep passing. <code>site/index.html</code> also sits in <code>menuGuidePages</code> and <code>humanSplitPages</code> - keep the nav and the human-split marker intact.</li><li>The installer availability note (corrected in #1099) must stay attached to any command block that uses <code>cub installer</code>.</li><li>Keep every claim backed. The chart-claim-integrity lane (<code>chart-claim-integrity:verify</code>) exists because pages drifted from their receipts; do not introduce new claims while moving copy. The demo-org link must stay reachable from the homepage (#1073).</li><li>Self-check the finished page against <code>house-voice.md</code> (Flesch 60–70 leads, lists capped at three, no template tics) and <code>house-layout.md</code> (narrow prose, hairline sections, terminal cards, one accent).</li></ul>
+<h2 id="acceptance">Acceptance</h2>
+<ul><li>Each idea appears once: one full litany, one account pitch, one catalog pitch.</li><li>A first-time reader can answer, from the homepage alone: what is a chart, what is a variant, what can I try with nothing installed, and what does an account add.</li><li><code>npm run site:verify</code> and <code>npm run site:ux:verify</code> pass.</li></ul>
+    </article>
   </main>
-  <footer>
-    Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
-  </footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/landing-page-restructure-brief.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

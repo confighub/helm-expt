@@ -408,7 +408,7 @@
 <h2 id="the-four-systems-we-test">The four systems we test</h2>
 <ul><li><b>Helm</b> - does <code>cub installer</code> render the same object set as regular Helm, and what happens to Helm hooks?</li><li><b>Kubernetes</b> - do the rendered objects actually run on a cluster (local kind, and strict two-cluster parity)?</li><li><b>ConfigHub</b> - do the objects become Units, scan, upload via OCI, reconcile under Argo/Flux, and promote across variants?</li><li><b>cub</b> - do <code>cub installer</code>, <code>cub variant</code>, and <code>cub-scout</code> (day-1 preview) do what the catalog claims?</li></ul>
 <h2 id="test-classes">Test classes</h2>
-<table><thead><tr><th>Group</th><th>Classes</th></tr></thead><tbody><tr><td><b>A. Static verification</b> (offline <code>npm run verify</code>)</td><td>corpus representation · render parity · disposition/frontier · <b>chart-page claim integrity</b> · <b>chart-page omission lint</b> · consistency gates (doc-map, data-index, npm-script-catalog, site)</td></tr>
+<table><thead><tr><th>Group</th><th>Classes</th></tr></thead><tbody><tr><td><b>A. Static verification</b> (offline <code>npm run verify</code>)</td><td>corpus representation · render parity · disposition/frontier · <b>chart-page claim integrity</b> · <b>chart-page omission lint</b> · consistency gates (doc-map, data-index, npm-script-catalog, site, no-personal-names)</td></tr>
 <tr><td><b>B. Live cluster proof</b> (kind, serial, receipted)</td><td>local k8s live · strict two-cluster kind-parity · GitOps/OCI (Argo/Flux) · live Helm-vs-ConfigHub parity · variant-promotion</td></tr>
 <tr><td><b>C. Lifecycle / hooks</b></td><td>observe → <b>execute</b> → <b>emit</b> (GitOps-native)</td></tr>
 <tr><td><b>D. Day-1 preview</b> (cub-scout)</td><td><code>compare three-way --dry-from</code> (desired-vs-live, drift)</td></tr>
@@ -424,6 +424,7 @@
 <tr><td>Disposition / frontier</td><td>meta</td><td>meta</td><td>meta</td><td>meta</td><td><a href="../data/disposition-frontier/summary.html">disposition-frontier</a>, <a href="../data/master-catalog-matrix/summary.html">master-catalog-matrix</a></td><td><b>100% verified disposition, 0 genuine todo</b></td></tr>
 <tr><td>Chart-page claim integrity</td><td>●</td><td>○</td><td>●</td><td>●</td><td><code>chart-claim-integrity:verify</code>, <a href="../docs/planning/chart-claim-integrity-audit-2026-06-22.html">claim-integrity audit</a></td><td>gate is green: chart pages must not make claims that contradict their cited receipts; remaining warnings stay visible → <a href="../data/chart-claim-integrity-audit-2026-06-22/summary.html">live findings</a></td></tr>
 <tr><td>Chart-page omission lint</td><td>○</td><td>○</td><td>○</td><td>●</td><td><code>site:ux:verify</code></td><td>gate is green: chart pages must not leak unresolved <code>&lt;action&gt;: unknown</code> next-action placeholders or raw <code>&lt;tmp&gt;</code> work-dir placeholders</td></tr>
+<tr><td>No personal names in committed files</td><td>–</td><td>–</td><td>–</td><td>–</td><td><code>verify:no-personal-names</code></td><td>gate: tracked files outside <code>runs/</code> must not name people (receipts stay exempt as recorded evidence); green once the #1102 sweep is in</td></tr>
 <tr><td>ConfigHub proof (scan/safe-ops)</td><td>–</td><td>–</td><td>●</td><td>●</td><td>confighub proof lanes, <code>&lt;chart&gt;:verify-proof</code></td><td>complete in-ConfigHub → <a href="../data/outcome-coverage/summary.html">outcome-coverage</a></td></tr>
 <tr><td>Local k8s live</td><td>●</td><td>●</td><td>○</td><td>●</td><td><code>chart-install-test</code>, local-live receipts</td><td>partial, receipt-gated → <a href="../data/status-dashboard/summary.html">status-dashboard</a></td></tr>
 <tr><td>Strict kind-parity (2-cluster)</td><td>●</td><td>●</td><td>–</td><td>●</td><td><code>live-helm-installer-kind-parity-test</code>, <code>kind-parity:run</code></td><td>partial → <a href="../data/live-kind-parity/summary.html">live-kind-parity</a></td></tr>
@@ -460,6 +461,7 @@
 <tr><td>Persona-based public-site UX testing</td><td><a href="persona-ux-strategy.html">persona-ux-strategy.md</a></td></tr>
 <tr><td>Whether a chart page's claims match its cited receipts</td><td><code>chart-claim-integrity:verify</code> · <a href="../docs/planning/chart-claim-integrity-audit-2026-06-22.html">claim-integrity audit</a></td></tr>
 <tr><td>Whether chart pages leak unresolved UX placeholders</td><td><code>site:ux:verify</code></td></tr>
+<tr><td>Whether committed files keep personal names out</td><td><code>verify:no-personal-names</code></td></tr>
 <tr><td>The fuzz and Helm-migrant roadmap</td><td><a href="../docs/planning/fuzz-corpus-tests-roadmap.html">fuzz-corpus-tests-roadmap.md</a></td></tr>
 <tr><td>The recorded F1–F4 findings</td><td><a href="findings.html">findings.md</a></td></tr>
 <tr><td>The top-100 runtime/GitOps sweep plan</td><td><a href="top100-runtime-gitops.html">top100-runtime-gitops.md</a></td></tr>
