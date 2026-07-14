@@ -437,16 +437,17 @@
     }
     .value-callout {
       margin: 18px 0 0;
-      padding: 0;
-      max-width: 880px;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
+      padding: 16px 18px;
+      max-width: 760px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      text-align: center;
     }
     .value-callout p {
       margin: 0;
       max-width: none;
-      color: #1f344d;
+      color: var(--ink);
       font-size: 1rem;
       line-height: 1.4;
       font-weight: 600;
@@ -572,11 +573,6 @@
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
       <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
-      <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Preview your installs and the risky defaults</p>
-        <p>Change any field, then keep it through upgrades</p>
-        <p>Test run our installs without signing up to ConfigHub - no server required</p>
-      </div>
     </div>
     <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
@@ -593,6 +589,11 @@ stringData:
       <p class="terminal-caption">AI keys, generated passwords, and other Secrets are much easier to fix while they are still files.</p>
     </div>
     <p class="ai-proof">AI makes Helm changes faster. ConfigHub makes the result reviewable: exact objects, diffs, known extras, and approval records before anything ships.</p>
+    <div class="value-callout" aria-label="ConfigHub Helm operations promises">
+      <p>Preview your installs and the risky defaults</p>
+      <p>Change any field, then keep it through upgrades</p>
+      <p>Test run our installs without signing up to ConfigHub - no server required</p>
+    </div>
   </header>
   <main>
     <section aria-labelledby="look-first">
