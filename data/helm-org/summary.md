@@ -59,7 +59,7 @@ a raise.
 
 ## Gate-scope fix (2026-07-03, later the same day)
 
-Alexis spotted `render-record` wearing an unapprovable approval gate. Root
+The maintainer spotted `render-record` wearing an unapprovable approval gate. Root
 cause: both platform filters selected every platform trigger (`Space.Slug =
 'platform'`), so the vet-only baseline also dragged `require-approval` onto
 all 27 consuming spaces — an approval gate with no human workflow behind it,
@@ -74,7 +74,7 @@ create` copies the template's TriggerFilterID.
 
 ## The #4697 upstreaming pattern, reproduced (2026-07-03)
 
-Jesper's rollout plan (confighubai/confighub#4697) sets env vars directly on
+A colleague's rollout plan (confighubai/confighub#4697) sets env vars directly on
 staging/prod first, then "upstreams" them to bases with `confighubplaceholder`.
 We reproduced that exact sequence on the vault tree (staging departs with
 `CONFIGHUB_IDP_AUDIENCE=staging-real-audience`; the base later adds the same

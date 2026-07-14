@@ -3,7 +3,7 @@
 _A UX test (website walkthrough) in the [helm-expt test map](tests/README.md)._
 
 This runbook helps another Codex, Claude, or teammate start the generated
-helm-expt website locally and walk Alexis through a UX review. The review
+helm-expt website locally and walk the maintainer through a UX review. The review
 starts with the top-level pages, then follows guide and doc links one or two
 clicks deeper.
 
@@ -286,7 +286,7 @@ For each finding, record:
 Page:
 Step:
 Problem:
-What Alexis expected:
+What the maintainer expected:
 Suggested fix:
 ```
 

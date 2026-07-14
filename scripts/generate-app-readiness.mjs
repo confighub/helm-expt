@@ -2,7 +2,7 @@
 // Green-field app-readiness: a read-app built ON the held config-as-data, with
 // no cluster and no re-render. It analyses the RBAC in every committed default
 // render (already-rendered WET YAML) for broad/risky permissions - the same kind
-// of tool Brian Grant's "There should be an app for that" builds on ConfigHub
+// of tool the "There should be an app for that" thesis builds on ConfigHub
 // (the RBAC Manager). It proves the held data is APP-ABLE (queryable), which is
 // the green-field stage of the user story; the write half is reverse-reconcile.
 // Deterministic --generate/--verify.
@@ -72,7 +72,7 @@ function summaryMd(rows) {
   for (const r of rows) for (const f of r.findings) findingTotals[f] = (findingTotals[f] ?? 0) + 1;
   const o = [];
   o.push("# Green-Field App-Readiness: an RBAC read-app on the held data", "");
-  o.push("This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool Brian Grant's *\"There should be an app for that\"* builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.", "");
+  o.push("This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool the *\"There should be an app for that\"* thesis builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.", "");
   o.push(`Scanned **${charts}** default renders; **${withRbac}** ship RBAC; **${withRisk.length}** contain at least one broad/risky rule by these conservative heuristics.`, "");
   o.push("Findings across the catalog:", "");
   o.push("| Finding | Charts | Meaning |", "| --- | ---: | --- |");

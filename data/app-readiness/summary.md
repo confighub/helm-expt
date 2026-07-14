@@ -1,6 +1,6 @@
 # Green-Field App-Readiness: an RBAC read-app on the held data
 
-This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool Brian Grant's *"There should be an app for that"* builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.
+This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool the *"There should be an app for that"* thesis builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.
 
 Scanned **95** default renders; **69** ship RBAC; **50** contain at least one broad/risky rule by these conservative heuristics.
 

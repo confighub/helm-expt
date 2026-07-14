@@ -73,8 +73,8 @@ Same copy, with three more lines that need building first (marked ⏳):
    defaults (kubescape / checkov-style), run on the rendered objects. Turns "insecure defaults"
    from the baked-secret slice into the real security hook.
 2. **Upgrade pre-flight / CRD-skew check** — detect that a chart bump drops an in-use CRD
-   version, then offer a version both releases support. (A concrete feature proposed by Brian
-   Grant; chkk-shaped, scoped to a chart.)
+   version, then offer a version both releases support. (A concrete feature proposed by a
+   colleague; chkk-shaped, scoped to a chart.)
 3. **Grounded AI explainer** — "why won't this render?" answered from the actual render plus
    the catalog's per-chart knowledge. The grounding data exists; the explainer is the build.
 
