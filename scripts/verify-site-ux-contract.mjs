@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs", "Examples", "Try It Now with ConfigHub", "Store chart configurations", "Try It Now with our Helm Ops Catalog", "Check Tests"],
+    terms: ["Helm Ops made simple", "AI-friendly Helm tools", "Preview your installs", "Look first", "Prove it on a cluster", "Change it and keep it", "What the catalog gives you", "Store chart configurations", "Check Tests"],
   },
   {
     file: "site/variants.html",

@@ -1270,17 +1270,11 @@ function html(catalog) {
 
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
-  const journeySteps = [
-    ["First", "Pre-flight checks", "No account, no cluster: see the hooks, CRDs, prerequisites, and known footguns we track for a chart, and fix what you would change before anything reaches the cluster.", "./try.html", "Get Started"],
-    ["Second", "Helm Ops Catalog", "We maintain a public catalog of standard charts with known good variants, risk advice, and support for hooks, CRDs, setup jobs, and other Helm extras.", "./charts/index.html", "Go to Catalog"],
-    ["Then", "Change it and keep it", "With a free account, edit any rendered field, even ones the chart never exposed, and keep it through upgrades. Start from one base and make versions for dev, staging, prod, per region.", "./variants.html", "What are Variants?"],
-    ["Later", "Application Delivery Tools", "Use your favourite GitOps tools with ConfigHub to add custom apps alongside your chart-based platform.", "./journey.html", "Apps on ConfigHub"],
-  ];
   const seeCards = [
     ["See what will bite you", "The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps."],
     ["Catch classic errors", "AI keys, generated passwords, and other Secrets can slip into a render. Spot them and swap in the right reference before they land in your cluster or registry."],
     ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there, named up front."],
-    ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, Secrets, hooks, CRDs, and target assumptions."],
+    ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, and target assumptions."],
   ];
   const valueCards = [
     ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
@@ -1301,10 +1295,10 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Hooks, CRDs, prerequisites, and known footguns are tracked per chart, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
+      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once, let you change any field afterward, even ones the chart never let you set, and keep it through every upgrade. New AI-friendly Helm tools, and a Catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. Each chart's traps are tracked, with the evidence linked. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
         <p>Try a catalog package with no server, no cluster, and no account</p>
-        <p>Preview your installs, with hooks, CRDs, prerequisites, and known footguns tracked per chart</p>
+        <p>Preview your installs, with the traps named before anything reaches the cluster</p>
         <p>Change any field after install, and keep it through upgrades</p>
         <p>Run many customised installs as one fleet, without the upgrade pain</p>
       </div>
@@ -1324,49 +1318,18 @@ stringData:
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
     </div>
     <p class="ai-proof">AI makes everything faster, including Helm Ops. With ConfigHub you can make this safe. Work with exact objects, diffs, known extras, and approval records before anything ships, and fix post-deployment errors too.</p>
-    <div class="start-block" aria-labelledby="start">
-      <h2 id="start">How we help</h2>
-      <p>Try it first with a couple of charts and add GitOps if you like. A ${signupLink("index", "free ConfigHub account")} lets you edit the rendered config and keep it, then share configurations, variants, apps, and releases when one chart becomes many.</p>
-      <div class="journey-flow" aria-label="Four-step product journey">
-        ${journeySteps.map(([number, title, body, href, linkText]) => `<a class="journey-step" href="${escapeHtml(href)}">
-          <span class="kicker">${escapeHtml(number)}</span>
-          <h3>${escapeHtml(title)}</h3>
-          <p>${escapeHtml(body)}</p>
-          <span class="go">${escapeHtml(linkText)}</span>
-        </a>`).join("\n        ")}
-      </div>
-    </div>
-    <div class="audience-block" aria-labelledby="audience-problems">
-      <h2 id="audience-problems">Examples</h2>
-      <p class="audience-note"><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
-      <p class="audience-note"><strong>Upgrades and Promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>
-      <p class="audience-note"><strong>Private Platform?</strong> You have custom charts made by your teams using their favourite Helm features, but the final YAML is hard to review before deploy and hard to scan afterward. ConfigHub's model lets you treat those renders as governed data, keep Argo or Flux, and add approval, scanning, and observation around the exact objects.</p>
-      <p class="audience-frame"><strong>ConfigHub:</strong> stop approving guesses. Preview one install, compare the difference between installs, then prove fleet changes with recorded data, diffs, gates, receipts, GitOps handoff, and live observations.</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-        <a class="button secondary" href="./how-it-works.html">How it works</a>
-        <a class="button secondary" href="./verification.html">Check Tests</a>
-      </div>
-    </div>
   </header>
   <main>
-    <section aria-labelledby="what-this-is">
-      <h2 id="what-this-is">What this is</h2>
-      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
-      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
-    </section>
-
     <section aria-labelledby="look-first">
-      <h2 id="look-first">Try It Now without a server and without Kubernetes</h2>
-      <p class="closing-line"><code>cub installer setup</code> runs locally so you can inspect a catalog package without connecting to ConfigHub or Kubernetes. Keep Helm, Argo CD, Flux, and the tools you already use. This first test changes nothing.</p>
+      <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
+      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally so you can read what a catalog package will actually install, without connecting to ConfigHub or Kubernetes. Keep Helm, Argo CD, Flux, and the tools you already use. This first test changes nothing.</p>
       <div class="home-list light-grid">
         ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
     </section>
 
     <section aria-labelledby="try-now">
-      <h2 id="try-now">Try It Now with Kubernetes</h2>
+      <h2 id="try-now">Prove it on a cluster</h2>
       <p>Use a quick dev cluster to compare Helm and cub, and you can see they can deliver the same results. You can verify this with our <a href="./verification.html">npm proof commands</a>. Once you know you have a correct baseline, then you can make changes safely too.</p>
       <p>Deploy the Helm lane, then deploy the cub lane. Helm renders and applies in one jump; cub writes the objects first so you can inspect them, then Kubernetes applies the same app. Same chart, same Kubernetes result. The difference is that cub gives you a review point before the install.</p>
       <p class="install-cub-note">Install the cub CLI first: <code>${CUB_CLI_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
@@ -1385,30 +1348,39 @@ stringData:
         </div>
       </div>
       <p class="quiet-line">${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
-      <p><a href="./try.html">Open the full try-now walkthrough</a></p>
+      <div class="hero-actions" aria-label="Primary actions">
+        <a class="button primary" href="./try.html">Get started</a>
+        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
+        <a class="button secondary" href="./how-it-works.html">How it works</a>
+        <a class="button secondary" href="./verification.html">Check Tests</a>
+      </div>
     </section>
 
     <section aria-labelledby="control-value">
-      <h2 id="control-value">Try It Now with ConfigHub</h2>
-      <p>A basic ${signupLink("index", "ConfigHub account")} is free. It adds a store and domain model, so you can edit and keep the rendered config and share the many custom chart configurations your team runs. Create custom apps, dev and prod configs, promotions, and releases. The value is more control after the Helm render: recorded inputs, visible variants, exact diffs, review gates, safer upgrades, GitOps handoff, and live observations. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
+      <h2 id="control-value">Change it and keep it</h2>
+      <p>Once a chart runs, you will want to change something. A variant is a supported way to run that chart, rendered to plain files you can read, check, and edit. A basic ${signupLink("index", "ConfigHub account")} is free: it stores your variants, records every edit, and keeps your changes through upgrades, even on fields the chart never exposed. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
       <div class="home-list">
         ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
       </div>
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">Try It Now with our Helm Ops Catalog</h2>
-      <p>The Helm Ops Catalog is full of useful info about charts for humans and agents. Look at YAML options, common variants, chart versions, values, namespace, release name, capabilities, source lock, and the known extras that Helm leaves around the edges.</p>
-      <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for hooks, CRDs, setup work, target prerequisites, and other chart extras.</p>
-      <p>For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output. The chart page and render intent explain the inputs, checks, and route context around that output. Redis has no hook route; charts with hooks or CRDs show that work in their chart extras and route records.</p>
-      <p>Hooks, CRDs, setup jobs, webhook certificates, generated Secrets, and cloud accounts do not disappear. Our Helm Ops Catalog turns them into named routes, checks, variants, or handoff notes so teams can manage them deliberately.</p>
-      <p>Some charts need extra setup before they run. Our Helm Ops Catalog helps users map these extras to safer, equivalent customizations. In a few cases, we offer alternatives when there is no one safe option.</p>
-      <p><a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
+      <h2 id="limits">What the catalog gives you</h2>
+      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges.</p>
+      <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for chart extras. For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output.</p>
+      <p>Hooks, CRDs, setup jobs, and other extras do not disappear. The catalog turns them into named routes, checks, variants, or handoff notes, and where there is no one safe option it says so.</p>
+      <p><a href="./charts/index.html">Browse the catalog</a> · <a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
     </section>
 
     <section aria-labelledby="editing-vs-buying">
       <h2 id="editing-vs-buying">Editing charts versus buying charts</h2>
       <p>Chart catalogs change hands, licenses, and registries. When that happens, teams that only consume a catalog migrate on someone else's schedule. Teams that hold their rendered config as data can read every image reference, change it with a recorded edit, and prove the change landed in every environment. That is the difference between editing your charts and buying them.</p>
+    </section>
+
+    <section aria-labelledby="what-this-is">
+      <h2 id="what-this-is">What this is</h2>
+      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
+      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
     </section>
   </main>
   <footer>
@@ -1489,6 +1461,12 @@ em{font-style:italic;color:var(--ink);}
       </ul>
     </div>
   </div>
+
+  <h3>Where teams feel it</h3>
+  <p><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
+  <p><strong>Upgrades and promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>
+  <p><strong>Private platform?</strong> You have custom charts made by your teams using their favourite Helm features, but the final YAML is hard to review before deploy and hard to scan afterward. ConfigHub's model lets you treat those renders as governed data, keep Argo or Flux, and add approval, scanning, and observation around the exact objects.</p>
+  <p><strong>Stop approving guesses.</strong> Preview one install, compare the difference between installs, then prove fleet changes with recorded data, diffs, gates, receipts, GitOps handoff, and live observations.</p>
 
   <h2>2 · The catalog: what's available</h2>
   <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>

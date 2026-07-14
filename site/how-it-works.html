@@ -533,6 +533,12 @@ em{font-style:italic;color:var(--ink);}
     </div>
   </div>
 
+  <h3>Where teams feel it</h3>
+  <p><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
+  <p><strong>Upgrades and promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>
+  <p><strong>Private platform?</strong> You have custom charts made by your teams using their favourite Helm features, but the final YAML is hard to review before deploy and hard to scan afterward. ConfigHub's model lets you treat those renders as governed data, keep Argo or Flux, and add approval, scanning, and observation around the exact objects.</p>
+  <p><strong>Stop approving guesses.</strong> Preview one install, compare the difference between installs, then prove fleet changes with recorded data, diffs, gates, receipts, GitOps handoff, and live observations.</p>
+
   <h2>2 · The catalog: what's available</h2>
   <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
   <div class="scope">
