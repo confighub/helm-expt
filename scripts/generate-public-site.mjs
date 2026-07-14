@@ -4296,7 +4296,7 @@ function aiHtml(catalog) {
     <section aria-labelledby="agentic-apps">
       <h2 id="agentic-apps">Agentic Custom Apps</h2>
       <p>A useful pattern is a small domain app that exposes higher-level operations to an agent while ConfigHub remains the configuration store. The app supplies the domain model, dry-run behavior, guardrails, and explicit commit path.</p>
-      <p>Brian's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> is a concrete example of that shape. It is a CLI/plugin with skills for RBAC inventory, effective-access queries, hygiene findings, guarded edits, fleet edits, and promotion. That is more differentiated than asking an agent to edit YAML directly.</p>
+      <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> is a concrete example of that shape. It is a CLI/plugin with skills for RBAC inventory, effective-access queries, hygiene findings, guarded edits, fleet edits, and promotion. That is more differentiated than asking an agent to edit YAML directly.</p>
     </section>
 
     <section aria-labelledby="guides">

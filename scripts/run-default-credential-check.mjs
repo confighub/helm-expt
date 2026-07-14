@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Gap hunt (think like Brian): does a chart's DEFAULT cub base ship a FIXED default
+// Gap hunt (think like the tool's author): does a chart's DEFAULT cub base ship a FIXED default
 // credential? Helm generates a RANDOM password per install (non-deterministic). cub renders
 // deterministically and can include an auth Secret in out/secrets/ — but if that Secret's
 // value is the SAME for every install (namespace-independent, committed in the package),

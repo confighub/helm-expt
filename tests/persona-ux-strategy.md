@@ -86,15 +86,15 @@ deeper pages tested
 where the site answered well
 where the persona would bounce
 improvement candidate
-voice owner: Alexis voice or Brian voice
+voice owner: marketing voice or technical voice
 ```
 
 ## Voice Split
 
-Use **Alexis voice** for intros, landing pages, user motivation, and marketing
+Use **marketing voice** for intros, landing pages, user motivation, and marketing
 content. It should be plain, direct, optimistic, and human.
 
-Use **Brian voice** for technical content. It should define scope, prerequisites,
+Use **technical voice** for technical content. It should define scope, prerequisites,
 current status, evidence, limits, and next actions precisely.
 
 ## Output

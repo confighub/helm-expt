@@ -267,11 +267,11 @@ ${worst}
 
 ## Ranked fixes (the output)
 
-1. **[Brian] Add an expected-output block to every command on every guide** — the weakest dimension site-wide (C3 ${pct(checkScore[2], 80)}%). "You should see …" under each \`cub\`/\`npm\`/\`kubectl\` line.
-2. **[Brian] Put a runnable command on the orientation guides** (Apps, Variants, Catalog) — at least one copy-paste action + result, instead of prose that routes to a doc (C2 ${pct(checkScore[1], 80)}%).
-3. **[Brian] State prerequisites inline per guide** — account / cluster / \`cub\` install / inputs, near the first command (C4 ${pct(checkScore[3], 80)}%; only Get Started + FAQ do this).
-4. **[Alexis] Give the AI lead, Security, and Existing-app personas a home** — AI content on Home/Get Started (not just a dead-end card), a security/provenance section, and a read-only "adopt my stack" command on Apps.
-5. **[Alexis] Complete the Ops guide** — it names rollback/observe/patch but ships none; add those cards so SRE can act.
+1. **[technical voice] Add an expected-output block to every command on every guide** — the weakest dimension site-wide (C3 ${pct(checkScore[2], 80)}%). "You should see …" under each \`cub\`/\`npm\`/\`kubectl\` line.
+2. **[technical voice] Put a runnable command on the orientation guides** (Apps, Variants, Catalog) — at least one copy-paste action + result, instead of prose that routes to a doc (C2 ${pct(checkScore[1], 80)}%).
+3. **[technical voice] State prerequisites inline per guide** — account / cluster / \`cub\` install / inputs, near the first command (C4 ${pct(checkScore[3], 80)}%; only Get Started + FAQ do this).
+4. **[marketing voice] Give the AI lead, Security, and Existing-app personas a home** — AI content on Home/Get Started (not just a dead-end card), a security/provenance section, and a read-only "adopt my stack" command on Apps.
+5. **[marketing voice] Complete the Ops guide** — it names rollback/observe/patch but ships none; add those cards so SRE can act.
 
 Re-run after Codex lands changes and diff the matrix.
 `;

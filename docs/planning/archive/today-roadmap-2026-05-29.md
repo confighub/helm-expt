@@ -60,7 +60,7 @@ UI/CLI. Product contract first; artifacts only when useful.
 
 ## Operating Rules
 
-1. Work inside `confighub/helm-expt` unless Alexis explicitly approves work
+1. Work inside `confighub/helm-expt` unless the maintainer explicitly approves work
    elsewhere.
 2. Do not file issues outside `confighub/helm-expt` without asking first.
 3. Do not create one-off artifacts just because they are easy to generate.

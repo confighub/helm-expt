@@ -149,5 +149,5 @@ For GHCR, use a token with `write:packages`. After a successful push, the script
 writes a publication receipt under `runs/installer-oci/...`; regenerate the
 catalog so the row changes from `assigned-ref` to `published-receipt`.
 
-For Brian's consumer pathway, see the upstream
+For the full consumer pathway, see the upstream
 [Package Consumer Guide](https://github.com/confighub/installer/blob/main/docs/consumer-guide.md).
