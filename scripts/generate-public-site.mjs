@@ -1319,16 +1319,17 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you wire every setting into the template up front, then wipes your edits on the next upgrade. We render the chart once and let you change any field afterward, even ones the chart never let you set. Your change survives every upgrade. New AI-friendly Helm tools ship alongside a catalog of the top 100 charts, with every chart's traps tracked and the evidence linked.</p>
+      <p class="lead">Helm makes you put every setting into templates up front, then rebuilds the release on every upgrade. ConfigHub renders the chart once, lets you change the real Kubernetes objects afterward, and keeps those changes through upgrades.</p>
+      <p class="lead secondary-lead">AI-friendly Helm tools ship with a catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>Try a catalog package with no server, no cluster, and no account</p>
-        <p>Preview your installs, with the traps named before anything reaches the cluster</p>
-        <p>Change any field, keep it through upgrades, and grow one install into a fleet</p>
+        <p>No server, no cluster, no account</p>
+        <p>Preview your installs and the risky defaults</p>
+        <p>Change any field, then keep it through upgrades</p>
       </div>
     </div>
     <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">ai-provider secret → preview before install</div>
+      <div class="terminal-title">Example: catch an old AI API key before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
@@ -1337,11 +1338,10 @@ type: Opaque
 stringData:
 <span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
 
-<span class="term-comment"># AI keys often live too long; catch them while this is still a file</span>
-<span class="term-comment"># generated passwords and other Secrets are the same kind of check</span>
 <span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
+      <p class="terminal-caption">AI keys, generated passwords, and other Secrets are much easier to fix while they are still files.</p>
     </div>
-    <p class="ai-proof">AI makes Helm faster. ConfigHub makes it safe. You review the exact objects and diffs before anything ships, and you can fix errors after rollout too.</p>
+    <p class="ai-proof">AI makes Helm changes faster. ConfigHub makes the result reviewable: exact objects, diffs, known extras, and approval records before anything ships.</p>
   </header>
   <main>
     <section aria-labelledby="look-first">
@@ -6378,6 +6378,25 @@ function homePageCss() {
       gap: 12px;
       margin: 18px 0;
     }
+    .home-hero {
+      padding: 20px 20px;
+    }
+    .home-hero .experiment-banner {
+      padding: 6px 10px;
+      font-size: .82rem;
+    }
+    .home-hero .lead {
+      max-width: 830px;
+      font-size: 1.03rem;
+    }
+    .home-hero .secondary-lead {
+      color: var(--muted);
+      font-size: .96rem;
+    }
+    .home-hero .home-terminal {
+      margin-top: 22px;
+      max-width: 900px;
+    }
     .term-catch {
       display: inline-block;
       width: 100%;
@@ -6390,16 +6409,17 @@ function homePageCss() {
     }
     .terminal-caption {
       margin: 0;
-      padding: 12px 14px;
+      padding: 10px 14px;
       border-top: 1px solid var(--line);
       background: var(--panel);
-      color: var(--ink);
+      color: var(--muted);
       font-size: .9rem;
-      font-weight: 600;
     }
     .ai-proof {
-      margin-top: 16px;
-      max-width: 820px;
+      margin-top: 14px;
+      max-width: 760px;
+      color: #374151;
+      font-size: .96rem;
     }
     .value-callout {
       margin: 18px 0 0;
@@ -6412,8 +6432,8 @@ function homePageCss() {
     .value-callout p {
       margin: 0;
       max-width: none;
-      color: var(--ink);
-      font-size: 1.08rem;
+      color: #1f344d;
+      font-size: 1rem;
       line-height: 1.4;
       font-weight: 600;
     }
