@@ -414,8 +414,6 @@
     .ai-proof {
       margin-top: 16px;
       max-width: 820px;
-      color: #374151;
-      font-weight: 600;
     }
     .value-callout {
       margin: 18px 0 0;
@@ -428,10 +426,10 @@
     .value-callout p {
       margin: 0;
       max-width: none;
-      color: #374151;
+      color: var(--ink);
       font-size: 1.08rem;
       line-height: 1.4;
-      font-weight: 650;
+      font-weight: 600;
     }
     .value-callout p + p {
       margin-top: 3px;
@@ -525,9 +523,29 @@
       .home-list { grid-template-columns: 1fr; }
       .home-hero .journey-step { padding: 12px 0 0; }
     }
-  </style>
+  
+    body.home .terminal-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--term);
+      overflow: hidden;
+    }
+    body.home .terminal-card .terminal-title {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #b7c3cf;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      background: #111922;
+    }
+    body.home .terminal-card .terminal-body {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+    }
+</style>
 </head>
-<body>
+<body class="home">
   <header class="home-hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
@@ -539,8 +557,9 @@
         <p>Change any field, keep it through upgrades, and grow one install into a fleet</p>
       </div>
     </div>
+    <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</div>
+      <div class="terminal-title">ai-provider secret → preview before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
