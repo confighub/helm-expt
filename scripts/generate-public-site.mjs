@@ -1322,7 +1322,6 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
       <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
       <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
     </div>
-    <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
       <div class="terminal-title">Example: catch an old AI API key before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
