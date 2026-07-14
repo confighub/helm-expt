@@ -1268,6 +1268,30 @@ function html(catalog) {
   return parityFirstHomeHtml(catalog);
 }
 
+function homeTerminalCss() {
+  return `
+    body.home .terminal-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--term);
+      overflow: hidden;
+    }
+    body.home .terminal-card .terminal-title {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      color: #b7c3cf;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      background: #111922;
+    }
+    body.home .terminal-card .terminal-body {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+    }
+`;
+}
+
 function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
   const seeCards = [
@@ -1288,9 +1312,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ConfigHub Helm Ops</title>
-  <style>${siteCss()}${homePageCss()}</style>
+  <style>${siteCss()}${homePageCss()}${homeTerminalCss()}</style>
 </head>
-<body>
+<body class="home">
   <header class="home-hero human-hero">
     ${topNav(".")}
     <div class="hero-copy">
@@ -1302,8 +1326,9 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
         <p>Change any field, keep it through upgrades, and grow one install into a fleet</p>
       </div>
     </div>
+    <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</div>
+      <div class="terminal-title">ai-provider secret → preview before install</div>
       <pre class="terminal-body"><code>apiVersion: v1
 kind: Secret
 metadata:
@@ -6375,8 +6400,6 @@ function homePageCss() {
     .ai-proof {
       margin-top: 16px;
       max-width: 820px;
-      color: #374151;
-      font-weight: 600;
     }
     .value-callout {
       margin: 18px 0 0;
@@ -6389,10 +6412,10 @@ function homePageCss() {
     .value-callout p {
       margin: 0;
       max-width: none;
-      color: #374151;
+      color: var(--ink);
       font-size: 1.08rem;
       line-height: 1.4;
-      font-weight: 650;
+      font-weight: 600;
     }
     .value-callout p + p {
       margin-top: 3px;
