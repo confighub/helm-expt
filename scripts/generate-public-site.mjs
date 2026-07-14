@@ -156,7 +156,7 @@ const PAGE_REDIRECT_TARGETS = {
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
 // theirs from the page title.
 const PAGE_DESCRIPTIONS = {
-  "index.html": "Render a Helm chart once, change any field afterward, and keep it through upgrades: AI-friendly Helm tools and an evidence-backed catalog of the top 100 charts.",
+  "index.html": "Use cub installer to make Helm rendering transparent, flexible, and manageable while keeping your Helm charts.",
   "offering.html": "Public Helm charts in visible and verifiable stages: keep the chart as the source and make the rendered config reviewable and safer to operate.",
   "try.html": "Install a chart with Helm and cub side by side on a throwaway cluster, read the rendered objects first, then change a setting and keep it through upgrades.",
   "serverless.html": "Serverless mode is the no-account path: install a catalog chart and inspect the rendered objects, Secrets, and prerequisites before you apply them.",
@@ -1319,12 +1319,12 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
     ${topNav(".")}
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you put every setting into templates up front, then rebuilds the release on every upgrade. ConfigHub renders the chart once, lets you change the real Kubernetes objects afterward, and keeps those changes through upgrades.</p>
-      <p class="lead secondary-lead">AI-friendly Helm tools ship with a catalog of the top 100 charts: ${catalog.summary.catalogSupported} with full catalog proof, ${catalog.summary.proofGrade} proof-grade and being promoted. The ${publicCatalogPackageCount} public chart packages pull without a ConfigHub account or Google registry login.</p>
+      <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
+      <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
       <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-        <p>No server, no cluster, no account</p>
         <p>Preview your installs and the risky defaults</p>
         <p>Change any field, then keep it through upgrades</p>
+        <p>Test run our installs without signing up to ConfigHub - no server required</p>
       </div>
     </div>
     <p>Ever shipped an old AI API key? Catch it while it is still a file, and unwind it even after rollout.</p>
