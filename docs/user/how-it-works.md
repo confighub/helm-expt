@@ -17,6 +17,13 @@ is the map; each link goes deeper.
 _New to the vocabulary (Unit, space, target, OCI bundle)? Start with the
 [data model](confighub-data-model.md)._
 
+The reason for the model is simpler than the vocabulary. Helm remains the chart
+source. The catalog turns common chart shapes into vetted package releases, with
+most choices fixed before install and only a small, documented input surface left
+open. ConfigHub then becomes the source of record for which package, preset,
+allowed inputs, and target each app, cluster, customer, or environment should
+run.
+
 ---
 
 ## 1. Render — the recipe
@@ -42,6 +49,12 @@ three consumers, the routed hook ran under each
 ([receipt](../../data/oci-hook-delivery-proof/summary.md)). Includes the credentials story
 (OCI pull creds vs app secrets).
 → [cub-deployment-path](cub-deployment-path.md) · [gitops-adopter-guide](gitops-adopter-guide.md)
+
+This is where the story stops being an installer story. Bootstrap commands can
+be imperative, but day-2 upgrades should come from the recorded desired state:
+package release, preset, allowed inputs, target, approvals, and delivery
+receipt. The controller reconciles that record instead of asking every operator
+or agent to rerun a sequence from memory.
 
 ## 4. Observe — receipts, honest disposition
 Live proof, lane by lane; `watch ≠ pass`; render parity ≠ live-ready; we say what we

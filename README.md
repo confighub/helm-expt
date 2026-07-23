@@ -1,6 +1,6 @@
 # ConfigHub Helm Experiment
 
-Use Helm charts. Ship ConfigHub variants.
+Use Helm charts. Make the fleet recordable.
 
 Before you `helm install`, see exactly what you are installing. After you
 install, keep proof of what was rendered, checked, delivered, and observed.
@@ -8,6 +8,13 @@ install, keep proof of what was rendered, checked, delivered, and observed.
 This repo shows how popular public Helm charts can become `cub installer`
 packages with named base variants, exact rendered Kubernetes objects, optional
 derived ConfigHub variants, scans, gates, receipts, and live proof.
+
+The simple story is not "run a better install script." The durable value is a
+declarative source of record for fleets. Most chart choices should be hardened
+into a reviewed package before install. The small set of choices that remain at
+install time should be explicit, typed, and restricted. ConfigHub can then
+record which package, preset, target, and allowed inputs each fleet member
+should run, and compare that desired record with what reached the clusters.
 
 The supported bases are intended to preserve the chart's end-to-end semantics
 while splitting the install into visible, verifiable stages. That makes changes
@@ -57,16 +64,24 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | --- | --- | --- | --- |
 | 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
 | 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
-| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account or registry login for public package pulls |
+| 3. Supported catalog | A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account or registry login for public package pulls |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
-Stages 1 and 2 are direct fast paths and skip the catalog. Stage 3 is the
+Stages 1 and 2 are direct fast paths and skip the catalog. `cub helm` is now the
+separate `cub-helm` plugin path; the public catalog path remains
+`cub installer setup`. Stage 3 is the
 durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to
 pay back the extra structure: the same rendered objects can be cloned into
 environment, region, customer, or target variants; compared before promotion;
 scanned and gated as exact objects; delivered through GitOps or OCI; and
 observed later with receipts.
+
+For fleet work, Stage 5 is the center of gravity. User workloads, system
+services, and cluster configuration may move on different cadences and under
+different owners. The shared need is the same: a signed or otherwise proven
+package release, a small controlled install-time surface, and a record of which
+version each fleet member should reconcile to.
 
 Free and low-friction use should cover browsing the catalog, inspecting
 rendered objects, running `cub helm template`, trying public `cub installer`
@@ -119,11 +134,12 @@ Helm chart
 -> cub installer recipe/package
 -> installer package OCI ref for users to pull
 -> named base variants that select or change the Helm-rendered object set
+-> small typed install-time inputs for the choices not hardened into the package
 -> exact rendered Kubernetes objects
 -> optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
 -> hook/lifecycle policy for cluster-dependent Helm behavior
 -> Helm-equivalence proof, scans, gates, receipts
--> ConfigHub / OCI / GitOps handoff
+-> ConfigHub source-of-record / OCI / GitOps handoff
 ```
 
 ## The Idea

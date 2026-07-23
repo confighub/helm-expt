@@ -407,7 +407,8 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
 <p>A fair skeptic asks one question first: <i>isn't this just <code>helm template</code> with a wrapper around it?</i> Here is the honest answer.</p>
 <p>For three jobs, the wrapper is the wrong tool, and we will say so plainly. To inspect a chart's output, <code>cub helm template</code> is simpler. To load one chart into ConfigHub, <code>cub helm install</code> is simpler. To bring in an estate you already run, <code>cub gitops import</code> is simpler. Reach for those.</p>
-<p>This repo is for a different job: turning a popular Helm chart into something you can trust at scale. Not a raw render - a render that is <b>reviewed, named, reusable, and supportable</b>, with variants you can compare, checks you can gate on, receipts you can cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm. It is there to make Helm's output durable, comparable, and auditable - to turn one install into something you can still reason about a year and a thousand installs later.</p>
+<p>This repo is for a different job: turning a popular Helm chart into something you can trust across a fleet. Not a raw render - a package and record that are <b>reviewed, named, reusable, and supportable</b>, with variants you can compare, checks you can gate on, receipts you can cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm. It is there to make Helm's output durable, comparable, and auditable - to turn one install into something you can still reason about a year and a thousand installs later.</p>
+<p>That is the simplification: the command is just how you start. The operating model is a declarative source of record for what the fleet should run. Most settings should be decided and hardened when the package is built. The few choices left for install time should be small, typed, and restricted, so a cluster or customer can opt into the right shape without reopening the whole Helm values surface.</p>
 <p>Parity with Helm is not the product benefit by itself. It is the migration assurance check: before ConfigHub adds value, the user needs to know that the ConfigHub path did not quietly change the starting objects. The product value is what becomes possible after that check: recorded render inputs, explicit variants, safer upgrade review, policy gates, GitOps handoff, observations, and operations on visible desired state.</p>
 <p>The fast <code>cub helm install</code> path only becomes durable when its inputs are captured. Chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, and generated facts must be recorded somewhere that can be reviewed and rerun. That is why the roadmap includes renderer/input capture work such as ConfigHub issue <a href="https://github.com/confighubai/confighub/issues/3393">#3393</a> and the broader renderer model in <a href="https://github.com/confighubai/confighub/issues/4369">#4369</a>. Argo CD and Flux already have render inputs in their own manifests; ConfigHub should use those facts rather than inventing a parallel hidden install.</p>
 <h2 id="not-a-replacement-for-the-fast-paths">Not A Replacement For The Fast Paths</h2>
@@ -445,12 +446,15 @@ OCI/GitOps delivery proof
 runtime observation receipt
 catalog status and maintenance SLA</code></pre>
 <p>That wrapper should not hide Helm. It should make Helm's output durable, comparable, searchable, promotable, and auditable.</p>
+<p>The result should feel less like an imperative install sequence and more like a record that can be reconciled. One-time bootstrap commands are useful. Repeated upgrades should come from a known package release, an allowed input schema, and ConfigHub records that say which clusters, customers, or environments should receive it.</p>
 <h2 id="why-not-just-render-and-import">Why Not Just Render And Import?</h2>
 <p>Render-and-import is enough for a local experiment. It is not enough for a catalog or supported operational flow.</p>
 <p>The catalog path adds:</p>
 <table><thead><tr><th>Need</th><th>What this repo adds</th></tr></thead><tbody><tr><td>Repeatability</td><td>Source locks, dependency locks, package paths, named bases, and rendered digests.</td></tr>
 <tr><td>Reviewability</td><td>Stable ConfigHub Units with labels, upstream links, scans, gates, and receipts.</td></tr>
 <tr><td>Variant clarity</td><td>A hard distinction between base variants and derived ConfigHub variants.</td></tr>
+<tr><td>Small install surface</td><td>Most chart settings are fixed in the package; the remaining inputs should be explicit and restricted.</td></tr>
+<tr><td>Fleet record</td><td>A durable desired record for which package, base, inputs, target, and variant each fleet member should run.</td></tr>
 <tr><td>Promotion</td><td>Clone/link/preserve upstream provenance instead of copying YAML by hand.</td></tr>
 <tr><td>GitOps handoff</td><td>OCI artifact plus controller/runtime proof, not just &quot;we rendered YAML.&quot;</td></tr>
 <tr><td>Support</td><td>Catalog status, maintenance expectations, and known blockers.</td></tr></tbody></table>

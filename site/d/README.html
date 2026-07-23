@@ -403,9 +403,10 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Use Helm charts. Ship ConfigHub variants.</p>
+<p>Use Helm charts. Make the fleet recordable.</p>
 <p>Before you <code>helm install</code>, see exactly what you are installing. After you install, keep proof of what was rendered, checked, delivered, and observed.</p>
 <p>This repo shows how popular public Helm charts can become <code>cub installer</code> packages with named base variants, exact rendered Kubernetes objects, optional derived ConfigHub variants, scans, gates, receipts, and live proof.</p>
+<p>The simple story is not &quot;run a better install script.&quot; The durable value is a declarative source of record for fleets. Most chart choices should be hardened into a reviewed package before install. The small set of choices that remain at install time should be explicit, typed, and restricted. ConfigHub can then record which package, preset, target, and allowed inputs each fleet member should run, and compare that desired record with what reached the clusters.</p>
 <p>The supported bases are intended to preserve the chart's end-to-end semantics while splitting the install into visible, verifiable stages. That makes changes safer, including AI-assisted changes, and helps keep users on the chart's supported path instead of accidentally driving Helm into hidden edge cases.</p>
 <p>All contents are experimental and unofficial.</p>
 <p>Public entry points:</p>
@@ -416,10 +417,11 @@
 <p>Each stage asks for more trust and gives more value. You can stop at any stage.</p>
 <table><thead><tr><th>Stage</th><th>You want</th><th>Command or surface</th><th>Needs a ConfigHub account?</th></tr></thead><tbody><tr><td>1. Curious</td><td>See exactly what a chart renders.</td><td><code>cub helm template</code></td><td>No</td></tr>
 <tr><td>2. Fast adoption</td><td>Load one Helm render into ConfigHub Units.</td><td><code>cub helm install</code></td><td>Yes</td></tr>
-<tr><td>3. Supported catalog</td><td>A maintained base variant with rendered objects, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>No ConfigHub account or registry login for public package pulls</td></tr>
+<tr><td>3. Supported catalog</td><td>A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>No ConfigHub account or registry login for public package pulls</td></tr>
 <tr><td>4. Trust proof</td><td>Check the catalog's claims on your own machine.</td><td><code>npm run top20:verify-local-e2e</code>, <code>npm run redis:verify-install:render</code>, kind parity lanes</td><td>No</td></tr>
 <tr><td>5. Operations</td><td>Variants, diffs, scans, approvals, OCI/GitOps delivery, observations.</td><td><code>cub variant create</code>, <code>cub unit diff</code>, <code>cub function vet</code>, changesets</td><td>Yes</td></tr></tbody></table>
-<p>Stages 1 and 2 are direct fast paths and skip the catalog. Stage 3 is the durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to pay back the extra structure: the same rendered objects can be cloned into environment, region, customer, or target variants; compared before promotion; scanned and gated as exact objects; delivered through GitOps or OCI; and observed later with receipts.</p>
+<p>Stages 1 and 2 are direct fast paths and skip the catalog. <code>cub helm</code> is now the separate <code>cub-helm</code> plugin path; the public catalog path remains <code>cub installer setup</code>. Stage 3 is the durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to pay back the extra structure: the same rendered objects can be cloned into environment, region, customer, or target variants; compared before promotion; scanned and gated as exact objects; delivered through GitOps or OCI; and observed later with receipts.</p>
+<p>For fleet work, Stage 5 is the center of gravity. User workloads, system services, and cluster configuration may move on different cadences and under different owners. The shared need is the same: a signed or otherwise proven package release, a small controlled install-time surface, and a record of which version each fleet member should reconcile to.</p>
 <p>Free and low-friction use should cover browsing the catalog, inspecting rendered objects, running <code>cub helm template</code>, trying public <code>cub installer</code> packages from their <code>oci://</code> refs, and verifying signatures, digests, and local receipts. Paid or managed use begins when the work involves private or custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, or production support.</p>
 <p>For when each command fits, see <a href="docs/user/choosing-commands.html">Choosing Commands</a>.</p>
 <p>Working in this repository as an agent or maintainer? Start with <a href="docs/agent/README.html">Agent And Operator Notes</a>. Those notes keep command recipes, recovery steps, and repo-specific AX guidance out of the human-facing website.</p>
@@ -431,11 +433,12 @@
 -&gt; cub installer recipe/package
 -&gt; installer package OCI ref for users to pull
 -&gt; named base variants that select or change the Helm-rendered object set
+-&gt; small typed install-time inputs for the choices not hardened into the package
 -&gt; exact rendered Kubernetes objects
 -&gt; optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
 -&gt; hook/lifecycle policy for cluster-dependent Helm behavior
 -&gt; Helm-equivalence proof, scans, gates, receipts
--&gt; ConfigHub / OCI / GitOps handoff</code></pre>
+-&gt; ConfigHub source-of-record / OCI / GitOps handoff</code></pre>
 <h2 id="the-idea">The Idea</h2>
 <p>Pre-rendering Helm makes the real deployment object set visible before anyone has to approve, promote, or operate it.</p>
 <p>In this experiment, AI helps analyze public Helm charts and draft deterministic <code>cub installer</code> recipes. The proof pipeline then checks the work mechanically:</p>
