@@ -506,6 +506,7 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p><strong>The simpler frame:</strong> keep Helm charts, but make the fleet recordable. The catalog turns common chart shapes into vetted OCI package releases. Most choices are fixed before install; the few remaining choices are documented inputs such as namespace, target facts, image overrides, or an existing Secret name. ConfigHub records which package, preset, inputs, target, and approvals each cluster, customer, or environment should run.</p>
   </div>
 </header>
 <main>
@@ -549,6 +550,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
   <p>Each chart ships a recommended <strong>default</strong> base variant plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>That keeps the story simple for operators: choose a vetted package release and a named base variant, then set only the small number of inputs the package still allows at install time. The point is not to expose every Helm value again. It is to make the common paths signed off, repeatable, and safe to reconcile across many installs.</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>

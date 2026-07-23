@@ -11,11 +11,18 @@ chart's output, `cub helm template` is simpler. To load one chart into ConfigHub
 is simpler. Reach for those.
 
 This repo is for a different job: turning a popular Helm chart into something you can
-trust at scale. Not a raw render — a render that is **reviewed, named, reusable, and
-supportable**, with variants you can compare, checks you can gate on, receipts you can
-cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm. It is
-there to make Helm's output durable, comparable, and auditable — to turn one install
-into something you can still reason about a year and a thousand installs later.
+trust across a fleet. Not a raw render — a package and record that are **reviewed,
+named, reusable, and supportable**, with variants you can compare, checks you can gate
+on, receipts you can cite, and a clean handoff to Argo or Flux. The wrapper is not
+there to hide Helm. It is there to make Helm's output durable, comparable, and
+auditable — to turn one install into something you can still reason about a year and a
+thousand installs later.
+
+That is the simplification: the command is just how you start. The operating model is a
+declarative source of record for what the fleet should run. Most settings should be
+decided and hardened when the package is built. The few choices left for install time
+should be small, typed, and restricted, so a cluster or customer can opt into the right
+shape without reopening the whole Helm values surface.
 
 Parity with Helm is not the product benefit by itself. It is the migration
 assurance check: before ConfigHub adds value, the user needs to know that the
@@ -97,6 +104,11 @@ catalog status and maintenance SLA
 That wrapper should not hide Helm. It should make Helm's output durable,
 comparable, searchable, promotable, and auditable.
 
+The result should feel less like an imperative install sequence and more like a record
+that can be reconciled. One-time bootstrap commands are useful. Repeated upgrades should
+come from a known package release, an allowed input schema, and ConfigHub records that say
+which clusters, customers, or environments should receive it.
+
 ## Why Not Just Render And Import?
 
 Render-and-import is enough for a local experiment. It is not enough for a
@@ -109,6 +121,8 @@ The catalog path adds:
 | Repeatability | Source locks, dependency locks, package paths, named bases, and rendered digests. |
 | Reviewability | Stable ConfigHub Units with labels, upstream links, scans, gates, and receipts. |
 | Variant clarity | A hard distinction between base variants and derived ConfigHub variants. |
+| Small install surface | Most chart settings are fixed in the package; the remaining inputs should be explicit and restricted. |
+| Fleet record | A durable desired record for which package, base, inputs, target, and variant each fleet member should run. |
 | Promotion | Clone/link/preserve upstream provenance instead of copying YAML by hand. |
 | GitOps handoff | OCI artifact plus controller/runtime proof, not just "we rendered YAML." |
 | Support | Catalog status, maintenance expectations, and known blockers. |

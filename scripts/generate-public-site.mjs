@@ -1459,6 +1459,7 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
+    <p><strong>The simpler frame:</strong> keep Helm charts, but make the fleet recordable. The catalog turns common chart shapes into vetted OCI package releases. Most choices are fixed before install; the few remaining choices are documented inputs such as namespace, target facts, image overrides, or an existing Secret name. ConfigHub records which package, preset, inputs, target, and approvals each cluster, customer, or environment should run.</p>
   </div>
 </header>
 <main>
@@ -1500,6 +1501,7 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
   <p>Each chart ships a recommended <strong>default</strong> base variant plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>That keeps the story simple for operators: choose a vetted package release and a named base variant, then set only the small number of inputs the package still allows at install time. The point is not to expose every Helm value again. It is to make the common paths signed off, repeatable, and safe to reconcile across many installs.</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
@@ -4559,6 +4561,21 @@ function operationsHtml(catalog) {
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">Before Ops</h2>
       <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Ops Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+    </section>
+
+    <section aria-labelledby="fleet-record">
+      <h2 id="fleet-record">Fleet Source Of Record</h2>
+      <p>The strongest operations use case is not one person running one command for one workload. It is a platform team knowing what a whole fleet should run, then reconciling that desired record with the clusters.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
+      <table>
+        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
+        <tbody>
+          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
+          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
+          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
+        </tbody>
+      </table>
+      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 
     <section aria-labelledby="ops">

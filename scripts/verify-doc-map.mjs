@@ -15,6 +15,8 @@ function listFiles(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   return entries.flatMap((entry) => {
     const full = path.join(dir, entry.name);
+    const relative = path.relative(ROOT, full).split(path.sep).join('/');
+    if (entry.isDirectory() && (relative === '.git' || relative === '.tmp' || relative === '.claude')) return [];
     if (entry.isDirectory()) return listFiles(full);
     return [full];
   });
@@ -66,6 +68,7 @@ const markdownFiles = listFiles(ROOT)
   .filter((file) => file.endsWith('.md'))
   .filter((file) => !file.startsWith('.git/'))
   .filter((file) => !file.startsWith('.tmp/'))
+  .filter((file) => !file.startsWith('.claude/'))
   .sort();
 
 for (const file of markdownFiles) {

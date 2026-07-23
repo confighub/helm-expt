@@ -493,6 +493,21 @@
       <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Ops Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
+    <section aria-labelledby="fleet-record">
+      <h2 id="fleet-record">Fleet Source Of Record</h2>
+      <p>The strongest operations use case is not one person running one command for one workload. It is a platform team knowing what a whole fleet should run, then reconciling that desired record with the clusters.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
+      <table>
+        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
+        <tbody>
+          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
+          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
+          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
+        </tbody>
+      </table>
+      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
+    </section>
+
     <section aria-labelledby="ops">
       <h2 id="ops">The operations</h2>
       <div class="card">

@@ -50,6 +50,19 @@ The package does not replace Helm charts. The catalog starts from ordinary Helm
 charts, then publishes reviewed package artifacts so users can pull the ready
 presets directly once they have access to the package registry.
 
+The package should also make the install simpler. Most choices are fixed before
+publication: chart version, base shape, values profile, source lock, known CRD
+or hook decisions, and the evidence links. Only a small set of choices should be
+left for install time, such as namespace, target-specific facts, image
+overrides, or the name of an existing Secret. Those remaining choices should be
+documented and restricted instead of exposing the whole Helm values surface
+again.
+
+This matters for fleets. A package release can be the thing a platform team
+signs off. ConfigHub can then record which package, preset, and allowed inputs a
+cluster, customer, or environment should run, and reconcile that desired record
+through the delivery system already in use.
+
 ## Two OCI Things, Not One
 
 There are two different OCI paths:
