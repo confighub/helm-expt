@@ -1208,7 +1208,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("testing.html")}">Testing</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("testing.html")}">Testing</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1325,8 +1325,8 @@ function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
   <header class="home-hero human-hero">
     ${topNav(".")}
     <div class="hero-copy">
-      <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
+      <h1>A community resource for understanding and testing your configuration files in the time of AI</h1>
+      <p class="lead"><strong>Helm Ops made simple.</strong> Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
       <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
     </div>
     <div class="terminal-card home-terminal" aria-label="AI key preview before install">
