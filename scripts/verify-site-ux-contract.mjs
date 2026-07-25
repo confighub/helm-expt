@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm Ops made simple", "open source tool", "cub installer", "Preview your installs", "Look first", "Prove it on a cluster", "Change it and keep it", "What the catalog gives you", "Store chart configurations", "Check Tests"],
+    terms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog", "Five simple things", "Everything here extends one simple act", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
   },
   {
     file: "site/variants.html",
@@ -71,6 +71,10 @@ const checks = [
     terms: ["Future And Managed Ideas", "What Exists In The Public Experiment", "roadmap", "managed"],
   },
   {
+    file: "site/testing.html",
+    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "The messy parts are proven, not hidden", "You can reverse a change, not only keep it", "AICR", "cub installer"],
+  },
+  {
     file: "site/how-it-works.html",
     terms: ["The recipe: your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
@@ -106,6 +110,7 @@ const humanSplitPages = [
   "site/existing-apps.html",
   "site/ai.html",
   "site/security.html",
+  "site/testing.html",
   "site/future.html",
   "site/private/index.html",
 ];
@@ -113,7 +118,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Helm Ops made simple", "open source tool", "cub installer", "Preview your installs"],
+    headerTerms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog"],
   },
   {
     file: "site/try.html",

@@ -12,19 +12,34 @@
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/recipes/bitnami/spark/10.0.3/CATALOG.html">
   <style>
     :root {
-      color-scheme: light;
-      --ink: #15191d;
-      --muted: #5b6872;
-      --line: #dde3e9;
-      --panel: #f6f8fa;
-      --accent: #0b6bcb;
-      --good: #1e8e3e;
-      --warn: #b06000;
-      --bad: #d93025;
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
       --surface: #ffffff;
       --term: #0e1419;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
     * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
@@ -43,7 +58,7 @@
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: baseline; gap: 18px;
       max-width: 1180px; margin: 0; padding: 12px 0;
-      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
       font-size: .9rem;
     }
@@ -317,6 +332,18 @@
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
@@ -396,7 +423,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../testing.html">Testing</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
     <h1>bitnami/spark 10.0.3 Catalog Map</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../recipes/bitnami/spark/10.0.3/CATALOG.md">View source markdown</a>.</p>
   </header>

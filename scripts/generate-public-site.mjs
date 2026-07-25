@@ -16,6 +16,7 @@ const customAppsPath = join(siteRoot, "custom-apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 const securityPath = join(siteRoot, "security.html");
+const testingPath = join(siteRoot, "testing.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const docsPath = join(siteRoot, "docs.html");
@@ -128,6 +129,7 @@ const SITE_PAGE_RELPATHS = {
   existingAppsHtml: "existing-apps.html",
   aiHtml: "ai.html",
   securityHtml: "security.html",
+  pillarsHtml: "testing.html",
   futureHtml: "future.html",
   operationsHtml: "operations.html",
   docsHtml: "docs.html",
@@ -166,6 +168,7 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
+  "testing.html": "Why the catalog makes configuration easier to test: most choices fixed and checked before install, proof you can read before you ship, and the messy parts named and proven.",
   "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.",
@@ -202,6 +205,7 @@ if (mode === "--generate") {
   write(existingAppsPath, site.existingAppsHtml);
   write(aiPath, site.aiHtml);
   write(securityPath, site.securityHtml);
+  write(testingPath, site.pillarsHtml);
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
   write(docsPath, site.docsHtml);
@@ -245,6 +249,7 @@ if (mode === "--generate") {
   check(existsSync(existingAppsPath), "site/existing-apps.html is missing; run npm run site:generate");
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
   check(existsSync(securityPath), "site/security.html is missing; run npm run site:generate");
+  check(existsSync(testingPath), "site/testing.html is missing; run npm run site:generate");
   check(existsSync(futurePath), "site/future.html is missing; run npm run site:generate");
   check(existsSync(operationsPath), "site/operations.html is missing; run npm run site:generate");
   check(existsSync(docsPath), "site/docs.html is missing; run npm run site:generate");
@@ -272,6 +277,7 @@ if (mode === "--generate") {
   check(readFileSync(existingAppsPath, "utf8") === site.existingAppsHtml, "site/existing-apps.html is stale");
   check(readFileSync(aiPath, "utf8") === site.aiHtml, "site/ai.html is stale");
   check(readFileSync(securityPath, "utf8") === site.securityHtml, "site/security.html is stale");
+  check(readFileSync(testingPath, "utf8") === site.pillarsHtml, "site/testing.html is stale");
   check(readFileSync(futurePath, "utf8") === site.futureHtml, "site/future.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
@@ -580,6 +586,7 @@ function buildSite(generatedAt) {
     existingAppsHtml: calmPage(existingAppsHtml(catalog)),
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: calmPage(securityHtml(catalog)),
+    pillarsHtml: calmPage(pillarsHtml(catalog)),
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
@@ -1201,7 +1208,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("testing.html")}">Testing</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1265,7 +1272,7 @@ function dispositionBar(counts) {
 }
 
 function html(catalog) {
-  return parityFirstHomeHtml(catalog);
+  return configTestCentreHome(catalog);
 }
 
 function homeTerminalCss() {
@@ -1292,126 +1299,245 @@ function homeTerminalCss() {
 `;
 }
 
-function parityFirstHomeHtml(catalog, label = "public catalog homepage") {
-  const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
-  const seeCards = [
-    ["See what will bite you", "The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps."],
-    ["Catch classic errors", "AI keys, generated passwords, and other Secrets slip into renders. Catch them before they land in a cluster or registry."],
-    ["See what your cluster needs first", "The CRDs, secrets, and targets that must already be there."],
-    ["Bringing AI?", "Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, and target assumptions."],
+// Config Test Centre homepage: the design-language home page (self-contained,
+// theme-aware). Replaces the old light-theme parity-first homepage.
+function homeDesignCss() {
+  return `
+  :root {
+    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
+    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
+    --line: #d5dde2; --line-strong: #bcc8d0;
+    --accent: #0b6e8f; --accent-ink: #084f68;
+    --pass: #1f8a4c; --pass-bg: #e4f3ea;
+    --watch: #b5761a; --watch-bg: #f7ecd8;
+    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
+    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
+      --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
+      --line: #253038; --line-strong: #33414c;
+      --accent: #34a7c9; --accent-ink: #7fd0e6;
+      --pass: #4bc07d; --pass-bg: #12291d;
+      --watch: #e0a648; --watch-bg: #2c2213;
+      --blocked: #ef7570; --blocked-bg: #2e1717;
+      --term-bg: #0a1016; --term-ink: #d6e0e8;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
+    --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
+    --line: #253038; --line-strong: #33414c;
+    --accent: #34a7c9; --accent-ink: #7fd0e6;
+    --pass: #4bc07d; --pass-bg: #12291d;
+    --watch: #e0a648; --watch-bg: #2c2213;
+    --blocked: #ef7570; --blocked-bg: #2e1717;
+    --term-bg: #0a1016; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
+    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
+    --line: #d5dde2; --line-strong: #bcc8d0;
+    --accent: #0b6e8f; --accent-ink: #084f68;
+    --pass: #1f8a4c; --pass-bg: #e4f3ea;
+    --watch: #b5761a; --watch-bg: #f7ecd8;
+    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
+    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 0 22px 8px; }
+  .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  h1,h2,h3 { text-wrap: balance; }
+  a { color: inherit; }
+
+  .draftbar { padding: 14px 0 0; }
+  .draftbar a { font-family: var(--mono); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 999px; padding: 4px 11px; text-decoration: none; display: inline-block; }
+  .draftbar a:hover { border-color: var(--accent); }
+
+  nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
+  .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+  .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
+  .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
+  .navlinks a { text-decoration: none; color: var(--muted); }
+  .navlinks a:hover { color: var(--accent-ink); }
+
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 34px 0 30px; border-top: 1px solid var(--line); }
+  .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
+  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark){ .btn.primary { color: #04222c; font-weight: 640; } }
+  :root[data-theme="dark"] .btn.primary { color: #04222c; font-weight: 640; }
+  :root[data-theme="light"] .btn.primary { color: #fff; }
+  .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
+  .btn.ghost:hover { border-color: var(--accent); }
+  .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .sources b { color: var(--muted); font-weight: 600; }
+
+  .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-family: var(--mono); }
+  .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
+  .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); overflow-x: auto; margin: 0; }
+  .term-body .pr { color: #5fd0b0; }
+  .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
+  .term-body .k { color: #8fd0e6; }
+  .term-body .verdict { color: #e6b45a; font-weight: 600; }
+
+  .section { padding: 34px 0; border-top: 1px solid var(--line); }
+  .section > .eyebrow { display: block; margin-bottom: 6px; }
+  .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 6px; }
+  .section .intro { color: var(--muted); font-size: 1rem; margin: 0 0 22px; max-width: 60ch; }
+
+  .verbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .verb { border: 1px solid var(--line); border-radius: 13px; padding: 16px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+  .verb .n { font-family: var(--mono); font-size: .66rem; color: var(--faint); letter-spacing: .05em; }
+  .verb h3 { margin: 0; font-size: 1.02rem; font-weight: 700; }
+  .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
+  .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
+
+  .conf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .conf { border: 1px solid var(--line); border-radius: 12px; padding: 15px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+  .conf .badge { align-self: flex-start; font-family: var(--mono); font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: var(--pass); background: var(--pass-bg); }
+  .conf .q { font-size: .92rem; font-weight: 660; }
+  .conf .note { font-size: .8rem; color: var(--muted); line-height: 1.4; }
+
+  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); }
+  .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .route-card h3 { margin: 0 0 4px; font-size: .96rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .route-card .tag { font-family: var(--mono); font-size: .6rem; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); border: 1px solid var(--line-strong); border-radius: 999px; padding: 2px 8px; }
+  .route-card.mid .tag { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .route-card p { margin: 6px 0 0; font-size: .84rem; color: var(--muted); line-height: 1.45; }
+
+  footer.foot { border-top: 1px solid var(--line); margin-top: 20px; padding: 26px 0 50px; }
+  footer.foot .flip { font-size: 1.06rem; color: var(--ink); font-weight: 600; max-width: 54ch; margin: 0 0 10px; }
+  footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; }
+    .verbs { grid-template-columns: repeat(2, 1fr); }
+    .conf-grid { grid-template-columns: repeat(2, 1fr); }
+    .routes { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } .conf-grid { grid-template-columns: 1fr; } }
+`;
+}
+
+function configTestCentreHome(catalog) {
+  const verbs = [
+    ["01", "Understand", "Read what it installs and where it bites.", "open source"],
+    ["02", "Test", "Is my config well-formed and safe?", "open source"],
+    ["03", "Ask", "A concrete answer, cited to a receipt.", "open source"],
+    ["04", "Vary", "Make a supported variant, keep it safe.", "free account to keep"],
+    ["05", "Check my AI", "Grade what your agent produced.", "open source"],
   ];
-  const valueCards = [
-    ["Store chart configurations", "Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.", "./how-it-works.html", "How it works"],
-    ["Edit and keep your versions", `With a ${signupLink("index", "free account")}, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.`, "./variants.html", "Variants"],
-    ["Build custom apps", "Bring your own apps and configs alongside public charts so a release can move as one reviewed set.", "./journey.html", "Apps"],
-    ["Promote and release", "Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.", "./operations.html", "Ops"],
+  const confidences = [
+    ["Safe to deploy?", "Well-formed, scans clean, e2e green, fits your cluster."],
+    ["Deploys without disruption?", "CRDs first, hook phases, prerequisites present."],
+    ["Rollback safe, no data loss?", "What is stateful, destroy-gates, blast radius."],
+    ["Rollback will succeed?", "A prior good revision, recorded and restorable."],
   ];
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Ops</title>
-  <style>${siteCss()}${homePageCss()}${homeTerminalCss()}</style>
+  <title>Config Test Centre &middot; Understand and test your configuration</title>
+  <style>${homeDesignCss()}</style>
 </head>
-<body class="home">
-  <header class="home-hero human-hero">
-    ${topNav(".")}
-    <div class="hero-copy">
-      <h1>Helm Ops made simple</h1>
-      <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
-      <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
-    </div>
-    <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">Example: catch an old AI API key before install</div>
-      <pre class="terminal-body"><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: ai-provider
-type: Opaque
-stringData:
-<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
-
-<span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
-      <p class="terminal-caption">AI keys, generated passwords, and other Secrets are much easier to fix while they are still files.</p>
-    </div>
-    <p class="ai-proof">AI makes Helm changes faster. ConfigHub makes the result reviewable: exact objects, diffs, known extras, and approval records before anything ships.</p>
-    <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-      <p>Preview your installs and the risky defaults</p>
-      <p>Change any field, then keep it through upgrades</p>
-      <p>Test run our installs without signing up to ConfigHub - no server required</p>
-    </div>
-  </header>
-  <main>
-    <section aria-labelledby="look-first">
-      <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
-      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
-      <div class="home-list light-grid">
-        ${seeCards.map(([title, body]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
-      </div>
-    </section>
-
-    <section aria-labelledby="try-now">
-      <h2 id="try-now">Prove it on a cluster</h2>
-      <p>Run Helm and cub side by side on a throwaway cluster. The same chart gives the same running result, and our <a href="./verification.html">npm proof commands</a> verify it. Helm renders and applies in one jump; cub writes the objects first, so you get a review point before the install.</p>
-      <p class="install-cub-note">Install the cub CLI first: <code>${CUB_CLI_INSTALL_COMMAND}</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
-      ${installerCommandNoteHtml()}
-      <div class="install-compare">
-        <div class="terminal-card" aria-label="Plain Helm install command">
-          <div class="terminal-title">plain Helm</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \\
-    -n monitoring --create-namespace</code></pre>
+<body>
+  <div class="wrap">
+    <div class="page">
+      <header>
+        <div class="draftbar"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div>
+        <nav class="bar">
+          <a class="wordmark" href="./index.html"><span class="sq"></span>Config Test Centre</a>
+          <span class="navlinks">
+            <a href="./charts/index.html">Catalog</a>
+            <a href="./testing.html">Testing</a>
+            <a href="./how-it-works.html">How it works</a>
+            <a href="./docs.html">Docs</a>
+            ${signupLink("home-nav", "Sign in")}
+          </span>
+        </nav>
+        <div class="hero">
+          <div>
+            <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
+            <h1>A community resource for understanding and testing your configuration.</h1>
+            <p class="lead">Read what a package really installs, prove it is safe, and see if it fits your cluster &mdash; before anything runs. Bring a catalog package, or your own values. No account, no new CLI.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="./try.html">&#128229; Grade your config</a>
+              <a class="btn ghost" href="./charts/index.html">Browse the catalog</a>
+            </div>
+            <div class="sources"><b>tests:</b> Helm charts &middot; AICR packages &middot; anything rendered to Kubernetes objects</div>
+          </div>
+          <div class="term" aria-label="Grade your config output (illustrative)">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">grade your config &middot; no cluster touched</span></div>
+            <pre class="term-body"><code><span class="pr">$</span> ctc test ./my-values.yaml <span class="k">--chart</span> bitnami/redis
+<span class="cmt"># AI wrote this. Is it safe to ship?</span>
+render    14 objects, matches Helm        <span class="ok">ok</span>
+scan      1 finding                       <span class="warn">warn</span>
+gate      <span class="warn">WARN</span>  1 reason
+   &middot; server image uses <span class="warn">:latest</span>, not a digest
+blast     +0 / &minus;4 vs base 'default'      <span class="cmt">(auth.enabled=false)</span>
+rollback  prior revision recorded         <span class="ok">ok</span>
+<span class="verdict">verdict   WARN &mdash; safe to fix, then ship</span></code></pre>
+          </div>
         </div>
-        <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
-          <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
-    --base default --work-dir ./prom --non-interactive --namespace monitoring
-<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
-        </div>
-      </div>
-      <p class="quiet-line">${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-        <a class="button secondary" href="./how-it-works.html">How it works</a>
-        <a class="button secondary" href="./verification.html">Check Tests</a>
-      </div>
-    </section>
+      </header>
 
-    <section aria-labelledby="control-value">
-      <h2 id="control-value">Change it and keep it</h2>
-      <p>Once a chart runs, you will want to change something. A variant is a supported way to run that chart, rendered to plain files you can read, check, and edit. A basic ${signupLink("index", "ConfigHub account")} is free: it stores your variants, records every edit, and keeps your changes through upgrades, even on fields the chart never exposed. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
-      <div class="home-list">
-        ${valueCards.map(([title, body, href, linkText]) => `<div class="home-list-item"><h3>${escapeHtml(title)}</h3><p>${body}</p><p><a href="${escapeHtml(href)}">${escapeHtml(linkText)}</a></p></div>`).join("\n        ")}
-      </div>
-    </section>
+      <main>
+        <section class="section">
+          <span class="eyebrow">Five simple things</span>
+          <h2>Everything here extends one simple act</h2>
+          <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Depth is there when you want it, never before.</p>
+          <div class="verbs">
+            ${verbs.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
+          </div>
+        </section>
 
-    <section aria-labelledby="limits">
-      <h2 id="limits">What the catalog gives you</h2>
-      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges. It covers the top 100 charts, ${catalog.summary.catalogSupported} with full catalog proof and ${catalog.summary.proofGrade} proof-grade and being promoted. All ${publicCatalogPackageCount} public packages pull with no ConfigHub account and no registry login.</p>
-      <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for chart extras. For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output.</p>
-      <p>Hooks, CRDs, setup jobs, and other extras do not disappear. The catalog turns them into named routes, checks, variants, or handoff notes, and where there is no one safe option it says so.</p>
-      <p><a href="./charts/index.html">Browse the catalog</a> · <a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
-    </section>
+        <section class="section">
+          <span class="eyebrow">Config testing</span>
+          <h2>Four things you can prove before you ship</h2>
+          <p class="intro">Not claims &mdash; runnable checks, each recorded as a receipt you can open, and re-runnable as drift after install.</p>
+          <div class="conf-grid">
+            ${confidences.map(([q, note]) => `<div class="conf"><span class="badge">&#10003; provable</span><span class="q">${escapeHtml(q)}</span><span class="note">${escapeHtml(note)}</span></div>`).join("\n            ")}
+          </div>
+        </section>
 
-    <section aria-labelledby="editing-vs-buying">
-      <h2 id="editing-vs-buying">Editing charts versus buying charts</h2>
-      <p>Chart catalogs change hands, licenses, and registries. When that happens, teams that only consume a catalog migrate on someone else's schedule. Teams that hold their rendered config as data can read every image reference, change it with a recorded edit, and prove the change landed in every environment. That is the difference between editing your charts and buying them.</p>
-    </section>
+        <section class="section">
+          <span class="eyebrow">One resource, three depths</span>
+          <h2>Start free. Grow only when you want to keep something.</h2>
+          <div class="routes">
+            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Understand, test, ask, and check your AI &mdash; on catalog packages or your own config. Pull the OCI bundle and run it all locally.</p></div>
+            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Keep your variants and test results, run the four confidences live against a target, promote across environments, watch for drift.</p></div>
+            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Private catalog, fleet promotion across many clusters, RBAC and policy gates, patch and production support.</p></div>
+          </div>
+        </section>
+      </main>
 
-    <section aria-labelledby="what-this-is">
-      <h2 id="what-this-is">What this is</h2>
-      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
-      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
-    </section>
-  </main>
-  <footer>
-    Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
-  </footer>
+      <footer class="foot">
+        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you &mdash; every ingredient, before you eat.</p>
+        <p class="sub">Draft, experimental, and unofficial. Some features shown here are the intended experience; the figures on this page are illustrative.</p>
+      </footer>
+    </div>
+  </div>
 </body>
 </html>
 `;
 }
+
 
 function howItWorksHtml(catalog) {
   return `<!doctype html>
@@ -4393,6 +4519,57 @@ function securityHtml(catalog) {
 `;
 }
 
+function pillarsHtml(catalog) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making Configuration Easier To Test · ConfigHub Helm Ops</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Making configuration easier to test</h1>
+    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster, and being able to undo it after. ConfigHub makes configuration easier to test, in four ways.</p>
+  </header>
+  <main>
+    <section aria-labelledby="pillar-fewer">
+      <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
+      <p>A reviewed package fixes almost every setting at build time and checks it there. What is left for you to set is small and typed, so it cannot be misused. Fewer variables means fewer ways to be wrong, and far less to test. Helm charts and AICR packages both fit this shape.</p>
+      <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-proof">
+      <h2 id="pillar-proof">You can read the proof before you ship</h2>
+      <p>Every package carries evidence that it works, recorded as receipts you can open. The catalog renders each package, checks it matches Helm, installs it on a real cluster, and delivers it through Argo, Flux, and kubectl, then keeps the results. Bad config is caught earlier still, as data, before it reaches a cluster. Schema checks, object diffs, and a capability check against the target all run on the config itself. You inherit this evidence instead of building it.</p>
+      <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-messy">
+      <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
+      <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
+      <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-reverse">
+      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-installer">
+      <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
+      <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
+    </section>
+  </main>
+  <footer>Every claim on this page points at committed evidence in the catalog.</footer>
+</body>
+</html>
+`;
+}
+
 function futureHtml(catalog) {
   const nowRows = [
     ["Top-100 catalog", "Public chart snapshots, chart pages, matrix rows, and per-chart caveats."],
@@ -5410,6 +5587,16 @@ function chartPageHtml(catalog, entry) {
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
+    <section aria-labelledby="pillars-here">
+      <h2 id="pillars-here">Three ways this page helps you test</h2>
+      <p>The same three things hold for every package in the catalog, Helm charts and OCI packages alike. <a href="../testing.html">Why this makes configuration easier to test</a>.</p>
+      <div class="grid">
+        <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
+        <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       ${chartStatStrip(entry, firstRunnableRow)}
@@ -6552,19 +6739,34 @@ function homePageCss() {
 function siteCss() {
   return `
     :root {
-      color-scheme: light;
-      --ink: #15191d;
-      --muted: #5b6872;
-      --line: #dde3e9;
-      --panel: #f6f8fa;
-      --accent: #0b6bcb;
-      --good: #1e8e3e;
-      --warn: #b06000;
-      --bad: #d93025;
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
       --surface: #ffffff;
       --term: #0e1419;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
     * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
@@ -6583,7 +6785,7 @@ function siteCss() {
       position: sticky; top: 0; z-index: 50;
       display: flex; align-items: baseline; gap: 18px;
       max-width: 1180px; margin: 0; padding: 12px 0;
-      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
       font-size: .9rem;
     }
@@ -6857,6 +7059,18 @@ function siteCss() {
     .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
     .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
     .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
     .row-links { margin: 0; font-size: .9rem; }
     .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
     .lane { background: var(--panel); }
