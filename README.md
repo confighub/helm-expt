@@ -21,7 +21,7 @@ while splitting the install into visible, verifiable stages. That makes changes
 safer, including AI-assisted changes, and helps keep users on the chart's
 supported path instead of accidentally driving Helm into hidden edge cases.
 
-Three things hold for every package here, Helm charts and OCI packages such as
+Four things hold for every package here, Helm charts and OCI packages such as
 AICR alike.
 
 1. Most choices are made and checked before you install. The reviewed package
@@ -31,6 +31,9 @@ AICR alike.
    delivery through Argo, Flux, and kubectl are recorded as receipts you can open.
 3. The messy parts are named and proven, never hidden. Hooks, CRDs, and setup
    jobs each become a named route with a receipt and an honest automatic marker.
+4. You can reverse a change, not only keep it. Configuration is data with full
+   revision history, and each base variant records the exact objects it produced,
+   so restoring a prior state is a known, reproducible step.
 
 All contents are experimental and unofficial.
 

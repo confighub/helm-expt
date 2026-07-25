@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "The messy parts are proven, not hidden", "AICR", "cub installer"],
+    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "The messy parts are proven, not hidden", "You can reverse a change, not only keep it", "AICR", "cub installer"],
   },
   {
     file: "site/how-it-works.html",

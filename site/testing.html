@@ -473,7 +473,7 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster. ConfigHub makes configuration easier to test, in three ways.</p>
+    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster, and being able to undo it after. ConfigHub makes configuration easier to test, in four ways.</p>
   </header>
   <main>
     <section aria-labelledby="pillar-fewer">
@@ -492,6 +492,12 @@
       <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
       <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-reverse">
+      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-installer">

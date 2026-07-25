@@ -1352,11 +1352,12 @@ stringData:
   <main>
     <section aria-labelledby="pillars">
       <h2 id="pillars">Why it is safe to install</h2>
-      <p>Helm charts and OCI packages such as AICR share three problems, and the catalog answers all three. <a href="./testing.html">See how this makes configuration easier to test</a>.</p>
+      <p>Helm charts and OCI packages such as AICR share four problems, and the catalog answers all four. <a href="./testing.html">See how this makes configuration easier to test</a>.</p>
       <div class="home-list light-grid">
         <div class="home-list-item"><h3>Most choices are made before you install</h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="home-list-item"><h3>You can read the proof before you ship</h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
         <div class="home-list-item"><h3>The messy parts are named and proven</h3><p>Hooks, CRDs, and setup jobs each become a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="home-list-item"><h3>You can undo a change, not only keep it</h3><p>Configuration is data with full history. Restore a prior revision, and the exact prior objects are already recorded.</p></div>
       </div>
     </section>
 
@@ -4423,7 +4424,7 @@ function pillarsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster. ConfigHub makes configuration easier to test, in three ways.</p>
+    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster, and being able to undo it after. ConfigHub makes configuration easier to test, in four ways.</p>
   </header>
   <main>
     <section aria-labelledby="pillar-fewer">
@@ -4442,6 +4443,12 @@ function pillarsHtml(catalog) {
       <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
       <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-reverse">
+      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-installer">
