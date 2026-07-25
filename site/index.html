@@ -3,679 +3,227 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Ops</title>
+  <title>Config Test Centre &middot; Understand and test your configuration</title>
   <meta name="description" content="Use cub installer to make Helm rendering transparent, flexible, and manageable while keeping your Helm charts.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/">
-  <meta property="og:title" content="ConfigHub Helm Ops">
+  <meta property="og:title" content="Config Test Centre &amp;middot; Understand and test your configuration">
   <meta property="og:description" content="Use cub installer to make Helm rendering transparent, flexible, and manageable while keeping your Helm charts.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/">
   <style>
+  :root {
+    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
+    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
+    --line: #d5dde2; --line-strong: #bcc8d0;
+    --accent: #0b6e8f; --accent-ink: #084f68;
+    --pass: #1f8a4c; --pass-bg: #e4f3ea;
+    --watch: #b5761a; --watch-bg: #f7ecd8;
+    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
+    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
     :root {
-      color-scheme: light;
-      --ink: #15191d;
-      --muted: #5b6872;
-      --line: #dde3e9;
-      --panel: #f6f8fa;
-      --accent: #0b6bcb;
-      --good: #1e8e3e;
-      --warn: #b06000;
-      --bad: #d93025;
-      --surface: #ffffff;
-      --term: #0e1419;
+      --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
+      --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
+      --line: #253038; --line-strong: #33414c;
+      --accent: #34a7c9; --accent-ink: #7fd0e6;
+      --pass: #4bc07d; --pass-bg: #12291d;
+      --watch: #e0a648; --watch-bg: #2c2213;
+      --blocked: #ef7570; --blocked-bg: #2e1717;
+      --term-bg: #0a1016; --term-ink: #d6e0e8;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--surface);
-      line-height: 1.5;
-      font-size: 15px;
-    }
-    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
-    .site-chrome {
-      max-width: 1180px;
-      margin: 0 auto 20px;
-    }
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
-      max-width: 1180px; margin: 0; padding: 12px 0;
-      background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--line);
-      font-size: .9rem;
-    }
-    .topbar .brand {
-      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 11px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-    }
-    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
-    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
-    .navlinks a { color: var(--muted); text-decoration: none; }
-    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
-    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
-    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
-    h3 { margin: 0 0 8px; font-size: 1rem; }
-    p { max-width: 860px; color: var(--muted); }
-    .generated {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-    .experiment-banner {
-      display: inline-block;
-      margin: 0 0 8px;
-      padding: 8px 12px;
-      border: 1px solid #f0c36d;
-      border-radius: 8px;
-      background: #fff8e5;
-      color: #6d4b00;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-    .experiment-banner a {
-      color: inherit;
-      text-decoration: underline;
-    }
-    .install-cub-note {
-      color: var(--muted);
-      font-size: .9rem;
-    }
-    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
-    pre {
-      overflow-wrap: anywhere;
-      padding: 13px 14px;
-      border: 1px solid #1f2a33;
-      border-radius: 8px;
-      background: var(--term);
-      color: #dcebfa;
-      white-space: pre-wrap;
-      font-size: .9rem;
-      line-height: 1.55;
-    }
-    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
-    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
-    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
-    .stat-strip strong { color: var(--ink); }
-    .hero-copy {
-      max-width: 880px;
-    }
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 9px 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-    .button.primary {
-      color: #fff;
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .button.secondary {
-      color: var(--ink);
-      background: var(--surface);
-    }
-    .button:hover {
-      text-decoration: none;
-      filter: brightness(.98);
-    }
-    .home-terminal {
-      margin-top: 26px;
-      width: 100%;
-      max-width: 1080px;
-    }
-    .light-grid {
-      margin-top: 16px;
-    }
-    .closing-line {
-      margin-top: 18px;
-      color: var(--ink);
-      font-weight: 600;
-    }
-    .quiet-line {
-      font-size: .9rem;
-      color: var(--muted);
-    }
-    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
-    .door {
-      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
-      padding: 16px; display: flex; flex-direction: column; gap: 8px;
-      transition: border-color .15s ease;
-    }
-    .door:hover { border-color: var(--accent); }
-    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
-    .door h3 { font-size: 1.06rem; margin: 0; }
-    .door h3 a { color: var(--ink); text-decoration: none; }
-    .door h3 a:hover { color: var(--accent); }
-    .door p { font-size: .9rem; margin: 0; }
-    .door pre { margin: 6px 0 0; }
-    .door .go { margin-top: auto; font-size: .9rem; }
-    .journey-flow {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
-      align-items: stretch;
-      gap: 10px;
-      margin: 26px 0 8px;
-    }
-    .journey-step {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      color: var(--ink);
-      text-decoration: none;
-      transition: border-color .15s ease;
-    }
-    .journey-step:hover { border-color: var(--accent); }
-    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
-    .journey-step h3 { font-size: 1.06rem; margin: 0; }
-    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
-    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
-    .journey-arrow {
-      align-self: center;
-      color: var(--muted);
-      font-size: 1.35rem;
-      line-height: 1;
-    }
-    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
-    .chain a {
-      counter-increment: step;
-      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
-      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
-      position: relative;
-    }
-    .chain a:hover { border-color: var(--accent); }
-    .chain a::before {
-      content: counter(step, decimal-leading-zero);
-      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .72rem; color: var(--good); margin-bottom: 4px;
-    }
-    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
-    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
-    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
-    .tier h3 { font-size: 1.06rem; }
-    .tier p { font-size: .9rem; margin: 0; }
-    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
-    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
-    .tier .badge.planned { color: var(--muted); background: var(--panel); }
-    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
-    .card, .metric, .lane {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      padding: 14px;
-    }
-    .metric { background: var(--panel); }
-    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
-    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
-    .card dt { color: var(--muted); }
-    .card dd { margin: 0; }
-    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
-    .faq-card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 100%;
-    }
-    .faq-card.later { border-color: #efca92; background: #fffdf8; }
-    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .faq-head h3 { margin: 0; font-size: 1.06rem; }
-    .faq-status {
-      flex: 0 0 auto;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: .72rem;
-      color: var(--muted);
-      background: var(--panel);
-    }
-    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .faq-card p { max-width: none; margin: 0; }
-    .faq-links { margin-top: auto; font-size: .9rem; }
-    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-    .faq-card table { font-size: .78rem; }
-    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
-    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
-    .matrix-row-card {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-      padding: 14px;
-      display: grid;
-      grid-template-rows: auto auto 1fr auto auto;
-      gap: 10px;
-      min-height: 100%;
-    }
-    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
-    .row-layer, .row-kind {
-      display: inline-block;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .72rem;
-      color: var(--muted);
-      background: var(--panel);
-      white-space: nowrap;
-    }
-    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
-    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
-    .matrix-row-card dt { color: var(--muted); }
-    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
-    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
-    .lane-pill {
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      min-height: 42px;
-      padding: 5px 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1px;
-      background: var(--panel);
-      text-align: center;
-      overflow: hidden;
-    }
-    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
-    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
-    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
-    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
-    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
-    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
-    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
-    .row-links { margin: 0; font-size: .9rem; }
-    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
-    .lane { background: var(--panel); }
-    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
-    .bar span { display: block; height: 100%; background: var(--good); }
-    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
-    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
-    thead th { background: var(--panel); position: sticky; top: 49px; }
-    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
-    @media (max-width: 980px) {
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
-      .journey-flow { grid-template-columns: 1fr; }
-      .journey-arrow { display: none; }
-      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      body { font-size: 16px; }
-      header, main, footer { padding: 18px 14px; }
-      .home-hero { padding-top: 14px; }
-      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
-      h2 { margin-top: 30px; }
-      p { max-width: none; }
-      .lead, .tagline { font-size: 1rem; }
-      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
-      .card dl { grid-template-columns: 1fr; }
-      .matrix-row-card dl { grid-template-columns: 1fr; }
-      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .site-chrome { margin-bottom: 14px; }
-      .experiment-banner {
-        display: block;
-        width: fit-content;
-        max-width: 100%;
-        padding: 7px 10px;
-        font-size: .78rem;
-        line-height: 1.25;
-      }
-      .topbar {
-        position: static;
-        display: block;
-        padding: 9px 0 10px;
-      }
-      .topbar .brand {
-        margin-bottom: 9px;
-      }
-      .navlinks {
-        margin-left: 0;
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
-      }
-      .navlinks a {
-        flex: 0 0 auto;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 5px 9px;
-        background: var(--surface);
-        white-space: nowrap;
-      }
-      .journey-flow { gap: 8px; margin-top: 18px; }
-      .journey-step { padding: 13px; gap: 6px; }
-      .journey-step h3 { font-size: 1rem; }
-      .journey-step p { font-size: .9rem; }
-      pre { font-size: .85rem; }
-      table { display: block; overflow-x: auto; white-space: nowrap; }
-    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1319; --surface: #151d25; --surface-2: #1b242d;
+    --ink: #e8eef3; --muted: #97a5b0; --faint: #71818d;
+    --line: #253038; --line-strong: #33414c;
+    --accent: #34a7c9; --accent-ink: #7fd0e6;
+    --pass: #4bc07d; --pass-bg: #12291d;
+    --watch: #e0a648; --watch-bg: #2c2213;
+    --blocked: #ef7570; --blocked-bg: #2e1717;
+    --term-bg: #0a1016; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --bg: #e9edf0; --surface: #ffffff; --surface-2: #f3f6f8;
+    --ink: #131a20; --muted: #56646f; --faint: #7d8b96;
+    --line: #d5dde2; --line-strong: #bcc8d0;
+    --accent: #0b6e8f; --accent-ink: #084f68;
+    --pass: #1f8a4c; --pass-bg: #e4f3ea;
+    --watch: #b5761a; --watch-bg: #f7ecd8;
+    --blocked: #c53a3a; --blocked-bg: #f7e2e2;
+    --term-bg: #0f1720; --term-ink: #d6e0e8;
+    --shadow: 0 1px 2px rgba(16,32,45,.06), 0 8px 24px rgba(16,32,45,.05);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .wrap { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 1120px; margin: 0 auto; padding: 0 22px 8px; }
+  .eyebrow { font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  h1,h2,h3 { text-wrap: balance; }
+  a { color: inherit; }
 
-    .install-compare {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin: 18px 0;
-    }
-    .home-hero {
-      padding: 20px 20px;
-    }
-    .home-hero .experiment-banner {
-      padding: 6px 10px;
-      font-size: .82rem;
-    }
-    .home-hero .lead {
-      max-width: 830px;
-      font-size: 1.03rem;
-    }
-    .home-hero .secondary-lead {
-      color: var(--muted);
-      font-size: .96rem;
-    }
-    .home-hero .home-terminal {
-      margin-top: 22px;
-      max-width: 900px;
-    }
-    .term-catch {
-      display: inline-block;
-      width: 100%;
-      margin: 2px 0;
-      padding: 2px 6px;
-      border-left: 3px solid #f0c36d;
-      background: rgba(240,195,109,.18);
-      color: #ffe3a1;
-      font-weight: 700;
-    }
-    .terminal-caption {
-      margin: 0;
-      padding: 10px 14px;
-      border-top: 1px solid var(--line);
-      background: var(--panel);
-      color: var(--muted);
-      font-size: .9rem;
-    }
-    .ai-proof {
-      margin-top: 14px;
-      max-width: 760px;
-      color: #374151;
-      font-size: .96rem;
-    }
-    .value-callout {
-      margin: 18px 0 0;
-      padding: 16px 18px;
-      max-width: 760px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      text-align: center;
-    }
-    .value-callout p {
-      margin: 0;
-      max-width: none;
-      color: var(--ink);
-      font-size: 1rem;
-      line-height: 1.4;
-      font-weight: 600;
-    }
-    .value-callout p + p {
-      margin-top: 3px;
-      padding-top: 0;
-      border-top: 0;
-    }
-    .audience-block {
-      max-width: 920px;
-      margin-top: 24px;
-    }
-    .start-block {
-      margin-top: 32px;
-    }
-    .start-block h2 {
-      margin-top: 0;
-      font-size: 2.1rem;
-      line-height: 1.08;
-    }
-    .audience-block h2 {
-      margin-top: 0;
-      font-size: 2.1rem;
-      line-height: 1.08;
-    }
-    .audience-note {
-      margin-top: 16px;
-      padding: 0 0 0 12px;
-      border-left: 2px solid var(--line);
-      background: transparent;
-      color: var(--ink);
-    }
-    .audience-frame {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-      color: #374151;
-      font-weight: 600;
-    }
-    .home-list {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-      margin-top: 18px;
-    }
-    .home-list-item {
-      border-top: 1px solid var(--line);
-      padding-top: 14px;
-    }
-    .home-list-item h3 {
-      margin: 0 0 6px;
-    }
-    .home-list-item p {
-      margin: 0;
-      font-size: .9rem;
-    }
-    .home-list-item p + p {
-      margin-top: 8px;
-    }
-    .home-hero .journey-flow {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      align-items: start;
-      gap: 22px;
-      margin: 24px 0 8px;
-    }
-    .home-hero .journey-step {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      padding: 14px 0 0;
-      gap: 7px;
-      transition: none;
-    }
-    .home-hero .journey-step:hover {
-      border-color: var(--line);
-    }
-    .home-hero .journey-step:hover h3 {
-      color: var(--accent);
-    }
-    .home-hero .journey-step .go {
-      margin-top: 4px;
-    }
-    .home-hero .journey-arrow {
-      display: none;
-    }
-    @media (max-width: 980px) {
-      .home-list { grid-template-columns: 1fr 1fr; }
-      .home-hero .journey-flow { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .install-compare { grid-template-columns: 1fr; }
-      .home-list { grid-template-columns: 1fr; }
-      .home-hero .journey-step { padding: 12px 0 0; }
-    }
-  
-    body.home .terminal-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--term);
-      overflow: hidden;
-    }
-    body.home .terminal-card .terminal-title {
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      color: #b7c3cf;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: .78rem;
-      background: #111922;
-    }
-    body.home .terminal-card .terminal-body {
-      margin: 0;
-      border: 0;
-      border-radius: 0;
-    }
+  .draftbar { padding: 14px 0 0; }
+  .draftbar a { font-family: var(--mono); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 999px; padding: 4px 11px; text-decoration: none; display: inline-block; }
+  .draftbar a:hover { border-color: var(--accent); }
+
+  nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
+  .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
+  .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
+  .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
+  .navlinks a { text-decoration: none; color: var(--muted); }
+  .navlinks a:hover { color: var(--accent-ink); }
+
+  .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 34px; align-items: center; padding: 34px 0 30px; border-top: 1px solid var(--line); }
+  .hero h1 { font-size: clamp(2rem, 4.3vw, 3.05rem); font-weight: 780; letter-spacing: -.025em; line-height: 1.05; margin: 12px 0 16px; }
+  .hero .lead { font-size: 1.08rem; color: var(--muted); margin: 0 0 22px; max-width: 46ch; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  .btn { font-family: var(--sans); font-size: .92rem; font-weight: 560; padding: 11px 18px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid transparent; }
+  .btn.primary { background: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark){ .btn.primary { color: #04222c; font-weight: 640; } }
+  :root[data-theme="dark"] .btn.primary { color: #04222c; font-weight: 640; }
+  :root[data-theme="light"] .btn.primary { color: #fff; }
+  .btn.ghost { border-color: var(--line-strong); color: var(--ink); background: var(--surface); }
+  .btn.ghost:hover { border-color: var(--accent); }
+  .sources { font-family: var(--mono); font-size: .74rem; color: var(--faint); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .sources b { color: var(--muted); font-weight: 600; }
+
+  .term { background: var(--term-bg); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-family: var(--mono); }
+  .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
+  .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); overflow-x: auto; margin: 0; }
+  .term-body .pr { color: #5fd0b0; }
+  .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
+  .term-body .k { color: #8fd0e6; }
+  .term-body .verdict { color: #e6b45a; font-weight: 600; }
+
+  .section { padding: 34px 0; border-top: 1px solid var(--line); }
+  .section > .eyebrow { display: block; margin-bottom: 6px; }
+  .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 6px; }
+  .section .intro { color: var(--muted); font-size: 1rem; margin: 0 0 22px; max-width: 60ch; }
+
+  .verbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .verb { border: 1px solid var(--line); border-radius: 13px; padding: 16px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+  .verb .n { font-family: var(--mono); font-size: .66rem; color: var(--faint); letter-spacing: .05em; }
+  .verb h3 { margin: 0; font-size: 1.02rem; font-weight: 700; }
+  .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
+  .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
+
+  .conf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .conf { border: 1px solid var(--line); border-radius: 12px; padding: 15px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+  .conf .badge { align-self: flex-start; font-family: var(--mono); font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: var(--pass); background: var(--pass-bg); }
+  .conf .q { font-size: .92rem; font-weight: 660; }
+  .conf .note { font-size: .8rem; color: var(--muted); line-height: 1.4; }
+
+  .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); }
+  .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .route-card h3 { margin: 0 0 4px; font-size: .96rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .route-card .tag { font-family: var(--mono); font-size: .6rem; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); border: 1px solid var(--line-strong); border-radius: 999px; padding: 2px 8px; }
+  .route-card.mid .tag { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .route-card p { margin: 6px 0 0; font-size: .84rem; color: var(--muted); line-height: 1.45; }
+
+  footer.foot { border-top: 1px solid var(--line); margin-top: 20px; padding: 26px 0 50px; }
+  footer.foot .flip { font-size: 1.06rem; color: var(--ink); font-weight: 600; max-width: 54ch; margin: 0 0 10px; }
+  footer.foot .sub { font-size: .82rem; color: var(--faint); margin: 0; }
+
+  @media (max-width: 880px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; }
+    .verbs { grid-template-columns: repeat(2, 1fr); }
+    .conf-grid { grid-template-columns: repeat(2, 1fr); }
+    .routes { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } .conf-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body class="home">
-  <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <div class="hero-copy">
-      <h1>A community resource for understanding and testing your configuration files in the time of AI</h1>
-      <p class="lead"><strong>Helm Ops made simple.</strong> Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
-      <p class="lead secondary-lead">We ship with a catalog of the top 100 charts. You can see how they map into commonly used configs, and make your own. Runnable packages are available via Google Artifact Registry.</p>
-    </div>
-    <div class="terminal-card home-terminal" aria-label="AI key preview before install">
-      <div class="terminal-title">Example: catch an old AI API key before install</div>
-      <pre class="terminal-body"><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: ai-provider
-type: Opaque
-stringData:
-<span class="term-catch">  AI_API_KEY: sk-prod-old-key-rotate-me  # catch: rotate or externalize</span>
-
-<span class="term-comment"># status: nothing has touched a cluster yet</span></code></pre>
-      <p class="terminal-caption">AI keys, generated passwords, and other Secrets are much easier to fix while they are still files.</p>
-    </div>
-    <p class="ai-proof">AI makes Helm changes faster. ConfigHub makes the result reviewable: exact objects, diffs, known extras, and approval records before anything ships.</p>
-    <div class="value-callout" aria-label="ConfigHub Helm operations promises">
-      <p>Preview your installs and the risky defaults</p>
-      <p>Change any field, then keep it through upgrades</p>
-      <p>Test run our installs without signing up to ConfigHub - no server required</p>
-    </div>
-  </header>
-  <main>
-    <section aria-labelledby="pillars">
-      <h2 id="pillars">Why it is safe to install</h2>
-      <p>Helm charts and OCI packages such as AICR share four problems, and the catalog answers all four. <a href="./testing.html">See how this makes configuration easier to test</a>.</p>
-      <div class="home-list light-grid">
-        <div class="home-list-item"><h3>Most choices are made before you install</h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
-        <div class="home-list-item"><h3>You can read the proof before you ship</h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="home-list-item"><h3>The messy parts are named and proven</h3><p>Hooks, CRDs, and setup jobs each become a named route with a receipt and an honest automatic marker.</p></div>
-        <div class="home-list-item"><h3>You can undo a change, not only keep it</h3><p>Configuration is data with full history. Restore a prior revision, and the exact prior objects are already recorded.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="look-first">
-      <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
-      <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
-      <div class="home-list light-grid">
-        <div class="home-list-item"><h3>See what will bite you</h3><p>The hooks, CRDs, prerequisites, and known footguns we track for each chart, named up front. helm template shows you the objects; we show you the traps.</p></div>
-        <div class="home-list-item"><h3>Catch classic errors</h3><p>AI keys, generated passwords, and other Secrets slip into renders. Catch them before they land in a cluster or registry.</p></div>
-        <div class="home-list-item"><h3>See what your cluster needs first</h3><p>The CRDs, secrets, and targets that must already be there.</p></div>
-        <div class="home-list-item"><h3>Bringing AI?</h3><p>Agents can draft values quickly. Render them first so humans and checks review the exact objects, diffs, and target assumptions.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="try-now">
-      <h2 id="try-now">Prove it on a cluster</h2>
-      <p>Run Helm and cub side by side on a throwaway cluster. The same chart gives the same running result, and our <a href="./verification.html">npm proof commands</a> verify it. Helm renders and applies in one jump; cub writes the objects first, so you get a review point before the install.</p>
-      <p class="install-cub-note">Install the cub CLI first: <code>curl -fsSL https://hub.confighub.com/cub/install.sh | bash</code>, then add <code>~/.confighub/bin</code> to your PATH. <a href="./try.html#install-cub">Full install step</a>. No ConfigHub account is needed for the catalog paths.</p>
-      <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
-      <div class="install-compare">
-        <div class="terminal-card" aria-label="Plain Helm install command">
-          <div class="terminal-title">plain Helm</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> helm install prom prometheus-community/prometheus --version 29.8.0 \
-    -n monitoring --create-namespace</code></pre>
+<body>
+  <div class="wrap">
+    <div class="page">
+      <header>
+        <div class="draftbar"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div>
+        <nav class="bar">
+          <a class="wordmark" href="./index.html"><span class="sq"></span>Config Test Centre</a>
+          <span class="navlinks">
+            <a href="./charts/index.html">Catalog</a>
+            <a href="./testing.html">Testing</a>
+            <a href="./how-it-works.html">How it works</a>
+            <a href="./docs.html">Docs</a>
+            <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=home-nav">Sign in</a>
+          </span>
+        </nav>
+        <div class="hero">
+          <div>
+            <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
+            <h1>A community resource for understanding and testing your configuration.</h1>
+            <p class="lead">Read what a package really installs, prove it is safe, and see if it fits your cluster &mdash; before anything runs. Bring a catalog package, or your own values. No account, no new CLI.</p>
+            <div class="cta-row">
+              <a class="btn primary" href="./try.html">&#128229; Grade your config</a>
+              <a class="btn ghost" href="./charts/index.html">Browse the catalog</a>
+            </div>
+            <div class="sources"><b>tests:</b> Helm charts &middot; AICR packages &middot; anything rendered to Kubernetes objects</div>
+          </div>
+          <div class="term" aria-label="Grade your config output (illustrative)">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">grade your config &middot; no cluster touched</span></div>
+            <pre class="term-body"><code><span class="pr">$</span> ctc test ./my-values.yaml <span class="k">--chart</span> bitnami/redis
+<span class="cmt"># AI wrote this. Is it safe to ship?</span>
+render    14 objects, matches Helm        <span class="ok">ok</span>
+scan      1 finding                       <span class="warn">warn</span>
+gate      <span class="warn">WARN</span>  1 reason
+   &middot; server image uses <span class="warn">:latest</span>, not a digest
+blast     +0 / &minus;4 vs base 'default'      <span class="cmt">(auth.enabled=false)</span>
+rollback  prior revision recorded         <span class="ok">ok</span>
+<span class="verdict">verdict   WARN &mdash; safe to fix, then ship</span></code></pre>
+          </div>
         </div>
-        <div class="terminal-card" aria-label="cub render then Kubernetes apply commands">
-          <div class="terminal-title">cub render, then Kubernetes apply</div>
-          <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0 \
-    --base default --work-dir ./prom --non-interactive --namespace monitoring
-<span class="term-prompt">$</span> kubectl apply -f ./prom/out/manifests</code></pre>
-        </div>
-      </div>
-      <p class="quiet-line">Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
-      <div class="hero-actions" aria-label="Primary actions">
-        <a class="button primary" href="./try.html">Get started</a>
-        <a class="button secondary" href="./charts/index.html">Pick a chart</a>
-        <a class="button secondary" href="./how-it-works.html">How it works</a>
-        <a class="button secondary" href="./verification.html">Check Tests</a>
-      </div>
-    </section>
+      </header>
 
-    <section aria-labelledby="control-value">
-      <h2 id="control-value">Change it and keep it</h2>
-      <p>Once a chart runs, you will want to change something. A variant is a supported way to run that chart, rendered to plain files you can read, check, and edit. A basic <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">ConfigHub account</a> is free: it stores your variants, records every edit, and keeps your changes through upgrades, even on fields the chart never exposed. The YAML you inspect is the YAML ConfigHub stores, reviews, changes, and delivers. None of this is hypothetical. <a href="./demo-org.html">The demo org</a> runs ten catalog charts this way, with version ladders, a fleet, approval gates, hooks that ran live, and a README for every demo Space.</p>
-      <div class="home-list">
-        <div class="home-list-item"><h3>Store chart configurations</h3><p>Keep chart version, values, namespace, capabilities, generated facts, and target assumptions with the objects they produced.</p><p><a href="./how-it-works.html">How it works</a></p></div>
-        <div class="home-list-item"><h3>Edit and keep your versions</h3><p>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=index">free account</a>, change any rendered field and keep it through upgrades. Start from one reviewed base and make dev, staging, prod, region, or customer versions without copying values files into a maze.</p><p><a href="./variants.html">Variants</a></p></div>
-        <div class="home-list-item"><h3>Build custom apps</h3><p>Bring your own apps and configs alongside public charts so a release can move as one reviewed set.</p><p><a href="./journey.html">Apps</a></p></div>
-        <div class="home-list-item"><h3>Promote and release</h3><p>Move changes through exact diffs, checks, gates, receipts, and GitOps/OCI handoff before they reach production.</p><p><a href="./operations.html">Ops</a></p></div>
-      </div>
-    </section>
+      <main>
+        <section class="section">
+          <span class="eyebrow">Five simple things</span>
+          <h2>Everything here extends one simple act</h2>
+          <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Depth is there when you want it, never before.</p>
+          <div class="verbs">
+            <div class="verb"><span class="n">01</span><h3>Understand</h3><p>Read what it installs and where it bites.</p><span class="route">open source</span></div>
+            <div class="verb"><span class="n">02</span><h3>Test</h3><p>Is my config well-formed and safe?</p><span class="route">open source</span></div>
+            <div class="verb"><span class="n">03</span><h3>Ask</h3><p>A concrete answer, cited to a receipt.</p><span class="route">open source</span></div>
+            <div class="verb"><span class="n">04</span><h3>Vary</h3><p>Make a supported variant, keep it safe.</p><span class="route">free account to keep</span></div>
+            <div class="verb"><span class="n">05</span><h3>Check my AI</h3><p>Grade what your agent produced.</p><span class="route">open source</span></div>
+          </div>
+        </section>
 
-    <section aria-labelledby="limits">
-      <h2 id="limits">What the catalog gives you</h2>
-      <p>The Helm Ops Catalog describes each chart for humans and agents: versions, values, common variants, and the extras Helm leaves around the edges. It covers the top 100 charts, 20 with full catalog proof and 80 proof-grade and being promoted. All 100 public packages pull with no ConfigHub account and no registry login.</p>
-      <p>Every base variant should make three things easy to find: the full rendered YAML objects, the render record that names the values and Helm inputs, and the route information for chart extras. For example, the Redis default <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> is the Kubernetes output.</p>
-      <p>Hooks, CRDs, setup jobs, and other extras do not disappear. The catalog turns them into named routes, checks, variants, or handoff notes, and where there is no one safe option it says so.</p>
-      <p><a href="./charts/index.html">Browse the catalog</a> · <a href="./hard-questions.html">FAQ</a> · <a href="./known-gaps.html">Known gaps</a> · <a href="./docs.html">Docs</a> · <a href="./private/">Upgrade</a></p>
-    </section>
+        <section class="section">
+          <span class="eyebrow">Config testing</span>
+          <h2>Four things you can prove before you ship</h2>
+          <p class="intro">Not claims &mdash; runnable checks, each recorded as a receipt you can open, and re-runnable as drift after install.</p>
+          <div class="conf-grid">
+            <div class="conf"><span class="badge">&#10003; provable</span><span class="q">Safe to deploy?</span><span class="note">Well-formed, scans clean, e2e green, fits your cluster.</span></div>
+            <div class="conf"><span class="badge">&#10003; provable</span><span class="q">Deploys without disruption?</span><span class="note">CRDs first, hook phases, prerequisites present.</span></div>
+            <div class="conf"><span class="badge">&#10003; provable</span><span class="q">Rollback safe, no data loss?</span><span class="note">What is stateful, destroy-gates, blast radius.</span></div>
+            <div class="conf"><span class="badge">&#10003; provable</span><span class="q">Rollback will succeed?</span><span class="note">A prior good revision, recorded and restorable.</span></div>
+          </div>
+        </section>
 
-    <section aria-labelledby="editing-vs-buying">
-      <h2 id="editing-vs-buying">Editing charts versus buying charts</h2>
-      <p>Chart catalogs change hands, licenses, and registries. When that happens, teams that only consume a catalog migrate on someone else's schedule. Teams that hold their rendered config as data can read every image reference, change it with a recorded edit, and prove the change landed in every environment. That is the difference between editing your charts and buying them.</p>
-    </section>
+        <section class="section">
+          <span class="eyebrow">One resource, three depths</span>
+          <h2>Start free. Grow only when you want to keep something.</h2>
+          <div class="routes">
+            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Understand, test, ask, and check your AI &mdash; on catalog packages or your own config. Pull the OCI bundle and run it all locally.</p></div>
+            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Keep your variants and test results, run the four confidences live against a target, promote across environments, watch for drift.</p></div>
+            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Private catalog, fleet promotion across many clusters, RBAC and policy gates, patch and production support.</p></div>
+          </div>
+        </section>
+      </main>
 
-    <section aria-labelledby="what-this-is">
-      <h2 id="what-this-is">What this is</h2>
-      <p>This site is the public face of an experiment, the <a href="https://github.com/confighub/helm-expt">helm-expt repository</a>. It tests one idea: render a popular public Helm chart once into plain Kubernetes files, then manage those files as data, with the inputs, checks, variants, and receipts recorded next to them. The aim is to keep the chart's supported behaviour while making every change visible and reviewable, including AI-assisted changes.</p>
-      <p>Part of it is proven and part of it is sketched. Rendered catalog bases, Helm parity, and delivery through OCI have committed receipts you can read and re-run. Recipes, render provenance, and lifecycle routes as product objects are sketches built from today's primitives. <a href="./demo-org.html">The demo org</a> shows both and says which is which. All contents are experimental and unofficial.</p>
-    </section>
-  </main>
-  <footer>
-    Copyright ConfigHub Inc. Generated from committed helm-expt evidence. Latest chart versions and proved catalog versions are intentionally separate.
-  </footer>
+      <footer class="foot">
+        <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you &mdash; every ingredient, before you eat.</p>
+        <p class="sub">Draft, experimental, and unofficial. Some features shown here are the intended experience; the figures on this page are illustrative.</p>
+      </footer>
+    </div>
+  </div>
 </body>
 </html>

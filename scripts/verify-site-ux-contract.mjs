@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Helm Ops made simple", "open source tool", "cub installer", "Preview your installs", "Look first", "Prove it on a cluster", "Change it and keep it", "What the catalog gives you", "Store chart configurations", "Check Tests"],
+    terms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog", "Five simple things", "Everything here extends one simple act", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
   },
   {
     file: "site/variants.html",
@@ -118,7 +118,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Helm Ops made simple", "open source tool", "cub installer", "Preview your installs"],
+    headerTerms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog"],
   },
   {
     file: "site/try.html",
