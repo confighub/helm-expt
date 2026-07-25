@@ -5007,6 +5007,31 @@ function chartIndexHtml(catalog) {
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
+    /* Config Test Centre design tokens, scoped to this page: re-skin the shared
+       light theme to the design-language palette (theme-aware). No structural
+       change; all content and the filter stay as-is. */
+    :root {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --surface: #ffffff; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --surface: #0d1319; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570;
+      }
+      .topbar { background: rgba(13,19,25,.92); }
+      input, select, textarea { background: #1b242d; color: var(--ink); border-color: var(--line); }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --surface: #0d1319; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570;
+    }
+    :root[data-theme="dark"] .topbar { background: rgba(13,19,25,.92); }
+    :root[data-theme="dark"] input, :root[data-theme="dark"] select, :root[data-theme="dark"] textarea { background: #1b242d; color: var(--ink); border-color: var(--line); }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --surface: #ffffff; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a;
+    }
   </style>
 </head>
 <body>
