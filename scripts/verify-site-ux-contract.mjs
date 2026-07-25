@@ -71,6 +71,10 @@ const checks = [
     terms: ["Future And Managed Ideas", "What Exists In The Public Experiment", "roadmap", "managed"],
   },
   {
+    file: "site/testing.html",
+    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "The messy parts are proven, not hidden", "AICR", "cub installer"],
+  },
+  {
     file: "site/how-it-works.html",
     terms: ["The recipe: your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "Three adoption caveats we manage", "managed cub-direct applier", "cub adoption caveats"],
   },
@@ -106,6 +110,7 @@ const humanSplitPages = [
   "site/existing-apps.html",
   "site/ai.html",
   "site/security.html",
+  "site/testing.html",
   "site/future.html",
   "site/private/index.html",
 ];

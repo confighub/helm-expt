@@ -16,6 +16,7 @@ const customAppsPath = join(siteRoot, "custom-apps.html");
 const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 const securityPath = join(siteRoot, "security.html");
+const testingPath = join(siteRoot, "testing.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
 const docsPath = join(siteRoot, "docs.html");
@@ -128,6 +129,7 @@ const SITE_PAGE_RELPATHS = {
   existingAppsHtml: "existing-apps.html",
   aiHtml: "ai.html",
   securityHtml: "security.html",
+  pillarsHtml: "testing.html",
   futureHtml: "future.html",
   operationsHtml: "operations.html",
   docsHtml: "docs.html",
@@ -166,6 +168,7 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
+  "testing.html": "Why the catalog makes configuration easier to test: most choices fixed and checked before install, proof you can read before you ship, and the messy parts named and proven.",
   "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.",
@@ -202,6 +205,7 @@ if (mode === "--generate") {
   write(existingAppsPath, site.existingAppsHtml);
   write(aiPath, site.aiHtml);
   write(securityPath, site.securityHtml);
+  write(testingPath, site.pillarsHtml);
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
   write(docsPath, site.docsHtml);
@@ -245,6 +249,7 @@ if (mode === "--generate") {
   check(existsSync(existingAppsPath), "site/existing-apps.html is missing; run npm run site:generate");
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
   check(existsSync(securityPath), "site/security.html is missing; run npm run site:generate");
+  check(existsSync(testingPath), "site/testing.html is missing; run npm run site:generate");
   check(existsSync(futurePath), "site/future.html is missing; run npm run site:generate");
   check(existsSync(operationsPath), "site/operations.html is missing; run npm run site:generate");
   check(existsSync(docsPath), "site/docs.html is missing; run npm run site:generate");
@@ -272,6 +277,7 @@ if (mode === "--generate") {
   check(readFileSync(existingAppsPath, "utf8") === site.existingAppsHtml, "site/existing-apps.html is stale");
   check(readFileSync(aiPath, "utf8") === site.aiHtml, "site/ai.html is stale");
   check(readFileSync(securityPath, "utf8") === site.securityHtml, "site/security.html is stale");
+  check(readFileSync(testingPath, "utf8") === site.pillarsHtml, "site/testing.html is stale");
   check(readFileSync(futurePath, "utf8") === site.futureHtml, "site/future.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
   check(readFileSync(docsPath, "utf8") === site.docsHtml, "site/docs.html is stale");
@@ -580,6 +586,7 @@ function buildSite(generatedAt) {
     existingAppsHtml: calmPage(existingAppsHtml(catalog)),
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: calmPage(securityHtml(catalog)),
+    pillarsHtml: calmPage(pillarsHtml(catalog)),
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
     docsHtml: calmPage(docsHtml(catalog)),
@@ -1201,7 +1208,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("testing.html")}">Testing</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1343,6 +1350,16 @@ stringData:
     </div>
   </header>
   <main>
+    <section aria-labelledby="pillars">
+      <h2 id="pillars">Why it is safe to install</h2>
+      <p>Helm charts and OCI packages such as AICR share three problems, and the catalog answers all three. <a href="./testing.html">See how this makes configuration easier to test</a>.</p>
+      <div class="home-list light-grid">
+        <div class="home-list-item"><h3>Most choices are made before you install</h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
+        <div class="home-list-item"><h3>You can read the proof before you ship</h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="home-list-item"><h3>The messy parts are named and proven</h3><p>Hooks, CRDs, and setup jobs each become a named route with a receipt and an honest automatic marker.</p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="look-first">
       <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
       <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
@@ -4393,6 +4410,51 @@ function securityHtml(catalog) {
 `;
 }
 
+function pillarsHtml(catalog) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making Configuration Easier To Test · ConfigHub Helm Ops</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    <h1>Making configuration easier to test</h1>
+    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster. ConfigHub makes configuration easier to test, in three ways.</p>
+  </header>
+  <main>
+    <section aria-labelledby="pillar-fewer">
+      <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
+      <p>A reviewed package fixes almost every setting at build time and checks it there. What is left for you to set is small and typed, so it cannot be misused. Fewer variables means fewer ways to be wrong, and far less to test. Helm charts and AICR packages both fit this shape.</p>
+      <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-proof">
+      <h2 id="pillar-proof">You can read the proof before you ship</h2>
+      <p>Every package carries evidence that it works, recorded as receipts you can open. The catalog renders each package, checks it matches Helm, installs it on a real cluster, and delivers it through Argo, Flux, and kubectl, then keeps the results. Bad config is caught earlier still, as data, before it reaches a cluster. Schema checks, object diffs, and a capability check against the target all run on the config itself. You inherit this evidence instead of building it.</p>
+      <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-messy">
+      <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
+      <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
+      <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-installer">
+      <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
+      <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
+    </section>
+  </main>
+  <footer>Every claim on this page points at committed evidence in the catalog.</footer>
+</body>
+</html>
+`;
+}
+
 function futureHtml(catalog) {
   const nowRows = [
     ["Top-100 catalog", "Public chart snapshots, chart pages, matrix rows, and per-chart caveats."],
@@ -5410,6 +5472,16 @@ function chartPageHtml(catalog, entry) {
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
+    <section aria-labelledby="pillars-here">
+      <h2 id="pillars-here">Three ways this page helps you test</h2>
+      <p>The same three things hold for every package in the catalog, Helm charts and OCI packages alike. <a href="../testing.html">Why this makes configuration easier to test</a>.</p>
+      <div class="grid">
+        <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
+        <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
       ${chartStatStrip(entry, firstRunnableRow)}

@@ -568,7 +568,7 @@
 </head>
 <body class="home">
   <header class="home-hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>ConfigHub Helm Ops</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <div class="hero-copy">
       <h1>Helm Ops made simple</h1>
       <p class="lead">Helm makes you put every setting into templates up front, then runs complicated rendering that may depend on live values. ConfigHub provides an open source tool, <code>cub installer</code>, that copies what Helm does, except making this process transparent, flexible, and manageable. Keep your Helm charts. We show the real config so you can edit the real Kubernetes objects and keep those changes through upgrades.</p>
@@ -595,6 +595,16 @@ stringData:
     </div>
   </header>
   <main>
+    <section aria-labelledby="pillars">
+      <h2 id="pillars">Why it is safe to install</h2>
+      <p>Helm charts and OCI packages such as AICR share three problems, and the catalog answers all three. <a href="./testing.html">See how this makes configuration easier to test</a>.</p>
+      <div class="home-list light-grid">
+        <div class="home-list-item"><h3>Most choices are made before you install</h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
+        <div class="home-list-item"><h3>You can read the proof before you ship</h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="home-list-item"><h3>The messy parts are named and proven</h3><p>Hooks, CRDs, and setup jobs each become a named route with a receipt and an honest automatic marker.</p></div>
+      </div>
+    </section>
+
     <section aria-labelledby="look-first">
       <h2 id="look-first">Look first, with no server, no cluster, and no account</h2>
       <p class="closing-line">A chart is what the vendor ships: a template for Kubernetes objects, not the objects themselves. <code>cub installer setup</code> runs locally and writes out exactly what a package will install. Nothing connects, and nothing needs undoing. Keep the tools you already use.</p>
