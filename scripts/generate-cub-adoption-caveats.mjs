@@ -16,6 +16,12 @@
 // reuse-secret base's suggestedSource) and the default base's upstream.yaml. Secret VALUES are
 // never decoded or printed — only password key names are read (credential constraint).
 //
+// CRD first-ordering is counted from two places, because a chart that separates its CRDs out
+// removes them from the render: (a) CustomResourceDefinition objects in the default base's rendered
+// upstream.yaml, and (b) CRD entries in the default base's externalRequires (the first-ordering
+// requirements the lifecycle table reads). Counting only (a) reported ships_crds=no for exactly the
+// charts that pull CRDs into (b), which is the first-ordering case the caveat exists to flag.
+//
 // Usage:
 //   node scripts/generate-cub-adoption-caveats.mjs --generate
 //   node scripts/generate-cub-adoption-caveats.mjs --verify
@@ -124,12 +130,20 @@ function analyze() {
     const secretFixBase = bases.find((b) => (b.externalRequires ?? []).some((r) => /secret/i.test(r?.name ?? "")) || /existing-secret|reuse/i.test(b.name ?? ""));
     const fixCmd = secretFixBase?.externalRequires?.find((r) => /secret/i.test(r?.name ?? ""))?.suggestedSource ?? "";
     const crdSeparableBase = bases.find((b) => /no-?crds|crds-disabled/i.test(b.name ?? ""));
+    // CRDs the default base pulls out into first-ordering requirements (kind ClusterFeature,
+    // name "CRD <group.kind>"). Normalize to the bare CRD name so they union cleanly with the
+    // CRD objects detected in the render, without double-counting a CRD present in both.
+    const requiredCrds = (defBase.externalRequires ?? [])
+      .filter((r) => /^CRD\b/i.test(r?.name ?? "") || String(r?.kind ?? "").toLowerCase() === "customresourcedefinition")
+      .map((r) => String(r?.name ?? "").replace(/^CRD\s+/i, "").trim())
+      .filter(Boolean);
     const chart = c.key;
     const secretBaseName = secretFixBase?.name ?? "";
     const crdBaseName = crdSeparableBase?.name ?? "";
     return {
       ...c,
       defaultBase: defBase.name,
+      requiredCrds,
       secretFixBase: secretBaseName && !hasBlockedLiveReceipt(chart, secretBaseName) ? secretBaseName : "",
       fixCmd: secretBaseName && !hasBlockedLiveReceipt(chart, secretBaseName) ? fixCmd : "",
       crdSeparableBase: crdBaseName && !hasBlockedLiveReceipt(chart, crdBaseName) ? crdBaseName : "",
@@ -138,11 +152,12 @@ function analyze() {
   const detected = detectItems.length ? py(PY_DETECT, JSON.stringify(detectItems)) : {};
   return meta.map((m) => {
     const d = detected[m.key] ?? { pw: [], crd: [] };
+    const crdNames = Array.from(new Set([...(d.crd ?? []), ...(m.requiredCrds ?? [])]));
     return {
       chart: m.key, version: m.version, defaultBase: m.defaultBase,
       bakesPassword: d.pw.length > 0, passwordKeys: d.pw,
       passwordFixBase: m.secretFixBase, passwordFixCmd: m.fixCmd,
-      shipsCRD: d.crd.length > 0, crdCount: d.crd.length, crdSeparableBase: m.crdSeparableBase,
+      shipsCRD: crdNames.length > 0, crdCount: crdNames.length, crdSeparableBase: m.crdSeparableBase,
     };
   });
 }

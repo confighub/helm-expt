@@ -36320,8 +36320,8 @@
       "password_keys": "",
       "password_fix_base": "",
       "password_fix_command": "",
-      "ships_crds": "no",
-      "crd_count": "0",
+      "ships_crds": "yes",
+      "crd_count": "8",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37035,8 +37035,8 @@
       "password_keys": "",
       "password_fix_base": "",
       "password_fix_command": "",
-      "ships_crds": "no",
-      "crd_count": "0",
+      "ships_crds": "yes",
+      "crd_count": "6",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37062,7 +37062,7 @@
       "password_fix_base": "default",
       "password_fix_command": "kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>",
       "ships_crds": "yes",
-      "crd_count": "1",
+      "crd_count": "3",
       "crd_separable_base": "no-crds",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37100,8 +37100,8 @@
       "password_keys": "",
       "password_fix_base": "",
       "password_fix_command": "",
-      "ships_crds": "no",
-      "crd_count": "0",
+      "ships_crds": "yes",
+      "crd_count": "1",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37165,8 +37165,8 @@
       "password_keys": "",
       "password_fix_base": "",
       "password_fix_command": "",
-      "ships_crds": "no",
-      "crd_count": "0",
+      "ships_crds": "yes",
+      "crd_count": "1",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37231,7 +37231,7 @@
       "password_fix_base": "default",
       "password_fix_command": "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator",
       "ships_crds": "yes",
-      "crd_count": "4",
+      "crd_count": "6",
       "crd_separable_base": "no-crds",
       "universal_caveats": "customize;prune;ssa-conflict"
     },
@@ -37438,8 +37438,8 @@
       "password_keys": "",
       "password_fix_base": "",
       "password_fix_command": "",
-      "ships_crds": "no",
-      "crd_count": "0",
+      "ships_crds": "yes",
+      "crd_count": "5",
       "crd_separable_base": "",
       "universal_caveats": "customize;prune;ssa-conflict"
     },

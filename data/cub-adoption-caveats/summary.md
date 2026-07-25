@@ -17,7 +17,7 @@ These are the same for all 100 charts, so they are stated once here rather than 
 
 ## Per-chart caveats (these vary by chart)
 
-**2/100 charts** still bake a shared placeholder password in their default setup; **36/100 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 100 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
+**2/100 charts** still bake a shared placeholder password in their default setup; **41/100 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 100 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
 
 ### Shared placeholder password (#1012) — 2 charts
 
@@ -28,7 +28,7 @@ If a chart appears here, its default base bakes a password Secret that is **the 
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |
 | runix/pgadmin4 | `default` | 1 | replace the placeholder before prod |
 
-### CRDs need first-ordering on cub-direct (#1015) — 36 charts
+### CRDs need first-ordering on cub-direct (#1015) — 41 charts
 
 On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are established. A controller handles ordering; on cub-direct, apply CRDs first and wait, or use the managed applier (#1019).
 
@@ -38,6 +38,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | argo-cd/argo-cd | `default` | 3 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argo-events | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argo-rollouts | `default` | 5 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| argo-cd/argo-workflows | `default` | 8 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | argo-cd/argocd-image-updater | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | autoscaler/vertical-pod-autoscaler | `default` | 2 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | bitnami/contour | `default` | 5 | apply CRDs first + wait, or use a controller (#1015/#1019) |
@@ -53,18 +54,22 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | hashicorp/consul | `default-control-plane` | 28 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | hashicorp/terraform | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jaegertracing/jaeger-operator | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| jetstack/trust-manager | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| jetstack/cert-manager | `default` | 6 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| jetstack/trust-manager | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kedacore/keda | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kyverno/kyverno | `default` | 22 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| kyverno/kyverno-policies | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | linkerd/linkerd-crds | `default` | 8 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | longhorn/longhorn | `default` | 22 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | minio-operator/operator | `default` | 2 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| minio-operator/tenant | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | nats/nack | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
-| open-telemetry/opentelemetry-operator | `default` | 4 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| open-telemetry/opentelemetry-operator | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/pg-operator | `default` | 8 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/psmdb-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/pxc-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | rook-release/rook-ceph | `default` | 25 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| rook-release/rook-ceph-cluster | `default` | 5 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | sealed-secrets/sealed-secrets | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | secrets-store-csi-driver/secrets-store-csi-driver | `default` | 2 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | strimzi/strimzi-kafka-operator | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
