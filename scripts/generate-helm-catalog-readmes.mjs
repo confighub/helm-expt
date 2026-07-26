@@ -47,7 +47,7 @@ const DEMO_SPACES = [
     kind: "org",
     summary: "Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.",
     shows: [
-      "Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.",
+      "Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.",
       "The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.",
     ],
     open: ["This README.", "The checks and filters used by the demo org.", "Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter."],
@@ -219,6 +219,7 @@ const DEMO_SPACES = [
       "The AICR v0.14.0 recipe selected 15 versioned components for EKS, H100 accelerators, Ubuntu, Kubeflow, and training.",
       "The generated Argo CD configuration contains one parent Application and 16 component Applications, ordered with sync waves 0 through 15.",
       "ConfigHub imported those 17 Applications from one OCI configuration artifact without running AICR or rendering the source chart again.",
+      "This Space requires approval before apply because it changes cluster-wide GPU, monitoring, and training-platform configuration.",
     ],
     open: [
       "This README.",
@@ -234,6 +235,7 @@ const DEMO_SPACES = [
       ["AICR source and OCI receipt", "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"],
       ["ConfigHub upload receipt", "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"],
       ["Staging variant readiness", "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"],
+      ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
       ["Rendered Argo CD Applications", "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"],
     ],
     limits: [
@@ -241,6 +243,72 @@ const DEMO_SPACES = [
       "The Space currently records a temporary local OCI source. The public Google Artifact Registry copy still needs a fresh Google login.",
       "The first staging clone is blocked because this demo organization is at its 1,000-Link quota. The empty partial Space was removed; no existing catalog links were deleted.",
       "The target must already provide the `argocd` Namespace, the default Argo CD AppProject, Argo CD itself, EKS, and the required GPU capacity.",
+    ],
+  },
+  {
+    space: "kubara-local-platform-v0-12-0",
+    title: "Kubara platform configuration",
+    kind: "source",
+    summary: "Kubara generated the Helm source and cluster values for a small Kubernetes platform. ConfigHub stores the exact rendered objects as one reviewed base variant.",
+    shows: [
+      "Kubara v0.12.0 selected and configured Argo CD, cert-manager, External Secrets, Prometheus, Metrics Server, Traefik, and a small portal.",
+      "The recorded render contains 77 Kubernetes objects. ConfigHub stores the 75 non-Secret objects; the two Secrets remain named requirements instead of being hidden.",
+      "The route record lists three CRDs, four Helm-hook resources, the two Secrets, and the External Secrets prerequisite.",
+      "This Space requires approval before apply because it changes cluster-wide platform configuration.",
+    ],
+    open: [
+      "This README.",
+      "The `release-objects` Unit to inspect the Kubernetes objects Kubara produced.",
+      "The route record in the evidence links to see what must happen around normal apply.",
+    ],
+    why: [
+      "Kubara can choose a platform stack and generate its source configuration. The operations problem starts after that: teams need to review the exact result, compare cluster versions, and move a tested change through a fleet.",
+      "Kubara still generates the platform. ConfigHub gives the team one place to review the result, compare cluster versions, approve changes, and see what each cluster should run.",
+    ],
+    evidence: [
+      ["Kubara example guide", "docs/demo/kubara/local-platform.md"],
+      ["Generation receipt", "examples/kubara/local-platform/generation-receipt.yaml"],
+      ["ConfigHub upload receipt", "examples/kubara/local-platform/confighub-upload-receipt.yaml"],
+      ["CRD, hook, Secret, and prerequisite record", "examples/kubara/local-platform/route-intent.yaml"],
+      ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
+    ],
+    limits: [
+      "The public OCI copy has not been published.",
+      "The CRD, hook, Secret, and External Secrets work is recorded but has not been executed for this example.",
+      "No Argo CD reconciliation or live platform-health result is claimed.",
+    ],
+  },
+  {
+    space: "sveltos-kyverno-fleet-3-8-1-staging",
+    title: "Sveltos Kyverno fleet",
+    kind: "fleet",
+    summary: "ConfigHub stores one reviewed Sveltos ClusterProfile. Sveltos selects the matching cluster, installs Kyverno, and repairs drift.",
+    shows: [
+      "The `ClusterProfile` selects clusters labeled `environment=staging` and installs Kyverno chart 3.8.1 with three admission-controller replicas.",
+      "ConfigHub stores the exact reviewed profile and its revision history.",
+      "A live test proved that Sveltos installed Kyverno and restored the replica count after it was changed by hand.",
+      "This Space requires approval before apply because it changes cluster-wide admission policy.",
+    ],
+    open: [
+      "This README.",
+      "The `clusterprofile` Unit to inspect the source Sveltos will reconcile.",
+      "The live receipt to see the management cluster, workload cluster, and drift test.",
+    ],
+    why: [
+      "A fleet tool can place and reconcile configuration, but teams still need a shared record of what each cluster group should run and how that record changed.",
+      "This example separates the reviewed configuration in ConfigHub from the controller that enforces it on selected clusters.",
+    ],
+    evidence: [
+      ["Sveltos example guide", "docs/demo/sveltos/kyverno-fleet.md"],
+      ["ClusterProfile source", "examples/sveltos/kyverno-fleet/clusterprofile.yaml"],
+      ["Live receipt", "examples/sveltos/kyverno-fleet/live-receipt.yaml"],
+      ["Pinned source versions", "examples/sveltos/kyverno-fleet/source-lock.yaml"],
+      ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
+    ],
+    limits: [
+      "ConfigHub-to-Sveltos delivery was manual in this run.",
+      "The test used one workload cluster, not a multi-cluster promotion wave.",
+      "The receipt proves this Kyverno profile and drift test, not every Sveltos feature.",
     ],
   },
   {
@@ -339,7 +407,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 40, `expected 40 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 42, `expected 42 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {

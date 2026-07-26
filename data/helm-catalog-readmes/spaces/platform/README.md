@@ -14,7 +14,7 @@ The platform Space shows those rules separately so chart examples do not hide po
 
 ## What this example shows
 
-- Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.
+- Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.
 - The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.
 
 ## What to inspect in Hub

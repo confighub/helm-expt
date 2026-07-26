@@ -69,7 +69,7 @@ const expectedOrg = "helm-catalog";
 const spaceSlug = "aicr-eks-h100-training-kubeflow-v0-14-0-argocd";
 const unitSlug = "aicr-eks-h100-training-kubeflow";
 const readmeSlug = "readme";
-const baselineFilterRef = "platform/helm-catalog-checks";
+const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
 const cubContext = process.env.CUB_CONTEXT ?? "";
 
 runLocalVerification();
@@ -125,7 +125,14 @@ function runLocalVerification() {
   execFileSync(
     process.execPath,
     [join(repoRoot, "scripts", "verify-aicr-argocd-example.mjs")],
-    { cwd: repoRoot, stdio: "inherit" },
+    {
+      cwd: repoRoot,
+      stdio: "inherit",
+      env: {
+        ...process.env,
+        AICR_SKIP_UPLOAD_RECEIPT: mode === "--hub-record" ? "1" : "0",
+      },
+    },
   );
   check(existsSync(readmeUnitPath), "generated AICR README Unit is missing; run npm run helm-catalog-readmes");
 }
@@ -293,6 +300,8 @@ function syncBaseVariant() {
     "minimal",
     "--label",
     "SourceType=aicr",
+    "--label",
+    "ResourceClass=system-configuration",
     "--layer",
     "Platform",
     "--owner",
@@ -313,8 +322,10 @@ function syncPolicy() {
     "ApplyPolicyProfile=catalog-standard",
     "--label",
     "SourceType=aicr",
+    "--label",
+    "ResourceClass=system-configuration",
     "--trigger-filter",
-    baselineFilterRef,
+    approvalRequiredFilterRef,
     "--where-trigger",
     "-",
     "--quiet",
@@ -416,9 +427,10 @@ function collectLiveReceipt(sourceReference) {
       ],
       policy: {
         profile: policy.metadata.name,
-        filter: baselineFilterRef,
+        filter: approvalRequiredFilterRef,
         filterId: live.space.TriggerFilterID,
-        checks: policy.spec.baseline.checks.map((item) => item.trigger),
+        reason: "system-configuration",
+        checks: policy.spec.approvalRequired.checks.map((item) => item.trigger),
       },
     },
     status: {
@@ -426,7 +438,7 @@ function collectLiveReceipt(sourceReference) {
       ociPull: "pass",
       configHubBaseVariantUpload: "pass",
       objectIdentitiesMatched: "pass",
-      baselinePolicyAssigned: "pass",
+      approvalRequiredPolicyAssigned: "pass",
       publicSourcePushAndAnonymousPull: publicPassed ? "pass" : "not-run",
       publicConfigurationPushAndAnonymousPull: publicPassed ? "pass" : "not-run",
       apply: "not-run",
@@ -517,10 +529,20 @@ function verifyUploadReceipt(receipt) {
     "AICR upload receipt sync waves changed",
   );
   check(receipt.spec?.policy?.profile === "catalog-standard", "AICR upload policy profile changed");
-  check(receipt.spec?.policy?.checks?.length === 5, "AICR upload must record five baseline checks");
+  check(receipt.spec?.space?.labels?.ResourceClass === "system-configuration", "AICR Space resource class changed");
+  check(receipt.spec?.policy?.filter === approvalRequiredFilterRef, "AICR approval-required filter changed");
+  check(receipt.spec?.policy?.reason === "system-configuration", "AICR approval reason changed");
+  check(receipt.spec?.policy?.checks?.length === 6, "AICR upload must record five common checks plus approval");
+  check(
+    receipt.spec.policy.checks.includes("platform/require-approval"),
+    "AICR upload policy must require approval",
+  );
   check(receipt.status?.configHubBaseVariantUpload === "pass", "AICR base variant upload is not pass");
   check(receipt.status?.objectIdentitiesMatched === "pass", "AICR object comparison is not pass");
-  check(receipt.status?.baselinePolicyAssigned === "pass", "AICR baseline policy assignment is not pass");
+  check(
+    receipt.status?.approvalRequiredPolicyAssigned === "pass",
+    "AICR approval-required policy assignment is not pass",
+  );
   check(receipt.status?.apply === "not-run", "AICR upload must not claim apply");
   check(receipt.status?.liveArgoReconciliation === "not-run", "AICR upload must not claim live Argo CD");
   check(receipt.status?.liveGpuReconciliation === "not-run", "AICR upload must not claim GPU health");

@@ -13,11 +13,11 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | org | 2 |
 | preset | 21 |
 | environment | 7 |
-| source | 1 |
-| fleet | 4 |
+| source | 2 |
+| fleet | 5 |
 | pilot | 3 |
 | route | 2 |
-| total | 40 |
+| total | 42 |
 
 ## Files
 
@@ -60,10 +60,12 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
+| `kubara-local-platform-v0-12-0` | source | [README](spaces/kubara-local-platform-v0-12-0/README.md) | [readme.yaml](units/kubara-local-platform-v0-12-0/readme.yaml) |
 | `bitnami-nginx-fleet-dev` | fleet | [README](spaces/bitnami-nginx-fleet-dev/README.md) | [readme.yaml](units/bitnami-nginx-fleet-dev/readme.yaml) |
 | `bitnami-nginx-fleet-prod-eu` | fleet | [README](spaces/bitnami-nginx-fleet-prod-eu/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-eu/readme.yaml) |
 | `bitnami-nginx-fleet-prod-us` | fleet | [README](spaces/bitnami-nginx-fleet-prod-us/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-us/readme.yaml) |
 | `bitnami-nginx-fleet-staging` | fleet | [README](spaces/bitnami-nginx-fleet-staging/README.md) | [readme.yaml](units/bitnami-nginx-fleet-staging/readme.yaml) |
+| `sveltos-kyverno-fleet-3-8-1-staging` | fleet | [README](spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md) | [readme.yaml](units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml) |
 | `bitnami-redis-27-0-0-default-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-default-pilot-live-20260705/readme.yaml) |
 | `bitnami-redis-27-0-0-prod-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-prod-pilot-live-20260705/readme.yaml) |
 | `bitnami-redis-27-0-0-stage-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-stage-pilot-live-20260705/readme.yaml) |

@@ -26418,6 +26418,14 @@
       "unit_source_path": "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml"
     },
     {
+      "space": "kubara-local-platform-v0-12-0",
+      "kind": "source",
+      "title": "Kubara platform configuration",
+      "summary": "Kubara generated the Helm source and cluster values for a small Kubernetes platform. ConfigHub stores the exact rendered objects as one reviewed base variant.",
+      "source_path": "data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/kubara-local-platform-v0-12-0/readme.yaml"
+    },
+    {
       "space": "bitnami-nginx-fleet-dev",
       "kind": "fleet",
       "title": "Nginx fleet dev",
@@ -26448,6 +26456,14 @@
       "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-staging/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-staging/readme.yaml"
+    },
+    {
+      "space": "sveltos-kyverno-fleet-3-8-1-staging",
+      "kind": "fleet",
+      "title": "Sveltos Kyverno fleet",
+      "summary": "ConfigHub stores one reviewed Sveltos ClusterProfile. Sveltos selects the matching cluster, installs Kyverno, and repairs drift.",
+      "source_path": "data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
     },
     {
       "space": "bitnami-redis-27-0-0-default-pilot-live-20260705",

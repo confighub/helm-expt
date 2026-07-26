@@ -82,6 +82,8 @@ spec:
     profile: "catalog-standard"
     productionAdds:
       - "human-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
   evidence:
     generationReceipt: "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
     sourceChecksums: "examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/checksums.txt"

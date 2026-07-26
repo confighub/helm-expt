@@ -33,7 +33,7 @@ const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-an
 const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.csv"), "utf8");
 const applyPolicy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
 const baselineApplyFilter = applyPolicy.spec.baseline.filter;
-const productionApplyFilter = applyPolicy.spec.production.filter;
+const approvalRequiredApplyFilter = applyPolicy.spec.approvalRequired.filter;
 const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
 
 function slugify(value) {
@@ -364,43 +364,74 @@ function matchesLabels(space, labels) {
   return Object.entries(labels ?? {}).every(([key, value]) => space.Labels?.[key] === value);
 }
 
+function requiresApproval(space) {
+  return space.Labels?.Environment === "Prod"
+    || space.Labels?.ResourceClass === "system-configuration";
+}
+
+function matchesSpaceSelector(space, selector) {
+  if (selector?.labels) return matchesLabels(space, selector.labels);
+  if (selector?.anyOf) {
+    return selector.anyOf.some((candidate) => matchesLabels(space, candidate.labels));
+  }
+  return false;
+}
+
 function collectLivePolicyState() {
   const findings = [];
   const baseline = readPolicyFilter(applyPolicy.spec.baseline, "baseline", findings);
-  const production = readPolicyFilter(applyPolicy.spec.production, "production", findings);
+  const approvalRequired = readPolicyFilter(
+    applyPolicy.spec.approvalRequired,
+    "approvalRequired",
+    findings,
+  );
   const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
   const spaces = rows.map((row) => row.Space);
   const baselineSpaces = spaces.filter((space) => space.TriggerFilterID === baseline.id);
-  const productionSpaces = spaces.filter((space) => space.TriggerFilterID === production.id);
+  const approvalRequiredSpaces = spaces.filter(
+    (space) => space.TriggerFilterID === approvalRequired.id,
+  );
   const profileSpaces = spaces.filter((space) => space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name);
 
   if (!baselineSpaces.length) findings.push("the baseline filter is not assigned to any Space");
-  if (!productionSpaces.length) findings.push("the production filter is not assigned to any Space");
+  if (!approvalRequiredSpaces.length) {
+    findings.push("the approval-required filter is not assigned to any Space");
+  }
 
   for (const space of baselineSpaces) {
     if (!matchesLabels(space, applyPolicy.spec.baseline.spaceSelector.labels)) {
       findings.push(`${space.Slug} uses the baseline filter without the profile label`);
     }
-    if (space.Labels?.Environment === "Prod") {
-      findings.push(`${space.Slug} is labeled Prod but uses the baseline filter`);
+    if (requiresApproval(space)) {
+      findings.push(`${space.Slug} requires approval but uses the baseline filter`);
     }
   }
-  for (const space of productionSpaces) {
-    if (!matchesLabels(space, applyPolicy.spec.production.spaceSelector.labels)) {
-      findings.push(`${space.Slug} uses the production filter without the production labels`);
+  for (const space of approvalRequiredSpaces) {
+    if (!matchesSpaceSelector(space, applyPolicy.spec.approvalRequired.spaceSelector)) {
+      findings.push(
+        `${space.Slug} uses the approval-required filter without production or system-configuration labels`,
+      );
     }
   }
   for (const space of profileSpaces) {
-    const expectedID = space.Labels?.Environment === "Prod" ? production.id : baseline.id;
+    const expectedID = requiresApproval(space) ? approvalRequired.id : baseline.id;
     if (space.TriggerFilterID !== expectedID) {
       findings.push(`${space.Slug} claims ${applyPolicy.metadata.name} but uses the wrong filter`);
     }
   }
 
   const baselineSlugs = baselineSpaces.map((space) => space.Slug).sort();
-  const productionSlugs = productionSpaces.map((space) => space.Slug).sort();
-  const selected = new Set([...baselineSlugs, ...productionSlugs]);
+  const approvalRequiredSlugs = approvalRequiredSpaces.map((space) => space.Slug).sort();
+  const selected = new Set([...baselineSlugs, ...approvalRequiredSlugs]);
   const excludedSlugs = spaces.map((space) => space.Slug).filter((slug) => !selected.has(slug)).sort();
+  const productionSlugs = approvalRequiredSpaces
+    .filter((space) => space.Labels?.Environment === "Prod")
+    .map((space) => space.Slug)
+    .sort();
+  const systemConfigurationSlugs = approvalRequiredSpaces
+    .filter((space) => space.Labels?.ResourceClass === "system-configuration")
+    .map((space) => space.Slug)
+    .sort();
   const verifiedAt = new Date().toISOString();
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -419,16 +450,20 @@ function collectLivePolicyState() {
           where: baseline.where,
           triggers: baseline.triggers,
         },
-        production: {
-          ref: production.ref,
-          id: production.id,
-          where: production.where,
-          triggers: production.triggers,
+        approvalRequired: {
+          ref: approvalRequired.ref,
+          id: approvalRequired.id,
+          where: approvalRequired.where,
+          triggers: approvalRequired.triggers,
         },
       },
       spaces: {
         baseline: baselineSlugs,
-        production: productionSlugs,
+        approvalRequired: approvalRequiredSlugs,
+        approvalReasons: {
+          production: productionSlugs,
+          systemConfiguration: systemConfigurationSlugs,
+        },
         excluded: excludedSlugs,
       },
     },
@@ -475,7 +510,7 @@ function verifyPolicyReceipt(receipt) {
 
   for (const [name, policySet] of Object.entries({
     baseline: applyPolicy.spec.baseline,
-    production: applyPolicy.spec.production,
+    approvalRequired: applyPolicy.spec.approvalRequired,
   })) {
     const recorded = receipt?.spec?.filters?.[name];
     if (!recorded) {
@@ -493,11 +528,32 @@ function verifyPolicyReceipt(receipt) {
   }
 
   const baselineSpaces = receipt?.spec?.spaces?.baseline ?? [];
-  const productionSpaces = receipt?.spec?.spaces?.production ?? [];
+  const approvalRequiredSpaces = receipt?.spec?.spaces?.approvalRequired ?? [];
   if (!baselineSpaces.length) failures.push("receipt has no baseline Spaces");
-  if (!productionSpaces.length) failures.push("receipt has no production Spaces");
-  const overlap = baselineSpaces.filter((space) => productionSpaces.includes(space));
+  if (!approvalRequiredSpaces.length) failures.push("receipt has no approval-required Spaces");
+  const overlap = baselineSpaces.filter((space) => approvalRequiredSpaces.includes(space));
   if (overlap.length) failures.push(`Spaces appear in both policy sets: ${overlap.join(", ")}`);
+  const approvalReasons = receipt?.spec?.spaces?.approvalReasons ?? {};
+  if (!(approvalReasons.production ?? []).length) {
+    failures.push("receipt has no production approval assignments");
+  }
+  if (!(approvalReasons.systemConfiguration ?? []).length) {
+    failures.push("receipt has no system-configuration approval assignments");
+  }
+  const classifiedApprovalSpaces = new Set([
+    ...(approvalReasons.production ?? []),
+    ...(approvalReasons.systemConfiguration ?? []),
+  ]);
+  for (const space of approvalRequiredSpaces) {
+    if (!classifiedApprovalSpaces.has(space)) {
+      failures.push(`${space} has approval checks without a recorded reason`);
+    }
+  }
+  for (const space of classifiedApprovalSpaces) {
+    if (!approvalRequiredSpaces.includes(space)) {
+      failures.push(`${space} has an approval reason but not the approval-required filter`);
+    }
+  }
   if (applyPolicy.status.liveReverified !== true) failures.push("policy status does not mark the live result as reverified");
   if (!String(receipt?.spec?.verifiedAt ?? "").startsWith(applyPolicy.status.lastRecorded)) {
     failures.push("policy lastRecorded date does not match the receipt");
@@ -511,9 +567,14 @@ function verifyPolicyReceipt(receipt) {
 
 function printPolicyResult(receipt) {
   const baseline = receipt.spec.filters.baseline;
-  const production = receipt.spec.filters.production;
+  const approvalRequired = receipt.spec.filters.approvalRequired;
   console.log(`baseline: ${baseline.triggers.length} Trigger(s), ${receipt.spec.spaces.baseline.length} Space(s)`);
-  console.log(`production: ${production.triggers.length} Trigger(s), ${receipt.spec.spaces.production.length} Space(s)`);
+  console.log(
+    `approval required: ${approvalRequired.triggers.length} Trigger(s), ${receipt.spec.spaces.approvalRequired.length} Space(s)`,
+  );
+  console.log(
+    `  reasons: ${(receipt.spec.spaces.approvalReasons.production ?? []).length} production, ${(receipt.spec.spaces.approvalReasons.systemConfiguration ?? []).length} system configuration`,
+  );
 }
 
 function syncPolicyTriggerDefinitions() {
@@ -589,7 +650,7 @@ if (mode === "--policy-receipt-verify") {
 if (mode === "--policy-sync") {
   assertOrg();
   syncPolicyTriggerDefinitions();
-  for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.production]) {
+  for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.approvalRequired]) {
     const [space, slug] = splitEntityRef(policySet.filter);
     cub([
       "filter", "update", "--space", space, slug, "Trigger",
@@ -600,19 +661,26 @@ if (mode === "--policy-sync") {
   }
 
   const baselineFilter = cubJson(["filter", "get", "--space", ...splitEntityRef(baselineApplyFilter)]).Filter;
-  const productionFilter = cubJson(["filter", "get", "--space", ...splitEntityRef(productionApplyFilter)]).Filter;
+  const approvalRequiredFilter = cubJson([
+    "filter",
+    "get",
+    "--space",
+    ...splitEntityRef(approvalRequiredApplyFilter),
+  ]).Filter;
   const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
   const selectedSpaces = rows
     .map((row) => row.Space)
     .filter((space) => (
       space.TriggerFilterID === baselineFilter.FilterID
-      || space.TriggerFilterID === productionFilter.FilterID
+      || space.TriggerFilterID === approvalRequiredFilter.FilterID
       || space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name
     ))
     .sort((a, b) => a.Slug.localeCompare(b.Slug));
 
   for (const space of selectedSpaces) {
-    const filterRef = space.Labels?.Environment === "Prod" ? productionApplyFilter : baselineApplyFilter;
+    const filterRef = requiresApproval(space)
+      ? approvalRequiredApplyFilter
+      : baselineApplyFilter;
     cub([
       "space", "update", space.Slug,
       "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
@@ -742,14 +810,11 @@ if (mode === "--exhibits") {
     const labels = { ApplyPolicyProfile: applyPolicy.metadata.name, ...pairs };
     return cub(["space", "update", space, ...Object.entries(labels).flatMap(([k, v]) => ["--label", `${k}=${v}`])]);
   };
-  // Prod spaces get the approval-bearing filter explicitly. variant create
-  // copies the template's TriggerFilterID, which is the vet-only baseline
-  // (helm-catalog-checks excludes vet-approvedby so non-prod spaces and
-  // sketch units never wear an approval gate nobody will action — the
-  // baseline's real check is `npm run helm-org:verify`). Without this
-  // rewire a prod space would silently miss its approval gate.
-  const wireProdGates = (space) => {
-    cub(["space", "update", space, "--trigger-filter", productionApplyFilter, "--where-trigger", "-"]);
+  // Production and system-configuration Spaces get the approval-bearing
+  // filter explicitly. variant create copies the template TriggerFilterID,
+  // so a production clone otherwise inherits the baseline policy.
+  const wireApprovalGates = (space) => {
+    cub(["space", "update", space, "--trigger-filter", approvalRequiredApplyFilter, "--where-trigger", "-"]);
     cub(["space", "update", "--patch", space, "--refresh-triggers"]);
   };
   const firstUnit = (space, needle) => {
@@ -773,7 +838,7 @@ if (mode === "--exhibits") {
       label("bitnami-redis-staging", { Exhibit: "version-ladder" });
       cub(["variant", "create", "production", "bitnami-redis-base", "--space-pattern", "template:bitnami-redis-prod", "--environment", "Prod", "--namespace", "redis-prod", "--unit-delete-gate", "showroom-keep", "--unit-destroy-gate", "showroom-keep"]);
       label("bitnami-redis-prod", { Exhibit: "version-ladder" });
-      wireProdGates("bitnami-redis-prod");
+      wireApprovalGates("bitnami-redis-prod");
       cub(["run", "set-replicas", "--replicas", "2", "--space", "bitnami-redis-staging", "--unit", firstUnit("bitnami-redis-staging", "statefulset-redis-redis-replicas"), "--change-desc", "Staging departure: 2 replicas, a local decision that must survive upstream refreshes"]);
       cub(["installer", "setup", "--pull", join(repoRoot, "packages/bitnami/redis/27.0.0"), "--base", "default", "--work-dir", workDir, "--non-interactive", "--namespace", "redis"]);
       cub(["installer", "upload", "--work-dir", workDir, "--space", "bitnami-redis-base", "--yes"]);
@@ -842,7 +907,7 @@ if (mode === "--exhibits") {
       if (region) args.push("--region", region);
       cub(args);
       label(`bitnami-nginx-fleet-${env}`, { Exhibit: "fleet" });
-      if (envLabel === "Prod") wireProdGates(`bitnami-nginx-fleet-${env}`);
+      if (envLabel === "Prod") wireApprovalGates(`bitnami-nginx-fleet-${env}`);
     }
     cub(["run", "set-replicas", "--replicas", "3", "--space", fleetBase, "--unit", firstUnit(fleetBase, "deployment"), "--change-desc", "Fleet release: 3 replicas everywhere"]);
     for (const env of ["dev", "staging", "prod-us"]) {
@@ -875,7 +940,7 @@ if (mode === "--exhibits") {
     for (const [env, envLabel, gates] of envs) {
       cub(["variant", "create", env === "prod" ? "production" : env, "hashicorp-vault-demo-base", "--space-pattern", `template:hashicorp-vault-env-${env}`, "--environment", envLabel, "--namespace", `vault-${env}`, ...gates]);
       label(`hashicorp-vault-env-${env}`, { Exhibit: "promotion-interplay" });
-      if (envLabel === "Prod") wireProdGates(`hashicorp-vault-env-${env}`);
+      if (envLabel === "Prod") wireApprovalGates(`hashicorp-vault-env-${env}`);
     }
     const sts = "statefulset-vault-vault";
     cub(["run", "set-annotation", "--annotation-key", "cost.confighub.com/center", "--annotation-value", "dev-sandbox", "--space", "hashicorp-vault-env-dev", "--unit", sts, "--change-desc", "Dev departure: tag the sandbox for cost attribution"]);

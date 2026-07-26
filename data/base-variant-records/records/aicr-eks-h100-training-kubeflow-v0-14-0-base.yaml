@@ -85,6 +85,8 @@ spec:
     profile: "catalog-standard"
     productionAdds:
       - "human-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
   evidence:
     generationReceipt: "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
     recipe: "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"

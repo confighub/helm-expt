@@ -17,6 +17,7 @@ This example keeps the AICR recipe and OCI digest connected to the exact Argo CD
 - The AICR v0.14.0 recipe selected 15 versioned components for EKS, H100 accelerators, Ubuntu, Kubeflow, and training.
 - The generated Argo CD configuration contains one parent Application and 16 component Applications, ordered with sync waves 0 through 15.
 - ConfigHub imported those 17 Applications from one OCI configuration artifact without running AICR or rendering the source chart again.
+- This Space requires approval before apply because it changes cluster-wide GPU, monitoring, and training-platform configuration.
 
 ## What to inspect in Hub
 
@@ -30,6 +31,7 @@ This example keeps the AICR recipe and OCI digest connected to the exact Argo CD
 - [AICR source and OCI receipt](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml)
 - [ConfigHub upload receipt](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml)
 - [Staging variant readiness](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+- [Apply policy and live assignments](https://github.com/confighub/helm-expt/blob/main/data/apply-policy-profiles/summary.md)
 - [Rendered Argo CD Applications](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered)
 
 ## Limits

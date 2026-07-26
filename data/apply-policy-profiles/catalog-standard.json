@@ -5,6 +5,64 @@
     "name": "catalog-standard"
   },
   "spec": {
+    "approvalRequired": {
+      "checks": [
+        {
+          "effect": "block",
+          "id": "schema-valid",
+          "reason": "Do not apply Kubernetes data that fails its declared schema.",
+          "trigger": "platform/vet-schemas"
+        },
+        {
+          "effect": "block",
+          "id": "no-placeholder-values",
+          "reason": "Do not apply placeholder credentials or unfinished values.",
+          "trigger": "platform/vet-placeholders"
+        },
+        {
+          "effect": "block",
+          "id": "lifecycle-route-evidence",
+          "reason": "Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt.",
+          "trigger": "platform/lifecycle-route-evidence"
+        },
+        {
+          "effect": "warn",
+          "id": "images-pinned-by-digest",
+          "reason": "Report images that can change without a configuration revision.",
+          "trigger": "platform/digest-pinned-images"
+        },
+        {
+          "effect": "warn",
+          "id": "workload-probes-declared",
+          "reason": "Report workload containers that have no readiness or liveness probe.",
+          "trigger": "platform/probes-declared"
+        },
+        {
+          "effect": "block",
+          "id": "human-approval",
+          "reason": "Require one recorded approval before production or system configuration is applied.",
+          "trigger": "platform/require-approval"
+        }
+      ],
+      "filter": "platform/helm-catalog-prod-gates",
+      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'",
+      "spaceSelector": {
+        "anyOf": [
+          {
+            "labels": {
+              "ApplyPolicyProfile": "catalog-standard",
+              "Environment": "Prod"
+            }
+          },
+          {
+            "labels": {
+              "ApplyPolicyProfile": "catalog-standard",
+              "ResourceClass": "system-configuration"
+            }
+          }
+        ]
+      }
+    },
     "baseline": {
       "checks": [
         {
@@ -46,61 +104,34 @@
         }
       }
     },
-    "production": {
-      "checks": [
-        {
-          "effect": "block",
-          "id": "schema-valid",
-          "reason": "Do not apply Kubernetes data that fails its declared schema.",
-          "trigger": "platform/vet-schemas"
-        },
-        {
-          "effect": "block",
-          "id": "no-placeholder-values",
-          "reason": "Do not apply placeholder credentials or unfinished values.",
-          "trigger": "platform/vet-placeholders"
-        },
-        {
-          "effect": "block",
-          "id": "lifecycle-route-evidence",
-          "reason": "Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt.",
-          "trigger": "platform/lifecycle-route-evidence"
-        },
-        {
-          "effect": "warn",
-          "id": "images-pinned-by-digest",
-          "reason": "Report images that can change without a configuration revision.",
-          "trigger": "platform/digest-pinned-images"
-        },
-        {
-          "effect": "warn",
-          "id": "workload-probes-declared",
-          "reason": "Report workload containers that have no readiness or liveness probe.",
-          "trigger": "platform/probes-declared"
-        },
-        {
-          "effect": "block",
-          "id": "human-approval",
-          "reason": "Require one recorded approval before production apply.",
-          "trigger": "platform/require-approval"
-        }
-      ],
-      "filter": "platform/helm-catalog-prod-gates",
-      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'",
-      "spaceSelector": {
-        "labels": {
-          "ApplyPolicyProfile": "catalog-standard",
-          "Environment": "Prod"
-        }
+    "operationalClasses": [
+      {
+        "name": "user-workload",
+        "normalPolicy": "baseline",
+        "productionPolicy": "approvalRequired",
+        "reason": "Application teams can revise workloads frequently; production still needs an explicit approval."
+      },
+      {
+        "name": "system-service",
+        "normalPolicy": "baseline",
+        "productionPolicy": "approvalRequired",
+        "reason": "Shared services such as DNS or monitoring use the common checks and add approval in production."
+      },
+      {
+        "name": "system-configuration",
+        "normalPolicy": "approvalRequired",
+        "productionPolicy": "approvalRequired",
+        "reason": "Cluster-wide platform choices have broad impact, so approval is required in every environment."
       }
-    },
+    ],
     "scopeAssertions": [
       "Every supported configuration source type is named by this profile.",
       "Every Trigger is defined here with its function, arguments, effect, and description.",
       "The baseline filter selects exactly the five baseline triggers and never selects require-approval.",
-      "The production filter selects the same five baseline triggers plus require-approval.",
-      "A non-production Space must never receive require-approval from this profile.",
-      "A production Space must not lose the five baseline checks when approval is added.",
+      "The approval-required filter selects the same five baseline triggers plus require-approval.",
+      "Production and system-configuration Spaces receive the approval-required filter.",
+      "Other non-production Spaces remain on the baseline filter.",
+      "A Space must not lose the five baseline checks when approval is added.",
       "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger."
     ],
     "sourceTypes": [
@@ -161,7 +192,7 @@
             "value": "1"
           }
         ],
-        "description": "Require one recorded approval before production apply.",
+        "description": "Require one recorded approval before a controlled apply.",
         "effect": "block",
         "event": "Mutation",
         "functionName": "vet-approvedby",
@@ -197,7 +228,7 @@
     "lastRecorded": "2026-07-26",
     "limits": [
       "The live receipt proves Trigger definitions, filter definitions, and assigned Spaces. The Hooks and CRDs App receipt separately records a dry-run apply that the policy blocked.",
-      "The builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID."
+      "The builder rewires production and system-configuration Spaces explicitly because cub variant create copies the template TriggerFilterID."
     ],
     "liveReverified": true
   }

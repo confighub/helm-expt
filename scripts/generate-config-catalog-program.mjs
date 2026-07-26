@@ -133,7 +133,7 @@ function buildReport() {
     baseSummary: renderBaseSummary(records),
     policySummary: renderPolicySummary(policy),
     demoSummary: renderDemoSummary(program),
-    generatedGuide: renderGeneratedGuide(program),
+    generatedGuide: renderGeneratedGuide(program, policy),
   };
 }
 
@@ -340,6 +340,8 @@ function buildAicrRecord() {
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
       },
       evidence: {
         generationReceipt: receiptPath,
@@ -478,6 +480,8 @@ function buildAicrArgoCdRecord() {
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
       },
       evidence: {
         generationReceipt: receiptPath,
@@ -597,6 +601,8 @@ function buildKubaraRecord() {
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
       },
       evidence: {
         generationReceipt: receiptPath,
@@ -731,10 +737,12 @@ function buildSveltosRecord() {
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
+        normalSet: "approvalRequired",
+        approvalReason: "system-configuration",
       },
       evidence: {
         readme: `${root}/README.md`,
-        readmeUnit: `${root}/readme.yaml`,
+        readmeUnit: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
         sourceLock: sourceLockPath,
         liveReceipt: receiptPath,
         configHubSpace: receipt.spec.configHub.space.slug,
@@ -771,6 +779,16 @@ function validateRecords(records) {
     check(["available", "partial", "planned"].includes(record.status?.level), `${record.metadata.name} has an invalid status`);
     check(Number.isInteger(record.spec?.configuration?.objectCount), `${record.metadata.name} has an invalid object count`);
     check(record.spec?.policy?.profile === "catalog-standard", `${record.metadata.name} is not bound to catalog-standard`);
+    if (record.spec?.operations?.resourceClass === "system-configuration") {
+      check(
+        record.spec.policy.normalSet === "approvalRequired",
+        `${record.metadata.name} must require approval as system configuration`,
+      );
+      check(
+        record.spec.policy.approvalReason === "system-configuration",
+        `${record.metadata.name} has the wrong approval reason`,
+      );
+    }
     for (const path of [
       record.spec.source.record,
       record.spec.configuration.objects,
@@ -793,14 +811,16 @@ function validatePolicy(policy) {
   );
   const definitions = policy.spec?.triggerDefinitions ?? [];
   const baseline = policy.spec?.baseline?.checks ?? [];
-  const production = policy.spec?.production?.checks ?? [];
+  const approvalRequired = policy.spec?.approvalRequired?.checks ?? [];
   const definitionRefs = definitions.map((item) => item.ref);
-  const policyTriggerRefs = [...new Set([...baseline, ...production].map((item) => item.trigger))];
+  const policyTriggerRefs = [...new Set(
+    [...baseline, ...approvalRequired].map((item) => item.trigger),
+  )];
   check(definitions.length > 0, "policy trigger definitions are missing");
   check(unique(definitionRefs), "policy trigger definitions must be unique");
   check(
     sameSet(definitionRefs, policyTriggerRefs),
-    "policy must define every Trigger selected by baseline or production",
+    "policy must define every Trigger selected by the baseline or approval-required set",
   );
   for (const definition of definitions) {
     check(/^platform\/[a-z0-9-]+$/.test(definition.ref ?? ""), `invalid Trigger reference ${definition.ref ?? ""}`);
@@ -815,7 +835,7 @@ function validatePolicy(policy) {
       `${definition.ref} argument names must be unique`,
     );
   }
-  for (const checkDefinition of [...baseline, ...production]) {
+  for (const checkDefinition of [...baseline, ...approvalRequired]) {
     const definition = definitions.find((item) => item.ref === checkDefinition.trigger);
     check(
       definition?.effect === checkDefinition.effect,
@@ -845,7 +865,7 @@ function validatePolicy(policy) {
     );
   }
   const baselineIds = baseline.map((item) => item.id);
-  const productionIds = production.map((item) => item.id);
+  const approvalRequiredIds = approvalRequired.map((item) => item.id);
   const requiredBaseline = [
     "schema-valid",
     "no-placeholder-values",
@@ -861,24 +881,83 @@ function validatePolicy(policy) {
     return `Space.Slug = '${space}' AND Slug ~ '^(${slugs.join("|")})$'`;
   };
   check(unique(baselineIds), "baseline policy check ids must be unique");
-  check(unique(productionIds), "production policy check ids must be unique");
+  check(unique(approvalRequiredIds), "approval-required policy check ids must be unique");
   check(sameSet(baselineIds, requiredBaseline), "baseline policy must contain exactly the five standard checks");
   check(!baseline.some(isApprovalCheck), "baseline policy must exclude the approval trigger");
-  check(production.some((item) => item.id === "human-approval" && item.effect === "block"), "production policy must require blocking human approval");
+  check(
+    approvalRequired.some(
+      (item) => item.id === "human-approval" && item.effect === "block",
+    ),
+    "approval-required policy must require blocking human approval",
+  );
   for (const baselineCheck of baseline) {
-    const productionCheck = production.find((item) => item.id === baselineCheck.id);
-    check(productionCheck, `production policy is missing baseline check ${baselineCheck.id}`);
-    check(productionCheck.trigger === baselineCheck.trigger, `production trigger differs for ${baselineCheck.id}`);
-    check(productionCheck.effect === baselineCheck.effect, `production effect differs for ${baselineCheck.id}`);
+    const approvalCheck = approvalRequired.find((item) => item.id === baselineCheck.id);
+    check(
+      approvalCheck,
+      `approval-required policy is missing baseline check ${baselineCheck.id}`,
+    );
+    check(
+      approvalCheck.trigger === baselineCheck.trigger,
+      `approval-required trigger differs for ${baselineCheck.id}`,
+    );
+    check(
+      approvalCheck.effect === baselineCheck.effect,
+      `approval-required effect differs for ${baselineCheck.id}`,
+    );
   }
-  check(production.length === baseline.length + 1, "production policy must add exactly one check to the baseline");
+  check(
+    approvalRequired.length === baseline.length + 1,
+    "approval-required policy must add exactly one check to the baseline",
+  );
   check(
     policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
     "baseline filter must name exactly its five Triggers",
   );
   check(
-    policy.spec.production.filterWhere === expectedFilterWhere(policy.spec.production),
-    "production filter must name exactly its six Triggers",
+    policy.spec.approvalRequired.filterWhere
+      === expectedFilterWhere(policy.spec.approvalRequired),
+    "approval-required filter must name exactly its six Triggers",
+  );
+  check(
+    policy.spec.baseline.spaceSelector?.labels?.ApplyPolicyProfile
+      === policy.metadata.name,
+    "baseline selector must use the policy profile label",
+  );
+  const approvalSelectors = policy.spec.approvalRequired.spaceSelector?.anyOf ?? [];
+  check(
+    approvalSelectors.length === 2
+      && approvalSelectors.every(
+        (item) => item.labels?.ApplyPolicyProfile === policy.metadata.name,
+      )
+      && approvalSelectors.some((item) => item.labels?.Environment === "Prod")
+      && approvalSelectors.some(
+        (item) => item.labels?.ResourceClass === "system-configuration",
+      ),
+    "approval-required selector must cover production and system configuration",
+  );
+  const operationalClasses = policy.spec?.operationalClasses ?? [];
+  check(
+    sameSet(
+      operationalClasses.map((item) => item.name),
+      ["user-workload", "system-service", "system-configuration"],
+    ),
+    "policy must define the three operational resource classes",
+  );
+  for (const resourceClass of operationalClasses) {
+    check(resourceClass.reason, `${resourceClass.name} needs a plain-English reason`);
+    check(
+      ["baseline", "approvalRequired"].includes(resourceClass.normalPolicy),
+      `${resourceClass.name} has an invalid normal policy`,
+    );
+    check(
+      resourceClass.productionPolicy === "approvalRequired",
+      `${resourceClass.name} must require approval in production`,
+    );
+  }
+  check(
+    operationalClasses.find((item) => item.name === "system-configuration")
+      ?.normalPolicy === "approvalRequired",
+    "system configuration must require approval in every environment",
   );
   for (const path of policy.status?.evidence ?? []) check(existsRepo(path), `policy evidence is missing: ${path}`);
   if (policy.status?.liveReverified) {
@@ -893,7 +972,7 @@ function validatePolicy(policy) {
     );
     for (const [name, policySet] of Object.entries({
       baseline: policy.spec.baseline,
-      production: policy.spec.production,
+      approvalRequired: policy.spec.approvalRequired,
     })) {
       const recorded = receipt.spec?.filters?.[name];
       const expectedChecks = policySet.checks
@@ -908,12 +987,38 @@ function validatePolicy(policy) {
       check((recorded?.triggers ?? []).every((item) => item.validating === true), `${name} live receipt includes a non-validating Trigger`);
     }
     const baselineSpaces = receipt.spec?.spaces?.baseline ?? [];
-    const productionSpaces = receipt.spec?.spaces?.production ?? [];
+    const approvalRequiredSpaces = receipt.spec?.spaces?.approvalRequired ?? [];
     check(baselineSpaces.length > 0, "live policy receipt has no baseline Spaces");
-    check(productionSpaces.length > 0, "live policy receipt has no production Spaces");
     check(
-      !baselineSpaces.some((space) => productionSpaces.includes(space)),
+      approvalRequiredSpaces.length > 0,
+      "live policy receipt has no approval-required Spaces",
+    );
+    check(
+      !baselineSpaces.some((space) => approvalRequiredSpaces.includes(space)),
       "live policy receipt assigns a Space to both filters",
+    );
+    const approvalReasons = receipt.spec?.spaces?.approvalReasons ?? {};
+    check(
+      (approvalReasons.production ?? []).length > 0,
+      "live policy receipt has no production approval assignments",
+    );
+    check(
+      (approvalReasons.systemConfiguration ?? []).length > 0,
+      "live policy receipt has no system-configuration approval assignments",
+    );
+    const classifiedApprovalSpaces = new Set([
+      ...(approvalReasons.production ?? []),
+      ...(approvalReasons.systemConfiguration ?? []),
+    ]);
+    check(
+      approvalRequiredSpaces.every((space) => classifiedApprovalSpaces.has(space)),
+      "live policy receipt has an approval-required Space without a reason",
+    );
+    check(
+      [...classifiedApprovalSpaces].every(
+        (space) => approvalRequiredSpaces.includes(space),
+      ),
+      "live policy receipt records an approval reason for a Space without approval",
     );
   }
 }
@@ -989,15 +1094,22 @@ function runSelfTest() {
   });
   expectFailure(() => validatePolicy(approvalLeak), "approval leakage fixture unexpectedly passed");
 
-  const missingBaselineInProd = structuredClone(policy);
-  missingBaselineInProd.spec.production.checks = missingBaselineInProd.spec.production.checks
+  const missingBaselineWithApproval = structuredClone(policy);
+  missingBaselineWithApproval.spec.approvalRequired.checks
+    = missingBaselineWithApproval.spec.approvalRequired.checks
     .filter((item) => item.id !== "schema-valid");
-  expectFailure(() => validatePolicy(missingBaselineInProd), "production baseline-loss fixture unexpectedly passed");
+  expectFailure(
+    () => validatePolicy(missingBaselineWithApproval),
+    "approval-required baseline-loss fixture unexpectedly passed",
+  );
 
   const warningTurnedBlocking = structuredClone(policy);
-  warningTurnedBlocking.spec.production.checks
+  warningTurnedBlocking.spec.approvalRequired.checks
     .find((item) => item.id === "images-pinned-by-digest").effect = "block";
-  expectFailure(() => validatePolicy(warningTurnedBlocking), "production effect-drift fixture unexpectedly passed");
+  expectFailure(
+    () => validatePolicy(warningTurnedBlocking),
+    "approval-required effect-drift fixture unexpectedly passed",
+  );
 
   const routeEvidenceRemoved = structuredClone(policy);
   routeEvidenceRemoved.spec.triggerDefinitions
@@ -1174,32 +1286,40 @@ A base-variant record connects the literal configuration to the source that prod
 
 function renderPolicySummary(policy) {
   const baseline = policy.spec.baseline;
-  const production = policy.spec.production;
+  const approvalRequired = policy.spec.approvalRequired;
   return `# Apply policy profiles
 
 Generated from [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
 
 The \`${policy.metadata.name}\` profile applies to ${policy.spec.sourceTypes.join(", ")} after their configuration has become ConfigHub data.
 
-## Every matching Space
+## Common checks
 
 Filter: \`${baseline.filter}\`
 
-This filter names the four allowed Triggers explicitly:
+This filter names the five common checks explicitly:
 
 \`${baseline.filterWhere}\`
 
 ${renderChecksTable(baseline.checks)}
 
-## Production
+## Approval required
 
-Filter: \`${production.filter}\`
+Filter: \`${approvalRequired.filter}\`
 
-Production keeps the four baseline checks and adds one blocking approval:
+Production releases and system configuration keep the five common checks and add one required approval:
 
-\`${production.filterWhere}\`
+\`${approvalRequired.filterWhere}\`
 
-${renderChecksTable(production.checks)}
+${renderChecksTable(approvalRequired.checks)}
+
+## Operational resource classes
+
+The source format does not decide the risk. A Helm chart, AICR package, or ordinary YAML file can describe any of these:
+
+| Resource class | Normal policy | Production policy | Why |
+| --- | --- | --- | --- |
+${policy.spec.operationalClasses.map((item) => `| \`${item.name}\` | ${renderPolicyName(item.normalPolicy)} | ${renderPolicyName(item.productionPolicy)} | ${item.reason} |`).join("\n")}
 
 ## Scope rules
 
@@ -1219,7 +1339,7 @@ npm run helm-org:policy:receipt:verify
 npm run helm-org:policy:verify
 \`\`\`
 
-The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, Triggers, or Space assignments have changed.
+The self-test inserts an approval into the common checks, removes a common check from the approval-required set, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, checks, or Space assignments have changed.
 `;
 }
 
@@ -1242,7 +1362,7 @@ Read [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog
 `;
 }
 
-function renderGeneratedGuide(program) {
+function renderGeneratedGuide(program, policy) {
   const sections = [
     ["Ways to start", program.spec.pathways],
     ["Apps built from the same records", program.spec.apps],
@@ -1265,6 +1385,23 @@ Evidence: ${demo.evidence.map((path) => repoLink(path)).join(", ")}.
 Current limit: ${demo.limits.join(" ")}`).join("\n\n");
     return `## ${heading}\n\n${body}`;
   }).join("\n\n");
+  const liveReceiptPath = join(
+    repoRoot,
+    "data",
+    "apply-policy-profiles",
+    "live-helm-catalog.yaml",
+  );
+  const liveReceipt = existsSync(liveReceiptPath)
+    ? readYaml(liveReceiptPath)
+    : null;
+  const baselineCount = liveReceipt?.spec?.spaces?.baseline?.length;
+  const approvalCount = liveReceipt?.spec?.spaces?.approvalRequired?.length;
+  const productionCount = liveReceipt?.spec?.spaces?.approvalReasons?.production?.length;
+  const systemConfigurationCount
+    = liveReceipt?.spec?.spaces?.approvalReasons?.systemConfiguration?.length;
+  const liveCounts = Number.isInteger(baselineCount) && Number.isInteger(approvalCount)
+    ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the five common checks and ${approvalCount} Spaces on those checks plus approval (${productionCount} production and ${systemConfigurationCount} system configuration).`
+    : `The live receipt records which Spaces use the common checks and which also require approval.`;
 
   return `# Config catalog demonstrations
 
@@ -1276,9 +1413,9 @@ ${rendered}
 
 ## The common policy
 
-Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.
+Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Digest pinning and workload probes produce warnings. Production releases and system configuration keep those five checks and add one required approval.
 
-The two filters name their allowed Triggers explicitly. On 26 July 2026 the live \`helm-catalog\` org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun \`npm run helm-org:policy:verify\` while logged into that org.
+This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun \`npm run helm-org:policy:verify\` while logged into that org.
 `;
 }
 
@@ -1292,6 +1429,10 @@ function renderChecksTable(checks) {
   return `| Check | Effect | Why |
 | --- | --- | --- |
 ${checks.map((item) => `| \`${item.trigger}\` | ${item.effect} | ${item.reason} |`).join("\n")}`;
+}
+
+function renderPolicyName(name) {
+  return name === "approvalRequired" ? "common checks plus approval" : "common checks";
 }
 
 function repoLink(path) {

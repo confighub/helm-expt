@@ -51,7 +51,8 @@ Three source paths now lead toward the same ConfigHub operations path:
 After upload, derived variants hold test, development, staging, production,
 region, customer, and cluster differences. The same apply-policy profile checks
 schema, placeholders, and lifecycle-route evidence everywhere, reports image
-and probe concerns, and adds approval for production.
+and probe concerns, and adds approval for production releases and configuration
+that changes how a cluster works.
 
 Read the [config catalog doctrine](./docs/reference/config-catalog-doctrine.md),
 the [demonstration programme](./docs/user/config-catalog-demonstrations.md), and

@@ -432,6 +432,7 @@
     <article class="doc-body">
 <p>This example shows how ConfigHub and Sveltos can divide the work of managing a platform component across a cluster fleet.</p>
 <p>ConfigHub stores the reviewed configuration, its variants, policy checks, and promotion history. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. Teams can change the configuration once in ConfigHub instead of running an upgrade command against each cluster.</p>
+<p>This Space requires approval before apply because it changes cluster-wide admission policy, even though this example targets staging.</p>
 <h2 id="what-to-inspect">What to inspect</h2>
 <p>Open the <code>clusterprofile</code> Unit first. It contains one Sveltos <code>ClusterProfile</code> with four decisions:</p>
 <ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install Kyverno chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>keep the cluster aligned with <code>ContinuousWithDriftDetection</code>.</li></ul>

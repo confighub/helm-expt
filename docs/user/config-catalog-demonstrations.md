@@ -229,6 +229,6 @@ Current limit: The committed training-runtime example proves exact local objects
 
 ## The common policy
 
-Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.
+Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Digest pinning and workload probes produce warnings. Production releases and system configuration keep those five checks and add one required approval.
 
-The two filters name their allowed Triggers explicitly. On 26 July 2026 the live `helm-catalog` org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun `npm run helm-org:policy:verify` while logged into that org.
+This choice is based on what the configuration controls, not whether it started as Helm, AICR, `cub installer`, Kubara, Sveltos, or YAML. On 2026-07-26, the live `helm-catalog` org had 28 Spaces on the five common checks and 7 Spaces on those checks plus approval (4 production and 3 system configuration). Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun `npm run helm-org:policy:verify` while logged into that org.

@@ -101,7 +101,9 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "approvalRequired",
+          "approvalReason": "system-configuration"
         },
         "evidence": {
           "generationReceipt": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
@@ -234,7 +236,9 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "approvalRequired",
+          "approvalReason": "system-configuration"
         },
         "evidence": {
           "generationReceipt": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
@@ -17648,7 +17652,9 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "approvalRequired",
+          "approvalReason": "system-configuration"
         },
         "evidence": {
           "generationReceipt": "examples/kubara/local-platform/generation-receipt.yaml",
@@ -26715,11 +26721,13 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "approvalRequired",
+          "approvalReason": "system-configuration"
         },
         "evidence": {
           "readme": "examples/sveltos/kyverno-fleet/README.md",
-          "readmeUnit": "examples/sveltos/kyverno-fleet/readme.yaml",
+          "readmeUnit": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
           "sourceLock": "examples/sveltos/kyverno-fleet/source-lock.yaml",
           "liveReceipt": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
           "configHubSpace": "sveltos-kyverno-fleet-3-8-1-staging",
