@@ -43,8 +43,8 @@ Run:
 ```sh
 cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
+  --base reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
   --namespace redis
 ```
@@ -54,22 +54,23 @@ You should see a completed work directory.
 Check:
 
 ```sh
-find .tmp/demo/redis-default/out -maxdepth 2 -type f | sort | head
+find ./redis-reuse-existing-secret/out -maxdepth 2 -type f | sort | head
 ```
 
 You should see something like:
 
 ```text
-.tmp/demo/redis-default/out/manifests/...
-.tmp/demo/redis-default/out/secrets/...
+./redis-reuse-existing-secret/out/manifests/...
 ```
 
-Redis `default` separates generated Secret material into `out/secrets`. For a
-local apply, stage secrets before manifests:
+The recommended Redis preset does not ship a password. It expects a Secret
+named `redis-existing-secret`. Create that prerequisite before a local apply:
 
 ```sh
-kubectl apply -f .tmp/demo/redis-default/out/secrets
-kubectl apply -f .tmp/demo/redis-default/out/manifests
+kubectl create namespace redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password="$(openssl rand -base64 32)"
+kubectl apply -f ./redis-reuse-existing-secret/out/manifests
 ```
 
 The Redis chart page carries the catalog evidence for this base. You do not
@@ -87,10 +88,12 @@ Example shape:
 
 ```sh
 kubectl create namespace helm-redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n helm-redis create secret generic redis-existing-secret \
+  --from-literal=redis-password="$(openssl rand -base64 32)"
 helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
   --version 25.5.3 \
   --namespace helm-redis \
-  -f recipes/bitnami/redis/25.5.3/effective-values.yaml
+  -f recipes/bitnami/redis/25.5.3/effective-values-reuse-existing-secret.yaml
 ```
 
 You should see Helm create a release:
@@ -123,34 +126,34 @@ Run:
 
 ```sh
 cub installer upload \
-  --work-dir .tmp/demo/redis-default \
-  --space helm-redis-default \
+  --work-dir ./redis-reuse-existing-secret \
+  --space helm-redis-existing-secret \
   --component Redis \
   --layer App \
   --environment Demo \
   --owner ConfigHubHelm \
-  --variant default \
+  --variant reuse-existing-secret \
   --unit-label Component=Redis \
   --unit-label HelmChart=bitnami-redis \
   --unit-label HelmChartVersion=25.5.3 \
-  --unit-label Variant=default
+  --unit-label Variant=reuse-existing-secret
 ```
 
 Then check:
 
 ```sh
-cub unit list --space helm-redis-default \
+cub unit list --space helm-redis-existing-secret \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant
 ```
 
 You should see Redis Units, all labeled with `Component=Redis` and
-`Variant=default`. For Redis `default`, expect the Kubernetes objects plus an
-`installer-record` Unit.
+`Variant=reuse-existing-secret`. Expect the Kubernetes objects plus an
+`installer-record` Unit. The external Secret is not uploaded.
 
 In the ConfigHub UI:
 
 ```text
-Space helm-redis-default -> Units
+Space helm-redis-existing-secret -> Units
 ```
 
 You should see the same Units and labels. If you want to rerun the repository
@@ -167,11 +170,13 @@ kind create cluster --name helm-expt-demo
 kubectl config use-context kind-helm-expt-demo
 ```
 
-Apply separated secrets first when a work directory has `out/secrets`:
+Create the required Secret, then apply the rendered manifests:
 
 ```sh
-kubectl apply -f .tmp/demo/redis-default/out/secrets
-kubectl apply -f .tmp/demo/redis-default/out/manifests
+kubectl create namespace redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password="$(openssl rand -base64 32)"
+kubectl apply -f ./redis-reuse-existing-secret/out/manifests
 ```
 
 Then check:
@@ -187,7 +192,7 @@ For deeper checks, use `kubectl describe`, workload logs, or a cub-scout
 receipt. The repository proof harness can also check Redis-specific behavior,
 but it should not be the first thing a new user has to understand.
 
-## Stage 5: Argo, Flux, And cub-lk
+## Stage 5: Argo CD, Flux, And `cub cluster`
 
 For GitOps examples, users need a cluster that already has the chosen controller
 and the ConfigHub OCI pull credentials. There are two sensible paths:
@@ -195,7 +200,7 @@ and the ConfigHub OCI pull credentials. There are two sensible paths:
 | Path | Use it when | What to expect |
 | --- | --- | --- |
 | Bring your own cluster | You already run Argo CD or Flux. | Configure the controller to pull the ConfigHub OCI artifact, then check controller sync and workload readiness. |
-| Use `cub-lk` | You want a disposable local Argo/kind rig for a demo or proof run. | `cub lk up` provisions kind, Argo, and the OCI worker/target pieces needed by the proof path. |
+| Use `cub cluster up` | You want a disposable local kind cluster for a demo or proof run. | The command installs Argo CD and creates the ConfigHub Space, OCI target, pull credentials, and root Application used by the current path. |
 
 The important point is that ConfigHub does not replace the in-cluster
 controller in the GitOps path. ConfigHub stores Units, publishes one OCI
@@ -227,7 +232,7 @@ For a user guide, each step should show one concrete check:
 
 ```text
 cub unit list ...
-cub variant promote ... --dry-run -o mutations
+cub variant promote ... --dry-run
 kubectl get ...
 controller status page
 ConfigHub Space -> Units

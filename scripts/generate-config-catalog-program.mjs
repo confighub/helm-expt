@@ -26,6 +26,13 @@ const mode = process.argv[2] ?? "--generate";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
 const policySourcePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const programSourcePath = join(repoRoot, "config-catalog", "program.yaml");
+const catalogOciDeliveryReceiptPath = join(
+  repoRoot,
+  "runs",
+  "catalog-oci-delivery-proof",
+  "bitnami-nginx-24-0-2-http-clusterip.yaml",
+);
+const catalogOciDeliveryRecord = "bitnami-nginx-24-0-2-http-clusterip";
 
 const baseRoot = join(repoRoot, "data", "base-variant-records");
 const recordRoot = join(baseRoot, "records");
@@ -157,6 +164,13 @@ function buildHelmRecord(intent) {
     `capabilityProfile=${JSON.stringify(intent.spec.renderInputs.capabilityProfile ?? {})}`,
   ];
   const installTime = targetFactInputs(intent.spec.targetFacts.declared);
+  const exactDelivery = intent.metadata.name === catalogOciDeliveryRecord
+    ? readYaml(catalogOciDeliveryReceiptPath)
+    : null;
+  const deliveryReceipt = exactDelivery
+    ? relativeRepo(catalogOciDeliveryReceiptPath)
+    : "";
+  const deliveryStatus = exactDelivery ? "pass" : "not-recorded-for-this-base";
 
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -201,15 +215,32 @@ function buildHelmRecord(intent) {
       },
       delivery: {
         literalConfigOci: {
-          status: "not-published-in-this-record",
-          note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt.",
+          status: exactDelivery
+            ? "not-separately-published"
+            : "not-published-in-this-record",
+          note: exactDelivery
+            ? "The selected installer base was uploaded directly as exact ConfigHub Units. This proof did not publish a separate literal-configuration OCI before ConfigHub."
+            : "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt.",
         },
         configHubReleaseOci: {
-          status: intent.spec.evidence.gitopsOciLive,
-          note: "This is the recorded GitOps/OCI evidence status, not an OCI reference.",
+          status: deliveryStatus,
+          ...(exactDelivery
+            ? {
+              observedReference: exactDelivery.spec.releaseOci.reference,
+              digest: exactDelivery.spec.releaseOci.digest,
+              receipt: deliveryReceipt,
+              retained: "no",
+            }
+            : {}),
+          note: exactDelivery
+            ? "ConfigHub published the reviewed Units once; all three recorded consumers used this digest, then the test removed its temporary Space."
+            : "No current ConfigHub Space release OCI receipt is recorded for this exact base.",
         },
-        argoCd: intent.spec.evidence.gitopsOciLive,
-        flux: intent.spec.evidence.gitopsOciLive,
+        argoCd: deliveryStatus,
+        flux: deliveryStatus,
+        direct: deliveryStatus,
+        historicalGitopsOciStatus: intent.spec.evidence.gitopsOciLive,
+        ...(exactDelivery ? { receipt: deliveryReceipt } : {}),
       },
       policy: {
         profile: "catalog-standard",
@@ -226,7 +257,9 @@ function buildHelmRecord(intent) {
       level: "available",
       claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here.",
       limits: [
-        "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
+        exactDelivery
+          ? "The base was uploaded to a temporary ConfigHub Space, published as a Space release OCI, delivered three ways, and then cleaned up."
+          : "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
         "The small typed install-time surface is not yet complete for every Helm base.",
         "A multi-preset installer package OCI is not the same as a single literal configuration OCI.",
       ],
@@ -798,6 +831,40 @@ function validateRecords(records) {
       check(existsRepo(path), `${record.metadata.name} points at missing ${path}`);
     }
   }
+  const exactDelivery = records.find(
+    (record) => record.metadata.name === catalogOciDeliveryRecord,
+  );
+  check(exactDelivery, "exact catalog OCI delivery base record is missing");
+  check(
+    exactDelivery.spec.delivery.literalConfigOci.status === "not-separately-published"
+      && exactDelivery.spec.delivery.configHubReleaseOci.status === "pass"
+      && exactDelivery.spec.delivery.argoCd === "pass"
+      && exactDelivery.spec.delivery.flux === "pass"
+      && exactDelivery.spec.delivery.direct === "pass"
+      && exactDelivery.spec.delivery.receipt === relativeRepo(catalogOciDeliveryReceiptPath),
+    "exact catalog OCI delivery evidence is not attached to the NGINX base record",
+  );
+  check(
+    exactDelivery.status.limits.some(
+      (limit) => limit.includes("temporary ConfigHub Space"),
+    )
+      && !exactDelivery.status.limits.some(
+        (limit) => limit.includes("does not claim that the base has been uploaded"),
+      ),
+    "exact catalog OCI delivery base record contradicts its live receipt",
+  );
+  for (const record of records.filter(
+    (candidate) => candidate.spec.source.type === "helm"
+      && candidate.metadata.name !== catalogOciDeliveryRecord,
+  )) {
+    check(
+      record.spec.delivery.configHubReleaseOci.status === "not-recorded-for-this-base"
+        && record.spec.delivery.argoCd === "not-recorded-for-this-base"
+        && record.spec.delivery.flux === "not-recorded-for-this-base"
+        && record.spec.delivery.direct === "not-recorded-for-this-base",
+      `${record.metadata.name} has an unscoped current delivery claim`,
+    );
+  }
 }
 
 function validatePolicy(policy) {
@@ -1026,6 +1093,31 @@ function validatePolicy(policy) {
 function validateProgram(program) {
   check(program.apiVersion === "catalog.confighub.com/v1alpha1", "demo program apiVersion is invalid");
   check(program.kind === "DemoProgram", "demo program kind is invalid");
+  const architecture = program.spec?.architecture;
+  check(
+    architecture?.name === "OCI in, managed configuration, OCI out",
+    "demo program is missing the OCI-in/OCI-out architecture",
+  );
+  check(
+    architecture.frontDoor?.output?.includes("literal configuration OCI"),
+    "front door must produce a literal configuration OCI",
+  );
+  check(
+    architecture.configHub?.operations?.length >= 4,
+    "ConfigHub middle must name its stored operations",
+  );
+  check(
+    architecture.delivery?.result?.includes("cub release publish")
+      && sameSet(
+        architecture.delivery?.consumers ?? [],
+        ["Argo CD", "Flux", "A recorded direct-apply path"],
+      ),
+    "delivery must use cub release publish and name all three consumers",
+  );
+  check(
+    architecture.delivery?.rule?.includes("its own release OCI"),
+    "delivery claims must remain scoped to the exact configuration",
+  );
   const demos = [...(program.spec?.pathways ?? []), ...(program.spec?.apps ?? [])];
   const ids = new Set();
   for (const demo of demos) {
@@ -1042,7 +1134,9 @@ function validateProgram(program) {
   check(delivery, "demo program is missing the OCI delivery pathway");
   check(delivery.status === "partial", "OCI delivery must remain partial until catalog coverage is complete");
   check(
-    delivery.limits.some((limit) => limit.includes("does not prove that every catalog base")),
+    delivery.limits.some(
+      (limit) => limit.includes("every catalog base") && /(?:does|do) not prove/.test(limit),
+    ),
     "OCI delivery must distinguish the fixture proof from catalog-wide delivery proof",
   );
   const deliveryReceipt = readYaml(join(
@@ -1052,6 +1146,11 @@ function validateProgram(program) {
     "receipt.yaml",
   ));
   validateOciDeliveryMechanismReceipt(deliveryReceipt);
+  check(
+    existsSync(catalogOciDeliveryReceiptPath),
+    `${relativeRepo(catalogOciDeliveryReceiptPath)} is missing`,
+  );
+  validateCatalogOciDeliveryReceipt(readYaml(catalogOciDeliveryReceiptPath));
 
   const fleetSource = readYaml(join(
     repoRoot,
@@ -1091,6 +1190,67 @@ function validateOciDeliveryMechanismReceipt(receipt) {
     check(leg.workloadApplied === "yes", `OCI delivery ${name} leg did not apply the workload`);
     check(leg.hookRan === "yes", `OCI delivery ${name} leg did not run the hook`);
   }
+}
+
+function validateCatalogOciDeliveryReceipt(receipt) {
+  check(
+    receipt.kind === "CatalogOciDeliveryProofReceipt",
+    "catalog OCI delivery receipt kind is invalid",
+  );
+  check(
+    receipt.metadata?.name === catalogOciDeliveryRecord,
+    "catalog OCI delivery receipt name drifted",
+  );
+  check(
+    receipt.spec?.chart === "bitnami/nginx"
+      && receipt.spec?.version === "24.0.2"
+      && receipt.spec?.base === "http-clusterip",
+    "catalog OCI delivery receipt source drifted",
+  );
+  check(
+    receipt.spec?.result === "pass"
+      && receipt.spec?.render?.result === "pass"
+      && receipt.spec?.render?.exactCatalogObjects === "yes",
+    "catalog OCI delivery did not reproduce the exact committed base",
+  );
+  const release = receipt.spec?.releaseOci ?? {};
+  check(
+    release.publish === "pass"
+      && release.sameDigestAcrossConsumers === "yes"
+      && /^sha256:[a-f0-9]{64}$/.test(release.digest ?? ""),
+    "catalog OCI release publication or digest comparison did not pass",
+  );
+  const legs = receipt.spec?.legs ?? {};
+  check(
+    sameSet(Object.keys(legs), ["argo", "flux", "direct"]),
+    "catalog OCI delivery receipt must contain Argo CD, Flux, and direct-apply legs",
+  );
+  for (const [name, leg] of Object.entries(legs)) {
+    check(leg.result === "pass", `catalog OCI ${name} leg did not pass`);
+    check(leg.controllerReady === "yes", `catalog OCI ${name} controller was not ready`);
+    check(
+      leg.digest === release.digest,
+      `catalog OCI ${name} leg did not use the published release digest`,
+    );
+    check(
+      leg.workload?.deploymentReady === "yes"
+        && leg.workload?.podReady === "yes"
+        && leg.workload?.serviceType === "ClusterIP",
+      `catalog OCI ${name} workload was not ready`,
+    );
+  }
+  check(
+    receipt.spec?.run?.clusterCommand === "cub cluster up",
+    "catalog OCI delivery did not use the current cub cluster command",
+  );
+  check(
+    Object.values(receipt.spec?.run?.cleanup ?? {}).every((value) => value === "pass"),
+    "catalog OCI delivery cleanup did not pass",
+  );
+  check(
+    receipt.spec?.limits?.some((limit) => limit.includes("does not prove another chart")),
+    "catalog OCI delivery receipt is missing its exact-scope limit",
+  );
 }
 
 function validateFleetPromotionReceipt(source, receipt) {
@@ -1183,6 +1343,14 @@ function runSelfTest() {
     "blanket catalog delivery claim unexpectedly passed",
   );
 
+  const rerenderedOutput = structuredClone(program);
+  rerenderedOutput.spec.architecture.delivery.result
+    = "The controller renders the source package again.";
+  expectFailure(
+    () => validateProgram(rerenderedOutput),
+    "rerendered delivery architecture unexpectedly passed",
+  );
+
   const incompleteDeliveryReceipt = readYaml(join(
     repoRoot,
     "runs",
@@ -1193,6 +1361,20 @@ function runSelfTest() {
   expectFailure(
     () => validateOciDeliveryMechanismReceipt(incompleteDeliveryReceipt),
     "incomplete OCI delivery mechanism fixture unexpectedly passed",
+  );
+
+  const mismatchedCatalogDelivery = readYaml(catalogOciDeliveryReceiptPath);
+  mismatchedCatalogDelivery.spec.legs.flux.digest
+    = "sha256:0000000000000000000000000000000000000000000000000000000000000000";
+  expectFailure(
+    () => validateCatalogOciDeliveryReceipt(mismatchedCatalogDelivery),
+    "mismatched catalog OCI delivery digest unexpectedly passed",
+  );
+  const missingCatalogLeg = readYaml(catalogOciDeliveryReceiptPath);
+  delete missingCatalogLeg.spec.legs.flux;
+  expectFailure(
+    () => validateCatalogOciDeliveryReceipt(missingCatalogLeg),
+    "catalog OCI delivery receipt with no Flux leg unexpectedly passed",
   );
 
   const fleetSource = readYaml(join(
@@ -1300,6 +1482,9 @@ function renderBaseSummary(records) {
   const sourceCounts = countBy(records, (record) => record.spec.source.type);
   const statusCounts = countBy(records, (record) => record.status.level);
   const redis = records.find((record) => record.metadata.name === "bitnami-redis-25-5-3-default");
+  const nginxDelivery = records.find(
+    (record) => record.metadata.name === catalogOciDeliveryRecord,
+  );
   const argo = records.find((record) => record.metadata.name === "argo-cd-argo-cd-9-5-15-no-crds");
   const aicrFlux = records.find(
     (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-14-0-base",
@@ -1331,7 +1516,8 @@ A base-variant record connects the literal configuration to the source that prod
 
 ## Examples
 
-- [Redis default](${redis ? `records/${redis.metadata.name}.yaml` : ""}) connects a Helm render intent, 14 literal objects, its revision digest, and the current OCI evidence.
+- [Redis default](${redis ? `records/${redis.metadata.name}.yaml` : ""}) connects a Helm render intent, 14 literal objects, and its revision digest without claiming a current three-consumer delivery receipt.
+- [NGINX http-clusterip](${nginxDelivery ? `records/${nginxDelivery.metadata.name}.yaml` : ""}) records the first exact catalog base published as one ConfigHub release OCI and consumed at the same digest by Argo CD, Flux, and direct apply.
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
@@ -1413,6 +1599,8 @@ Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml).
 
 This is the status index for the source pathways and ConfigHub App demonstrations. \`available\` means the committed evidence supports the described path. \`partial\`, \`example-only\`, and \`planned\` keep the missing work visible.
 
+${renderArchitecture(program.spec.architecture)}
+
 ## Source pathways
 
 ${renderDemoTable(program.spec.pathways)}
@@ -1470,7 +1658,9 @@ Current limit: ${demo.limits.join(" ")}`).join("\n\n");
 
 Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml). Edit the programme file, then run \`npm run config-catalog\`.
 
-The catalog begins with Helm and adds other configuration formats without making teams rewrite them. Each path ends with the exact Kubernetes objects stored in ConfigHub. A linked source record says how those objects were made, which inputs remain, what setup is needed, and what has been tested. Derived variants then carry reviewed changes through test, development, staging, production, regions, customers, and cluster groups.
+The catalog begins with Helm and adds other configuration formats without making teams rewrite them.
+
+${renderArchitecture(program.spec.architecture)}
 
 ${rendered}
 
@@ -1480,6 +1670,18 @@ Every pathway uses [the catalog-standard apply policy](../../config-catalog/poli
 
 This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun \`npm run helm-org:policy:verify\` while logged into that org.
 `;
+}
+
+function renderArchitecture(architecture) {
+  return `## ${architecture.name}
+
+**Before ConfigHub:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
+
+**Inside ConfigHub:** ${architecture.configHub.result}
+
+**After ConfigHub:** ${architecture.delivery.result} ${architecture.delivery.consumers.join(", ")} can consume that artifact without rendering the source package again.
+
+This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.`;
 }
 
 function renderDemoTable(demos) {

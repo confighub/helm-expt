@@ -583,8 +583,8 @@
           <h3>How is config delivered, and what about OCI and credentials?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>ConfigHub can publish reviewed Units once as a release OCI. A live fixture proves that Argo CD, Flux, and direct apply can consume the same bundle and run its routed hook. That receipt proves the mechanism, not every catalog configuration. Each configuration needs its own delivery receipt. OCI pull credentials are provisioned for Argo CD and copied into the Flux namespace without being printed or passed on a command line.</p>
-        <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
+        <p>ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD, Flux, or direct apply can consume that artifact without rendering the chart again. A small hook fixture proves the mechanism, and an exact NGINX receipt proves the first real catalog preset through all three paths at one digest. Other presets need their own receipt before making the same claim. cub cluster up installs the Argo CD pull credential; the Flux proof copies it into flux-system without printing it.</p>
+        <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/data/catalog-oci-delivery-proof/summary.html">Exact NGINX result</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">

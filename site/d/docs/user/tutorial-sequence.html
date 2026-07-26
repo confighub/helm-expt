@@ -459,7 +459,7 @@ cub space list -o json</code></pre>
 <p><code>cub installer setup</code> shells out to <code>kustomize build</code>; the first setup fails if <code>kustomize</code> is not on <code>PATH</code>. The tutorials do not require <code>helm</code>.</p>
 <p><code>cub context get -o json</code> proves a context is selected. <code>cub space list -o json</code> is the useful auth check for the upload tutorials. If it fails with an authentication problem, run:</p>
 <pre><code>cub auth login</code></pre>
-<p>Tutorials with live Kubernetes steps also need <code>kubectl</code> on <code>PATH</code> and a reachable cluster context. Users can bring their own cluster. For a disposable local Argo/kind rig, <code>cub lk</code> is one option when the tutorial needs ConfigHub OCI and an in-cluster reconciler.</p>
+<p>Tutorials with live Kubernetes steps also need <code>kubectl</code> on <code>PATH</code> and a reachable cluster context. Users can bring their own cluster. For a disposable local kind cluster with Argo CD and ConfigHub OCI delivery, use <code>cub cluster up</code>.</p>
 <h2 id="verification-names-used-here">Verification Names Used Here</h2>
 <p>This page uses three different verification layers. These are not all part of the default product UX. Use the narrowest check that matches the thing you just did.</p>
 <table><thead><tr><th>Name</th><th>Scope</th><th>Reruns Helm?</th><th>Touches a cluster?</th></tr></thead><tbody><tr><td><code>npm run verify</code></td><td>Repository-wide committed artifact consistency: docs, command surfaces, recipes, packages, receipts, catalog data, and generated data.</td><td>No, not in the default path.</td><td>No, it verifies committed receipts.</td></tr>
@@ -476,99 +476,101 @@ kubectl shows workloads
 the specific receipt for this step says PASS, watch, or blocked with a reason</code></pre>
 <h2 id="picking-a-path">Picking A Path</h2>
 <p>For a quick outside-eyes test, run Tutorial 1 and Tutorial 7 first. Tutorial 7 is the most self-contained operating demo after the NGINX base is uploaded.</p>
-<p>Tutorials 2 and 6 touch live Kubernetes. Tutorial 6 also depends on Argo CD and the ConfigHub OCI target created by <code>cub lk up</code>.</p>
+<p>Tutorials 2 and 6 touch live Kubernetes. Tutorial 6 creates its temporary cluster and ConfigHub OCI target with <code>cub cluster up</code>.</p>
 <h2 id="tutorial-1-redis-quick-start">Tutorial 1: Redis Quick Start</h2>
 <p>This proves the basic path from a public Helm chart to ConfigHub Units.</p>
 <pre><code>Helm chart
 -&gt; cub installer recipe/package
--&gt; choose a base variant, e.g. redis/default
+-&gt; choose the recommended redis/reuse-existing-secret base
 -&gt; cub installer setup renders Kubernetes YAML
 -&gt; cub installer upload creates ConfigHub Units</code></pre>
 <p>Run the render and upload path:</p>
-<p>The first two commands are local. The upload and ConfigHub verification require an authenticated <code>cub</code> CLI in the organization where you want the demo Space to be created. If <code>helm-redis-default</code> already exists, choose a unique Space slug or reuse the same work directory to reconcile the existing upload.</p>
+<p>The first two commands are local. The upload and ConfigHub verification require an authenticated <code>cub</code> CLI in the organization where you want the demo Space to be created. If <code>helm-redis-existing-secret</code> already exists, choose a unique Space slug or reuse the same work directory to reconcile the existing upload.</p>
 <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
+  --base reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
   --namespace redis
 
 npm run redis:verify-install:render -- \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
+  --base reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --namespace redis
 
 cub installer upload \
-  --work-dir .tmp/demo/redis-default \
-  --space helm-redis-default \
+  --work-dir ./redis-reuse-existing-secret \
+  --space helm-redis-existing-secret \
   --component Redis \
   --layer App \
   --environment Demo \
   --owner ConfigHubHelm \
-  --variant default \
+  --variant reuse-existing-secret \
   --unit-label Component=Redis \
   --unit-label HelmChart=bitnami-redis \
   --unit-label HelmChartVersion=25.5.3 \
-  --unit-label Variant=default \
+  --unit-label Variant=reuse-existing-secret \
   --unit-label Proof=redis-confighub-proof
 
 npm run redis:verify-install:confighub -- \
-  --base default \
-  --space helm-redis-default</code></pre>
+  --base reuse-existing-secret \
+  --space helm-redis-existing-secret</code></pre>
 <p>What success looks like:</p>
-<pre><code>Redis/default renders the same Kubernetes objects as regular Helm.
+<pre><code>Redis/reuse-existing-secret renders the same Kubernetes objects as regular Helm.
 ConfigHub stores the rendered objects as labeled Units.
 You can verify both the local render and the uploaded Units.</code></pre>
 <p>Check that ConfigHub has the Redis Units:</p>
-<pre><code>cub unit list --space helm-redis-default \
+<pre><code>cub unit list --space helm-redis-existing-secret \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant</code></pre>
-<p>Expect 15 Units: 14 Redis Kubernetes objects plus <code>installer-record</code>.</p>
+<p>Expect 14 Units: 13 Redis Kubernetes objects plus <code>installer-record</code>.</p>
 <p>Where to look in the UI:</p>
-<pre><code>ConfigHub -&gt; Space helm-redis-default -&gt; Units</code></pre>
+<pre><code>ConfigHub -&gt; Space helm-redis-existing-secret -&gt; Units</code></pre>
 <p>Full script: <a href="../demo/redis/demo-script.html">docs/demo/redis/demo-script.md</a>.</p>
 <p>You can see a UX proposal for this stage here: <a href="ux-proposal-redis-quick-start-tutorial.html">Redis Quick Start UX Proposal</a>.</p>
 <p>For a standard Helm baseline, install the same chart into a separate namespace or throwaway cluster, then compare at the parity layer rather than by eye. The strict comparison path is documented in <a href="expected-results-and-clusters.html#stage-2-standard-helm-baseline">Expected Results And Clusters</a>.</p>
 <h2 id="tutorial-2-redis-secret-modes">Tutorial 2: Redis Secret Modes</h2>
 <p>This proves why some choices are base variants, not post-render edits.</p>
-<pre><code>redis/default
-  Helm renders Secret redis/redis.
+<pre><code>redis/default (legacy static-password demonstration; not recommended)
+  Helm renders Secret redis/redis with fixed demonstration material.
   cub installer separates the Secret to out/secrets for local use.
-  ConfigHub records references and proof, not hidden public secret material.
+  cub installer upload does not upload the Secret as a ConfigHub Unit.
 
 redis/reuse-existing-secret
   Helm renders no Redis Secret.
   Workloads reference redis/redis-existing-secret key redis-password.
-  The existing Secret is a target fact and external requirement.</code></pre>
+  The existing Secret is a target fact and external requirement.
+  This is the package's recommended default.</code></pre>
 <p>Run the existing-Secret path:</p>
 <p>This tutorial is written for the catalog namespace <code>redis</code>. Redis embeds that namespace in service DNS values, so changing the namespace changes rendered object data. Treat a different namespace as a separate render choice and review the diff deliberately.</p>
 <pre><code>kubectl --context &lt;your-context&gt; create namespace redis \
   --dry-run=client -o yaml | kubectl --context &lt;your-context&gt; apply -f -
 
 kubectl --context &lt;your-context&gt; -n redis create secret generic redis-existing-secret \
-  --from-literal=redis-password=confighub-redis-password \
+  --from-literal=redis-password=&quot;$(openssl rand -base64 32)&quot; \
   --dry-run=client -o yaml | kubectl --context &lt;your-context&gt; apply -f -
 
 cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base reuse-existing-secret \
-  --work-dir .tmp/demo/redis-reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
   --namespace redis
 
 npm run redis:verify-install:render -- \
   --base reuse-existing-secret \
-  --work-dir .tmp/demo/redis-reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --namespace redis</code></pre>
 <p>Optional local live check:</p>
-<pre><code>kubectl --context &lt;your-context&gt; apply -f .tmp/demo/redis-reuse-existing-secret/out/manifests
+<pre><code>kubectl --context &lt;your-context&gt; apply -f ./redis-reuse-existing-secret/out/manifests
 
 npm run redis:verify-install:cluster -- \
   --base reuse-existing-secret \
   --context &lt;your-context&gt; \
   --namespace redis</code></pre>
 <p>What this proves:</p>
-<pre><code>default and reuse-existing-secret are different base variants because Helm
-renders different Kubernetes object references.</code></pre>
+<pre><code>The static-password demonstration and reuse-existing-secret are different base
+variants because Helm renders different Kubernetes objects and references.
+The existing-Secret preset is the normal starting point.</code></pre>
 <p>If you ran the live step, the <code>redis:verify-install:cluster</code> command above should pass with StatefulSet, PVC, Redis PING, and target Secret checks.</p>
 <p>You can see a UX proposal for this stage here: <a href="ux-proposal-redis-secret-modes-tutorial.html">Redis Secret Modes UX Proposal</a>.</p>
 <h2 id="tutorial-3-prometheus-base-variant">Tutorial 3: Prometheus Base Variant</h2>
@@ -627,7 +629,7 @@ It changes the rendered YAML, so it belongs in the cub installer base path.</cod
   --unit-destroy-gate production-review</code></pre>
 <p>Add <code>--target &lt;target-slug&gt;</code> only when the target already exists. The command sets the downstream Space labels such as <code>Variant=prod-us-east</code>, <code>Environment=Prod</code>, and <code>Region=us-east</code>. Cloned Units keep the source base labels unless a post-clone trigger or later bulk update changes them.</p>
 <p>When the reviewed upstream base changes later, preview the downstream update before writing it:</p>
-<pre><code>cub variant promote prod-us-east --dry-run -o mutations</code></pre>
+<pre><code>cub variant promote prod-us-east --dry-run</code></pre>
 <p>Then promote through a changeset and the same approval/delivery path used for other ConfigHub operations.</p>
 <p>A future/polished <a href="../reference/variant-creation-artifact.html#creator-status">Creator flow</a> should present this as:</p>
 <pre><code>Create variant
@@ -711,91 +713,58 @@ readiness receipt.</code></pre>
 <h2 id="before-live-gitops-runs-bring-kubernetes-and-argo-cd">Before Live GitOps Runs: Bring Kubernetes And Argo CD</h2>
 <p>The live GitOps tutorial needs a Kubernetes cluster with Argo CD installed and able to pull from the ConfigHub OCI gateway.</p>
 <p>Recommended local setup:</p>
-<pre><code>cub plugin install jesperfj/cub-lk
-cub lk version
-cub lk up --name helm-expt-oci-demo</code></pre>
-<p><code>cub lk up</code> creates a disposable kind cluster, installs Argo CD, creates a dedicated kubeconfig at:</p>
-<pre><code>$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig</code></pre>
+<pre><code>cub cluster up \
+  --name helm-expt-oci-demo \
+  --space helm-expt-oci-demo-cluster</code></pre>
+<p><code>cub cluster up</code> creates a disposable kind cluster, installs Argo CD, and writes a dedicated kubeconfig at:</p>
+<pre><code>$HOME/.confighub/clusters/helm-expt-oci-demo.kubeconfig</code></pre>
 <p>It also creates the ConfigHub pieces used by the tutorial:</p>
 <pre><code>helm-expt-oci-demo-cluster        cluster/root Space
 helm-expt-oci-demo-cluster/oci    OCI target
-helm-expt-oci-demo-cluster/root   root Argo Application Unit</code></pre>
+root Application Unit             watches the cluster Space release</code></pre>
 <p>If you bring your own cluster instead, set up the same contract:</p>
 <pre><code>Kubernetes cluster is reachable with kubectl.
 Argo CD is installed in the cluster.
 Argo can reach oci.hub.confighub.com:443.
 Argo has any pull secret/token required for the ConfigHub OCI gateway.
 ConfigHub has a cluster Space with an OCI target.
-Workload Units are uploaded to a workload Space and targeted at that OCI target.
-An Argo Application points at the ConfigHub OCI repo, targetRevision latest,
-and path ./&lt;workload-space&gt;.</code></pre>
+The workload Space uses that target as its release target.
+cub release publish &lt;workload-space&gt; creates the reviewed Space release OCI.
+An Argo Application points at /space/&lt;workload-space&gt;, targetRevision latest,
+and path &quot;.&quot;.</code></pre>
 <p>For this tutorial, the Argo Application source looks like:</p>
-<pre><code>repoURL: oci://oci.hub.confighub.com:443/target/&lt;cluster-space&gt;/oci
+<pre><code>repoURL: oci://oci.hub.confighub.com:443/space/&lt;workload-space&gt;
 targetRevision: latest
-path: ./&lt;workload-space&gt;</code></pre>
-<p>When new Units are applied to the OCI target, ConfigHub publishes a new OCI revision. Argo reconciles that revision and applies the objects to the cluster. Before Tutorial 6 runs, only the root Application is expected. The workload Application named <code>nginx</code> is created by Tutorial 6, so do not refresh it yet.</p>
-<p>Check that the root Application exists before Tutorial 6:</p>
-<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
+path: .</code></pre>
+<p>When Units change, publish a new Space release. Argo reconciles that immutable revision and applies the reviewed objects without rendering the source package again.</p>
+<p>Check that the root Application exists:</p>
+<pre><code>KUBECONFIG=&quot;$HOME/.confighub/clusters/helm-expt-oci-demo.kubeconfig&quot; \
 kubectl --context kind-helm-expt-oci-demo get application \
   helm-expt-oci-demo-cluster -n argocd</code></pre>
 <h2 id="tutorial-6-gitops-and-runtime-proof">Tutorial 6: GitOps And Runtime Proof</h2>
-<p>This runs the OCI/GitOps path with a local kind cluster, ConfigHub OCI, and Argo CD.</p>
-<pre><code>ConfigHub OCI artifact
--&gt; Argo CD or Flux pulls the artifact
--&gt; controller syncs the cluster
--&gt; runtime observation receipt records digest, sync result, checks, and freshness</code></pre>
-<p>Run the first live example:</p>
-<pre><code>python3 tests/chart-install-test \
-  --package packages/bitnami/nginx/24.0.2 \
-  --slug nginx \
-  --namespace nginx \
-  --rig helm-expt-oci-demo \
-  --base http-clusterip \
-  --helm-expt &quot;$PWD&quot; \
-  --wait 240 \
-  --keep \
-  --json</code></pre>
-<p>What success looks like in command output:</p>
-<pre><code>render: PASS
-confighub: PASS
-argo: PASS, nginx Synced/Healthy
-runtime: PASS, deployment.apps/nginx 1/1</code></pre>
-<p>Check that Argo sees both Applications:</p>
-<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
-kubectl --context kind-helm-expt-oci-demo get applications -n argocd \
-  -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'</code></pre>
-<p>You are looking for:</p>
-<pre><code>helm-expt-oci-demo-cluster   Synced   Healthy   sha256:...
-nginx                        Synced   Healthy   sha256:...</code></pre>
-<p>If <code>nginx</code> exists but Argo has not polled the latest OCI revision, refresh it:</p>
-<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
-kubectl --context kind-helm-expt-oci-demo -n argocd annotate application nginx \
-  argocd.argoproj.io/refresh=hard \
-  --overwrite</code></pre>
-<p>Check that Kubernetes has the NGINX workload:</p>
-<pre><code>KUBECONFIG=&quot;$HOME/.confighub/lk/helm-expt-oci-demo.kubeconfig&quot; \
-kubectl --context kind-helm-expt-oci-demo get deploy,pods,svc -n nginx -o wide</code></pre>
-<p>You are looking for:</p>
-<pre><code>deployment.apps/nginx   1/1
-pod/nginx-...           1/1 Running
-service/nginx           ClusterIP</code></pre>
-<p>Check that ConfigHub marked the workload Units live:</p>
-<pre><code>cub unit list --space helm-expt-oci-demo-nginx \
-  --columns Unit.Slug,Target.Slug,UnitStatus.Status,Unit.LiveRevisionNum,Unit.LastAppliedRevisionNum</code></pre>
-<p>You are looking for:</p>
-<pre><code>6 workload Units are Ready on target oci.
-installer-record is NotLive.</code></pre>
-<p>In the ConfigHub UI, open space <code>helm-expt-oci-demo-cluster</code> to see <code>root</code> and <code>nginx-app</code>. Open space <code>helm-expt-oci-demo-nginx</code> to see the workload Units. In Argo CD, open <code>http://localhost:30010</code> and check that <code>root</code> and <code>nginx</code> are both <code>Synced</code> and <code>Healthy</code>.</p>
-<p>Verify the committed first-wave receipt index:</p>
-<pre><code>npm run runtime-gitops:wave:verify</code></pre>
-<p>Open the committed receipt index:</p>
-<pre><code>data/runtime-gitops/summary.md
-data/runtime-gitops/wave1.csv
-data/runtime-gitops/receipt-index.csv</code></pre>
-<p>What the receipt index should tell you:</p>
-<pre><code>The first-wave index validates the committed NGINX Argo/OCI receipt and lists
-the remaining chart/base/controller pairs that still need receipts.</code></pre>
-<p>You can see a UX proposal for this stage here: <a href="ux-proposal-gitops-runtime-proof-tutorial.html">GitOps And Runtime Proof UX Proposal</a>.</p>
+<p>This repository has one exact catalog-base test for the current delivery boundary. It starts from the <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset, checks that <code>cub installer</code> reproduces the committed objects, uploads them as ConfigHub Units, and publishes one Space release OCI.</p>
+<pre><code>public installer-package OCI
+-&gt; cub installer selects the NGINX preset
+-&gt; exact objects become ConfigHub Units
+-&gt; cub release publish creates one Space release OCI
+-&gt; Argo CD, Flux, and direct apply consume the same digest
+-&gt; each path must reach a ready NGINX Deployment and ClusterIP Service</code></pre>
+<p>Run it only in an authenticated scratch organization. The guard refuses to use the maintained <code>helm-catalog</code> context:</p>
+<pre><code>CUB_CONTEXT=scratch-context \
+HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
+npm run catalog-oci:proof</code></pre>
+<p>The test creates and removes its own cluster and temporary Spaces. Success is:</p>
+<pre><code>rendered objects: exact match
+ConfigHub release: published
+Argo CD: pass
+Flux: pass
+direct apply: pass
+release digest: identical for all three
+NGINX: ready under all three
+cleanup: pass</code></pre>
+<p>Verify the committed receipt without creating a cluster:</p>
+<pre><code>npm run catalog-oci:proof:verify</code></pre>
+<p>Read the <a href="../../data/catalog-oci-delivery-proof/summary.html">plain-English result</a> and the <a href="../../../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">typed receipt</a>. This proves one exact NGINX preset on the recorded target. It is not a claim about every catalog entry.</p>
 <h2 id="tutorial-7-bulk-scan-and-bulk-patch">Tutorial 7: Bulk Scan And Bulk Patch</h2>
 <p>This shows the operating value once Helm output has become ConfigHub Units.</p>
 <pre><code>uploaded ConfigHub Units

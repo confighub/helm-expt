@@ -2,7 +2,17 @@
 
 Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml). Edit the programme file, then run `npm run config-catalog`.
 
-The catalog begins with Helm and adds other configuration formats without making teams rewrite them. Each path ends with the exact Kubernetes objects stored in ConfigHub. A linked source record says how those objects were made, which inputs remain, what setup is needed, and what has been tested. Derived variants then carry reviewed changes through test, development, staging, production, regions, customers, and cluster groups.
+The catalog begins with Helm and adds other configuration formats without making teams rewrite them.
+
+## OCI in, managed configuration, OCI out
+
+**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage. The result is a literal configuration OCI plus a source record that names its inputs, prerequisites, lifecycle work, and evidence.
+
+**Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
+
+**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. Argo CD, Flux, A recorded direct-apply path can consume that artifact without rendering the source package again.
+
+This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.
 
 ## Ways to start
 
@@ -73,19 +83,19 @@ Current limit: An installer package OCI can contain several preset configuration
 
 Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.
 
-ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a managed direct-apply path can consume the same files without rendering the chart again.
+ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.
 
 1. Start with the exact Kubernetes objects held as ConfigHub Units.
 2. Run the checks and approval required for that configuration.
 3. Publish the approved revision once as a ConfigHub release OCI.
-4. Point Argo CD, Flux, or the managed direct-apply path at that artifact.
+4. Point Argo CD, Flux, or the recorded direct-apply path at that artifact.
 5. Record controller status and workload observations for this configuration.
 
 Start with [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) or [docs/user/cub-deployment-path.md](../../docs/user/cub-deployment-path.md).
 
-Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md).
+Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md), [runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml](../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md).
 
-Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. It does not prove that every catalog base has been delivered through Argo CD, Flux, and direct apply. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
+Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
 
 ### Test, development, staging, and production promotions
 

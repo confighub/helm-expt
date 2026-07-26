@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The ConfigHub data model (the words this all uses) · ConfigHub Helm Ops</title>
-  <meta name="description" content="The ConfigHub data model (the words this all uses): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The ConfigHub data model · ConfigHub Helm Ops</title>
+  <meta name="description" content="The ConfigHub data model: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/confighub-data-model.html">
-  <meta property="og:title" content="The ConfigHub data model (the words this all uses) · ConfigHub Helm Ops">
-  <meta property="og:description" content="The ConfigHub data model (the words this all uses): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="The ConfigHub data model · ConfigHub Helm Ops">
+  <meta property="og:description" content="The ConfigHub data model: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/confighub-data-model.html">
   <style>
@@ -424,20 +424,35 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>The ConfigHub data model (the words this all uses)</h1>
+    <h1>The ConfigHub data model</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/confighub-data-model.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> The vocabulary the rest of <i>how it works</i> assumes - short definitions and how the pieces fit. If a term elsewhere is unfamiliar, it's probably here.</p>
-<h2 id="the-pieces">The pieces</h2>
-<ul><li><b>Chart base</b> - a chart pinned to a version + a values preset (e.g. <code>bitnami/nginx@24.0.2 / default</code>). The thing you render.</li><li><b>Recipe</b> - the <i>exact</i> Kubernetes objects a base renders to (the render-parity claim). Ordinary desired-state config - nothing imperative.</li><li><b>Unit</b> - ConfigHub's atom of desired state: one piece of config, <b>versioned and diffable</b>, living in a space. A recipe becomes a set of Units.</li><li><b>Space</b> - a named container for Units (a project / environment boundary). You create a space, then put Units in it.</li><li><b>Component</b> - the logical thing being configured and shipped: an app, service, platform package, or deployable capability such as <code>payments-api</code>, <code>redis</code>, or <code>ingress-nginx</code>. Today, Component is represented by standard metadata rather than a separate first-class API entity. It groups the configuration that belongs to the same product family.</li><li><b>Variant</b> - one named configuration instance of a Component. A <b>base variant</b> is a render-time Helm/recipe install shape. A <b>derived ConfigHub variant</b> is a clone of a reviewed configuration instance with approved post-render refinements applied, with no Helm re-render. (<a href="creating-variants.html">creating-variants</a>)</li><li><b>Target</b> - <i>where</i> Units are delivered. The <b>OCI target</b> (<code>&lt;space&gt;/oci</code>) publishes the Units as an OCI artifact for a controller to pull.</li><li><b>Worker</b> - the agent that services a target (e.g. the OCI worker <code>cub-lk</code> installs) - it turns Units into the published bundle.</li><li><b>OCI bundle</b> - the single published artifact (<code>oci://oci.hub.confighub.com/.../oci</code>) that <b>every</b> consumer (Argo / Flux / kubectl) pulls. (<a href="cub-deployment-path.html">cub-deployment-path</a>)</li><li><b>Target fact</b> - an input the chart needs that isn't in the YAML (an existing secret, a CRD, a storage class, cloud identity). <b>Staged, not guessed.</b> (<a href="target-prerequisites.html">target-prerequisites</a>)</li><li><b>Route / lifecycle action</b> - a non-recipe step (a hook, a CRD install) made <b>explicit, named, and receipted</b>; <code>automatic: false</code>. (<a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a>)</li><li><b>Receipt</b> - the typed evidence that a step or proof actually happened (the <i>observe</i> layer). <code>watch ≠ pass</code>.</li></ul>
-<h2 id="how-they-fit-one-line">How they fit (one line)</h2>
-<blockquote><p>chart base → <b>render</b> → recipe → becomes <b>Units</b> in a <b>space</b> → published to an <b>OCI bundle</b> via a <b>target</b> (serviced by a <b>worker</b>) → pulled + applied by Argo / Flux / kubectl → non-recipe bits run as <b>routes</b> → everything proven with <b>receipts</b>.</p></blockquote>
-<h2 id="component-and-variant-families">Component and variant families</h2>
-<p>ConfigHub should not force people to reason only about individual Kubernetes objects. A Component lets a person or tool see one logical app, service, platform package, or workload family. Variants are the named configuration instances inside that family:</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> These are the terms used by the catalog and the technical guides.</p>
+<h2 id="before-confighub">Before ConfigHub</h2>
+<ul><li><b>Source package</b> is the input you already use: a Helm chart, AICR recipe, installer package, Kubara or Sveltos configuration, or ordinary Kubernetes YAML.</li><li><b>Preset configuration</b> is a maintained choice for that source. For Helm it fixes a chart version, values, release name, namespace, capabilities, and other render inputs.</li><li><b>Render intent</b> records everything needed to reproduce one Helm render. It also names prerequisites and lifecycle work such as CRDs, setup Jobs, and hooks. It does not contain the rendered objects.</li><li><b>Render variant</b> is the captured Kubernetes output for one base and one revision. It points back to the render intent and includes the object inventory and digest.</li><li><b>Literal configuration OCI</b> contains rendered Kubernetes objects rather than a chart that still needs to be rendered. <code>cub variant upload</code> can read one directly.</li></ul>
+<p>For Helm, the two layers are therefore:</p>
+<pre><code>chart + values + render context + lifecycle choices
+  -&gt; render intent
+  -&gt; captured render variant
+  -&gt; exact Kubernetes objects</code></pre>
+<h2 id="inside-confighub">Inside ConfigHub</h2>
+<ul><li><b>Unit</b> is a versioned, diffable piece of configuration. Rendered Kubernetes objects become Units when they are uploaded.</li><li><b>Space</b> groups the Units for one managed configuration, such as a base, development environment, production region, or customer.</li><li><b>Component</b> is the app, service, or platform capability being managed, such as <code>payments-api</code>, <code>redis</code>, or <code>ingress-nginx</code>. Today it is represented by standard Space metadata rather than a separate API object.</li><li><b>Base variant</b> is the reviewed starting configuration. For a Helm source, it corresponds to a supported render shape such as <code>no-crds</code> or <code>reuse-existing-secret</code>.</li><li><b>Derived variant</b> is a ConfigHub clone for a specific environment, region, customer, or target. Its changes are exact object changes; Helm is not rendered again.</li><li><b>Target fact</b> is something the destination must provide, such as an existing Secret, storage class, cloud identity, or installed CRD.</li><li><b>Lifecycle route</b> records work that ordinary apply cannot safely perform by itself. It says what must happen, in which order, under which delivery system, and which receipt proves completion.</li><li><b>Receipt</b> records a result for an exact configuration and target. A render receipt, controller result, or workload observation does not prove a broader claim than the inputs it names.</li></ul>
+<h2 id="after-confighub">After ConfigHub</h2>
+<ul><li><b>Target</b> identifies where Units are released. <code>cub cluster up</code> creates a temporary cluster Space and its server-hosted OCI target for the local examples.</li><li><b>Space release OCI</b> is produced by <code>cub release publish &lt;space&gt;</code>. It contains the reviewed Units from that Space and has a pull URL such as <code>oci://oci.hub.confighub.com:443/space/my-app</code>.</li><li><b>Delivery consumer</b> is Argo CD, Flux, or a recorded direct path. It applies the Space release without rendering the original source package again.</li></ul>
+<h2 id="how-the-pieces-fit">How the pieces fit</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>source package
+  -&gt; render intent and captured render variant
+  -&gt; exact objects uploaded as ConfigHub Units
+  -&gt; base and derived Spaces, diffs, checks, approvals, promotions
+  -&gt; cub release publish
+  -&gt; one Space release OCI
+  -&gt; Argo CD, Flux, or recorded direct apply
+  -&gt; live observations and receipts</code></pre>
+<h2 id="one-component-with-several-variants">One component with several variants</h2>
 <pre><code>Component: payments-api
 
 Variants:
@@ -446,10 +461,9 @@ Variants:
   payments-api/staging
   payments-api/prod-us
   payments-api/prod-eu</code></pre>
-<p>This is what makes higher-level questions possible:</p>
-<ul><li>what changed between the base and prod-us variant;</li><li>which variants are downstream of this base;</li><li>whether a base change can promote to staging but not prod yet;</li><li>which target facts or overrides make prod-eu different;</li><li>whether an AI-assisted change stayed inside the approved variant boundary.</li></ul>
-<p>Caveat: Component is currently mostly a grouping concept. Variant has stronger behavior because <code>cub variant create</code> and <code>cub variant promote</code> give it upstream/downstream clone and promotion semantics.</p>
-<p>→ deeper: <a href="how-it-works.html">how-it-works</a> · <a href="cub-deployment-path.html">cub-deployment-path</a> · <a href="../reference/direct-cub-helm-model.html">direct-cub-helm-model</a> · <a href="target-prerequisites.html">target-prerequisites</a></p>
+<p>This lets a team answer concrete questions:</p>
+<ul><li>What differs between the base and <code>prod-us</code>?</li><li>Which environments will receive a base change?</li><li>Did staging pass before production was promoted?</li><li>Which target facts make <code>prod-eu</code> different?</li><li>Did an AI-assisted edit stay within the approved fields?</li></ul>
+<p>Read <a href="creating-variants.html">Creating variants</a>, <a href="cub-deployment-path.html">How ConfigHub delivers configuration through OCI</a>, <a href="helm-render-intents.html">Render intents and render variants</a>, <a href="target-prerequisites.html">Target prerequisites</a>, and <a href="chart-hooks-what-happens.html">What happens to Helm hooks</a>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/confighub-data-model.md</code>. The source file is the authoritative version.</p></footer>

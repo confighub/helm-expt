@@ -324,11 +324,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -653,11 +655,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -785,11 +789,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1000,11 +1006,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1132,11 +1140,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1347,11 +1357,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1444,11 +1456,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1541,11 +1555,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1638,11 +1654,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1735,11 +1753,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -1967,11 +1987,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2199,11 +2221,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2323,11 +2347,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2420,11 +2446,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2551,11 +2579,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2662,11 +2692,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2802,11 +2834,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -2942,11 +2976,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3053,11 +3089,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3150,11 +3188,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3247,11 +3287,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3344,11 +3386,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3441,11 +3485,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "todo",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "todo",
-          "flux": "todo"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "todo"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3538,11 +3584,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3635,11 +3683,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3732,11 +3782,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3829,11 +3881,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -3926,11 +3980,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4050,11 +4106,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4147,11 +4205,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4271,11 +4331,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4368,11 +4430,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4492,11 +4556,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4589,11 +4655,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4715,11 +4783,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4812,11 +4882,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -4961,11 +5033,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5054,15 +5128,22 @@
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published-in-this-record",
-            "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+            "status": "not-separately-published",
+            "note": "The selected installer base was uploaded directly as exact ConfigHub Units. This proof did not publish a separate literal-configuration OCI before ConfigHub."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "pass",
+            "observedReference": "oci://oci.hub.confighub.com:443/space/hx-catalog-oci-20260726-wr7-nginx:latest",
+            "digest": "sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049",
+            "receipt": "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml",
+            "retained": "no",
+            "note": "ConfigHub published the reviewed Units once; all three recorded consumers used this digest, then the test removed its temporary Space."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "pass",
+          "flux": "pass",
+          "direct": "pass",
+          "historicalGitopsOciStatus": "yes",
+          "receipt": "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5090,7 +5171,7 @@
         "level": "available",
         "claim": "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here.",
         "limits": [
-          "This record does not claim that the base has been uploaded to a live ConfigHub Space.",
+          "The base was uploaded to a temporary ConfigHub Space, published as a Space release OCI, delivered three ways, and then cleaned up.",
           "The small typed install-time surface is not yet complete for every Helm base.",
           "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
         ]
@@ -5207,11 +5288,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5304,11 +5387,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5453,11 +5538,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5550,11 +5637,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5647,11 +5736,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5744,11 +5835,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5841,11 +5934,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -5938,11 +6033,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6035,11 +6132,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6157,11 +6256,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6254,11 +6355,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6376,11 +6479,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6473,11 +6578,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6595,11 +6702,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6692,11 +6801,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6835,11 +6946,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -6932,11 +7045,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7029,11 +7144,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7151,11 +7268,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7248,11 +7367,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7370,11 +7491,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7467,11 +7590,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7564,11 +7689,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7661,11 +7788,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7758,11 +7887,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7855,11 +7986,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -7952,11 +8085,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8049,11 +8184,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8455,11 +8592,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8552,11 +8691,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8649,11 +8790,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8746,11 +8889,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8870,11 +9015,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -8967,11 +9114,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9064,11 +9213,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9161,11 +9312,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9285,11 +9438,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9409,11 +9564,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9533,11 +9690,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9630,11 +9789,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9752,11 +9913,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9876,11 +10039,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -9973,11 +10138,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -10070,11 +10237,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -10167,11 +10336,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -10299,11 +10470,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11054,11 +11227,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11151,11 +11326,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11301,11 +11478,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11507,11 +11686,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11604,11 +11785,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11701,11 +11884,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11853,11 +12038,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -11964,11 +12151,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -12061,11 +12250,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -12689,11 +12880,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -12813,11 +13006,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -12910,11 +13105,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13007,11 +13204,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13131,11 +13330,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13228,11 +13429,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13325,11 +13528,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13422,11 +13627,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13519,11 +13726,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13630,11 +13839,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13741,11 +13952,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13852,11 +14065,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -13949,11 +14164,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14060,11 +14277,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14157,11 +14376,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14420,11 +14641,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14517,11 +14740,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14614,11 +14839,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14848,11 +15075,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -14959,11 +15188,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15083,11 +15314,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15180,11 +15413,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15277,11 +15512,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15403,11 +15640,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15500,11 +15739,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15632,11 +15873,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15729,11 +15972,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15826,11 +16071,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -15923,11 +16170,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16047,11 +16296,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16144,11 +16395,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16268,11 +16521,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16392,11 +16647,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16489,11 +16746,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16586,11 +16845,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -16801,11 +17062,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -17024,11 +17287,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -17274,11 +17539,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -17371,11 +17638,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -17482,11 +17751,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -17904,11 +18175,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -18762,11 +19035,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -18892,11 +19167,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -18989,11 +19266,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19086,11 +19365,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19183,11 +19464,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19280,11 +19563,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19429,11 +19714,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19526,11 +19813,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19656,11 +19945,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19753,11 +20044,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19850,11 +20143,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -19947,11 +20242,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20044,11 +20341,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20168,11 +20467,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20292,11 +20593,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20403,11 +20706,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20605,11 +20910,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -20931,11 +21238,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21055,11 +21364,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21152,11 +21463,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21263,11 +21576,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21360,11 +21675,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21457,11 +21774,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21554,11 +21873,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21665,11 +21986,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21776,11 +22099,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21873,11 +22198,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -21970,11 +22297,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -22294,11 +22623,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -22890,11 +23221,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -23214,11 +23547,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -23810,11 +24145,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -23907,11 +24244,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24004,11 +24343,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24101,11 +24442,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24198,11 +24541,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24295,11 +24640,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24392,11 +24739,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24489,11 +24838,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24600,11 +24951,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24711,11 +25064,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24808,11 +25163,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -24905,11 +25262,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25035,11 +25394,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25132,11 +25493,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25229,11 +25592,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25326,11 +25691,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25599,11 +25966,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25696,11 +26065,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25793,11 +26164,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25890,11 +26263,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -25987,11 +26362,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26084,11 +26461,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26181,11 +26560,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26278,11 +26659,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26375,11 +26758,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26472,11 +26857,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26583,11 +26970,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26809,11 +27198,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26906,11 +27297,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "watch",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "watch",
-          "flux": "watch"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "watch"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -27003,11 +27396,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -27114,11 +27509,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "no",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "no",
-          "flux": "no"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "no"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -27211,11 +27608,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -27308,11 +27707,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -27405,11 +27806,13 @@
             "note": "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
           },
           "configHubReleaseOci": {
-            "status": "yes",
-            "note": "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+            "status": "not-recorded-for-this-base",
+            "note": "No current ConfigHub Space release OCI receipt is recorded for this exact base."
           },
-          "argoCd": "yes",
-          "flux": "yes"
+          "argoCd": "not-recorded-for-this-base",
+          "flux": "not-recorded-for-this-base",
+          "direct": "not-recorded-for-this-base",
+          "historicalGitopsOciStatus": "yes"
         },
         "policy": {
           "profile": "catalog-standard",

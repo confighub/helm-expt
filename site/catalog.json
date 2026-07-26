@@ -25989,6 +25989,40 @@
           ]
         }
       ],
+      "architecture": {
+        "configHub": {
+          "operations": [
+            "Store and query exact Kubernetes objects",
+            "Create base and derived variants",
+            "Compare, test, approve, and promote changes",
+            "Record lifecycle routes, releases, and live observations"
+          ],
+          "problem": "A deployable OCI file is useful, but teams still need to share it, change it, review it, promote it, and understand where it is used.",
+          "result": "ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together."
+        },
+        "delivery": {
+          "consumers": [
+            "Argo CD",
+            "Flux",
+            "A recorded direct-apply path"
+          ],
+          "problem": "Delivery should not rerender the source package and produce a different result after review.",
+          "result": "cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units.",
+          "rule": "Each catalog configuration earns a delivery claim only when its own release OCI, controller result, and workload result have a receipt."
+        },
+        "frontDoor": {
+          "inputs": [
+            "Helm charts and their values",
+            "AICR recipes and generated bundles",
+            "cub installer packages with preset configurations",
+            "Kubara, Sveltos, and existing Kubernetes YAML"
+          ],
+          "output": "A literal configuration OCI plus a source record that names its inputs, prerequisites, lifecycle work, and evidence.",
+          "problem": "Helm charts, AICR recipes, installer packages, and existing YAML all need different work before they are safe, literal configuration.",
+          "result": "The catalog helps people inspect, render, test, and package the exact configuration they want to manage."
+        },
+        "name": "OCI in, managed configuration, OCI out"
+      },
       "pathways": [
         {
           "entrypoints": [
@@ -26086,23 +26120,26 @@
           ],
           "evidence": [
             "runs/oci-hook-delivery-proof/receipt.yaml",
-            "data/oci-hook-delivery-proof/summary.md"
+            "data/oci-hook-delivery-proof/summary.md",
+            "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml",
+            "data/catalog-oci-delivery-proof/summary.md"
           ],
           "id": "oci-delivery",
           "limits": [
             "The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture.",
-            "It does not prove that every catalog base has been delivered through Argo CD, Flux, and direct apply.",
+            "The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI.",
+            "These receipts do not prove that every catalog base has been delivered through all three paths.",
             "A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt."
           ],
           "name": "One reviewed bundle through Argo CD, Flux, or direct apply",
           "problem": "Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.",
-          "result": "ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a managed direct-apply path can consume the same files without rendering the chart again.",
+          "result": "ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.",
           "status": "partial",
           "steps": [
             "Start with the exact Kubernetes objects held as ConfigHub Units.",
             "Run the checks and approval required for that configuration.",
             "Publish the approved revision once as a ConfigHub release OCI.",
-            "Point Argo CD, Flux, or the managed direct-apply path at that artifact.",
+            "Point Argo CD, Flux, or the recorded direct-apply path at that artifact.",
             "Record controller status and workload observations for this configuration."
           ]
         },

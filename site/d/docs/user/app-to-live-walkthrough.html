@@ -430,22 +430,22 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This walkthrough was run live, end to end, on 2026-07-02: every command below is verbatim from that run, and the observed outputs are quoted where they matter. It answers one question: I have a simple app; how do I get it into ConfigHub as a base, make staging and production variants, promote changes through them, and see the result live on a cluster through GitOps?</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This walkthrough answers one question: I have a simple app; how do I store it as a base, make staging and production variants, promote a change, and deliver each environment through GitOps?</p>
+<p>The variant and promotion sequence was run live on 2026-07-02. The cluster and OCI commands have since moved into the main <code>cub</code> CLI. The commands below use the current <code>cub cluster</code> and <code>cub release publish</code> path rather than preserving the retired command spelling from that run.</p>
 <p>The chain:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>your app (plain manifests)
   -&gt; cub variant upload        -&gt; base Space
   -&gt; cub variant create (x2)   -&gt; staging and production Spaces
-  -&gt; cub unit set-target       -&gt; bound to an OCI target
-  -&gt; cub unit apply            -&gt; published to ConfigHub's OCI registry
-  -&gt; Argo CD pulls             -&gt; pods live on the cluster
+  -&gt; cub release publish       -&gt; one OCI release per environment
+  -&gt; Argo CD pulls             -&gt; the reviewed objects run on the cluster
   -&gt; edit base, promote        -&gt; staged rollout, environment by environment</code></pre>
 <h2 id="prerequisites">Prerequisites</h2>
-<ul><li><code>cub</code> installed and logged in (<code>cub auth login</code>).</li><li>Docker running (for the local kind cluster).</li><li>The lk plugin: <code>cub plugin install jesperfj/cub-lk</code>.</li></ul>
-<h2 id="step-1-one-command-for-cluster-argo-worker-and-target">Step 1: One command for cluster, Argo, worker, and target</h2>
-<pre><code>cub lk up --name demo</code></pre>
-<p>This provisions a kind cluster, installs Argo CD, creates a <code>demo-cluster</code> Space with an OCI target (<code>demo-cluster/oci</code>), provisions the OCI pull credentials into Argo, and installs a root app-of-apps that syncs the <code>demo-cluster</code> Space. Argo's UI is printed at the end (localhost:30000). Load the cluster credentials in any shell that needs kubectl:</p>
-<pre><code>source ~/.confighub/lk/demo.env</code></pre>
+<ul><li><code>cub</code> installed and logged in (<code>cub auth login</code>).</li><li>Docker running (for the local kind cluster).</li></ul>
+<h2 id="step-1-create-a-temporary-cluster-and-its-delivery-target">Step 1: Create a temporary cluster and its delivery target</h2>
+<pre><code>cub cluster up --name demo --space demo-cluster</code></pre>
+<p>This provisions a kind cluster, installs Argo CD, creates a <code>demo-cluster</code> Space with an OCI target (<code>demo-cluster/oci</code>), installs the OCI pull credentials, and bootstraps a root Application. Load the cluster credentials in any shell that needs <code>kubectl</code>:</p>
+<pre><code>source ~/.confighub/clusters/demo.env</code></pre>
 <h2 id="step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</h2>
 <p>A Deployment (nginx serving a mounted ConfigMap), the ConfigMap (one line of content with a version marker), and a Service, all in namespace <code>acme</code>. Any plain manifests work; nothing here is chart-specific.</p>
 <h2 id="step-3-upload-the-base">Step 3: Upload the base</h2>
@@ -455,32 +455,32 @@
 <h2 id="step-4-staging-and-production-variants">Step 4: Staging and production variants</h2>
 <pre><code>cub variant create staging acme-web-base \
   --space-pattern &quot;template:acme-web-staging&quot; \
-  --environment Staging --namespace acme-staging
+  --environment Staging --namespace acme-staging \
+  --target demo-cluster/oci
 
 cub variant create production acme-web-base \
   --space-pattern &quot;template:acme-web-prod&quot; \
   --environment Prod --namespace acme-prod \
+  --target demo-cluster/oci \
   --unit-delete-gate customer-demo --unit-destroy-gate customer-demo</code></pre>
 <p>Each clone records its upstream link (promotion follows it later), rewrites the namespace on every cloned Unit (verified: the staging ConfigMap says <code>namespace: acme-staging</code>, prod says <code>acme-prod</code>), and production's Units are gated against accidental delete and destroy. Pass <code>--space-pattern</code> for a predictable Space name; the server default produces a longer derived slug.</p>
-<h2 id="step-5-bind-both-environments-to-the-oci-target">Step 5: Bind both environments to the OCI target</h2>
-<pre><code>cub unit set-target demo-cluster/oci --space acme-web-staging --where &quot;Slug LIKE '%'&quot;
-cub unit set-target demo-cluster/oci --space acme-web-prod    --where &quot;Slug LIKE '%'&quot;</code></pre>
-<p>One OCI target serves any number of Spaces; each Space becomes a path inside the published artifact.</p>
+<h2 id="step-5-publish-one-release-oci-for-each-environment">Step 5: Publish one release OCI for each environment</h2>
+<pre><code>cub release publish acme-web-staging
+cub release publish acme-web-prod</code></pre>
+<p>Each command packages the exact Units in that Space. The pull URLs are <code>oci://oci.hub.confighub.com:443/space/acme-web-staging</code> and <code>oci://oci.hub.confighub.com:443/space/acme-web-prod</code>.</p>
 <h2 id="step-6-tell-argo-about-the-two-environments-as-config">Step 6: Tell Argo about the two environments, as config</h2>
 <p>The Argo <code>Application</code> objects are themselves Units in the cluster Space, so even the delivery wiring is versioned config:</p>
 <pre><code>cub unit create --space demo-cluster acme-web-staging-app app-staging.yaml \
   --target demo-cluster/oci --change-desc &quot;Argo Application for the staging variant&quot;</code></pre>
-<p>The Application's source is the target's OCI repo, and the path is the Space:</p>
+<p>The Application source is the Space release OCI:</p>
 <pre><code>source:
-  repoURL: oci://oci.hub.confighub.com:443/target/demo-cluster/oci
+  repoURL: oci://oci.hub.confighub.com:443/space/acme-web-staging
   targetRevision: latest
-  path: ./acme-web-staging</code></pre>
+  path: .</code></pre>
 <p>Same again for prod (path <code>./acme-web-prod</code>, destination namespace <code>acme-prod</code>).</p>
-<h2 id="step-7-apply-and-watch-it-become-real">Step 7: Apply, and watch it become real</h2>
-<pre><code>cub unit apply --space acme-web-staging --where &quot;Slug LIKE '%'&quot; --wait --timeout 2m0s
-cub unit apply --space acme-web-prod    --where &quot;Slug LIKE '%'&quot; --wait --timeout 2m0s
-cub unit apply --space demo-cluster --unit acme-web-staging-app,acme-web-prod-app --wait --timeout 2m0s</code></pre>
-<p>Apply on an OCI target publishes the Units' data to the registry; Argo pulls and converges. In the live run both apps reached <code>Synced/Healthy</code> and both namespaces had a Running pod within minutes, both serving <code>VERSION 1</code>.</p>
+<h2 id="step-7-publish-the-cluster-space-and-watch-it-become-real">Step 7: Publish the cluster Space, and watch it become real</h2>
+<pre><code>cub release publish demo-cluster</code></pre>
+<p>The root Application created by <code>cub cluster up</code> reads the cluster Space release and creates the two child Applications. Each child pulls its environment's release OCI. In the recorded run, both apps reached <code>Synced/Healthy</code> and both namespaces served <code>VERSION 1</code>.</p>
 <h2 id="step-8-the-staged-rollout">Step 8: The staged rollout</h2>
 <p>Change the base with a function (a recorded revision with your reason), then promote one environment at a time:</p>
 <pre><code>cub run set-yq --space acme-web-base --unit acme-configmap-acme-web-content \
@@ -489,15 +489,15 @@ cub unit apply --space demo-cluster --unit acme-web-staging-app,acme-web-prod-ap
 
 cub variant promote acme-web-staging --dry-run
 cub variant promote acme-web-staging --change-desc &quot;Promote VERSION 2 to staging&quot;
-cub unit apply --space acme-web-staging --where &quot;HeadRevisionNum &gt; LiveRevisionNum&quot; --wait --timeout 2m0s</code></pre>
+cub release publish acme-web-staging</code></pre>
 <p>Observed live state after that, and this is the point of the whole model:</p>
 <pre><code>staging: acme-web VERSION 2
 prod:    acme-web VERSION 1</code></pre>
 <p>Two environments, one reviewed base, the difference explicit and deliberate. Then the same two commands for <code>acme-web-prod</code>, and both environments read <code>VERSION 2</code>. The prod Unit's revision history tells the story in three lines: <code>CloneUnit</code> (the variant was created), <code>Invoke</code> (the namespace rewrite), <code>UpgradeUnit</code> (the promotion).</p>
 <h2 id="honest-notes-from-the-live-run">Honest notes from the live run</h2>
-<ul><li>Use <code>cub run set-yq</code> (or another mutating function) to edit data. Its read-only sibling <code>yq</code> accepts <code>--change-desc</code> and exits cleanly while changing nothing; if a promote then says nothing needs upgrading, check the base actually gained a revision (<code>cub revision list</code>).</li><li><code>cub variant promote --dry-run</code> prints a correct would-upgrade summary. <code>--dry-run -o mutations</code> currently prints nothing; do not read its silence as &quot;nothing to promote&quot;.</li><li>Right after content lands, Argo can briefly report <code>OutOfSync</code> with the content already correct; it settles on the next reconcile.</li><li>The rig's kubeconfig is its own file (<code>~/.confighub/lk/&lt;name&gt;.kubeconfig</code>); source the env file rather than assuming your default kubeconfig has the context.</li></ul>
+<ul><li>Use <code>cub run set-yq</code> (or another mutating function) to edit data. Its read-only sibling <code>yq</code> accepts <code>--change-desc</code> and exits cleanly while changing nothing; if a promote then says nothing needs upgrading, check the base actually gained a revision (<code>cub revision list</code>).</li><li><code>cub variant promote --dry-run</code> prints a correct would-upgrade summary. <code>--dry-run -o mutations</code> currently prints nothing; do not read its silence as &quot;nothing to promote&quot;.</li><li>Right after content lands, Argo can briefly report <code>OutOfSync</code> with the content already correct; it settles on the next reconcile.</li><li>The cluster's kubeconfig is its own file (<code>~/.confighub/clusters/&lt;name&gt;.kubeconfig</code>); source the generated env file rather than assuming your default kubeconfig has the context.</li></ul>
 <h2 id="teardown">Teardown</h2>
-<pre><code>cub lk down --name demo
+<pre><code>cub cluster down --name demo
 cub space delete acme-web-staging --recursive
 cub space delete acme-web-prod --recursive-force   # gates block plain delete, by design
 cub space delete acme-web-base --recursive</code></pre>

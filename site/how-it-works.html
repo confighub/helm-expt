@@ -533,12 +533,11 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
-    <p><strong>The simpler frame:</strong> keep Helm charts, but make the fleet recordable. The catalog turns common chart shapes into vetted OCI package releases. Most choices are fixed before install; the few remaining choices are documented inputs such as namespace, target facts, image overrides, or an existing Secret name. ConfigHub records which package, preset, inputs, target, and approvals each cluster, customer, or environment should run.</p>
+    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. This website helps you inspect the source, choose a useful configuration, make hooks and prerequisites explicit, test the result, and produce literal Kubernetes objects. ConfigHub stores and changes those objects, runs checks and approvals, promotes variants, and records what happened. <code>cub release publish</code> then creates the Space release OCI that Argo CD, Flux, or a recorded direct path consumes without rendering the source package again.</p>
   </div>
 </header>
 <main>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
 
   <h2>1 · The core idea</h2>
   <div class="vs">
@@ -740,30 +739,37 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><strong>Apply</strong> (kubectl / Argo / Flux)</td><td class="yes">yes, apply + prune converges</td><td class="no">no</td><td>Declarative apply converges to the same state, but it's a live action on a cluster.</td></tr>
     <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
   </table>
-  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The doctrine keeps live runs honest: <em>they're serial and ephemeral: cub-lk is kind under the hood, one rig at a time, torn down after; render parity ≠ live-ready, and watch ≠ pass.</em></p>
+  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates the local kind cluster used by the current delivery examples, and <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
 
-  <h2>9 · Delivery: one source, no surprises</h2>
-  <p>The frozen render is published once to an OCI registry. Argo, Flux, or <code>kubectl</code> all pull the <em>same files</em>. The controller never rebuilds its own version from values. <strong>Keep your controller; just point it at the ConfigHub bundle.</strong></p>
-  <pre><code># Argo CD Application source
+  <h2>9 · Delivery: publish the reviewed Space once</h2>
+  <p>Set the Space's release target, then publish the reviewed Units as one immutable release OCI. Argo CD, Flux, or a recorded direct-apply path can pull the same files. None of them renders the chart or source package again.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub space update &lt;app-space&gt; --release-target &lt;cluster-space&gt;/oci
+cub release publish &lt;app-space&gt;
+
+# Argo CD Application source
 source:
-  repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
-  path: ./&lt;space&gt;
+  repoURL: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
+  targetRevision: latest
+  path: .
 
 # Flux source
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 spec:
-  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci</code></pre>
-  <p class="quiet-line">A live fixture proves that Argo CD, Flux, and direct apply can consume the same ConfigHub release OCI and run its routed hook. That proves the delivery mechanism. A catalog configuration has controller-delivery proof only when its own page links to a receipt for that exact configuration.</p>
+  url: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
+  ref:
+    tag: latest</code></pre>
+  <p class="quiet-line">A small routed-hook fixture proves that all three delivery methods can consume one ConfigHub release OCI and complete the same setup Job. The first exact catalog result uses the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset: <code>cub installer</code> reproduced its committed objects, ConfigHub published them once, and Argo CD, Flux, and direct apply all reported the same release digest and a ready NGINX workload. Read the <a href="d/data/catalog-oci-delivery-proof/summary.html">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
   <div class="honest">
-    <h3>Three adoption caveats we manage</h3>
-    <p>On the <strong>managed cub-direct applier</strong> path these apply to every chart. They're the first-run friction points, named, not hidden behind a green install:</p>
+    <h3>What direct apply still has to handle</h3>
+    <p>The recorded direct path proves a first apply for one NGINX configuration. A reusable direct-delivery path also needs explicit behavior for these cases:</p>
     <ul>
-      <li><strong>Generated passwords.</strong> A default that ships its own Secret installs green but can break silently over GitOps. Choose an <code>existing-secret</code> base.</li>
-      <li><strong>CRD ordering.</strong> CRDs must land before the objects that use them; the managed applier orders this for you.</li>
-      <li><strong>SSA conflicts.</strong> Server-side-apply field ownership is surfaced as a readable conflict, not a silent overwrite.</li>
+      <li><strong>Generated passwords.</strong> A chart default may create a Secret that should not become a shared, repeatable credential. Choose an <code>existing-secret</code> preset when the chart supports one.</li>
+      <li><strong>CRD ordering.</strong> Apply CRDs first, wait for them to become available, then apply the objects that use them.</li>
+      <li><strong>Field conflicts and removals.</strong> Show who owns a conflicting field and define which removed objects may be pruned.</li>
     </ul>
-    <p>For per-chart password and CRD heads-up, read the <a href="./charts/index.html">cub adoption caveats</a> for the chart you're installing.</p>
+    <p>The catalog records these requirements per preset. A path is called automatic only after a receipt shows that it performed the required work.</p>
   </div>
 
   <h2>10 · Letting AI make the changes, safely</h2>

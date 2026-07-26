@@ -61,10 +61,12 @@ spec:
       status: "not-published-in-this-record"
       note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
     configHubReleaseOci:
-      status: "no"
-      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
-    argoCd: "no"
-    flux: "no"
+      status: "not-recorded-for-this-base"
+      note: "No current ConfigHub Space release OCI receipt is recorded for this exact base."
+    argoCd: "not-recorded-for-this-base"
+    flux: "not-recorded-for-this-base"
+    direct: "not-recorded-for-this-base"
+    historicalGitopsOciStatus: "no"
   policy:
     profile: "catalog-standard"
     productionAdds:

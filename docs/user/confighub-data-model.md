@@ -1,52 +1,84 @@
-# The ConfigHub data model (the words this all uses)
+# The ConfigHub data model
 
-**UNOFFICIAL/EXPERIMENTAL.** The vocabulary the rest of *how it works* assumes — short
-definitions and how the pieces fit. If a term elsewhere is unfamiliar, it's probably here.
+**UNOFFICIAL/EXPERIMENTAL.** These are the terms used by the catalog and the
+technical guides.
 
-## The pieces
+## Before ConfigHub
 
-- **Chart base** — a chart pinned to a version + a values preset (e.g.
-  `bitnami/nginx@24.0.2 / default`). The thing you render.
-- **Recipe** — the *exact* Kubernetes objects a base renders to (the render-parity claim).
-  Ordinary desired-state config — nothing imperative.
-- **Unit** — ConfigHub's atom of desired state: one piece of config, **versioned and
-  diffable**, living in a space. A recipe becomes a set of Units.
-- **Space** — a named container for Units (a project / environment boundary). You create a
-  space, then put Units in it.
-- **Component** — the logical thing being configured and shipped: an app, service,
-  platform package, or deployable capability such as `payments-api`, `redis`, or
-  `ingress-nginx`. Today, Component is represented by standard metadata rather than a
-  separate first-class API entity. It groups the configuration that belongs to the same
-  product family.
-- **Variant** — one named configuration instance of a Component. A **base variant** is a
-  render-time Helm/recipe install shape. A **derived ConfigHub variant** is a clone of a
-  reviewed configuration instance with approved post-render refinements applied, with no
-  Helm re-render. ([creating-variants](creating-variants.md))
-- **Target** — *where* Units are delivered. The **OCI target** (`<space>/oci`) publishes the
-  Units as an OCI artifact for a controller to pull.
-- **Worker** — the agent that services a target (e.g. the OCI worker `cub-lk` installs) —
-  it turns Units into the published bundle.
-- **OCI bundle** — the single published artifact (`oci://oci.hub.confighub.com/.../oci`)
-  that **every** consumer (Argo / Flux / kubectl) pulls. ([cub-deployment-path](cub-deployment-path.md))
-- **Target fact** — an input the chart needs that isn't in the YAML (an existing secret, a
-  CRD, a storage class, cloud identity). **Staged, not guessed.**
-  ([target-prerequisites](target-prerequisites.md))
-- **Route / lifecycle action** — a non-recipe step (a hook, a CRD install) made **explicit,
-  named, and receipted**; `automatic: false`. ([chart-hooks-what-happens](chart-hooks-what-happens.md))
-- **Receipt** — the typed evidence that a step or proof actually happened (the *observe*
-  layer). `watch ≠ pass`.
+- **Source package** is the input you already use: a Helm chart, AICR recipe,
+  installer package, Kubara or Sveltos configuration, or ordinary Kubernetes
+  YAML.
+- **Preset configuration** is a maintained choice for that source. For Helm it
+  fixes a chart version, values, release name, namespace, capabilities, and
+  other render inputs.
+- **Render intent** records everything needed to reproduce one Helm render. It
+  also names prerequisites and lifecycle work such as CRDs, setup Jobs, and
+  hooks. It does not contain the rendered objects.
+- **Render variant** is the captured Kubernetes output for one base and one
+  revision. It points back to the render intent and includes the object
+  inventory and digest.
+- **Literal configuration OCI** contains rendered Kubernetes objects rather
+  than a chart that still needs to be rendered. `cub variant upload` can read
+  one directly.
 
-## How they fit (one line)
+For Helm, the two layers are therefore:
 
-> chart base → **render** → recipe → becomes **Units** in a **space** → published to an
-> **OCI bundle** via a **target** (serviced by a **worker**) → pulled + applied by Argo /
-> Flux / kubectl → non-recipe bits run as **routes** → everything proven with **receipts**.
+```text
+chart + values + render context + lifecycle choices
+  -> render intent
+  -> captured render variant
+  -> exact Kubernetes objects
+```
 
-## Component and variant families
+## Inside ConfigHub
 
-ConfigHub should not force people to reason only about individual Kubernetes objects. A
-Component lets a person or tool see one logical app, service, platform package, or
-workload family. Variants are the named configuration instances inside that family:
+- **Unit** is a versioned, diffable piece of configuration. Rendered
+  Kubernetes objects become Units when they are uploaded.
+- **Space** groups the Units for one managed configuration, such as a base,
+  development environment, production region, or customer.
+- **Component** is the app, service, or platform capability being managed,
+  such as `payments-api`, `redis`, or `ingress-nginx`. Today it is represented
+  by standard Space metadata rather than a separate API object.
+- **Base variant** is the reviewed starting configuration. For a Helm source,
+  it corresponds to a supported render shape such as `no-crds` or
+  `reuse-existing-secret`.
+- **Derived variant** is a ConfigHub clone for a specific environment, region,
+  customer, or target. Its changes are exact object changes; Helm is not
+  rendered again.
+- **Target fact** is something the destination must provide, such as an
+  existing Secret, storage class, cloud identity, or installed CRD.
+- **Lifecycle route** records work that ordinary apply cannot safely perform
+  by itself. It says what must happen, in which order, under which delivery
+  system, and which receipt proves completion.
+- **Receipt** records a result for an exact configuration and target. A render
+  receipt, controller result, or workload observation does not prove a broader
+  claim than the inputs it names.
+
+## After ConfigHub
+
+- **Target** identifies where Units are released. `cub cluster up` creates a
+  temporary cluster Space and its server-hosted OCI target for the local
+  examples.
+- **Space release OCI** is produced by `cub release publish <space>`. It
+  contains the reviewed Units from that Space and has a pull URL such as
+  `oci://oci.hub.confighub.com:443/space/my-app`.
+- **Delivery consumer** is Argo CD, Flux, or a recorded direct path. It applies
+  the Space release without rendering the original source package again.
+
+## How the pieces fit
+
+```text
+source package
+  -> render intent and captured render variant
+  -> exact objects uploaded as ConfigHub Units
+  -> base and derived Spaces, diffs, checks, approvals, promotions
+  -> cub release publish
+  -> one Space release OCI
+  -> Argo CD, Flux, or recorded direct apply
+  -> live observations and receipts
+```
+
+## One component with several variants
 
 ```text
 Component: payments-api
@@ -59,18 +91,16 @@ Variants:
   payments-api/prod-eu
 ```
 
-This is what makes higher-level questions possible:
+This lets a team answer concrete questions:
 
-- what changed between the base and prod-us variant;
-- which variants are downstream of this base;
-- whether a base change can promote to staging but not prod yet;
-- which target facts or overrides make prod-eu different;
-- whether an AI-assisted change stayed inside the approved variant boundary.
+- What differs between the base and `prod-us`?
+- Which environments will receive a base change?
+- Did staging pass before production was promoted?
+- Which target facts make `prod-eu` different?
+- Did an AI-assisted edit stay within the approved fields?
 
-Caveat: Component is currently mostly a grouping concept. Variant has stronger behavior
-because `cub variant create` and `cub variant promote` give it upstream/downstream clone
-and promotion semantics.
-
-→ deeper: [how-it-works](how-it-works.md) · [cub-deployment-path](cub-deployment-path.md) ·
-[direct-cub-helm-model](../reference/direct-cub-helm-model.md) ·
-[target-prerequisites](target-prerequisites.md)
+Read [Creating variants](creating-variants.md),
+[How ConfigHub delivers configuration through OCI](cub-deployment-path.md),
+[Render intents and render variants](helm-render-intents.md),
+[Target prerequisites](target-prerequisites.md), and
+[What happens to Helm hooks](chart-hooks-what-happens.md).

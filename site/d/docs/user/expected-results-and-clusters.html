@@ -455,28 +455,31 @@
 <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-  --base default \
-  --work-dir .tmp/demo/redis-default \
+  --base reuse-existing-secret \
+  --work-dir ./redis-reuse-existing-secret \
   --non-interactive \
   --namespace redis</code></pre>
 <p>You should see a completed work directory.</p>
 <p>Check:</p>
-<pre><code>find .tmp/demo/redis-default/out -maxdepth 2 -type f | sort | head</code></pre>
+<pre><code>find ./redis-reuse-existing-secret/out -maxdepth 2 -type f | sort | head</code></pre>
 <p>You should see something like:</p>
-<pre><code>.tmp/demo/redis-default/out/manifests/...
-.tmp/demo/redis-default/out/secrets/...</code></pre>
-<p>Redis <code>default</code> separates generated Secret material into <code>out/secrets</code>. For a local apply, stage secrets before manifests:</p>
-<pre><code>kubectl apply -f .tmp/demo/redis-default/out/secrets
-kubectl apply -f .tmp/demo/redis-default/out/manifests</code></pre>
+<pre><code>./redis-reuse-existing-secret/out/manifests/...</code></pre>
+<p>The recommended Redis preset does not ship a password. It expects a Secret named <code>redis-existing-secret</code>. Create that prerequisite before a local apply:</p>
+<pre><code>kubectl create namespace redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password=&quot;$(openssl rand -base64 32)&quot;
+kubectl apply -f ./redis-reuse-existing-secret/out/manifests</code></pre>
 <p>The Redis chart page carries the catalog evidence for this base. You do not need to run the repository proof harness for the first pass through the guide.</p>
 <h2 id="stage-2-standard-helm-baseline">Stage 2: Standard Helm Baseline</h2>
 <p>If the guide asks you to compare with standard Helm, use the same chart version and values as the catalog base. Use a separate namespace or a separate throwaway cluster so the two installs do not collide. A naked <code>helm install</code> can be a useful smoke test, but it is not a parity check unless the inputs match.</p>
 <p>Example shape:</p>
 <pre><code>kubectl create namespace helm-redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n helm-redis create secret generic redis-existing-secret \
+  --from-literal=redis-password=&quot;$(openssl rand -base64 32)&quot;
 helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
   --version 25.5.3 \
   --namespace helm-redis \
-  -f recipes/bitnami/redis/25.5.3/effective-values.yaml</code></pre>
+  -f recipes/bitnami/redis/25.5.3/effective-values-reuse-existing-secret.yaml</code></pre>
 <p>You should see Helm create a release:</p>
 <pre><code>NAME: redis
 LAST DEPLOYED: ...
@@ -489,39 +492,41 @@ STATUS: deployed</code></pre>
 <h2 id="stage-3-upload-to-confighub">Stage 3: Upload To ConfigHub</h2>
 <p>Run:</p>
 <pre><code>cub installer upload \
-  --work-dir .tmp/demo/redis-default \
-  --space helm-redis-default \
+  --work-dir ./redis-reuse-existing-secret \
+  --space helm-redis-existing-secret \
   --component Redis \
   --layer App \
   --environment Demo \
   --owner ConfigHubHelm \
-  --variant default \
+  --variant reuse-existing-secret \
   --unit-label Component=Redis \
   --unit-label HelmChart=bitnami-redis \
   --unit-label HelmChartVersion=25.5.3 \
-  --unit-label Variant=default</code></pre>
+  --unit-label Variant=reuse-existing-secret</code></pre>
 <p>Then check:</p>
-<pre><code>cub unit list --space helm-redis-default \
+<pre><code>cub unit list --space helm-redis-existing-secret \
   --columns Unit.Slug,Unit.Labels.Component,Unit.Labels.Variant</code></pre>
-<p>You should see Redis Units, all labeled with <code>Component=Redis</code> and <code>Variant=default</code>. For Redis <code>default</code>, expect the Kubernetes objects plus an <code>installer-record</code> Unit.</p>
+<p>You should see Redis Units, all labeled with <code>Component=Redis</code> and <code>Variant=reuse-existing-secret</code>. Expect the Kubernetes objects plus an <code>installer-record</code> Unit. The external Secret is not uploaded.</p>
 <p>In the ConfigHub UI:</p>
-<pre><code>Space helm-redis-default -&gt; Units</code></pre>
+<pre><code>Space helm-redis-existing-secret -&gt; Units</code></pre>
 <p>You should see the same Units and labels. If you want to rerun the repository proof harness, use <a href="verify-it-yourself.html">Verify It Yourself</a> after the product path is clear.</p>
 <h2 id="stage-4-local-kubernetes">Stage 4: Local Kubernetes</h2>
 <p>Users may bring any reachable Kubernetes cluster. For quick local tests, use a throwaway kind cluster:</p>
 <pre><code>kind create cluster --name helm-expt-demo
 kubectl config use-context kind-helm-expt-demo</code></pre>
-<p>Apply separated secrets first when a work directory has <code>out/secrets</code>:</p>
-<pre><code>kubectl apply -f .tmp/demo/redis-default/out/secrets
-kubectl apply -f .tmp/demo/redis-default/out/manifests</code></pre>
+<p>Create the required Secret, then apply the rendered manifests:</p>
+<pre><code>kubectl create namespace redis --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password=&quot;$(openssl rand -base64 32)&quot;
+kubectl apply -f ./redis-reuse-existing-secret/out/manifests</code></pre>
 <p>Then check:</p>
 <pre><code>kubectl -n redis get statefulset,pod,pvc</code></pre>
 <p>You should see Redis workloads and PVCs. A healthy Redis run should eventually show pods in <code>Running</code> or <code>Ready</code> state.</p>
 <p>For deeper checks, use <code>kubectl describe</code>, workload logs, or a cub-scout receipt. The repository proof harness can also check Redis-specific behavior, but it should not be the first thing a new user has to understand.</p>
-<h2 id="stage-5-argo-flux-and-cub-lk">Stage 5: Argo, Flux, And cub-lk</h2>
+<h2 id="stage-5-argo-cd-flux-and-cub-cluster">Stage 5: Argo CD, Flux, And <code>cub cluster</code></h2>
 <p>For GitOps examples, users need a cluster that already has the chosen controller and the ConfigHub OCI pull credentials. There are two sensible paths:</p>
 <table><thead><tr><th>Path</th><th>Use it when</th><th>What to expect</th></tr></thead><tbody><tr><td>Bring your own cluster</td><td>You already run Argo CD or Flux.</td><td>Configure the controller to pull the ConfigHub OCI artifact, then check controller sync and workload readiness.</td></tr>
-<tr><td>Use <code>cub-lk</code></td><td>You want a disposable local Argo/kind rig for a demo or proof run.</td><td><code>cub lk up</code> provisions kind, Argo, and the OCI worker/target pieces needed by the proof path.</td></tr></tbody></table>
+<tr><td>Use <code>cub cluster up</code></td><td>You want a disposable local kind cluster for a demo or proof run.</td><td>The command installs Argo CD and creates the ConfigHub Space, OCI target, pull credentials, and root Application used by the current path.</td></tr></tbody></table>
 <p>The important point is that ConfigHub does not replace the in-cluster controller in the GitOps path. ConfigHub stores Units, publishes one OCI artifact, and records evidence. Argo or Flux pulls and reconciles it.</p>
 <p>You should verify two things:</p>
 <pre><code>controller accepted the artifact
@@ -536,7 +541,7 @@ workloads reached the expected live state</code></pre>
 <tr><td>Observe live state</td><td>Workload, prerequisite, controller, or cub-scout receipts with freshness.</td></tr></tbody></table>
 <p>For a user guide, each step should show one concrete check:</p>
 <pre><code>cub unit list ...
-cub variant promote ... --dry-run -o mutations
+cub variant promote ... --dry-run
 kubectl get ...
 controller status page
 ConfigHub Space -&gt; Units

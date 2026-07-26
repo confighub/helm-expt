@@ -1,100 +1,162 @@
-# How deployment works on the cub path (ConfigHub → OCI → your controller)
+# How ConfigHub delivers configuration through OCI
 
-**UNOFFICIAL/EXPERIMENTAL.** What actually happens when you deploy a chart through
-ConfigHub: the steps, the **OCI transport**, and how **credentials** are handled.
-For one approved release, Argo CD, Flux, or the direct path can consume the same
-artifact.
+**UNOFFICIAL/EXPERIMENTAL.** This page explains the path from a Helm chart or
+another source package to a running Kubernetes configuration.
+
+The short version is: **source package in, managed configuration in ConfigHub,
+release OCI out**. Delivery uses the Kubernetes objects that were reviewed in
+ConfigHub. It does not render the Helm chart again.
 
 ## The path, end to end
 
-1. **Render.** `cub installer` turns a chart base into the exact Kubernetes objects —
-   the same set `helm template` produces, proven object-for-object by the render-parity
-   lane. This is the *recipe*: ordinary desired-state config.
-2. **Desired state.** Those objects become **ConfigHub Units** in a space — reviewable,
-   diffable, versioned.
-3. **Publish to OCI.** ConfigHub publishes the Units as a single **OCI artifact**
-   (`oci://oci.hub.confighub.com:443/target/<space>/oci`). This is the one transport —
-   nothing downstream re-renders from git or local files.
-4. **Apply.** A delivery agent pulls that OCI artifact and applies it to the cluster:
-   - **Argo CD** — an `Application` whose `source.repoURL` is the OCI URL.
-   - **Flux** — an `OCIRepository` at the same URL + a `Kustomization`.
-   - **No controller (cub-direct)** — the managed cub-direct applier pulls the same
-     bundle and applies it without a GitOps controller.
-5. **Quirks run as explicit routes.** Hooks, CRD installs, and other non-recipe behavior
-   are **not** in the bundle — they are separate, named, receipted lifecycle actions
-   (see [chart-hooks-what-happens.md](chart-hooks-what-happens.md) and the hooks doctrine).
+1. **Choose and render a source.** For Helm, `cub installer` pulls a public
+   installer-package OCI and selects one preset configuration. AICR and other
+   sources have their own generation step.
+2. **Check the Kubernetes objects.** The result is ordinary Kubernetes YAML.
+   You can inspect it before signing up for ConfigHub.
+3. **Upload the exact objects.** Each object becomes a ConfigHub Unit. The
+   source record keeps the chart version, values, target assumptions,
+   prerequisites, and lifecycle work beside those Units.
+4. **Review and operate the configuration.** ConfigHub can show diffs, run
+   checks, require approval, create variants, and promote a revision through
+   environments.
+5. **Publish one release OCI.** `cub release publish <space>` packages the
+   reviewed Units in that Space. The current pull URL has this form:
+   `oci://oci.hub.confighub.com:443/space/<space>`.
+6. **Deliver without rendering again.** Argo CD, Flux, or a recorded direct
+   path pulls that release OCI and applies the same Kubernetes objects.
 
-## cub-direct is managed apply, not bare apply
+## The two OCI artifacts are different
 
-The no-controller path is useful for a quick run or a controlled one-shot delivery, but a
-plain `kubectl apply` is not enough for safe first install and upgrade behavior. The managed
-cub-direct applier must handle three things that plain apply does not:
+| Artifact | What it contains | When it is used |
+| --- | --- | --- |
+| Installer-package OCI | A chart plus preset configurations, values, and supporting files | Before ConfigHub, when a user chooses and renders a configuration |
+| ConfigHub Space release OCI | The exact reviewed Units from one ConfigHub Space | After review, when Argo CD, Flux, or direct apply delivers the configuration |
 
-| Adoption caveat | Managed path |
-| --- | --- |
-| CRDs and custom resources in the same bundle | Apply CRDs first, wait for them to establish, then apply the rest. |
-| Upgrade removes a resource | Prune removed objects with a safe selector/allowlist, or use a controller that owns prune. |
-| Manual live edit creates a server-side-apply conflict | Show a plain reconcile choice instead of a raw Kubernetes conflict: keep live, accept desired, or force with receipt. |
+An installer package may offer several preset configurations. A Space release
+contains one selected and reviewed configuration. Do not use an installer
+package URL as if it were a Space release URL.
 
-If a chart has CRDs or you are upgrading a long-lived app, Argo or Flux is usually the
-cleaner path because the controller already owns ordering, prune, and reconciliation loops.
-The cub-direct path is still valid, but it should be the managed applier path rather than
-an unmanaged `kubectl apply` transcript.
+## Publishing and consuming a Space release
 
-## Why OCI — one bundle, every consumer
-
-ConfigHub publishes **once** to OCI; Argo, Flux, and a plain `kubectl` all pull the **same**
-artifact. You pick the delivery tool; the bytes are identical. Re-rendering from git or
-local files would be a *different* artifact — so the cub path always sources from the OCI
-bundle, never a re-render.
-
-## Credentials — two separate kinds
-
-**1. OCI pull credentials (delivery auth).** Pulling from the ConfigHub OCI registry needs
-registry credentials:
-- cub-lk provisions a `confighub-oci-creds` secret into the **Argo** namespace automatically.
-- For **Flux**, the *same* secret is **copied** into the flux namespace (by re-namespacing
-  its YAML); `OCIRepository.secretRef` points at the copy.
-- **Security posture:** the credential moves **cluster-internally, by copy** — it is never
-  printed to a terminal, written to a log, or passed on a command line. If the secret's
-  format isn't what a consumer expects, that consumer reports a named error (an honest
-  failure) — it never silently runs unauthenticated.
-
-**2. Application secrets (your app's own Secrets).** A *different* concern from delivery
-auth. A chart's Secret is either **generated** (rendered into the bundle) or **existing**
-(you pre-provide it — an existing-secret base, or a staged *target fact*). These belong to
-the recipe + target facts, not the OCI pull credentials. See
-[target-prerequisites.md](target-prerequisites.md).
-
-## What the live delivery test proves
-
-A small routed-hook fixture was published once as a ConfigHub release OCI. Argo
-CD, Flux, and direct apply each pulled that artifact on a throwaway test cluster.
-The workload was applied and the hook completed under all three. The committed
-receipt is `runs/oci-hook-delivery-proof/receipt.yaml` (summary:
-[../../data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md)):
-
-- **Argo CD (OCI `Application`) passed.** `render -> ConfigHub -> OCI -> Argo -> runtime`.
-- **Flux (`OCIRepository` + `Kustomization`) passed.** The OCI pull Secret was copied into `flux-system` and was never printed.
-- **cub-direct (no controller) passed.** The same OCI artifact can be
-  applied without a controller, and the managed applier proof covers CRD ordering, prune,
-  and product-readable server-side-apply conflicts.
-
-This proves the delivery mechanism for that fixture. It does not prove that
-every catalog base has been delivered through all three paths. A chart or other
-catalog configuration has controller-delivery proof only when its own page
-links to a receipt for that exact configuration.
-
-For direct apply, use the managed applier when CRDs, upgrades, or manual live
-edits are in scope.
-
-## Try it
+`cub cluster up` creates a temporary kind cluster, installs Argo CD, and creates
+the ConfigHub Space and OCI target used by the cluster:
 
 ```sh
 cub auth login
-cub plugin install jesperfj/cub-lk
-cub lk up --name myrig                      # provisions kind + Argo + the OCI worker
-tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \
-  --namespace nginx --rig myrig --json      # cub installer → ConfigHub → OCI → Argo, with a receipt
-cub lk down --name myrig --force
+cub cluster up --name myrig --space myrig-cluster
+```
+
+This is the current command. Older evidence may contain
+`cub-lk-kind-vanilla`, which is a historical target-class name rather than an
+instruction to install or run another tool.
+
+After uploading an application's Kubernetes objects to a Space, set that
+Space's release target and publish it:
+
+```sh
+cub space update my-app --release-target myrig-cluster/oci
+cub release publish my-app
+```
+
+Argo CD reads the published release with an OCI source:
+
+```yaml
+source:
+  repoURL: oci://oci.hub.confighub.com:443/space/my-app
+  targetRevision: latest
+  path: .
+```
+
+Flux uses the same Space release:
+
+```yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: my-app
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: oci://oci.hub.confighub.com:443/space/my-app
+  ref:
+    tag: latest
+  secretRef:
+    name: confighub-oci
+```
+
+When the test is finished:
+
+```sh
+cub cluster down --name myrig --force
+```
+
+## Hooks, CRDs, and other setup work
+
+Some charts need more than an ordinary apply. A CRD may need to exist before a
+custom resource. A setup Job may need to finish before the main workload. A
+webhook may need a certificate.
+
+The catalog records that work with the selected base instead of hiding it in a
+Helm hook annotation. Each supported delivery path must say how it performs the
+step, how it waits, and what receipt proves completion. Users can still use
+hooks and chart-specific setup; ConfigHub makes those decisions visible and
+repeatable.
+
+See [What happens to Helm hooks](chart-hooks-what-happens.md) and
+[Target prerequisites](target-prerequisites.md).
+
+## Direct apply
+
+A plain `kubectl apply` is useful for a quick check, but it does not by itself
+solve every installation and upgrade case.
+
+| Case | What a safe direct path must do |
+| --- | --- |
+| CRDs and custom resources are in one release | Apply CRDs first, wait for them, then apply dependent objects |
+| An upgrade removes an object | Prune the removed object under an explicit ownership rule |
+| A live edit conflicts with reviewed configuration | Show the choice: keep live, accept desired, or force the reviewed change |
+
+Argo CD or Flux is usually the better long-running path because a controller
+already owns reconciliation and pruning. Direct apply remains useful for a
+controlled first install and for environments that do not run a GitOps
+controller.
+
+## Credentials
+
+Delivery credentials and application Secrets are separate.
+
+**OCI pull credentials** let Argo CD or Flux read a private ConfigHub Space
+release. `cub cluster up` installs the Argo CD pull Secret. A Flux test copies
+the same credential into `flux-system` without printing it or placing it on a
+command line.
+
+**Application Secrets** belong to the workload. A preset may render a Secret,
+refer to an existing Secret, or declare that the target must provide one.
+Those choices are part of the source record and target prerequisites, not the
+OCI registry login.
+
+## What has been proved
+
+Two receipts cover different claims:
+
+- The [routed-hook delivery proof](../../data/oci-hook-delivery-proof/summary.md)
+  shows that Argo CD, Flux, and direct apply can consume one ConfigHub release
+  OCI and complete the same setup Job.
+- The [NGINX catalog delivery proof](../../data/catalog-oci-delivery-proof/summary.md)
+  starts from the real `bitnami/nginx@24.0.2` `http-clusterip` preset. It checks
+  that `cub installer` reproduces the committed objects, publishes those Units
+  once, and records the same release digest under Argo CD, Flux, and direct
+  apply.
+
+The NGINX receipt is the first exact catalog-base result. It does not prove
+delivery for every chart or preset. Each additional catalog configuration
+needs its own receipt before its page can make the same claim.
+
+Maintainers can rerun that exact test in a scratch ConfigHub organization:
+
+```sh
+CUB_CONTEXT=<scratch-context> \
+HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
+npm run catalog-oci:proof
 ```

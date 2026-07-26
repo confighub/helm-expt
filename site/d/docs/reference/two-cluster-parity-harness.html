@@ -448,10 +448,10 @@ same object and readiness outcome.
 GitOps/OCI delivery = the already-proven cub installer output is published and
 reconciled through Argo CD or Flux.</code></pre>
 <p>Both matter. They should be separate receipts because they answer different questions.</p>
-<h2 id="why-not-cub-lk-by-default">Why Not cub-lk By Default</h2>
-<p><code>cub lk</code> is useful for ConfigHub/OCI/GitOps proof because it creates a local cluster, ConfigHub target, OCI endpoint, and Argo CD controller. That is a delivery proof.</p>
+<h2 id="why-not-cub-cluster-up-by-default">Why Not <code>cub cluster up</code> By Default</h2>
+<p><code>cub cluster up</code> is useful for ConfigHub/OCI/GitOps proof because it creates a local cluster, ConfigHub Space and target, OCI delivery path, and Argo CD controller. That is a delivery proof.</p>
 <p>Strict Helm parity is different. It should not preinstall a controller unless the chart itself requires that controller as a target fact. The Argo CD chart showed the problem: the test rig installed Argo CD CRDs for delivery, then the Argo CD chart-under-test tried to install those same CRDs through Helm.</p>
-<p>Use <code>cub lk</code> or an equivalent prepared target for:</p>
+<p>Use <code>cub cluster up</code> or an equivalent prepared target for:</p>
 <ul><li>ConfigHub OCI delivery proof;</li><li>Argo/Flux reconciliation proof;</li><li>target-bound derived variant proof;</li><li>tutorials that explicitly need a ConfigHub target.</li></ul>
 <p>Use two vanilla kind clusters for:</p>
 <ul><li>Helm-vs-installer live parity;</li><li>rerunning all base variants;</li><li>user-supplied parity checks;</li><li>diagnosing chart readiness without GitOps/controller noise.</li></ul>

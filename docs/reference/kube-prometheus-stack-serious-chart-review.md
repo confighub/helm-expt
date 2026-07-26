@@ -109,9 +109,10 @@ version changes." It does not generalize to other charts' hooks.
 From `data/production-disposition/` the chart is `production-review-ready`
 with 7 dispositions accepted and 0 open. From
 `data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml`,
-the `default` base is supported for one declared target scope:
-`cub-lk-kind-vanilla`, namespace `monitoring`, ConfigHub OCI delivery, and
-Argo.
+the `default` base is supported for one declared target scope: vanilla kind,
+namespace `monitoring`, ConfigHub OCI delivery, and Argo CD. The committed
+receipt retains the historical machine label `cub-lk-kind-vanilla`; current
+local examples create this class of target with `cub cluster up`.
 
 That support decision records a mutable-image exception, scan/security
 acceptance, lifecycle decision, target-fact decision, and fresh ConfigHub

@@ -90,6 +90,9 @@ const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
 const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+const CATALOG_OCI_DELIVERY_RECEIPT =
+  "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml";
+const CATALOG_OCI_DELIVERY_SUMMARY = "data/catalog-oci-delivery-proof/summary.md";
 // Single source for what the public installer command does. Every page and
 // generated script that shows the command must distinguish local rendering
 // from delivery to Kubernetes. Keep this free of single quotes, percent signs,
@@ -1589,7 +1592,7 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
-    <p><strong>The simpler frame:</strong> keep Helm charts, but make the fleet recordable. The catalog turns common chart shapes into vetted OCI package releases. Most choices are fixed before install; the few remaining choices are documented inputs such as namespace, target facts, image overrides, or an existing Secret name. ConfigHub records which package, preset, inputs, target, and approvals each cluster, customer, or environment should run.</p>
+    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. This website helps you inspect the source, choose a useful configuration, make hooks and prerequisites explicit, test the result, and produce literal Kubernetes objects. ConfigHub stores and changes those objects, runs checks and approvals, promotes variants, and records what happened. <code>cub release publish</code> then creates the Space release OCI that Argo CD, Flux, or a recorded direct path consumes without rendering the source package again.</p>
   </div>
 </header>
 <main>
@@ -1794,30 +1797,36 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><strong>Apply</strong> (kubectl / Argo / Flux)</td><td class="yes">yes, apply + prune converges</td><td class="no">no</td><td>Declarative apply converges to the same state, but it's a live action on a cluster.</td></tr>
     <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
   </table>
-  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The doctrine keeps live runs honest: <em>they're serial and ephemeral: cub-lk is kind under the hood, one rig at a time, torn down after; render parity ≠ live-ready, and watch ≠ pass.</em></p>
+  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates the local kind cluster used by the current delivery examples, and <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
 
-  <h2>9 · Delivery: one source, no surprises</h2>
-  <p>The frozen render is published once to an OCI registry. Argo, Flux, or <code>kubectl</code> all pull the <em>same files</em>. The controller never rebuilds its own version from values. <strong>Keep your controller; just point it at the ConfigHub bundle.</strong></p>
-  <pre><code># Argo CD Application source
+  <h2>9 · Delivery: publish the reviewed Space once</h2>
+  <p>Set the Space's release target, then publish the reviewed Units as one immutable release OCI. Argo CD, Flux, or a recorded direct-apply path can pull the same files. None of them renders the chart or source package again.</p>
+  <pre><code>cub space update &lt;app-space&gt; --release-target &lt;cluster-space&gt;/oci
+cub release publish &lt;app-space&gt;
+
+# Argo CD Application source
 source:
-  repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
-  path: ./&lt;space&gt;
+  repoURL: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
+  targetRevision: latest
+  path: .
 
 # Flux source
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 spec:
-  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci</code></pre>
-  <p class="quiet-line">A live fixture proves that Argo CD, Flux, and direct apply can consume the same ConfigHub release OCI and run its routed hook. That proves the delivery mechanism. A catalog configuration has controller-delivery proof only when its own page links to a receipt for that exact configuration.</p>
+  url: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
+  ref:
+    tag: latest</code></pre>
+  <p class="quiet-line">A small routed-hook fixture proves that all three delivery methods can consume one ConfigHub release OCI and complete the same setup Job. The first exact catalog result uses the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset: <code>cub installer</code> reproduced its committed objects, ConfigHub published them once, and Argo CD, Flux, and direct apply all reported the same release digest and a ready NGINX workload. Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
   <div class="honest">
-    <h3>Three adoption caveats we manage</h3>
-    <p>On the <strong>managed cub-direct applier</strong> path these apply to every chart. They're the first-run friction points, named, not hidden behind a green install:</p>
+    <h3>What direct apply still has to handle</h3>
+    <p>The recorded direct path proves a first apply for one NGINX configuration. A reusable direct-delivery path also needs explicit behavior for these cases:</p>
     <ul>
-      <li><strong>Generated passwords.</strong> A default that ships its own Secret installs green but can break silently over GitOps. Choose an <code>existing-secret</code> base.</li>
-      <li><strong>CRD ordering.</strong> CRDs must land before the objects that use them; the managed applier orders this for you.</li>
-      <li><strong>SSA conflicts.</strong> Server-side-apply field ownership is surfaced as a readable conflict, not a silent overwrite.</li>
+      <li><strong>Generated passwords.</strong> A chart default may create a Secret that should not become a shared, repeatable credential. Choose an <code>existing-secret</code> preset when the chart supports one.</li>
+      <li><strong>CRD ordering.</strong> Apply CRDs first, wait for them to become available, then apply the objects that use them.</li>
+      <li><strong>Field conflicts and removals.</strong> Show who owns a conflicting field and define which removed objects may be pruned.</li>
     </ul>
-    <p>For per-chart password and CRD heads-up, read the <a href="./charts/index.html">cub adoption caveats</a> for the chart you're installing.</p>
+    <p>The catalog records these requirements per preset. A path is called automatic only after a receipt shows that it performed the required work.</p>
   </div>
 
   <h2>10 · Letting AI make the changes, safely</h2>
@@ -3376,8 +3385,8 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "How is config delivered, and what about OCI and credentials?",
           answer:
-            "ConfigHub can publish reviewed Units once as a release OCI. A live fixture proves that Argo CD, Flux, and direct apply can consume the same bundle and run its routed hook. That receipt proves the mechanism, not every catalog configuration. Each configuration needs its own delivery receipt. OCI pull credentials are provisioned for Argo CD and copied into the Flux namespace without being printed or passed on a command line.",
-          links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
+            "ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD, Flux, or direct apply can consume that artifact without rendering the chart again. A small hook fixture proves the mechanism, and an exact NGINX receipt proves the first real catalog preset through all three paths at one digest. Other presets need their own receipt before making the same claim. cub cluster up installs the Argo CD pull credential; the Flux proof copies it into flux-system without printing it.",
+          links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["Exact NGINX result", "../data/catalog-oci-delivery-proof/summary.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
         },
         {
           status: "answered",
@@ -5464,6 +5473,13 @@ function chartStatStrip(entry, firstRunnableRow) {
   return `<p class="stat-strip">${variant} base variant: ${stats.join(" · ")}. Every number is extracted from committed data.</p>`;
 }
 
+function humanTargetScope(scope) {
+  return String(scope ?? "").replace(
+    "cub-lk-kind-vanilla",
+    "vanilla kind (historical receipt)",
+  );
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -5575,6 +5591,14 @@ function chartPageHtml(catalog, entry) {
     ["Chart skills", "data/chart-skills/summary.md"],
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
+    [
+      entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
+        ? "Exact NGINX three-path delivery receipt"
+        : "",
+      entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
+        ? CATALOG_OCI_DELIVERY_RECEIPT
+        : "",
+    ],
   ].filter(([, path]) => path);
   const openDispositions = splitDisposition(production?.open_dispositions);
   const acceptedDispositions = splitDisposition(production?.accepted_dispositions);
@@ -5829,7 +5853,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ["Production disposition", production?.production_support ?? entry.production_readiness],
         ["Target-scoped support decision", support?.decision ?? "not recorded"],
         ["Supported base", support?.supported_base ?? ""],
-        ["Target scope", support?.target_scope ?? ""],
+        ["Target scope", humanTargetScope(support?.target_scope)],
         ["Accepted dispositions", acceptedDispositions.join("; ") || "none recorded"],
         ["Open policy dispositions", openDispositions.join("; ") || "none recorded for this policy checklist"],
         ["Next action", support?.next_action || production?.next_action || top100?.next_action || ""],
@@ -6151,6 +6175,13 @@ function matrixRowLinks(row, catalog) {
     maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
     const baseRecordPath = `data/base-variant-records/records/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`;
     if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath);
+    if (
+      row.chart === "bitnami/nginx"
+      && row.version === "24.0.2"
+      && row.variant === "http-clusterip"
+    ) {
+      maybe("Argo, Flux, and direct receipt", CATALOG_OCI_DELIVERY_RECEIPT);
+    }
   }
   maybe("package base", row.package_base_path);
   maybe("receipt", row.target_run_receipt || row.variant_promotion_evidence || row.active_proof_support_artifact);
@@ -6359,12 +6390,12 @@ function universalCubAdoptionRows() {
       `cub rejects Helm flags instead of silently absorbing typos. Use <code>--input</code> for declared inputs, <code>--set-image</code> for declared images, or edit/author a base. See <a href="../docs/user/helm-to-cub-migration.md">Helm to cub migration</a>.`,
     ],
     [
-      "cub-direct upgrades must prune removed objects",
-      `Plain <code>kubectl apply</code> leaves orphans. Use the managed cub-direct applier, which prunes, or use Argo/Flux for controller-managed prune.`,
+      "Direct-apply upgrades need an explicit prune rule",
+      `Plain <code>kubectl apply</code> leaves removed objects behind. Use Argo CD or Flux for controller-managed pruning, or use a direct path whose ownership and pruning behavior have their own receipt.`,
     ],
     [
       "server-side apply conflicts need a readable choice",
-      `A manual live edit can conflict on re-apply. The managed applier surfaces the reconcile choice in plain words instead of letting a raw Kubernetes error be the user experience.`,
+      `A manual live edit can conflict on re-apply. A direct path must show who owns the field and let the operator choose which value should win.`,
     ],
   ];
 }
@@ -6373,14 +6404,14 @@ function chartAdoptionCaveatHtml(caveat) {
   if (!caveat) {
     return `<section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
-      <p>No chart-specific password or CRD caveat is recorded for this chart. The usual cub-direct caveats still apply: use declared inputs or bases instead of Helm <code>--set</code>, use managed prune for upgrades, and treat server-side-apply conflicts as an explicit reconcile choice.</p>
+      <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path is recorded for the selected preset.</p>
       <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
     </section>`;
   }
   const hasPassword = caveat.bakes_shared_password === "yes";
   const hasCrds = caveat.ships_crds === "yes";
   const rows = [
-    ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>; use managed cub-direct prune or Argo/Flux for upgrades; treat SSA conflicts as an explicit reconcile choice.`],
+    ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.`],
     [
       "Shared placeholder password",
       hasPassword
@@ -6390,7 +6421,7 @@ function chartAdoptionCaveatHtml(caveat) {
     [
       "CRD first-ordering",
       hasCrds
-        ? `Yes. ${escapeHtml(caveat.crd_count || "some")} CRD object(s) are recorded. Use the managed cub-direct applier, use Argo/Flux, or choose the separable CRD base ${caveat.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`
+        ? `Yes. ${escapeHtml(caveat.crd_count || "some")} CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`
         : "No CRD first-ordering caveat recorded for this chart.",
     ],
   ];
