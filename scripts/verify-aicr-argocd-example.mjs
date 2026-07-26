@@ -16,6 +16,7 @@ const sourceManifestPath = join(root, "local-argocd-source-oci-manifest.json");
 const renderedManifestPath = join(root, "local-argocd-config-oci-manifest.json");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
+const promotionProofPath = join(repoRoot, "runs", "aicr-variant-promotion-proof", "receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
@@ -29,6 +30,7 @@ for (const path of [
   renderedManifestPath,
   uploadReceiptPath,
   promotionReceiptPath,
+  promotionProofPath,
   join(sourceLayoutRoot, "index.json"),
   join(renderedLayoutRoot, "index.json"),
 ]) {
@@ -38,6 +40,7 @@ for (const path of [
 const receipt = readYaml(receiptPath);
 const uploadReceipt = readYaml(uploadReceiptPath);
 const promotionReceipt = readYaml(promotionReceiptPath);
+const promotionProof = readYaml(promotionProofPath);
 check(receipt.spec?.deployer === "argocd-helm", "AICR Argo CD receipt must use argocd-helm");
 check(receipt.spec?.source?.version === "v0.14.0", "AICR Argo CD receipt must pin v0.14.0");
 
@@ -259,6 +262,45 @@ check(
 );
 check(promotionReceipt.status?.promotionPreview === "not-run", "AICR promotion readiness must not claim a preview");
 check(promotionReceipt.status?.promotion === "not-run", "AICR promotion readiness must not claim promotion");
+
+check(
+  promotionProof.kind === "AicrVariantPromotionProofReceipt",
+  "AICR scratch promotion proof kind changed",
+);
+check(promotionProof.status?.result === "pass", "AICR scratch promotion proof is not pass");
+check(
+  promotionProof.spec?.source?.digest === renderedDigest,
+  "AICR scratch promotion proof used a different literal configuration OCI",
+);
+check(
+  promotionProof.spec?.source?.applicationCount === 17,
+  "AICR scratch promotion proof Application count changed",
+);
+check(
+  promotionProof.spec?.source?.exactSourceObjectsMatched === true,
+  "AICR scratch promotion proof did not match the committed Application files",
+);
+check(
+  promotionProof.spec?.change?.changedApplicationCount === 1
+    && promotionProof.spec?.change?.changedApplications?.[0]
+      === "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack",
+  "AICR scratch promotion proof must change only kube-prometheus-stack",
+);
+check(
+  promotionProof.spec?.change?.after?.admin?.existingSecret === "aicr-grafana-admin",
+  "AICR scratch promotion proof no longer uses the reviewed Grafana Secret",
+);
+check(
+  promotionProof.spec?.promotion?.dryRun === "pass"
+    && promotionProof.spec?.promotion?.dryRunLeftStagingUnchanged === true
+    && promotionProof.spec?.promotion?.result === "pass"
+    && promotionProof.spec?.promotion?.stagingMatchesReviewedDev === true,
+  "AICR scratch dev-to-staging promotion evidence is incomplete",
+);
+check(
+  Object.values(promotionProof.spec?.cleanup ?? {}).every((value) => value === "pass"),
+  "AICR scratch promotion proof cleanup did not pass",
+);
 
 const publicStatuses = [
   receipt.status?.publicSourcePush,

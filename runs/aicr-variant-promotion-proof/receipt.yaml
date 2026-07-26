@@ -1,0 +1,117 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrVariantPromotionProofReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-14-0"
+spec:
+  recordedAt: "2026-07-26T18:07:38.508Z"
+  context:
+    name: "tiny-tiny"
+    organization: "DP1-Sandbox"
+    purpose: "temporary scratch proof"
+  source:
+    format: "AICR Argo CD literal configuration OCI"
+    committedLayout: "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config"
+    temporaryReference: "oci://localhost:32773/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+    digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+    applicationCount: 17
+    syncWaves:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+    exactSourceObjectsMatched: true
+    canonicalDataSha256: "4b5ad08b6819df08480cd4b09af9c02bfe8510729ee5515e4c613d45b5e2a1ec"
+  variants:
+    base:
+      space: "hx-aicr-proof-20260726180710-base"
+      spaceId: "8f4b7678-be8d-4612-a0ac-686a4b8df4ea"
+      variant: "base"
+      environment: ""
+      unit: "hx-aicr-proof-20260726180710"
+      unitId: "f1351d70-81f7-4977-91d5-7333e327d7df"
+      headRevision: 1
+      upstreamRevision: null
+      upstreamUnitId: null
+      upgradeLinkId: null
+      dataHash: "2eee498519d33a4fc6d7ab5a79104a40dc50ad71abf18b07a3411f8e40af79ba"
+      canonicalDataSha256: "4b5ad08b6819df08480cd4b09af9c02bfe8510729ee5515e4c613d45b5e2a1ec"
+    dev:
+      space: "hx-aicr-proof-20260726180710-dev"
+      spaceId: "05ae0335-71ab-47b4-a7d2-bdd2921cf202"
+      variant: "dev"
+      environment: "Dev"
+      unit: "hx-aicr-proof-20260726180710"
+      unitId: "b9ee2349-724b-4a48-90c2-d3924228790d"
+      headRevision: 3
+      upstreamRevision: 1
+      upstreamUnitId: "f1351d70-81f7-4977-91d5-7333e327d7df"
+      upgradeLinkId: "6714cae6-c90b-45bd-a243-cc4bdf9bd49c"
+      dataHash: "652b8252725582b209d87c9cf2c8bfa3a7f7f09e521bb8e3e9b90793af17d07c"
+      canonicalDataSha256: "9a46fefd20e6ca514ad22aed684e1c01a88bba73aae15aa5771c721762312592"
+    staging:
+      space: "hx-aicr-proof-20260726180710-staging"
+      spaceId: "1f2996bf-f3ac-4557-af78-7b434bf96e9a"
+      variant: "staging"
+      environment: "Staging"
+      unit: "hx-aicr-proof-20260726180710"
+      unitId: "dac5900d-dff9-415e-a017-9da9e0b945f1"
+      headRevision: 2
+      upstreamRevision: 3
+      upstreamUnitId: "b9ee2349-724b-4a48-90c2-d3924228790d"
+      upgradeLinkId: "4c9c3f45-7d36-42bc-8bcd-50c61348b2e9"
+      dataHash: "652b8252725582b209d87c9cf2c8bfa3a7f7f09e521bb8e3e9b90793af17d07c"
+      canonicalDataSha256: "9a46fefd20e6ca514ad22aed684e1c01a88bba73aae15aa5771c721762312592"
+  change:
+    resource: "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+    path: "spec.source.helm.values.grafana"
+    before:
+      adminPassword: "admin"
+    after:
+      admin:
+        existingSecret: "aicr-grafana-admin"
+        userKey: "admin-user"
+        passwordKey: "admin-password"
+    changedApplicationCount: 1
+    changedApplications:
+      - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+    devDryRun: "pass"
+    devDryRunLeftDataUnchanged: true
+    devUpdate: "pass"
+  promotion:
+    path: "base -> dev -> staging"
+    dryRun: "pass"
+    dryRunReportedUnitCount: 1
+    dryRunLeftStagingUnchanged: true
+    result: "pass"
+    stagingMatchesReviewedDev: true
+  cleanup:
+    stagingSpace: "pass"
+    devSpace: "pass"
+    baseSpace: "pass"
+    registry: "pass"
+  limits:
+    - "This run used a temporary local registry; it does not prove public Google Artifact Registry publication."
+    - "This run started no Kubernetes cluster. It does not prove Argo CD delivery, application health, or GPU workload health."
+    - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
+    - "This receipt proves one AICR bundle, one reviewed field change, and one dev-to-staging promotion."
+status:
+  result: "pass"
+  ociImport: "pass"
+  exactApplicationSet: "pass"
+  derivedVariants: "pass"
+  changeDryRun: "pass"
+  promotionDryRun: "pass"
+  promotion: "pass"
+  claim: "ConfigHub imported the 17 exact AICR Argo CD Applications, kept one reviewed Grafana Secret change in dev, previewed the promotion without changing staging, and then promoted the same configuration to staging."

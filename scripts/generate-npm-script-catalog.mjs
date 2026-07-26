@@ -62,6 +62,7 @@ function categorize(name) {
   if (name.startsWith("production:") || name.startsWith("scan-disposition") || name.startsWith("external-scan") || name.startsWith("image-digests") || name.startsWith("kps:") || name.startsWith("eso:production-support")) return "production-support";
   if (name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("kind-parity")) return "live-parity-gitops";
   if (name.startsWith("helm-org:")) return "confighub-catalog-org";
+  if (name.startsWith("aicr-variant-promotion:")) return "derived-variants";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
