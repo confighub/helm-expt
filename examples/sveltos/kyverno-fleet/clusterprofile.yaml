@@ -16,6 +16,5 @@ spec:
       releaseNamespace: kyverno
       helmChartAction: Install
       values: |
-        replicaCount: 3
         admissionController:
           replicas: 3

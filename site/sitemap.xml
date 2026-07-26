@@ -765,6 +765,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-exists.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/local-platform/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/SCHEMA.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/log.html</loc></url>

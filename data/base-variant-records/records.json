@@ -26620,7 +26620,7 @@
         "labels": {
           "sourceType": "sveltos",
           "component": "kyverno-fleet",
-          "sourceVersion": "3.8.1",
+          "sourceVersion": "v1.12.0",
           "base": "staging"
         }
       },
@@ -26628,14 +26628,14 @@
         "source": {
           "type": "sveltos",
           "name": "kyverno-fleet",
-          "version": "3.8.1",
-          "record": "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+          "version": "v1.12.0",
+          "record": "examples/sveltos/kyverno-fleet/source-lock.yaml",
           "packageOciRef": ""
         },
         "baseVariant": {
           "name": "staging",
-          "revision": "example-r001",
-          "digest": "23793ffc8e4e587321cb83f2741fa7aa26848467ebf3599cb65e22a3dddafbc6"
+          "revision": "live-r001",
+          "digest": "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
         },
         "configuration": {
           "format": "sveltos-clusterprofile-yaml",
@@ -26645,37 +26645,68 @@
         },
         "inputs": {
           "fixedAtBuildTime": [
+            "sveltos=v1.12.0",
             "chart=kyverno/kyverno",
             "version=3.8.1",
             "clusterSelector=environment=staging",
-            "syncMode=ContinuousWithDriftDetection"
+            "syncMode=ContinuousWithDriftDetection",
+            "admissionController.replicas=3"
           ],
-          "installTime": [],
-          "installTimeStatus": "not-yet-declared"
+          "installTime": [
+            {
+              "name": "management cluster",
+              "value": "Kubernetes v1.35.0 with Sveltos v1.12.0",
+              "status": "live-pass"
+            },
+            {
+              "name": "workload cluster registration",
+              "value": "SveltosCluster labeled environment=staging",
+              "status": "live-pass"
+            }
+          ],
+          "installTimeStatus": "declared"
         },
         "routing": {
           "routes": [
             {
+              "id": "confighub-to-management-cluster",
+              "status": "manual-pass",
+              "note": "The checked ConfigHub Unit was exported and applied to the management cluster with kubectl. Automated ConfigHub delivery did not run."
+            },
+            {
               "id": "sveltos-cluster-selection",
-              "status": "example-not-live",
-              "note": "Sveltos selects clusters labeled environment=staging and reconciles the ClusterProfile."
+              "status": "live-pass",
+              "note": "Sveltos selected the registered workload cluster labeled environment=staging."
+            },
+            {
+              "id": "sveltos-helm-reconciliation",
+              "status": "live-pass",
+              "note": "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned."
+            },
+            {
+              "id": "sveltos-drift-recovery",
+              "status": "live-pass",
+              "note": "After the admission-controller replica count was changed from three to one, Sveltos restored it to three."
             }
           ],
           "targetFacts": {
             "managementClusterRequiresSveltos": true,
-            "selectedClusterLabel": "environment=staging"
+            "managementKubernetesVersion": "v1.35.0",
+            "sveltosVersion": "v1.12.0",
+            "selectedClusterLabel": "environment=staging",
+            "workloadKubernetesVersion": "v1.35.0"
           },
-          "sourceRecord": "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          "sourceRecord": "examples/sveltos/kyverno-fleet/live-receipt.yaml"
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published"
+            "status": "not-used-direct-unit-upload"
           },
           "configHubReleaseOci": {
             "status": "not-run"
           },
-          "argoCd": "not-applicable-to-this-example",
-          "flux": "not-applicable-to-this-example"
+          "argoCd": "not-used-in-this-run",
+          "flux": "not-used-in-this-run"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -26684,7 +26715,13 @@
           ]
         },
         "evidence": {
-          "example": "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          "readme": "examples/sveltos/kyverno-fleet/README.md",
+          "readmeUnit": "examples/sveltos/kyverno-fleet/readme.yaml",
+          "sourceLock": "examples/sveltos/kyverno-fleet/source-lock.yaml",
+          "liveReceipt": "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+          "configHubSpace": "sveltos-kyverno-fleet-3-8-1-staging",
+          "configHubUnit": "clusterprofile",
+          "clusterSummary": "projectsveltos/kyverno-staging-sveltos-helm-expt-sveltos-workload"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -26694,11 +26731,11 @@
       },
       "status": {
         "level": "partial",
-        "claim": "The committed ClusterProfile shows the intended ConfigHub and Sveltos ownership boundary.",
+        "claim": "ConfigHub stored the reviewed ClusterProfile under the catalog policy. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count.",
         "limits": [
-          "The example has not been uploaded to ConfigHub.",
-          "The example has not been reconciled by Sveltos.",
-          "No live cluster selection or rollout receipt is claimed."
+          "ConfigHub did not deliver the ClusterProfile automatically; the checked Unit was exported and applied with kubectl.",
+          "The live test used one staging workload cluster, not a multi-cluster promotion wave.",
+          "The receipt proves this profile and drift test, not every Sveltos feature."
         ]
       }
     },
