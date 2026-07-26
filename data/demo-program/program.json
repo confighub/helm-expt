@@ -207,8 +207,8 @@
           {
             "id": "ci-job",
             "name": "CI job",
-            "result": "Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded.",
-            "status": "partial"
+            "result": "Run the same non-interactive commands in CI. The current GitHub Actions receipt proves anonymous public OCI pull, rendering, OCI creation, and pull-back comparison without ConfigHub credentials.",
+            "status": "available"
           },
           {
             "id": "hosted-public",
@@ -333,12 +333,16 @@
         "evidence": [
           "runs/serverless-oci-gitops-proof/receipt.yaml",
           "data/serverless-oci-gitops-proof/summary.md",
+          "runs/anonymous-oci-ci-proof/receipt.yaml",
+          "data/anonymous-oci-ci-proof/summary.md",
           "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
           "data/oci-deploy-stage-rollout-proof/summary.md"
         ],
         "id": "anonymous-oci",
         "limits": [
           "The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest.",
+          "The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials.",
+          "The CI output is a workflow artifact containing an OCI image layout, not a public registry package.",
           "The output OCI used a temporary local registry.",
           "A hosted public workbench and public-registry receipt remain separate work."
         ],

@@ -71,7 +71,7 @@ jobs:
         run: node scripts/run-anonymous-oci-ci-proof.mjs --run
 
       - name: Upload receipt
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: anonymous-oci-ci-proof
           path: artifacts/anonymous-oci-ci-proof

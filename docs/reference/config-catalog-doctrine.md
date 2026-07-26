@@ -44,6 +44,12 @@ checks that boundary. It starts from a public NGINX installer OCI, runs
 second OCI, and records the exact digest Flux reconciled. The output registry is
 temporary; the receipt does not claim a hosted public workbench.
 
+The [anonymous OCI CI proof](../../data/anonymous-oci-ci-proof/summary.md) runs the
+same public entry path in GitHub Actions. With no ConfigHub credentials, it pulls the
+NGINX package, renders and checks six objects, creates an OCI image layout, and pulls
+that layout back to compare the object set. The layout is retained as a workflow
+artifact, not published as a public registry package.
+
 ConfigHub is the middle. It stores the exact objects, creates base and derived
 variants, shows diffs, runs checks, records approvals, promotes changes, and keeps
 release and observation history. `cub release publish` then creates an immutable

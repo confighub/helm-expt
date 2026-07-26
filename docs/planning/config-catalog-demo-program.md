@@ -29,11 +29,14 @@ edit. The three shapes are reusable parts of a delivery flow. They may run befor
 first OCI is built, after an OCI is pulled, or between an input OCI and an output OCI.
 They are not a separate beginner-only journey.
 
-The current proof runs the anonymous work locally. The same commands should be usable
-in CI. A later public service should let someone inspect, test, and serve public
-configuration without signing in, then claim the result in ConfigHub. Until that
-service exists, the site must call it planned and must not imply that anonymous users
-already have hosted storage or saved edits.
+The current proofs run the anonymous work locally and in GitHub Actions. The
+[CI receipt](../../data/anonymous-oci-ci-proof/summary.md) records the public input
+digest, six rendered objects, the output OCI-layout digest, and a successful
+pull-back comparison with no ConfigHub credentials. A later public service should
+let someone inspect, test, and serve public configuration without signing in, then
+claim the result in ConfigHub. Until that service exists, the site must call it
+planned and must not imply that anonymous users already have hosted storage or saved
+edits.
 
 These paths remain useful without ConfigHub. The handoff is **Claim this
 configuration in ConfigHub**. Claiming saves the objects and their history so a

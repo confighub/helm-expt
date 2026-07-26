@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config catalog demonstrations · ConfigHub Helm Ops</title>
-  <meta name="description" content="Config catalog demonstrations: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/demo-program/summary.html">
-  <meta property="og:title" content="Config catalog demonstrations · ConfigHub Helm Ops">
-  <meta property="og:description" content="Config catalog demonstrations: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Anonymous OCI work in CI · ConfigHub Helm Ops</title>
+  <meta name="description" content="Anonymous OCI work in CI: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html">
+  <meta property="og:title" content="Anonymous OCI work in CI · ConfigHub Helm Ops">
+  <meta property="og:description" content="Anonymous OCI work in CI: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/demo-program/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,51 +424,26 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Config catalog demonstrations</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/demo-program/summary.md">View source markdown</a>.</p>
+    <h1>Anonymous OCI work in CI</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/anonymous-oci-ci-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Generated from <a href="../../../../config-catalog/program.yaml">config-catalog/program.yaml</a>.</p>
-<p>This is the status index for the source pathways and ConfigHub App demonstrations. <code>available</code> means the committed evidence supports the described path. <code>partial</code>, <code>example-only</code>, and <code>planned</code> keep the missing work visible.</p>
-<h2 id="oci-in-managed-configuration-oci-out">OCI in, managed configuration, OCI out</h2>
-<p><b>Before ConfigHub:</b> The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.</p>
-<h3 id="work-without-an-account">Work without an account</h3>
-<p><b>Serverless:</b> The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.</p>
-<p><b>Anonymous:</b> The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.</p>
-<p><b>Composable:</b> The work can sit before OCI, after OCI, or between an input OCI and an output OCI.</p>
-<table><thead><tr><th>Path</th><th>What it does</th><th>Where it can fit</th></tr></thead><tbody><tr><td><code>work -&gt; OCI</code></td><td>Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package.</td><td><code>source -&gt; anonymous work -&gt; OCI -&gt; delivery</code></td></tr>
-<tr><td><code>OCI -&gt; work</code></td><td>Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version.</td><td><code>OCI -&gt; anonymous inspection or testing</code></td></tr>
-<tr><td><code>OCI -&gt; work -&gt; OCI</code></td><td>Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub.</td><td><code>OCI -&gt; anonymous work -&gt; OCI -&gt; delivery</code></td></tr></tbody></table>
-<p>Here, <code>work</code> means rendering, inspecting, explaining, testing, scanning, comparing, or editing configuration. These paths can be used on their own or inserted into a larger delivery flow.</p>
-<table><thead><tr><th>Where the work runs</th><th>Status</th><th>What that means</th></tr></thead><tbody><tr><td>Local command</td><td>available</td><td>Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control.</td></tr>
-<tr><td>CI job</td><td>available</td><td>Run the same non-interactive commands in CI. The current GitHub Actions receipt proves anonymous public OCI pull, rendering, OCI creation, and pull-back comparison without ConfigHub credentials.</td></tr>
-<tr><td>Public hosted service</td><td>planned</td><td>Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals.</td></tr></tbody></table>
-<p>Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is <b>Claim this configuration in ConfigHub.</b> ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.</p>
-<p><b>Inside ConfigHub:</b> ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.</p>
-<p>ConfigHub can join an existing delivery flow without replacing it:</p>
-<ul><li>Existing: <code>Git -&gt; CI -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code></li><li>With ConfigHub: <code>Git -&gt; CI -&gt; OCI -&gt; ConfigHub -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code></li><li>First: ConfigHub can publish the same specs and user-supplied metadata unchanged. The release adds only the confighub.com/origin provenance annotation.</li><li>Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.</li><li>Fan-out: One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.</li></ul>
-<p><b>After ConfigHub:</b> cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers. Argo CD, Flux, and direct apply can consume that artifact without rendering the source package again.</p>
-<p>The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.</p>
-<h2 id="source-pathways">Source pathways</h2>
-<table><thead><tr><th>Demonstration</th><th>Status</th><th>Problem</th><th>Result</th></tr></thead><tbody><tr><td>Helm chart to managed configuration</td><td>available</td><td>A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates.</td><td>Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.</td></tr>
-<tr><td>AICR bundle to managed configuration</td><td>partial</td><td>AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.</td><td>Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.</td></tr>
-<tr><td>cub installer package to managed configuration</td><td>available</td><td>A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test.</td><td>cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub.</td></tr>
-<tr><td>Public OCI inspection and packaging</td><td>partial</td><td>A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.</td><td>Pull an OCI package, work with the exact objects, and produce a deployable OCI package. Claim it in ConfigHub only when the team wants saved history, variants, approvals, promotions, or fleet rollout.</td></tr>
-<tr><td>One reviewed bundle through Argo CD, Flux, or direct apply</td><td>partial</td><td>Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.</td><td>ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.</td></tr>
-<tr><td>Test, development, staging, and production promotions</td><td>partial</td><td>Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.</td><td>Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval.</td></tr>
-<tr><td>Kubara platform configuration to a cluster fleet</td><td>partial</td><td>A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.</td><td>Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.</td></tr>
-<tr><td>ConfigHub desired state delivered through Sveltos</td><td>partial</td><td>Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.</td><td>ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.</td></tr></tbody></table>
-<h2 id="confighub-apps">ConfigHub Apps</h2>
-<table><thead><tr><th>Demonstration</th><th>Status</th><th>Problem</th><th>Result</th></tr></thead><tbody><tr><td>Upgrade App</td><td>partial</td><td>A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.</td><td>Show fleet impact, test the candidate configuration, promote it in waves, and check the rollout.</td></tr>
-<tr><td>Hooks and CRDs App</td><td>partial</td><td>A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.</td><td>Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.</td></tr>
-<tr><td>RBAC Review App</td><td>partial</td><td>Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.</td><td>Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.</td></tr>
-<tr><td>Fleet Platform App</td><td>partial</td><td>Platform teams need to assign different system configurations to cluster groups without losing a central source of record.</td><td>Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters and manage rollout waves from ConfigHub.</td></tr>
-<tr><td>AI Change Review App</td><td>partial</td><td>An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.</td><td>Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.</td></tr></tbody></table>
-<p>Read <a href="../../docs/user/config-catalog-demonstrations.html">docs/user/config-catalog-demonstrations.md</a> for the plain-English walkthrough and <a href="../../docs/reference/config-catalog-doctrine.html">docs/reference/config-catalog-doctrine.md</a> for the shared model.</p>
+<p>This run checks that the public configuration tools can be used inside a CI job without a ConfigHub account.</p>
+<h2 id="result">Result</h2>
+<p><b>PASS.</b> A GitHub Actions job with no ConfigHub credentials anonymously pulled the public NGINX installer package, rendered and inspected six Kubernetes objects, packaged them as OCI, and pulled back the same object set.</p>
+<p>The job pulled <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</code> at <code>sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1</code>, selected the <code>http-clusterip</code> preset, and rendered 6 Kubernetes objects: <code>Deployment</code>, <code>Namespace</code>, <code>NetworkPolicy</code>, <code>PodDisruptionBudget</code>, <code>Service</code>, <code>ServiceAccount</code>.</p>
+<p>It then packaged those reviewed files as a local OCI image layout. Pulling that layout back produced the same object-set hash, <code>1e7de3915db6173ff8e58022d8413ae87660c86fad8f1b4e33772526bd15cd74</code>. The output manifest digest was <code>sha256:d10ce8d07f7b9b276fe5758557c947166ce4cd6a77fc513e32072516bdd79a20</code>.</p>
+<h2 id="where-it-ran">Where it ran</h2>
+<ul><li>Provider: GitHub Actions</li><li>Workflow: Anonymous OCI CI proof</li><li>Run: https://github.com/confighub/helm-expt/actions/runs/30222445913</li><li>Commit: <code>24912e2e0b94da24d60dd7114098d213e79f2b6b</code></li><li>Installer source: <code>0b553b3c35bd629bad1784e07dfe0bc77af7432c</code></li></ul>
+<h2 id="what-this-proves">What this proves</h2>
+<p>This is the <code>OCI -&gt; work -&gt; OCI</code> shape running as a CI job. The work is anonymous: the job had no ConfigHub token, account context, saved history, variant, approval, or release.</p>
+<p>The same public tools can also be used as <code>OCI -&gt; work</code> when a job only needs to inspect or test a package, or as <code>work -&gt; OCI</code> when the starting point is a repository rather than an existing OCI package.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>The output is an OCI image layout uploaded as a GitHub Actions artifact, not a public registry package.</li><li>This run uses no ConfigHub account, saved history, variant, approval, cluster, or delivery controller.</li><li>A hosted public service that performs this work remains planned, not shipped.</li><li>This NGINX preset has no Helm hooks or CRDs. Configurations with lifecycle work still need their recorded routes.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/demo-program/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/anonymous-oci-ci-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

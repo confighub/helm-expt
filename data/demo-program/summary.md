@@ -27,7 +27,7 @@ Here, `work` means rendering, inspecting, explaining, testing, scanning, compari
 | Where the work runs | Status | What that means |
 | --- | --- | --- |
 | Local command | available | Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control. |
-| CI job | partial | Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded. |
+| CI job | available | Run the same non-interactive commands in CI. The current GitHub Actions receipt proves anonymous public OCI pull, rendering, OCI creation, and pull-back comparison without ConfigHub credentials. |
 | Public hosted service | planned | Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals. |
 
 Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.

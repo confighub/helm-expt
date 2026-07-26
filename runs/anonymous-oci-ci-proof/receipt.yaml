@@ -1,0 +1,76 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AnonymousOciCiProofReceipt"
+metadata:
+  name: "public-nginx-work-oci-30222445913"
+spec:
+  observedAt: "2026-07-26T22:07:36.937Z"
+  pathway: "OCI -> work -> OCI"
+  executionMode: "ci-job"
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    base: "http-clusterip"
+    namespace: "nginx"
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+    expectedManifestDigest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+    observedManifestDigest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+    anonymousPull: "pass"
+    publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+  environment:
+    provider: "GitHub Actions"
+    repository: "confighub/helm-expt"
+    workflow: "Anonymous OCI CI proof"
+    runId: "30222445913"
+    runAttempt: "1"
+    runUrl: "https://github.com/confighub/helm-expt/actions/runs/30222445913"
+    commit: "24912e2e0b94da24d60dd7114098d213e79f2b6b"
+    runnerOs: "Linux"
+    runnerArch: "X64"
+    cubVersion: "Client Version:\n  Version:    v0.2.1\n  Commit:     d9109aed6d1a7362cc6b4cba006ad2ee722bfbb3\n  Build Date: 2026-07-25T18:44:14Z\nServer Version:\n  URL:        https://hub.confighub.com\n  Version:    v0.2.0\n  Commit:     78259b7c4d4b20ca80967db33b10a7eed16c6c8d\n  Build Date: 2026-07-24T20:36:26Z\n  Client ID:  cub\n"
+    installerVersion: "installer dev\n"
+    installerCommit: "0b553b3c35bd629bad1784e07dfe0bc77af7432c"
+    kustomizeVersion: "v5.8.1\n"
+    orasVersion: "Version:        1.3.2"
+  credentials:
+    configHubTokenFiles:
+      []
+    configHubContexts:
+      []
+    emptyLocalContextNames:
+      - "curious-snout"
+    configHubCredentialEnvironmentVariables:
+      []
+  work:
+    actions:
+      - "pull the public installer OCI anonymously"
+      - "render the http-clusterip preset with cub installer"
+      - "inspect the exact Kubernetes objects"
+      - "package the reviewed files as an OCI image layout"
+      - "pull the OCI layout back and compare the objects"
+    objectCount: 6
+    objectKinds:
+      - "Deployment"
+      - "Namespace"
+      - "NetworkPolicy"
+      - "PodDisruptionBudget"
+      - "Service"
+      - "ServiceAccount"
+    reviewedObjectsSha256: "1e7de3915db6173ff8e58022d8413ae87660c86fad8f1b4e33772526bd15cd74"
+  output:
+    kind: "local OCI image layout"
+    reference: "output-layout:ci-proof"
+    manifestDigest: "sha256:d10ce8d07f7b9b276fe5758557c947166ce4cd6a77fc513e32072516bdd79a20"
+    artifactType: "application/vnd.confighub.config.v1"
+    workflowArtifactPath: "output-layout"
+    pullBack: "pass"
+    pulledObjectsSha256: "1e7de3915db6173ff8e58022d8413ae87660c86fad8f1b4e33772526bd15cd74"
+    objectsMatched: true
+  limits:
+    - "The output is an OCI image layout uploaded as a GitHub Actions artifact, not a public registry package."
+    - "This run uses no ConfigHub account, saved history, variant, approval, cluster, or delivery controller."
+    - "A hosted public service that performs this work remains planned, not shipped."
+    - "This NGINX preset has no Helm hooks or CRDs. Configurations with lifecycle work still need their recorded routes."
+status:
+  result: "pass"
+  claim: "A GitHub Actions job with no ConfigHub credentials anonymously pulled the public NGINX installer package, rendered and inspected six Kubernetes objects, packaged them as OCI, and pulled back the same object set."
+  error: ""
