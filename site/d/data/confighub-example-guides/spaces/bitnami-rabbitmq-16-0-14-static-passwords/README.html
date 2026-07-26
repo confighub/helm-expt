@@ -455,7 +455,7 @@
 <p>Fast path with a ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/confighub.sh)</code></pre>
 <p>The core render command is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14 --base static-passwords --work-dir ./bitnami-rabbitmq-16-0-14-static-passwords --non-interactive --namespace rabbitmq</code></pre>
 <p>After upload, create environment versions with <code>cub variant create</code> and move reviewed changes with <code>cub variant promote</code>. The walkthrough is <a href="../../../../docs/user/variants-after-upload.html">After Upload: Create A Variant And Promote Changes</a>.</p>

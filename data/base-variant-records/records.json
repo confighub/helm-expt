@@ -23,13 +23,13 @@
         "baseVariant": {
           "name": "base",
           "revision": "generated-v0.14.0",
-          "digest": "77b056c74ed21bf253e006432535fed04762329350535e111c10969c65014060"
+          "digest": "6d3e39557e3274037fc57cc1ba437ea3c96d0b4f72effc7b037608bb44488104"
         },
         "configuration": {
           "format": "flux-kubernetes-yaml",
-          "objects": "examples/aicr/eks-h100-training-kubeflow/flux-bundle",
-          "inventory": "examples/aicr/eks-h100-training-kubeflow/flux-bundle/checksums.txt",
-          "objectCount": 28
+          "objects": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
+          "inventory": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+          "objectCount": 29
         },
         "inputs": {
           "fixedAtBuildTime": [
@@ -37,35 +37,13 @@
             "intent=training",
             "os=ubuntu",
             "platform=kubeflow",
-            "service=eks"
+            "service=eks",
+            "acceleratedNodeSelector=nvidia.com/gpu.present=true",
+            "storageClass=gp3",
+            "workloadSelector=app.kubernetes.io/part-of=training"
           ],
-          "installTime": [
-            {
-              "name": "acceleratedNodeSelector",
-              "type": "string",
-              "required": true,
-              "value": "nvidia.com/gpu.present=true"
-            },
-            {
-              "name": "gitRepositoryUrl",
-              "type": "string",
-              "required": true,
-              "value": "https://github.com/YOUR_ORG/YOUR_REPO.git"
-            },
-            {
-              "name": "storageClass",
-              "type": "string",
-              "required": true,
-              "value": "gp3"
-            },
-            {
-              "name": "workloadSelector",
-              "type": "string",
-              "required": true,
-              "value": "app.kubernetes.io/part-of=training"
-            }
-          ],
-          "installTimeStatus": "declared"
+          "installTime": [],
+          "installTimeStatus": "none-declared-for-this-generated-artifact"
         },
         "routing": {
           "routes": [
@@ -73,26 +51,55 @@
               "id": "flux-dependency-order",
               "status": "generated-not-live",
               "note": "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
+            },
+            {
+              "id": "flux-external-artifact",
+              "status": "generated-not-live",
+              "note": "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller."
+            },
+            {
+              "id": "flux-oci-source",
+              "status": "not-run",
+              "note": "The target needs an OCIRepository named aicr-bundle in flux-system that points at the published AICR artifact."
             }
           ],
           "targetFacts": {
             "platform": "EKS",
             "accelerator": "H100",
             "operatingSystem": "Ubuntu",
-            "fluxRequired": true
+            "flux": {
+              "minimumVersion": "v2.7.0",
+              "controllers": [
+                "source-watcher"
+              ],
+              "featureGates": [
+                "ExternalArtifact=true on helm-controller"
+              ],
+              "source": {
+                "apiVersion": "source.toolkit.fluxcd.io/v1",
+                "kind": "OCIRepository",
+                "name": "aicr-bundle",
+                "namespace": "flux-system"
+              }
+            }
           },
           "sourceRecord": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
         },
         "delivery": {
           "literalConfigOci": {
-            "status": "not-published",
+            "status": "local-only",
+            "localDigest": "sha256:b8089d6400833531c5d0d91177e70cf48f2b86896b0214c2b3318916ac4d29ba",
+            "localPush": "pass",
+            "localPull": "pass",
+            "publicPush": "not-run",
+            "publicPull": "not-run",
             "plannedRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0"
           },
           "configHubReleaseOci": {
             "status": "not-run"
           },
           "argoCd": "not-generated",
-          "flux": "bundle-generated-not-live"
+          "flux": "oci-bundle-generated-local-pull-pass-not-live"
         },
         "policy": {
           "profile": "catalog-standard",
@@ -103,7 +110,9 @@
         "evidence": {
           "generationReceipt": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
           "recipe": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
-          "checksums": "examples/aicr/eks-h100-training-kubeflow/flux-bundle/checksums.txt"
+          "checksums": "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt",
+          "localOciManifest": "examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json",
+          "originalGitBundle": "examples/aicr/eks-h100-training-kubeflow/flux-bundle"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -113,12 +122,13 @@
       },
       "status": {
         "level": "partial",
-        "claim": "AICR v0.14.0 generated the committed recipe and Flux bundle, and every recorded bundle checksum verifies.",
+        "claim": "AICR v0.14.0 generated the committed recipe and OCI-oriented Flux bundle. All 29 Kubernetes objects and every bundle file are recorded; the artifact was pushed to and pulled from a temporary local registry at sha256:b8089d6400833531c5d0d91177e70cf48f2b86896b0214c2b3318916ac4d29ba.",
         "limits": [
-          "The generated Flux bundle still contains the recorded YOUR_ORG/YOUR_REPO Git repository placeholder and is not deployable as-is.",
-          "The literal configuration OCI has not been published.",
+          "The OCI artifact has not been published to the public Google Artifact Registry target.",
           "The bundle has not been uploaded to ConfigHub.",
-          "No live GPU-cluster reconciliation is claimed."
+          "Flux needs the recorded source-watcher controller, ExternalArtifact feature gate, and OCIRepository before this bundle can reconcile.",
+          "No live Flux or GPU-cluster reconciliation is claimed.",
+          "The older Git-oriented bundle is kept as separate evidence and still contains its recorded YOUR_ORG/YOUR_REPO placeholder."
         ]
       }
     },

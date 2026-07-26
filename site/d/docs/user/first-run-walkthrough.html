@@ -434,7 +434,7 @@
 <p>This is a transcript of the <a href="../../../index.html">journey</a> Stage 1 (&quot;serverless try-out&quot;) run end-to-end as a new user would, on a throwaway local kind cluster, with <b>no ConfigHub account</b>. It is the tested-UX companion to <a href="try-now.html">try-now.md</a>: try-now is the instructions; this page is the proof they work, with the real output and the honest rough edges.</p>
 <p>Chart: <code>sealed-secrets/sealed-secrets@2.18.6</code>, base <code>default</code> - a small, single-deployment controller (chosen because it is light and its images are pullable, so a first run is fast and green).</p>
 <h2 id="1-render-locally-no-cluster-no-account">1. Render locally - no cluster, no account</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6 \
