@@ -1,0 +1,49 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: AIChangeReviewScenario
+metadata:
+  name: aicr-training-runtime-review
+spec:
+  source:
+    type: aicr
+    object: examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/013-kubeflow-trainer-post/templates/torch-distributed-cluster-training-runtime.yaml
+    baseRecord: data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml
+  request: Increase this training runtime to eight H100 nodes and update its runtime image.
+  targetFacts:
+    maxTrainingNodes: 4
+    credentialSecret: training-provider-credentials
+    credentialKey: api-key
+  proposal:
+    note: This is a deterministic example of an unchecked agent proposal, not a transcript from a named model.
+    operations:
+      - op: replace
+        path: /spec/mlPolicy/numNodes
+        value: 8
+      - op: replace
+        path: /spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/image
+        value: pytorch/pytorch:latest
+      - op: add
+        path: /spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/env
+        value:
+          - name: AI_API_KEY
+            value: confighubplaceholder
+  reviewed:
+    note: The reviewer keeps the pinned image, limits the change to the recorded target capacity, and uses an existing Secret.
+    operations:
+      - op: replace
+        path: /spec/mlPolicy/numNodes
+        value: 4
+      - op: add
+        path: /spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/env
+        value:
+          - name: AI_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: training-provider-credentials
+                key: api-key
+  policyProfile: catalog-standard
+status:
+  proposalDecision: rejected
+  reviewedDecision: awaiting-human-approval
+  configHubFunctions: not-run
+  apply: not-run
+  liveObservation: not-run
