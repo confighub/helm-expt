@@ -125,6 +125,11 @@ function buildReport() {
   validateProgram(program);
   execFileSync(
     process.execPath,
+    [join(repoRoot, "scripts", "run-config-catalog-policy-proof.mjs"), "--verify"],
+    { cwd: repoRoot, stdio: ["ignore", "ignore", "inherit"] },
+  );
+  execFileSync(
+    process.execPath,
     [join(repoRoot, "scripts", "generate-hooks-crds-app.mjs"), "--verify"],
     { cwd: repoRoot, stdio: ["ignore", "ignore", "inherit"] },
   );
@@ -1643,11 +1648,14 @@ ${policy.status.liveReverified
   ? `The live \`helm-catalog\` filters and their assigned Spaces were checked on **${policy.status.lastRecorded}**. Read the [live receipt](./live-helm-catalog.yaml).`
   : `The last committed live-org result is dated **${policy.status.lastRecorded}**. It has not been rechecked against the current org.`}
 
+The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the apply boundary. Placeholder values, invalid Kubernetes data, and unapproved system configuration are blocked. An unpinned image and missing probes are reported as warnings without blocking a dry run. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked.
+
 Run:
 
 \`\`\`bash
 npm run config-catalog:verify
 npm run config-catalog:self-test
+npm run config-catalog:policy:verify
 npm run helm-org:policy:receipt:verify
 # With a valid helm-catalog login:
 npm run helm-org:policy:verify
@@ -1733,7 +1741,9 @@ ${rendered}
 
 Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Digest pinning and workload probes produce warnings. Production releases and system configuration keep those five checks and add one required approval.
 
-This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun \`npm run helm-org:policy:verify\` while logged into that org.
+This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts}
+
+The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, and missing approval are blocked; an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun \`npm run helm-org:policy:verify\` while logged into the org to compare the current topology with its receipt.
 `;
 }
 

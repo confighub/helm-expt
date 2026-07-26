@@ -1,0 +1,137 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigCatalogApplyPolicyFunctionalProofReceipt"
+metadata:
+  name: "catalog-standard-live-functional"
+spec:
+  recordedAt: "2026-07-26T18:29:26.288Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+    purpose: "temporary live policy fixtures"
+  target:
+    ref: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
+    id: "7d32ab9b-6259-40e6-871d-e78f84761d2b"
+    dryRunOnly: true
+  filters:
+    baseline:
+      ref: "platform/helm-catalog-checks"
+      id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      hash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
+      triggerRefs:
+        - "platform/digest-pinned-images"
+        - "platform/lifecycle-route-evidence"
+        - "platform/probes-declared"
+        - "platform/vet-placeholders"
+        - "platform/vet-schemas"
+      triggerIds:
+        - "04746183-327b-484e-b061-91d2c7753a76"
+        - "2651b7cc-31a2-4833-adde-11e018656dee"
+        - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+        - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+        - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+    approvalRequired:
+      ref: "platform/helm-catalog-prod-gates"
+      id: "8784a447-0e4d-4471-b924-eae5377778a2"
+      hash: "53b704e063e156905f5b7f56e7a001cdacd8d300506981e9f6ce97167a0d0b5b"
+      triggerRefs:
+        - "platform/digest-pinned-images"
+        - "platform/lifecycle-route-evidence"
+        - "platform/probes-declared"
+        - "platform/require-approval"
+        - "platform/vet-placeholders"
+        - "platform/vet-schemas"
+      triggerIds:
+        - "04746183-327b-484e-b061-91d2c7753a76"
+        - "2651b7cc-31a2-4833-adde-11e018656dee"
+        - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+        - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+        - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+        - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+  checks:
+    placeholder:
+      effect: "block"
+      finding: "unresolved ConfigHub placeholder"
+      gate: "platform/vet-placeholders/vet-placeholders"
+      space: "hx-policy-baseline-20260726182907"
+      unit: "placeholder-fixture"
+      unitId: "95ddb92f-13c9-40f5-b3af-649e5ff6afbd"
+      validationKeys:
+        - "platform/vet-placeholders/vet-placeholders"
+      applyGates:
+        - "platform/vet-placeholders/vet-placeholders"
+      dryRunApply:
+        result: "blocked"
+        exitCode: 1
+        gate: "platform/vet-placeholders/vet-placeholders"
+        dryRun: true
+    schema:
+      effect: "block"
+      finding: "invalid Kubernetes field type"
+      gate: "platform/vet-schemas/vet-schemas"
+      space: "hx-policy-baseline-20260726182907"
+      unit: "schema-fixture"
+      unitId: "9a3d0e74-b6c2-4c34-a111-24fd959da3df"
+      validationKeys:
+        - "platform/vet-schemas/vet-schemas"
+      applyGates:
+        - "platform/vet-schemas/vet-schemas"
+      dryRunApply:
+        result: "blocked"
+        exitCode: 1
+        gate: "platform/vet-schemas/vet-schemas"
+        dryRun: true
+    warnings:
+      effect: "warn"
+      findings:
+        - "workload image is not pinned by digest"
+        - "workload container has no liveness or readiness probe"
+      triggers:
+        - "platform/digest-pinned-images/vet-cel"
+        - "platform/probes-declared/vet-cel"
+      space: "hx-policy-baseline-20260726182907"
+      unit: "warning-fixture"
+      unitId: "ff2f0f7b-6f4d-4e4e-b22f-653edafb296a"
+      validationKeys:
+        - "platform/digest-pinned-images/vet-cel"
+        - "platform/probes-declared/vet-cel"
+      applyGates:
+        []
+      dryRunApply:
+        result: "allowed"
+        exitCode: 0
+        dryRun: true
+        queuedOperationId: "7b393f4d-971f-4df5-a0b1-b602dee69186"
+    approval:
+      effect: "block"
+      finding: "system configuration has no recorded approval"
+      gate: "platform/require-approval/vet-approvedby"
+      space: "hx-policy-approval-20260726182907"
+      unit: "approval-fixture"
+      unitId: "8950ce36-73cc-4a78-a8af-87acfed49eb7"
+      validationKeys:
+        - "platform/require-approval/vet-approvedby"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      dryRunApply:
+        result: "blocked"
+        exitCode: 1
+        gate: "platform/require-approval/vet-approvedby"
+        dryRun: true
+    lifecycleRoute:
+      effect: "block"
+      finding: "automatic lifecycle route has no observed evidence"
+      gate: "platform/lifecycle-route-evidence/vet-cel"
+      result: "blocked"
+      receipt: "data/hooks-crds-app/live-receipt.yaml"
+      testedAt: "2026-07-26T14:10:51.187Z"
+  cleanup:
+    baselineSpace: "pass"
+    approvalSpace: "pass"
+  limits:
+    - "Every apply command used --dry-run. No fixture configuration was applied to Kubernetes."
+    - "The target was used only to exercise ConfigHub's apply boundary; this run does not test workload health or controller convergence."
+    - "The fixtures prove the recorded checks for these exact inputs. They do not prove that every possible invalid configuration is detected."
+    - "The lifecycle-route result comes from the separately recorded Hooks and CRDs App fixture."
+status:
+  result: "pass"
+  claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route."
