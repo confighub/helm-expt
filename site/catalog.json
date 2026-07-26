@@ -25937,7 +25937,7 @@
           ],
           "id": "fleet-platform-app",
           "limits": [
-            "The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes."
+            "The live Nginx fleet proves a Helm-derived base and four managed environments. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete."
           ],
           "name": "Fleet Platform App",
           "problem": "Platform teams need to assign different system configurations to cluster groups without losing a central source of record.",
@@ -26127,24 +26127,29 @@
         {
           "entrypoints": [
             "docs/demo/sveltos/kyverno-fleet.md",
+            "examples/sveltos/kyverno-fleet/README.md",
             "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
           ],
           "evidence": [
-            "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+            "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
+            "examples/sveltos/kyverno-fleet/source-lock.yaml",
+            "examples/sveltos/kyverno-fleet/live-receipt.yaml"
           ],
           "id": "sveltos",
           "limits": [
-            "The committed ClusterProfile is an example based on the public Sveltos API. It has not been run in a live ConfigHub and Sveltos lane."
+            "ConfigHub stored the exact ClusterProfile, but this run exported it and applied it to the management cluster with kubectl.",
+            "The live test used one staging workload cluster. Automated ConfigHub delivery and a multi-cluster promotion wave have not run."
           ],
           "name": "ConfigHub desired state delivered through Sveltos",
           "problem": "Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.",
           "result": "ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.",
-          "status": "example-only",
+          "status": "partial",
           "steps": [
             "Review the ClusterProfile and the chart versions it assigns.",
-            "Upload it as configuration data.",
-            "Promote changes through ConfigHub policy.",
-            "Let Sveltos reconcile the approved profile to matching clusters."
+            "Upload it to ConfigHub and attach the standard catalog checks.",
+            "Deliver the reviewed object to a Sveltos management cluster.",
+            "Let Sveltos select matching workload clusters and install the add-on.",
+            "Change a managed field and check that Sveltos restores the reviewed value."
           ]
         }
       ]

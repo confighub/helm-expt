@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sveltos Kyverno fleet · ConfigHub Helm Ops</title>
   <meta name="description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html">
   <meta property="og:title" content="Sveltos Kyverno fleet · ConfigHub Helm Ops">
   <meta property="og:description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -425,33 +425,26 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../try.html">Get Started</a><a href="../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../how-it-works.html">How it works</a><a href="../../../../testing.html">Testing</a><a href="../../../../journey.html">Apps</a><a href="../../../../docs.html">Docs/FAQ</a><a href="../../../../private/">Upgrade</a></span></nav></div>
     <h1>Sveltos Kyverno fleet</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/demo/sveltos/kyverno-fleet.md">View source markdown</a>.</p>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../../examples/sveltos/kyverno-fleet/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This example is for a platform team that needs to install the same system component on a group of clusters. The team should review the configuration once, keep its history in ConfigHub, and let a fleet controller handle cluster selection and reconciliation.</p>
-<p>ConfigHub stores the reviewed configuration and runs the catalog's checks against it. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. ConfigHub keeps the reviewed record; Sveltos handles cluster selection and reconciliation.</p>
-<h2 id="the-reviewed-configuration">The reviewed configuration</h2>
-<p>The <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile.yaml">ClusterProfile</a> contains the decisions a reviewer needs to see:</p>
-<ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install <code>kyverno/kyverno</code> chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>use <code>ContinuousWithDriftDetection</code> so Sveltos restores the reviewed settings.</li></ul>
-<p>The <a href="../../../../../examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a> pins Sveltos v1.12.0, the upstream commits, downloaded manifest checksums, kind version, and Kubernetes versions used by the test.</p>
-<h2 id="what-the-live-run-proved">What the live run proved</h2>
-<p>The test created separate kind management and workload clusters. It installed Sveltos v1.12.0 on the management cluster and registered the workload cluster with the <code>environment=staging</code> label.</p>
-<p>The <code>ClusterProfile</code> was uploaded to the live <code>helm-catalog</code> ConfigHub organization as the <code>clusterprofile</code> Unit in Space <code>sveltos-kyverno-fleet-3-8-1-staging</code>. The standard catalog policy was attached to that Space. A human README in the same Space explains the example before someone opens the YAML.</p>
-<p>The exact object read back from ConfigHub was applied to the management cluster. Sveltos then:</p>
-<ol><li>selected the staging workload cluster;</li><li>installed Kyverno 3.8.1;</li><li>reported the Helm feature as <code>Provisioned</code>;</li><li>brought all four Kyverno deployments to their requested replica counts.</li></ol>
-<p>The test changed the admission-controller deployment from three replicas to one. Sveltos restored it to three. The <a href="../../../../../examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> records the ConfigHub IDs and hashes, cluster result, deployment counts, and drift test.</p>
+<p>This example shows how ConfigHub and Sveltos can divide the work of managing a platform component across a cluster fleet.</p>
+<p>ConfigHub stores the reviewed configuration, its variants, policy checks, and promotion history. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. Teams can change the configuration once in ConfigHub instead of running an upgrade command against each cluster.</p>
+<h2 id="what-to-inspect">What to inspect</h2>
+<p>Open the <code>clusterprofile</code> Unit first. It contains one Sveltos <code>ClusterProfile</code> with four decisions:</p>
+<ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install Kyverno chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>keep the cluster aligned with <code>ContinuousWithDriftDetection</code>.</li></ul>
+<p>The chart version and values are fixed in the reviewed object. A cluster only needs the staging label to receive this configuration.</p>
+<h2 id="what-the-live-test-showed">What the live test showed</h2>
+<p>The test used Sveltos v1.12.0 with separate kind management and workload clusters. ConfigHub stored the <code>ClusterProfile</code> under the catalog's standard checks. The exact object exported from ConfigHub was applied to the management cluster.</p>
+<p>Sveltos selected the staging workload cluster, installed Kyverno 3.8.1, and reported the Helm feature as <code>Provisioned</code>. All four Kyverno deployments became available. The test then changed the admission-controller replica count from three to one on the workload cluster. Sveltos restored it to three.</p>
 <h2 id="what-remains-manual">What remains manual</h2>
-<p>ConfigHub did not deliver the <code>ClusterProfile</code> to the management cluster automatically in this run. The checked Unit was exported and applied with <code>kubectl</code>. Argo CD, Flux, or another ConfigHub delivery path could automate that step, but this receipt does not claim it.</p>
-<p>The test also used one workload cluster. It proves selection, installation, and drift recovery for this profile. It does not yet prove a promotion wave across several clusters.</p>
-<h2 id="check-the-evidence">Check the evidence</h2>
-<p>Check the committed files without a live cluster:</p>
-<pre><code>npm run sveltos-example:verify</code></pre>
-<p>While logged into the <code>helm-catalog</code> ConfigHub organization, also check that the live Space still contains the same profile and README under the recorded policy:</p>
-<pre><code>CUB_CONTEXT=&lt;your-helm-catalog-context&gt; npm run sveltos-example:hub-verify</code></pre>
+<p>The test exported the ConfigHub Unit and applied it to the management cluster with <code>kubectl</code>. ConfigHub did not publish this object through an OCI target to Argo CD or Flux in this run. A later test should automate that handoff and promote the same profile across more than one workload cluster.</p>
+<h2 id="repeat-and-verify">Repeat and verify</h2>
+<p>The <a href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">website guide</a> explains the commands and results. The <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml">source profile</a>, <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a>, and <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> record the details behind this README.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/sveltos/kyverno-fleet.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>examples/sveltos/kyverno-fleet/README.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

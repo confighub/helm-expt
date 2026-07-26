@@ -606,7 +606,11 @@ function buildKubaraRecord() {
 }
 
 function buildSveltosRecord() {
-  const objectPath = "examples/sveltos/kyverno-fleet/clusterprofile.yaml";
+  const root = "examples/sveltos/kyverno-fleet";
+  const objectPath = `${root}/clusterprofile.yaml`;
+  const sourceLockPath = `${root}/source-lock.yaml`;
+  const receiptPath = `${root}/live-receipt.yaml`;
+  const receipt = readYaml(join(repoRoot, receiptPath));
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "BaseVariantRecord",
@@ -615,7 +619,7 @@ function buildSveltosRecord() {
       labels: {
         sourceType: "sveltos",
         component: "kyverno-fleet",
-        sourceVersion: "3.8.1",
+        sourceVersion: "v1.12.0",
         base: "staging",
       },
     },
@@ -623,14 +627,14 @@ function buildSveltosRecord() {
       source: {
         type: "sveltos",
         name: "kyverno-fleet",
-        version: "3.8.1",
-        record: objectPath,
+        version: "v1.12.0",
+        record: sourceLockPath,
         packageOciRef: "",
       },
       baseVariant: {
         name: "staging",
-        revision: "example-r001",
-        digest: sha256File(join(repoRoot, objectPath)),
+        revision: "live-r001",
+        digest: receipt.spec.source.rawSha256,
       },
       configuration: {
         format: "sveltos-clusterprofile-yaml",
@@ -640,44 +644,81 @@ function buildSveltosRecord() {
       },
       inputs: {
         fixedAtBuildTime: [
+          "sveltos=v1.12.0",
           "chart=kyverno/kyverno",
           "version=3.8.1",
           "clusterSelector=environment=staging",
           "syncMode=ContinuousWithDriftDetection",
+          "admissionController.replicas=3",
         ],
-        installTime: [],
-        installTimeStatus: "not-yet-declared",
+        installTime: [
+          {
+            name: "management cluster",
+            value: "Kubernetes v1.35.0 with Sveltos v1.12.0",
+            status: "live-pass",
+          },
+          {
+            name: "workload cluster registration",
+            value: "SveltosCluster labeled environment=staging",
+            status: "live-pass",
+          },
+        ],
+        installTimeStatus: "declared",
       },
       routing: {
         routes: [
           {
+            id: "confighub-to-management-cluster",
+            status: "manual-pass",
+            note: "The checked ConfigHub Unit was exported and applied to the management cluster with kubectl. Automated ConfigHub delivery did not run.",
+          },
+          {
             id: "sveltos-cluster-selection",
-            status: "example-not-live",
-            note: "Sveltos selects clusters labeled environment=staging and reconciles the ClusterProfile.",
+            status: "live-pass",
+            note: "Sveltos selected the registered workload cluster labeled environment=staging.",
+          },
+          {
+            id: "sveltos-helm-reconciliation",
+            status: "live-pass",
+            note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned.",
+          },
+          {
+            id: "sveltos-drift-recovery",
+            status: "live-pass",
+            note: "After the admission-controller replica count was changed from three to one, Sveltos restored it to three.",
           },
         ],
         targetFacts: {
           managementClusterRequiresSveltos: true,
+          managementKubernetesVersion: receipt.spec.management.kubernetesVersion,
+          sveltosVersion: receipt.spec.management.sveltosVersion,
           selectedClusterLabel: "environment=staging",
+          workloadKubernetesVersion: receipt.spec.workload.kubernetesVersion,
         },
-        sourceRecord: objectPath,
+        sourceRecord: receiptPath,
       },
       delivery: {
         literalConfigOci: {
-          status: "not-published",
+          status: "not-used-direct-unit-upload",
         },
         configHubReleaseOci: {
           status: "not-run",
         },
-        argoCd: "not-applicable-to-this-example",
-        flux: "not-applicable-to-this-example",
+        argoCd: "not-used-in-this-run",
+        flux: "not-used-in-this-run",
       },
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
       },
       evidence: {
-        example: objectPath,
+        readme: `${root}/README.md`,
+        readmeUnit: `${root}/readme.yaml`,
+        sourceLock: sourceLockPath,
+        liveReceipt: receiptPath,
+        configHubSpace: receipt.spec.configHub.space.slug,
+        configHubUnit: receipt.spec.configHub.unit.slug,
+        clusterSummary: receipt.spec.management.selectedClusterSummary,
       },
       operations: {
         resourceClass: "system-configuration",
@@ -687,11 +728,11 @@ function buildSveltosRecord() {
     },
     status: {
       level: "partial",
-      claim: "The committed ClusterProfile shows the intended ConfigHub and Sveltos ownership boundary.",
+      claim: "ConfigHub stored the reviewed ClusterProfile under the catalog policy. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count.",
       limits: [
-        "The example has not been uploaded to ConfigHub.",
-        "The example has not been reconciled by Sveltos.",
-        "No live cluster selection or rollout receipt is claimed.",
+        "ConfigHub did not deliver the ClusterProfile automatically; the checked Unit was exported and applied with kubectl.",
+        "The live test used one staging workload cluster, not a multi-cluster promotion wave.",
+        "The receipt proves this profile and drift test, not every Sveltos feature.",
       ],
     },
   };
@@ -1038,7 +1079,7 @@ A base-variant record connects the literal configuration to the source that prod
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
 - [Kubara local platform](${kubara ? `records/${kubara.metadata.name}.yaml` : ""}) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
-- [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records the intended ConfigHub and Sveltos boundary and remains marked as an example.
+- [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records a live one-cluster result: ConfigHub stored the reviewed profile, Sveltos installed Kyverno, and Sveltos repaired a changed replica count.
 
 ## Files
 

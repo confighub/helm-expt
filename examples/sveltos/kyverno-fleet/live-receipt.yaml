@@ -1,0 +1,88 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SveltosFleetReceipt
+metadata:
+  name: sveltos-kyverno-fleet-3-8-1-staging
+spec:
+  verifiedAt: "2026-07-26T13:22:40Z"
+  source:
+    profile: examples/sveltos/kyverno-fleet/clusterprofile.yaml
+    sourceLock: examples/sveltos/kyverno-fleet/source-lock.yaml
+    rawSha256: 1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396
+    canonicalSha256: ddf69274784381c4e364d4249e75a7ec482727f399b3552e97c1232d842a5eeb
+    serverSideDryRun: pass
+  configHub:
+    organization: helm-catalog
+    space:
+      slug: sveltos-kyverno-fleet-3-8-1-staging
+      id: 91e44027-14da-4725-9717-3a0d0b5b4a20
+    unit:
+      slug: clusterprofile
+      id: 2f1f1a61-0e4b-403e-99ed-924288a932cb
+      dataHash: 697f01d8a0f7e7ad2360ff0d9b3aa1a2edbcacd6a1b1b38f8b9bd918a1fc994d
+      canonicalObjectMatchesSource: true
+    readme:
+      slug: readme
+      id: e95a1f66-dca3-44d7-a9a7-74454a5cec03
+      dataHash: 27287bfa32f67922c1f354c867401f6cc14d765ea9b8e5f2be0ff8b3df89de56
+      headRevision: 2
+    policy:
+      profile: catalog-standard
+      filter: platform/helm-catalog-checks
+      filterId: 305d4b12-fd04-43ad-8aeb-be53c34a1b36
+  management:
+    cluster: helm-expt-sveltos-mgmt
+    kubernetesVersion: v1.35.0
+    sveltosVersion: v1.12.0
+    handoff: manual-export-and-kubectl-apply
+    selectedClusterSummary: projectsveltos/kyverno-staging-sveltos-helm-expt-sveltos-workload
+    helmFeatureStatus: Provisioned
+    helmReleaseStatus: Managing
+  workload:
+    cluster: helm-expt-sveltos-workload
+    kubernetesVersion: v1.35.0
+    labels:
+      environment: staging
+    registrationReady: true
+    helmRelease:
+      name: kyverno
+      namespace: kyverno
+      chart: kyverno-3.8.1
+      applicationVersion: v1.18.1
+      status: deployed
+    deployments:
+      - name: kyverno-admission-controller
+        desired: 3
+        available: 3
+      - name: kyverno-background-controller
+        desired: 1
+        available: 1
+      - name: kyverno-cleanup-controller
+        desired: 1
+        available: 1
+      - name: kyverno-reports-controller
+        desired: 1
+        available: 1
+  driftTest:
+    object: apps/v1/Deployment/kyverno/kyverno-admission-controller
+    reviewedReplicas: 3
+    changedReplicas: 1
+    restoredReplicas: 3
+    pollAttempts: 9
+    pollIntervalSeconds: 2
+    result: pass
+status:
+  result: partial
+  configHubUpload: pass
+  baselinePolicyAssigned: pass
+  configHubObjectMatchesSource: pass
+  managementApply: manual-pass
+  sveltosClusterSelection: pass
+  sveltosHelmReconciliation: pass
+  workloadAvailable: pass
+  driftRecovery: pass
+  automatedConfigHubDelivery: not-run
+  multiClusterPromotionWave: not-run
+  limits:
+    - ConfigHub did not deliver the ClusterProfile automatically; the checked Unit was exported and applied with kubectl.
+    - The live test used one staging workload cluster, not a multi-cluster promotion wave.
+    - The receipt proves Sveltos reconciliation and drift recovery for this profile, not every Sveltos feature.

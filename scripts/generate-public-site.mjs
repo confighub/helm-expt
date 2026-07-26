@@ -1743,7 +1743,7 @@ em{font-style:italic;color:var(--ink);}
 
   <h3>Checks before apply</h3>
   <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
-  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 26 Spaces on the four common checks and four production Spaces on those checks plus approval. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 28 Spaces on the four common checks and four production Spaces on those checks plus approval. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
   <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>
@@ -2856,7 +2856,7 @@ function docsHtml(catalog) {
     ["Config catalog doctrine", "The source-neutral base-variant model, three OCI artifact roles, fleet delivery boundary, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["AICR EKS H100 example", "A genuine AICR v0.14.0 recipe and generated Flux bundle, with remaining inputs, checksums, commands, and current limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
-    ["Sveltos Kyverno fleet example", "A small ClusterProfile showing ConfigHub desired-state ownership and Sveltos cluster selection, clearly marked as not yet live-proven.", "../docs/demo/sveltos/kyverno-fleet.md"],
+    ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],

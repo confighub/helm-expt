@@ -95,10 +95,14 @@ pulled the local OCI and stored the 75 non-Secret objects under the catalog's
 baseline policy. Public publication, route execution, and live platform health
 remain separate checks.
 
-Sveltos fits as a fleet placement and reconciliation path. ConfigHub manages the
-reviewed `ClusterProfile` and related desired state; Sveltos selects matching clusters
-and reconciles the approved add-ons. A live ConfigHub-to-Sveltos lane still needs to be
-proved before the site can call it supported.
+Sveltos is one fleet placement and reconciliation path. ConfigHub stores the reviewed
+`ClusterProfile`, its history, and its policy results. Sveltos selects matching
+clusters and reconciles the declared add-ons. The
+[Kyverno fleet example](../demo/sveltos/kyverno-fleet.md) proves that split on one
+workload cluster: ConfigHub stored the exact profile, Sveltos installed Kyverno, and
+Sveltos restored a changed replica count. The handoff from ConfigHub to the Sveltos
+management cluster was manual, so automated delivery and a multi-cluster promotion
+wave remain separate work.
 
 Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does

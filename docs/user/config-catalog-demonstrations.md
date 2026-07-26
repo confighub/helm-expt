@@ -109,22 +109,23 @@ Current limit: The repo now has a reproducible Kubara v0.12.0 generation, Argo C
 
 ### ConfigHub desired state delivered through Sveltos
 
-**Status: example-only.**
+**Status: partial.**
 
 Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.
 
 ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.
 
 1. Review the ClusterProfile and the chart versions it assigns.
-2. Upload it as configuration data.
-3. Promote changes through ConfigHub policy.
-4. Let Sveltos reconcile the approved profile to matching clusters.
+2. Upload it to ConfigHub and attach the standard catalog checks.
+3. Deliver the reviewed object to a Sveltos management cluster.
+4. Let Sveltos select matching workload clusters and install the add-on.
+5. Change a managed field and check that Sveltos restores the reviewed value.
 
-Start with [docs/demo/sveltos/kyverno-fleet.md](../../docs/demo/sveltos/kyverno-fleet.md) or [examples/sveltos/kyverno-fleet/clusterprofile.yaml](../../examples/sveltos/kyverno-fleet/clusterprofile.yaml).
+Start with [docs/demo/sveltos/kyverno-fleet.md](../../docs/demo/sveltos/kyverno-fleet.md) or [examples/sveltos/kyverno-fleet/README.md](../../examples/sveltos/kyverno-fleet/README.md) or [examples/sveltos/kyverno-fleet/clusterprofile.yaml](../../examples/sveltos/kyverno-fleet/clusterprofile.yaml).
 
-Evidence: [examples/sveltos/kyverno-fleet/clusterprofile.yaml](../../examples/sveltos/kyverno-fleet/clusterprofile.yaml).
+Evidence: [examples/sveltos/kyverno-fleet/clusterprofile.yaml](../../examples/sveltos/kyverno-fleet/clusterprofile.yaml), [examples/sveltos/kyverno-fleet/source-lock.yaml](../../examples/sveltos/kyverno-fleet/source-lock.yaml), [examples/sveltos/kyverno-fleet/live-receipt.yaml](../../examples/sveltos/kyverno-fleet/live-receipt.yaml).
 
-Current limit: The committed ClusterProfile is an example based on the public Sveltos API. It has not been run in a live ConfigHub and Sveltos lane.
+Current limit: ConfigHub stored the exact ClusterProfile, but this run exported it and applied it to the management cluster with kubectl. The live test used one staging workload cluster. Automated ConfigHub delivery and a multi-cluster promotion wave have not run.
 
 ## Apps built from the same records
 
@@ -203,7 +204,7 @@ Start with [docs/reference/config-catalog-doctrine.md](../../docs/reference/conf
 
 Evidence: [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [data/environment-matrix/summary.md](../../data/environment-matrix/summary.md), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
 
-Current limit: The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes.
+Current limit: The live Nginx fleet proves a Helm-derived base and four managed environments. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete.
 
 ### AI Change Review App
 

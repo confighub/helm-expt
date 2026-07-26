@@ -5,7 +5,7 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-26T12:56:53.954Z"
+  verifiedAt: "2026-07-26T13:28:36.842Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
@@ -91,6 +91,7 @@ spec:
       - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
       - "prometheus-community-prometheus-29-8-0-default"
       - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+      - "sveltos-kyverno-fleet-3-8-1-staging"
     production:
       - "bitnami-nginx-fleet-prod-eu"
       - "bitnami-nginx-fleet-prod-us"
