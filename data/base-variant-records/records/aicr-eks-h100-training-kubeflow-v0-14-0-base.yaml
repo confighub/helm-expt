@@ -77,6 +77,8 @@ spec:
       plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0"
     configHubReleaseOci:
       status: "not-run"
+    configHubUpload:
+      status: "not-run"
     argoCd: "not-generated"
     flux: "oci-bundle-generated-local-pull-pass-not-live"
   policy:

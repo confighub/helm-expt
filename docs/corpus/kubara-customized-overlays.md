@@ -1,20 +1,25 @@
-# Kubara Customized Overlay Analysis
+# Kubara-style customized overlay analysis
 
-This note records the first Kubara-style managed app analysis requested by the
-roadmap. It uses the checked-in `external-dns/external-dns@1.21.1` proof as the
-smallest useful stand-in for a managed platform app with customer overlay
-values.
+This note predates the first run of the Kubara CLI in this repository. It uses
+the checked-in `external-dns/external-dns@1.21.1` proof as a small example of a
+managed platform chart with customer overlay values. It is useful for the
+overlay decision, but it is not Kubara-generated output.
 
-The first generated golden now lives at:
+The reproducible Kubara v0.12.0 example is
+[docs/demo/kubara/local-platform.md](../demo/kubara/local-platform.md). It keeps
+the Kubara source, generated Helm files, 77 rendered Argo CD bootstrap objects,
+OCI layout, and the required CRD, hook, Secret, and External Secrets work
+together.
+
+The separate managed-overlay golden lives at:
 
 ```text
 data/managed-overlay-goldens/external-dns-customer-acme-prod/
 ```
 
 It includes a wrapper chart, platform values, customer overlay values,
-classification, preview, and receipts. It is a boundary and classification
-golden, not a claim that all Kubara applications are imported or
-production-ready.
+classification, preview, and receipts. It checks the overlay boundary. It does
+not prove Kubara generation or a production rollout.
 
 This is intentionally beyond the public catalog proof. A Kubara-style case
 needs ConfigHub Server because it has private/customer inputs, target facts,

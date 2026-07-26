@@ -2855,6 +2855,7 @@ function docsHtml(catalog) {
     ["Config catalog demonstrations", "The maintained path from Helm, AICR, cub installer, Kubara, or Sveltos into base variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
     ["Config catalog doctrine", "The source-neutral base-variant model, three OCI artifact roles, fleet delivery boundary, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["AICR EKS H100 example", "A genuine AICR v0.14.0 recipe and generated Flux bundle, with remaining inputs, checksums, commands, and current limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
+    ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A small ClusterProfile showing ConfigHub desired-state ownership and Sveltos cluster selection, clearly marked as not yet live-proven.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],

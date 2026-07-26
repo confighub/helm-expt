@@ -114,6 +114,7 @@ function buildReport() {
     ...intents.map(buildHelmRecord),
     buildAicrRecord(),
     buildAicrArgoCdRecord(),
+    buildKubaraRecord(),
     buildSveltosRecord(),
   ].sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
@@ -323,6 +324,10 @@ function buildAicrRecord() {
         configHubReleaseOci: {
           status: "not-run",
         },
+        configHubUpload: {
+          status: receipt.status.configHubUpload,
+          receipt: receipt.spec.outputs.configHubUploadReceipt,
+        },
         argoCd: "not-generated",
         flux: "oci-bundle-generated-local-pull-pass-not-live",
       },
@@ -476,6 +481,125 @@ function buildAicrArgoCdRecord() {
         "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
         "The literal Application bundle has not been uploaded to ConfigHub.",
         "No live Argo CD or GPU-cluster reconciliation is claimed.",
+      ],
+    },
+  };
+}
+
+function buildKubaraRecord() {
+  const root = "examples/kubara/local-platform";
+  const receiptPath = `${root}/generation-receipt.yaml`;
+  const routePath = `${root}/route-intent.yaml`;
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const route = readYaml(join(repoRoot, routePath));
+  const publicTarget = receipt.spec.artifacts.literalConfiguration.publicTarget;
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "kubara-local-platform-v0-12-0-base",
+      labels: {
+        sourceType: "kubara",
+        component: "kubara-local-platform",
+        sourceVersion: "v0.12.0",
+        base: "base",
+      },
+    },
+    spec: {
+      source: {
+        type: "kubara",
+        name: "local-platform",
+        version: "v0.12.0",
+        record: receiptPath,
+        packageOciRef: "",
+      },
+      baseVariant: {
+        name: "base",
+        revision: "generated-v0.12.0",
+        digest: receipt.spec.outputs.literalConfigOciDigest,
+      },
+      configuration: {
+        format: "kubara-argocd-bootstrap-yaml",
+        objects: receipt.spec.outputs.renderedObjects,
+        inventory: receipt.spec.outputs.renderedInventory,
+        objectCount: Number(receipt.spec.outputs.objectCount),
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          `cluster=${receipt.spec.generationInputs.cluster}`,
+          `stage=${receipt.spec.generationInputs.stage}`,
+          `clusterType=${receipt.spec.generationInputs.clusterType}`,
+          `enabledServices=${receipt.spec.generationInputs.enabledServices.join(",")}`,
+          `helmKubeVersion=${receipt.spec.generationInputs.helmKubeVersion}`,
+          "releaseName=kubara-platform",
+          "namespace=argocd",
+        ],
+        installTime: [
+          "Argo CD target cluster",
+          "External Secrets ClusterExternalSecret CRD",
+          "ClusterSecretStore=test-cluster-local",
+          "remote image-pull key when private images are used",
+          "approved handling for argocd-secret and cluster-kubernetes.default.svc",
+        ],
+        installTimeStatus: "declared-not-live-checked",
+      },
+      routing: {
+        routes: route.spec.routes,
+        targetFacts: {
+          clusterName: receipt.spec.generationInputs.cluster,
+          clusterType: receipt.spec.generationInputs.clusterType,
+          requiredApis: [
+            "apiextensions.k8s.io/v1",
+            "external-secrets.io/v1",
+          ],
+          requiredSecretStore: "test-cluster-local",
+        },
+        sourceRecord: routePath,
+      },
+      delivery: {
+        literalConfigOci: {
+          status: receipt.status.publicOciPull === "pass" ? "public-pull-pass" : "local-only",
+          localDigest: receipt.spec.outputs.literalConfigOciDigest,
+          localLayout: receipt.spec.outputs.literalConfigOciLayout,
+          localPush: receipt.status.localRegistryPush,
+          localPull: receipt.status.localRegistryPull,
+          publicPush: receipt.status.publicOciPush,
+          publicPull: receipt.status.publicOciPull,
+          plannedRef: publicTarget,
+        },
+        configHubReleaseOci: {
+          status: "not-run",
+        },
+        argoCd: receipt.status.liveArgoReconciliation,
+        flux: "not-applicable-to-this-base",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+      },
+      evidence: {
+        generationReceipt: receiptPath,
+        sourceLock: `${root}/source-lock.yaml`,
+        generatedChecksums: receipt.spec.outputs.generatedChecksums,
+        renderedChecksums: receipt.spec.outputs.renderedChecksums,
+        routeIntent: routePath,
+        localOciManifest: receipt.spec.outputs.literalConfigOciManifest,
+        configHubUploadReceipt: receipt.spec.outputs.configHubUploadReceipt,
+      },
+      operations: {
+        resourceClass: "system-configuration",
+        ownerClass: "platform-team",
+        changeCadence: "planned-platform-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: `Kubara v0.12.0 generated the committed platform source and ${receipt.spec.outputs.objectCount} literal Argo CD bootstrap objects. The routes for ${receipt.spec.routing.crds} CRDs, ${receipt.spec.routing.helmHookObjects} Helm hook resources, ${receipt.spec.routing.renderedSecrets} Secrets, and the External Secrets prerequisite are recorded beside the base.`,
+      limits: [
+        "The literal OCI artifact is local until the public push and anonymous pull receipts pass.",
+        "The recorded routes have not been executed on a live target.",
+        "No live Argo CD reconciliation or downstream platform health is claimed.",
+        "This base records the generated Argo CD bootstrap and platform assignments; it does not claim that every downstream service chart has been flattened into this one object set.",
       ],
     },
   };
@@ -885,6 +1009,7 @@ function renderBaseSummary(records) {
   const aicrArgoCd = records.find(
     (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
   );
+  const kubara = records.find((record) => record.spec.source.type === "kubara");
   const sveltos = records.find((record) => record.spec.source.type === "sveltos");
   return `# Base variant records
 
@@ -912,6 +1037,7 @@ A base-variant record connects the literal configuration to the source that prod
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
+- [Kubara local platform](${kubara ? `records/${kubara.metadata.name}.yaml` : ""}) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
 - [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records the intended ConfigHub and Sveltos boundary and remains marked as an example.
 
 ## Files
