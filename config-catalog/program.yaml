@@ -95,18 +95,28 @@ spec:
       name: Kubara platform configuration to a cluster fleet
       problem: A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
       result: Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.
-      status: planned
+      status: partial
       steps:
         - Generate a Kubara platform configuration for a declared cluster class.
         - Separate infrastructure creation from Kubernetes configuration.
+        - Render the generated Argo CD bootstrap and record CRDs, hooks, Secrets, and target prerequisites beside it.
         - Upload the Kubernetes configuration as a base variant with its source record.
         - Assign derived variants to cluster groups and rollout waves.
       entrypoints:
+        - docs/demo/kubara/local-platform.md
+        - examples/kubara/local-platform/README.md
         - docs/corpus/kubara-customized-overlays.md
       evidence:
+        - examples/kubara/local-platform/generation-receipt.yaml
+        - examples/kubara/local-platform/confighub-upload-receipt.yaml
+        - examples/kubara/local-platform/route-intent.yaml
+        - examples/kubara/local-platform/rendered/object-inventory.json
+        - examples/kubara/local-platform/local-config-oci-manifest.json
         - docs/corpus/kubara-customized-overlays.md
       limits:
-        - The repo has a managed-overlay model, not a complete Kubara generation, upload, and live fleet receipt.
+        - The repo now has a reproducible Kubara v0.12.0 generation, Argo CD render, route record, and local OCI layout.
+        - ConfigHub pulled the local OCI and recorded the 75 non-Secret objects in one policy-covered Unit.
+        - Public OCI publication, route execution, Argo CD reconciliation, and downstream platform health have not run.
     - id: sveltos
       name: ConfigHub desired state delivered through Sveltos
       problem: Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.

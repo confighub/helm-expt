@@ -89,7 +89,7 @@ Current limit: The Nginx fleet receipt proves stored configuration, promotion hi
 
 ### Kubara platform configuration to a cluster fleet
 
-**Status: planned.**
+**Status: partial.**
 
 A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
 
@@ -97,14 +97,15 @@ Treat Kubara as a platform configuration producer, record its generated configur
 
 1. Generate a Kubara platform configuration for a declared cluster class.
 2. Separate infrastructure creation from Kubernetes configuration.
-3. Upload the Kubernetes configuration as a base variant with its source record.
-4. Assign derived variants to cluster groups and rollout waves.
+3. Render the generated Argo CD bootstrap and record CRDs, hooks, Secrets, and target prerequisites beside it.
+4. Upload the Kubernetes configuration as a base variant with its source record.
+5. Assign derived variants to cluster groups and rollout waves.
 
-Start with [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
+Start with [docs/demo/kubara/local-platform.md](../../docs/demo/kubara/local-platform.md) or [examples/kubara/local-platform/README.md](../../examples/kubara/local-platform/README.md) or [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
 
-Evidence: [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
+Evidence: [examples/kubara/local-platform/generation-receipt.yaml](../../examples/kubara/local-platform/generation-receipt.yaml), [examples/kubara/local-platform/confighub-upload-receipt.yaml](../../examples/kubara/local-platform/confighub-upload-receipt.yaml), [examples/kubara/local-platform/route-intent.yaml](../../examples/kubara/local-platform/route-intent.yaml), [examples/kubara/local-platform/rendered/object-inventory.json](../../examples/kubara/local-platform/rendered/object-inventory.json), [examples/kubara/local-platform/local-config-oci-manifest.json](../../examples/kubara/local-platform/local-config-oci-manifest.json), [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
 
-Current limit: The repo has a managed-overlay model, not a complete Kubara generation, upload, and live fleet receipt.
+Current limit: The repo now has a reproducible Kubara v0.12.0 generation, Argo CD render, route record, and local OCI layout. ConfigHub pulled the local OCI and recorded the 75 non-Secret objects in one policy-covered Unit. Public OCI publication, route execution, Argo CD reconciliation, and downstream platform health have not run.
 
 ### ConfigHub desired state delivered through Sveltos
 

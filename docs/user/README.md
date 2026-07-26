@@ -47,6 +47,7 @@ import?", read [Why This Exists](./why-this-exists.md).
 | 2b | [cub-scout Diff Design](./cub-scout-diff-design.md) | The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | 2c | [App-readiness proof](../../data/app-readiness/summary.md) | A small read-app over rendered RBAC that shows how held config becomes queryable product data. |
 | 2d | [Config Catalog Demonstrations](./config-catalog-demonstrations.md) | How Helm, AICR, cub installer, promotions, Kubara, Sveltos, and the five Apps enter one base-variant and policy model. |
+| 2e | [Kubara Platform Example](../demo/kubara/local-platform.md) | A real Kubara generation, the rendered Argo CD base, the CRDs and hook work around it, and the checks that have not run yet. |
 | 3 | [Try Now](./try-now.md) | The shortest Redis and kube-prometheus-stack paths. |
 | 3a | [Expected Results And Clusters](./expected-results-and-clusters.md) | What users should see after each step, what cluster they need, and which npm proof checks are optional. |
 | 4 | [Choose Your Path](./choose-your-path.md) | Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations. |

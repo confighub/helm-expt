@@ -81,9 +81,19 @@ derived variant.
 
 ## Fleet delivery
 
-Kubara fits as a producer of platform configuration. ConfigHub can record its generated
-Kubernetes configuration, make cluster-class variants, and manage rollout waves. Kubara
-does not need to become a Helm chart row.
+Kubara fits as a producer of platform configuration. Its Terraform output remains an
+infrastructure plan. Its generated Helm charts, cluster values, Argo CD assignments,
+and the Kubernetes objects rendered from them are configuration records. ConfigHub can
+keep that configuration as a base variant, make cluster-class variants, and manage
+rollout waves. Kubara does not need to become a Helm chart row.
+
+The [Kubara v0.12.0 local-platform example](../demo/kubara/local-platform.md) records a
+real generation run. It contains the generated source, 77 rendered Argo CD bootstrap
+objects, and a literal OCI layout. Its route record names three CRDs, four Helm-hook
+resources, two rendered Secrets, and the External Secrets prerequisite. ConfigHub
+pulled the local OCI and stored the 75 non-Secret objects under the catalog's
+baseline policy. Public publication, route execution, and live platform health
+remain separate checks.
 
 Sveltos fits as a fleet placement and reconciliation path. ConfigHub manages the
 reviewed `ClusterProfile` and related desired state; Sveltos selects matching clusters
