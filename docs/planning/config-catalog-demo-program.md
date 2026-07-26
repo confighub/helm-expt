@@ -4,6 +4,25 @@ This plan turns the current Helm catalog into the first part of a wider configur
 catalog. It keeps the Helm work concrete while adding AICR, fleet placement, policy,
 promotion, and ConfigHub App examples in a controlled order.
 
+## Strategy
+
+The front door owns the work before OCI enters ConfigHub. It should help a Helm, AICR,
+`cub installer`, Kubara, Sveltos, or existing-YAML user inspect the source, choose a
+useful configuration, make prerequisites and lifecycle work explicit, run tests, and
+produce a literal configuration OCI with a source record.
+
+ConfigHub owns the middle. It stores the exact objects, lets teams make variants and
+review diffs, runs checks and approvals, promotes changes, and records releases and
+observations.
+
+`cub release publish` owns the output boundary. It turns the reviewed Units in one
+Space into an immutable release OCI. Argo CD, Flux, or another recorded delivery path
+consumes that artifact without rendering the source package again.
+
+The website should make the first step useful even before a visitor signs up. It should
+then show why storing and operating the result in ConfigHub is more valuable than
+stopping at an OCI file.
+
 The maintained status is generated from
 [config-catalog/program.yaml](../../config-catalog/program.yaml). This file explains the
 sequence and the acceptance criteria.

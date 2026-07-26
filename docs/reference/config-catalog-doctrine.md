@@ -1,8 +1,23 @@
 # Config catalog doctrine
 
-This project starts with Helm, but the catalog model is not limited to Helm. It is a
-way to turn reviewed configuration from several sources into ConfigHub base variants,
-then manage changes, promotions, policy, delivery, and live results from those records.
+The simplest architecture for this project is **OCI in, managed configuration, OCI
+out**.
+
+The website and catalog handle the work before configuration enters ConfigHub. They
+help people turn Helm charts, AICR recipes, installer packages, Kubara output, Sveltos
+objects, and existing YAML into literal configuration with recorded inputs, known
+prerequisites, lifecycle work, and evidence.
+
+ConfigHub is the middle. It stores the exact objects, creates base and derived
+variants, shows diffs, runs checks, records approvals, promotes changes, and keeps
+release and observation history. `cub release publish` then creates an immutable
+Space release OCI for Argo CD, Flux, or another recorded delivery path. Delivery does
+not render the source package again.
+
+Current local delivery examples create their kind cluster and Argo CD setup with
+`cub cluster up` and remove it with `cub cluster down`. The string
+`cub-lk-kind-vanilla` survives in older receipts as a historical target-class value;
+it is not the current command or product path.
 
 The immediate goal is to make Helm easier to inspect and operate. The longer-term goal
 is a large, useful catalog of configuration in the formats teams already use. Each
@@ -62,6 +77,10 @@ The word OCI covers three different artifacts in this work.
 
 An entry must name which kind of OCI artifact it links to. A multi-preset installer
 package is not automatically a literal configuration bundle.
+
+This distinction also divides the work cleanly. The front door helps users make the
+first two artifacts correctly. ConfigHub manages what happens after the literal
+configuration is uploaded and publishes the third artifact for delivery.
 
 The AICR Argo CD example makes the distinction concrete. AICR generates a Helm chart
 as its Argo CD source package. Helm renders that chart into 17 Argo CD `Application`

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NGINX delivered from one ConfigHub release OCI</title>
+<style>
+body{font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;padding:2rem;background:#f6f8fa;color:#1f2328}
+main{max-width:1000px;margin:0 auto}h1{font-size:1.6rem}table{border-collapse:collapse;width:100%;background:#fff}
+th,td{text-align:left;padding:.55rem .7rem;border:1px solid #d0d7de;vertical-align:top}th{background:#eef1f4}
+code{font-size:.82em;overflow-wrap:anywhere}.note{border-left:4px solid #0969da;padding:.7rem 1rem;background:#ddf4ff}
+</style></head><body><main>
+<h1>NGINX delivered from one ConfigHub release OCI</h1>
+<p>This test used the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> catalog base. cub installer reproduced the committed Kubernetes objects, and ConfigHub published them once as a release OCI.</p>
+<p>Argo CD, Flux, and direct apply consumed that release in sequence on one throwaway cluster. All three reported the same OCI digest and reached a ready NGINX Deployment and ClusterIP Service.</p>
+<table><thead><tr><th>Delivery method</th><th>Source</th><th>OCI digest</th><th>NGINX replicas</th><th>Service</th><th>Result</th></tr></thead><tbody><tr><td>Argo CD</td><td><code>OCI Application</code></td><td><code>sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049</code></td><td>1/1</td><td>ClusterIP</td><td>pass</td></tr><tr><td>Flux</td><td><code>OCIRepository and Kustomization</code></td><td><code>sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049</code></td><td>1/1</td><td>ClusterIP</td><td>pass</td></tr><tr><td>Direct apply</td><td><code>oras pull and kubectl apply</code></td><td><code>sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049</code></td><td>1/1</td><td>ClusterIP</td><td>pass</td></tr></tbody></table>
+<p><strong>Overall: pass.</strong> Rendered objects: 6. Published Units: 6. Cleanup: namespace pass, ConfigHub Space pass, rig pass.</p>
+<p class="note">This proves one catalog configuration on the recorded target. It does not prove another chart, base, Kubernetes version, or production cluster. Policy and delivery remain separate claims.</p>
+</main></body></html>

@@ -135,9 +135,9 @@ receipts:
 ```text
 Creator-style intent = publish and prove a reviewed base through GitOps.
 Formal contract = target, controller, expected Units, checks, receipts.
-cub lk + chart-install-test = local proof substrate.
-ConfigHub OCI + Argo CD = delivery substrate.
-AX/FX = same delivery proof over one chart or a wave of charts.
+cub cluster up + a scoped proof runner = local proof substrate.
+ConfigHub Space release OCI + Argo CD = delivery substrate.
+AX/FX = the same delivery proof over one chart or a wave of charts.
 ```
 
 The product narrative should be "publish this base and prove it is live," not

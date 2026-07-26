@@ -37,18 +37,18 @@ reconciled through Argo CD or Flux.
 Both matter. They should be separate receipts because they answer different
 questions.
 
-## Why Not cub-lk By Default
+## Why Not `cub cluster up` By Default
 
-`cub lk` is useful for ConfigHub/OCI/GitOps proof because it creates a local
-cluster, ConfigHub target, OCI endpoint, and Argo CD controller. That is a
-delivery proof.
+`cub cluster up` is useful for ConfigHub/OCI/GitOps proof because it creates a
+local cluster, ConfigHub Space and target, OCI delivery path, and Argo CD
+controller. That is a delivery proof.
 
 Strict Helm parity is different. It should not preinstall a controller unless
 the chart itself requires that controller as a target fact. The Argo CD chart
 showed the problem: the test rig installed Argo CD CRDs for delivery, then the
 Argo CD chart-under-test tried to install those same CRDs through Helm.
 
-Use `cub lk` or an equivalent prepared target for:
+Use `cub cluster up` or an equivalent prepared target for:
 
 - ConfigHub OCI delivery proof;
 - Argo/Flux reconciliation proof;

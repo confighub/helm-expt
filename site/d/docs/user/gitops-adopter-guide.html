@@ -436,20 +436,21 @@
 <p>You keep your controller. Argo stays Argo. Flux stays Flux. They pull and reconcile as they do today.</p>
 <p>ConfigHub is not asking you to replace your GitOps controller. It changes the source that the controller reads.</p>
 <h2 id="what-changes-the-source">What changes: the source</h2>
-<p>Instead of pointing the controller at a git repo of Helm values that each tool re-renders, you point it at <b>one OCI bundle</b> published from reviewed ConfigHub Units. Every controller pulls the same generated objects. There is no per-tool Helm re-render in the GitOps controller path.</p>
+<p>Instead of pointing the controller at Helm values that it must render, point it at one Space release OCI published from reviewed ConfigHub Units. Every consumer reads the same Kubernetes objects. The pull URL is <code>oci://oci.hub.confighub.com:443/space/&lt;space&gt;</code>.</p>
 <p>See <a href="cub-deployment-path.html">cub-deployment-path</a>.</p>
 <h2 id="check-the-receipt-for-the-configuration-you-want">Check the receipt for the configuration you want</h2>
 <p>There are two separate questions.</p>
 <ol><li>Can one ConfigHub release OCI be consumed by Argo CD, Flux, and direct apply?</li><li>Has the configuration you want to run been delivered and observed through your controller?</li></ol>
 <p>The first answer is yes. A small routed-hook fixture was published once and successfully consumed through all three paths. That proves the delivery mechanism.</p>
-<p>The second answer depends on the catalog entry. Look for a delivery receipt on that entry's page. A receipt for the fixture, or for another chart, does not prove that your selected configuration has reconciled successfully.</p>
+<p>The first exact catalog result is also available. The <a href="../../data/catalog-oci-delivery-proof/summary.html"><code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> receipt</a> records the same release digest under Argo CD, Flux, and direct apply, with a ready NGINX workload under each.</p>
+<p>Every other answer still depends on the catalog entry. Look for a delivery receipt on that entry's page. A receipt for the fixture or for NGINX does not prove that another selected configuration reconciled successfully.</p>
 <h2 id="argo-cd">Argo CD</h2>
-<p>An Argo <code>Application</code> can point at the OCI URL and a path inside the bundle. Argo still reports sync and health as usual. The catalog records which chart/preset rows have evidence for the render, ConfigHub upload, OCI handoff, Argo sync, and live result.</p>
+<p>An Argo <code>Application</code> points at the Space OCI URL, uses <code>targetRevision: latest</code>, and uses path <code>.</code>. Argo still reports sync and health as usual. The catalog records which chart/preset rows have evidence for the render, ConfigHub upload, OCI handoff, Argo sync, and live result.</p>
 <h2 id="flux">Flux</h2>
 <p>Flux can use an <code>OCIRepository</code> plus a <code>Kustomization</code> for the same bundle. Flux has its own Helm path when you use Flux Helm resources. The ConfigHub OCI path is different: Flux pulls generated objects from the bundle.</p>
 <p>Any extra work around the chart, such as hooks or setup jobs, still needs a documented action, check, target fact, blocker, or refusal. Do not assume Flux will automatically recreate Helm hook behavior in this path.</p>
-<h2 id="no-controller-cub-direct">No controller (cub-direct)</h2>
-<p><code>oras</code> and <code>kubectl</code> can pull and apply the same generated bundle when you do not want a controller. This is useful for a one-shot apply or a CI step, but it also means you must be more explicit about ordering, pruning, CRDs, and setup work.</p>
+<h2 id="no-controller">No controller</h2>
+<p><code>oras</code> and <code>kubectl</code> can pull and apply the same Space release when you do not want a controller. This is useful for a one-shot apply or a CI step, but it also means you must be more explicit about ordering, pruning, CRDs, and setup work.</p>
 <h2 id="vs-raw-helm-through-argo">vs. raw Helm-through-Argo</h2>
 <p>Argo's native Helm support re-renders the chart inside Argo. The ConfigHub path renders first, records the inputs, and sends the reviewed objects to GitOps. That gives you one clear review point before delivery.</p>
 <p>This does not make every Helm hook automatic. Hooks and hook-like work are handled per chart: observed, routed, target-specific, blocked, or refused. See <a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a>.</p>
@@ -457,7 +458,7 @@
 <p>A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook. For one chart the right answer may be a preflight check. For another it may be an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The catalog should say which answer applies and what evidence exists.</p>
 <p>See <a href="pathway-route-hooks-transparently.html">pathway-route-hooks-transparently</a>.</p>
 <h2 id="see-also">See Also</h2>
-<ul><li><a href="how-it-works.html">How It Works</a></li><li><a href="cub-deployment-path.html">Deployment Path</a></li><li><a href="../../data/oci-hook-delivery-proof/summary.html">Delivery mechanism receipt</a></li><li><a href="chart-hooks-what-happens.html">What Happens To Chart Hooks</a></li><li><a href="../../tests/doctrine.html">Doctrine</a></li></ul>
+<ul><li><a href="how-it-works.html">How It Works</a></li><li><a href="cub-deployment-path.html">Deployment Path</a></li><li><a href="../../data/oci-hook-delivery-proof/summary.html">Delivery mechanism receipt</a></li><li><a href="../../data/catalog-oci-delivery-proof/summary.html">Exact NGINX delivery receipt</a></li><li><a href="chart-hooks-what-happens.html">What Happens To Chart Hooks</a></li><li><a href="../../tests/doctrine.html">Doctrine</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/gitops-adopter-guide.md</code>. The source file is the authoritative version.</p></footer>

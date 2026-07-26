@@ -20,7 +20,7 @@ Use this route when you are trying to understand the product quickly.
 | Can I try it now? | [Try Now](./try-now.md) | A short public package OCI path and the serious-chart check. |
 | What package do I pull? | [Installer Package OCI Refs](./installer-oci-packages.md) | The public `oci://` refs for catalog packages, and how they differ from ConfigHub delivery OCI. |
 | How do Helm, AICR, cub installer, promotions, and fleet examples fit together? | [Config Catalog Demonstrations](./config-catalog-demonstrations.md) | The maintained status of each source path and the five ConfigHub App examples. |
-| What should I see after each command? | [Expected Results And Clusters](./expected-results-and-clusters.md) | Output snippets, cluster choices, bring-your-own Kubernetes, cub-lk, and optional npm proof checks. |
+| What should I see after each command? | [Expected Results And Clusters](./expected-results-and-clusters.md) | Output snippets, cluster choices, bring-your-own Kubernetes, `cub cluster up`, and optional npm proof checks. |
 | How do chart presets relate to Helm values? | [Helm Chart Presets And Values](./helm-presets-and-values.md) | Why the catalog offers useful chart-specific presets instead of claiming every values combination. |
 | How do I verify a claim? | [Verification](./verification.md) | The landing page for npm proof commands, user-side checks, committed receipts, and live lanes. |
 | What can AI safely help with? | [AI-Assisted Helm Changes](./ai-assisted-helm-changes.md) | How AI proposals stay bounded by diff, gate, approval, delivery, and observation. |

@@ -27,12 +27,15 @@ render parity: pass
 two-cluster kind parity: pass
 strict Helm-vs-ConfigHub live parity: pass
 ConfigHub OCI/Argo evidence: pass for the declared support scope
-production support decision: supported for cub-lk vanilla kind, namespace=monitoring
+production support decision: supported for the recorded vanilla kind target, namespace=monitoring
 ```
 
 That means regular Helm and the `cub installer` path produce equivalent
 desired objects for the recorded inputs, and the selected ConfigHub delivery
 path reached the recorded live state for the declared target scope.
+The receipt stores that historical target class as `cub-lk-kind-vanilla`.
+Current local delivery examples create the equivalent kind and Argo CD setup
+with `cub cluster up`.
 
 The `no-crds` base is deliberately different:
 

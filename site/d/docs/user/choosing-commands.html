@@ -439,7 +439,7 @@
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>
 <tr><td>Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant.</td><td><code>cub variant create</code></td></tr>
-<tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run -o mutations</code>, then <code>cub variant promote</code></td></tr>
+<tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run</code>, then <code>cub variant promote</code></td></tr>
 <tr><td>Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model.</td><td>discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe</td></tr>
 <tr><td>Prove a repo artifact or live lane has not drifted.</td><td>the relevant <code>npm run ...</code> verifier</td></tr></tbody></table>
 <p>The durable public catalog path starts at <code>cub installer</code>. Plain Helm remains the low-friction render path. <code>cub variant upload</code> is the general one-shot ConfigHub path for rendered files and literal OCI bundles.</p>
@@ -466,7 +466,7 @@
 <tr><td>Flux HelmRelease or Kustomization</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Preserve the controller source and target before changing the render path.</td></tr>
 <tr><td>Rendered KRM YAML or manifests</td><td><code>cub unit import</code> or managed import workflow</td><td>Add labels, links, scans, gates, and observations.</td></tr></tbody></table>
 <p>The important boundary is whether the user wants a one-time representation or a maintained artifact. Direct commands are good for one-time representation. Catalog entries are for repeatable bases, variant support, updates, patches, and proof.</p>
-<p>For concrete &quot;you should see something like this&quot; checks after each command, use <a href="expected-results-and-clusters.html">Expected Results And Clusters</a>. It also explains when users need no cluster, a local kind cluster, their own Kubernetes cluster, or a <code>cub-lk</code> Argo/kind rig.</p>
+<p>For concrete &quot;you should see something like this&quot; checks after each command, use <a href="expected-results-and-clusters.html">Expected Results And Clusters</a>. It also explains when users need no cluster, a local kind cluster, their own Kubernetes cluster, or a temporary cluster created by <code>cub cluster up</code>.</p>
 <h2 id="command-roles">Command Roles</h2>
 <h3 id="helm-template"><code>helm template</code></h3>
 <p>Use this when you want a fast local Helm render.</p>
@@ -496,7 +496,7 @@
 <p>Use this when a downstream Space was created by <code>cub variant create</code> and the reviewed upstream Space has changed. This is a normal ConfigHub server operation for components represented as upstream/downstream Spaces, not a helm-expt-only workflow.</p>
 <p>Start with:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub variant promote &lt;downstream-space&gt; --dry-run -o mutations</code></pre>
+  <pre><code>cub variant promote &lt;downstream-space&gt; --dry-run</code></pre>
 <p>Good for:</p>
 <ul><li>seeing which downstream Units are behind their upstream Units;</li><li>previewing mutation paths before writing;</li><li>cloning Units that were added upstream after the downstream variant was created;</li><li>associating the change with a ConfigHub changeset and change description.</li></ul>
 <p>It should not be treated as a Helm upgrade by another name. If the upstream change required a Helm rerender, that rerender belongs in the <code>cub installer</code> recipe/package path first. <code>cub variant promote</code> then carries the reviewed upstream changes into the downstream ConfigHub variant.</p>
@@ -517,7 +517,7 @@
 <tr><td>&quot;Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology.&quot;</td><td>create or choose a <code>cub installer</code> base variant</td></tr>
 <tr><td>&quot;Fill <code>extraDeploy</code>, <code>serverBlock</code>, <code>tpl</code>, sidecar, raw manifest, or config-block slots.&quot;</td><td>create or choose a reviewed <code>cub installer</code> base variant</td></tr>
 <tr><td>&quot;Create prod-us-east from this reviewed Prometheus base.&quot;</td><td><code>cub variant create</code> over the uploaded ConfigHub Space</td></tr>
-<tr><td>&quot;Bring prod-us-east up to the latest reviewed Prometheus base.&quot;</td><td><code>cub variant promote prod-us-east --dry-run -o mutations</code>, then promote through a changeset</td></tr>
+<tr><td>&quot;Bring prod-us-east up to the latest reviewed Prometheus base.&quot;</td><td><code>cub variant promote prod-us-east --dry-run</code>, then promote through a changeset</td></tr>
 <tr><td>&quot;Change target, environment, region, gates, labels, links, or observation policy.&quot;</td><td>derived ConfigHub variant</td></tr>
 <tr><td>&quot;Use an existing Secret that changes chart rendering.&quot;</td><td>base variant</td></tr>
 <tr><td>&quot;Bind an existing Secret reference already exposed by the base.&quot;</td><td>derived ConfigHub variant plus target-fact checks</td></tr>

@@ -4,6 +4,16 @@ Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml).
 
 This is the status index for the source pathways and ConfigHub App demonstrations. `available` means the committed evidence supports the described path. `partial`, `example-only`, and `planned` keep the missing work visible.
 
+## OCI in, managed configuration, OCI out
+
+**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage. The result is a literal configuration OCI plus a source record that names its inputs, prerequisites, lifecycle work, and evidence.
+
+**Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
+
+**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. Argo CD, Flux, A recorded direct-apply path can consume that artifact without rendering the source package again.
+
+This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.
+
 ## Source pathways
 
 | Demonstration | Status | Problem | Result |
@@ -11,7 +21,7 @@ This is the status index for the source pathways and ConfigHub App demonstration
 | Helm chart to managed configuration | available | A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates. | Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants. |
 | AICR bundle to managed configuration | partial | AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run. | Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources. |
 | cub installer package to managed configuration | available | A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test. | cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub. |
-| One reviewed bundle through Argo CD, Flux, or direct apply | partial | Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values. | ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a managed direct-apply path can consume the same files without rendering the chart again. |
+| One reviewed bundle through Argo CD, Flux, or direct apply | partial | Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values. | ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again. |
 | Test, development, staging, and production promotions | partial | Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration. | Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval. |
 | Kubara platform configuration to a cluster fleet | partial | A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record. | Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups. |
 | ConfigHub desired state delivered through Sveltos | partial | Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation. | ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons. |

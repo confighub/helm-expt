@@ -97,8 +97,8 @@ schedulable.
 The strict two-cluster kind parity lane can create multi-node vanilla kind
 targets directly from target facts. The single-cluster ConfigHub/OCI rig also
 needs the same Kubernetes target shape, but its cluster bootstrap goes through
-the local `cub lk`/`cub cluster` helper because that helper provisions Argo CD
-and the ConfigHub target. If that helper cannot create a multi-node kind target,
+`cub cluster up` because that command provisions Argo CD and the ConfigHub
+target. If it cannot create a multi-node kind target,
 the row is blocked on proof-rig provisioning. It is not a ConfigHub worker
 requirement and not a render-parity defect.
 

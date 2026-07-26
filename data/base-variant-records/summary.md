@@ -20,7 +20,8 @@ A base-variant record connects the literal configuration to the source that prod
 
 ## Examples
 
-- [Redis default](records/bitnami-redis-25-5-3-default.yaml) connects a Helm render intent, 14 literal objects, its revision digest, and the current OCI evidence.
+- [Redis default](records/bitnami-redis-25-5-3-default.yaml) connects a Helm render intent, 14 literal objects, and its revision digest without claiming a current three-consumer delivery receipt.
+- [NGINX http-clusterip](records/bitnami-nginx-24-0-2-http-clusterip.yaml) records the first exact catalog base published as one ConfigHub release OCI and consumed at the same digest by Argo CD, Flux, and direct apply.
 - [Argo CD no-crds](records/argo-cd-argo-cd-9-5-15-no-crds.yaml) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.

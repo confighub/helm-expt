@@ -443,8 +443,8 @@ component: monitoring platform</code></pre>
 two-cluster kind parity: pass
 strict Helm-vs-ConfigHub live parity: pass
 ConfigHub OCI/Argo evidence: pass for the declared support scope
-production support decision: supported for cub-lk vanilla kind, namespace=monitoring</code></pre>
-<p>That means regular Helm and the <code>cub installer</code> path produce equivalent desired objects for the recorded inputs, and the selected ConfigHub delivery path reached the recorded live state for the declared target scope.</p>
+production support decision: supported for the recorded vanilla kind target, namespace=monitoring</code></pre>
+<p>That means regular Helm and the <code>cub installer</code> path produce equivalent desired objects for the recorded inputs, and the selected ConfigHub delivery path reached the recorded live state for the declared target scope. The receipt stores that historical target class as <code>cub-lk-kind-vanilla</code>. Current local delivery examples create the equivalent kind and Argo CD setup with <code>cub cluster up</code>.</p>
 <p>The <code>no-crds</code> base is deliberately different:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>render parity: pass

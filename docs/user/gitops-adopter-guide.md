@@ -15,10 +15,10 @@ source that the controller reads.
 
 ## What changes: the source
 
-Instead of pointing the controller at a git repo of Helm values that each tool
-re-renders, you point it at **one OCI bundle** published from reviewed ConfigHub
-Units. Every controller pulls the same generated objects. There is no per-tool
-Helm re-render in the GitOps controller path.
+Instead of pointing the controller at Helm values that it must render, point it
+at one Space release OCI published from reviewed ConfigHub Units. Every
+consumer reads the same Kubernetes objects. The pull URL is
+`oci://oci.hub.confighub.com:443/space/<space>`.
 
 See [cub-deployment-path](cub-deployment-path.md).
 
@@ -33,14 +33,19 @@ The first answer is yes. A small routed-hook fixture was published once and
 successfully consumed through all three paths. That proves the delivery
 mechanism.
 
-The second answer depends on the catalog entry. Look for a delivery receipt on
-that entry's page. A receipt for the fixture, or for another chart, does not
-prove that your selected configuration has reconciled successfully.
+The first exact catalog result is also available. The
+[`bitnami/nginx@24.0.2` `http-clusterip` receipt](../../data/catalog-oci-delivery-proof/summary.md)
+records the same release digest under Argo CD, Flux, and direct apply, with a
+ready NGINX workload under each.
+
+Every other answer still depends on the catalog entry. Look for a delivery
+receipt on that entry's page. A receipt for the fixture or for NGINX does not
+prove that another selected configuration reconciled successfully.
 
 ## Argo CD
 
-An Argo `Application` can point at the OCI URL and a path inside the bundle.
-Argo still reports sync and health as usual. The catalog records which
+An Argo `Application` points at the Space OCI URL, uses `targetRevision:
+latest`, and uses path `.`. Argo still reports sync and health as usual. The catalog records which
 chart/preset rows have evidence for the render, ConfigHub upload, OCI handoff,
 Argo sync, and live result.
 
@@ -54,9 +59,9 @@ Any extra work around the chart, such as hooks or setup jobs, still needs a
 documented action, check, target fact, blocker, or refusal. Do not assume Flux
 will automatically recreate Helm hook behavior in this path.
 
-## No controller (cub-direct)
+## No controller
 
-`oras` and `kubectl` can pull and apply the same generated bundle when you do
+`oras` and `kubectl` can pull and apply the same Space release when you do
 not want a controller. This is useful for a one-shot apply or a CI step, but it
 also means you must be more explicit about ordering, pruning, CRDs, and setup
 work.
@@ -85,5 +90,6 @@ See [pathway-route-hooks-transparently](pathway-route-hooks-transparently.md).
 - [How It Works](how-it-works.md)
 - [Deployment Path](cub-deployment-path.md)
 - [Delivery mechanism receipt](../../data/oci-hook-delivery-proof/summary.md)
+- [Exact NGINX delivery receipt](../../data/catalog-oci-delivery-proof/summary.md)
 - [What Happens To Chart Hooks](chart-hooks-what-happens.md)
 - [Doctrine](../../tests/doctrine.md)

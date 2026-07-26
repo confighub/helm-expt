@@ -15,7 +15,7 @@ other.
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
-| Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run -o mutations`, then `cub variant promote` |
+| Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run`, then `cub variant promote` |
 | Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model. | discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
@@ -79,7 +79,7 @@ and proof.
 For concrete "you should see something like this" checks after each command,
 use [Expected Results And Clusters](./expected-results-and-clusters.md). It also
 explains when users need no cluster, a local kind cluster, their own Kubernetes
-cluster, or a `cub-lk` Argo/kind rig.
+cluster, or a temporary cluster created by `cub cluster up`.
 
 ## Command Roles
 
@@ -176,7 +176,7 @@ helm-expt-only workflow.
 Start with:
 
 ```sh
-cub variant promote <downstream-space> --dry-run -o mutations
+cub variant promote <downstream-space> --dry-run
 ```
 
 Good for:
@@ -224,7 +224,7 @@ path, future chart refreshes, and catalog-grade proof.
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
 | "Create prod-us-east from this reviewed Prometheus base." | `cub variant create` over the uploaded ConfigHub Space |
-| "Bring prod-us-east up to the latest reviewed Prometheus base." | `cub variant promote prod-us-east --dry-run -o mutations`, then promote through a changeset |
+| "Bring prod-us-east up to the latest reviewed Prometheus base." | `cub variant promote prod-us-east --dry-run`, then promote through a changeset |
 | "Change target, environment, region, gates, labels, links, or observation policy." | derived ConfigHub variant |
 | "Use an existing Secret that changes chart rendering." | base variant |
 | "Bind an existing Secret reference already exposed by the base." | derived ConfigHub variant plus target-fact checks |

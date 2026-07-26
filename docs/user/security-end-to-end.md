@@ -5,19 +5,24 @@ four places security shows up on the cub path.
 
 ## 1. App secrets (your app's own Secrets)
 
-Three honest modes, never a guess:
-- **Generated** — the chart renders a Secret into the recipe (visible in the Units).
-- **Existing** — you pre-provide it; the recipe references it (an existing-secret base).
-- **Target fact** — staged as a prerequisite input. ([target-prerequisites](target-prerequisites.md))
+The catalog records which mode a preset uses:
+
+- **Existing Secret** — the recommended preset names a Secret that the target
+  must provide.
+- **Generated for a local run** — `cub installer` keeps the rendered Secret in
+  its local `out/secrets` directory and does not upload it as a ConfigHub Unit.
+- **Target fact** — the required Secret or secret manager binding is staged as
+  a prerequisite input. ([target-prerequisites](target-prerequisites.md))
 
 If a Secret is required and missing, it's a **named prerequisite**, not a silent default.
 
 ## 2. Delivery credentials (OCI pull auth)
 
-Pulling the OCI bundle needs registry credentials (`confighub-oci-creds`). Provisioned for
-Argo by `cub-lk`; **copied** (re-namespaced) for Flux — never printed, logged, or passed on
-a command line. A wrong/missing format produces a **named error**, never a silent
-unauthenticated pull. ([cub-deployment-path](cub-deployment-path.md))
+Pulling a private ConfigHub Space release needs registry credentials
+(`confighub-oci-creds`). `cub cluster up` installs them for Argo CD. The Flux
+proof copies the same credential into `flux-system` without printing it,
+logging it, or passing it on a command line. A wrong or missing credential
+produces a named error. ([cub-deployment-path](cub-deployment-path.md))
 
 ## 3. Permissions (RBAC)
 
