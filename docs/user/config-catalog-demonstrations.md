@@ -32,7 +32,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 - Existing: `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
 - With ConfigHub: `Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
-- First: ConfigHub can record and republish the exact OCI configuration unchanged.
+- First: ConfigHub can publish the same specs and user-supplied metadata unchanged. The release adds only the confighub.com/origin provenance annotation.
 - Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
 - Fan-out: One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.
 
@@ -142,7 +142,7 @@ Start with [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-gu
 
 Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md), [runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml](../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. The combined NGINX receipt proves one OCI import, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
+Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. The combined NGINX receipt proves one OCI import, one congruent ConfigHub output with only the confighub.com/origin annotation added, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
 
 ### Test, development, staging, and production promotions
 
