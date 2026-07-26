@@ -1,0 +1,219 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciDeployStageRolloutReceipt"
+metadata:
+  name: "bitnami-nginx-24-0-2-http-clusterip"
+spec:
+  observedAt: "2026-07-26T20:01:36.081Z"
+  source:
+    type: "literal-kubernetes-oci"
+    originalSource: "helm-catalog-base"
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    presetConfig: "http-clusterip"
+    sourceRecord: "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    objects: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    objectCount: 5
+    yamlSha256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+  serverlessInput:
+    result: "pass"
+    reference: "oci://127.0.0.1:32779/bitnami-nginx-http-clusterip-config:24.0.2"
+    digest: "sha256:7cbbe182825121c0df57799d5a90d323884c8be0817c96a4f095b643be638ebe"
+    anonymousLocalPull: "pass"
+    pulledYamlSha256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
+    objectsMatched: true
+    note: "This local proof needs no ConfigHub server until the OCI is uploaded."
+  serverlessOutput:
+    result: "pass"
+    reference: "oci://127.0.0.1:32779/reviewed-nginx-staging:latest"
+    clusterReference: "oci://host.docker.internal:32779/reviewed-nginx-staging"
+    digest: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+    objectCount: 5
+    yamlSha256: "d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111"
+    pulledYamlSha256: "d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111"
+    objectsMatched: true
+    note: "The reviewed staging objects were exported as one anonymous OCI package. Pulling this package does not require a ConfigHub account."
+  configHub:
+    import:
+      result: "pass"
+      space: "hx-oci-flow-20260726-1zhl-base"
+      externalSource: "oci://127.0.0.1:32779/bitnami-nginx-http-clusterip-config:24.0.2"
+      externalSourceDigest: "sha256:7cbbe182825121c0df57799d5a90d323884c8be0817c96a4f095b643be638ebe"
+      unitCount: 5
+      kubernetesFieldsMatched: true
+      ignoredImporterMetadata:
+        - "/$comment$head$"
+      deploymentUnit: "nginx-deployment-nginx"
+    chain:
+      path: "base -> development -> staging"
+      result: "pass"
+      base:
+        space: "hx-oci-flow-20260726-1zhl-base"
+        variant: "base"
+        environment: ""
+        upstreamSpaceId: ""
+        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+      development:
+        space: "hx-oci-flow-20260726-1zhl-dev"
+        variant: "development"
+        environment: "Development"
+        upstreamSpaceId: "5600dd7d-494a-4e9c-803b-64a37d2f7c34"
+        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+      staging:
+        space: "hx-oci-flow-20260726-1zhl-staging"
+        variant: "staging"
+        environment: "Staging"
+        upstreamSpaceId: "587afc28-2bfe-4d99-880b-74c6d84a55fb"
+        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+    change:
+      field: "Deployment/nginx spec.replicas"
+      before: 1
+      after: 2
+      result: "pass"
+    promotions:
+      development:
+        result: "pass"
+        space: "hx-oci-flow-20260726-1zhl-dev"
+        preview: "pass"
+        previewOutputSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        previewLeftStoredDataUnchanged: true
+        beforeReplicas: 1
+        afterReplicas: 2
+        pendingBefore: 1
+        pendingAfter: 0
+      staging:
+        result: "pass"
+        space: "hx-oci-flow-20260726-1zhl-staging"
+        preview: "pass"
+        previewOutputSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        previewLeftStoredDataUnchanged: true
+        beforeReplicas: 1
+        afterReplicas: 2
+        pendingBefore: 1
+        pendingAfter: 0
+  delivery:
+    development:
+      result: "pass"
+      release:
+        space: "hx-oci-flow-20260726-1zhl-dev"
+        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev:latest"
+        manifestDigest: "sha256:916efa468ae7381ca4797245dd506ebf2be4ef8d330b96fe838e6069b094d770"
+        bundleDigest: "sha256:b029f06bb3e12084c4708554b14de9fc94a4887f9fb292a1ebb9bec8550cfc6b"
+        releaseId: "7861cdbb-374c-426e-a45b-e2be0a98715b"
+      application:
+        name: "nginx-development"
+        unit: "hx-oci-flow-20260726-1zhl-a-cluster/nginx-development-app"
+        source: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev"
+        destinationNamespace: "nginx-development"
+        clusterRootReleaseDigest: "sha256:5d28190bfed75a1f46a897f0041d6a97dec871d6a41dea4560452ce1115c7ba8"
+      initialRuntime:
+        result: "pass"
+        namespace: "nginx-development"
+        application: "nginx-development"
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:916efa468ae7381ca4797245dd506ebf2be4ef8d330b96fe838e6069b094d770"
+        deployment:
+          name: "nginx"
+          replicas: "1/1"
+          available: 1
+          observedGenerationMatches: true
+          image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      promotedRelease:
+        space: "hx-oci-flow-20260726-1zhl-dev"
+        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev:latest"
+        manifestDigest: "sha256:9130c27f5dc3aef3dbe0ae427699ba5b1c1b6ccaf65791af3637e4ec6f4cfed0"
+        bundleDigest: "sha256:aed7371d2839da6c670481f4c2f615c12aee48f6585a053211973342db7d6e44"
+        releaseId: "97d31670-c81c-488c-9989-5b254360460d"
+      promotedRuntime:
+        result: "pass"
+        namespace: "nginx-development"
+        application: "nginx-development"
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:9130c27f5dc3aef3dbe0ae427699ba5b1c1b6ccaf65791af3637e4ec6f4cfed0"
+        deployment:
+          name: "nginx"
+          replicas: "2/2"
+          available: 2
+          observedGenerationMatches: true
+          image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+    stagingRelease:
+      result: "pass"
+      space: "hx-oci-flow-20260726-1zhl-staging"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-staging:latest"
+      manifestDigest: "sha256:211484786fc1d7d4d7631e48d3dad429f0e3c88df07b91e4fd3ff74948a2dcf9"
+      bundleDigest: "sha256:42d2322d5bf7cb730b265ab323c67bd3487860a7fc459342056657a6a4f252f6"
+      releaseId: "e83afc91-f937-4a6c-9a4e-319784c35f3d"
+    fleet:
+      size: 2
+      result: "pass"
+      sameReleaseDigest: true
+      digest: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+      targets:
+        -
+          cluster: "hx-oci-flow-20260726-1zhl-a"
+          clusterSpace: "hx-oci-flow-20260726-1zhl-a-cluster"
+          application:
+            name: "nginx-staging"
+            unit: "hx-oci-flow-20260726-1zhl-a-cluster/nginx-staging-app"
+            source: "oci://host.docker.internal:32779/reviewed-nginx-staging"
+            destinationNamespace: "nginx-staging"
+            clusterRootReleaseDigest: "sha256:f69886465c1aeed785b3f2f24bf42a8a8297874f7ee465b71bf9c161eb3c82a4"
+          runtime:
+            result: "pass"
+            namespace: "nginx-staging"
+            application: "nginx-staging"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+            deployment:
+              name: "nginx"
+              replicas: "2/2"
+              available: 2
+              observedGenerationMatches: true
+              image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        -
+          cluster: "hx-oci-flow-20260726-1zhl-b"
+          clusterSpace: "hx-oci-flow-20260726-1zhl-b-cluster"
+          application:
+            name: "nginx-staging"
+            unit: "hx-oci-flow-20260726-1zhl-b-cluster/nginx-staging-app"
+            source: "oci://host.docker.internal:32779/reviewed-nginx-staging"
+            destinationNamespace: "nginx-staging"
+            clusterRootReleaseDigest: "sha256:d11aa557da3941eef5494cd6064bb1084f886cd86c91b8e1586231fad845cfa8"
+          runtime:
+            result: "pass"
+            namespace: "nginx-staging"
+            application: "nginx-staging"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+            deployment:
+              name: "nginx"
+              replicas: "2/2"
+              available: 2
+              observedGenerationMatches: true
+              image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+  run:
+    clusterCommand: "cub cluster up"
+    targetShape: "two throwaway cub-managed kind clusters with Argo CD"
+    sourceRegistry: "temporary local OCI registry"
+    organizationPurpose: "ephemeral scratch organization"
+    cleanup:
+      sourceRegistry: "pass"
+      baseSpace: "pass"
+      developmentSpace: "pass"
+      stagingSpace: "pass"
+      clusterA: "pass"
+      clusterB: "pass"
+      localFiles: "pass"
+  limits:
+    - "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt."
+    - "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target."
+    - "This test read Argo CD and Kubernetes status directly. It did not test ConfigHub's cluster observation feed."
+    - "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts."
+    - "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead."
+status:
+  result: "pass"
+  claim: "One literal Kubernetes OCI was imported as a ConfigHub base, promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas."

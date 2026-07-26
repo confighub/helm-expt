@@ -6,13 +6,30 @@ This is the status index for the source pathways and ConfigHub App demonstration
 
 ## OCI in, managed configuration, OCI out
 
-**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage. The result is a literal configuration OCI plus a source record that names its inputs, prerequisites, lifecycle work, and evidence.
+**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
+
+### Use the front door without an account
+
+| Path | What it does |
+| --- | --- |
+| `work -> OCI` | Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package. |
+| `OCI -> work` | Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version. |
+| `OCI -> work -> OCI` | Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub. |
+
+Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
 
 **Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
 
-**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. Argo CD, Flux, A recorded direct-apply path can consume that artifact without rendering the source package again.
+ConfigHub can join an existing delivery flow without replacing it:
 
-This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.
+- Existing: `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
+- With ConfigHub: `Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
+- First: ConfigHub can record and republish the exact OCI configuration unchanged.
+- Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
+
+**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers. Argo CD, Flux, and direct apply can consume that artifact without rendering the source package again.
+
+The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.
 
 ## Source pathways
 
@@ -21,6 +38,7 @@ This website and catalog do the work before OCI enters ConfigHub. ConfigHub then
 | Helm chart to managed configuration | available | A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates. | Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants. |
 | AICR bundle to managed configuration | partial | AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run. | Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources. |
 | cub installer package to managed configuration | available | A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test. | cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub. |
+| Public OCI inspection and packaging | partial | A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service. | Pull an OCI package, work with the exact objects, and produce a deployable OCI package. Claim it in ConfigHub only when the team wants saved history, variants, approvals, promotions, or fleet rollout. |
 | One reviewed bundle through Argo CD, Flux, or direct apply | partial | Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values. | ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again. |
 | Test, development, staging, and production promotions | partial | Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration. | Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval. |
 | Kubara platform configuration to a cluster fleet | partial | A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record. | Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups. |

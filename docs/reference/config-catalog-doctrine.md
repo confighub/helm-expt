@@ -8,11 +8,27 @@ help people turn Helm charts, AICR recipes, installer packages, Kubara output, S
 objects, and existing YAML into literal configuration with recorded inputs, known
 prerequisites, lifecycle work, and evidence.
 
+That public front door must remain useful without a ConfigHub account:
+
+- `work -> OCI`: inspect and test source material, then build a deployable OCI;
+- `OCI -> work`: pull a public OCI to explain, inspect, scan, or compare it;
+- `OCI -> work -> OCI`: check or change the exact objects and serve the result.
+
+The boundary is **Claim this configuration in ConfigHub**. Before that point, a user
+can work anonymously with public packages. Claiming saves the objects and their
+history so a team can transform, approve, promote, and roll them out.
+
 ConfigHub is the middle. It stores the exact objects, creates base and derived
 variants, shows diffs, runs checks, records approvals, promotes changes, and keeps
 release and observation history. `cub release publish` then creates an immutable
 Space release OCI for Argo CD, Flux, or another recorded delivery path. Delivery does
 not render the source package again.
+
+ConfigHub can join an existing `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
+flow without replacing the tools around it. The first change can be
+`OCI -> ConfigHub -> OCI`, with the exact configuration recorded and republished
+unchanged. Later, ConfigHub can produce named variants for environments, customers,
+regions, or cluster classes.
 
 Current local delivery examples create their kind cluster and Argo CD setup with
 `cub cluster up` and remove it with `cub cluster down`. The string
@@ -65,22 +81,28 @@ The source record and the literal objects stay connected. A rendered YAML file o
 own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which
 target facts were required.
 
-## The three OCI uses
+## The OCI packages are not all the same
 
-The word OCI covers three different artifacts in this work.
+The word OCI covers four related artifacts in this work.
 
 | OCI artifact | What it contains | What consumes it |
 | --- | --- | --- |
 | Source or installer package | A chart or source bundle, preset configurations, and the files needed to produce a selected result | `cub installer` or another source tool |
 | Literal configuration bundle | Kubernetes YAML that is ready to become ConfigHub Units | `cub variant upload oci://...` |
+| Portable deployment bundle | Reviewed Kubernetes objects in a standard OCI content layer | An anonymous pull, Argo CD, Flux, or another external consumer |
 | ConfigHub release bundle | Approved desired configuration published for delivery | Argo CD, Flux, or another ConfigHub delivery path |
 
 An entry must name which kind of OCI artifact it links to. A multi-preset installer
 package is not automatically a literal configuration bundle.
 
-This distinction also divides the work cleanly. The front door helps users make the
-first two artifacts correctly. ConfigHub manages what happens after the literal
-configuration is uploaded and publishes the third artifact for delivery.
+The literal upload bundle and portable deployment bundle may contain the same
+Kubernetes objects while using different OCI layer layouts. The consumer determines
+the required layout. The front door must check the package it produces with the
+consumer that will use it.
+
+This distinction also divides the work cleanly. The front door helps users make,
+inspect, and serve public packages. ConfigHub manages what happens after the literal
+configuration is claimed and publishes its own release artifact for delivery.
 
 The AICR Argo CD example makes the distinction concrete. AICR generates a Helm chart
 as its Argo CD source package. Helm renders that chart into 17 Argo CD `Application`
@@ -128,6 +150,10 @@ Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does
 not prove the other one.
 
+Do not copy one cluster's target-scoped OCI credential into another cluster to make a
+fleet demo pass. Either publish through each intended target or give all intended
+controllers legitimate access to one portable release artifact.
+
 The project also separates proof of the delivery mechanism from proof for a catalog
 entry. The routed-hook fixture proves that one ConfigHub release OCI can be consumed
 through Argo CD, Flux, and direct apply. A Helm base, AICR bundle, Kubara platform, or
@@ -141,6 +167,13 @@ still reports the pending change. Dev and staging retain their own replica count
 The [live receipt](../../data/fleet-promotion/live-nginx-registry-migration.yaml)
 checks those records and policy assignments. It does not claim Kubernetes delivery
 or workload health.
+
+The [OCI import, promotion, and two-cluster proof](../../data/oci-deploy-stage-rollout-proof/summary.md)
+demonstrates the immediate end-to-end slice: import one exact OCI as a base, create
+development and staging variants, promote one reviewed field change in sequence,
+package staging once, and reconcile that same OCI digest on two clusters. Its receipt
+includes controller status, ready workload replicas, and complete cleanup. It does not
+stand in for production scale or every catalog row.
 
 ## Apply policy
 

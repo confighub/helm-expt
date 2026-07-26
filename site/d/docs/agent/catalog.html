@@ -428,10 +428,14 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/catalog.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>This guide does not redesign the catalog. Treat the catalog and chart pages as evidence to read, not as pages to rewrite.</p>
+<h2 id="product-boundary">Product Boundary</h2>
+<p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
+<p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
 <h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
 <p>Do not edit these unless the user explicitly asks for catalog work:</p>
 <ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
