@@ -441,7 +441,7 @@ docs/planning/large-machine-roadmap.md</code></pre>
 <p>The repository is a public proof corpus for turning popular public Helm charts into reviewed <code>cub installer</code> packages, supported base variants, rendered objects, scans, receipts, and live-test evidence.</p>
 <p>In this handover, <b>base variant</b> means a render-time installer/package variant. <b>Derived ConfigHub variant</b> means a downstream ConfigHub variant created after a reviewed base has been uploaded, using clone/link plus approved post-render refinements. The public catalog primarily proves base variants. Derived variants are still part of the product model, but they appear after upload when a deployment needs target, environment, region, customer, namespace field, fact binding, placeholder, TransformPaths, function, gate, link, check, or observation-policy changes without re-rendering Helm.</p>
 <p>The current public path is:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Helm chart
   -&gt; analyzed chart facts and control points
   -&gt; cub installer package

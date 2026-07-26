@@ -222,9 +222,12 @@ function buildAicrRecord() {
   const root = "examples/aicr/eks-h100-training-kubeflow";
   const receiptPath = `${root}/generation-receipt.yaml`;
   const recipePath = `${root}/recipe.yaml`;
-  const bundlePath = `${root}/flux-bundle`;
-  const checksumsPath = `${bundlePath}/checksums.txt`;
   const receipt = readYaml(join(repoRoot, receiptPath));
+  const bundlePath = receipt.spec.outputs.ociBundle;
+  const checksumsPath = receipt.spec.outputs.ociBundleChecksums;
+  const localOciManifestPath = receipt.spec.outputs.localOciManifest;
+  const publicOciRef = `oci://${receipt.spec.oci.publicTarget}`;
+  const fluxRequirements = receipt.spec.oci.fluxRequirements;
   const objects = objectsInDirectory(join(repoRoot, bundlePath));
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -258,14 +261,14 @@ function buildAicrRecord() {
         objectCount: objects.length,
       },
       inputs: {
-        fixedAtBuildTime: Object.entries(receipt.spec.criteria).map(([key, value]) => `${key}=${value}`),
-        installTime: Object.entries(receipt.spec.installTimeInputs).map(([name, value]) => ({
-          name,
-          type: "string",
-          required: true,
-          value: String(value),
-        })),
-        installTimeStatus: "declared",
+        fixedAtBuildTime: [
+          ...Object.entries(receipt.spec.criteria).map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(receipt.spec.generationInputs)
+            .filter(([key]) => key !== "gitBundleRepositoryUrl")
+            .map(([key, value]) => `${key}=${value}`),
+        ],
+        installTime: [],
+        installTimeStatus: "none-declared-for-this-generated-artifact",
       },
       routing: {
         routes: [
@@ -274,25 +277,45 @@ function buildAicrRecord() {
             status: "generated-not-live",
             note: "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target.",
           },
+          {
+            id: "flux-external-artifact",
+            status: "generated-not-live",
+            note: "Two local charts use ArtifactGenerator and ExternalArtifact. Flux must run source-watcher and enable ExternalArtifact on helm-controller.",
+          },
+          {
+            id: "flux-oci-source",
+            status: "not-run",
+            note: `The target needs an OCIRepository named ${fluxRequirements.source.name} in ${fluxRequirements.source.namespace} that points at the published AICR artifact.`,
+          },
         ],
         targetFacts: {
           platform: "EKS",
           accelerator: "H100",
           operatingSystem: "Ubuntu",
-          fluxRequired: true,
+          flux: {
+            minimumVersion: fluxRequirements.minimumVersion,
+            controllers: fluxRequirements.controllers,
+            featureGates: fluxRequirements.featureGates,
+            source: fluxRequirements.source,
+          },
         },
         sourceRecord: recipePath,
       },
       delivery: {
         literalConfigOci: {
-          status: "not-published",
-          plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0",
+          status: "local-only",
+          localDigest: receipt.spec.oci.localManifestDigest,
+          localPush: receipt.status.localOciPush,
+          localPull: receipt.status.localOciPull,
+          publicPush: receipt.status.publicOciPush,
+          publicPull: receipt.status.publicOciPull,
+          plannedRef: publicOciRef,
         },
         configHubReleaseOci: {
           status: "not-run",
         },
         argoCd: "not-generated",
-        flux: "bundle-generated-not-live",
+        flux: "oci-bundle-generated-local-pull-pass-not-live",
       },
       policy: {
         profile: "catalog-standard",
@@ -302,6 +325,8 @@ function buildAicrRecord() {
         generationReceipt: receiptPath,
         recipe: recipePath,
         checksums: checksumsPath,
+        localOciManifest: localOciManifestPath,
+        originalGitBundle: receipt.spec.outputs.bundle,
       },
       operations: {
         resourceClass: "system-configuration",
@@ -311,12 +336,13 @@ function buildAicrRecord() {
     },
     status: {
       level: "partial",
-      claim: "AICR v0.14.0 generated the committed recipe and Flux bundle, and every recorded bundle checksum verifies.",
+      claim: `AICR v0.14.0 generated the committed recipe and OCI-oriented Flux bundle. All ${objects.length} Kubernetes objects and every bundle file are recorded; the artifact was pushed to and pulled from a temporary local registry at ${receipt.spec.oci.localManifestDigest}.`,
       limits: [
-        "The generated Flux bundle still contains the recorded YOUR_ORG/YOUR_REPO Git repository placeholder and is not deployable as-is.",
-        "The literal configuration OCI has not been published.",
+        "The OCI artifact has not been published to the public Google Artifact Registry target.",
         "The bundle has not been uploaded to ConfigHub.",
-        "No live GPU-cluster reconciliation is claimed.",
+        "Flux needs the recorded source-watcher controller, ExternalArtifact feature gate, and OCIRepository before this bundle can reconcile.",
+        "No live Flux or GPU-cluster reconciliation is claimed.",
+        "The older Git-oriented bundle is kept as separate evidence and still contains its recorded YOUR_ORG/YOUR_REPO placeholder.",
       ],
     },
   };

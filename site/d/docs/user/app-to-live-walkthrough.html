@@ -432,7 +432,7 @@
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This walkthrough was run live, end to end, on 2026-07-02: every command below is verbatim from that run, and the observed outputs are quoted where they matter. It answers one question: I have a simple app; how do I get it into ConfigHub as a base, make staging and production variants, promote changes through them, and see the result live on a cluster through GitOps?</p>
 <p>The chain:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>your app (plain manifests)
   -&gt; cub variant upload        -&gt; base Space
   -&gt; cub variant create (x2)   -&gt; staging and production Spaces

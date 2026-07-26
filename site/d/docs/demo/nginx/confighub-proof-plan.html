@@ -448,7 +448,7 @@ stop before live apply unless a target exists</code></pre>
 <ul><li><code>cub installer doc/setup/render/package/vet/plan/upload</code> for <code>http-clusterip</code>;</li><li>ConfigHub function scan over uploaded Units;</li><li>safe-ops lane with changeset, approval, and blocked/no-target apply behavior;</li><li>target-fact visibility for <code>existing-tls-ingress</code>;</li><li>no production support claim until ingress, TLS Secret ownership, NetworkPolicy, PDB, deployment rollout, and extension-slot warnings have explicit dispositions.</li></ul>
 <h2 id="current-status">Current Status</h2>
 <p>NGINX is a top-20 catalog entry and is <code>catalog-supported</code> for the declared local/test scope. The machine proof shows Helm equivalence:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>http-clusterip: 5 Helm objects, 6 cub installer objects including Namespace
 existing-tls-ingress: 6 Helm objects, 7 cub installer objects including Namespace</code></pre>
 <p>The Redis ConfigHub proof transcript shape has now been repeated for NGINX, starting with <code>http-clusterip</code>.</p>

@@ -440,7 +440,7 @@
 <tr><td><code>cub helm install</code></td><td>Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. It handles values files, <code>--set</code>, CRD splitting, target assignment, and wait behavior.</td><td>You want a one-shot ConfigHub load from a chart, values, and flags.</td><td>A maintained recipe with supported variants, receipts, and update policy.</td></tr>
 <tr><td><code>cub installer</code> package path</td><td>Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks.</td><td>You want repeatable, supportable, variant-aware Helm-derived configs.</td><td>The shortest one-off render/install command.</td></tr></tbody></table>
 <h2 id="direct-render">Direct Render</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub helm template redis redis \
   --repo https://charts.bitnami.com/bitnami \
   --version 25.5.3 \

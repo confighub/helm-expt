@@ -32,19 +32,20 @@ Current limit: A passing render does not prove that every target prerequisite or
 
 AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.
 
-Keep the AICR recipe and checksums, upload the generated OCI or files as a ConfigHub base variant, then apply the same policy and promotion process used for Helm.
+Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload that package as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.
 
 1. Generate and review an AICR recipe for a named target.
-2. Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input, including its target repository.
+2. Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input.
 3. Keep the recipe, bundle checksums, and generation receipt together.
-4. Upload the literal bundle as a ConfigHub base variant.
-5. Promote derived variants only after the rendered diff and target checks pass.
+4. For Flux OCI output, record the required OCIRepository, source-watcher controller, and ExternalArtifact feature gate.
+5. Upload the literal bundle as a ConfigHub base variant.
+6. Promote derived variants only after the rendered diff and target checks pass.
 
 Start with [docs/demo/aicr/eks-h100-training-kubeflow.md](../../docs/demo/aicr/eks-h100-training-kubeflow.md) or [examples/aicr/eks-h100-training-kubeflow/aicr.yaml](../../examples/aicr/eks-h100-training-kubeflow/aicr.yaml).
 
-Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml).
+Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml), [examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle](../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle), [examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json](../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json).
 
-Current limit: The committed Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable until it is regenerated with a real repository URL. The committed AICR example is generated and checksum-verified, but it has not yet been uploaded to ConfigHub or reconciled on a live GPU cluster.
+Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. Public registry publication, ConfigHub upload, controller delivery, and live GPU-cluster reconciliation have not run.
 
 ### cub installer package to managed configuration
 

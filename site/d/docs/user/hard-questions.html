@@ -436,7 +436,7 @@
 <h2 id="is-this-just-helm-with-extra-paperwork">Is this just Helm with extra paperwork?</h2>
 <p>No. Helm still renders. The catalog turns selected render paths into durable <code>cub installer</code> packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
 <p>Use Helm directly when you only need one render. Upload the rendered files separately only when you want ConfigHub Units:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>helm template &lt;release&gt; &lt;chart&gt; --values values.yaml &gt; rendered.yaml
 cub variant upload --component &lt;name&gt; --variant base rendered.yaml</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>

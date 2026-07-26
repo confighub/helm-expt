@@ -23,8 +23,10 @@ supported path instead of accidentally driving Helm into hidden edge cases.
 
 Four standards guide every catalog entry. Each entry reports which standards
 are proven and which still need work. The Helm corpus is the mature part of the
-project; the first real AICR example is generated and checksum-verified but
-remains partial until its ConfigHub upload and live reconciliation are recorded.
+project. The first real AICR example now has a generated recipe, Git and OCI
+Flux bundles, portable checksums, and a verified local OCI manifest. It remains
+partial until the public registry push, ConfigHub upload, and live
+reconciliation are recorded.
 
 1. Most choices are made and checked before you install. The reviewed package
    fixes almost everything at build time and leaves a small, typed install-time
@@ -42,7 +44,7 @@ Three source paths now lead toward the same ConfigHub operations path:
 | Starting point | First result | ConfigHub entry |
 | --- | --- | --- |
 | Helm chart | A selected `cub installer` preset with its Helm render record, literal objects, and known lifecycle work | Upload the rendered files or a single-base literal OCI bundle |
-| AICR | A versioned recipe and generated deployment bundle with checksums | Upload the literal bundle as a base variant |
+| AICR | A versioned recipe and generated deployment bundle with checksums and remaining target requirements | Upload the generated files or OCI artifact as a base variant |
 | Existing Kubernetes configuration | Reviewed YAML files, optionally packaged as OCI | `cub variant upload <files-or-oci-ref>` |
 
 After upload, derived variants hold test, development, staging, production,

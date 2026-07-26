@@ -16,8 +16,9 @@ There are three current entry paths.
 1. A Helm user chooses a preset configuration from the Helm Ops Catalog. `cub
    installer` pulls the chart package, renders the chosen preset locally, and keeps the
    chart, values, source lock, and known Helm lifecycle work together.
-2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle
-   and its checksums can be uploaded as a ConfigHub base variant.
+2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle,
+   its checksums, OCI digest, and any controller requirements can be uploaded and
+   recorded as a ConfigHub base variant.
 3. A team with existing Kubernetes YAML can package the literal files as OCI, or point
    `cub variant upload` at files directly. This is also the path `cub installer` can use
    after it has rendered a selected preset.
@@ -36,6 +37,11 @@ A ConfigHub base variant needs more than a directory of YAML.
 - The choices fixed at build time and the small set still allowed at install time.
 - Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup
   jobs, Secrets, storage, namespaces, and target capabilities.
+
+Controller requirements count as prerequisites too. For example, AICR's Flux OCI
+output uses `ArtifactGenerator` and `ExternalArtifact`. Its base record must therefore
+name the required Flux version, `source-watcher` controller, feature gate, and matching
+`OCIRepository`; otherwise the YAML is complete as data but cannot reconcile.
 - Provenance, checksums, tests, policy results, approvals, and delivery receipts.
 - The operational class: user workload, system service, or system configuration, plus
   the owner and expected change cadence.

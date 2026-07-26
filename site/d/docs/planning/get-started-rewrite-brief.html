@@ -445,7 +445,7 @@
 <pre><code>helm install prom prometheus-community/prometheus --version 29.8.0 -n monitoring --create-namespace</code></pre>
 <p>Prometheus comes up in the <code>monitoring</code> namespace.</p>
 <p>The ConfigHub way - render the reviewed package, then apply it:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 \
   --base default --work-dir ./prom --non-interactive --namespace monitoring

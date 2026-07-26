@@ -643,7 +643,7 @@ function pageBasePrefix(relPath) {
 function injectInstallCubNote(html, relPath) {
   if (html.includes('id="install-cub"') || html.includes("try.html#install-cub")) return html;
   const base = pageBasePrefix(relPath);
-  const note = `<p class="install-cub-note">New to <code>cub</code>? <a href="${base}/try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>`;
+  const note = `<p class="install-cub-note">New to <code>cub</code>? <a href="${base}/try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>`;
   const headerEnd = html.indexOf("</header>");
   for (const match of html.matchAll(/<pre[^>]*>[\s\S]*?<\/pre>/g)) {
     if (match.index <= headerEnd) continue;
