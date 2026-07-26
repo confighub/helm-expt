@@ -583,7 +583,7 @@
           <h3>How is config delivered, and what about OCI and credentials?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux: never printed, logged, or passed on a command line. Argo, Flux, and cub-direct all pull the same bundle and run a routed hook, proven by a committed receipt.</p>
+        <p>ConfigHub can publish reviewed Units once as a release OCI. A live fixture proves that Argo CD, Flux, and direct apply can consume the same bundle and run its routed hook. That receipt proves the mechanism, not every catalog configuration. Each configuration needs its own delivery receipt. OCI pull credentials are provisioned for Argo CD and copied into the Flux namespace without being printed or passed on a command line.</p>
         <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
       </article>
         <article class="faq-card answered">

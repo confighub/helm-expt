@@ -14,7 +14,7 @@ section: a one-line claim, a short plain-English explainer, one visual, and a "g
 | --- | --- | --- | --- | --- |
 | 1 | **Render** | "Your chart becomes the *exact* same Kubernetes objects — proven object-for-object." | Parity proves the *recipe*, not that it's live-ready. | render-parity lane; `direct-cub-helm-model`, `reading-the-matrix` |
 | 2 | **Route** | "Anything Helm would run *for* you — hooks, CRD installs — becomes an explicit, named step you can see and approve." | `automatic: false` everywhere (0 of 25 route-actions are automatic). Nothing runs silently. | `chart-hooks-what-happens`, `pathway-route-hooks-transparently`, `tests/doctrine.md`, `data/lifecycle-route-actions/` |
-| 3 | **Deliver** | "Published once to OCI; Argo, Flux, or kubectl all pull the *same* bundle — your choice of tool." | All three proven: one bundle, three consumers, the routed hook ran under each (committed receipt). | `cub-deployment-path`; `data/oci-hook-delivery-proof/` |
+| 3 | **Deliver** | "Published once to OCI; Argo, Flux, or kubectl can pull the same bundle." | The mechanism is proven on one routed-hook fixture. Each catalog entry needs its own delivery receipt before the site claims that entry ran through a controller. | `cub-deployment-path`; `data/oci-hook-delivery-proof/` |
 | 4 | **Observe** | "Proven live, with receipts — and we tell you the honest disposition, never just 'green'." | `watch ≠ pass`; show the real lane mix, not a green wall. | `verification-lanes`, `what-we-refuse-to-claim`, `tests/README.md` |
 
 ## Cross-cutting sections (secondary nav)
@@ -30,7 +30,7 @@ section: a one-line claim, a short plain-English explainer, one visual, and a "g
 
 1. **Never silent.** Every routed step is shown; no "we run it for you" without `automatic: false` + a receipt.
 2. **Verified disposition, not green.** Show the real mix (pass / watch / blocked / refused / n-a); never a fake all-green.
-3. **Proven vs in progress.** Argo, Flux, and cub-direct from one OCI bundle are all **proven** (committed receipt `data/oci-hook-delivery-proof/`). Still forthcoming: `cub-scout object-set --dry-from` (only `three-way --dry-from` is shipped) — mark that one "coming."
+3. **Proven vs in progress.** Argo, Flux, and cub-direct consumed one routed-hook fixture from one OCI bundle (committed receipt `data/oci-hook-delivery-proof/`). That proves the mechanism, not every catalog entry. Still forthcoming: `cub-scout object-set --dry-from` (only `three-way --dry-from` is shipped) — mark that one "coming."
 4. **Refusals are a feature.** Surface `what-we-refuse-to-claim` — it's a trust asset, not fine print.
 
 ## Suggested visuals (Codex to build)

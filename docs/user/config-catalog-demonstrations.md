@@ -67,6 +67,26 @@ Evidence: [data/installer-oci-packages/summary.md](../../data/installer-oci-pack
 
 Current limit: An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload.
 
+### One reviewed bundle through Argo CD, Flux, or direct apply
+
+**Status: partial.**
+
+Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.
+
+ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a managed direct-apply path can consume the same files without rendering the chart again.
+
+1. Start with the exact Kubernetes objects held as ConfigHub Units.
+2. Run the checks and approval required for that configuration.
+3. Publish the approved revision once as a ConfigHub release OCI.
+4. Point Argo CD, Flux, or the managed direct-apply path at that artifact.
+5. Record controller status and workload observations for this configuration.
+
+Start with [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) or [docs/user/cub-deployment-path.md](../../docs/user/cub-deployment-path.md).
+
+Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md).
+
+Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. It does not prove that every catalog base has been delivered through Argo CD, Flux, and direct apply. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
+
 ### Test, development, staging, and production promotions
 
 **Status: partial.**

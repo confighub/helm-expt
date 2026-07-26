@@ -1565,7 +1565,7 @@ function howItWorksHtml(catalog) {
 .pill{display:inline-block;font-size:.72rem;color:var(--good);border:1px solid var(--good);border-radius:20px;padding:1px 8px;margin-left:6px;vertical-align:1px;}
 .codetag{display:inline-block;font-family:ui-monospace,monospace;font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-left:6px;vertical-align:1px;}
 .honest{border:1px solid #f0c36d;background:#fff8e5;border-radius:8px;padding:14px 16px;margin:16px 0;}
-.honest h3{margin:0 0 6px;font-size:1rem;}
+.honest h3{margin:0 0 6px;font-size:1rem;color:#6d4b00;}
 .honest p,.honest li{color:#6d4b00;}
 .decide{border:1px solid var(--line);border-left:3px solid var(--accent);background:var(--panel);border-radius:8px;padding:6px 16px;margin:14px 0;}
 .counts,.scope{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:12px 0;}
@@ -1808,7 +1808,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 spec:
   url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci</code></pre>
-  <p class="quiet-line">Argo-from-OCI is proven with committed end-to-end receipts. Flux-from-OCI is documented and still in progress until it has the same receipts.</p>
+  <p class="quiet-line">A live fixture proves that Argo CD, Flux, and direct apply can consume the same ConfigHub release OCI and run its routed hook. That proves the delivery mechanism. A catalog configuration has controller-delivery proof only when its own page links to a receipt for that exact configuration.</p>
   <div class="honest">
     <h3>Three adoption caveats we manage</h3>
     <p>On the <strong>managed cub-direct applier</strong> path these apply to every chart. They're the first-run friction points, named, not hidden behind a green install:</p>
@@ -1832,7 +1832,7 @@ spec:
     <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
     <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another base variant, use Helm directly, or add the missing setup work.</td></tr>
     <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
-    <tr><td>GitOps delivery</td><td>Argo from OCI has end-to-end receipts. Flux from OCI and no-controller paths stay labelled in progress until they have the same proof.</td></tr>
+    <tr><td>GitOps delivery</td><td>The three-consumer fixture proves the OCI delivery mechanism. Each catalog configuration remains unproved for a controller until its own receipt records the sync and workload result.</td></tr>
   </table>
   <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
 </main>
@@ -3376,7 +3376,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "How is config delivered, and what about OCI and credentials?",
           answer:
-            "ConfigHub publishes the Units once to an OCI bundle; Argo, Flux, and plain kubectl all pull the same artifact. OCI pull credentials are provisioned for Argo and copied (re-namespaced) for Flux: never printed, logged, or passed on a command line. Argo, Flux, and cub-direct all pull the same bundle and run a routed hook, proven by a committed receipt.",
+            "ConfigHub can publish reviewed Units once as a release OCI. A live fixture proves that Argo CD, Flux, and direct apply can consume the same bundle and run its routed hook. That receipt proves the mechanism, not every catalog configuration. Each configuration needs its own delivery receipt. OCI pull credentials are provisioned for Argo CD and copied into the Flux namespace without being printed or passed on a command line.",
           links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
         },
         {

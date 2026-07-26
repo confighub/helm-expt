@@ -43,7 +43,7 @@ const supportedSourceTypes = [
 
 if (mode === "--self-test") {
   runSelfTest();
-  console.log("verified config catalog policy scope self-test");
+  console.log("verified config catalog policy and delivery self-test");
   process.exit(0);
 }
 
@@ -1038,6 +1038,21 @@ function validateProgram(program) {
       check(existsRepo(path), `${demo.id} points at missing ${path}`);
     }
   }
+  const delivery = program.spec.pathways.find((pathway) => pathway.id === "oci-delivery");
+  check(delivery, "demo program is missing the OCI delivery pathway");
+  check(delivery.status === "partial", "OCI delivery must remain partial until catalog coverage is complete");
+  check(
+    delivery.limits.some((limit) => limit.includes("does not prove that every catalog base")),
+    "OCI delivery must distinguish the fixture proof from catalog-wide delivery proof",
+  );
+  const deliveryReceipt = readYaml(join(
+    repoRoot,
+    "runs",
+    "oci-hook-delivery-proof",
+    "receipt.yaml",
+  ));
+  validateOciDeliveryMechanismReceipt(deliveryReceipt);
+
   const fleetSource = readYaml(join(
     repoRoot,
     "config-catalog",
@@ -1051,6 +1066,31 @@ function validateProgram(program) {
     "live-nginx-registry-migration.yaml",
   ));
   validateFleetPromotionReceipt(fleetSource, fleetReceipt);
+}
+
+function validateOciDeliveryMechanismReceipt(receipt) {
+  check(
+    receipt.kind === "HookOciDeliveryProofReceipt",
+    "OCI delivery mechanism receipt kind is invalid",
+  );
+  check(
+    receipt.spec?.fixture === "tests/fixtures/hook-replacement-probe",
+    "OCI delivery mechanism proof must remain scoped to the routed-hook fixture",
+  );
+  check(
+    receipt.spec?.result === "pass" && receipt.spec?.run?.publish === "pass",
+    "OCI delivery mechanism proof did not pass",
+  );
+  const legs = receipt.spec?.legs ?? {};
+  check(
+    sameSet(Object.keys(legs), ["argo", "flux", "cubDirect"]),
+    "OCI delivery mechanism proof must contain Argo CD, Flux, and direct-apply legs",
+  );
+  for (const [name, leg] of Object.entries(legs)) {
+    check(leg.result === "pass", `OCI delivery ${name} leg did not pass`);
+    check(leg.workloadApplied === "yes", `OCI delivery ${name} leg did not apply the workload`);
+    check(leg.hookRan === "yes", `OCI delivery ${name} leg did not run the hook`);
+  }
 }
 
 function validateFleetPromotionReceipt(source, receipt) {
@@ -1084,6 +1124,8 @@ function validateFleetPromotionReceipt(source, receipt) {
 function runSelfTest() {
   const policy = readYaml(policySourcePath);
   validatePolicy(policy);
+  const program = readYaml(programSourcePath);
+  validateProgram(program);
 
   const approvalLeak = structuredClone(policy);
   approvalLeak.spec.baseline.checks.push({
@@ -1130,6 +1172,27 @@ function runSelfTest() {
   expectFailure(
     () => validatePolicy(missingAicrCoverage),
     "missing AICR policy coverage fixture unexpectedly passed",
+  );
+
+  const blanketDeliveryClaim = structuredClone(program);
+  blanketDeliveryClaim.spec.pathways
+    .find((pathway) => pathway.id === "oci-delivery").limits
+    = ["Every catalog base has delivery proof."];
+  expectFailure(
+    () => validateProgram(blanketDeliveryClaim),
+    "blanket catalog delivery claim unexpectedly passed",
+  );
+
+  const incompleteDeliveryReceipt = readYaml(join(
+    repoRoot,
+    "runs",
+    "oci-hook-delivery-proof",
+    "receipt.yaml",
+  ));
+  incompleteDeliveryReceipt.spec.legs.flux.result = "watch";
+  expectFailure(
+    () => validateOciDeliveryMechanismReceipt(incompleteDeliveryReceipt),
+    "incomplete OCI delivery mechanism fixture unexpectedly passed",
   );
 
   const fleetSource = readYaml(join(

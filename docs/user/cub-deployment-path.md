@@ -1,8 +1,9 @@
 # How deployment works on the cub path (ConfigHub → OCI → your controller)
 
 **UNOFFICIAL/EXPERIMENTAL.** What actually happens when you deploy a chart through
-ConfigHub — the steps, the **OCI transport**, and how **credentials** are handled.
-The delivery tool (Argo, Flux, or none) is your choice; the artifact is the same.
+ConfigHub: the steps, the **OCI transport**, and how **credentials** are handled.
+For one approved release, Argo CD, Flux, or the direct path can consume the same
+artifact.
 
 ## The path, end to end
 
@@ -65,21 +66,27 @@ auth. A chart's Secret is either **generated** (rendered into the bundle) or **e
 the recipe + target facts, not the OCI pull credentials. See
 [target-prerequisites.md](target-prerequisites.md).
 
-## Honest status — all three consumers proven
+## What the live delivery test proves
 
-All three pull the **same** ConfigHub OCI bundle and run a routed hook on a throwaway cub-lk
-rig — committed receipt `runs/oci-hook-delivery-proof/receipt.yaml` (summary:
+A small routed-hook fixture was published once as a ConfigHub release OCI. Argo
+CD, Flux, and direct apply each pulled that artifact on a throwaway test cluster.
+The workload was applied and the hook completed under all three. The committed
+receipt is `runs/oci-hook-delivery-proof/receipt.yaml` (summary:
 [../../data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md)):
 
-- **Argo CD (OCI `Application`) — proven.** `render → ConfigHub → OCI → Argo (Synced / Healthy) → runtime`.
-- **Flux (`OCIRepository` + `Kustomization`) — proven.** Same bundle; the OCI pull secret is copied into flux-system (never printed).
-- **cub-direct (no controller) — managed path proven.** The same OCI artifact can be
+- **Argo CD (OCI `Application`) passed.** `render -> ConfigHub -> OCI -> Argo -> runtime`.
+- **Flux (`OCIRepository` + `Kustomization`) passed.** The OCI pull Secret was copied into `flux-system` and was never printed.
+- **cub-direct (no controller) passed.** The same OCI artifact can be
   applied without a controller, and the managed applier proof covers CRD ordering, prune,
   and product-readable server-side-apply conflicts.
 
-The routed hook ran under each delivery shape (workload applied + hook completed): OCI is
-genuinely **one transport**, not three pipelines. For cub-direct, use the managed applier
-when CRDs, upgrades, or manual live edits are in scope.
+This proves the delivery mechanism for that fixture. It does not prove that
+every catalog base has been delivered through all three paths. A chart or other
+catalog configuration has controller-delivery proof only when its own page
+links to a receipt for that exact configuration.
+
+For direct apply, use the managed applier when CRDs, upgrades, or manual live
+edits are in scope.
 
 ## Try it
 

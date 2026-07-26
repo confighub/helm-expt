@@ -36,11 +36,12 @@ the same shape AICR uses, so the pillar reads true for both sources.
 Every package carries evidence that it works, recorded as receipts you can open. Problems are caught
 on the config as data, before anything reaches a cluster.
 
-Backed by: the proof lanes (render parity against Helm, local-cluster install, live delivery through
-Argo, Flux, and kubectl) already run per base variant and record receipts. Checks run on the Unit
-data before apply — schema and placeholder gates, object diffs, blast radius, and a capability check
-against the target cluster. A team adopting a base variant inherits this evidence instead of building
-it.
+Backed by: render parity and local-cluster lanes run per base variant where their receipts are present.
+A separate routed-hook fixture proves that the same ConfigHub release OCI can be consumed through
+Argo, Flux, and direct apply. That mechanism receipt is not a delivery receipt for every base variant.
+Checks run on the Unit data before apply, including schema and placeholder gates, object diffs, blast
+radius, and target capability checks. A team can inspect the evidence attached to its chosen base
+instead of assuming that another row's result applies.
 
 ### 3. The messy parts are named and proven, never hidden
 
@@ -49,9 +50,10 @@ recorded contract, a receipt under every delivery path, and an honest marker for
 to run automatically.
 
 Backed by: the route model (`observe → execute → emit`, `automatic: false` until earned) and the
-committed proofs, such as the CRD-ordering receipt that shows bundle-order apply failing and
-CRD-first-with-wait succeeding under Argo, Flux, and kubectl. The config change stays declarative;
-only the true residue is imperative, and even that is observed and recorded.
+committed proofs. The CRD-ordering receipt shows plain bundle-order apply failing and
+CRD-first-with-wait succeeding on the recorded direct path. The routed-hook fixture separately ran
+through Argo, Flux, and direct apply. The config change stays declarative; only the work that must run
+at delivery time is handled separately, observed, and recorded.
 
 ## Where each pillar lands
 

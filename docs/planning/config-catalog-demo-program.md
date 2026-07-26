@@ -62,6 +62,25 @@ Complete when:
 - `cub variant upload oci://...` works for the single literal base bundle;
 - the resulting ConfigHub Units match the committed object inventory.
 
+## Phase 3A: release OCI delivery
+
+Keep Argo CD or Flux as the delivery controller. Publish the approved ConfigHub
+Units once as a release OCI so each controller consumes the same Kubernetes
+objects instead of rendering the source package again.
+
+There are two separate checks. The routed-hook fixture proves that the delivery
+mechanism works through Argo CD, Flux, and direct apply. Every catalog
+configuration still needs its own receipt before its page claims that the
+controller reconciled it successfully.
+
+Complete when:
+
+- the mechanism receipt continues to pass for Argo CD, Flux, and direct apply;
+- each claimed catalog path names the exact release OCI, controller, target, and
+  workload receipt;
+- controller sync and workload health are reported separately;
+- a fixture receipt cannot be used as a catalog-wide delivery claim.
+
 ## Phase 4: promotions and policy
 
 Use the same environment path for Helm, AICR, and existing YAML after each source has
