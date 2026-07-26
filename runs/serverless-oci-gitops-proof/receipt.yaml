@@ -1,34 +1,73 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
-kind: "ServerlessOciGitopsProofReceipt"
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AnonymousOciFluxProofReceipt"
 metadata:
-  name: "srvoci-20260623-24z"
+  name: "public-nginx-oci-work-oci-20260726-cm5"
 spec:
-  observedAt: "2026-06-23T15:50:33.106Z"
-  result: "pass"
-  claim: "A SERVERLESS cub flow can publish to OCI for an existing GitOps controller instead of kubectl-applying. With no ConfigHub login: cub installer setup renders the catalog Redis base locally; `flux push artifact` pushes the RENDERED bundle (manifests + the Secret) to an OCI registry; an existing Flux (OCIRepository + Kustomization) pulls it FROM OCI and applies it. The Secret is delivered because it is in the bundle — the tradeoff being it then lives in the registry, unlike the ConfigHub path which separates secret material. `cub installer push` is NOT this path (it pushes the un-rendered installer package); the rendered-bundle push is the GitOps-consumable one."
-  legs:
-    render:
-      ok: true
-      detail: "cub installer setup --base default -> 14 manifest file(s) + 1 secret file(s), no account"
-    push:
-      ok: true
-      detail: "flux push artifact -> oci://localhost:5000/redis-serverless:v1 (rendered bundle incl. Secret)"
-    fluxReady:
-      ok: true
-      detail: "flux source + kustomize controllers installed (an existing controller)"
-    reconcile:
-      ok: true
-      detail: "OCIRepository Ready=True + Flux applied the serverless-pushed bundle: redis StatefulSet/Service present in ns redis"
-    secret:
-      ok: true
-      detail: "Secret delivered through the OCI bundle (secret/redis) — serverless push ships it; tradeoff: it lives in the registry"
-    workload:
-      result: "pass"
-      detail: "a redis pod reached Ready"
+  observedAt: "2026-07-26T20:49:38.369Z"
+  pathway: "OCI -> work -> OCI"
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    base: "http-clusterip"
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+    expectedManifestDigest: "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1"
+    expectedPackageLayerDigest: "sha256:2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d"
+    publicationReceipt: "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml"
+    anonymousManifestPull: "pass"
+  localWork:
+    command:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+      - "--base"
+      - "http-clusterip"
+      - "--work-dir"
+      - "<temporary-work-dir>"
+      - "--non-interactive"
+      - "--namespace"
+      - "nginx"
+    configHubTokenFilePresent: false
+    configHubOrganization: ""
+    objectCount: 6
+    objectKinds:
+      - "Deployment"
+      - "Namespace"
+      - "NetworkPolicy"
+      - "PodDisruptionBudget"
+      - "Service"
+      - "ServiceAccount"
+    filesSha256: "sha256:cc1feed9a2e6def845d75438d549d04364990d6028be3279a7066560a85a8a2d"
+  output:
+    reference: "oci://127.0.0.1:32782/reviewed-nginx:24.0.2"
+    digest: "sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9"
+    anonymousPull: "pass"
+    pulledFilesMatched: true
+    filesSha256: "sha256:cc1feed9a2e6def845d75438d549d04364990d6028be3279a7066560a85a8a2d"
+  flux:
+    sourceReady: true
+    kustomizationReady: true
+    observedDigest: "sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9"
+    contentDigest: "sha256:5a4daf4bb1fc6ec505f1abc94ef7315db40c208557ca937983ff3fa950342766"
+    deployment:
+      namespace: "nginx"
+      name: "nginx"
+      readyReplicas: 1
+      desiredReplicas: 1
+      image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
   run:
-    rig: "srvoci-20260623-24z"
-    registry: "in-cluster registry:2, pulled by Flux via cluster DNS; pushed via port-forward"
-    controller: "Flux (OCIRepository+Kustomization)"
+    cluster: "hx-anon-oci-20260726-cm5"
+    registry: "temporary local registry with no authentication"
     cleanup:
-      result: "pass"
-  conclusion: "Proven: a no-login serverless render pushed to an OCI registry was pulled and applied by an existing Flux controller — no kubectl apply of the workload from us. The Secret rode along in the bundle (delivered, but now in the registry). So the 'push to OCI for existing Argo/Flux' mode works serverlessly for a vanilla chart; the honest caveats are secret-in-registry and that hook/CRD charts still need the lifecycle routes."
+      cluster: "pass"
+      registry: "pass"
+      localFiles: "pass"
+  limits:
+    - "The output OCI used a temporary local registry. A permanently hosted public workbench remains separate work."
+    - "This NGINX configuration has no Helm hooks or CRDs. Charts with lifecycle work need their recorded routes."
+    - "This run did not create or use ConfigHub records, variants, approvals, or releases."
+status:
+  result: "pass"
+  claim: "Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and packaged those files as a second OCI artifact. Flux pulled that exact output digest and NGINX reached one ready replica."
+  error: ""

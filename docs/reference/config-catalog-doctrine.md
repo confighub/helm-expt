@@ -18,6 +18,12 @@ The boundary is **Claim this configuration in ConfigHub**. Before that point, a 
 can work anonymously with public packages. Claiming saves the objects and their
 history so a team can transform, approve, promote, and roll them out.
 
+The [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
+checks that boundary. It starts from a public NGINX installer OCI, runs
+`cub installer` with no ConfigHub token, packages the six rendered objects as a
+second OCI, and records the exact digest Flux reconciled. The output registry is
+temporary; the receipt does not claim a hosted public workbench.
+
 ConfigHub is the middle. It stores the exact objects, creates base and derived
 variants, shows diffs, runs checks, records approvals, promotes changes, and keeps
 release and observation history. `cub release publish` then creates an immutable

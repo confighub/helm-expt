@@ -135,13 +135,17 @@ spec:
         - Pull the resulting package again and compare its objects with the reviewed files.
         - Claim the configuration in ConfigHub when it needs stored operations.
       entrypoints:
+        - docs/user/serverless-mode.md
         - docs/reference/config-catalog-doctrine.md
         - docs/planning/config-catalog-demo-program.md
       evidence:
+        - runs/serverless-oci-gitops-proof/receipt.yaml
+        - data/serverless-oci-gitops-proof/summary.md
         - runs/oci-deploy-stage-rollout-proof/receipt.yaml
         - data/oci-deploy-stage-rollout-proof/summary.md
       limits:
-        - The current receipt proves the anonymous input and output mechanics with one temporary local registry.
+        - The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest.
+        - The output OCI used a temporary local registry.
         - A hosted public workbench and public-registry receipt remain separate work.
     - id: oci-delivery
       name: One reviewed bundle through Argo CD, Flux, or direct apply

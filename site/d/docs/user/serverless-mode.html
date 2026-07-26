@@ -431,40 +431,54 @@
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
-<p>Serverless mode installs a Helm chart with no account and no sign-up - and proves, before and after, that you got the same thing plain Helm would give you. Same chart, same running result. The difference is that you can see every step, and nothing is taken on trust.</p>
-<p>For the very first look you do not even need a cluster - just files on your machine.</p>
-<p>Every command below is proven on a throwaway cluster with no login - <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity</a> and <a href="../../data/serverless-oci-gitops-proof/summary.html">push-to-OCI for Argo and Flux</a>.</p>
-<h2 id="install-it-both-paths-same-outcome">Install it - both paths, same outcome</h2>
-<p>We will use Redis, on any throwaway cluster (kind is fine). No ConfigHub account.</p>
-<p>Plain Helm, one step:</p>
-<pre><code>helm install redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 -n redis --create-namespace</code></pre>
-<p>The ConfigHub way - render the reviewed package, then apply it:</p>
+<p>You can use the public Helm Ops Catalog without creating a ConfigHub account. Pull a catalog package, choose a preset configuration, and write the Kubernetes objects to local files. You can stop there, apply the files yourself, or package the reviewed files as OCI for an existing GitOps controller.</p>
+<p>ConfigHub is not involved until you choose to save the configuration and use shared history, variants, approvals, promotions, releases, or fleet rollout.</p>
+<h2 id="start-with-files">Start with files</h2>
+<p>This NGINX example needs no server, account, or cluster:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./out --non-interactive
-kubectl create namespace redis
-kubectl apply -f ./out/secrets -n redis
-kubectl apply -f ./out/manifests -n redis</code></pre>
-<p>Both bring up the same Redis in the same namespace. Same outcome - that is <b>parity</b>.</p>
-<blockquote><p><b>What is <code>--pull oci://...</code>?</b> It is the installer package for the chart version. We review each Helm chart as a recipe, publish the reviewed package as an OCI artifact, and give it named bases for supported install shapes. The public catalog shows that OCI ref. Maintainers can still use the local <code>packages/&lt;helm-repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code> source path from a repo checkout, but public users should pull the package ref.</p></blockquote>
-<h2 id="how-it-works-helm-hides-one-step-cub-shows-it">How it works - Helm hides one step, cub shows it</h2>
-<p><code>helm install</code> renders the chart and applies it in a single step, so you only see the objects once they are already running. The ConfigHub path does the same in two steps you can watch:</p>
-<ol><li><b>Render.</b> <code>cub installer setup</code> pulls the reviewed package and writes the exact objects to <code>./out/manifests</code> - plain files, readable before anything reaches the cluster.</li><li><b>Apply.</b> <code>kubectl apply</code> installs them.</li></ol>
-<p>The gap between the two is the point. There you can hold the render up against Helm's own and confirm they match:</p>
-<pre><code>npm run redis:verify-install:render        # PASS - semantic object matches: 14/14</code></pre>
-<p>&quot;It is the same as Helm&quot; stops being a claim you accept and becomes a fact you check. None of these steps contact ConfigHub.</p>
-<h2 id="the-other-delivery-gitops-via-oci">The other delivery - GitOps via OCI</h2>
-<p>Already running Argo or Flux from an OCI registry? Skip <code>kubectl</code>. Push the same rendered output to your registry and let the controller you already trust pull it in:</p>
-<pre><code>flux push artifact oci://&lt;your-registry&gt;/redis:v1 --path=./out --source=serverless-cub-render --revision=v1
-flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
-flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
-<p>Proven end to end: a no-login render was pushed to an OCI registry, an existing Flux pulled it and applied it, and Redis came up - no <code>kubectl</code> from you at all. Same render, delivered the way your cluster already works.</p>
-<h2 id="the-edges-kept-in-plain-sight">The edges, kept in plain sight</h2>
-<p>A page that only flatters itself is not worth trusting. Three things are true here, so we say them out loud.</p>
-<ul><li><b>The chart carries its own password.</b> The render includes a Secret with a baked-in password. Apply the bundle and the Secret goes in with it; push the bundle to a registry and the Secret rides along into that registry. For anything real, supply your own and choose a base such as <code>reuse-existing-secret</code> (<a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>).</li><li><b><code>kubectl</code> does not wait for the namespace.</b> <code>kubectl apply -f</code> may try to create an object before the namespace that holds it exists, so create the namespace first (as above). A controller like Argo or Flux orders this for you - one of several small rough edges of <a href="known-gaps-we-surface.html">applying by hand</a>.</li><li><b>There are two OCI paths.</b> The installer package OCI is what <code>cub installer setup --pull</code> uses. The delivery OCI path above pushes the rendered result, which Argo and Flux can apply.</li></ul>
-<p>And one boundary: this is proven on a plain chart. A chart with hooks, admission webhooks, or its own CRDs needs more than a render - it needs its lifecycle steps, and its page tells you which.</p>
-<h2 id="where-it-leads">Where it leads</h2>
-<p>Render, prove, install - all without an account - is a whole and useful thing on its own. The larger story (resolve a chart by name from a signed catalog, gather what the cluster must provide, keep a receipt of every install, and answer &quot;what changed?&quot; a month later) is laid out in the <a href="../planning/serverless-verified-install-plan.html">serverless install design</a>. The line never moves: the day you want one change to reach many places at once, that is the graph - and that is the day you sign in.</p>
+  <pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --base http-clusterip \
+  --work-dir ./nginx \
+  --non-interactive \
+  --namespace nginx</code></pre>
+<p>The command writes six objects under <code>./nginx/out/manifests</code>: a Namespace, ServiceAccount, NetworkPolicy, PodDisruptionBudget, Service, and Deployment. Read or scan those files before deciding how to deliver them.</p>
+<p>The public package is an <b>installer OCI</b>. It contains the chart-specific preset configurations and the files <code>cub installer</code> needs. It is not yet the single configuration that Flux or Argo CD will apply.</p>
+<h2 id="apply-the-files-yourself">Apply the files yourself</h2>
+<p>For a quick development test:</p>
+<pre><code>kubectl apply -f ./nginx/out/manifests
+kubectl -n nginx rollout status deployment/nginx</code></pre>
+<p>The separate <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity proof</a> compares Helm and the no-account cub path on Redis. It checks both the rendered objects and a running workload.</p>
+<h2 id="package-the-reviewed-files-for-flux">Package the reviewed files for Flux</h2>
+<p>If Flux already owns delivery, package the rendered files instead of applying them with <code>kubectl</code>:</p>
+<pre><code>(cd ./nginx/out/manifests &amp;&amp; kustomize create --autodetect)
+
+flux push artifact oci://REGISTRY/reviewed-nginx:24.0.2 \
+  --path=./nginx/out/manifests \
+  --source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --revision=catalog@sha1:SOURCE_REVISION \
+  --reproducible
+
+flux create source oci reviewed-nginx \
+  --url=oci://REGISTRY/reviewed-nginx \
+  --digest=sha256:OUTPUT_MANIFEST_DIGEST
+
+flux create kustomization reviewed-nginx \
+  --source=OCIRepository/reviewed-nginx \
+  --path=./ \
+  --prune=true</code></pre>
+<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">live public OCI to Flux proof</a> runs this pattern on a throwaway cluster. It uses an empty registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, pushes a second OCI, pulls those files back for comparison, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
+<p>The proof uses a temporary local registry for the output artifact. It proves the package and controller mechanics, not a permanently hosted public workbench.</p>
+<h2 id="keep-the-oci-roles-separate">Keep the OCI roles separate</h2>
+<table><thead><tr><th>OCI artifact</th><th>Contents</th><th>Consumer</th></tr></thead><tbody><tr><td>Installer package</td><td>Chart-specific preset configurations and rendering files</td><td><code>cub installer</code></td></tr>
+<tr><td>Literal configuration</td><td>Exact Kubernetes objects ready for ConfigHub upload</td><td><code>cub variant upload</code></td></tr>
+<tr><td>Portable deployment bundle</td><td>Reviewed Kubernetes objects in a controller-compatible layout</td><td>Flux, Argo CD, or another external consumer</td></tr>
+<tr><td>ConfigHub release</td><td>A reviewed ConfigHub Space release</td><td>ConfigHub delivery through Flux or Argo CD</td></tr></tbody></table>
+<p>An OCI reference is not enough by itself. Check what the artifact contains and which consumer its receipt covers.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li>A rendered Secret placed in a portable OCI will live in that registry. Use an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes an installer package. It does not turn rendered manifests into a Flux deployment artifact.</li></ul>
+<p>The longer-term no-account design is recorded in the <a href="../planning/serverless-verified-install-plan.html">serverless install plan</a>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/serverless-mode.md</code>. The source file is the authoritative version.</p></footer>
