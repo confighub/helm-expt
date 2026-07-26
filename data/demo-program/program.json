@@ -170,6 +170,11 @@
         "rule": "Each catalog configuration earns a delivery claim only when its own release OCI, controller result, and workload result have a receipt."
       },
       "frontDoor": {
+        "accessModel": {
+          "anonymous": "The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.",
+          "composable": "The work can sit before OCI, after OCI, or between an input OCI and an output OCI.",
+          "serverless": "The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service."
+        },
         "anonymousFlows": [
           {
             "insertion": "source -> anonymous work -> OCI -> delivery",

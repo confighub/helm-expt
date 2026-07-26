@@ -461,7 +461,7 @@ kubectl --context &lt;your-context&gt; -n redis create secret generic redis-exis
   --dry-run=client -o yaml | kubectl --context &lt;your-context&gt; apply -f -</code></pre>
 <h2 id="path">Path</h2>
 <ol><li>Render one variant with the current installer package:</li></ol>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base default \

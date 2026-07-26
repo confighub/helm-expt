@@ -523,6 +523,8 @@
     "ssa-conflict:proof:verify": "node scripts/run-ssa-conflict-gap.mjs --verify",
     "serverless-oci-gitops:proof": "node scripts/run-serverless-oci-gitops-proof.mjs --run",
     "serverless-oci-gitops:proof:verify": "node scripts/run-serverless-oci-gitops-proof.mjs --verify",
+    "anonymous-oci-ci:proof": "node scripts/run-anonymous-oci-ci-proof.mjs --run",
+    "anonymous-oci-ci:verify": "node scripts/run-anonymous-oci-ci-proof.mjs --verify",
     "serverless-install-parity:proof": "node scripts/run-serverless-install-parity-proof.mjs --run",
     "serverless-install-parity:proof:verify": "node scripts/run-serverless-install-parity-proof.mjs --verify",
     "managed-cub-direct:proof": "node scripts/run-managed-cub-direct-proof.mjs --run",

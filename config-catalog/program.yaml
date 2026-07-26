@@ -8,6 +8,10 @@ spec:
     frontDoor:
       problem: Helm charts, AICR recipes, installer packages, and existing YAML all need different work before they are safe, literal configuration.
       result: The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account.
+      accessModel:
+        serverless: The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
+        anonymous: The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
+        composable: The work can sit before OCI, after OCI, or between an input OCI and an output OCI.
       inputs:
         - Helm charts and their values
         - AICR recipes and generated bundles

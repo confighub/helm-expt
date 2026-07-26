@@ -1151,6 +1151,15 @@ function validateProgram(program) {
     "front door must produce a literal configuration OCI",
   );
   check(
+    architecture.frontDoor?.accessModel?.serverless
+      ?.includes("does not depend on ConfigHub Server")
+      && architecture.frontDoor?.accessModel?.anonymous
+        ?.includes("no ConfigHub account")
+      && architecture.frontDoor?.accessModel?.composable
+        ?.includes("before OCI, after OCI"),
+    "front door must distinguish serverless, anonymous, and composable work",
+  );
+  check(
     sameSet(
       (architecture.frontDoor?.anonymousFlows ?? []).map((flow) => flow.shape),
       ["work -> OCI", "OCI -> work", "OCI -> work -> OCI"],
@@ -2000,6 +2009,7 @@ function renderArchitecture(architecture) {
     .map((item) => `| ${item.name} | ${item.status} | ${item.result} |`)
     .join("\n");
   const boundary = architecture.frontDoor.claimBoundary;
+  const access = architecture.frontDoor.accessModel;
   const existingFlow = architecture.configHub.existingFlow;
   const consumers = architecture.delivery.consumers;
   const consumerList = `${consumers.slice(0, -1).join(", ")}, and ${consumers.at(-1)}`;
@@ -2008,6 +2018,12 @@ function renderArchitecture(architecture) {
 **Before ConfigHub:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
 
 ### Work without an account
+
+**Serverless:** ${access.serverless}
+
+**Anonymous:** ${access.anonymous}
+
+**Composable:** ${access.composable}
 
 | Path | What it does | Where it can fit |
 | --- | --- | --- |

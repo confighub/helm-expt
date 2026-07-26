@@ -10,6 +10,12 @@ The catalog begins with Helm and adds other configuration formats without making
 
 ### Work without an account
 
+**Serverless:** The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
+
+**Anonymous:** The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
+
+**Composable:** The work can sit before OCI, after OCI, or between an input OCI and an output OCI.
+
 | Path | What it does | Where it can fit |
 | --- | --- | --- |
 | `work -> OCI` | Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package. | `source -> anonymous work -> OCI -> delivery` |

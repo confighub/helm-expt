@@ -1460,7 +1460,7 @@ This path is retained for reference only:
 ```sh
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
 export PATH="$PATH:$(go env GOPATH)/bin"
-cub plugin install confighub/installer --source-repo --name installer --force
+cub plugin install confighub/installer --source-repo --name installer
 make -C ~/.confighub/plugins/installer build
 cub installer doc ./packages/bitnami/redis/25.5.3
 cub installer setup \

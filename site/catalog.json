@@ -1,7 +1,7 @@
 {
   "generatedBy": "scripts/generate-public-site.mjs",
   "generatedAt": "2026-07-08T10:07:00.645Z",
-  "installerAvailability": "The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.",
+  "installerAvailability": "cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.",
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
@@ -26018,6 +26018,11 @@
           "rule": "Each catalog configuration earns a delivery claim only when its own release OCI, controller result, and workload result have a receipt."
         },
         "frontDoor": {
+          "accessModel": {
+            "anonymous": "The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.",
+            "composable": "The work can sit before OCI, after OCI, or between an input OCI and an output OCI.",
+            "serverless": "The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service."
+          },
           "anonymousFlows": [
             {
               "insertion": "source -> anonymous work -> OCI -> delivery",

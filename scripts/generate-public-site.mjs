@@ -90,6 +90,12 @@ const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_HELM_GUIDE_URL = "https://docs.confighub.com/guide/helm-charts/";
 const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
+const INSTALLER_PLUGIN_SOURCE_COMMAND =
+  "cub plugin install confighub/installer --source-repo --name installer";
+const INSTALLER_PLUGIN_BUILD_COMMAND =
+  "make -C ~/.confighub/plugins/installer build";
+const KUSTOMIZE_INSTALL_COMMAND =
+  "go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1";
 const CATALOG_OCI_DELIVERY_RECEIPT =
   "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml";
 const CATALOG_OCI_DELIVERY_SUMMARY = "data/catalog-oci-delivery-proof/summary.md";
@@ -98,7 +104,7 @@ const CATALOG_OCI_DELIVERY_SUMMARY = "data/catalog-oci-delivery-proof/summary.md
 // from delivery to Kubernetes. Keep this free of single quotes, percent signs,
 // and backslashes; it is embedded in shell printf strings.
 const INSTALLER_COMMAND_NOTE =
-  "The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.";
+  "cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.";
 const SITE_FEEDBACK_ISSUE_URL = "https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml";
 // Single source for the public URL of the generated site; a future domain
 // move is one edit here.
@@ -666,7 +672,7 @@ function injectInstallCubNote(html, relPath) {
 // appears. The marker class lets pages place the note by hand and keeps the
 // injector from adding a second copy.
 function installerCommandNoteHtml() {
-  return `<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> ${escapeHtml(INSTALLER_COMMAND_NOTE)} The generated scripts stop before doing any work when they detect an older CLI without the command.</p>`;
+  return `<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> ${escapeHtml(INSTALLER_COMMAND_NOTE)} The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>`;
 }
 
 // Every page that shows the cub installer command must explain that setup
@@ -2639,17 +2645,23 @@ em{font-style:italic;color:var(--ink);}
   </div>
 </header>
 <main>
-  <h2 id="install-cub">Install the cub CLI</h2>
-  <p>Every command below uses the <code>cub</code> CLI. Install it once:</p>
-  <pre><code>$ ${CUB_CLI_INSTALL_COMMAND}</code></pre>
-  <p>The CLI installation script puts the binary at <code>~/.confighub/bin/cub</code>; add it to your PATH with a symlink or <code>export PATH=~/.confighub/bin:$PATH</code>. Full setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
+  <h2 id="install-cub">Install cub and the installer plugin</h2>
+  <p>The catalog commands use <code>cub installer</code>. Installer is a separate, open-source cub plugin. Its first binary release is not available yet, so this temporary setup builds it locally and requires Go:</p>
+  <pre><code>$ ${CUB_CLI_INSTALL_COMMAND}
+$ export PATH="$HOME/.confighub/bin:$HOME/go/bin:$PATH"
+$ ${INSTALLER_PLUGIN_SOURCE_COMMAND}
+$ ${INSTALLER_PLUGIN_BUILD_COMMAND}
+$ ${KUSTOMIZE_INSTALL_COMMAND}
+$ cub installer version</code></pre>
+  <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. The plugin build writes <code>~/.confighub/plugins/installer/bin/installer</code>, which is the command cub runs for <code>cub installer</code>. Full cub setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
   ${installerCommandNoteHtml()}
 
   <h2>The fastest first run</h2>
-  <p>Five commands, copy and paste. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
-  <pre><code># 1. Install the cub CLI (one time)
-${CUB_CLI_INSTALL_COMMAND} &amp;&amp; export PATH=~/.confighub/bin:$PATH
+  <p>Five steps. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <pre><code># 1. Install cub and its installer plugin once
+# Use the complete source-build block immediately above.
+cub installer version
 
 # 2. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
@@ -5263,10 +5275,14 @@ function presetScriptPreamble(entry, row, purposeLines) {
     "  exit 1",
     "fi",
     "",
-    "# Public cub releases include the installer command. This guard catches",
-    "# an older or incomplete CLI before this script does any work.",
+    "# Installer is a cub plugin. Check it before this script does any work.",
     "if ! cub installer --help >/dev/null 2>&1; then",
-    `  printf 'This cub build does not include cub installer. Install or upgrade the cub CLI with:\\n  ${CUB_CLI_INSTALL_COMMAND.replace(/'/g, "")}\\nthen add ~/.confighub/bin to your PATH and re-run this script.\\n' >&2`,
+    `  printf 'The cub installer plugin is missing. Follow ${SITE_BASE_URL}try.html#install-cub, then re-run this script.\\n' >&2`,
+    "  exit 1",
+    "fi",
+    "",
+    "if ! command -v kustomize >/dev/null 2>&1; then",
+    `  printf 'kustomize is missing. Follow ${SITE_BASE_URL}try.html#install-cub, then re-run this script.\\n' >&2`,
     "  exit 1",
     "fi",
   ];

@@ -42,15 +42,19 @@ Install or verify the local tools before Tutorial 1:
 
 ```sh
 cub version
-cub plugin install confighub/installer
+cub plugin install confighub/installer --source-repo --name installer
+make -C ~/.confighub/plugins/installer build
 cub installer --help
 
-command -v kustomize || brew install kustomize
-command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest
+go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
+export PATH="$HOME/go/bin:$PATH"
 
 cub context get -o json
 cub space list -o json
 ```
+
+The installer plugin has no binary release yet, so this temporary setup builds
+the open-source plugin locally and requires Go.
 
 `cub installer setup` shells out to `kustomize build`; the first setup fails if
 `kustomize` is not on `PATH`. The tutorials do not require `helm`.

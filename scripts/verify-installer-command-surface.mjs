@@ -11,6 +11,7 @@ const files = roots.flatMap((root) => {
 const scanned = files.filter((file) => /\.(md|mjs|yaml|yml|json)$/.test(file));
 const violations = [];
 const oldVariantPattern = "template:{{." + "Source" + "EntitySlug" + "}}-" + "{{.Labels.Variant}}";
+const bundledInstallerClaim = "The public cub CLI includes " + "cub installer";
 
 for (const file of scanned) {
   const text = readFileSync(file, "utf8");
@@ -29,6 +30,15 @@ for (const file of scanned) {
     }
     if (line.includes(oldVariantPattern)) {
       violations.push(`${relativeRepo(file)}:${index + 1}: use label-based variant space pattern`);
+    }
+    if (line.includes(bundledInstallerClaim)) {
+      violations.push(`${relativeRepo(file)}:${index + 1}: cub installer is a plugin, not part of the cub binary`);
+    }
+    if (
+      line.includes("cub plugin install confighub/installer")
+      && line.includes("--force")
+    ) {
+      violations.push(`${relativeRepo(file)}:${index + 1}: current cub plugin install has no --force flag`);
     }
   });
 }
