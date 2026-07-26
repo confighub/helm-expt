@@ -3,13 +3,14 @@
 charts by calling the per-(chart,base) work unit (tests/chart-install-test)
 and aggregating the receipts into a scorecard.
 
-Built to shard for parallel, agentic testing: each agent runs `cub lk up` for its
+Built to shard for parallel, agentic testing: each agent runs `cub cluster up` for its
 own rig, then runs this with its `--shard i/n` against that rig. On one machine
-use `--slugs` (a light subset) or run sequentially. The rig lifecycle (cub lk
-up/down) is the caller's job — this driver is rig-agnostic, like the work unit.
+use `--slugs` (a light subset) or run sequentially. The cluster lifecycle
+(`cub cluster up`/`down`) is the caller's job — this driver is cluster-agnostic,
+like the work unit.
 
 Usage:
-  tests/chart-install-sweep --rig <cub-lk-cluster> [--shard i/n] [--slugs a,b,c]
+  tests/chart-install-sweep --rig <cub-cluster-name> [--shard i/n] [--slugs a,b,c]
                             [--helm-expt <path>] [--keep] [--out <dir>]
 
 See tests/strategy.md.

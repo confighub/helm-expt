@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Run one strict live Helm-vs-installer parity test on two vanilla kind clusters.
 
-This test intentionally does not use cub-lk, ConfigHub upload, OCI, Argo CD, or
-Flux. It checks one simpler claim:
+This test intentionally does not use ConfigHub upload, OCI, Argo CD, Flux, or
+the `cub cluster` helper. It checks one simpler claim:
 
   1. regular Helm installs chart/base inputs on vanilla kind cluster A
   2. cub installer renders/applies the matching package/base on vanilla kind

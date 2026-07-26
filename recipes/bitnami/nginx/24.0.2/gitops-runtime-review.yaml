@@ -7,7 +7,7 @@ metadata:
 spec:
   base: "existing-tls-ingress"
   controller: "Argo CD"
-  targetShape: "cub-lk/kind proof rig with target profile kind-ingress-nginx"
+  targetShape: "cub-managed kind proof cluster with target profile kind-ingress-nginx"
   receipt: "runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml"
   observedResult: "pass"
   targetProfile:

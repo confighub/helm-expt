@@ -210,7 +210,7 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><strong>Apply</strong> (kubectl / Argo / Flux)</td><td class="yes">yes — apply + prune converges</td><td class="no">no</td><td>Declarative apply converges to the same state, but it's a live action on a cluster.</td></tr>
     <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no — not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
   </table>
-  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The doctrine keeps live runs honest: <em>they're serial and ephemeral — cub-lk is kind under the hood, one rig at a time, torn down after; render parity ≠ live-ready, and watch ≠ pass.</em></p>
+  <p class="quiet-line">So a <strong>rename or a re-derivation regenerates offline</strong> from committed source; a <strong>fresh live result needs a cluster</strong>. The doctrine keeps live runs honest: <em>they're serial and ephemeral — <code>cub cluster up</code> creates one kind cluster at a time, and <code>cub cluster down</code> removes it afterward; render parity ≠ live-ready, and watch ≠ pass.</em></p>
 
   <h2>9 · Delivery: one source, no surprises</h2>
   <p>The frozen render is published once to an OCI registry. Argo, Flux, or <code>kubectl</code> all pull the <em>same files</em> — the controller never rebuilds its own version from values. <strong>Keep your controller; just point it at the ConfigHub bundle.</strong></p>

@@ -56,7 +56,7 @@ The test harness lives in `tests/`; the core flow it exercises lives in
 
 - `cub auth login` complete. Verify with `cub organization list`, not `cub info`.
 - `kind`, `kubectl`, `docker` (daemon running), `cub` on PATH.
-- cub-lk plugin: `cub plugin install jesperfj/cub-lk` (verify `cub lk version`).
+- Current `cub` with `cub cluster up` and `cub cluster down`.
 - `helm-expt` checked out as a **sibling** of this repo (path is machine-specific
   — resolve it, don't hardcode):
   ```bash
@@ -91,15 +91,15 @@ agents' live lanes to finish before using it.
 ## Parameters
 
 ```bash
-CLUSTER=helm-expt-demo                # cub-lk cluster + name prefix
-SPACE_CLUSTER=${CLUSTER}-cluster      # cub-lk creates this (root app + oci target live here)
+CLUSTER=helm-expt-demo                # cub-managed kind cluster + name prefix
+SPACE_CLUSTER=${CLUSTER}-cluster      # cub cluster up creates this (root app + OCI target live here)
 WORKLOAD_SPACE=${CLUSTER}-nginx       # we create this for the workload units
-TARGET=${SPACE_CLUSTER}/oci           # the Noop OCI target cub-lk made
+TARGET=${SPACE_CLUSTER}/oci           # the OCI target created with the cluster
 PKG=$HELM_EXPT/packages/bitnami/nginx/24.0.2
 BASE=http-clusterip                   # nginx default base (default:true), no Secret
 NS=nginx                              # MUST match the base's frozen namespace — see "Known defect"
 WORKDIR=/tmp/${CLUSTER}-nginx
-KUBECONFIG_FILE=$HOME/.confighub/lk/${CLUSTER}.kubeconfig
+KUBECONFIG_FILE=$HOME/.confighub/clusters/${CLUSTER}.kubeconfig
 KCTX=kind-${CLUSTER}
 ```
 
@@ -109,7 +109,7 @@ KCTX=kind-${CLUSTER}
 # 1. Stand up the BYO-cluster simulation (kind + Argo + ConfigHub space/target/root-app).
 #    Long step (kind create + Argo install + rollout wait). Dedicated kubeconfig;
 #    never merged into ~/.kube/config.
-cub lk up --name "$CLUSTER"
+cub cluster up --name "$CLUSTER"
 
 # 2. Render the vanilla chart at its default base via cub installer (NO helm CLI).
 #    ⚠ NS must equal the base's frozen namespace (see "Known defect"). For nginx that is "nginx".
@@ -155,7 +155,7 @@ kubectl --context "$KCTX" rollout status deploy/nginx -n "$NS" --timeout=150s
 kubectl --context "$KCTX" get deploy,pods -n "$NS" -o wide
 
 # 7. Tear down (kind cluster + ConfigHub space, recursive).
-cub lk down --name "$CLUSTER"
+cub cluster down --name "$CLUSTER"
 ```
 
 ## Expected proof (reference values from the 2026-06-01 PASS run)
@@ -167,7 +167,7 @@ cub lk down --name "$CLUSTER"
 | OCI | served at `oci://oci.hub.confighub.com:443/target/$SPACE_CLUSTER/oci` |
 | Argo | `root` (`$SPACE_CLUSTER`) + child `nginx` both `Synced/Healthy`, same revision (e.g. `sha256:90a8a441…`) |
 | Runtime | `deploy/nginx 1/1` Available; pod Running 1/1; image `registry-1.docker.io/bitnami/nginx:latest` |
-| Teardown | `cub lk down` deletes kind cluster + space; `kind get clusters` → none |
+| Teardown | `cub cluster down` deletes the kind cluster and Space; `kind get clusters` → none |
 
 ## Namespace Coherence Guard
 

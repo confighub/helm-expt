@@ -36,7 +36,7 @@ function runLiveWitness() {
   const clusterSpace = `${rig}-cluster`;
   const workloadSpace = `${rig}-keda-apiservice`;
   const target = `${clusterSpace}/oci`;
-  const kubeconfig = join(process.env.HOME, ".confighub", "lk", `${rig}.kubeconfig`);
+  const kubeconfig = join(process.env.HOME, ".confighub", "clusters", `${rig}.kubeconfig`);
   const context = `kind-${rig}`;
   const workdir = join(tmpdir(), `helm-expt-keda-api-${suffix}`);
   const appName = "keda-apiservice";
@@ -60,8 +60,8 @@ function runLiveWitness() {
 
   try {
     record("rig-up", () => {
-      mustUncaptured("cub", ["lk", "up", "--name", rig], 900);
-      return `cub lk rig ${rig} created`;
+      mustUncaptured("cub", ["cluster", "up", "--name", rig], 900);
+      return `cub cluster ${rig} created`;
     });
 
     if (!lastCheckPassed(receipt, "rig-up")) return finish(receipt);
@@ -190,7 +190,7 @@ function runLiveWitness() {
 
     receipt.spec.result = receipt.spec.checks.every((item) => item.result === "pass") ? "pass" : "blocked";
   } finally {
-    const teardown = runCommand("cub", ["lk", "down", "--name", rig, "--force"], 600);
+    const teardown = runCommand("cub", ["cluster", "down", "--name", rig, "--force"], 600);
     receipt.spec.run.teardown = {
       result: teardown.status === 0 ? "pass" : "blocked",
       detail: `${teardown.stdout}\n${teardown.stderr}`.trim().slice(0, 4000),
@@ -242,7 +242,7 @@ function baseReceipt({ rig, clusterSpace, workloadSpace, target, kubeconfig, con
       observedAt: startedAt.toISOString().replace(/\.\d{3}Z$/, "Z"),
       result: "blocked",
       run: {
-        mode: "cub-lk-argo-oci-apiservice-witness",
+        mode: "cub-cluster-argo-oci-apiservice-witness",
         rig,
         clusterSpace,
         workloadSpace,

@@ -3,15 +3,16 @@
 // (tests/fixtures/hook-replacement-probe: a workload ConfigMap + a post-install Job)
 // ONCE to its OCI registry, then THREE consumers pull the SAME bundle and we observe
 // the routed hook actually run under each:
-//   1. Argo CD  — an Application with an OCI source (the proven cub-lk path)
+//   1. Argo CD  — an Application with an OCI source
 //   2. Flux     — an OCIRepository + Kustomization at the same OCI URL
 //   3. cub-direct (no controller) — oras pulls the same artifact + kubectl applies it
-// On one throwaway cub-lk rig (kind + Argo + the ConfigHub OCI worker). The rig is
-// brought up and torn down by this script. Legs are best-effort and honest: a leg
+// On one throwaway cub-managed kind cluster with Argo and the ConfigHub OCI
+// connection. The cluster is brought up and torn down by this script. Legs are
+// best-effort and honest: a leg
 // that cannot converge in budget is `watch` with its reason, never a silent pass.
 //
 // CREDENTIALS: the OCI pull secret (confighub-oci-creds, provisioned for Argo by
-// cub-lk) is copied/converted into flux-system and into a temp registry-config for
+// cub cluster up) is copied/converted into flux-system and into a temp registry-config for
 // oras IN MEMORY — its values are NEVER printed, logged, or passed on a command line.
 //
 // Usage:
@@ -40,7 +41,7 @@ function tsh(file, args, opts = {}) {
   try { return { ok: true, out: sh(file, args, opts) }; }
   catch (e) { return { ok: false, out: `${e.stdout ?? ""}${e.stderr ?? ""}`.trim() || String(e) }; }
 }
-let KUBECONFIG = ""; // cub-lk rig kubeconfig file, set per run
+let KUBECONFIG = ""; // cub-managed cluster kubeconfig file, set per run
 function k(kctx, args, opts = {}) {
   return tsh("kubectl", [...(KUBECONFIG ? ["--kubeconfig", KUBECONFIG] : []), "--context", kctx, ...args], opts);
 }
@@ -77,7 +78,7 @@ function publishToOci(wspace, target) {
   return { ok: true };
 }
 
-// Leg 1: Argo CD — Application with an OCI source (the proven cub-lk path).
+// Leg 1: Argo CD — Application with an OCI source.
 function legArgoOci(kctx, spaceCluster, wspace) {
   const ns = "oci-argo";
   k(kctx, ["create", "namespace", ns]);
@@ -252,15 +253,15 @@ function runProof() {
   const target = `${spaceCluster}/oci`;
   const wspace = `${rig}-hookoci`;
   const kctx = `kind-${rig}`;
-  KUBECONFIG = join(homedir(), ".confighub", "lk", `${rig}.kubeconfig`);
+  KUBECONFIG = join(homedir(), ".confighub", "clusters", `${rig}.kubeconfig`);
   const work = mkdtempSync(join(tmpdir(), "oci-hook-"));
   const legs = {};
   let rigUp = false, publish = { ok: false, reason: "not attempted" };
   try {
     check(existsSync(join(repoRoot, FIXTURE, "workload.yaml")), `fixture missing at ${FIXTURE}`);
-    const up = tsh("cub", ["lk", "up", "--name", rig], { timeout: 600_000 });
-    rigUp = up.ok || (tsh("cub", ["lk", "list"]).out || "").includes(rig);
-    check(rigUp, `cub lk up failed: ${up.out.slice(0, 200)}`);
+    const up = tsh("cub", ["cluster", "up", "--name", rig], { timeout: 600_000 });
+    rigUp = up.ok || (tsh("cub", ["cluster", "list"]).out || "").includes(rig);
+    check(rigUp, `cub cluster up failed: ${up.out.slice(0, 200)}`);
     publish = publishToOci(wspace, target);
     if (publish.ok) {
       legs.argo = legArgoOci(kctx, spaceCluster, wspace);
@@ -268,7 +269,7 @@ function runProof() {
       legs.cubDirect = legCubDirectOci(kctx, spaceCluster, wspace, work);
     }
   } finally {
-    if (rigUp) tsh("cub", ["lk", "down", "--name", rig, "--force"], { timeout: 300_000 });
+    if (rigUp) tsh("cub", ["cluster", "down", "--name", rig, "--force"], { timeout: 300_000 });
     rmSync(work, { recursive: true, force: true });
   }
   const present = Object.values(legs);

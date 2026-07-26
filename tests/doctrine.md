@@ -106,8 +106,9 @@ not the raw Kubernetes error. The managed path must show a plain reconcile
 choice, such as keep live, accept desired, or force with an explicit receipt.
 
 ## 7. Live runs are serial and ephemeral
-`cub-lk` is **kind under the hood** — one rig at a time (concurrent rigs starve nodes →
-false blocks), torn down immediately after (`cub lk down --force`), orphan rigs/spaces
+`cub cluster up` creates a local **kind** cluster — one at a time (concurrent
+clusters starve nodes → false blocks), torn down immediately after
+(`cub cluster down --force`), orphan clusters/Spaces
 cleaned. Honest disposition throughout: `watch ≠ pass`; render parity ≠ live-ready;
 promotion-proven ≠ production-proven.
 

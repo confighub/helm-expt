@@ -442,7 +442,7 @@
 <p>This lane installs a <b>vanilla public chart at its default base</b>, entirely via <code>cub installer</code> (not the helm CLI), onto a BYO cluster whose GitOps controller pulls from <code>oci.hub.confighub.com</code>. This runbook is the exact, parameterized procedure so the same job runs identically on another machine.</p>
 <p>The test harness lives in <code>tests/</code>; the core flow it exercises lives in <code>confighub/helm-expt</code>. See <a href="strategy.html">strategy.md</a>.</p>
 <h2 id="prerequisites-verify-dont-assume">Prerequisites (verify, don't assume)</h2>
-<ul><li><code>cub auth login</code> complete. Verify with <code>cub organization list</code>, not <code>cub info</code>.</li><li><code>kind</code>, <code>kubectl</code>, <code>docker</code> (daemon running), <code>cub</code> on PATH.</li><li>cub-lk plugin: <code>cub plugin install jesperfj/cub-lk</code> (verify <code>cub lk version</code>).</li><li><code>helm-expt</code> checked out as a <b>sibling</b> of this repo (path is machine-specific - resolve it, don't hardcode): ``<code>bash HELM_EXPT=&quot;$(cd &quot;$(git rev-parse --show-toplevel)/../helm-expt&quot; 2&gt;/dev/null &amp;&amp; pwd)&quot; # fallbacks if not a sibling: /Users/&lt;you&gt;/Public/github-repos/helm-expt #                             /Users/&lt;you&gt;/code/helm-expt </code>``</li><li>Resource budget: ≤2 kind clusters; this run creates 1, torn down at the end.</li></ul>
+<ul><li><code>cub auth login</code> complete. Verify with <code>cub organization list</code>, not <code>cub info</code>.</li><li><code>kind</code>, <code>kubectl</code>, <code>docker</code> (daemon running), <code>cub</code> on PATH.</li><li>Current <code>cub</code> with <code>cub cluster up</code> and <code>cub cluster down</code>.</li><li><code>helm-expt</code> checked out as a <b>sibling</b> of this repo (path is machine-specific - resolve it, don't hardcode): ``<code>bash HELM_EXPT=&quot;$(cd &quot;$(git rev-parse --show-toplevel)/../helm-expt&quot; 2&gt;/dev/null &amp;&amp; pwd)&quot; # fallbacks if not a sibling: /Users/&lt;you&gt;/Public/github-repos/helm-expt #                             /Users/&lt;you&gt;/code/helm-expt </code>``</li><li>Resource budget: ≤2 kind clusters; this run creates 1, torn down at the end.</li></ul>
 <h2 id="target-profiles">Target Profiles</h2>
 <p>Some rows need a target capability that vanilla kind does not provide. The live parity harness calls those capabilities target profiles.</p>
 <table><thead><tr><th>Profile</th><th>Purpose</th><th>Command shape</th></tr></thead><tbody><tr><td><code>kind-ingress-nginx</code></td><td>Proves Ingress behavior on kind by installing the target ingress controller.</td><td><code>npm run live-parity:top20 -- --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx</code></td></tr>
@@ -452,23 +452,23 @@
 <pre><code>npm run live-parity:top20 -- --preflight --chart ingress-nginx --base default --target-profile kind-loadbalancer</code></pre>
 <p><code>kind-loadbalancer</code> needs the <code>cloud-provider-kind</code> binary on <code>PATH</code>. It is guarded because the provider observes kind clusters host-wide. The harness refuses to start the profile if another kind cluster is present. Wait for other agents' live lanes to finish before using it.</p>
 <h2 id="parameters">Parameters</h2>
-<pre><code>CLUSTER=helm-expt-demo                # cub-lk cluster + name prefix
-SPACE_CLUSTER=${CLUSTER}-cluster      # cub-lk creates this (root app + oci target live here)
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>CLUSTER=helm-expt-demo                # cub-managed kind cluster + name prefix
+SPACE_CLUSTER=${CLUSTER}-cluster      # cub cluster up creates this (root app + OCI target live here)
 WORKLOAD_SPACE=${CLUSTER}-nginx       # we create this for the workload units
-TARGET=${SPACE_CLUSTER}/oci           # the Noop OCI target cub-lk made
+TARGET=${SPACE_CLUSTER}/oci           # the OCI target created with the cluster
 PKG=$HELM_EXPT/packages/bitnami/nginx/24.0.2
 BASE=http-clusterip                   # nginx default base (default:true), no Secret
 NS=nginx                              # MUST match the base's frozen namespace - see &quot;Known defect&quot;
 WORKDIR=/tmp/${CLUSTER}-nginx
-KUBECONFIG_FILE=$HOME/.confighub/lk/${CLUSTER}.kubeconfig
+KUBECONFIG_FILE=$HOME/.confighub/clusters/${CLUSTER}.kubeconfig
 KCTX=kind-${CLUSTER}</code></pre>
 <h2 id="steps">Steps</h2>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code># 1. Stand up the BYO-cluster simulation (kind + Argo + ConfigHub space/target/root-app).
 #    Long step (kind create + Argo install + rollout wait). Dedicated kubeconfig;
 #    never merged into ~/.kube/config.
-cub lk up --name &quot;$CLUSTER&quot;
+cub cluster up --name &quot;$CLUSTER&quot;
 
 # 2. Render the vanilla chart at its default base via cub installer (NO helm CLI).
 #    ⚠ NS must equal the base's frozen namespace (see &quot;Known defect&quot;). For nginx that is &quot;nginx&quot;.
@@ -514,14 +514,14 @@ kubectl --context &quot;$KCTX&quot; rollout status deploy/nginx -n &quot;$NS&quo
 kubectl --context &quot;$KCTX&quot; get deploy,pods -n &quot;$NS&quot; -o wide
 
 # 7. Tear down (kind cluster + ConfigHub space, recursive).
-cub lk down --name &quot;$CLUSTER&quot;</code></pre>
+cub cluster down --name &quot;$CLUSTER&quot;</code></pre>
 <h2 id="expected-proof-reference-values-from-the-2026-06-01-pass-run">Expected proof (reference values from the 2026-06-01 PASS run)</h2>
 <table><thead><tr><th>Layer</th><th>Expected</th></tr></thead><tbody><tr><td>Render</td><td>6 manifests; single namespace <code>nginx</code> across all</td></tr>
 <tr><td>ConfigHub</td><td>6 workload units + installer-record in <code>$WORKLOAD_SPACE</code>; all applied (Noop)</td></tr>
 <tr><td>OCI</td><td>served at <code>oci://oci.hub.confighub.com:443/target/$SPACE_CLUSTER/oci</code></td></tr>
 <tr><td>Argo</td><td><code>root</code> (<code>$SPACE_CLUSTER</code>) + child <code>nginx</code> both <code>Synced/Healthy</code>, same revision (e.g. <code>sha256:90a8a441…</code>)</td></tr>
 <tr><td>Runtime</td><td><code>deploy/nginx 1/1</code> Available; pod Running 1/1; image <code>registry-1.docker.io/bitnami/nginx:latest</code></td></tr>
-<tr><td>Teardown</td><td><code>cub lk down</code> deletes kind cluster + space; <code>kind get clusters</code> → none</td></tr></tbody></table>
+<tr><td>Teardown</td><td><code>cub cluster down</code> deletes the kind cluster and Space; <code>kind get clusters</code> → none</td></tr></tbody></table>
 <h2 id="namespace-coherence-guard">Namespace Coherence Guard</h2>
 <p>Earlier live runs found that packages without the namespace transformer could render a <code>Namespace</code> object for one namespace while workloads retained the recipe's frozen namespace. The top-20 packages now include the transformer where it is supported, but complex charts can still contain namespace references in embedded fields. Keep the step 2 coherence guard in place and read <a href="findings.html">findings.md</a> before using an arbitrary namespace for a complex chart.</p>
     </article>

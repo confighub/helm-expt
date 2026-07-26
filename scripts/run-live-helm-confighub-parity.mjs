@@ -53,7 +53,7 @@ Options:
   --release <name>                      override variant releaseName
   --slug <slug>                         override run slug
   --out <path>                          override receipt path
-  --rig <name>                          override cub-lk rig name
+  --rig <name>                          override cub-managed cluster name
   --target-profile <profile>            pass target profile to the rig
   --gitops-canonicalization-profile <p> pass canonicalization profile to the rig
   --preflight                           check inputs and local tools only
@@ -285,11 +285,6 @@ function kubernetesNodeProfileCheck() {
   const cluster = spawnSync("cub", ["cluster", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
   const clusterOutput = `${cluster.stdout ?? ""}\n${cluster.stderr ?? ""}`;
   if (cluster.status === 0 && clusterOutput.includes("--worker-nodes")) {
-    return { name: "target profile kind-three-node", result: "pass", detail: "local proof-cluster helper can create a multi-node Kubernetes target with --worker-nodes" };
-  }
-  const lk = spawnSync("cub", ["lk", "up", "--help"], { encoding: "utf8", stdio: "pipe" });
-  const lkOutput = `${lk.stdout ?? ""}\n${lk.stderr ?? ""}`;
-  if (lk.status === 0 && lkOutput.includes("--worker-nodes")) {
     return { name: "target profile kind-three-node", result: "pass", detail: "local proof-cluster helper can create a multi-node Kubernetes target with --worker-nodes" };
   }
   return {
