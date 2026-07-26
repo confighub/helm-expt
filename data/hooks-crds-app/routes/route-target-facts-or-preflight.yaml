@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "target-facts-or-preflight"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "preflight"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "target-facts-or-preflight"
+  quirkClass: "target-facts"
+  lifecyclePhase: "preflight"
+  actionKind: "stage-target-facts"
+  executionMode: "user-executes"
+  automatic: false
+  whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+  command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "none — supply the inputs before sync"
+    argoCdSnippet: ""
+    emitsControllerStep: false
+    flux: "none — supply the inputs before sync"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

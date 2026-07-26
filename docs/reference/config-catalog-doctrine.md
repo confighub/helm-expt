@@ -124,6 +124,7 @@ The source determines how the configuration is produced; it does not change the
 minimum checks applied to the resulting Kubernetes data.
 
 - Schema and placeholder checks block apply everywhere.
+- Lifecycle route records must name their chart, version, preset, executor, disposition, and evidence. A route cannot claim automatic execution without an observed receipt.
 - Digest pinning and workload probes are warnings everywhere.
 - Production adds one required human approval.
 
@@ -132,12 +133,17 @@ approval trigger. The production filter must include the baseline checks as well
 approval. A verifier checks both rules so a broad filter cannot quietly put approval
 on every Space or remove the baseline checks from production.
 
+The lifecycle-route check applies only when a `LifecycleRoute` is stored. It checks
+whether that record is complete and honest. It does not infer that a chart needs no
+route when none has been written. Chart-specific preset work and evidence still
+determine which CRD, hook, certificate, setup, and observation routes are required.
+
 The maintained profile is
 [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
 The live `helm-catalog` filters and Space assignments were checked on 26 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-26 Spaces use the four baseline checks and four production Spaces use those checks
+30 Spaces use the five baseline checks and four production Spaces use those checks
 plus approval. Run `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 

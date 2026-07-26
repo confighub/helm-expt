@@ -1742,11 +1742,11 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Checks before apply</h3>
-  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
-  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 28 Spaces on the four common checks and four production Spaces on those checks plus approval. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. A lifecycle-route check blocks incomplete routes and unsupported automatic claims. Image digest and workload probe checks warn. Production keeps those five checks and adds one required approval.</p>
+  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 30 Spaces on the five common checks and four production Spaces on those checks plus approval. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
-  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>
+  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan. Partial and planned examples stay labeled as such.</p>
 
   <h2>6 · What's yours to decide</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
@@ -2857,6 +2857,7 @@ function docsHtml(catalog) {
     ["AICR EKS H100 example", "A genuine AICR v0.14.0 recipe and generated Flux bundle, with remaining inputs, checksums, commands, and current limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],
+    ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
@@ -2903,6 +2904,7 @@ function docsHtml(catalog) {
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
     ["Base variant records", "Source-neutral records joining literal objects, source inputs, routes, policy, evidence, and OCI handoffs.", "../data/base-variant-records/summary.md"],
     ["Apply policy profile", "The common checks, production approval rule, scope assertions, and self-test.", "../data/apply-policy-profiles/summary.md"],
+    ["Hooks and CRDs App", "The Kube Prometheus Stack route plan, the proven hook fixture, and the live ApplyGate rejection receipt.", "../data/hooks-crds-app/summary.md"],
     ["Demonstration status", "Current status and evidence for the source pathways and five ConfigHub App examples.", "../data/demo-program/summary.md"],
     ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
@@ -4607,7 +4609,7 @@ function pillarsHtml(catalog) {
 
     <section aria-labelledby="pillar-policy">
       <h2 id="pillar-policy">The checks follow the configuration</h2>
-      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those checks and adds one approval.</p>
+      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema and placeholder checks block apply. A lifecycle-route check blocks incomplete routes and unsupported automatic claims. Image digest and workload probe checks warn. Production keeps those checks and adds one approval.</p>
       <p><a href="../data/apply-policy-profiles/summary.md">Read the policy and the tests that keep approval scoped to production</a>.</p>
     </section>
   </main>

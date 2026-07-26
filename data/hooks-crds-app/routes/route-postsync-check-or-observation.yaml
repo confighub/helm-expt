@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "postsync-check-or-observation"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "post-apply"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "postsync-check-or-observation"
+  quirkClass: "hook-phase"
+  lifecyclePhase: "post-apply"
+  actionKind: "run-check"
+  executionMode: "user-executes"
+  automatic: false
+  whoRuns: "Your delivery — a post-apply check (receipted)"
+  command: ""
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "PostSync"
+    argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+    emitsControllerStep: true
+    flux: "post-apply Job / follow-on Kustomization"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

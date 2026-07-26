@@ -11,7 +11,7 @@
 //   --sync    execute serially with the quota-probe protocol: stop at the
 //             first server error and report exact counts
 //   --verify  compare live org state against the plan (read-only)
-//   --policy-sync     set the two apply-policy filters from the committed profile
+//   --policy-sync     reconcile Trigger definitions, filters, and Space assignments
 //   --policy-record   verify the live policy topology and write its receipt
 //   --policy-verify   compare the live topology with the profile and receipt
 //   --policy-receipt-verify  verify the committed receipt without a live login
@@ -27,6 +27,7 @@ import { readYaml, repoRoot, write, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--plan";
 const orgArg = process.argv.includes("--org") ? process.argv[process.argv.indexOf("--org") + 1] : "helm-catalog";
+const cubContext = process.env.CUB_CONTEXT ?? "";
 
 const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-analysis", "raw.json"), "utf8"));
 const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.csv"), "utf8");
@@ -220,7 +221,12 @@ function buildPlan() {
 }
 
 function cub(args, options = {}) {
-  return execFileSync("cub", args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], ...options });
+  const contextArgs = cubContext ? ["--context", cubContext] : [];
+  return execFileSync("cub", [...contextArgs, ...args], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+    ...options,
+  });
 }
 
 function assertOrg() {
@@ -246,14 +252,57 @@ function splitEntityRef(ref) {
 
 function expectedPolicyTriggers(policySet) {
   return policySet.checks
-    .map((check) => ({ ref: check.trigger, effect: check.effect }))
+    .map((policyCheck) => {
+      const definition = policyTriggerDefinition(policyCheck.trigger);
+      return {
+        ref: policyCheck.trigger,
+        functionName: definition.functionName,
+        arguments: definition.arguments,
+        description: definition.description,
+        effect: policyCheck.effect,
+        validating: true,
+      };
+    })
     .sort((a, b) => a.ref.localeCompare(b.ref));
 }
 
 function receiptPolicyTriggers(policySet) {
   return policySet.triggers
-    .map((trigger) => ({ ref: trigger.ref, effect: trigger.effect }))
+    .map((trigger) => ({
+      ref: trigger.ref,
+      functionName: trigger.functionName,
+      arguments: trigger.arguments ?? [],
+      description: trigger.description,
+      effect: trigger.effect,
+      validating: trigger.validating,
+    }))
     .sort((a, b) => a.ref.localeCompare(b.ref));
+}
+
+function policyTriggerDefinition(ref) {
+  const definition = (applyPolicy.spec.triggerDefinitions ?? [])
+    .find((item) => item.ref === ref);
+  if (!definition) throw new Error(`missing Trigger definition for ${ref}`);
+  return definition;
+}
+
+function normalizedLiveArguments(args) {
+  return (args ?? [])
+    .map((item) => ({
+      name: item.ParameterName,
+      value: item.Value,
+    }))
+    .sort((a, b) => `${a.name}|${a.value}`.localeCompare(`${b.name}|${b.value}`));
+}
+
+const liveTriggerCache = new Map();
+
+function readLiveTrigger(ref) {
+  if (liveTriggerCache.has(ref)) return liveTriggerCache.get(ref);
+  const [space, slug] = splitEntityRef(ref);
+  const trigger = cubJson(["trigger", "get", "--space", space, slug]).Trigger;
+  liveTriggerCache.set(ref, trigger);
+  return trigger;
 }
 
 function canonicalJson(value) {
@@ -276,12 +325,18 @@ function readPolicyFilter(policySet, name, findings) {
   const filter = filterResult.Filter;
   const rows = cubJson(["trigger", "list", "--space", "*", "--filter", policySet.filter]);
   const triggers = rows
-    .map((row) => ({
-      ref: `${row.Space.Slug}/${row.Trigger.Slug}`,
-      functionName: row.Trigger.FunctionName,
-      effect: row.Trigger.Warn === true ? "warn" : "block",
-      validating: row.Trigger.Validating === true,
-    }))
+    .map((row) => {
+      const ref = `${row.Space.Slug}/${row.Trigger.Slug}`;
+      const trigger = readLiveTrigger(ref);
+      return {
+        ref,
+        functionName: trigger.FunctionName,
+        arguments: normalizedLiveArguments(trigger.Arguments),
+        description: trigger.Description ?? "",
+        effect: trigger.Warn === true ? "warn" : "block",
+        validating: trigger.Validating === true,
+      };
+    })
     .sort((a, b) => a.ref.localeCompare(b.ref));
 
   if (filter.From !== "Trigger") findings.push(`${policySet.filter} reads ${filter.From}, not Trigger`);
@@ -289,9 +344,8 @@ function readPolicyFilter(policySet, name, findings) {
     findings.push(`${policySet.filter} selector drifted: '${filter.Where}'`);
   }
   const expected = expectedPolicyTriggers(policySet);
-  const actual = triggers.map(({ ref, effect }) => ({ ref, effect }));
-  if (!sameJson(actual, expected)) {
-    findings.push(`${policySet.filter} selected ${actual.map((item) => `${item.ref}:${item.effect}`).join(", ") || "no triggers"}`);
+  if (!sameJson(triggers, expected)) {
+    findings.push(`${policySet.filter} selected Trigger definitions that differ from the committed policy`);
   }
   for (const trigger of triggers) {
     if (!trigger.validating) findings.push(`${trigger.ref} is not a validating Trigger`);
@@ -462,6 +516,40 @@ function printPolicyResult(receipt) {
   console.log(`production: ${production.triggers.length} Trigger(s), ${receipt.spec.spaces.production.length} Space(s)`);
 }
 
+function syncPolicyTriggerDefinitions() {
+  for (const definition of applyPolicy.spec.triggerDefinitions ?? []) {
+    const [space, slug] = splitEntityRef(definition.ref);
+    let exists = true;
+    try {
+      cubJson(["trigger", "get", "--space", space, slug]);
+    } catch {
+      exists = false;
+    }
+    const action = exists ? "update" : "create";
+    const args = [
+      "trigger",
+      action,
+      "--space",
+      space,
+      "--description",
+      definition.description,
+      "--quiet",
+    ];
+    if (definition.effect === "warn") args.push("--warn");
+    else if (exists) args.push("--unwarn");
+    args.push(
+      slug,
+      definition.event,
+      definition.toolchain,
+      definition.functionName,
+      ...(definition.arguments ?? []).map((item) => String(item.value)),
+    );
+    cub(args);
+    console.log(`${exists ? "updated" : "created"} ${definition.ref}`);
+  }
+  liveTriggerCache.clear();
+}
+
 function spaceExists(slug) {
   try {
     cub(["space", "get", slug]);
@@ -500,6 +588,7 @@ if (mode === "--policy-receipt-verify") {
 
 if (mode === "--policy-sync") {
   assertOrg();
+  syncPolicyTriggerDefinitions();
   for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.production]) {
     const [space, slug] = splitEntityRef(policySet.filter);
     cub([

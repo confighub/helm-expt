@@ -20435,7 +20435,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-delete-policy",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20467,7 +20467,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20503,7 +20503,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20539,7 +20539,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20575,7 +20575,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-weight-ordering",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20607,7 +20607,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "target-facts",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -20639,7 +20639,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "webhook-readiness",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -25881,26 +25881,35 @@
         },
         {
           "entrypoints": [
+            "docs/demo/hooks-crds/kube-prometheus-stack.md",
             "docs/user/chart-hooks-what-happens.md",
             "docs/user/target-prerequisites.md"
           ],
           "evidence": [
+            "data/hooks-crds-app/summary.md",
+            "data/hooks-crds-app/live-receipt.yaml",
             "data/lifecycle-routes/summary.md",
-            "runs/crd-ordering-gap/receipt.yaml"
+            "runs/crd-ordering-gap/receipt.yaml",
+            "runs/hook-execution-proof/receipt.yaml",
+            "runs/oci-hook-delivery-proof/receipt.yaml",
+            "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
           ],
           "id": "hooks-crds-app",
           "limits": [
-            "Several chart-specific routes are proven. Automatic execution is still false for routes that have not earned a complete live receipt."
+            "The Kube Prometheus Stack routes are stored and checked, but they remain automatic false until their individual execution paths are proved.",
+            "The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply.",
+            "The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs."
           ],
           "name": "Hooks and CRDs App",
-          "problem": "Hooks, CRDs, webhook certificates, and setup jobs often need ordering and actions that are not ordinary Kubernetes apply operations.",
-          "result": "Check prerequisites, run required setup in the recorded order, and keep a receipt of what happened.",
+          "problem": "A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.",
+          "result": "Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.",
           "status": "partial",
           "steps": [
-            "Read the route and prerequisite records attached to the base variant.",
-            "Check the target before delivery.",
-            "Run only the chart-specific actions that are needed.",
-            "Record the result for Argo CD, Flux, or direct apply."
+            "Start from the Kube Prometheus Stack 85.3.3 default preset and its recorded Helm inputs.",
+            "Apply the ten CRDs and wait for them before applying dependent custom resources.",
+            "Prepare the webhook certificate, apply the ordinary objects, and check readiness in the recorded order.",
+            "Choose the recorded Argo CD, Flux, or direct-apply implementation for each step.",
+            "Store every route as a checked LifecycleRoute and keep the execution receipts beside it."
           ]
         },
         {
@@ -26455,16 +26464,16 @@
     {
       "space": "hook-probe-base",
       "kind": "route",
-      "title": "Hook delivery proof fixture",
-      "summary": "A small fixture proving that hook-like work can be packaged once and delivered through Argo CD, Flux, or a direct apply path.",
+      "title": "A setup job delivered three ways",
+      "summary": "This small example shows the same setup job running from one OCI package through Argo CD, Flux, and direct apply.",
       "source_path": "data/helm-catalog-readmes/spaces/hook-probe-base/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/hook-probe-base/readme.yaml"
     },
     {
       "space": "route-sketch-kube-prometheus-stack",
       "kind": "route",
-      "title": "Kube Prometheus Stack route sketch",
-      "summary": "A design sketch for handling the work around a complex chart: CRDs, setup jobs, webhook certificates, target facts, and receipts.",
+      "title": "Kube Prometheus Stack: hooks and CRDs",
+      "summary": "This example records the install and upgrade work around Kube Prometheus Stack 85.3.3, including CRDs, webhook certificates, setup jobs, and checks.",
       "source_path": "data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/route-sketch-kube-prometheus-stack/readme.yaml"
     }
@@ -29681,11 +29690,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -29699,11 +29708,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "preflight-or-presync",
@@ -29717,11 +29726,11 @@
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -29735,11 +29744,11 @@
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -29753,11 +29762,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -29771,11 +29780,11 @@
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -29789,11 +29798,11 @@
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             }
           ]
         },
@@ -29814,11 +29823,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -29832,11 +29841,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "preflight-or-presync",
@@ -29850,11 +29859,11 @@
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -29868,11 +29877,11 @@
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "preserve-ordering",
@@ -29886,11 +29895,11 @@
               "command": "",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -29904,11 +29913,11 @@
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -29922,11 +29931,11 @@
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": ""
             }
           ]
         },
@@ -29947,11 +29956,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -29965,11 +29974,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -29983,11 +29992,11 @@
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -30001,11 +30010,11 @@
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -30019,11 +30028,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -30037,11 +30046,11 @@
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -30055,11 +30064,11 @@
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             }
           ]
         },
@@ -30080,11 +30089,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "postsync-check-or-observation",
@@ -30098,11 +30107,11 @@
               "command": "",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "preflight-or-presync",
@@ -30116,11 +30125,11 @@
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "upgrade-action-with-receipt",
@@ -30134,11 +30143,11 @@
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "preserve-ordering",
@@ -30152,11 +30161,11 @@
               "command": "",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "target-facts-or-preflight",
@@ -30170,11 +30179,11 @@
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             },
             {
               "route_name": "webhook-readiness-observation",
@@ -30188,11 +30197,11 @@
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": "",
-              "sourceVersion": "85.3.0",
+              "sourceVersion": "85.3.3",
               "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
             }
           ]
         }
@@ -59882,7 +59891,7 @@
       "lifecycle_route_dispositions": "observed:7",
       "lifecycle_route_execution_modes": "target-owned:3; user-executes:4",
       "lifecycle_route_safe_automatic": "0/7",
-      "lifecycle_route_evidence_version": "85.3.0",
+      "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
       "lifecycle_route_json_path": "data/lifecycle-routes/routes.json",
       "lane_render_parity": "yes",
@@ -59956,7 +59965,7 @@
       "lifecycle_route_dispositions": "observed:7",
       "lifecycle_route_execution_modes": "target-owned:3; user-executes:4",
       "lifecycle_route_safe_automatic": "0/7",
-      "lifecycle_route_evidence_version": "85.3.0",
+      "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
       "lifecycle_route_json_path": "data/lifecycle-routes/routes.json",
       "lane_render_parity": "yes",

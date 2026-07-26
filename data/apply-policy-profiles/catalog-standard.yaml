@@ -16,6 +16,11 @@ spec:
         reason: "Do not apply placeholder credentials or unfinished values."
         trigger: "platform/vet-placeholders"
       -
+        effect: "block"
+        id: "lifecycle-route-evidence"
+        reason: "Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt."
+        trigger: "platform/lifecycle-route-evidence"
+      -
         effect: "warn"
         id: "images-pinned-by-digest"
         reason: "Report images that can change without a configuration revision."
@@ -26,7 +31,7 @@ spec:
         reason: "Report workload containers that have no readiness or liveness probe."
         trigger: "platform/probes-declared"
     filter: "platform/helm-catalog-checks"
-    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       labels:
         ApplyPolicyProfile: "catalog-standard"
@@ -43,6 +48,11 @@ spec:
         reason: "Do not apply placeholder credentials or unfinished values."
         trigger: "platform/vet-placeholders"
       -
+        effect: "block"
+        id: "lifecycle-route-evidence"
+        reason: "Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt."
+        trigger: "platform/lifecycle-route-evidence"
+      -
         effect: "warn"
         id: "images-pinned-by-digest"
         reason: "Report images that can change without a configuration revision."
@@ -58,17 +68,18 @@ spec:
         reason: "Require one recorded approval before production apply."
         trigger: "platform/require-approval"
     filter: "platform/helm-catalog-prod-gates"
-    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       labels:
         ApplyPolicyProfile: "catalog-standard"
         Environment: "Prod"
   scopeAssertions:
     - "Every supported configuration source type is named by this profile."
-    - "The baseline filter selects exactly the four baseline triggers and never selects require-approval."
-    - "The production filter selects the same four baseline triggers plus require-approval."
+    - "Every Trigger is defined here with its function, arguments, effect, and description."
+    - "The baseline filter selects exactly the five baseline triggers and never selects require-approval."
+    - "The production filter selects the same five baseline triggers plus require-approval."
     - "A non-production Space must never receive require-approval from this profile."
-    - "A production Space must not lose the four baseline checks when approval is added."
+    - "A production Space must not lose the five baseline checks when approval is added."
     - "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger."
   sourceTypes:
     - "helm"
@@ -77,6 +88,69 @@ spec:
     - "kubara"
     - "sveltos"
     - "rendered-config"
+  triggerDefinitions:
+    -
+      arguments:
+        -
+          name: "expression"
+          value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, c.image.contains(\"@sha256:\"))"
+      description: "Warn when a workload image is not pinned by digest."
+      effect: "warn"
+      event: "Mutation"
+      functionName: "vet-cel"
+      ref: "platform/digest-pinned-images"
+      toolchain: "Kubernetes/YAML"
+    -
+      arguments:
+        -
+          name: "expression"
+          value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
+      description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+      effect: "block"
+      event: "Mutation"
+      functionName: "vet-cel"
+      ref: "platform/lifecycle-route-evidence"
+      toolchain: "Kubernetes/YAML"
+    -
+      arguments:
+        -
+          name: "expression"
+          value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe))"
+      description: "Warn when a workload container has no liveness or readiness probe."
+      effect: "warn"
+      event: "Mutation"
+      functionName: "vet-cel"
+      ref: "platform/probes-declared"
+      toolchain: "Kubernetes/YAML"
+    -
+      arguments:
+        -
+          name: "num-approvers"
+          value: "1"
+      description: "Require one recorded approval before production apply."
+      effect: "block"
+      event: "Mutation"
+      functionName: "vet-approvedby"
+      ref: "platform/require-approval"
+      toolchain: "Kubernetes/YAML"
+    -
+      arguments:
+        []
+      description: "Block unresolved ConfigHub placeholders."
+      effect: "block"
+      event: "Mutation"
+      functionName: "vet-placeholders"
+      ref: "platform/vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+    -
+      arguments:
+        []
+      description: "Block Kubernetes data that fails its declared schema."
+      effect: "block"
+      event: "Mutation"
+      functionName: "vet-schemas"
+      ref: "platform/vet-schemas"
+      toolchain: "Kubernetes/YAML"
 status:
   evidence:
     - "data/helm-org/summary.md"
@@ -84,6 +158,6 @@ status:
     - "scripts/sync-helm-org.mjs"
   lastRecorded: "2026-07-26"
   limits:
-    - "The live receipt proves the filter definitions, selected Triggers, and assigned Spaces. It does not claim that a deliberately bad configuration was applied."
+    - "The live receipt proves Trigger definitions, filter definitions, and assigned Spaces. The Hooks and CRDs App receipt separately records a dry-run apply that the policy blocked."
     - "The builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID."
   liveReverified: true

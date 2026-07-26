@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "preserve-ordering"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "pre-apply"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "preserve-ordering"
+  quirkClass: "hook-weight-ordering"
+  lifecyclePhase: "pre-apply"
+  actionKind: "preserve-ordering"
+  executionMode: "target-owned"
+  automatic: false
+  whoRuns: "Your applier — must apply CRDs before dependent objects"
+  command: ""
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "no extra hook — keep CRDs before dependent objects"
+    argoCdSnippet: ""
+    emitsControllerStep: false
+    flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

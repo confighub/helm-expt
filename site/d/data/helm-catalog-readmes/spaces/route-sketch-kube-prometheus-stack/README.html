@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kube Prometheus Stack route sketch · ConfigHub Helm Ops</title>
-  <meta name="description" content="Kube Prometheus Stack route sketch: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Kube Prometheus Stack: hooks and CRDs · ConfigHub Helm Ops</title>
+  <meta name="description" content="Kube Prometheus Stack: hooks and CRDs: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.html">
-  <meta property="og:title" content="Kube Prometheus Stack route sketch · ConfigHub Helm Ops">
-  <meta property="og:description" content="Kube Prometheus Stack route sketch: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Kube Prometheus Stack: hooks and CRDs · ConfigHub Helm Ops">
+  <meta property="og:description" content="Kube Prometheus Stack: hooks and CRDs: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.html">
   <style>
@@ -424,25 +424,25 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../testing.html">Testing</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
-    <h1>Kube Prometheus Stack route sketch</h1>
+    <h1>Kube Prometheus Stack: hooks and CRDs</h1>
     <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>A design sketch for handling the work around a complex chart: CRDs, setup jobs, webhook certificates, target facts, and receipts.</p>
+<p>This example records the install and upgrade work around Kube Prometheus Stack 85.3.3, including CRDs, webhook certificates, setup jobs, and checks.</p>
 <p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
 <h2 id="why-this-example-exists">Why this example exists</h2>
-<p>Use this Space to see how we handle the hard parts around a Helm chart without pretending there is one universal answer.</p>
-<p>We keep the chart, then write down the chart-specific choices for CRDs, hooks, certificates, setup jobs, and target facts. Each choice can be tested, reused, and improved instead of rediscovered by every team.</p>
+<p>A successful Helm render is not a complete install plan for this chart. Kubernetes must see the CRDs first, and the admission webhook needs certificate setup and readiness checks.</p>
+<p>We keep the upstream chart and record those choices beside the rendered objects. Teams can review, test, and update the plan instead of hiding it in an imperative install.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>Large Helm charts often need more than a rendered Deployment and Service.</li><li>This example names seven lifecycle routes so the extra work is reviewable instead of hidden in an install.</li><li>Routes stay marked <code>automatic: false</code> until a live proof earns automation.</li></ul>
+<ul><li>The default preset owns ten CRDs, so they must be applied and established before the chart's custom resources.</li><li>Eight route Units record the CRD order, webhook setup, upgrade jobs, checks, target facts, and cleanup behavior.</li><li>Every route names its executor and evidence. These chart routes remain <code>automatic: false</code> until their individual delivery paths are proved.</li></ul>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ul><li>This README.</li><li>Lifecycle route YAML.</li><li>The Kube Prometheus Stack chart page.</li></ul>
+<ul><li>This README.</li><li>The eight LifecycleRoute Units.</li><li>The Kube Prometheus Stack chart page and render intent.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>
-<ul><li><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Kube Prometheus Stack chart page</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/runs/crd-ordering-gap/receipt.yaml">CRD ordering proof</a></li><li><a href="https://confighub.github.io/helm-expt/site/how-it-works.html">How it works</a></li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/docs/demo/hooks-crds/kube-prometheus-stack.md">Hooks and CRDs guide</a></li><li><a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html">Kube Prometheus Stack chart page</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/runs/crd-ordering-gap/receipt.yaml">CRD ordering proof</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml">Lifecycle receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml">Render intent</a></li></ul>
 <h2 id="limits">Limits</h2>
-<ul><li>This is a sketch Space. It names the planned work but does not claim every route is automated today.</li></ul>
+<ul><li>The routes are live records, but ConfigHub does not yet execute all eight automatically. The delivery owner still chooses and runs the recorded Argo CD, Flux, or direct path.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/route-sketch-kube-prometheus-stack/README.md</code>. The source file is the authoritative version.</p></footer>

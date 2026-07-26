@@ -56,9 +56,7 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 ## Named source drift
 
-7 packet(s) carry a source-version drift, named (not hidden):
-
-- `prometheus-community/kube-prometheus-stack`: route source version 85.3.0; catalog has 85.3.3, 86.1.0
+No source-version drift detected.
 
 ## Not yet projected
 

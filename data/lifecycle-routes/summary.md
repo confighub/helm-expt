@@ -112,13 +112,13 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | kyverno/kyverno@3.8.1 | hook-test | `explicit-test-check` | observed | user-executes | no |
 | kyverno/kyverno@3.8.1 | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
 | kyverno/kyverno@3.8.1 | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.0 | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
 
 ## Boundaries
 

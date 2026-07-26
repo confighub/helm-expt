@@ -10,12 +10,13 @@ Filter: `platform/helm-catalog-checks`
 
 This filter names the four allowed Triggers explicitly:
 
-`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'`
+`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'`
 
 | Check | Effect | Why |
 | --- | --- | --- |
 | `platform/vet-schemas` | block | Do not apply Kubernetes data that fails its declared schema. |
 | `platform/vet-placeholders` | block | Do not apply placeholder credentials or unfinished values. |
+| `platform/lifecycle-route-evidence` | block | Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt. |
 | `platform/digest-pinned-images` | warn | Report images that can change without a configuration revision. |
 | `platform/probes-declared` | warn | Report workload containers that have no readiness or liveness probe. |
 
@@ -25,12 +26,13 @@ Filter: `platform/helm-catalog-prod-gates`
 
 Production keeps the four baseline checks and adds one blocking approval:
 
-`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'`
+`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'`
 
 | Check | Effect | Why |
 | --- | --- | --- |
 | `platform/vet-schemas` | block | Do not apply Kubernetes data that fails its declared schema. |
 | `platform/vet-placeholders` | block | Do not apply placeholder credentials or unfinished values. |
+| `platform/lifecycle-route-evidence` | block | Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt. |
 | `platform/digest-pinned-images` | warn | Report images that can change without a configuration revision. |
 | `platform/probes-declared` | warn | Report workload containers that have no readiness or liveness probe. |
 | `platform/require-approval` | block | Require one recorded approval before production apply. |
@@ -38,10 +40,11 @@ Production keeps the four baseline checks and adds one blocking approval:
 ## Scope rules
 
 - Every supported configuration source type is named by this profile.
-- The baseline filter selects exactly the four baseline triggers and never selects require-approval.
-- The production filter selects the same four baseline triggers plus require-approval.
+- Every Trigger is defined here with its function, arguments, effect, and description.
+- The baseline filter selects exactly the five baseline triggers and never selects require-approval.
+- The production filter selects the same five baseline triggers plus require-approval.
 - A non-production Space must never receive require-approval from this profile.
-- A production Space must not lose the four baseline checks when approval is added.
+- A production Space must not lose the five baseline checks when approval is added.
 - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
 
 The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-26**. Read the [live receipt](./live-helm-catalog.yaml).

@@ -5,61 +5,118 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-26T13:28:36.842Z"
+  verifiedAt: "2026-07-26T14:12:34.800Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
       id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
-      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
       triggers:
         -
           ref: "platform/digest-pinned-images"
           functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, c.image.contains(\"@sha256:\"))"
+          description: "Warn when a workload image is not pinned by digest."
           effect: "warn"
+          validating: true
+        -
+          ref: "platform/lifecycle-route-evidence"
+          functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
+          description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+          effect: "block"
           validating: true
         -
           ref: "platform/probes-declared"
           functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe))"
+          description: "Warn when a workload container has no liveness or readiness probe."
           effect: "warn"
           validating: true
         -
           ref: "platform/vet-placeholders"
           functionName: "vet-placeholders"
+          arguments:
+            []
+          description: "Block unresolved ConfigHub placeholders."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-schemas"
           functionName: "vet-schemas"
+          arguments:
+            []
+          description: "Block Kubernetes data that fails its declared schema."
           effect: "block"
           validating: true
     production:
       ref: "platform/helm-catalog-prod-gates"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
-      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
       triggers:
         -
           ref: "platform/digest-pinned-images"
           functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, c.image.contains(\"@sha256:\"))"
+          description: "Warn when a workload image is not pinned by digest."
           effect: "warn"
+          validating: true
+        -
+          ref: "platform/lifecycle-route-evidence"
+          functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
+          description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+          effect: "block"
           validating: true
         -
           ref: "platform/probes-declared"
           functionName: "vet-cel"
+          arguments:
+            -
+              name: "expression"
+              value: "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe))"
+          description: "Warn when a workload container has no liveness or readiness probe."
           effect: "warn"
           validating: true
         -
           ref: "platform/require-approval"
           functionName: "vet-approvedby"
+          arguments:
+            -
+              name: "num-approvers"
+              value: "1"
+          description: "Require one recorded approval before production apply."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-placeholders"
           functionName: "vet-placeholders"
+          arguments:
+            []
+          description: "Block unresolved ConfigHub placeholders."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-schemas"
           functionName: "vet-schemas"
+          arguments:
+            []
+          description: "Block Kubernetes data that fails its declared schema."
           effect: "block"
           validating: true
   spaces:
@@ -84,6 +141,7 @@ spec:
       - "hashicorp-vault-demo-base"
       - "hashicorp-vault-env-dev"
       - "hashicorp-vault-env-staging"
+      - "hook-probe-base"
       - "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
       - "ingress-nginx-ingress-nginx-4-15-1-default"
       - "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
@@ -91,6 +149,7 @@ spec:
       - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
       - "prometheus-community-prometheus-29-8-0-default"
       - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+      - "route-sketch-kube-prometheus-stack"
       - "sveltos-kyverno-fleet-3-8-1-staging"
     production:
       - "bitnami-nginx-fleet-prod-eu"
@@ -104,10 +163,8 @@ spec:
       - "bitnami-redis-base"
       - "bitnami-redis-staging"
       - "default"
-      - "hook-probe-base"
       - "orders-api"
       - "platform"
-      - "route-sketch-kube-prometheus-stack"
 status:
   result: "pass"
   findings:

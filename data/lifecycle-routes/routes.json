@@ -643,7 +643,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-delete-policy",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -675,7 +675,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -711,7 +711,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -747,7 +747,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -783,7 +783,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "hook-weight-ordering",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -815,7 +815,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "target-facts",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -847,7 +847,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base_or_variant": "",
       "quirk_class": "webhook-readiness",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
