@@ -109,6 +109,7 @@ function readme(rows) {
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
     ["data/confighub-example-guides/summary.md", "Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain."],
+    ["data/anonymous-oci-ci-proof/summary.md", "Anonymous OCI work in GitHub Actions: public package digest, rendered object set, OCI-layout digest, pull-back comparison, and explicit limits."],
     ["data/chart-evidence-router/summary.md", "Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action."],
     ["data/status-dashboard/next-work-queues.csv", "Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work."],
     ["data/status-dashboard/active-proof-queue.csv", "Current non-pass live parity rows with the exact support artifact that should be handled before rerun."],

@@ -27,7 +27,7 @@ Here, `work` means rendering, inspecting, explaining, testing, scanning, compari
 | Where the work runs | Status | What that means |
 | --- | --- | --- |
 | Local command | available | Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control. |
-| CI job | partial | Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded. |
+| CI job | available | Run the same non-interactive commands in CI. The current GitHub Actions receipt proves anonymous public OCI pull, rendering, OCI creation, and pull-back comparison without ConfigHub credentials. |
 | Public hosted service | planned | Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals. |
 
 Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
@@ -126,9 +126,9 @@ Pull an OCI package, work with the exact objects, and produce a deployable OCI p
 
 Start with [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) or [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md).
 
-Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
+Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/anonymous-oci-ci-proof/receipt.yaml](../../runs/anonymous-oci-ci-proof/receipt.yaml), [data/anonymous-oci-ci-proof/summary.md](../../data/anonymous-oci-ci-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The output OCI used a temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
+Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials. The CI output is a workflow artifact containing an OCI image layout, not a public registry package. The output OCI used a temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
 
 ### One reviewed bundle through Argo CD, Flux, or direct apply
 

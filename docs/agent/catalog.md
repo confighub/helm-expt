@@ -15,8 +15,8 @@ rolled out.
 Treat `work` as a reusable operation, not a product or a mandatory first step. It may
 mean render, inspect, explain, test, scan, compare, or edit. The operation may sit
 before an OCI is built, after one is pulled, or between an input OCI and an output
-OCI. Local anonymous use is proven. A hosted anonymous service is planned and must not
-be described as available.
+OCI. Local and GitHub Actions use are proven. A hosted anonymous service is planned
+and must not be described as available.
 
 Inside an existing delivery flow, distinguish ConfigHub's three roles:
 
@@ -44,6 +44,11 @@ For the no-account boundary, use
 `runs/serverless-oci-gitops-proof/receipt.yaml`. It proves one public installer OCI
 input, isolated local rendering, one temporary output OCI, and Flux reconciliation.
 It does not prove hosted output or ConfigHub operations.
+
+For the CI execution mode, use
+`runs/anonymous-oci-ci-proof/receipt.yaml`. It proves anonymous public OCI pull,
+rendering, object inspection, local OCI-layout creation, and pull-back comparison in
+GitHub Actions. The output is a workflow artifact, not a public registry package.
 
 ## What Not To Touch In This Pass
 
