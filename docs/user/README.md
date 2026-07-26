@@ -19,6 +19,7 @@ Use this route when you are trying to understand the product quickly.
 | Which path should I take? | [Choose Your Path](./choose-your-path.md) | Direct render, one-shot upload, public catalog, and ConfigHub-managed operations. |
 | Can I try it now? | [Try Now](./try-now.md) | A short public package OCI path and the serious-chart check. |
 | What package do I pull? | [Installer Package OCI Refs](./installer-oci-packages.md) | The public `oci://` refs for catalog packages, and how they differ from ConfigHub delivery OCI. |
+| How do Helm, AICR, cub installer, promotions, and fleet examples fit together? | [Config Catalog Demonstrations](./config-catalog-demonstrations.md) | The maintained status of each source path and the five ConfigHub App examples. |
 | What should I see after each command? | [Expected Results And Clusters](./expected-results-and-clusters.md) | Output snippets, cluster choices, bring-your-own Kubernetes, cub-lk, and optional npm proof checks. |
 | How do chart presets relate to Helm values? | [Helm Chart Presets And Values](./helm-presets-and-values.md) | Why the catalog offers useful chart-specific presets instead of claiming every values combination. |
 | How do I verify a claim? | [Verification](./verification.md) | The landing page for npm proof commands, user-side checks, committed receipts, and live lanes. |
@@ -35,8 +36,8 @@ ConfigHub-managed operations. The [Tutorial Sequence](./tutorial-sequence.md)
 also links each stage to a companion UX proposal. Those proposal files are
 product sketches, not extra required reading for the first pass.
 
-If your first question is "why is this better than `cub helm install` or
-`cub gitops import`?", read [Why This Exists](./why-this-exists.md).
+If your first question is "why is this more than a one-shot upload or GitOps
+import?", read [Why This Exists](./why-this-exists.md).
 
 | Step | File | Read It For |
 | --- | --- | --- |
@@ -45,6 +46,7 @@ If your first question is "why is this better than `cub helm install` or
 | 2a | [Reverse-Reconcile Design](./reverse-reconcile-design.md) | The live-to-desired frontier: what is machine-checkable today and what requires a new `cub` write-back capability. |
 | 2b | [cub-scout Diff Design](./cub-scout-diff-design.md) | The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | 2c | [App-readiness proof](../../data/app-readiness/summary.md) | A small read-app over rendered RBAC that shows how held config becomes queryable product data. |
+| 2d | [Config Catalog Demonstrations](./config-catalog-demonstrations.md) | How Helm, AICR, cub installer, promotions, Kubara, Sveltos, and the five Apps enter one base-variant and policy model. |
 | 3 | [Try Now](./try-now.md) | The shortest Redis and kube-prometheus-stack paths. |
 | 3a | [Expected Results And Clusters](./expected-results-and-clusters.md) | What users should see after each step, what cluster they need, and which npm proof checks are optional. |
 | 4 | [Choose Your Path](./choose-your-path.md) | Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations. |
@@ -53,7 +55,7 @@ If your first question is "why is this better than `cub helm install` or
 | 7 | [Installer Package OCI Refs](./installer-oci-packages.md) | The public package refs users pull with `cub installer setup --pull oci://...`, plus the difference between package OCI and delivery OCI. |
 | 8 | [Helm Render Intents](./helm-render-intents.md) | The compact two-layer model: base variants for render, managed variants after render, with the full proof chain underneath. |
 | 9 | [Verification](./verification.md) | The landing page for npm proof commands, committed evidence, fresh live lanes, and render-record-route. |
-| 10 | [Choosing Commands](./choosing-commands.md) | When to use `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, and repo verifiers. |
+| 10 | [Choosing Commands](./choosing-commands.md) | When to use `helm template`, `cub installer`, `cub variant upload`, `cub variant create`, and repo verifiers. |
 | 11 | [AI-Assisted Helm Changes](./ai-assisted-helm-changes.md) | How AI can propose changes without bypassing diffs, gates, approvals, delivery, or observation. |
 | 12 | [Broken Chart Triage](./broken-chart-triage.md) | How to turn a broken chart into a named render, target, lifecycle, image, runtime, or model finding. |
 | 13 | [Known Gaps We Surface](./known-gaps-we-surface.md) | Why current watch findings are visible and how to read them. |
@@ -100,7 +102,7 @@ flow. Use it when you need the deeper model:
 | --- | --- |
 | [Seven-Stage Helm Lifecycle](../reference/seven-stage-helm-lifecycle.md) | The doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations. |
 | [Chain Of Proof](./chain-of-proof.md) | The user-facing boundary map for render proof, ConfigHub proof, delivery proof, and live proof. |
-| [Direct Cub Helm Model](../reference/direct-cub-helm-model.md) | Detailed reference for `cub helm template`, `cub helm install`, and the durable catalog path. |
+| [Direct Cub Helm Model](../reference/direct-cub-helm-model.md) | Historical and plugin-specific reference for the separate `cub-helm` command surface; the public site uses Helm, `cub installer`, and `cub variant upload` as its front doors. |
 | [Customization Algorithm](../reference/customization-algorithm.md) | The detailed routing algorithm for values, overlays, wrapper charts, and post-render variants. |
 | [Catalog Doctrine](../reference/catalog-doctrine.md) | The catalog model for defaults, parameterized bases, standard forks, and derived fills. |
 | [Customization Decision Tree](../reference/customization-decision-tree.md) | The design-level decision tree behind the customization flow. |

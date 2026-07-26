@@ -21,8 +21,10 @@ while splitting the install into visible, verifiable stages. That makes changes
 safer, including AI-assisted changes, and helps keep users on the chart's
 supported path instead of accidentally driving Helm into hidden edge cases.
 
-Four things hold for every package here, Helm charts and OCI packages such as
-AICR alike.
+Four standards guide every catalog entry. Each entry reports which standards
+are proven and which still need work. The Helm corpus is the mature part of the
+project; the first real AICR example is generated and checksum-verified but
+remains partial until its ConfigHub upload and live reconciliation are recorded.
 
 1. Most choices are made and checked before you install. The reviewed package
    fixes almost everything at build time and leaves a small, typed install-time
@@ -35,6 +37,23 @@ AICR alike.
    revision history, and each base variant records the exact objects it produced,
    so restoring a prior state is a known, reproducible step.
 
+Three source paths now lead toward the same ConfigHub operations path:
+
+| Starting point | First result | ConfigHub entry |
+| --- | --- | --- |
+| Helm chart | A selected `cub installer` preset with its Helm render record, literal objects, and known lifecycle work | Upload the rendered files or a single-base literal OCI bundle |
+| AICR | A versioned recipe and generated deployment bundle with checksums | Upload the literal bundle as a base variant |
+| Existing Kubernetes configuration | Reviewed YAML files, optionally packaged as OCI | `cub variant upload <files-or-oci-ref>` |
+
+After upload, derived variants hold test, development, staging, production,
+region, customer, and cluster differences. The same apply-policy profile checks
+schema and placeholders everywhere, reports image and probe concerns, and adds
+approval for production.
+
+Read the [config catalog doctrine](./docs/reference/config-catalog-doctrine.md),
+the [demonstration programme](./docs/user/config-catalog-demonstrations.md), and
+the [generated apply-policy profile](./data/apply-policy-profiles/summary.md).
+
 All contents are experimental and unofficial.
 
 Public entry points:
@@ -44,6 +63,8 @@ Public entry points:
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
 - [Installer package OCI refs](./docs/user/installer-oci-packages.md): the public package refs users pull with `cub installer setup --pull oci://...`; no ConfigHub account or Google registry login is needed for read-only public catalog use.
+- [Config catalog demonstrations](./docs/user/config-catalog-demonstrations.md): the current Helm, AICR, cub installer, promotion, Kubara, Sveltos, and ConfigHub App paths, with missing work stated.
+- [Base variant records](./data/base-variant-records/summary.md): the generated source-neutral index that joins literal configuration to source inputs, routes, policy, evidence, and OCI handoffs.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
 - [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
@@ -76,15 +97,15 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 
 | Stage | You want | Command or surface | Needs a ConfigHub account? |
 | --- | --- | --- | --- |
-| 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
-| 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
+| 1. Curious | See exactly what any chart renders. | `helm template` | No |
+| 2. Fast adoption | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` | Yes |
 | 3. Supported catalog | A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account or registry login for public package pulls |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
-Stages 1 and 2 are direct fast paths and skip the catalog. `cub helm` is now the
-separate `cub-helm` plugin path; the public catalog path remains
-`cub installer setup`. Stage 3 is the
+Stages 1 and 2 are direct fast paths and skip the catalog. The separate
+`cub-helm` plugin is not the public front door in this repo; the public catalog
+path remains `cub installer setup`. Stage 3 is the
 durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to
 pay back the extra structure: the same rendered objects can be cloned into
 environment, region, customer, or target variants; compared before promotion;
@@ -98,7 +119,7 @@ package release, a small controlled install-time surface, and a record of which
 version each fleet member should reconcile to.
 
 Free and low-friction use should cover browsing the catalog, inspecting
-rendered objects, running `cub helm template`, trying public `cub installer`
+rendered objects, running `helm template`, trying public `cub installer`
 packages from their `oci://` refs, and verifying signatures, digests, and local
 receipts. Paid or managed use begins when the work involves private or
 custom catalogs, teams, policies, approvals, bulk operations, promotions,
@@ -116,7 +137,7 @@ Four questions, answered up front:
 
 - **What can I try without signing up?** Browse the
   [catalog](./CATALOG.md) and [site](./site/index.html), render any chart with
-  `cub helm template`, run `cub installer setup --pull oci://...` on public
+  `helm template`, run `cub installer setup --pull oci://...` on public
   packages, and run the repo verifiers locally. See
   [the offering](./docs/user/offering.md).
 - **When do I need ConfigHub?** When you want rendered objects stored as Units,
@@ -325,7 +346,7 @@ For Helm hooks specifically, see
 
 For a single serial order through the user docs, see
 [User Docs Reading Order](./docs/user/README.md).
-If you are asking why this is not just `cub helm install`, start with
+If you are asking why this is more than a one-shot Helm upload, start with
 [Why This Exists](./docs/user/why-this-exists.md). For the shortest product
 model, start with [What You Get](./docs/user/what-you-get.md).
 
@@ -335,8 +356,8 @@ Use the shortest command that answers the question you are asking:
 
 | Goal | Command path |
 | --- | --- |
-| See what a chart renders, without ConfigHub state. | `cub helm template` |
-| Load one Helm render into ConfigHub Units quickly. | `cub helm install` |
+| See what a chart renders, without ConfigHub state. | `helm template` |
+| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
 | Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | `cub gitops discover/import`, `cub unit import`, or a managed import workflow |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |

@@ -26,6 +26,9 @@ const orgArg = process.argv.includes("--org") ? process.argv[process.argv.indexO
 
 const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-analysis", "raw.json"), "utf8"));
 const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.csv"), "utf8");
+const applyPolicy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
+const baselineApplyFilter = applyPolicy.spec.baseline.filter;
+const productionApplyFilter = applyPolicy.spec.production.filter;
 
 function slugify(value) {
   return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -193,6 +196,7 @@ function buildPlan() {
       const labels = {
         Variant: labelSafe(variant),
         ChartVersion: labelSafe(entry.version),
+        ApplyPolicyProfile: applyPolicy.metadata.name,
         SecretRoute: secretRouteFor(entry, variant),
         ...routeLabelsFor(row, chartVariants),
       };
@@ -306,8 +310,10 @@ if (mode === "--verify") {
 if (mode === "--exhibits") {
   assertOrg();
   const results = [];
-  const label = (space, pairs) =>
-    cub(["space", "update", space, ...Object.entries(pairs).flatMap(([k, v]) => ["--label", `${k}=${v}`])]);
+  const label = (space, pairs) => {
+    const labels = { ApplyPolicyProfile: applyPolicy.metadata.name, ...pairs };
+    return cub(["space", "update", space, ...Object.entries(labels).flatMap(([k, v]) => ["--label", `${k}=${v}`])]);
+  };
   // Prod spaces get the approval-bearing filter explicitly. variant create
   // copies the template's TriggerFilterID, which is the vet-only baseline
   // (helm-catalog-checks excludes vet-approvedby so non-prod spaces and
@@ -315,7 +321,7 @@ if (mode === "--exhibits") {
   // baseline's real check is `npm run helm-org:verify`). Without this
   // rewire a prod space would silently miss its approval gate.
   const wireProdGates = (space) => {
-    cub(["space", "update", space, "--trigger-filter", "platform/helm-catalog-prod-gates", "--where-trigger", "-"]);
+    cub(["space", "update", space, "--trigger-filter", productionApplyFilter, "--where-trigger", "-"]);
     cub(["space", "update", "--patch", space, "--refresh-triggers"]);
   };
   const firstUnit = (space, needle) => {
@@ -547,7 +553,7 @@ for (const item of plan) {
     cub(["installer", "upload", "--work-dir", workDir, "--space", item.space]);
     const labelArgs = Object.entries(item.labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]);
     cub(["space", "update", item.space, ...labelArgs]);
-    cub(["space", "update", item.space, "--trigger-filter", "platform/helm-catalog-checks", "--where-trigger", "-"]);
+    cub(["space", "update", item.space, "--trigger-filter", baselineApplyFilter, "--where-trigger", "-"]);
     cub(["space", "update", "--patch", item.space, "--refresh-triggers"]);
     const intentPath = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
     if (existsSync(intentPath)) {

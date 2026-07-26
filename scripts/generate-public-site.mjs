@@ -64,6 +64,7 @@ const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-productio
 const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "routes.json");
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
+const demoProgramPath = join(repoRoot, "data", "demo-program", "program.json");
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
@@ -115,7 +116,7 @@ function signupLink(campaign, label) {
 }
 
 function productDocsPointer(campaign) {
-  return `<p>Already a ConfigHub user? The product docs cover the direct install path (<code>cub helm install</code>) and Variants: read the <a href="${confighubOutboundUrl(CONFIGHUB_HELM_GUIDE_URL, campaign)}">Helm charts guide</a> and the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, campaign)}">setup page</a>. This site is the public chart catalog and its evidence.</p>`;
+  return `<p>Already a ConfigHub user? The product docs cover Helm charts and Variants: read the <a href="${confighubOutboundUrl(CONFIGHUB_HELM_GUIDE_URL, campaign)}">Helm charts guide</a> and the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, campaign)}">setup page</a>. This site is the public chart catalog and its evidence.</p>`;
 }
 
 const SITE_PAGE_RELPATHS = {
@@ -387,6 +388,8 @@ function buildSite(generatedAt) {
   const lifecycleRoutes = existsSync(lifecycleRoutesJsonPath) ? JSON.parse(readFileSync(lifecycleRoutesJsonPath, "utf8")).routes : [];
   const lifecycleRouteActions = existsSync(lifecycleRouteActionsJsonPath) ? JSON.parse(readFileSync(lifecycleRouteActionsJsonPath, "utf8")).actions : [];
   const helmRenderIntents = existsSync(helmRenderIntentsPath) ? parseCsv(readFileSync(helmRenderIntentsPath, "utf8")) : [];
+  check(existsSync(demoProgramPath), "data/demo-program/program.json is missing; run npm run config-catalog");
+  const demoProgram = JSON.parse(readFileSync(demoProgramPath, "utf8"));
   const helmCatalogReadmes = existsSync(helmCatalogReadmesPath) ? parseCsv(readFileSync(helmCatalogReadmesPath, "utf8")) : [];
   check(existsSync(installerOciCatalogPath), "data/installer-oci-packages/packages.csv is missing; run npm run installer-oci:catalog");
   const installerOciPackages = parseCsv(readFileSync(installerOciCatalogPath, "utf8"));
@@ -559,6 +562,7 @@ function buildSite(generatedAt) {
     lifecycleRoutes,
     lifecycleRouteActionSummary,
     helmRenderIntents,
+    demoProgram,
     helmCatalogReadmes,
     installerOciPackages,
     lifecycleByVariant,
@@ -1639,8 +1643,18 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><code>minimal</code> · <code>tls</code></td><td>Lean install; or bring-your-own TLS material.</td></tr>
   </table>
 
+  <h3>Three ways to create a base variant</h3>
+  <p>ConfigHub can start from more than a Helm chart. The source stays attached to the literal configuration so a later reviewer can see what produced it and which choices remain.</p>
+  <table class="gtable">
+    <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
+    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package, then upload the files or a single-base literal OCI bundle.</td></tr>
+    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, and checksums.</td><td>Upload the generated files or literal OCI bundle as a base variant. <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">Open the committed AICR example</a>.</td></tr>
+    <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
+  </table>
+  <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
+
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
-  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
   <p>For any base variant, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
   <table class="gtable">
     <tr><th>What to open</th><th>What it tells you</th></tr>
@@ -1727,6 +1741,13 @@ em{font-style:italic;color:var(--ink);}
     <tr><td>Already run Argo or Flux</td><td>Keep your controller. Publish once to OCI; point Argo/Flux at the same bundle.</td></tr>
   </table>
 
+  <h3>Checks before apply</h3>
+  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
+  <p>The baseline and production filters are checked as separate sets. Approval must not leak onto non-production Spaces, and production must not lose the common checks when approval is added. Read the <a href="../data/apply-policy-profiles/summary.md">generated policy profile</a> and its scope self-test.</p>
+
+  <h3>Worked paths and Apps</h3>
+  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>
+
   <h2>6 · What's yours to decide</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
   <div class="decide"><p><strong>Which base fits.</strong> We recommend <code>default</code>, but you know whether you need <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. The catalog names the trade-off; you pick.</p></div>
@@ -1734,7 +1755,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="decide"><p><strong>Image pinning.</strong> Some default bases ship a floating tag. For reproducible, digest-bound delivery, pin it: <code>--set-image NAME=repo/img@sha256:…</code>.</p></div>
   <div class="decide"><p><strong>Secrets.</strong> Bring your own via the <code>existing-secret</code> base and stage it out-of-band (ExternalSecrets, Vault, or <code>kubectl</code>). We can't invent your production secret.</p></div>
   <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
-  <div class="decide"><p><strong>When to go back to Helm.</strong> If a chart isn't in the catalog, plain <code>cub helm template</code> / <code>cub helm install</code> is the right one-shot. Just record the inputs (chart, version, values, namespace) so the next upgrade is reproducible.</p></div>
+  <div class="decide"><p><strong>When to use Helm directly.</strong> If a chart is not in the catalog, use <code>helm template</code> or <code>helm install</code> and record the chart, version, values, namespace, and release name. You can later upload the rendered files with <code>cub variant upload</code>.</p></div>
 
   <h2>7 · How to check the claims</h2>
   <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>
@@ -1915,7 +1936,7 @@ function legacyDashboardHtml(catalog) {
   ]);
   const firstTimeRows = [
     ["Browse first", "Open the catalog, chart pages, proof status, and known gaps before trusting an install path.", "Free"],
-    ["Inspect a render", "Use cub helm template when you only need to see the Kubernetes objects a chart produces.", "Free"],
+    ["Inspect a render", "Use helm template for any chart, or cub installer setup for a catalog preset, when you only need to see the Kubernetes objects.", "Free"],
     ["Try a catalog package", "Use cub installer setup for a maintained catalog base with rendered objects, receipts, scans, and local verification.", "Free or low-friction"],
     ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for variants, diffs, and later teams or approvals.", "Free account"],
     ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Free account, paid at scale"],
@@ -2357,7 +2378,7 @@ function legacyOfferingHtml(catalog) {
   ];
   const freeRows = [
     ["Browse public catalog", "See chart versions, base variants, proof status, pain reports, and known gaps."],
-    ["Inspect and template", "Use cub helm template and rendered-object views before committing to ConfigHub state."],
+    ["Inspect and template", "Use helm template or a catalog package's rendered-object views before committing to ConfigHub state."],
     ["Use catalog packages", "Run cub installer setup --pull oci://... --base <base> for supported catalog bases."],
     ["Pull package artifacts", "Use package or OCI artifacts where available without uploading private repo or production state."],
     ["Verify locally", "Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine."],
@@ -2386,8 +2407,8 @@ function legacyOfferingHtml(catalog) {
     ["Signatures as trust", "The claims register enforces reviewer guardrails: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context."],
   ];
   const pathRows = [
-    ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
-    ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
+    ["Quick render", "See what any chart renders without ConfigHub state.", "helm template", "Free/direct"],
+    ["One-shot upload", "Load rendered files or a literal configuration OCI into ConfigHub Units.", "cub variant upload <files-or-oci-ref>", "ConfigHub account"],
     ["Catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull oci://... --base <base>", "No ConfigHub account or registry login for public package pulls"],
     ["Reviewed ConfigHub base", "Upload a reviewed rendered base before variants or approvals.", "cub installer upload", "ConfigHub account"],
     ["Derived operations", "Create environment, region, customer, or target variants after upload.", "cub variant create", "ConfigHub-managed"],
@@ -2821,6 +2842,7 @@ function docsHtml(catalog) {
   const startRows = [
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
+    ["See the source and App demonstrations", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstrations</a>`, "Follow the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths and see which Apps are available, partial, or planned."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use your own application", `<a href="./journey.html">Apps</a>`, "Start from a chart, an Argo or Flux application, rendered YAML, a live namespace, or your own Kubernetes files."],
@@ -2830,6 +2852,10 @@ function docsHtml(catalog) {
   ];
   const guideRows = [
     ["How it works", "The short model: render the chart, record what produced it, and route the Helm work that is not a plain object.", "./how-it-works.html"],
+    ["Config catalog demonstrations", "The maintained path from Helm, AICR, cub installer, Kubara, or Sveltos into base variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
+    ["Config catalog doctrine", "The source-neutral base-variant model, three OCI artifact roles, fleet delivery boundary, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
+    ["AICR EKS H100 example", "A genuine AICR v0.14.0 recipe and generated Flux bundle, with remaining inputs, checksums, commands, and current limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
+    ["Sveltos Kyverno fleet example", "A small ClusterProfile showing ConfigHub desired-state ownership and Sveltos cluster selection, clearly marked as not yet live-proven.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
@@ -2874,6 +2900,9 @@ function docsHtml(catalog) {
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
+    ["Base variant records", "Source-neutral records joining literal objects, source inputs, routes, policy, evidence, and OCI handoffs.", "../data/base-variant-records/summary.md"],
+    ["Apply policy profile", "The common checks, production approval rule, scope assertions, and self-test.", "../data/apply-policy-profiles/summary.md"],
+    ["Demonstration status", "Current status and evidence for the source pathways and five ConfigHub App examples.", "../data/demo-program/summary.md"],
     ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
@@ -4028,6 +4057,7 @@ function tiersRedirectHtml() {
 }
 
 function journeyHtml(catalog) {
+  const appDemos = catalog.demoProgram.spec.apps;
   const appKinds = [
     ["One public chart", "A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated."],
     ["Several charts", "A group of charts that must be released together, such as an application, database, cache, and monitoring."],
@@ -4138,6 +4168,16 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
       ])}
       <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
+    </section>
+
+    <section aria-labelledby="app-program">
+      <h2 id="app-program">Apps We Are Building</h2>
+      <p>These five Apps work from Kubernetes objects stored in ConfigHub, plus the records that explain their source, changes, checks, and observed cluster state. The status says how much of each example is backed by committed evidence today.</p>
+      ${markdownLikeTable([
+        ["App", "Status", "What it should do"],
+        ...appDemos.map((demo) => [demo.name, demo.status, demo.result]),
+      ])}
+      <p><a href="../docs/user/config-catalog-demonstrations.md">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
     </section>
   </main>
   <footer>Generated from helm-expt proof data. This page explains applications; operations, verification, and commercial boundaries live on their own pages.</footer>
@@ -4532,24 +4572,24 @@ function pillarsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster, and being able to undo it after. ConfigHub makes configuration easier to test, in four ways.</p>
+    <p class="tagline">The hard part of installing a Helm chart or an AICR bundle is not running a command. It is knowing what will run, which choices remain, what the target needs, and how to undo a bad change. The catalog uses four standards and reports which ones each entry has proved.</p>
   </header>
   <main>
     <section aria-labelledby="pillar-fewer">
       <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
-      <p>A reviewed package fixes almost every setting at build time and checks it there. What is left for you to set is small and typed, so it cannot be misused. Fewer variables means fewer ways to be wrong, and far less to test. Helm charts and AICR packages both fit this shape.</p>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records four remaining inputs, including its Git repository, and stays marked partial until the placeholder is replaced, upload succeeds, and live reconciliation is proved.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-proof">
       <h2 id="pillar-proof">You can read the proof before you ship</h2>
-      <p>Every package carries evidence that it works, recorded as receipts you can open. The catalog renders each package, checks it matches Helm, installs it on a real cluster, and delivers it through Argo, Flux, and kubectl, then keeps the results. Bad config is caught earlier still, as data, before it reaches a cluster. Schema checks, object diffs, and a capability check against the target all run on the config itself. You inherit this evidence instead of building it.</p>
+      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
       <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-messy">
       <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
-      <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the evidence that exists for each delivery path. A route stays non-automatic until a live receipt supports automation. A missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
     </section>
 
@@ -4562,6 +4602,12 @@ function pillarsHtml(catalog) {
     <section aria-labelledby="pillar-installer">
       <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
       <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
+    </section>
+
+    <section aria-labelledby="pillar-policy">
+      <h2 id="pillar-policy">The checks follow the configuration</h2>
+      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those checks and adds one approval.</p>
+      <p><a href="../data/apply-policy-profiles/summary.md">Read the policy and the tests that keep approval scoped to production</a>.</p>
     </section>
   </main>
   <footer>Every claim on this page points at committed evidence in the catalog.</footer>
@@ -5481,6 +5527,12 @@ function chartPageHtml(catalog, entry) {
   const firstRenderedObjectsLink = firstRenderedObjectsPath
     ? `<a href="../../${escapeHtml(firstRenderedObjectsPath)}">full rendered YAML</a>`
     : `<a href="../../data/helm-render-intents/summary.md">render-output summary</a>`;
+  const firstBaseRecordPath = firstRunnableRow
+    ? `data/base-variant-records/records/${helmRenderIntentFileName(firstRunnableRow.chart, firstRunnableRow.version, firstRunnableRow.variant)}`
+    : "";
+  const firstBaseRecordLink = firstBaseRecordPath && existsSync(join(repoRoot, firstBaseRecordPath))
+    ? `<a href="../../${escapeHtml(firstBaseRecordPath)}">${escapeHtml(firstRunnableRow.variant)} base-variant record</a>`
+    : `<a href="../../data/base-variant-records/summary.md">base-variant record index</a>`;
   const packageRequirements = packageRequirementsForEntry(entry);
   const packageRequirementRows = packageRequirements.map((requirement) => [
     requirement.name || requirement.kind || "required target input",
@@ -5504,7 +5556,9 @@ function chartPageHtml(catalog, entry) {
   const artifactRows = [
     ["Chart catalog", entry.catalog_path],
     ["Helm render intents", "data/helm-render-intents/summary.md"],
+    ["Base variant records", "data/base-variant-records/summary.md"],
     ["First render intent", firstRenderIntent?.intent_path ?? ""],
+    ["First base variant record", firstBaseRecordPath],
     ["Full rendered YAML", firstRenderedObjectsPath ?? ""],
     ["Demo README for first preset", firstHubReadmePath],
     ["Recipe", entry.recipe_path],
@@ -5623,6 +5677,7 @@ function chartPageHtml(catalog, entry) {
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What A Base Variant Records</h2>
       <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
+      <p>The ${firstBaseRecordLink} joins those Helm facts to the literal objects, remaining target inputs, hooks and CRDs, apply policy, and OCI handoffs. It is the short record to open when you need the whole base rather than only its rendered YAML.</p>
       <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. Then use the render intent, receipts, and chart-extras section to see the inputs, checks, and CRD/hook/setup decisions around it.</p>
       <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant that can be reviewed and kept through upgrades.</p>
       ${markdownLikeTable([
@@ -5631,6 +5686,7 @@ function chartPageHtml(catalog, entry) {
         ["Required before apply", packageRequirementTableRows.map(([name, source]) => `${escapeHtml(name)}${source ? `<br>${source}` : ""}`).join("<br>"), "External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact."],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this base variant. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
+        ["Base variant record", firstBaseRecordLink, "The source-neutral record that joins the Helm record, literal objects, remaining inputs, routes, policy, and OCI status."],
         ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],
       ], { rawSecondColumn: true })}
       <div class="grid">
@@ -5638,7 +5694,7 @@ function chartPageHtml(catalog, entry) {
         <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, ${firstRenderIntentLink}, full YAML output, package base, proof lanes, and route context together.</p></div>
         <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
-      <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a></p>
+      <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a> · <a href="../../data/base-variant-records/summary.md">All base variant records</a></p>
     </section>
 
     <section aria-labelledby="run-this">
@@ -6089,6 +6145,8 @@ function matrixRowLinks(row, catalog) {
   maybe("full YAML", renderedObjectsPathFromRevision(row.variant_revision_path));
   if (row.row_kind === "base" && row.chart && row.version && row.variant) {
     maybe("render intent", `data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`);
+    const baseRecordPath = `data/base-variant-records/records/${helmRenderIntentFileName(row.chart, row.version, row.variant)}`;
+    if (existsSync(join(repoRoot, baseRecordPath))) maybe("base record", baseRecordPath);
   }
   maybe("package base", row.package_base_path);
   maybe("receipt", row.target_run_receipt || row.variant_promotion_evidence || row.active_proof_support_artifact);
@@ -6384,12 +6442,12 @@ function commandRoutes() {
   return [
     {
       goal: "See what a chart renders without ConfigHub state.",
-      command: "cub helm template",
+      command: "helm template",
       path: "direct-render",
     },
     {
-      goal: "Load one Helm render into ConfigHub Units quickly.",
-      command: "cub helm install",
+      goal: "Load rendered files or a literal configuration OCI into ConfigHub Units.",
+      command: "cub variant upload <files-or-oci-ref>",
       path: "one-shot-configHub-load",
     },
     {

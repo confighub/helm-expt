@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "gitlab-gitlab-runner-0-89-0-default"
+  labels:
+    sourceType: "helm"
+    component: "gitlab/gitlab-runner"
+    sourceVersion: "0.89.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "gitlab/gitlab-runner"
+    version: "0.89.0"
+    record: "data/helm-render-intents/intents/gitlab-gitlab-runner-0-89-0-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "4bc2da6b8dd76be52d58a638724a529d7dd3be4a787933bf7c0bbe3d0ecbbc7a"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 2
+  inputs:
+    fixedAtBuildTime:
+      - "chart=gitlab/gitlab-runner"
+      - "version=0.89.0"
+      - "base=default"
+      - "valuesProfile=recipes/gitlab/gitlab-runner/0.89.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=gitlab-runner"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default"
+        -
+          lane: "K"
+          prerequisiteKind: "external-api"
+          prerequisiteName: "unknown"
+          actionKind: "provide-external-service"
+          ownerClass: "operator-review"
+          requiredInputs: "the upstream service/endpoint the workload connects to"
+          evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default"
+    sourceRecord: "data/helm-render-intents/intents/gitlab-gitlab-runner-0-89-0-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "watch"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

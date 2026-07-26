@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed"
+  labels:
+    sourceType: "helm"
+    component: "autoscaler/cluster-autoscaler"
+    sourceVersion: "9.57.0"
+    base: "controller-default-reviewed"
+spec:
+  source:
+    type: "helm"
+    name: "autoscaler/cluster-autoscaler"
+    version: "9.57.0"
+    record: "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0"
+  baseVariant:
+    name: "controller-default-reviewed"
+    revision: "r001"
+    digest: "466d6f9b7670813ecf7a1f20d76b80916bb24abae24f9b768fbd8121f030d9f5"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+    inventory: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+    objectCount: 8
+  inputs:
+    fixedAtBuildTime:
+      - "chart=autoscaler/cluster-autoscaler"
+      - "version=9.57.0"
+      - "base=controller-default-reviewed"
+      - "valuesProfile=recipes/autoscaler/cluster-autoscaler/9.57.0/effective-values-controller-default-reviewed.yaml"
+      - "namespace=default"
+      - "releaseName=cluster-autoscaler"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "kind"
+        type: "requiredValues"
+        required: true
+        details:
+          path: "autoDiscovery.clusterName"
+          purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+          value: "kind"
+      -
+        name: "us-east-1"
+        type: "requiredValues"
+        required: true
+        details:
+          path: "awsRegion"
+          purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
+          value: "us-east-1"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredValues:
+          -
+            path: "autoDiscovery.clusterName"
+            purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+            value: "kind"
+          -
+            path: "awsRegion"
+            purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
+            value: "us-east-1"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

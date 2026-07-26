@@ -1,0 +1,493 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "prometheus-community/kube-prometheus-stack"
+    sourceVersion: "85.3.3"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "prometheus-community/kube-prometheus-stack"
+    version: "85.3.3"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: "f9940a13bfba5778f48eb546a826a505917122bff6e344421fc5bd354bf89b1e"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 114
+  inputs:
+    fixedAtBuildTime:
+      - "chart=prometheus-community/kube-prometheus-stack"
+      - "version=85.3.3"
+      - "base=no-crds"
+      - "valuesProfile=recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml"
+      - "namespace=monitoring"
+      - "releaseName=kube-prometheus-stack"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "alertmanagerconfigs.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "alertmanagers.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "alertmanagers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "podmonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "podmonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "probes.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "probes.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "prometheusagents.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusagents.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "prometheuses.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheuses.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "prometheusrules.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "prometheusrules.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "scrapeconfigs.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "scrapeconfigs.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "thanosrulers.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "thanosrulers.monitoring.coreos.com"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          sourceVariant: "default"
+      -
+        name: "kube-prometheus-stack-admission"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "cert"
+            - "key"
+          name: "kube-prometheus-stack-admission"
+          namespace: "monitoring"
+          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      -
+        routeName: "preserve-cleanup-policy"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "accept-target-policy"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your cluster — at uninstall, automatically"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — your cluster handles it"
+          flux: "none — your cluster handles it"
+          argoCdSnippet: ""
+      -
+        routeName: "postsync-check-or-observation"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "post-apply"
+        actionKind: "run-check"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a post-apply check (receipted)"
+        command: ""
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PostSync"
+          flux: "post-apply Job / follow-on Kustomization"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+      -
+        routeName: "upgrade-action-with-receipt"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "pre-apply"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+      -
+        routeName: "preserve-ordering"
+        quirkClass: "hook-weight-ordering"
+        lifecyclePhase: "pre-apply"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your applier — must apply CRDs before dependent objects"
+        command: ""
+        disposition: "observed"
+        delta: "reduced"
+        reason: "CRD-first ordering is not needed in a base that installs no CRDs"
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "no extra hook — keep CRDs before dependent objects"
+          flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy"
+          argoCdSnippet: ""
+      -
+        routeName: "target-facts-or-preflight"
+        quirkClass: "target-facts"
+        lifecyclePhase: "preflight"
+        actionKind: "stage-target-facts"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+        disposition: "observed"
+        delta: "strengthened"
+        reason: "this base needs 10 CRDs supplied before deploy (the default base installs them for you)"
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "none — supply the inputs before sync"
+          flux: "none — supply the inputs before sync"
+          argoCdSnippet: ""
+      -
+        routeName: "webhook-readiness-observation"
+        quirkClass: "webhook-readiness"
+        lifecyclePhase: "observe"
+        actionKind: "observe-webhook"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your delivery and cluster — stage any declared certificate, then check webhook readiness"
+        command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "85.3.0"
+        evidence:
+          - "data/hook-lifecycle/receipt-index.csv"
+          - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: "route source version 85.3.0; catalog has 85.3.3, 86.1.0"
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "observe webhook and workload health after sync"
+          flux: "use post-apply health checks; stage any declared certificate first"
+          argoCdSnippet: ""
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "alertmanagers.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "podmonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "probes.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusagents.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheuses.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "prometheusrules.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "scrapeconfigs.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "thanosrulers.monitoring.coreos.com"
+            purpose: "Prometheus Operator CRD managed outside this no-crds base"
+            sourceVariant: "default"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "cert"
+              - "key"
+            name: "kube-prometheus-stack-admission"
+            namespace: "monitoring"
+            purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "todo"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

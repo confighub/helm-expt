@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly"
+  labels:
+    sourceType: "helm"
+    component: "prometheus-community/prometheus-node-exporter"
+    sourceVersion: "4.55.0"
+    base: "cluster-metrics-readonly"
+spec:
+  source:
+    type: "helm"
+    name: "prometheus-community/prometheus-node-exporter"
+    version: "4.55.0"
+    record: "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0"
+  baseVariant:
+    name: "cluster-metrics-readonly"
+    revision: "r001"
+    digest: "8d0a34ec191af63663ea2ff2609f86a917340b0fdf7d4a5640a9fab7a1f6809f"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
+    inventory: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
+    objectCount: 4
+  inputs:
+    fixedAtBuildTime:
+      - "chart=prometheus-community/prometheus-node-exporter"
+      - "version=4.55.0"
+      - "base=cluster-metrics-readonly"
+      - "valuesProfile=recipes/prometheus-community/prometheus-node-exporter/4.55.0/effective-values-cluster-metrics-readonly.yaml"
+      - "namespace=default"
+      - "releaseName=prometheus-node-exporter"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+            sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

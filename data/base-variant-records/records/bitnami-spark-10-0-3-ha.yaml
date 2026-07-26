@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-spark-10-0-3-ha"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/spark"
+    sourceVersion: "10.0.3"
+    base: "ha"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/spark"
+    version: "10.0.3"
+    record: "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3"
+  baseVariant:
+    name: "ha"
+    revision: "r001"
+    digest: ""
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/spark"
+      - "version=10.0.3"
+      - "base=ha"
+      - "valuesProfile=recipes/bitnami/spark/10.0.3/effective-values-ha.yaml"
+      - "namespace=default"
+      - "releaseName=spark"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/bitnami-spark-10-0-3-ha.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

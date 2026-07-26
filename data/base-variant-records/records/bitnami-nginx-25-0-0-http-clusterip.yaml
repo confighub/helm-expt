@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-nginx-25-0-0-http-clusterip"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/nginx"
+    sourceVersion: "25.0.0"
+    base: "http-clusterip"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/nginx"
+    version: "25.0.0"
+    record: "data/helm-render-intents/intents/bitnami-nginx-25-0-0-http-clusterip.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:25.0.0"
+  baseVariant:
+    name: "http-clusterip"
+    revision: "r001"
+    digest: "72232e89bbc0549f2cf30b10b8f4a4ebce574f734fb775830f370e5a4fbab53c"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+    objectCount: 5
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/nginx"
+      - "version=25.0.0"
+      - "base=http-clusterip"
+      - "valuesProfile=recipes/bitnami/nginx/25.0.0/effective-values.yaml"
+      - "namespace=nginx"
+      - "releaseName=nginx"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/bitnami-nginx-25-0-0-http-clusterip.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven-with-watch"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

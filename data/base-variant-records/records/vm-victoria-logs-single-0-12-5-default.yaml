@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "vm-victoria-logs-single-0-12-5-default"
+  labels:
+    sourceType: "helm"
+    component: "vm/victoria-logs-single"
+    sourceVersion: "0.12.5"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "vm/victoria-logs-single"
+    version: "0.12.5"
+    record: "data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "9e2678385c7c4b2ba0bdc7ac9c0a12216d140cba8dfb52ecb07123bb34caa478"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 2
+  inputs:
+    fixedAtBuildTime:
+      - "chart=vm/victoria-logs-single"
+      - "version=0.12.5"
+      - "base=default"
+      - "valuesProfile=recipes/vm/victoria-logs-single/0.12.5/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=victoria-logs-single"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/vm-victoria-logs-single-0-12-5-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

@@ -10,8 +10,8 @@ other.
 
 | User goal | Use |
 | --- | --- |
-| See what a Helm chart renders, without ConfigHub state. | `cub helm template` |
-| Quickly load one Helm render into ConfigHub Units. | `cub helm install` |
+| See what a Helm chart renders, without ConfigHub state. | `helm template` |
+| Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
@@ -19,16 +19,15 @@ other.
 | Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model. | discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
-The durable catalog path starts at `cub installer`, not at `cub helm install`.
-The fast Helm commands are still useful. They are the low-friction render and
-one-shot adoption paths.
+The durable public catalog path starts at `cub installer`. Plain Helm remains
+the low-friction render path. `cub variant upload` is the general one-shot
+ConfigHub path for rendered files and literal OCI bundles.
 
 A one-shot render is only operationally safe if its inputs are recorded. For a
 Helm chart, that means chart source, version, release name, namespace, values
 files, `--set` flags, capability assumptions, CRD choices, and generated facts.
-The catalog recipe path records those inputs today. The direct
-`cub helm install` path still needs product work so upgrades and reinstalls do
-not depend on someone remembering the original command line.
+The catalog recipe path records those inputs today. A one-shot upload must keep
+its own source record if upgrades and reinstalls are expected to be repeatable.
 
 ## What To Check Next
 
@@ -43,8 +42,8 @@ path below.
 
 | After this path | Check | What you can claim |
 | --- | --- | --- |
-| `cub helm template` | The rendered output and any local diff or schema check you ran. | You inspected a Helm render. No ConfigHub or live-cluster claim is implied. |
-| `cub helm install` | ConfigHub Space and Unit list, labels, and diffs. | The chart was rendered into ConfigHub Units once. No maintained recipe or catalog support claim is implied. |
+| `helm template` | The rendered output and any local diff or schema check you ran. | You inspected a Helm render. No ConfigHub or live-cluster claim is implied. |
+| `cub variant upload` | ConfigHub Space and Unit list, source reference or OCI digest, labels, and diffs. | Rendered configuration became ConfigHub Units once. No maintained recipe or catalog support claim is implied. |
 | `cub installer setup --pull ... --base ...` | Per-chart `CATALOG.md`, `helm-equivalence-receipt.yaml`, and `data/outcome-coverage/base-outcomes.csv`. | The selected base has a recorded recipe/package proof and render-parity status. |
 | `cub installer upload` | ConfigHub Units, upload/scan/safe-operation receipts, and `data/outcome-coverage/base-outcomes.csv`. | The rendered base exists in ConfigHub with the receipt lanes that are present for that row. |
 | `cub variant create` | Derived variant receipt, upstream links, changed labels/target/gates, and `data/derived-variant-target-bound/summary.md` if it was delivered live. | A reviewed uploaded base was cloned/refined post-render. It is not a Helm rerender. |
@@ -59,8 +58,8 @@ full catalog model on day one.
 
 | Stage | Command path | Result |
 | --- | --- | --- |
-| Inspect | `cub helm template` | Render the chart locally and see the Kubernetes objects. |
-| Adopt quickly | `cub helm install` | Load one rendered Helm result into ConfigHub Units. |
+| Inspect | `helm template` | Render the chart locally and see the Kubernetes objects. |
+| Adopt quickly | `cub variant upload <files-or-oci-ref>` | Load rendered files or a literal configuration OCI into ConfigHub Units. |
 | Use a maintained catalog entry | `cub installer setup --pull <installer OCI ref> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
 | Operate | `cub installer upload`, `cub variant create`, `cub variant promote`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
 
@@ -84,7 +83,7 @@ cluster, or a `cub-lk` Argo/kind rig.
 
 ## Command Roles
 
-### `cub helm template`
+### `helm template`
 
 Use this when you want a fast local Helm render.
 
@@ -102,18 +101,22 @@ Good for:
 It does not create a maintained recipe, supported base variants, scan receipts,
 upload receipts, or a ConfigHub operating record.
 
-### `cub helm install`
+### `cub variant upload`
 
-Use this when you want a fast one-shot Helm render loaded into ConfigHub Units.
+Use this when you already have rendered Kubernetes files or a literal
+configuration OCI and want to create ConfigHub Units from them.
 
-It renders a chart and creates ConfigHub Units. It supports values files,
-`--set`, namespace, target, CRD options, and wait behavior.
+It does not render a Helm chart. It reads files, directories, stdin, or an
+`oci://` manifest bundle. It records an OCI source reference and resolved
+digest when OCI is used.
 
 Good for:
 
-- quickly getting a Helm chart into ConfigHub;
-- exploring how a chart looks as Units;
-- starting from an existing Helm chart without building a catalog entry first.
+- quickly getting rendered configuration into ConfigHub;
+- seeding a base Space from a reviewed OCI bundle;
+- preserving file boundaries with `--granularity per-file`;
+- starting from Helm, AICR, CI output, or hand-written Kubernetes files without
+  building a catalog entry first.
 
 It does not, by itself, create the maintained catalog proof: supported base
 variants, source/dependency locks, effective values, control-point reports,
@@ -215,8 +218,8 @@ path, future chart refreshes, and catalog-grade proof.
 
 | Request | Route |
 | --- | --- |
-| "Show me what this chart produces." | `cub helm template` |
-| "Load this chart into ConfigHub right now." | `cub helm install` |
+| "Show me what this chart produces." | `helm template` |
+| "Load these rendered files or this literal OCI bundle into ConfigHub." | `cub variant upload <files-or-oci-ref>` |
 | "Use the supported Redis catalog entry." | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default` |
 | "Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology." | create or choose a `cub installer` base variant |
 | "Fill `extraDeploy`, `serverBlock`, `tpl`, sidecar, raw manifest, or config-block slots." | create or choose a reviewed `cub installer` base variant |
@@ -238,8 +241,8 @@ cub installer import helm ...
 
 or equivalent product wording.
 
-That bridge should turn a direct Helm chart, values file, or existing
-`cub helm install` path into a maintained recipe/package candidate. Until that
+That bridge should turn a direct Helm chart, values file, or one-shot rendered
+upload into a maintained recipe/package candidate. Until that
 exists as a product command, helm-expt uses repo generators and proof scripts to
 build the same artifact chain.
 

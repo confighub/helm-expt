@@ -1,0 +1,118 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "fairwinds-stable-vpa-4-11-0-default"
+  labels:
+    sourceType: "helm"
+    component: "fairwinds-stable/vpa"
+    sourceVersion: "4.11.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "fairwinds-stable/vpa"
+    version: "4.11.0"
+    record: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "b50a13250baea58dab9c39e8399f938139565c13e076f0aa85b91b7b9bda6b44"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 28
+  inputs:
+    fixedAtBuildTime:
+      - "chart=fairwinds-stable/vpa"
+      - "version=4.11.0"
+      - "base=default"
+      - "valuesProfile=recipes/fairwinds-stable/vpa/4.11.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=vpa"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "vpa-tls-secret"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+          name: "vpa-tls-secret"
+          namespace: "default"
+          purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts-and-observed-action-records"
+      declared:
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+            name: "vpa-tls-secret"
+            namespace: "default"
+            purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+      actions:
+        -
+          lane: "K"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default"
+    sourceRecord: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "watch"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

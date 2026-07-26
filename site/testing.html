@@ -500,24 +500,24 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart, or an OCI package such as AICR, is not running it. It is knowing it is safe before it reaches a cluster, and being able to undo it after. ConfigHub makes configuration easier to test, in four ways.</p>
+    <p class="tagline">The hard part of installing a Helm chart or an AICR bundle is not running a command. It is knowing what will run, which choices remain, what the target needs, and how to undo a bad change. The catalog uses four standards and reports which ones each entry has proved.</p>
   </header>
   <main>
     <section aria-labelledby="pillar-fewer">
       <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
-      <p>A reviewed package fixes almost every setting at build time and checks it there. What is left for you to set is small and typed, so it cannot be misused. Fewer variables means fewer ways to be wrong, and far less to test. Helm charts and AICR packages both fit this shape.</p>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records four remaining inputs, including its Git repository, and stays marked partial until the placeholder is replaced, upload succeeds, and live reconciliation is proved.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-proof">
       <h2 id="pillar-proof">You can read the proof before you ship</h2>
-      <p>Every package carries evidence that it works, recorded as receipts you can open. The catalog renders each package, checks it matches Helm, installs it on a real cluster, and delivers it through Argo, Flux, and kubectl, then keeps the results. Bad config is caught earlier still, as data, before it reaches a cluster. Schema checks, object diffs, and a capability check against the target all run on the config itself. You inherit this evidence instead of building it.</p>
+      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
       <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
     </section>
 
     <section aria-labelledby="pillar-messy">
       <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
-      <p>Hooks, CRDs, ordering, and generated secrets do not disappear. The catalog turns each one into a named route with a recorded contract, a receipt under every delivery path, and an honest marker for whether it is safe to run automatically. Nothing claims to be automatic until it has earned it. A chart with no such parts says so plainly, which is its own kind of proof.</p>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the evidence that exists for each delivery path. A route stays non-automatic until a live receipt supports automation. A missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
     </section>
 
@@ -530,6 +530,12 @@
     <section aria-labelledby="pillar-installer">
       <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
       <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
+    </section>
+
+    <section aria-labelledby="pillar-policy">
+      <h2 id="pillar-policy">The checks follow the configuration</h2>
+      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those checks and adds one approval.</p>
+      <p><a href="d/data/apply-policy-profiles/summary.html">Read the policy and the tests that keep approval scoped to production</a>.</p>
     </section>
   </main>
   <footer>Every claim on this page points at committed evidence in the catalog.</footer>

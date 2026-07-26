@@ -1,0 +1,91 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0-default"
+  labels:
+    sourceType: "helm"
+    component: "prometheus-community/prometheus-adapter"
+    sourceVersion: "5.3.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "prometheus-community/prometheus-adapter"
+    version: "5.3.0"
+    record: "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "2e21719fdf3b6ea902bbe41c6800cf2d62bedcc4c1ff0e1f37fcb576c0512e85"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 11
+  inputs:
+    fixedAtBuildTime:
+      - "chart=prometheus-community/prometheus-adapter"
+      - "version=5.3.0"
+      - "base=default"
+      - "valuesProfile=recipes/prometheus-community/prometheus-adapter/5.3.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=prometheus-adapter"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "K"
+          prerequisiteKind: "crd"
+          prerequisiteName: "unknown"
+          actionKind: "install-crds"
+          ownerClass: "user-stage"
+          requiredInputs: "the chart's CRDs"
+          evidenceRequired: "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-kind-parity/prometheus-community-prometheus-adapter-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default"
+    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-adapter-5-3-0-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "no"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "no"
+    flux: "no"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "no"
+    liveDualParity: "no"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

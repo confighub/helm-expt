@@ -1,0 +1,99 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "hashicorp-vault-0-32-0-ha-raft-ui"
+  labels:
+    sourceType: "helm"
+    component: "hashicorp/vault"
+    sourceVersion: "0.32.0"
+    base: "ha-raft-ui"
+spec:
+  source:
+    type: "helm"
+    name: "hashicorp/vault"
+    version: "0.32.0"
+    record: "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0"
+  baseVariant:
+    name: "ha-raft-ui"
+    revision: "r001"
+    digest: "8961fc7dfc008815d652289b9591f2c4ec407ff9f9869d6a91f835d72476c6be"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
+    inventory: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"
+    objectCount: 18
+  inputs:
+    fixedAtBuildTime:
+      - "chart=hashicorp/vault"
+      - "version=0.32.0"
+      - "base=ha-raft-ui"
+      - "valuesProfile=recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml"
+      - "namespace=vault"
+      - "releaseName=vault"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "requiredTopology-1"
+        type: "requiredTopology"
+        required: true
+        details:
+          minimumSchedulableNodes: 3
+          purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        requiredTopology:
+          minimumSchedulableNodes: 3
+          purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+          sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui"
+    sourceRecord: "data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

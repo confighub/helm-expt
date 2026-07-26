@@ -1,0 +1,206 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "grafana-tempo-1-24-4-s3-query-observability"
+  labels:
+    sourceType: "helm"
+    component: "grafana/tempo"
+    sourceVersion: "1.24.4"
+    base: "s3-query-observability"
+spec:
+  source:
+    type: "helm"
+    name: "grafana/tempo"
+    version: "1.24.4"
+    record: "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4"
+  baseVariant:
+    name: "s3-query-observability"
+    revision: "r001"
+    digest: "7b0f4953c927613a0fe94df67ae5ec22b62672da793f0dd65f123536e7a24ed6"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+    inventory: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/object-inventory.yaml"
+    objectCount: 8
+  inputs:
+    fixedAtBuildTime:
+      - "chart=grafana/tempo"
+      - "version=1.24.4"
+      - "base=s3-query-observability"
+      - "valuesProfile=recipes/grafana/tempo/1.24.4/effective-values-s3-query-observability.yaml"
+      - "namespace=tempo"
+      - "releaseName=tempo"
+      - "capabilityProfile={\"apiVersions\":[\"networking.k8s.io/v1\",\"monitoring.coreos.com/v1\"],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "servicemonitors.monitoring.coreos.com"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "servicemonitors.monitoring.coreos.com"
+          purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+          sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+      -
+        name: "tempo-object-store"
+        type: "requiredObjectStores"
+        required: true
+        details:
+          bucket: "tempo-traces"
+          credentialsSecret:
+            accessKey: "access_key"
+            name: "tempo-s3-credentials"
+            secretKey: "secret_key"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+          endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+          kind: "S3CompatibleObjectStore"
+          name: "tempo-object-store"
+          namespace: "tempo"
+          purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+          serviceName: "tempo-object-store"
+      -
+        name: "tempo-s3-credentials"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "access_key"
+            - "secret_key"
+          name: "tempo-s3-credentials"
+          namespace: "tempo"
+          purpose: "S3 access credentials referenced by Tempo environment variables"
+      -
+        name: "requiredValues-1"
+        type: "requiredValues"
+        required: true
+        details:
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.endpoint"
+          purpose: "S3-compatible endpoint that Tempo will write traces to"
+          stage: "pre-render"
+      -
+        name: "requiredValues-2"
+        type: "requiredValues"
+        required: true
+        details:
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.bucket"
+          purpose: "Existing bucket for Tempo trace blocks"
+          stage: "pre-render"
+      -
+        name: "requiredValues-3"
+        type: "requiredValues"
+        required: true
+        details:
+          deliveryLanes:
+            - "recipe"
+          path: "tempo.storage.trace.s3.region"
+          purpose: "Object-store region used with the selected endpoint and bucket"
+          stage: "pre-render"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "servicemonitors.monitoring.coreos.com"
+            purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+            sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+        requiredObjectStores:
+          -
+            bucket: "tempo-traces"
+            credentialsSecret:
+              accessKey: "access_key"
+              name: "tempo-s3-credentials"
+              secretKey: "secret_key"
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+            endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+            kind: "S3CompatibleObjectStore"
+            name: "tempo-object-store"
+            namespace: "tempo"
+            purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+            serviceName: "tempo-object-store"
+        requiredSecrets:
+          -
+            keys:
+              - "access_key"
+              - "secret_key"
+            name: "tempo-s3-credentials"
+            namespace: "tempo"
+            purpose: "S3 access credentials referenced by Tempo environment variables"
+        requiredValues:
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.endpoint"
+            purpose: "S3-compatible endpoint that Tempo will write traces to"
+            stage: "pre-render"
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.bucket"
+            purpose: "Existing bucket for Tempo trace blocks"
+            stage: "pre-render"
+          -
+            deliveryLanes:
+              - "recipe"
+            path: "tempo.storage.trace.s3.region"
+            purpose: "Object-store region used with the selected endpoint and bucket"
+            stage: "pre-render"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

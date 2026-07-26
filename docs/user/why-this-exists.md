@@ -5,10 +5,10 @@
 A fair skeptic asks one question first: *isn't this just `helm template` with a wrapper
 around it?* Here is the honest answer.
 
-For three jobs, the wrapper is the wrong tool, and we will say so plainly. To inspect a
-chart's output, `cub helm template` is simpler. To load one chart into ConfigHub,
-`cub helm install` is simpler. To bring in an estate you already run, `cub gitops import`
-is simpler. Reach for those.
+For three jobs, the catalogue is more than you need. To inspect a chart's output, use
+`helm template`. To load already-rendered files or a literal OCI bundle into ConfigHub,
+use `cub variant upload`. To bring in an estate you already run, start with discovery
+or import. Reach for those.
 
 This repo is for a different job: turning a popular Helm chart into something you can
 trust across a fleet. Not a raw render — a package and record that are **reviewed,
@@ -31,25 +31,22 @@ what becomes possible after that check: recorded render inputs, explicit
 variants, safer upgrade review, policy gates, GitOps handoff, observations, and
 operations on visible desired state.
 
-The fast `cub helm install` path only becomes durable when its inputs are
-captured. Chart source, version, release name, namespace, values files, `--set`
-flags, capability assumptions, and generated facts must be recorded somewhere
-that can be reviewed and rerun. That is why the roadmap includes renderer/input
-capture work such as ConfigHub issue
-[#3393](https://github.com/confighubai/confighub/issues/3393) and the broader
-renderer model in
-[#4369](https://github.com/confighubai/confighub/issues/4369). Argo CD and Flux
-already have render inputs in their own manifests; ConfigHub should use those
-facts rather than inventing a parallel hidden install.
+A one-shot upload only becomes durable when its source inputs are captured.
+For Helm that means chart source, version, release name, namespace, values
+files, `--set` flags, capability assumptions, and generated facts. For AICR it
+means the recipe, component versions, remaining inputs, generated bundle, and
+checksums. The source-neutral base-variant record keeps those facts beside the
+literal objects.
 
 ## Not A Replacement For The Fast Paths
 
-`cub helm template` is the fast local render path. Use it when the user wants
+`helm template` is the fast local render path. Use it when the user wants
 to inspect what a chart produces, debug values, or create a regular Helm
 baseline without a ConfigHub server connection.
 
-`cub helm install` is the fast ConfigHub action path. Use it when the user wants
-to point at a chart and create ConfigHub Units now.
+`cub variant upload` is the fast ConfigHub action path. Use it when the user
+has rendered files or a literal configuration OCI and wants ConfigHub Units
+now.
 
 `cub gitops import` should be the natural path when the user already has a
 GitOps source and wants ConfigHub to understand or manage it.
@@ -70,8 +67,8 @@ Command routing:
 
 | Need | Use |
 | --- | --- |
-| Render and inspect Helm output locally. | `cub helm template` |
-| Load one chart render into ConfigHub Units now. | `cub helm install` |
+| Render and inspect Helm output locally. | `helm template` |
+| Load rendered files or a literal OCI bundle into ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` |
 | Maintain a reviewed, variant-aware catalog entry. | `cub installer` recipe/package path |
 | Graduate a chart render into that catalog path. | future `cub installer import helm` |
 | Bring existing Argo CD or Flux apps under ConfigHub visibility. | `cub gitops discover` / `cub gitops import` |

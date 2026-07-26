@@ -1,0 +1,76 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ApplyPolicyProfile
+metadata:
+  name: catalog-standard
+spec:
+  sourceTypes:
+    - helm
+    - aicr
+    - cub-installer
+    - kubara
+    - sveltos
+    - rendered-config
+  baseline:
+    filter: platform/helm-catalog-checks
+    spaceSelector:
+      labels:
+        ApplyPolicyProfile: catalog-standard
+    checks:
+      - id: schema-valid
+        trigger: platform/vet-schemas
+        effect: block
+        reason: Do not apply Kubernetes data that fails its declared schema.
+      - id: no-placeholder-values
+        trigger: platform/vet-placeholders
+        effect: block
+        reason: Do not apply placeholder credentials or unfinished values.
+      - id: images-pinned-by-digest
+        trigger: platform/digest-pinned-images
+        effect: warn
+        reason: Report images that can change without a configuration revision.
+      - id: workload-probes-declared
+        trigger: platform/probes-declared
+        effect: warn
+        reason: Report workload containers that have no readiness or liveness probe.
+  production:
+    filter: platform/helm-catalog-prod-gates
+    spaceSelector:
+      labels:
+        ApplyPolicyProfile: catalog-standard
+        Environment: Prod
+    checks:
+      - id: schema-valid
+        trigger: platform/vet-schemas
+        effect: block
+        reason: Do not apply Kubernetes data that fails its declared schema.
+      - id: no-placeholder-values
+        trigger: platform/vet-placeholders
+        effect: block
+        reason: Do not apply placeholder credentials or unfinished values.
+      - id: images-pinned-by-digest
+        trigger: platform/digest-pinned-images
+        effect: warn
+        reason: Report images that can change without a configuration revision.
+      - id: workload-probes-declared
+        trigger: platform/probes-declared
+        effect: warn
+        reason: Report workload containers that have no readiness or liveness probe.
+      - id: human-approval
+        trigger: platform/require-approval
+        effect: block
+        reason: Require one recorded approval before production apply.
+  scopeAssertions:
+    - The baseline filter selects exactly the four baseline triggers and never selects require-approval.
+    - The production filter selects the same four baseline triggers plus require-approval.
+    - A non-production Space must never receive require-approval from this profile.
+    - A production Space must not lose the four baseline checks when approval is added.
+    - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
+status:
+  lastRecorded: "2026-07-03"
+  liveReverified: false
+  evidence:
+    - data/helm-org/summary.md
+    - scripts/sync-helm-org.mjs
+  limits:
+    - This file records the intended profile and the last committed live-org result. It does not claim that the current live org was re-read during this generation.
+    - The current builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID.

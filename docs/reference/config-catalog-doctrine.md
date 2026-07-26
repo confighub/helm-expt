@@ -1,0 +1,148 @@
+# Config catalog doctrine
+
+This project starts with Helm, but the catalog model is not limited to Helm. It is a
+way to turn reviewed configuration from several sources into ConfigHub base variants,
+then manage changes, promotions, policy, delivery, and live results from those records.
+
+The immediate goal is to make Helm easier to inspect and operate. The longer-term goal
+is a large, useful catalog of configuration in the formats teams already use. Each
+entry should help a person understand what the configuration does, try it, check the
+evidence, and use it as the start of their own application or fleet.
+
+## The ways configuration enters
+
+There are three current entry paths.
+
+1. A Helm user chooses a preset configuration from the Helm Ops Catalog. `cub
+   installer` pulls the chart package, renders the chosen preset locally, and keeps the
+   chart, values, source lock, and known Helm lifecycle work together.
+2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle
+   and its checksums can be uploaded as a ConfigHub base variant.
+3. A team with existing Kubernetes YAML can package the literal files as OCI, or point
+   `cub variant upload` at files directly. This is also the path `cub installer` can use
+   after it has rendered a selected preset.
+
+These paths do not require a replacement chart language. Teams keep their Helm charts,
+AICR recipes, and existing files.
+
+## What a base variant records
+
+A ConfigHub base variant needs more than a directory of YAML.
+
+- The literal Kubernetes objects that ConfigHub can query, diff, revise, approve, and
+  deliver.
+- The source record that explains how those objects were produced. For Helm this is the
+  `HelmRenderIntent`; for AICR it is the AICR recipe and bundle receipt.
+- The choices fixed at build time and the small set still allowed at install time.
+- Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup
+  jobs, Secrets, storage, namespaces, and target capabilities.
+- Provenance, checksums, tests, policy results, approvals, and delivery receipts.
+- The operational class: user workload, system service, or system configuration, plus
+  the owner and expected change cadence.
+
+The source record and the literal objects stay connected. A rendered YAML file on its
+own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which
+target facts were required.
+
+## The three OCI uses
+
+The word OCI covers three different artifacts in this work.
+
+| OCI artifact | What it contains | What consumes it |
+| --- | --- | --- |
+| Source or installer package | A chart or source bundle, preset configurations, and the files needed to produce a selected result | `cub installer` or another source tool |
+| Literal configuration bundle | Kubernetes YAML that is ready to become ConfigHub Units | `cub variant upload oci://...` |
+| ConfigHub release bundle | Approved desired configuration published for delivery | Argo CD, Flux, or another ConfigHub delivery path |
+
+An entry must name which kind of OCI artifact it links to. A multi-preset installer
+package is not automatically a literal configuration bundle.
+
+## Changes after the base
+
+Test, development, staging, production, region, customer, and cluster differences are
+derived ConfigHub variants. A derived variant changes the recorded objects without
+re-rendering the source package. Promotion moves a reviewed change between variants
+and shows the exact mutations before they are accepted.
+
+When a change alters what Helm must render, it belongs in a new Helm base variant.
+When it changes the operating context or an object field after render, it belongs in a
+derived variant.
+
+## Fleet delivery
+
+Kubara fits as a producer of platform configuration. ConfigHub can record its generated
+Kubernetes configuration, make cluster-class variants, and manage rollout waves. Kubara
+does not need to become a Helm chart row.
+
+Sveltos fits as a fleet placement and reconciliation path. ConfigHub manages the
+reviewed `ClusterProfile` and related desired state; Sveltos selects matching clusters
+and reconciles the approved add-ons. A live ConfigHub-to-Sveltos lane still needs to be
+proved before the site can call it supported.
+
+Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
+catalog must report their evidence separately because one controller succeeding does
+not prove the other one.
+
+## Apply policy
+
+The standard policy profile applies the same basic checks to Helm, AICR, `cub
+installer`, Kubara, Sveltos, and existing YAML after they become ConfigHub data.
+
+- Schema and placeholder checks block apply everywhere.
+- Digest pinning and workload probes are warnings everywhere.
+- Production adds one required human approval.
+
+The baseline filter must select an explicit set of triggers and must exclude the
+approval trigger. The production filter must include the baseline checks as well as
+approval. A verifier checks both rules so a broad filter cannot quietly put approval
+on every Space or remove the baseline checks from production.
+
+The maintained profile is
+[config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
+The live `helm-catalog` result was last recorded in
+[data/helm-org/summary.md](../../data/helm-org/summary.md). That receipt is historical
+until the live org is checked again.
+
+## ConfigHub Apps
+
+The catalog should lead into useful Apps rather than ending at installation.
+
+- Upgrade App: calculate fleet impact, test a candidate, promote it in waves, and check
+  the rollout.
+- Hooks and CRDs App: check prerequisites, run the required chart-specific setup in the
+  right order, and record what happened.
+- RBAC Review App: find risky access across imported workloads and propose an exact
+  correction.
+- Fleet Platform App: assign platform configurations to cluster groups and manage
+  rollout waves.
+- AI Change Review App: turn an agent's suggested values or object edits into exact
+  diffs, checks, approvals, and an unwindable revision.
+
+Each App must have a complete example and receipt before the project describes it as
+available. The generated demonstration programme states what is available, partial,
+example-only, or planned.
+
+## AI use
+
+AI can help maintain a large catalog, explain a chart, propose a preset
+configuration, update a version, or suggest a correction. It does not make the result
+correct by itself. The reviewed objects, source record, diff, tests, policy result,
+approval, and live observation decide what can ship.
+
+This is also how the catalog can grow without becoming unmaintainable. Chart-specific
+and use-case-specific work is acceptable when its inputs, generated result, tests, and
+maintenance steps are recorded.
+
+## Rules for the catalog
+
+1. Put information a user must understand on the human website. Keep the machine record
+   and detailed evidence linked from it.
+2. Generate both views from the same maintained facts where possible.
+3. Do not hide hooks, CRDs, setup jobs, Secrets, or target requirements.
+4. Do not claim a universal Helm replacement. Solve common real cases with
+   chart-specific preset configurations and keep the original Helm chart.
+5. Distinguish generated examples, offline checks, live tests, and supported paths.
+6. Do not call a controller path proven because a different controller passed.
+7. Keep install-time choices small and typed when the source format supports that.
+8. Show why an entry exists, what problem it solves, how to try it, what was checked,
+   and what remains.

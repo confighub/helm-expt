@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "opencost-opencost-2-5-21-default"
+  labels:
+    sourceType: "helm"
+    component: "opencost/opencost"
+    sourceVersion: "2.5.21"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "opencost/opencost"
+    version: "2.5.21"
+    record: "data/helm-render-intents/intents/opencost-opencost-2-5-21-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "97573d32f4ca5bdd024f31bdf651f35ab1e39e6580b2428f1f172c19a8fed036"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 6
+  inputs:
+    fixedAtBuildTime:
+      - "chart=opencost/opencost"
+      - "version=2.5.21"
+      - "base=default"
+      - "valuesProfile=recipes/opencost/opencost/2.5.21/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=opencost"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default"
+        -
+          lane: "K"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: ""
+          sourceReceipt: "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default"
+    sourceRecord: "data/helm-render-intents/intents/opencost-opencost-2-5-21-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

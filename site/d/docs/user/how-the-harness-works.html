@@ -522,8 +522,8 @@ capability profile</code></pre>
 <p>Roadmap surfaces, not current commands in this repo:</p>
 <pre><code>cub installer import helm
 cub installer preflight</code></pre>
-<p><code>cub helm template</code> is the quick local render path. It is useful for inspection, debugging values, CRD/resource split checks, and Helm-equivalence baselines.</p>
-<p><code>cub helm install</code> is the quick one-shot ConfigHub load path. It is useful when the goal is to create ConfigHub Units from one chart render now.</p>
+<p><code>helm template</code> is the quick local render path. It is useful for inspection, debugging values, CRD/resource split checks, and Helm-equivalence baselines.</p>
+<p><code>cub variant upload</code> is the quick one-shot ConfigHub load path. It is useful when the goal is to create ConfigHub Units from rendered files or a literal OCI bundle now.</p>
 <p>A <code>cub installer</code> recipe/package is the reusable catalog artifact. Import is the planned bridge from the fast Helm command paths into the maintained recipe/package path. It is not a current command in this repo.</p>
 <h2 id="stage-3---render-compare-and-prove">Stage 3 - Render, Compare, And Prove</h2>
 <p>The render stage checks that the <code>cub installer</code> path produces the expected Kubernetes objects.</p>

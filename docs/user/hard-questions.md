@@ -15,11 +15,12 @@ No. Helm still renders. The catalog turns selected render paths into durable
 `cub installer` packages with named bases, exact objects, scans, receipts, live
 evidence, and ConfigHub Units when uploaded.
 
-Use direct Helm commands when you only need one render:
+Use Helm directly when you only need one render. Upload the rendered files
+separately only when you want ConfigHub Units:
 
 ```sh
-cub helm template
-cub helm install
+helm template <release> <chart> --values values.yaml > rendered.yaml
+cub variant upload --component <name> --variant base rendered.yaml
 ```
 
 Use `cub installer` packages when you want a maintained base with receipts and

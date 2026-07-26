@@ -24,6 +24,10 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | [try-now.md](./user/try-now.md) | Short Redis and kube-prometheus-stack paths for first public use. |
 | [installer-oci-packages.md](./user/installer-oci-packages.md) | Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI. |
+| [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
+| [config-catalog-doctrine.md](./reference/config-catalog-doctrine.md) | Maintained doctrine for source-neutral base variants, the three OCI artifact roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned. |
+| [config-catalog-demo-program.md](./planning/config-catalog-demo-program.md) | Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps. |
+| [three-pillars-brief.md](./planning/three-pillars-brief.md) | Brief behind the current website testing story: choices fixed before install, evidence users can inspect, and lifecycle work kept visible. |
 | [expected-results-and-clusters.md](./user/expected-results-and-clusters.md) | Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or cub-lk, and when npm verifiers are optional. |
 | [first-run-walkthrough.md](./user/first-run-walkthrough.md) | Captured real serverless try-out (render → kubectl apply → running pod) with the honest namespace rough edge; tested-UX companion to try-now. |
 | [serverless-mode.md](./user/serverless-mode.md) | Install-first intro to serverless mode (no account): both paths reach the same running outcome (helm install / cub render + kubectl apply), then how it works (Helm hides one step, cub shows it), then GitOps via OCI; includes the recipe-vs-package explanation of `--pull` and honest caveats. |
@@ -36,12 +40,12 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [helm-render-intents.md](./user/helm-render-intents.md) | The two-layer model: base variants describe how Helm is rendered, managed variants describe how ConfigHub operates the rendered config, and generated render-intent objects keep the proof chain attached. |
 | [helm-presets-and-values.md](./user/helm-presets-and-values.md) | How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices. |
 | [verification.md](./user/verification.md) | Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route. |
-| [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, or repo verifiers. |
+| [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `helm template`, `cub installer`, `cub variant upload`, `cub variant create`, or repo verifiers. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [../data/outcome-evidence-contract/summary.md](../data/outcome-evidence-contract/summary.md) | Generated user-outcome contract: question, status, evidence, verifier command, scope, and next action. |
 | [helm-pain-points.md](./user/helm-pain-points.md) | User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports. |
 | [helm-upgrade-crash-example.md](./user/helm-upgrade-crash-example.md) | User-facing day-2 example: how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed. |
-| [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is not just `cub helm install` or `cub gitops import`, and what the catalog/proof path adds. |
+| [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [../data/chart-use-guide/summary.md](../data/chart-use-guide/summary.md) | Generated chart-use guide: one short answer per top-100 chart for use now, promotion review, base-variant work, or limitation decision. |
@@ -246,14 +250,14 @@ ConfigHub primitives.
 | [kube-prometheus-stack-serious-chart-review.md](./reference/kube-prometheus-stack-serious-chart-review.md) | Reviewer-facing map of the serious chart: what is proved, partial, and not yet claimable. |
 | [helm-quirk-support-matrix.md](./reference/helm-quirk-support-matrix.md) | How each Helm quirk class (hooks, CRDs, lookup, capabilities, secrets, slots, RBAC, webhooks, storage) is handled across the seven lifecycle stages, with honest status per quirk. |
 | [fork-vocabulary.md](./reference/fork-vocabulary.md) | Shared vocabulary for base vs derived variants and how names map. |
-| [helm-import-contract.md](./reference/helm-import-contract.md) | Contract for graduating from direct `cub helm install` rendering into maintained `cub installer` recipes. |
+| [helm-import-contract.md](./reference/helm-import-contract.md) | Historical contract for graduating a direct Helm render into maintained `cub installer` recipes. |
 | [capability-profile-catalog.md](./reference/capability-profile-catalog.md) | Named Kubernetes capability profiles used during render. |
 | [generated-fact-receipts.md](./reference/generated-fact-receipts.md) | Generated secrets, certs, random values, and time-value receipt specification. |
 | [secret-lifecycle.md](./reference/secret-lifecycle.md) | How rendered Secrets, target Secret facts, and Kubernetes lifecycle Secret state are classified and checked. |
 | [observation-freshness-slo.md](./reference/observation-freshness-slo.md) | Freshness states for live observations in a workerless ConfigHub model. |
 | [upgrade-rollback-receipts.md](./reference/upgrade-rollback-receipts.md) | Upgrade and rollback receipt shape. |
 | [hook-lifecycle-strategy.md](./user/hook-lifecycle-strategy.md) | How Helm hooks are inventoried, classified, translated, or blocked. |
-| [direct-cub-helm-model.md](./reference/direct-cub-helm-model.md) | Current `cub helm template` / `cub helm install` roles and how they differ from durable installer recipes. |
+| [direct-cub-helm-model.md](./reference/direct-cub-helm-model.md) | Plugin-specific reference for the separate `cub-helm` command surface and how it differs from durable installer recipes. |
 
 ### Variants, Promotion, And Operations
 

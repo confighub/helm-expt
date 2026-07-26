@@ -1,0 +1,96 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "elastic-logstash-8-5-1-ha"
+  labels:
+    sourceType: "helm"
+    component: "elastic/logstash"
+    sourceVersion: "8.5.1"
+    base: "ha"
+spec:
+  source:
+    type: "helm"
+    name: "elastic/logstash"
+    version: "8.5.1"
+    record: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1"
+  baseVariant:
+    name: "ha"
+    revision: "r001"
+    digest: ""
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
+    inventory: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+  inputs:
+    fixedAtBuildTime:
+      - "chart=elastic/logstash"
+      - "version=8.5.1"
+      - "base=ha"
+      - "valuesProfile=recipes/elastic/logstash/8.5.1/effective-values-ha.yaml"
+      - "namespace=default"
+      - "releaseName=logstash"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "requiredTopology-1"
+        type: "requiredTopology"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubOciArgo"
+          minimumSchedulableNodes: 3
+          purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        requiredTopology:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubOciArgo"
+          minimumSchedulableNodes: 3
+          purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

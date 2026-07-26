@@ -1,7 +1,8 @@
 # Direct Cub Helm Model
 
-This note explains where the current `cub helm template` and `cub helm install`
-commands fit in the Helm experiment.
+This note covers the optional `cub-helm` plugin command surface. The plugin is
+released separately from the core `cub` CLI. The public site does not require
+it; its front doors are Helm itself, `cub installer`, and `cub variant upload`.
 
 They are real and useful commands. They are not the maintained catalog recipe
 path by themselves.

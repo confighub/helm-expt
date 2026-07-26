@@ -1,0 +1,94 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-14-0-base"
+  labels:
+    sourceType: "aicr"
+    component: "aicr-eks-h100-training-kubeflow"
+    sourceVersion: "v0.14.0"
+    base: "base"
+spec:
+  source:
+    type: "aicr"
+    name: "eks-h100-training-kubeflow"
+    version: "v0.14.0"
+    record: "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+    packageOciRef: ""
+  baseVariant:
+    name: "base"
+    revision: "generated-v0.14.0"
+    digest: "77b056c74ed21bf253e006432535fed04762329350535e111c10969c65014060"
+  configuration:
+    format: "flux-kubernetes-yaml"
+    objects: "examples/aicr/eks-h100-training-kubeflow/flux-bundle"
+    inventory: "examples/aicr/eks-h100-training-kubeflow/flux-bundle/checksums.txt"
+    objectCount: 28
+  inputs:
+    fixedAtBuildTime:
+      - "accelerator=h100"
+      - "intent=training"
+      - "os=ubuntu"
+      - "platform=kubeflow"
+      - "service=eks"
+    installTime:
+      -
+        name: "acceleratedNodeSelector"
+        type: "string"
+        required: true
+        value: "nvidia.com/gpu.present=true"
+      -
+        name: "gitRepositoryUrl"
+        type: "string"
+        required: true
+        value: "https://github.com/YOUR_ORG/YOUR_REPO.git"
+      -
+        name: "storageClass"
+        type: "string"
+        required: true
+        value: "gp3"
+      -
+        name: "workloadSelector"
+        type: "string"
+        required: true
+        value: "app.kubernetes.io/part-of=training"
+    installTimeStatus: "declared"
+  routing:
+    routes:
+      -
+        id: "flux-dependency-order"
+        status: "generated-not-live"
+        note: "AICR generated Flux dependsOn relationships for the component order. This repo has not reconciled the bundle on a live target."
+    targetFacts:
+      platform: "EKS"
+      accelerator: "H100"
+      operatingSystem: "Ubuntu"
+      fluxRequired: true
+    sourceRecord: "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published"
+      plannedRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0"
+    configHubReleaseOci:
+      status: "not-run"
+    argoCd: "not-generated"
+    flux: "bundle-generated-not-live"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    generationReceipt: "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+    recipe: "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    checksums: "examples/aicr/eks-h100-training-kubeflow/flux-bundle/checksums.txt"
+  operations:
+    resourceClass: "system-configuration"
+    ownerClass: "platform-team"
+    changeCadence: "planned-platform-release"
+status:
+  level: "partial"
+  claim: "AICR v0.14.0 generated the committed recipe and Flux bundle, and every recorded bundle checksum verifies."
+  limits:
+    - "The generated Flux bundle still contains the recorded YOUR_ORG/YOUR_REPO Git repository placeholder and is not deployable as-is."
+    - "The literal configuration OCI has not been published."
+    - "The bundle has not been uploaded to ConfigHub."
+    - "No live GPU-cluster reconciliation is claimed."

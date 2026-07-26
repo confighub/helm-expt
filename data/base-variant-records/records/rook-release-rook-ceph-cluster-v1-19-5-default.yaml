@@ -1,0 +1,222 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1-19-5-default"
+  labels:
+    sourceType: "helm"
+    component: "rook-release/rook-ceph-cluster"
+    sourceVersion: "v1.19.5"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "rook-release/rook-ceph-cluster"
+    version: "v1.19.5"
+    record: "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "1271579e77bf408c1e8dbdc549a04cb876c2dd6e4855640472f2a43ae6bf2d7f"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 27
+  inputs:
+    fixedAtBuildTime:
+      - "chart=rook-release/rook-ceph-cluster"
+      - "version=v1.19.5"
+      - "base=default"
+      - "valuesProfile=recipes/rook-release/rook-ceph-cluster/v1.19.5/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=rook-ceph-cluster"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "cephblockpools.ceph.rook.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cephblockpools.ceph.rook.io"
+          purpose: "Rook Ceph cluster base creates CephBlockPool resources"
+          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      -
+        name: "cephclusters.ceph.rook.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cephclusters.ceph.rook.io"
+          purpose: "Rook Ceph cluster base creates CephCluster resources"
+          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      -
+        name: "cephfilesystems.ceph.rook.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cephfilesystems.ceph.rook.io"
+          purpose: "Rook Ceph cluster base creates CephFilesystem resources"
+          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      -
+        name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+          purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
+          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      -
+        name: "cephobjectstores.ceph.rook.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "cephobjectstores.ceph.rook.io"
+          purpose: "Rook Ceph cluster base creates CephObjectStore resources"
+          sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts-and-observed-action-records"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephblockpools.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephBlockPool resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephclusters.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephCluster resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephfilesystems.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephFilesystem resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "cephobjectstores.ceph.rook.io"
+            purpose: "Rook Ceph cluster base creates CephObjectStore resources"
+            sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "namespace"
+          prerequisiteName: "Namespace rook-ceph"
+          actionKind: "create-namespace"
+          ownerClass: "user-stage"
+          requiredInputs: "Namespace rook-ceph"
+          evidenceRequired: "the named Namespace exists on the target before apply; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
+          sourceReceipt: "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default"
+        -
+          lane: "K"
+          prerequisiteKind: "namespace"
+          prerequisiteName: "Namespace rook-ceph"
+          actionKind: "create-namespace"
+          ownerClass: "user-stage"
+          requiredInputs: "Namespace rook-ceph"
+          evidenceRequired: "the named Namespace exists on the target before apply; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
+          sourceReceipt: "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart rook-release/rook-ceph-cluster --version v1.19.5 --base default"
+    sourceRecord: "data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "no"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "no"
+    flux: "no"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "no"
+    liveDualParity: "no"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."
