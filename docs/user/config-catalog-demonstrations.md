@@ -206,7 +206,7 @@ Current limit: The live Nginx fleet proves a Helm-derived base and four managed 
 
 ### AI Change Review App
 
-**Status: planned.**
+**Status: partial.**
 
 An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.
 
@@ -218,11 +218,11 @@ Turn the suggestion into exact objects and diffs, run checks, require the right 
 4. Run schema, placeholder, security, and target checks.
 5. Approve, promote, observe, or unwind the change.
 
-Start with [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) or [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
+Start with [docs/demo/apps/ai-change-review.md](../../docs/demo/apps/ai-change-review.md) or [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) or [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
 
-Evidence: [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [data/claims-register/summary.md](../../data/claims-register/summary.md).
+Evidence: [data/ai-change-review/receipt.yaml](../../data/ai-change-review/receipt.yaml), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md), [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [data/claims-register/summary.md](../../data/claims-register/summary.md).
 
-Current limit: The checks and data model exist in parts. A complete AI Change Review App run is not yet committed.
+Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. ConfigHub Functions, approval, apply, and live observation have not run for that candidate.
 
 ## The common policy
 

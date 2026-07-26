@@ -201,7 +201,7 @@ spec:
       name: AI Change Review App
       problem: An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.
       result: Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.
-      status: planned
+      status: partial
       steps:
         - Let the agent propose values or object edits.
         - Render or apply the proposal to a derived variant.
@@ -209,10 +209,14 @@ spec:
         - Run schema, placeholder, security, and target checks.
         - Approve, promote, observe, or unwind the change.
       entrypoints:
+        - docs/demo/apps/ai-change-review.md
         - docs/user/ai-assisted-helm-changes.md
         - config-catalog/policies/catalog-standard.yaml
       evidence:
+        - data/ai-change-review/receipt.yaml
+        - data/ai-change-review/summary.md
         - data/app-readiness/summary.md
         - data/claims-register/summary.md
       limits:
-        - The checks and data model exist in parts. A complete AI Change Review App run is not yet committed.
+        - The committed training-runtime example proves exact local objects, diffs, and deterministic checks.
+        - ConfigHub Functions, approval, apply, and live observation have not run for that candidate.

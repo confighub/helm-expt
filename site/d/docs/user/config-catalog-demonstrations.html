@@ -515,13 +515,13 @@
 <p>Evidence: <a href="../../data/blast-radius-fleet/summary.html">data/blast-radius-fleet/summary.md</a>, <a href="../../data/environment-matrix/summary.html">data/environment-matrix/summary.md</a>, <a href="../../../../data/fleet-promotion/live-nginx-registry-migration.yaml">data/fleet-promotion/live-nginx-registry-migration.yaml</a>.</p>
 <p>Current limit: The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes.</p>
 <h3 id="ai-change-review-app">AI Change Review App</h3>
-<p><b>Status: planned.</b></p>
+<p><b>Status: partial.</b></p>
 <p>An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.</p>
 <p>Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.</p>
 <ol><li>Let the agent propose values or object edits.</li><li>Render or apply the proposal to a derived variant.</li><li>Show the exact object and fleet diff.</li><li>Run schema, placeholder, security, and target checks.</li><li>Approve, promote, observe, or unwind the change.</li></ol>
-<p>Start with <a href="ai-assisted-helm-changes.html">docs/user/ai-assisted-helm-changes.md</a> or <a href="../../../../config-catalog/policies/catalog-standard.yaml">config-catalog/policies/catalog-standard.yaml</a>.</p>
-<p>Evidence: <a href="../../data/app-readiness/summary.html">data/app-readiness/summary.md</a>, <a href="../../data/claims-register/summary.html">data/claims-register/summary.md</a>.</p>
-<p>Current limit: The checks and data model exist in parts. A complete AI Change Review App run is not yet committed.</p>
+<p>Start with <a href="../demo/apps/ai-change-review.html">docs/demo/apps/ai-change-review.md</a> or <a href="ai-assisted-helm-changes.html">docs/user/ai-assisted-helm-changes.md</a> or <a href="../../../../config-catalog/policies/catalog-standard.yaml">config-catalog/policies/catalog-standard.yaml</a>.</p>
+<p>Evidence: <a href="../../../../data/ai-change-review/receipt.yaml">data/ai-change-review/receipt.yaml</a>, <a href="../../data/ai-change-review/summary.html">data/ai-change-review/summary.md</a>, <a href="../../data/app-readiness/summary.html">data/app-readiness/summary.md</a>, <a href="../../data/claims-register/summary.html">data/claims-register/summary.md</a>.</p>
+<p>Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. ConfigHub Functions, approval, apply, and live observation have not run for that candidate.</p>
 <h2 id="the-common-policy">The common policy</h2>
 <p>Every pathway uses <a href="../../../../config-catalog/policies/catalog-standard.yaml">the catalog-standard apply policy</a> after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.</p>
 <p>The two filters name their allowed Triggers explicitly. On 26 July 2026 the live <code>helm-catalog</code> org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>, or rerun <code>npm run helm-org:policy:verify</code> while logged into that org.</p>

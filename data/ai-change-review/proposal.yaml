@@ -1,0 +1,38 @@
+apiVersion: "trainer.kubeflow.org/v1alpha1"
+kind: "ClusterTrainingRuntime"
+metadata:
+  annotations:
+    {}
+  labels:
+    trainer.kubeflow.org/framework: "torch"
+  name: "torch-distributed"
+spec:
+  mlPolicy:
+    numNodes: 8
+    torch:
+      {}
+  template:
+    spec:
+      replicatedJobs:
+        -
+          name: "node"
+          template:
+            metadata:
+              labels:
+                trainer.kubeflow.org/trainjob-ancestor-step: "trainer"
+            spec:
+              template:
+                spec:
+                  containers:
+                    -
+                      image: "pytorch/pytorch:latest"
+                      name: "node"
+                      env:
+                        -
+                          name: "AI_API_KEY"
+                          value: "confighubplaceholder"
+                  nodeSelector:
+                    nvidia.com/gpu.present: "true"
+                  tolerations:
+                    -
+                      operator: "Exists"

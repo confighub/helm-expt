@@ -1,0 +1,113 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AIChangeReviewReceipt"
+metadata:
+  name: "aicr-training-runtime-review"
+spec:
+  source:
+    object: "examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/013-kubeflow-trainer-post/templates/torch-distributed-cluster-training-runtime.yaml"
+    sha256: "41f74e4c56799f626c5a185b776da6bb045a253d6674ce9e66a70b1747485a35"
+    baseRecord: "data/base-variant-records/records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml"
+  request: "Increase this training runtime to eight H100 nodes and update its runtime image."
+  targetFacts:
+    credentialKey: "api-key"
+    credentialSecret: "training-provider-credentials"
+    maxTrainingNodes: 4
+  proposal:
+    object: "data/ai-change-review/proposal.yaml"
+    sha256: "a2b4e3d81d2dbdb8656c759f9043163d472d72000983b2031e44e7c5ee2bec56"
+    operations:
+      -
+        op: "replace"
+        path: "/spec/mlPolicy/numNodes"
+        before: 1
+        after: 8
+      -
+        op: "replace"
+        path: "/spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/image"
+        before: "pytorch/pytorch:2.11.0-cuda12.8-cudnn9-runtime@sha256:eee11b3b3872a8c838e35ef48f08b2d5def2080902c7f666831310ca1a0ef2be"
+        after: "pytorch/pytorch:latest"
+      -
+        op: "add"
+        path: "/spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/env"
+        before: null
+        after:
+          -
+            name: "AI_API_KEY"
+            value: "confighubplaceholder"
+    checks:
+      structuralParse:
+        result: "pass"
+        note: "The file parses and has the required top-level Kubernetes fields. A ConfigHub schema check has not run."
+      placeholders:
+        result: "fail"
+        paths:
+          - "/spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/env/0/value"
+      imagesPinned:
+        result: "fail"
+        paths:
+          - "/spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/image"
+      targetCapacity:
+        result: "fail"
+        requestedNodes: 8
+        maxTrainingNodes: 4
+      probesDeclared:
+        result: "not-applicable"
+        note: "This object is a training runtime template, not a Deployment."
+    decision: "rejected"
+  reviewed:
+    object: "data/ai-change-review/reviewed.yaml"
+    sha256: "8f7394b1e54170f9f3721cc6ac7f19f1c788d967780a630fea891f11ffed7adf"
+    operations:
+      -
+        op: "replace"
+        path: "/spec/mlPolicy/numNodes"
+        before: 1
+        after: 4
+      -
+        op: "add"
+        path: "/spec/template/spec/replicatedJobs/0/template/spec/template/spec/containers/0/env"
+        before: null
+        after:
+          -
+            name: "AI_API_KEY"
+            valueFrom:
+              secretKeyRef:
+                key: "api-key"
+                name: "training-provider-credentials"
+    checks:
+      structuralParse:
+        result: "pass"
+        note: "The file parses and has the required top-level Kubernetes fields. A ConfigHub schema check has not run."
+      placeholders:
+        result: "pass"
+        paths:
+          []
+      imagesPinned:
+        result: "pass"
+        paths:
+          []
+      targetCapacity:
+        result: "pass"
+        requestedNodes: 4
+        maxTrainingNodes: 4
+      probesDeclared:
+        result: "not-applicable"
+        note: "This object is a training runtime template, not a Deployment."
+    decision: "awaiting-human-approval"
+  policy:
+    profile: "catalog-standard"
+    effects:
+      placeholders: "block"
+      imagesPinned: "warn"
+      targetCapacity: "app-specific-block"
+      productionApproval: "block"
+status:
+  result: "partial"
+  configHubFunctions: "not-run"
+  approval: "not-run"
+  apply: "not-run"
+  liveObservation: "not-run"
+  limits:
+    - "The proposal is a deterministic fixture, not a transcript from a named AI model."
+    - "The repository checks ran locally. ConfigHub Functions did not run against this candidate."
+    - "The reviewed candidate has not been approved, applied, or observed on a cluster."
