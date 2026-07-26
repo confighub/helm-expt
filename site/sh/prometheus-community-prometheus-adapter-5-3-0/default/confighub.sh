@@ -14,10 +14,14 @@ if ! command -v cub >/dev/null 2>&1; then
   exit 1
 fi
 
-# Public cub releases include the installer command. This guard catches
-# an older or incomplete CLI before this script does any work.
+# Installer is a cub plugin. Check it before this script does any work.
 if ! cub installer --help >/dev/null 2>&1; then
-  printf 'This cub build does not include cub installer. Install or upgrade the cub CLI with:\n  curl -fsSL https://hub.confighub.com/cub/install.sh | bash\nthen add ~/.confighub/bin to your PATH and re-run this script.\n' >&2
+  printf 'The cub installer plugin is missing. Follow https://confighub.github.io/helm-expt/site/try.html#install-cub, then re-run this script.\n' >&2
+  exit 1
+fi
+
+if ! command -v kustomize >/dev/null 2>&1; then
+  printf 'kustomize is missing. Follow https://confighub.github.io/helm-expt/site/try.html#install-cub, then re-run this script.\n' >&2
   exit 1
 fi
 

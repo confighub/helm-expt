@@ -435,6 +435,7 @@
 <p>The website and catalog handle the work before configuration enters ConfigHub. They help people turn Helm charts, AICR recipes, installer packages, Kubara output, Sveltos objects, and existing YAML into literal configuration with recorded inputs, known prerequisites, lifecycle work, and evidence.</p>
 <p>That public front door must remain useful without a ConfigHub account:</p>
 <ul><li><code>work -&gt; OCI</code>: inspect and test source material, then build a deployable OCI;</li><li><code>OCI -&gt; work</code>: pull a public OCI to explain, inspect, scan, or compare it;</li><li><code>OCI -&gt; work -&gt; OCI</code>: check or change the exact objects and serve the result.</li></ul>
+<p>In this project, <b>serverless</b> means the work does not depend on ConfigHub Server. <b>Anonymous</b> means it uses no ConfigHub account. A local command or CI job can be both. The work can sit before OCI, after OCI, or between an input OCI and an output OCI.</p>
 <p>Here, <code>work</code> means rendering, inspecting, explaining, testing, scanning, comparing, or editing configuration. These are not only first-run paths. They are small steps that can be inserted into a delivery flow wherever they are useful:</p>
 <table><thead><tr><th>Shape</th><th>Example use</th></tr></thead><tbody><tr><td><code>work -&gt; OCI</code></td><td>A repository or CI job checks source files and publishes a deployable OCI package.</td></tr>
 <tr><td><code>OCI -&gt; work</code></td><td>A person or CI job pulls a package to inspect, test, or extract its exact objects.</td></tr>

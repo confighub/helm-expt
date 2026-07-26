@@ -14,6 +14,11 @@ That public front door must remain useful without a ConfigHub account:
 - `OCI -> work`: pull a public OCI to explain, inspect, scan, or compare it;
 - `OCI -> work -> OCI`: check or change the exact objects and serve the result.
 
+In this project, **serverless** means the work does not depend on ConfigHub Server.
+**Anonymous** means it uses no ConfigHub account. A local command or CI job can be
+both. The work can sit before OCI, after OCI, or between an input OCI and an output
+OCI.
+
 Here, `work` means rendering, inspecting, explaining, testing, scanning, comparing, or
 editing configuration. These are not only first-run paths. They are small steps that
 can be inserted into a delivery flow wherever they are useful:

@@ -20,6 +20,10 @@ People can use that front door in three directions without an account:
 - `OCI -> work -> OCI`: pull a package, check or change the exact objects, and
   serve the resulting package.
 
+Serverless means this work does not depend on ConfigHub Server. Anonymous means it
+uses no ConfigHub account. A local command or CI job can be both. These terms do not
+mean the work must happen at the start of a user's journey.
+
 `work` is the useful operation: render, inspect, explain, test, scan, compare, or
 edit. The three shapes are reusable parts of a delivery flow. They may run before the
 first OCI is built, after an OCI is pulled, or between an input OCI and an output OCI.

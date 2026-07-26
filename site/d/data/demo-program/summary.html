@@ -435,6 +435,9 @@
 <h2 id="oci-in-managed-configuration-oci-out">OCI in, managed configuration, OCI out</h2>
 <p><b>Before ConfigHub:</b> The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.</p>
 <h3 id="work-without-an-account">Work without an account</h3>
+<p><b>Serverless:</b> The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.</p>
+<p><b>Anonymous:</b> The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.</p>
+<p><b>Composable:</b> The work can sit before OCI, after OCI, or between an input OCI and an output OCI.</p>
 <table><thead><tr><th>Path</th><th>What it does</th><th>Where it can fit</th></tr></thead><tbody><tr><td><code>work -&gt; OCI</code></td><td>Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package.</td><td><code>source -&gt; anonymous work -&gt; OCI -&gt; delivery</code></td></tr>
 <tr><td><code>OCI -&gt; work</code></td><td>Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version.</td><td><code>OCI -&gt; anonymous inspection or testing</code></td></tr>
 <tr><td><code>OCI -&gt; work -&gt; OCI</code></td><td>Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub.</td><td><code>OCI -&gt; anonymous work -&gt; OCI -&gt; delivery</code></td></tr></tbody></table>

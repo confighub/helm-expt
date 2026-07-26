@@ -28,7 +28,7 @@ Open `site/day1-operations.html` only as a compatibility redirect to `site/opera
 Open `site/docs.html` for the public documentation hub.
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
-The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.
+cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.
 Open `site/verification.html` for npm proof commands, fresh versus committed
 evidence, and render-record-route.
 Open `site/d/data/helm-catalog-readmes/summary.html` for the website-rendered

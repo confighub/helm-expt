@@ -448,14 +448,16 @@ git status --short --branch</code></pre>
 <p>Install or verify the local tools before Tutorial 1:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub version
-cub plugin install confighub/installer
+cub plugin install confighub/installer --source-repo --name installer
+make -C ~/.confighub/plugins/installer build
 cub installer --help
 
-command -v kustomize || brew install kustomize
-command -v kustomize || go install sigs.k8s.io/kustomize/kustomize/v5@latest
+go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
+export PATH=&quot;$HOME/go/bin:$PATH&quot;
 
 cub context get -o json
 cub space list -o json</code></pre>
+<p>The installer plugin has no binary release yet, so this temporary setup builds the open-source plugin locally and requires Go.</p>
 <p><code>cub installer setup</code> shells out to <code>kustomize build</code>; the first setup fails if <code>kustomize</code> is not on <code>PATH</code>. The tutorials do not require <code>helm</code>.</p>
 <p><code>cub context get -o json</code> proves a context is selected. <code>cub space list -o json</code> is the useful auth check for the upload tutorials. If it fails with an authentication problem, run:</p>
 <pre><code>cub auth login</code></pre>
@@ -468,7 +470,7 @@ cub space list -o json</code></pre>
 <tr><td><code>redis:verify-install:*</code></td><td>A user's own Redis tutorial state after setup, upload, or apply.</td><td>No for <code>render</code>; it checks the user's rendered work dir against the Redis acceptance contract.</td><td>Only <code>redis:verify-install:cluster</code>; when available, cub-scout writes live object-set, workload, and prerequisite receipts.</td></tr></tbody></table>
 <p><code>redis:verify-install:*</code> currently ships because Redis is the first outside-user quick-start with <code>recipes/bitnami/redis/25.5.3/install-checks.yaml</code>. Other tutorials use chart-specific proof/package checks, generated goldens, or live ConfigHub/GitOps checks until they get their own <code>install-checks.yaml</code>.</p>
 <p>For a first user journey, skip the broad <code>npm run verify</code> command unless you are reviewing the repository itself. The ordinary checks should be things like:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup completed
 work directory has out/manifests
 ConfigHub Space has Units
