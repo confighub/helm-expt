@@ -1,0 +1,111 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "ApplyPolicyProfile",
+  "metadata": {
+    "name": "catalog-standard"
+  },
+  "spec": {
+    "baseline": {
+      "checks": [
+        {
+          "effect": "block",
+          "id": "schema-valid",
+          "reason": "Do not apply Kubernetes data that fails its declared schema.",
+          "trigger": "platform/vet-schemas"
+        },
+        {
+          "effect": "block",
+          "id": "no-placeholder-values",
+          "reason": "Do not apply placeholder credentials or unfinished values.",
+          "trigger": "platform/vet-placeholders"
+        },
+        {
+          "effect": "warn",
+          "id": "images-pinned-by-digest",
+          "reason": "Report images that can change without a configuration revision.",
+          "trigger": "platform/digest-pinned-images"
+        },
+        {
+          "effect": "warn",
+          "id": "workload-probes-declared",
+          "reason": "Report workload containers that have no readiness or liveness probe.",
+          "trigger": "platform/probes-declared"
+        }
+      ],
+      "filter": "platform/helm-catalog-checks",
+      "spaceSelector": {
+        "labels": {
+          "ApplyPolicyProfile": "catalog-standard"
+        }
+      }
+    },
+    "production": {
+      "checks": [
+        {
+          "effect": "block",
+          "id": "schema-valid",
+          "reason": "Do not apply Kubernetes data that fails its declared schema.",
+          "trigger": "platform/vet-schemas"
+        },
+        {
+          "effect": "block",
+          "id": "no-placeholder-values",
+          "reason": "Do not apply placeholder credentials or unfinished values.",
+          "trigger": "platform/vet-placeholders"
+        },
+        {
+          "effect": "warn",
+          "id": "images-pinned-by-digest",
+          "reason": "Report images that can change without a configuration revision.",
+          "trigger": "platform/digest-pinned-images"
+        },
+        {
+          "effect": "warn",
+          "id": "workload-probes-declared",
+          "reason": "Report workload containers that have no readiness or liveness probe.",
+          "trigger": "platform/probes-declared"
+        },
+        {
+          "effect": "block",
+          "id": "human-approval",
+          "reason": "Require one recorded approval before production apply.",
+          "trigger": "platform/require-approval"
+        }
+      ],
+      "filter": "platform/helm-catalog-prod-gates",
+      "spaceSelector": {
+        "labels": {
+          "ApplyPolicyProfile": "catalog-standard",
+          "Environment": "Prod"
+        }
+      }
+    },
+    "scopeAssertions": [
+      "The baseline filter selects exactly the four baseline triggers and never selects require-approval.",
+      "The production filter selects the same four baseline triggers plus require-approval.",
+      "A non-production Space must never receive require-approval from this profile.",
+      "A production Space must not lose the four baseline checks when approval is added.",
+      "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger."
+    ],
+    "sourceTypes": [
+      "helm",
+      "aicr",
+      "cub-installer",
+      "kubara",
+      "sveltos",
+      "rendered-config"
+    ]
+  },
+  "status": {
+    "evidence": [
+      "data/helm-org/summary.md",
+      "scripts/sync-helm-org.mjs"
+    ],
+    "lastRecorded": "2026-07-03",
+    "limits": [
+      "This file records the intended profile and the last committed live-org result. It does not claim that the current live org was re-read during this generation.",
+      "The current builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID."
+    ],
+    "liveReverified": false
+  }
+}

@@ -38,6 +38,7 @@ function isExpectedMarkdownLocation(file) {
     /^docs\/(user|planning|reference|corpus|skills|agent)\/[^/]+\.md$/.test(file) ||
     /^docs\/planning\/archive\/[^/]+\.md$/.test(file) ||
     /^docs\/demo\/[^/]+\/[^/]+\.md$/.test(file) ||
+    /^examples\/.+\.md$/.test(file) ||
     /^recipes\/[^/]+\/[^/]+\/[^/]+\/(README|CATALOG|weirdness-and-mitigations)\.md$/.test(file) ||
     /^packages\/[^/]+\/[^/]+\/[^/]+\/README\.md$/.test(file) ||
     /^data\/.+\.md$/.test(file) ||

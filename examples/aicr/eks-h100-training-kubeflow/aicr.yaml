@@ -1,0 +1,28 @@
+apiVersion: aicr.nvidia.com/v1alpha1
+kind: AICRConfig
+metadata:
+  name: eks-h100-training-kubeflow
+spec:
+  recipe:
+    criteria:
+      service: eks
+      os: ubuntu
+      accelerator: h100
+      intent: training
+      platform: kubeflow
+    output:
+      path: recipe.yaml
+      format: yaml
+  bundle:
+    input:
+      recipe: ./recipe.yaml
+    output:
+      target: ./flux-bundle
+    deployment:
+      deployer: flux
+    scheduling:
+      acceleratedNodeSelector:
+        nvidia.com/gpu.present: "true"
+      workloadSelector:
+        app.kubernetes.io/part-of: training
+      storageClass: gp3

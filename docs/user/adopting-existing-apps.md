@@ -53,7 +53,7 @@ team upgrade into ConfigHub gradually.
 | Flux HelmRelease | `cub gitops discover` / `cub gitops import` | chart source, values source, rendered resources, links, target |
 | Flux Kustomization | `cub gitops discover` / `cub gitops import` | Kustomize source, rendered resources, links, target |
 | KRM YAML / rendered manifests | `cub unit import` or managed import workflow | resource identity, labels, target, provenance, scans |
-| Public Helm chart with no existing app | `cub helm template`, `cub helm install`, or the `cub installer` catalog path | Helm baseline, ConfigHub Units, or maintained recipe/package depending on intent |
+| Public Helm chart with no existing app | `helm template`, `cub variant upload`, or the `cub installer` catalog path | Helm baseline, ConfigHub Units, or maintained recipe/package depending on intent |
 
 ConfigHub documentation currently describes `cub gitops import` as importing
 Argo CD Applications, Flux HelmReleases, and Flux Kustomizations from a

@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-zookeeper-13-8-7-default"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/zookeeper"
+    sourceVersion: "13.8.7"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/zookeeper"
+    version: "13.8.7"
+    record: "data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "2016aa05828162ac062e268af8a992ab41e7687d5d6144eacd7c8eb9e4521f50"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 7
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/zookeeper"
+      - "version=13.8.7"
+      - "base=default"
+      - "valuesProfile=recipes/bitnami/zookeeper/13.8.7/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=zookeeper"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/bitnami-zookeeper-13-8-7-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

@@ -1,0 +1,285 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/base-variant-record.schema.json",
+  "title": "Config Catalog Base Variant Record",
+  "description": "A source-neutral record of the configuration, inputs, routing decisions, evidence, and OCI handoffs associated with a ConfigHub base variant.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "BaseVariantRecord"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "labels"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "baseVariant",
+        "configuration",
+        "inputs",
+        "routing",
+        "delivery",
+        "policy",
+        "evidence",
+        "operations"
+      ],
+      "properties": {
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name",
+            "version",
+            "record"
+          ],
+          "properties": {
+            "type": {
+              "enum": [
+                "helm",
+                "aicr",
+                "cub-installer",
+                "kubara",
+                "sveltos",
+                "rendered-config"
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            },
+            "record": {
+              "type": "string"
+            },
+            "packageOciRef": {
+              "type": "string"
+            }
+          }
+        },
+        "baseVariant": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "revision",
+            "digest"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "revision": {
+              "type": "string"
+            },
+            "digest": {
+              "type": "string"
+            }
+          }
+        },
+        "configuration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "format",
+            "objects",
+            "inventory",
+            "objectCount"
+          ],
+          "properties": {
+            "format": {
+              "type": "string"
+            },
+            "objects": {
+              "type": "string"
+            },
+            "inventory": {
+              "type": "string"
+            },
+            "objectCount": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fixedAtBuildTime",
+            "installTime",
+            "installTimeStatus"
+          ],
+          "properties": {
+            "fixedAtBuildTime": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "installTime": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "installTimeStatus": {
+              "enum": [
+                "declared",
+                "partly-declared",
+                "not-yet-declared"
+              ]
+            }
+          }
+        },
+        "routing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "routes",
+            "targetFacts",
+            "sourceRecord"
+          ],
+          "properties": {
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "targetFacts": {
+              "type": "object"
+            },
+            "sourceRecord": {
+              "type": "string"
+            }
+          }
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "literalConfigOci",
+            "configHubReleaseOci",
+            "argoCd",
+            "flux"
+          ],
+          "properties": {
+            "literalConfigOci": {
+              "type": "object"
+            },
+            "configHubReleaseOci": {
+              "type": "object"
+            },
+            "argoCd": {
+              "type": "string"
+            },
+            "flux": {
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "profile",
+            "productionAdds"
+          ],
+          "properties": {
+            "profile": {
+              "type": "string"
+            },
+            "productionAdds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "evidence": {
+          "type": "object"
+        },
+        "operations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "resourceClass",
+            "ownerClass",
+            "changeCadence"
+          ],
+          "properties": {
+            "resourceClass": {
+              "type": "string"
+            },
+            "ownerClass": {
+              "type": "string"
+            },
+            "changeCadence": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "claim",
+        "limits"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "available",
+            "partial",
+            "planned"
+          ]
+        },
+        "claim": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

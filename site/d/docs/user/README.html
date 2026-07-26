@@ -441,6 +441,7 @@
 <tr><td>Which path should I take?</td><td><a href="choose-your-path.html">Choose Your Path</a></td><td>Direct render, one-shot upload, public catalog, and ConfigHub-managed operations.</td></tr>
 <tr><td>Can I try it now?</td><td><a href="try-now.html">Try Now</a></td><td>A short public package OCI path and the serious-chart check.</td></tr>
 <tr><td>What package do I pull?</td><td><a href="installer-oci-packages.html">Installer Package OCI Refs</a></td><td>The public <code>oci://</code> refs for catalog packages, and how they differ from ConfigHub delivery OCI.</td></tr>
+<tr><td>How do Helm, AICR, cub installer, promotions, and fleet examples fit together?</td><td><a href="config-catalog-demonstrations.html">Config Catalog Demonstrations</a></td><td>The maintained status of each source path and the five ConfigHub App examples.</td></tr>
 <tr><td>What should I see after each command?</td><td><a href="expected-results-and-clusters.html">Expected Results And Clusters</a></td><td>Output snippets, cluster choices, bring-your-own Kubernetes, cub-lk, and optional npm proof checks.</td></tr>
 <tr><td>How do chart presets relate to Helm values?</td><td><a href="helm-presets-and-values.html">Helm Chart Presets And Values</a></td><td>Why the catalog offers useful chart-specific presets instead of claiming every values combination.</td></tr>
 <tr><td>How do I verify a claim?</td><td><a href="verification.html">Verification</a></td><td>The landing page for npm proof commands, user-side checks, committed receipts, and live lanes.</td></tr>
@@ -451,12 +452,13 @@
 <tr><td>What hard questions should I ask?</td><td><a href="../../../hard-questions.html">Hard Questions</a></td><td>Hooks, upgrades, overlays, target prerequisites, false-green sync, and refusal boundaries.</td></tr>
 <tr><td>What can be built on the held data?</td><td><a href="../../data/app-readiness/summary.html">App-readiness proof</a></td><td>A read-only RBAC app over already-rendered objects, showing why explicit config becomes useful data.</td></tr></tbody></table>
 <p>The <a href="choose-your-path.html">Choose Your Path</a> page is the quickest way to decide between direct render, one-shot upload, public catalog packages, and ConfigHub-managed operations. The <a href="tutorial-sequence.html">Tutorial Sequence</a> also links each stage to a companion UX proposal. Those proposal files are product sketches, not extra required reading for the first pass.</p>
-<p>If your first question is &quot;why is this better than <code>cub helm install</code> or <code>cub gitops import</code>?&quot;, read <a href="why-this-exists.html">Why This Exists</a>.</p>
+<p>If your first question is &quot;why is this more than a one-shot upload or GitOps import?&quot;, read <a href="why-this-exists.html">Why This Exists</a>.</p>
 <table><thead><tr><th>Step</th><th>File</th><th>Read It For</th></tr></thead><tbody><tr><td>1</td><td><a href="offering.html">ConfigHub Helm Catalog Offering</a></td><td>The public value story in one short read.</td></tr>
 <tr><td>2</td><td><a href="generative-gitops-fit.html">Generative GitOps Fit</a></td><td>How this repo maps to the broader generated-config and AI/GitOps thesis.</td></tr>
 <tr><td>2a</td><td><a href="reverse-reconcile-design.html">Reverse-Reconcile Design</a></td><td>The live-to-desired frontier: what is machine-checkable today and what requires a new <code>cub</code> write-back capability.</td></tr>
 <tr><td>2b</td><td><a href="cub-scout-diff-design.html">cub-scout Diff Design</a></td><td>The field-level desired-vs-live frontier for dry-run and drift across Argo, Flux, or cub-direct delivery.</td></tr>
 <tr><td>2c</td><td><a href="../../data/app-readiness/summary.html">App-readiness proof</a></td><td>A small read-app over rendered RBAC that shows how held config becomes queryable product data.</td></tr>
+<tr><td>2d</td><td><a href="config-catalog-demonstrations.html">Config Catalog Demonstrations</a></td><td>How Helm, AICR, cub installer, promotions, Kubara, Sveltos, and the five Apps enter one base-variant and policy model.</td></tr>
 <tr><td>3</td><td><a href="try-now.html">Try Now</a></td><td>The shortest Redis and kube-prometheus-stack paths.</td></tr>
 <tr><td>3a</td><td><a href="expected-results-and-clusters.html">Expected Results And Clusters</a></td><td>What users should see after each step, what cluster they need, and which npm proof checks are optional.</td></tr>
 <tr><td>4</td><td><a href="choose-your-path.html">Choose Your Path</a></td><td>Which path fits: direct render, one-shot upload, public catalog, or ConfigHub operations.</td></tr>
@@ -465,7 +467,7 @@
 <tr><td>7</td><td><a href="installer-oci-packages.html">Installer Package OCI Refs</a></td><td>The public package refs users pull with <code>cub installer setup --pull oci://...</code>, plus the difference between package OCI and delivery OCI.</td></tr>
 <tr><td>8</td><td><a href="helm-render-intents.html">Helm Render Intents</a></td><td>The compact two-layer model: base variants for render, managed variants after render, with the full proof chain underneath.</td></tr>
 <tr><td>9</td><td><a href="verification.html">Verification</a></td><td>The landing page for npm proof commands, committed evidence, fresh live lanes, and render-record-route.</td></tr>
-<tr><td>10</td><td><a href="choosing-commands.html">Choosing Commands</a></td><td>When to use <code>cub helm template</code>, <code>cub helm install</code>, <code>cub installer</code>, <code>cub variant create</code>, and repo verifiers.</td></tr>
+<tr><td>10</td><td><a href="choosing-commands.html">Choosing Commands</a></td><td>When to use <code>helm template</code>, <code>cub installer</code>, <code>cub variant upload</code>, <code>cub variant create</code>, and repo verifiers.</td></tr>
 <tr><td>11</td><td><a href="ai-assisted-helm-changes.html">AI-Assisted Helm Changes</a></td><td>How AI can propose changes without bypassing diffs, gates, approvals, delivery, or observation.</td></tr>
 <tr><td>12</td><td><a href="broken-chart-triage.html">Broken Chart Triage</a></td><td>How to turn a broken chart into a named render, target, lifecycle, image, runtime, or model finding.</td></tr>
 <tr><td>13</td><td><a href="known-gaps-we-surface.html">Known Gaps We Surface</a></td><td>Why current watch findings are visible and how to read them.</td></tr>
@@ -506,7 +508,7 @@
 <p>Detailed doctrine and historical design material now lives under <a href="../../../../docs/reference"><code>docs/reference</code></a> so it does not look like the first-run user flow. Use it when you need the deeper model:</p>
 <table><thead><tr><th>Reference</th><th>Read It For</th></tr></thead><tbody><tr><td><a href="../reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></td><td>The doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations.</td></tr>
 <tr><td><a href="chain-of-proof.html">Chain Of Proof</a></td><td>The user-facing boundary map for render proof, ConfigHub proof, delivery proof, and live proof.</td></tr>
-<tr><td><a href="../reference/direct-cub-helm-model.html">Direct Cub Helm Model</a></td><td>Detailed reference for <code>cub helm template</code>, <code>cub helm install</code>, and the durable catalog path.</td></tr>
+<tr><td><a href="../reference/direct-cub-helm-model.html">Direct Cub Helm Model</a></td><td>Historical and plugin-specific reference for the separate <code>cub-helm</code> command surface; the public site uses Helm, <code>cub installer</code>, and <code>cub variant upload</code> as its front doors.</td></tr>
 <tr><td><a href="../reference/customization-algorithm.html">Customization Algorithm</a></td><td>The detailed routing algorithm for values, overlays, wrapper charts, and post-render variants.</td></tr>
 <tr><td><a href="../reference/catalog-doctrine.html">Catalog Doctrine</a></td><td>The catalog model for defaults, parameterized bases, standard forks, and derived fills.</td></tr>
 <tr><td><a href="../reference/customization-decision-tree.html">Customization Decision Tree</a></td><td>The design-level decision tree behind the customization flow.</td></tr>

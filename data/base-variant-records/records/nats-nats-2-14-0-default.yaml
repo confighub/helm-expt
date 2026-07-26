@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "nats-nats-2-14-0-default"
+  labels:
+    sourceType: "helm"
+    component: "nats/nats"
+    sourceVersion: "2.14.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "nats/nats"
+    version: "2.14.0"
+    record: "data/helm-render-intents/intents/nats-nats-2-14-0-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "84db89cdb408a46e259210c6a98fd4a8c32df4f1c3874030e089e4f2b676ee0f"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/nats/nats/2.14.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 7
+  inputs:
+    fixedAtBuildTime:
+      - "chart=nats/nats"
+      - "version=2.14.0"
+      - "base=default"
+      - "valuesProfile=recipes/nats/nats/2.14.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=nats"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/nats-nats-2-14-0-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

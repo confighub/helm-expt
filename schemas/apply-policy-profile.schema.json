@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/apply-policy-profile.schema.json",
+  "title": "Config Catalog Apply Policy Profile",
+  "description": "A source-neutral definition of checks that run before ConfigHub applies configuration.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "ApplyPolicyProfile"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": [
+        "sourceTypes",
+        "baseline",
+        "production",
+        "scopeAssertions"
+      ],
+      "properties": {
+        "sourceTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "baseline": {
+          "$ref": "#/definitions/policySet"
+        },
+        "production": {
+          "$ref": "#/definitions/policySet"
+        },
+        "scopeAssertions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "object",
+      "required": [
+        "lastRecorded",
+        "liveReverified",
+        "evidence",
+        "limits"
+      ],
+      "properties": {
+        "lastRecorded": {
+          "type": "string"
+        },
+        "liveReverified": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "policySet": {
+      "type": "object",
+      "required": [
+        "filter",
+        "spaceSelector",
+        "checks"
+      ],
+      "properties": {
+        "filter": {
+          "type": "string"
+        },
+        "spaceSelector": {
+          "type": "object"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "trigger",
+              "effect",
+              "reason"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "trigger": {
+                "type": "string"
+              },
+              "effect": {
+                "enum": [
+                  "block",
+                  "warn"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

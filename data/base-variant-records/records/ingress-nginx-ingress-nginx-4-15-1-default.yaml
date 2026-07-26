@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4-15-1-default"
+  labels:
+    sourceType: "helm"
+    component: "ingress-nginx/ingress-nginx"
+    sourceVersion: "4.15.1"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "ingress-nginx/ingress-nginx"
+    version: "4.15.1"
+    record: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "fcb4d06cd9078d87226aad3c100f9e80ced6398e0a358f54334b5bd45a4f26d8"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 11
+  inputs:
+    fixedAtBuildTime:
+      - "chart=ingress-nginx/ingress-nginx"
+      - "version=4.15.1"
+      - "base=default"
+      - "valuesProfile=recipes/ingress-nginx/ingress-nginx/4.15.1/effective-values.yaml"
+      - "namespace=ingress-nginx"
+      - "releaseName=ingress-nginx"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "ingress-nginx-admission"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "cubInstallerApply"
+          keys:
+            - "cert"
+            - "key"
+            - "ca"
+          name: "ingress-nginx-admission"
+          namespace: "ingress-nginx"
+          purpose: "admission webhook certificate normally created by Helm hook jobs"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "cert"
+              - "key"
+              - "ca"
+            name: "ingress-nginx-admission"
+            namespace: "ingress-nginx"
+            purpose: "admission webhook certificate normally created by Helm hook jobs"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "elastic-filebeat-8-5-1-node-or-cluster-collector"
+  labels:
+    sourceType: "helm"
+    component: "elastic/filebeat"
+    sourceVersion: "8.5.1"
+    base: "node-or-cluster-collector"
+spec:
+  source:
+    type: "helm"
+    name: "elastic/filebeat"
+    version: "8.5.1"
+    record: "data/helm-render-intents/intents/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
+  baseVariant:
+    name: "node-or-cluster-collector"
+    revision: "r001"
+    digest: "90821ca2dd82d1dc06428a568a8cdacfff1e2b2413bef0eb44c5628d3a7baf61"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml"
+    inventory: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/object-inventory.yaml"
+    objectCount: 7
+  inputs:
+    fixedAtBuildTime:
+      - "chart=elastic/filebeat"
+      - "version=8.5.1"
+      - "base=node-or-cluster-collector"
+      - "valuesProfile=recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=filebeat"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+          sourceReceipt: "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector"
+        -
+          lane: "K"
+          prerequisiteKind: "external-api"
+          prerequisiteName: "unknown"
+          actionKind: "provide-external-service"
+          ownerClass: "operator-review"
+          requiredInputs: "the upstream service/endpoint the workload connects to"
+          evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+          sourceReceipt: "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector"
+    sourceRecord: "data/helm-render-intents/intents/elastic-filebeat-8-5-1-node-or-cluster-collector.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

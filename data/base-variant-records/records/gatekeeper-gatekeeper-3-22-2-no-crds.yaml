@@ -1,0 +1,521 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "gatekeeper-gatekeeper-3-22-2-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "gatekeeper/gatekeeper"
+    sourceVersion: "3.22.2"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "gatekeeper/gatekeeper"
+    version: "3.22.2"
+    record: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: ""
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+  inputs:
+    fixedAtBuildTime:
+      - "chart=gatekeeper/gatekeeper"
+      - "version=3.22.2"
+      - "base=no-crds"
+      - "valuesProfile=recipes/gatekeeper/gatekeeper/3.22.2/effective-values-no-crds.yaml"
+      - "namespace=default"
+      - "releaseName=gatekeeper"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "assign.mutations.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "assign.mutations.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "assignimage.mutations.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "assignimage.mutations.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "assignmetadata.mutations.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "assignmetadata.mutations.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "configs.config.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "configs.config.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "configpodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "configpodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "connections.connection.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "connections.connection.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "connectionpodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "connectionpodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "constraintpodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "constraintpodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "constrainttemplates.templates.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "constrainttemplates.templates.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "expansiontemplate.expansion.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "expansiontemplate.expansion.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "modifyset.mutations.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "modifyset.mutations.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "mutatorpodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "mutatorpodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "providers.externaldata.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "providers.externaldata.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "providerpodstatuses.status.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "providerpodstatuses.status.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      -
+        name: "syncsets.syncset.gatekeeper.sh"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "syncsets.syncset.gatekeeper.sh"
+          purpose: "Gatekeeper CRD managed outside this no-crds base"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          sourceVariant: "default"
+          suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "assign.mutations.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "assignimage.mutations.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "assignmetadata.mutations.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "configs.config.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "configpodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "connections.connection.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "connectionpodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "constraintpodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "constrainttemplates.templates.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "expansiontemplate.expansion.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "modifyset.mutations.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "mutatorpodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "providers.externaldata.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "providerpodstatuses.status.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "syncsets.syncset.gatekeeper.sh"
+            purpose: "Gatekeeper CRD managed outside this no-crds base"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

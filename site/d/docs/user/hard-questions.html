@@ -435,10 +435,10 @@
 <p>Questions that still need product work are tracked in <a href="https://github.com/confighub/helm-expt/issues/1001">P1: hard-questions-for-later FAQ backlog</a>.</p>
 <h2 id="is-this-just-helm-with-extra-paperwork">Is this just Helm with extra paperwork?</h2>
 <p>No. Helm still renders. The catalog turns selected render paths into durable <code>cub installer</code> packages with named bases, exact objects, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
-<p>Use direct Helm commands when you only need one render:</p>
+<p>Use Helm directly when you only need one render. Upload the rendered files separately only when you want ConfigHub Units:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. One command, and no ConfigHub account is needed for the catalog paths.</p>
-  <pre><code>cub helm template
-cub helm install</code></pre>
+  <pre><code>helm template &lt;release&gt; &lt;chart&gt; --values values.yaml &gt; rendered.yaml
+cub variant upload --component &lt;name&gt; --variant base rendered.yaml</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>
 <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>

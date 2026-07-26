@@ -1,0 +1,91 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "grafana-pyroscope-2-0-2-no-crds"
+  labels:
+    sourceType: "helm"
+    component: "grafana/pyroscope"
+    sourceVersion: "2.0.2"
+    base: "no-crds"
+spec:
+  source:
+    type: "helm"
+    name: "grafana/pyroscope"
+    version: "2.0.2"
+    record: "data/helm-render-intents/intents/grafana-pyroscope-2-0-2-no-crds.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2"
+  baseVariant:
+    name: "no-crds"
+    revision: "r001"
+    digest: ""
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+    inventory: "recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/rendered/object-inventory.yaml"
+    objectCount: 0
+  inputs:
+    fixedAtBuildTime:
+      - "chart=grafana/pyroscope"
+      - "version=2.0.2"
+      - "base=no-crds"
+      - "valuesProfile=recipes/grafana/pyroscope/2.0.2/effective-values-no-crds.yaml"
+      - "namespace=default"
+      - "releaseName=pyroscope"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/grafana/pyroscope/2.0.2/runtime-review.yaml"
+          sourceReceipt: "runs/live-helm-confighub-compare/grafana-pyroscope-no-crds/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds"
+    sourceRecord: "data/helm-render-intents/intents/grafana-pyroscope-2-0-2-no-crds.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "todo"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

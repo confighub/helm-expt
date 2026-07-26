@@ -1,0 +1,175 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "jetstack-cert-manager-v1-20-2-default"
+  labels:
+    sourceType: "helm"
+    component: "jetstack/cert-manager"
+    sourceVersion: "v1.20.2"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "jetstack/cert-manager"
+    version: "v1.20.2"
+    record: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "e747dfea1ea7cbe63b36e863857beb23c20f2cce59285b6f2d1e0d1c48579ed2"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 42
+  inputs:
+    fixedAtBuildTime:
+      - "chart=jetstack/cert-manager"
+      - "version=v1.20.2"
+      - "base=default"
+      - "valuesProfile=recipes/jetstack/cert-manager/v1.20.2/effective-values.yaml"
+      - "namespace=cert-manager"
+      - "releaseName=cert-manager"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "challenges.acme.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "challenges.acme.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "orders.acme.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "orders.acme.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "certificaterequests.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "certificaterequests.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "certificates.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "clusterissuers.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "clusterissuers.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      -
+        name: "issuers.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager CRD managed outside this default base"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "crds-enabled"
+          suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            name: "challenges.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "orders.acme.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificaterequests.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "clusterissuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          -
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager CRD managed outside this default base"
+            sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "crds-enabled"
+            suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

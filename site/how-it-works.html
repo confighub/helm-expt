@@ -589,8 +589,18 @@ em{font-style:italic;color:var(--ink);}
     <tr><td><code>minimal</code> · <code>tls</code></td><td>Lean install; or bring-your-own TLS material.</td></tr>
   </table>
 
+  <h3>Three ways to create a base variant</h3>
+  <p>ConfigHub can start from more than a Helm chart. The source stays attached to the literal configuration so a later reviewer can see what produced it and which choices remain.</p>
+  <table class="gtable">
+    <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
+    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package, then upload the files or a single-base literal OCI bundle.</td></tr>
+    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, and checksums.</td><td>Upload the generated files or literal OCI bundle as a base variant. <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">Open the committed AICR example</a>.</td></tr>
+    <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
+  </table>
+  <p>The generated <a href="d/data/base-variant-records/summary.html">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
+
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
-  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
   <p>For any base variant, read the evidence in this order: open the full YAML objects, then open the render intent to see the Helm inputs, then read the routes for hooks, CRDs, setup jobs, target facts, and other work that is not just a static object.</p>
   <table class="gtable">
     <tr><th>What to open</th><th>What it tells you</th></tr>
@@ -677,6 +687,13 @@ em{font-style:italic;color:var(--ink);}
     <tr><td>Already run Argo or Flux</td><td>Keep your controller. Publish once to OCI; point Argo/Flux at the same bundle.</td></tr>
   </table>
 
+  <h3>Checks before apply</h3>
+  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
+  <p>The baseline and production filters are checked as separate sets. Approval must not leak onto non-production Spaces, and production must not lose the common checks when approval is added. Read the <a href="d/data/apply-policy-profiles/summary.html">generated policy profile</a> and its scope self-test.</p>
+
+  <h3>Worked paths and Apps</h3>
+  <p>The <a href="d/docs/user/config-catalog-demonstrations.html">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>
+
   <h2>6 · What's yours to decide</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
   <div class="decide"><p><strong>Which base fits.</strong> We recommend <code>default</code>, but you know whether you need <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. The catalog names the trade-off; you pick.</p></div>
@@ -684,7 +701,7 @@ em{font-style:italic;color:var(--ink);}
   <div class="decide"><p><strong>Image pinning.</strong> Some default bases ship a floating tag. For reproducible, digest-bound delivery, pin it: <code>--set-image NAME=repo/img@sha256:…</code>.</p></div>
   <div class="decide"><p><strong>Secrets.</strong> Bring your own via the <code>existing-secret</code> base and stage it out-of-band (ExternalSecrets, Vault, or <code>kubectl</code>). We can't invent your production secret.</p></div>
   <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
-  <div class="decide"><p><strong>When to go back to Helm.</strong> If a chart isn't in the catalog, plain <code>cub helm template</code> / <code>cub helm install</code> is the right one-shot. Just record the inputs (chart, version, values, namespace) so the next upgrade is reproducible.</p></div>
+  <div class="decide"><p><strong>When to use Helm directly.</strong> If a chart is not in the catalog, use <code>helm template</code> or <code>helm install</code> and record the chart, version, values, namespace, and release name. You can later upload the rendered files with <code>cub variant upload</code>.</p></div>
 
   <h2>7 · How to check the claims</h2>
   <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>

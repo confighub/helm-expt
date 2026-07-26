@@ -1,0 +1,80 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly"
+  labels:
+    sourceType: "helm"
+    component: "prometheus-community/prometheus-blackbox-exporter"
+    sourceVersion: "11.10.0"
+    base: "cluster-metrics-readonly"
+spec:
+  source:
+    type: "helm"
+    name: "prometheus-community/prometheus-blackbox-exporter"
+    version: "11.10.0"
+    record: "data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0"
+  baseVariant:
+    name: "cluster-metrics-readonly"
+    revision: "r001"
+    digest: "c8012eaac44f39c58d78bebf8e2fad63bf4400e7180c61a3b2d0f35477b96133"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
+    inventory: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
+    objectCount: 4
+  inputs:
+    fixedAtBuildTime:
+      - "chart=prometheus-community/prometheus-blackbox-exporter"
+      - "version=11.10.0"
+      - "base=cluster-metrics-readonly"
+      - "valuesProfile=recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=prometheus-blackbox-exporter"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "none-declared-or-observed"
+      declared:
+        {}
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

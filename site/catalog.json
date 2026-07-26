@@ -43,12 +43,12 @@
   "commandRoutes": [
     {
       "goal": "See what a chart renders without ConfigHub state.",
-      "command": "cub helm template",
+      "command": "helm template",
       "path": "direct-render"
     },
     {
-      "goal": "Load one Helm render into ConfigHub Units quickly.",
-      "command": "cub helm install",
+      "goal": "Load rendered files or a literal configuration OCI into ConfigHub Units.",
+      "command": "cub variant upload <files-or-oci-ref>",
       "path": "one-shot-configHub-load"
     },
     {
@@ -25846,6 +25846,286 @@
       "source_repository_url": "https://victoriametrics.github.io/helm-charts"
     }
   ],
+  "demoProgram": {
+    "apiVersion": "catalog.confighub.com/v1alpha1",
+    "kind": "DemoProgram",
+    "metadata": {
+      "name": "config-catalog"
+    },
+    "spec": {
+      "apps": [
+        {
+          "entrypoints": [
+            "docs/user/day2-upgrade-rollback.md",
+            "data/blast-radius-fleet/summary.md"
+          ],
+          "evidence": [
+            "data/blast-radius-accuracy/summary.md",
+            "data/blast-radius-fleet/summary.md"
+          ],
+          "id": "upgrade-app",
+          "limits": [
+            "The repo proves parts of the workflow. It does not yet contain one complete Upgrade App product receipt."
+          ],
+          "name": "Upgrade App",
+          "problem": "A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.",
+          "result": "Show fleet impact, test the candidate configuration, promote it in waves, and check the rollout.",
+          "status": "partial",
+          "steps": [
+            "Compare the current and candidate base variants.",
+            "Find every derived variant and target that inherits the change.",
+            "Run configuration checks and selected live tests.",
+            "Approve and promote in waves.",
+            "Compare desired and observed state after rollout."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/user/chart-hooks-what-happens.md",
+            "docs/user/target-prerequisites.md"
+          ],
+          "evidence": [
+            "data/lifecycle-routes/summary.md",
+            "runs/crd-ordering-gap/receipt.yaml"
+          ],
+          "id": "hooks-crds-app",
+          "limits": [
+            "Several chart-specific routes are proven. Automatic execution is still false for routes that have not earned a complete live receipt."
+          ],
+          "name": "Hooks and CRDs App",
+          "problem": "Hooks, CRDs, webhook certificates, and setup jobs often need ordering and actions that are not ordinary Kubernetes apply operations.",
+          "result": "Check prerequisites, run required setup in the recorded order, and keep a receipt of what happened.",
+          "status": "partial",
+          "steps": [
+            "Read the route and prerequisite records attached to the base variant.",
+            "Check the target before delivery.",
+            "Run only the chart-specific actions that are needed.",
+            "Record the result for Argo CD, Flux, or direct apply."
+          ]
+        },
+        {
+          "entrypoints": [
+            "data/app-readiness/summary.md"
+          ],
+          "evidence": [
+            "data/app-readiness/summary.md"
+          ],
+          "id": "rbac-review-app",
+          "limits": [
+            "The committed lane is read-only analysis. It does not yet prove a reviewed correction delivered to a live cluster."
+          ],
+          "name": "RBAC Review App",
+          "problem": "Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.",
+          "result": "Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.",
+          "status": "partial",
+          "steps": [
+            "Read Role, ClusterRole, and binding Units across selected Spaces.",
+            "Report broad verbs, resources, and subjects.",
+            "Propose a concrete object diff.",
+            "Apply the change only after policy and approval."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/reference/config-catalog-doctrine.md",
+            "data/blast-radius-fleet/summary.md"
+          ],
+          "evidence": [
+            "data/blast-radius-fleet/summary.md",
+            "data/environment-matrix/summary.md"
+          ],
+          "id": "fleet-platform-app",
+          "limits": [
+            "Fleet records and blast-radius evidence exist, but Kubara and Sveltos delivery are not yet complete live lanes."
+          ],
+          "name": "Fleet Platform App",
+          "problem": "Platform teams need to assign different system configurations to cluster groups without losing a central source of record.",
+          "result": "Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters and manage rollout waves from ConfigHub.",
+          "status": "partial",
+          "steps": [
+            "Classify configuration as a user workload, system service, or system configuration.",
+            "Select the base variant and small install-time input set for each cluster class.",
+            "Preview the affected clusters.",
+            "Promote in waves and observe each target."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/user/ai-assisted-helm-changes.md",
+            "config-catalog/policies/catalog-standard.yaml"
+          ],
+          "evidence": [
+            "data/app-readiness/summary.md",
+            "data/claims-register/summary.md"
+          ],
+          "id": "ai-change-review-app",
+          "limits": [
+            "The checks and data model exist in parts. A complete AI Change Review App run is not yet committed."
+          ],
+          "name": "AI Change Review App",
+          "problem": "An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.",
+          "result": "Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.",
+          "status": "planned",
+          "steps": [
+            "Let the agent propose values or object edits.",
+            "Render or apply the proposal to a derived variant.",
+            "Show the exact object and fleet diff.",
+            "Run schema, placeholder, security, and target checks.",
+            "Approve, promote, observe, or unwind the change."
+          ]
+        }
+      ],
+      "pathways": [
+        {
+          "entrypoints": [
+            "site/charts/index.html",
+            "site/try.html",
+            "docs/user/helm-presets-and-values.md",
+            "docs/user/variants-after-upload.md"
+          ],
+          "evidence": [
+            "data/helm-render-intents/summary.md",
+            "data/installer-oci-packages/summary.md",
+            "data/outcome-coverage/summary.md"
+          ],
+          "id": "helm",
+          "limits": [
+            "A passing render does not prove that every target prerequisite or live delivery lane passes."
+          ],
+          "name": "Helm chart to managed configuration",
+          "problem": "A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates.",
+          "result": "Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.",
+          "status": "available",
+          "steps": [
+            "Choose a chart and preset configuration in the Helm Ops Catalog.",
+            "Pull the cub installer package and render it without a ConfigHub account.",
+            "Inspect the objects, render intent, routes, prerequisites, and receipts.",
+            "Upload the rendered files or a literal configuration OCI bundle as a base variant.",
+            "Create test, development, staging, and production variants from that base."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/demo/aicr/eks-h100-training-kubeflow.md",
+            "examples/aicr/eks-h100-training-kubeflow/aicr.yaml"
+          ],
+          "evidence": [
+            "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+            "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+          ],
+          "id": "aicr",
+          "limits": [
+            "The committed Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable until it is regenerated with a real repository URL.",
+            "The committed AICR example is generated and checksum-verified, but it has not yet been uploaded to ConfigHub or reconciled on a live GPU cluster."
+          ],
+          "name": "AICR bundle to managed configuration",
+          "problem": "AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.",
+          "result": "Keep the AICR recipe and checksums, upload the generated OCI or files as a ConfigHub base variant, then apply the same policy and promotion process used for Helm.",
+          "status": "partial",
+          "steps": [
+            "Generate and review an AICR recipe for a named target.",
+            "Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input, including its target repository.",
+            "Keep the recipe, bundle checksums, and generation receipt together.",
+            "Upload the literal bundle as a ConfigHub base variant.",
+            "Promote derived variants only after the rendered diff and target checks pass."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/user/installer-oci-packages.md",
+            "docs/user/try-now.md"
+          ],
+          "evidence": [
+            "data/installer-oci-packages/summary.md"
+          ],
+          "id": "cub-installer",
+          "limits": [
+            "An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload."
+          ],
+          "name": "cub installer package to managed configuration",
+          "problem": "A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test.",
+          "result": "cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub.",
+          "status": "available",
+          "steps": [
+            "Pull a public installer package with no registry login.",
+            "Select one preset configuration.",
+            "Render and inspect the package locally.",
+            "Upload the chosen result when the team wants shared records and variants."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/user/variants-after-upload.md",
+            "docs/user/app-to-live-walkthrough.md"
+          ],
+          "evidence": [
+            "data/variant-promotion/summary.md",
+            "runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml"
+          ],
+          "id": "promotions",
+          "limits": [
+            "The committed receipts prove promotion mechanics for selected examples. They do not prove every delivery controller or workload convergence case."
+          ],
+          "name": "Test, development, staging, and production promotions",
+          "problem": "Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.",
+          "result": "Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval.",
+          "status": "partial",
+          "steps": [
+            "Create environment variants from one base.",
+            "Make or import a reviewed change.",
+            "Preview the mutations before promotion.",
+            "Promote through test, development, staging, and production.",
+            "Check delivery and live observations after each rollout."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/corpus/kubara-customized-overlays.md"
+          ],
+          "evidence": [
+            "docs/corpus/kubara-customized-overlays.md"
+          ],
+          "id": "kubara",
+          "limits": [
+            "The repo has a managed-overlay model, not a complete Kubara generation, upload, and live fleet receipt."
+          ],
+          "name": "Kubara platform configuration to a cluster fleet",
+          "problem": "A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.",
+          "result": "Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.",
+          "status": "planned",
+          "steps": [
+            "Generate a Kubara platform configuration for a declared cluster class.",
+            "Separate infrastructure creation from Kubernetes configuration.",
+            "Upload the Kubernetes configuration as a base variant with its source record.",
+            "Assign derived variants to cluster groups and rollout waves."
+          ]
+        },
+        {
+          "entrypoints": [
+            "docs/demo/sveltos/kyverno-fleet.md",
+            "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          ],
+          "evidence": [
+            "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+          ],
+          "id": "sveltos",
+          "limits": [
+            "The committed ClusterProfile is an example based on the public Sveltos API. It has not been run in a live ConfigHub and Sveltos lane."
+          ],
+          "name": "ConfigHub desired state delivered through Sveltos",
+          "problem": "Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.",
+          "result": "ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.",
+          "status": "example-only",
+          "steps": [
+            "Review the ClusterProfile and the chart versions it assigns.",
+            "Upload it as configuration data.",
+            "Promote changes through ConfigHub policy.",
+            "Let Sveltos reconcile the approved profile to matching clusters."
+          ]
+        }
+      ]
+    }
+  },
   "helmCatalogReadmes": [
     {
       "space": "default",

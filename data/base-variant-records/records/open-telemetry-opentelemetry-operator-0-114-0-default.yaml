@@ -1,0 +1,162 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0-114-0-default"
+  labels:
+    sourceType: "helm"
+    component: "open-telemetry/opentelemetry-operator"
+    sourceVersion: "0.114.0"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "open-telemetry/opentelemetry-operator"
+    version: "0.114.0"
+    record: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "797b4cd079028aee9f5f62340506590fe0c656f24188170da684b5b1d936baca"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 17
+  inputs:
+    fixedAtBuildTime:
+      - "chart=open-telemetry/opentelemetry-operator"
+      - "version=0.114.0"
+      - "base=default"
+      - "valuesProfile=recipes/open-telemetry/opentelemetry-operator/0.114.0/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=opentelemetry-operator"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "certificates.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "certificates.cert-manager.io"
+          purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+      -
+        name: "issuers.cert-manager.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "issuers.cert-manager.io"
+          purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+      -
+        name: "opentelemetry-operator-controller-manager-service-cert"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "opentelemetry-operator-controller-manager-service-cert"
+          namespace: "default"
+          purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+          suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "certificates.cert-manager.io"
+            purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+            suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "issuers.cert-manager.io"
+            purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+            sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+            suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "opentelemetry-operator-controller-manager-service-cert"
+            namespace: "default"
+            purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+            suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "yes"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

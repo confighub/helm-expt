@@ -1,0 +1,103 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "nats-surveyor-0-20-9-default"
+  labels:
+    sourceType: "helm"
+    component: "nats/surveyor"
+    sourceVersion: "0.20.9"
+    base: "default"
+spec:
+  source:
+    type: "helm"
+    name: "nats/surveyor"
+    version: "0.20.9"
+    record: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9"
+  baseVariant:
+    name: "default"
+    revision: "r001"
+    digest: "a97870c81f4fd0c14a158763365ddb131f848c1324fd70e3da181a5faadbb598"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml"
+    inventory: "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/object-inventory.yaml"
+    objectCount: 3
+  inputs:
+    fixedAtBuildTime:
+      - "chart=nats/surveyor"
+      - "version=0.20.9"
+      - "base=default"
+      - "valuesProfile=recipes/nats/surveyor/0.20.9/effective-values.yaml"
+      - "namespace=default"
+      - "releaseName=surveyor"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      []
+    installTimeStatus: "not-yet-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "observed-action-records"
+      declared:
+        {}
+      actions:
+        -
+          lane: "G/P"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+          sourceReceipt: "runs/live-helm-confighub-compare/nats-surveyor-default/receipt.yaml"
+          rerunCommand: "npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default"
+        -
+          lane: "K"
+          prerequisiteKind: "unknown"
+          prerequisiteName: "unknown"
+          actionKind: "operator-review"
+          ownerClass: "operator-review"
+          requiredInputs: "operator review of the runtime residue"
+          evidenceRequired: "an operator decision recorded for this base/target; then a fresh K parity receipt for this base"
+          automatic: false
+          supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+          sourceReceipt: "runs/live-kind-parity/nats-surveyor-default/receipt.yaml"
+          rerunCommand: "npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default"
+    sourceRecord: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "watch"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "watch"
+    flux: "watch"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "no"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "watch"
+    liveDualParity: "watch"
+    twoClusterKind: "no"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

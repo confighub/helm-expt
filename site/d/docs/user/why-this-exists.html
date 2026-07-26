@@ -433,14 +433,14 @@
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
 <p>A fair skeptic asks one question first: <i>isn't this just <code>helm template</code> with a wrapper around it?</i> Here is the honest answer.</p>
-<p>For three jobs, the wrapper is the wrong tool, and we will say so plainly. To inspect a chart's output, <code>cub helm template</code> is simpler. To load one chart into ConfigHub, <code>cub helm install</code> is simpler. To bring in an estate you already run, <code>cub gitops import</code> is simpler. Reach for those.</p>
+<p>For three jobs, the catalogue is more than you need. To inspect a chart's output, use <code>helm template</code>. To load already-rendered files or a literal OCI bundle into ConfigHub, use <code>cub variant upload</code>. To bring in an estate you already run, start with discovery or import. Reach for those.</p>
 <p>This repo is for a different job: turning a popular Helm chart into something you can trust across a fleet. Not a raw render - a package and record that are <b>reviewed, named, reusable, and supportable</b>, with variants you can compare, checks you can gate on, receipts you can cite, and a clean handoff to Argo or Flux. The wrapper is not there to hide Helm. It is there to make Helm's output durable, comparable, and auditable - to turn one install into something you can still reason about a year and a thousand installs later.</p>
 <p>That is the simplification: the command is just how you start. The operating model is a declarative source of record for what the fleet should run. Most settings should be decided and hardened when the package is built. The few choices left for install time should be small, typed, and restricted, so a cluster or customer can opt into the right shape without reopening the whole Helm values surface.</p>
 <p>Parity with Helm is not the product benefit by itself. It is the migration assurance check: before ConfigHub adds value, the user needs to know that the ConfigHub path did not quietly change the starting objects. The product value is what becomes possible after that check: recorded render inputs, explicit variants, safer upgrade review, policy gates, GitOps handoff, observations, and operations on visible desired state.</p>
-<p>The fast <code>cub helm install</code> path only becomes durable when its inputs are captured. Chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, and generated facts must be recorded somewhere that can be reviewed and rerun. That is why the roadmap includes renderer/input capture work such as ConfigHub issue <a href="https://github.com/confighubai/confighub/issues/3393">#3393</a> and the broader renderer model in <a href="https://github.com/confighubai/confighub/issues/4369">#4369</a>. Argo CD and Flux already have render inputs in their own manifests; ConfigHub should use those facts rather than inventing a parallel hidden install.</p>
+<p>A one-shot upload only becomes durable when its source inputs are captured. For Helm that means chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, and generated facts. For AICR it means the recipe, component versions, remaining inputs, generated bundle, and checksums. The source-neutral base-variant record keeps those facts beside the literal objects.</p>
 <h2 id="not-a-replacement-for-the-fast-paths">Not A Replacement For The Fast Paths</h2>
-<p><code>cub helm template</code> is the fast local render path. Use it when the user wants to inspect what a chart produces, debug values, or create a regular Helm baseline without a ConfigHub server connection.</p>
-<p><code>cub helm install</code> is the fast ConfigHub action path. Use it when the user wants to point at a chart and create ConfigHub Units now.</p>
+<p><code>helm template</code> is the fast local render path. Use it when the user wants to inspect what a chart produces, debug values, or create a regular Helm baseline without a ConfigHub server connection.</p>
+<p><code>cub variant upload</code> is the fast ConfigHub action path. Use it when the user has rendered files or a literal configuration OCI and wants ConfigHub Units now.</p>
 <p><code>cub gitops import</code> should be the natural path when the user already has a GitOps source and wants ConfigHub to understand or manage it.</p>
 <p>This repo is not trying to make those flows more complicated. It is trying to answer a different set of questions:</p>
 <pre><code>Which install shapes are recommended?
@@ -450,8 +450,8 @@ Which changes are base variants and which are post-render variants?
 What can be promoted safely across environments?
 What was scanned, approved, applied, observed, and supported?</code></pre>
 <p>Command routing:</p>
-<table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody><tr><td>Render and inspect Helm output locally.</td><td><code>cub helm template</code></td></tr>
-<tr><td>Load one chart render into ConfigHub Units now.</td><td><code>cub helm install</code></td></tr>
+<table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody><tr><td>Render and inspect Helm output locally.</td><td><code>helm template</code></td></tr>
+<tr><td>Load rendered files or a literal OCI bundle into ConfigHub Units now.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Maintain a reviewed, variant-aware catalog entry.</td><td><code>cub installer</code> recipe/package path</td></tr>
 <tr><td>Graduate a chart render into that catalog path.</td><td>future <code>cub installer import helm</code></td></tr>
 <tr><td>Bring existing Argo CD or Flux apps under ConfigHub visibility.</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td></tr>

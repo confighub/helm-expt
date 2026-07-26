@@ -8,7 +8,7 @@ variants, or operations.
 
 If you are new here, try this order:
 
-1. Browse the catalog or run `cub helm template` to see the rendered objects.
+1. Browse the catalog or run `helm template` to see the rendered objects.
 2. Try one public `cub installer` package when you want a maintained base with
    receipts instead of a one-off render.
 3. Upload to ConfigHub only when the rendered objects should become managed
@@ -19,8 +19,8 @@ If you are new here, try this order:
 
 | Path | Use it when | Primary command or surface | Account boundary |
 | --- | --- | --- | --- |
-| Quick render | You only want to see the Kubernetes objects a chart produces. | `cub helm template` | No ConfigHub state. |
-| One-shot upload | You want one Helm render loaded as ConfigHub Units now. | `cub helm install` | Needs a ConfigHub account. |
+| Quick render | You only want to see the Kubernetes objects a chart produces. | `helm template` | No ConfigHub state. |
+| One-shot upload | You want rendered files or a literal configuration OCI loaded as ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` | Needs a ConfigHub account. |
 | Public catalog package | You want a maintained public base with render parity, receipts, scans, and proof. | `cub installer setup --pull <installer OCI ref> --base <base>` | Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state. |
 | Reviewed ConfigHub base | You want the catalog render stored as Units before creating variants or approvals. | `cub installer upload` | Needs a ConfigHub account. |
 | Derived operations | You want dev/prod/customer/target variants, gates, links, policies, scans, promotions, observations, or bulk work. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | ConfigHub-managed workflow. |
@@ -32,7 +32,7 @@ The public lane is useful before a team commits to a platform workflow:
 
 - browse the [catalog dashboard](../../site/index.html), chart pages, proof
   status, and known gaps;
-- render and inspect public charts with `cub helm template`;
+- render and inspect public charts with `helm template`;
 - render and inspect public catalog packages with `cub installer`;
 - pull public installer package OCI refs where available;
 - verify available signatures, digests, rendered objects, and local receipts;

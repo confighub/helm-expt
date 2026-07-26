@@ -1,0 +1,117 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BaseVariantRecord"
+metadata:
+  name: "bitnami-nginx-24-0-2-existing-tls-ingress"
+  labels:
+    sourceType: "helm"
+    component: "bitnami/nginx"
+    sourceVersion: "24.0.2"
+    base: "existing-tls-ingress"
+spec:
+  source:
+    type: "helm"
+    name: "bitnami/nginx"
+    version: "24.0.2"
+    record: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml"
+    packageOciRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2"
+  baseVariant:
+    name: "existing-tls-ingress"
+    revision: "r001"
+    digest: "60945c95552a4d059faecdec34a1774858e6170d55e7d2261f9b502fa4868731"
+  configuration:
+    format: "kubernetes-yaml"
+    objects: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+    inventory: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
+    objectCount: 6
+  inputs:
+    fixedAtBuildTime:
+      - "chart=bitnami/nginx"
+      - "version=24.0.2"
+      - "base=existing-tls-ingress"
+      - "valuesProfile=recipes/bitnami/nginx/24.0.2/effective-values-existing-tls-ingress.yaml"
+      - "namespace=nginx"
+      - "releaseName=nginx"
+      - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
+    installTime:
+      -
+        name: "nginx-backend-tls"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "tls.crt"
+            - "tls.key"
+            - "ca.crt"
+          name: "nginx-backend-tls"
+          namespace: "nginx"
+          purpose: "TLS certificate material mounted by the NGINX pod"
+      -
+        name: "nginx-ingress-tls"
+        type: "requiredSecrets"
+        required: true
+        details:
+          keys:
+            - "tls.crt"
+            - "tls.key"
+          name: "nginx-ingress-tls"
+          namespace: "nginx"
+          purpose: "TLS certificate material referenced by the Ingress"
+    installTimeStatus: "partly-declared"
+  routing:
+    routes:
+      []
+    targetFacts:
+      status: "declared-target-facts"
+      declared:
+        requiredSecrets:
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+              - "ca.crt"
+            name: "nginx-backend-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material mounted by the NGINX pod"
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "nginx-ingress-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material referenced by the Ingress"
+      actions:
+        []
+    sourceRecord: "data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml"
+  delivery:
+    literalConfigOci:
+      status: "not-published-in-this-record"
+      note: "The installer package contains several preset configurations. A literal OCI bundle for this one base needs its own publication receipt."
+    configHubReleaseOci:
+      status: "yes"
+      note: "This is the recorded GitOps/OCI evidence status, not an OCI reference."
+    argoCd: "yes"
+    flux: "yes"
+  policy:
+    profile: "catalog-standard"
+    productionAdds:
+      - "human-approval"
+  evidence:
+    renderParity: "yes"
+    confighubScanOps: "yes"
+    localKind: "yes"
+    lifecycleObserved: "n/a"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
+    twoClusterKind: "todo"
+    variantPromotion: "proven"
+  operations:
+    resourceClass: "not-yet-classified"
+    ownerClass: "not-yet-classified"
+    changeCadence: "not-yet-classified"
+status:
+  level: "available"
+  claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."
+  limits:
+    - "This record does not claim that the base has been uploaded to a live ConfigHub Space."
+    - "The small typed install-time surface is not yet complete for every Helm base."
+    - "A multi-preset installer package OCI is not the same as a single literal configuration OCI."

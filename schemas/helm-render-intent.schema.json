@@ -126,6 +126,10 @@
             "packageBase": {
               "type": "string"
             },
+            "installerPackageOciRef": {
+              "type": "string",
+              "description": "The multi-preset cub installer package OCI reference for this chart version."
+            },
             "sourceLock": {
               "type": "string"
             },
