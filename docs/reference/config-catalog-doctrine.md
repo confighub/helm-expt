@@ -143,7 +143,7 @@ The maintained profile is
 The live `helm-catalog` filters and Space assignments were checked on 26 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-30 Spaces use the five baseline checks and four production Spaces use those checks
+31 Spaces use the five baseline checks and four production Spaces use those checks
 plus approval. Run `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 

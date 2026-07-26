@@ -13,10 +13,11 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | org | 2 |
 | preset | 21 |
 | environment | 7 |
+| source | 1 |
 | fleet | 4 |
 | pilot | 3 |
 | route | 2 |
-| total | 39 |
+| total | 40 |
 
 ## Files
 
@@ -58,6 +59,7 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `hashicorp-vault-env-dev` | environment | [README](spaces/hashicorp-vault-env-dev/README.md) | [readme.yaml](units/hashicorp-vault-env-dev/readme.yaml) |
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
 | `bitnami-nginx-fleet-dev` | fleet | [README](spaces/bitnami-nginx-fleet-dev/README.md) | [readme.yaml](units/bitnami-nginx-fleet-dev/readme.yaml) |
 | `bitnami-nginx-fleet-prod-eu` | fleet | [README](spaces/bitnami-nginx-fleet-prod-eu/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-eu/readme.yaml) |
 | `bitnami-nginx-fleet-prod-us` | fleet | [README](spaces/bitnami-nginx-fleet-prod-us/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-us/readme.yaml) |

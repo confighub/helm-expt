@@ -371,7 +371,14 @@ function buildAicrRecord() {
 function buildAicrArgoCdRecord() {
   const root = "examples/aicr/eks-h100-training-kubeflow";
   const receiptPath = `${root}/argocd-oci-receipt.yaml`;
+  const uploadReceiptPath = `${root}/confighub-upload-receipt.yaml`;
+  const publicReceiptPath = `${root}/public-oci-receipt.yaml`;
   const receipt = readYaml(join(repoRoot, receiptPath));
+  const uploadReceipt = readYaml(join(repoRoot, uploadReceiptPath));
+  const publicReceipt = existsSync(join(repoRoot, publicReceiptPath))
+    ? readYaml(join(repoRoot, publicReceiptPath))
+    : null;
+  const publicPassed = publicReceipt?.status?.result === "pass";
   const generationReceipt = readYaml(join(repoRoot, receipt.spec.source.generationReceipt));
   const bundlePath = receipt.spec.outputs.renderedApplications;
   const checksumsPath = receipt.spec.outputs.renderedChecksums;
@@ -395,7 +402,7 @@ function buildAicrArgoCdRecord() {
         name: "eks-h100-training-kubeflow",
         version: "v0.14.0",
         record: receiptPath,
-        packageOciRef: "",
+        packageOciRef: publicPassed ? receipt.spec.artifacts.sourcePackage.publicTarget : "",
       },
       baseVariant: {
         name: "argocd",
@@ -426,8 +433,10 @@ function buildAicrArgoCdRecord() {
           },
           {
             id: "argocd-source-package",
-            status: "local-only",
-            note: "The parent and two path-based child Applications need the AICR Helm source package at the recorded OCI repository and revision.",
+            status: publicPassed ? "published" : "local-only",
+            note: publicPassed
+              ? "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
+              : "The parent and two path-based child Applications need the AICR Helm source package at the recorded OCI repository and revision.",
           },
         ],
         targetFacts: {
@@ -444,13 +453,13 @@ function buildAicrArgoCdRecord() {
       },
       delivery: {
         sourcePackageOci: {
-          status: "local-only",
+          status: publicPassed ? "public-anonymous-pull-proved" : "local-only",
           localDigest: receipt.spec.artifacts.sourcePackage.portableDigest,
           plannedRef: receipt.spec.artifacts.sourcePackage.publicTarget,
           ociLayout: receipt.spec.artifacts.sourcePackage.ociLayout,
         },
         literalConfigOci: {
-          status: "local-only",
+          status: publicPassed ? "public-anonymous-pull-proved" : "local-only",
           localDigest: receipt.spec.artifacts.literalConfiguration.digest,
           localPush: receipt.status.renderedLocalPush,
           localPull: receipt.status.renderedLocalPull,
@@ -458,9 +467,12 @@ function buildAicrArgoCdRecord() {
           ociLayout: receipt.spec.artifacts.literalConfiguration.ociLayout,
         },
         configHubReleaseOci: {
-          status: "not-run",
+          status: "base-variant-uploaded",
+          sourceRef: uploadReceipt.spec.source.reference,
+          sourceDigest: uploadReceipt.spec.source.digest,
+          receipt: uploadReceiptPath,
         },
-        argoCd: "source-package-and-applications-generated-not-live",
+        argoCd: "applications-uploaded-not-reconciled",
         flux: "not-applicable-to-this-base",
       },
       policy: {
@@ -473,6 +485,8 @@ function buildAicrArgoCdRecord() {
         renderedChecksums: receipt.spec.outputs.renderedChecksums,
         sourceManifest: receipt.spec.outputs.sourceManifest,
         renderedManifest: receipt.spec.outputs.renderedManifest,
+        configHubUploadReceipt: uploadReceiptPath,
+        ...(publicPassed ? { publicOciReceipt: publicReceiptPath } : {}),
       },
       operations: {
         resourceClass: "system-configuration",
@@ -482,10 +496,11 @@ function buildAicrArgoCdRecord() {
     },
     status: {
       level: "partial",
-      claim: `AICR v0.14.0 generated a portable Argo CD Helm source package and ${objects.length} literal Application objects. Both OCI artifacts were pushed to and pulled from a temporary local registry at their recorded digests.`,
+      claim: `AICR v0.14.0 generated a portable Argo CD Helm source package and ${objects.length} literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest as one base variant.`,
       limits: [
-        "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
-        "The literal Application bundle has not been uploaded to ConfigHub.",
+        ...(publicPassed
+          ? ["The two public OCI artifacts were anonymously pulled at their recorded digests."]
+          : ["The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets."]),
         "No live Argo CD or GPU-cluster reconciliation is claimed.",
       ],
     },

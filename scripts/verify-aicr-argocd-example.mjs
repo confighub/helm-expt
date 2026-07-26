@@ -14,6 +14,8 @@ const sourceChecksumsPath = join(sourceRoot, "checksums.txt");
 const renderedChecksumsPath = join(renderedRoot, "checksums.txt");
 const sourceManifestPath = join(root, "local-argocd-source-oci-manifest.json");
 const renderedManifestPath = join(root, "local-argocd-config-oci-manifest.json");
+const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
 
@@ -23,6 +25,7 @@ for (const path of [
   renderedChecksumsPath,
   sourceManifestPath,
   renderedManifestPath,
+  uploadReceiptPath,
   join(sourceLayoutRoot, "index.json"),
   join(renderedLayoutRoot, "index.json"),
 ]) {
@@ -30,6 +33,7 @@ for (const path of [
 }
 
 const receipt = readYaml(receiptPath);
+const uploadReceipt = readYaml(uploadReceiptPath);
 check(receipt.spec?.deployer === "argocd-helm", "AICR Argo CD receipt must use argocd-helm");
 check(receipt.spec?.source?.version === "v0.14.0", "AICR Argo CD receipt must pin v0.14.0");
 
@@ -174,11 +178,42 @@ for (const field of [
   "publicSourcePull",
   "publicRenderedPush",
   "publicRenderedPull",
-  "configHubUpload",
   "liveArgoReconciliation",
   "liveGpuReconciliation",
 ]) {
-  check(receipt.status?.[field] === "not-run", `AICR Argo CD receipt must keep ${field} as not-run`);
+  check(["not-run", "pass"].includes(receipt.status?.[field]), `AICR Argo CD receipt has invalid ${field}`);
+}
+check(receipt.status?.configHubUpload === "pass", "AICR ConfigHub upload must stay recorded as pass");
+check(receipt.spec?.artifacts?.configHubBaseVariant?.status === "pass", "AICR ConfigHub base variant status changed");
+check(
+  receipt.spec?.artifacts?.configHubBaseVariant?.receipt
+    === "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+  "AICR ConfigHub upload receipt link changed",
+);
+check(uploadReceipt.kind === "ConfigHubUploadReceipt", "AICR ConfigHub upload receipt kind changed");
+check(uploadReceipt.status?.configHubBaseVariantUpload === "pass", "AICR ConfigHub upload receipt is not pass");
+check(uploadReceipt.spec?.source?.digest === renderedDigest, "AICR ConfigHub source digest changed");
+check(uploadReceipt.spec?.source?.renderedObjectCount === 17, "AICR ConfigHub object count changed");
+check(uploadReceipt.spec?.unit?.uploadedObjectCount === 17, "AICR ConfigHub Unit object count changed");
+check(uploadReceipt.spec?.unit?.sourceObjectsMatched === true, "AICR ConfigHub source comparison changed");
+check(uploadReceipt.spec?.policy?.profile === "catalog-standard", "AICR ConfigHub policy profile changed");
+check(uploadReceipt.spec?.policy?.checks?.length === 5, "AICR ConfigHub upload must record five baseline checks");
+check(uploadReceipt.status?.apply === "not-run", "AICR ConfigHub upload must not claim apply");
+check(uploadReceipt.status?.liveArgoReconciliation === "not-run", "AICR ConfigHub upload must not claim live Argo CD");
+check(uploadReceipt.status?.liveGpuReconciliation === "not-run", "AICR ConfigHub upload must not claim GPU health");
+
+const publicStatuses = [
+  receipt.status?.publicSourcePush,
+  receipt.status?.publicSourcePull,
+  receipt.status?.publicRenderedPush,
+  receipt.status?.publicRenderedPull,
+];
+if (publicStatuses.some((status) => status === "pass")) {
+  check(publicStatuses.every((status) => status === "pass"), "AICR public OCI statuses must advance together");
+  check(existsSync(publicReceiptPath), "AICR public OCI statuses are pass but the public receipt is missing");
+  const publicReceipt = readYaml(publicReceiptPath);
+  check(publicReceipt.status?.result === "pass", "AICR public OCI receipt is not pass");
+  check(publicReceipt.status?.anonymousPull === "pass", "AICR public OCI receipt must record anonymous pull");
 }
 
 console.log(

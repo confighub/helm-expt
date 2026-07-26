@@ -45,6 +45,9 @@ actually receive?
 - [argocd-oci-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml)
   joins the source chart, rendered objects, two tested local OCI artifacts, and their
   intended public references.
+- [confighub-upload-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml)
+  records the ConfigHub Space, Unit, source digest, policy, and exact-object comparison
+  from the live upload.
 
 The original Git-oriented bundle still contains
 `https://github.com/YOUR_ORG/YOUR_REPO.git`. It is kept so the limitation is visible;
@@ -140,35 +143,48 @@ Run `npm run aicr-argocd-example:verify` to check the source package, the 17
 Applications, both OCI manifests and layouts, every file checksum, the source
 references, and the complete set of sync waves.
 
-## Create a ConfigHub base variant
+## The ConfigHub base variant
 
-After the artifacts are published, sign in to ConfigHub. For the Flux form, upload the
-generated Flux YAML artifact:
-
-```bash
-cub variant upload \
-  --component aicr-eks-h100-training-kubeflow \
-  --variant flux \
-  --granularity minimal \
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0
-```
-
-For Argo CD, upload the second artifact containing the rendered `Application` objects,
-not the source Helm chart:
+The live demo used the literal Argo CD configuration artifact from a temporary local
+registry:
 
 ```bash
 cub variant upload \
   --component aicr-eks-h100-training-kubeflow \
-  --variant argocd \
+  --variant v0-14-0-argocd \
+  --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd \
   --granularity minimal \
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+  oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
 ```
+
+ConfigHub pulled digest
+`sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010`,
+created one base Space, and stored all 17 `Application` objects in one Unit. A verifier
+compared every live object with the committed AICR output and confirmed sync waves 0
+through 15.
+
+The upload also exposed two target requirements instead of hiding them: Argo CD needs
+the `argocd` Namespace and the default AppProject before these Applications can run.
+The live Space records those requirements in its README.
 
 `cub variant upload` does not run AICR or render charts. It imports exact YAML and
 records the source reference and resolved digest on the Space. ConfigHub can then show
 changes to those files and manage derived variants for environments or cluster
 classes.
 
-The Google Artifact Registry pushes, anonymous pulls, ConfigHub uploads, controller
-delivery, and live GPU-cluster reconciliation have not run yet. The current evidence
-stops at verified local OCI artifacts, so the AICR pathway remains partial.
+After the publisher completes Google authentication and copies the artifact, the same
+command can use the planned public reference without a registry login:
+
+```bash
+cub variant upload \
+  --component aicr-eks-h100-training-kubeflow \
+  --variant v0-14-0-argocd \
+  --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd \
+  --granularity minimal \
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+```
+
+The Google Artifact Registry pushes and anonymous pulls still need a fresh Google
+login. Argo CD delivery and live GPU-cluster reconciliation have not run. The example
+therefore proves generation, OCI packaging, exact ConfigHub upload, and policy
+attachment, but remains partial for public distribution and live operation.

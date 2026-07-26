@@ -1,0 +1,108 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubUploadReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-07-26T14:57:22.938Z"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "aicr-eks-h100-training-kubeflow"
+    - "--variant"
+    - "v0-14-0-argocd"
+    - "--space"
+    - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+    - "--granularity"
+    - "minimal"
+    - "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+  source:
+    reference: "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+    digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+    renderedObjectCount: 17
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0"
+      digest: "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e"
+      publicStatus: "not-run"
+    literalConfiguration:
+      publicReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+      digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+      publicStatus: "not-run"
+  space:
+    slug: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+    id: "0748b39f-8a70-42a9-8be2-7d452b601eb6"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "aicr-eks-h100-training-kubeflow"
+      Layer: "Platform"
+      Owner: "Platform"
+      SourceType: "aicr"
+      Variant: "v0-14-0-argocd"
+    externalSource: "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+    externalSourceDigest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+  unit:
+    slug: "aicr-eks-h100-training-kubeflow"
+    id: "5a84f800-f583-4c45-b5f8-9e4f5837b375"
+    dataHash: "1789bab93a26a891f5b5b4cd5a954a3e81fff5cd3ba3c1ecc1dca1bbc82f15c8"
+    headRevision: 2
+    labels:
+      SourceType: "aicr"
+    uploadedObjectCount: 17
+    sourceObjectsMatched: true
+    syncWaves:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+  readme:
+    slug: "readme"
+    id: "69771766-00db-4544-b510-ab4fa0e14c09"
+    dataHash: "67f250f9f481884c7a90cf5dd2cb2d11651c2e401474187c218c8ffcb9f4d00f"
+    headRevision: 4
+    source: "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml"
+  targetRequirements:
+    - "Argo CD installed"
+    - "argocd Namespace"
+    - "default Argo CD AppProject"
+    - "EKS cluster"
+    - "H100-capable nodes for the recorded training platform"
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-checks"
+    filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+    checks:
+      - "platform/vet-schemas"
+      - "platform/vet-placeholders"
+      - "platform/lifecycle-route-evidence"
+      - "platform/digest-pinned-images"
+      - "platform/probes-declared"
+status:
+  result: "partial"
+  ociPull: "pass"
+  configHubBaseVariantUpload: "pass"
+  objectIdentitiesMatched: "pass"
+  baselinePolicyAssigned: "pass"
+  publicSourcePushAndAnonymousPull: "not-run"
+  publicConfigurationPushAndAnonymousPull: "not-run"
+  apply: "not-run"
+  liveArgoReconciliation: "not-run"
+  liveGpuReconciliation: "not-run"
+  claim: "ConfigHub imported the 17 exact Argo CD Applications generated from the AICR recipe as one base variant and attached the catalog policy."
+  limits:
+    - "The ConfigHub upload used a temporary local registry because Google Cloud reauthentication was not available during this run."
+    - "The target requirements are recorded but were not applied in this run."
+    - "No Argo CD reconciliation or GPU workload health result is claimed."
