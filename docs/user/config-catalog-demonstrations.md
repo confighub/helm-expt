@@ -8,13 +8,21 @@ The catalog begins with Helm and adds other configuration formats without making
 
 **Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
 
-### Use the front door without an account
+### Work without an account
 
-| Path | What it does |
-| --- | --- |
-| `work -> OCI` | Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package. |
-| `OCI -> work` | Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version. |
-| `OCI -> work -> OCI` | Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub. |
+| Path | What it does | Where it can fit |
+| --- | --- | --- |
+| `work -> OCI` | Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package. | `source -> anonymous work -> OCI -> delivery` |
+| `OCI -> work` | Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version. | `OCI -> anonymous inspection or testing` |
+| `OCI -> work -> OCI` | Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub. | `OCI -> anonymous work -> OCI -> delivery` |
+
+Here, `work` means rendering, inspecting, explaining, testing, scanning, comparing, or editing configuration. These paths can be used on their own or inserted into a larger delivery flow.
+
+| Where the work runs | Status | What that means |
+| --- | --- | --- |
+| Local command | available | Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control. |
+| CI job | partial | Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded. |
+| Public hosted service | planned | Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals. |
 
 Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
 
@@ -26,6 +34,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 - With ConfigHub: `Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
 - First: ConfigHub can record and republish the exact OCI configuration unchanged.
 - Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
+- Fan-out: One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.
 
 **After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers. Argo CD, Flux, and direct apply can consume that artifact without rendering the source package again.
 

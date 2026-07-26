@@ -1159,7 +1159,31 @@ function validateProgram(program) {
   );
   for (const flow of architecture.frontDoor.anonymousFlows) {
     check(flow.result, `anonymous flow ${flow.shape} needs a result`);
+    check(flow.insertion, `anonymous flow ${flow.shape} must say where it fits`);
   }
+  const executionModes = architecture.frontDoor?.executionModes ?? [];
+  check(
+    sameSet(
+      executionModes.map((item) => item.id),
+      ["local-command", "ci-job", "hosted-public"],
+    ),
+    "front door must distinguish local, CI, and hosted public execution",
+  );
+  check(
+    executionModes.every((item) => item.name && item.status && item.result),
+    "each anonymous execution mode needs a name, status, and result",
+  );
+  check(
+    executionModes.find((item) => item.id === "local-command")?.status === "available"
+      && executionModes.find((item) => item.id === "ci-job")?.status === "partial"
+      && executionModes.find((item) => item.id === "hosted-public")?.status === "planned",
+    "anonymous execution modes must keep their evidence-bounded statuses",
+  );
+  check(
+    executionModes.find((item) => item.id === "hosted-public")?.result
+      ?.includes("does not create private history"),
+    "the hosted public mode must state what requires claiming in ConfigHub",
+  );
   check(
     architecture.frontDoor?.claimBoundary?.before?.includes("Anonymous users")
       && architecture.frontDoor?.claimBoundary?.action?.includes("Claim")
@@ -1176,8 +1200,10 @@ function validateProgram(program) {
       && architecture.configHub?.existingFlow?.firstStep
         ?.includes("unchanged")
       && architecture.configHub?.existingFlow?.later
-        ?.includes("variants"),
-    "ConfigHub must explain its pass-through and transformation roles in an existing OCI flow",
+        ?.includes("variants")
+      && architecture.configHub?.existingFlow?.fanOut
+        ?.includes("specific outputs"),
+    "ConfigHub must explain its pass-through, transformation, and fan-out roles in an existing OCI flow",
   );
   check(
     architecture.delivery?.result?.includes("cub release publish")
@@ -1945,7 +1971,10 @@ The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.y
 
 function renderArchitecture(architecture) {
   const anonymousRows = architecture.frontDoor.anonymousFlows
-    .map((flow) => `| \`${flow.shape}\` | ${flow.result} |`)
+    .map((flow) => `| \`${flow.shape}\` | ${flow.result} | \`${flow.insertion}\` |`)
+    .join("\n");
+  const executionRows = architecture.frontDoor.executionModes
+    .map((item) => `| ${item.name} | ${item.status} | ${item.result} |`)
     .join("\n");
   const boundary = architecture.frontDoor.claimBoundary;
   const existingFlow = architecture.configHub.existingFlow;
@@ -1955,11 +1984,17 @@ function renderArchitecture(architecture) {
 
 **Before ConfigHub:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
 
-### Use the front door without an account
+### Work without an account
 
-| Path | What it does |
-| --- | --- |
+| Path | What it does | Where it can fit |
+| --- | --- | --- |
 ${anonymousRows}
+
+Here, \`work\` means rendering, inspecting, explaining, testing, scanning, comparing, or editing configuration. These paths can be used on their own or inserted into a larger delivery flow.
+
+| Where the work runs | Status | What that means |
+| --- | --- | --- |
+${executionRows}
 
 ${boundary.before} The boundary is **${boundary.action}** ${boundary.after}
 
@@ -1971,6 +2006,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 - With ConfigHub: \`${existingFlow.withConfigHub}\`
 - First: ${existingFlow.firstStep}
 - Later: ${existingFlow.later}
+- Fan-out: ${existingFlow.fanOut}
 
 **After ConfigHub:** ${architecture.delivery.result} ${consumerList} can consume that artifact without rendering the source package again.
 

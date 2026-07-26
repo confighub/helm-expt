@@ -17,10 +17,26 @@ spec:
       anonymousFlows:
         - shape: work -> OCI
           result: Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package.
+          insertion: source -> anonymous work -> OCI -> delivery
         - shape: OCI -> work
           result: Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version.
+          insertion: OCI -> anonymous inspection or testing
         - shape: OCI -> work -> OCI
           result: Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub.
+          insertion: OCI -> anonymous work -> OCI -> delivery
+      executionModes:
+        - id: local-command
+          name: Local command
+          status: available
+          result: Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control.
+        - id: ci-job
+          name: CI job
+          status: partial
+          result: Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded.
+        - id: hosted-public
+          name: Public hosted service
+          status: planned
+          result: Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals.
       claimBoundary:
         before: Anonymous users can build, inspect, test, pull, and serve public OCI packages.
         action: Claim this configuration in ConfigHub.
@@ -38,6 +54,7 @@ spec:
         withConfigHub: Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes
         firstStep: ConfigHub can record and republish the exact OCI configuration unchanged.
         later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
+        fanOut: One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.
     delivery:
       problem: Delivery should not rerender the source package and produce a different result after review.
       result: cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers.

@@ -145,6 +145,7 @@
       "configHub": {
         "existingFlow": {
           "before": "Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes",
+          "fanOut": "One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.",
           "firstStep": "ConfigHub can record and republish the exact OCI configuration unchanged.",
           "later": "A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.",
           "withConfigHub": "Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes"
@@ -171,14 +172,17 @@
       "frontDoor": {
         "anonymousFlows": [
           {
+            "insertion": "source -> anonymous work -> OCI -> delivery",
             "result": "Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package.",
             "shape": "work -> OCI"
           },
           {
+            "insertion": "OCI -> anonymous inspection or testing",
             "result": "Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version.",
             "shape": "OCI -> work"
           },
           {
+            "insertion": "OCI -> anonymous work -> OCI -> delivery",
             "result": "Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub.",
             "shape": "OCI -> work -> OCI"
           }
@@ -188,6 +192,26 @@
           "after": "ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.",
           "before": "Anonymous users can build, inspect, test, pull, and serve public OCI packages."
         },
+        "executionModes": [
+          {
+            "id": "local-command",
+            "name": "Local command",
+            "result": "Run the public tools without a ConfigHub account. The current receipt proves this path and keeps the files and OCI references under the user's control.",
+            "status": "available"
+          },
+          {
+            "id": "ci-job",
+            "name": "CI job",
+            "result": "Run the same non-interactive commands in CI. The design supports this use, but a separate CI receipt has not been recorded.",
+            "status": "partial"
+          },
+          {
+            "id": "hosted-public",
+            "name": "Public hosted service",
+            "result": "Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals.",
+            "status": "planned"
+          }
+        ],
         "inputs": [
           "Helm charts and their values",
           "AICR recipes and generated bundles",
