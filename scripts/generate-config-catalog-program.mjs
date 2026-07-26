@@ -1450,6 +1450,51 @@ function validateOciDeployStageRolloutReceipt(receipt) {
         && target.runtime?.deployment?.replicas === "2/2",
       `${target.cluster ?? "fleet target"} did not reconcile the portable OCI`,
     );
+    const objectSet = target.observations?.objectSet ?? {};
+    const workloads = target.observations?.workloads ?? {};
+    check(
+      objectSet.result === "pass"
+        && objectSet.desiredDigest === objectSet.liveDigest
+        && objectSet.summary?.desired === 5
+        && objectSet.summary?.matched === 5
+        && objectSet.summary?.missing === 0
+        && objectSet.summary?.mismatched === 0
+        && /^sha256:[a-f0-9]{64}$/.test(objectSet.fingerprint ?? ""),
+      `${target.cluster ?? "fleet target"} did not prove exact live objects`,
+    );
+    check(
+      workloads.result === "pass"
+        && workloads.summary?.desired === 5
+        && workloads.summary?.converged === 5
+        && workloads.summary?.progressing === 0
+        && workloads.summary?.failed === 0
+        && workloads.summary?.missing === 0
+        && /^sha256:[a-f0-9]{64}$/.test(workloads.fingerprint ?? ""),
+      `${target.cluster ?? "fleet target"} did not prove live convergence`,
+    );
+    for (const [observation, predicateName] of [
+      [objectSet, "object-set-matches"],
+      [workloads, "workloads-converged"],
+    ]) {
+      const path = join(repoRoot, observation.receipt ?? "");
+      check(existsSync(path), `${observation.receipt ?? "observation receipt"} is missing`);
+      const stored = JSON.parse(readFileSync(path, "utf8"));
+      check(
+        stored._type === "https://in-toto.io/Statement/v1"
+          && stored.predicateType === "https://cub-scout.dev/receipt/v1"
+          && stored.predicate?.predicateName === predicateName
+          && stored.predicate?.verdict === "PASS"
+          && stored.predicate?.fingerprint === observation.fingerprint,
+        `${observation.receipt} does not match the rollout receipt`,
+      );
+      if (predicateName === "object-set-matches") {
+        check(
+          stored.predicate?.evidence?.objectSet?.normalizationProfile
+            === "k8s-zero-defaults/v1",
+          `${observation.receipt} lost its Kubernetes normalization profile`,
+        );
+      }
+    }
   }
   check(
     receipt.spec?.run?.clusterCommand === "cub cluster up",
@@ -1753,6 +1798,13 @@ function runSelfTest() {
   expectFailure(
     () => validateOciDeployStageRolloutReceipt(incompleteRolloutCleanup),
     "incomplete OCI rollout cleanup unexpectedly passed",
+  );
+  const incompleteLiveObservation = readYaml(ociDeployStageRolloutReceiptPath);
+  incompleteLiveObservation.spec.delivery.fleet.targets[0]
+    .observations.objectSet.summary.matched = 4;
+  expectFailure(
+    () => validateOciDeployStageRolloutReceipt(incompleteLiveObservation),
+    "incomplete live object observation unexpectedly passed",
   );
   const credentialedAnonymousRun = readYaml(anonymousOciFluxReceiptPath);
   credentialedAnonymousRun.spec.localWork.configHubTokenFilePresent = true;

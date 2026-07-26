@@ -1,0 +1,138 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/77ebee71b635f124",
+      "digest": {
+        "sha256": "77ebee71b635f124f7cdc0f19f28840fbc106d076c264d50e5c87ec8c3eee79d"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/nginx-staging",
+      "digest": {
+        "sha256": "77ebee71b635f124f7cdc0f19f28840fbc106d076c264d50e5c87ec8c3eee79d"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from runs/oci-deploy-stage-rollout-proof/observations/staging-desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "nginx-staging"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-07-26T22:48:19Z",
+    "freshness": {
+      "observedAt": "2026-07-26T22:48:19Z",
+      "expiresAt": "2026-07-26T23:48:19Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "runs/oci-deploy-stage-rollout-proof/observations/staging-desired.yaml",
+          "digest": "af7123bc3dec788f7c5a598300731223379c1266550cdc76b3fba87d060decf9",
+          "objectCount": 5
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "nginx-staging"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "77ebee71b635f124f7cdc0f19f28840fbc106d076c264d50e5c87ec8c3eee79d",
+        "liveDigest": "77ebee71b635f124f7cdc0f19f28840fbc106d076c264d50e5c87ec8c3eee79d",
+        "summary": {
+          "desired": 5,
+          "matched": 5,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "e0052ac2a097cf8e9ffe5203a29865b8d0048c727f69843e0a5667dcd9807d44",
+            "liveDigest": "e0052ac2a097cf8e9ffe5203a29865b8d0048c727f69843e0a5667dcd9807d44"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "38ca5a7c26aaba25e859749a190dd51abe7f185eeea8e2d62f0376ed046f64cb",
+            "liveDigest": "38ca5a7c26aaba25e859749a190dd51abe7f185eeea8e2d62f0376ed046f64cb"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "978599fef4501902a4baacd8a7e049f4475798abfa47b7ccaceda7d66733e13d",
+            "liveDigest": "978599fef4501902a4baacd8a7e049f4475798abfa47b7ccaceda7d66733e13d"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "4861d6853e7ec0928df380cfd5297456304134feab329d0665793481ac8a391d",
+            "liveDigest": "4861d6853e7ec0928df380cfd5297456304134feab329d0665793481ac8a391d"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "cea18cdf931366971adcd34de7602fb6c13cc1e5b190963878d771982831c699",
+            "liveDigest": "cea18cdf931366971adcd34de7602fb6c13cc1e5b190963878d771982831c699"
+          }
+        ],
+        "normalizationProfile": "k8s-zero-defaults/v1"
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:c4cd4eeda538b94e77cccba9f0a42a9c5b015e5e740571b54c934de15482bf95"
+  }
+}

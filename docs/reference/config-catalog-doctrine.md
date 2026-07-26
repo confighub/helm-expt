@@ -216,8 +216,11 @@ The [OCI import, promotion, and two-cluster proof](../../data/oci-deploy-stage-r
 demonstrates the immediate end-to-end slice: import one exact OCI as a base, create
 development and staging variants, promote one reviewed field change in sequence,
 package staging once, and reconcile that same OCI digest on two clusters. Its receipt
-includes controller status, ready workload replicas, and complete cleanup. It does not
-stand in for production scale or every catalog row.
+includes controller status, ready workload replicas, and fingerprinted `cub-scout`
+receipts showing that the five live objects match the reviewed files and are current
+on both clusters. Those observations were recorded locally rather than submitted to
+ConfigHub observation storage. The proof does not stand in for production scale or
+every catalog row.
 
 ## Apply policy
 

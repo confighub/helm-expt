@@ -1,0 +1,143 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/2549e10b045652e6",
+      "digest": {
+        "sha256": "2549e10b045652e63488daa9e3ff508f24f24d4ceaf286ea2949c562f8201de6"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/nginx-staging",
+      "digest": {
+        "sha256": "e776bcedbc3cb4fd2b4f68901bed78112ef43616b94fc4117b6f60eaff0e51d4"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from runs/oci-deploy-stage-rollout-proof/observations/staging-desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "nginx-staging"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-07-26T22:48:19Z",
+    "freshness": {
+      "observedAt": "2026-07-26T22:48:19Z",
+      "expiresAt": "2026-07-26T23:48:19Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "runs/oci-deploy-stage-rollout-proof/observations/staging-desired.yaml",
+          "digest": "af7123bc3dec788f7c5a598300731223379c1266550cdc76b3fba87d060decf9",
+          "objectCount": 5
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "nginx-staging"
+        },
+        "observedAt": "2026-07-26T22:48:19Z",
+        "desiredDigest": "2549e10b045652e63488daa9e3ff508f24f24d4ceaf286ea2949c562f8201de6",
+        "liveDigest": "e776bcedbc3cb4fd2b4f68901bed78112ef43616b94fc4117b6f60eaff0e51d4",
+        "summary": {
+          "desired": 5,
+          "converged": 5,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 2",
+            "ageSeconds": 25
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is current",
+            "ageSeconds": 25
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "AllowedDisruptions has been computed.",
+            "ageSeconds": 25
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Resource is current",
+            "ageSeconds": 25
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "nginx-staging",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Service is ready",
+            "ageSeconds": 25
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:5ebeb5993308f16681d1ac57ef157b7deb1b938155c0a6581f3c47d057846932"
+  }
+}

@@ -168,7 +168,7 @@ Start with [docs/user/variants-after-upload.md](../../docs/user/variants-after-u
 
 Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery. The combined NGINX receipt proves base-to-development-to-staging promotion and a two-cluster Argo rollout, but not production approval or ConfigHub live-state collection.
+Current limit: The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery. The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage.
 
 ### Kubara platform configuration to a cluster fleet
 
@@ -286,9 +286,9 @@ Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters 
 
 Start with [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md).
 
-Evidence: [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [data/environment-matrix/summary.md](../../data/environment-matrix/summary.md), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
+Evidence: [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [data/environment-matrix/summary.md](../../data/environment-matrix/summary.md), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The live Nginx fleet proves a Helm-derived base and four managed environments. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete.
+Current limit: The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete.
 
 ### AI Change Review App
 
