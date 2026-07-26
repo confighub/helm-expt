@@ -37,6 +37,7 @@ Production keeps the four baseline checks and adds one blocking approval:
 
 ## Scope rules
 
+- Every supported configuration source type is named by this profile.
 - The baseline filter selects exactly the four baseline triggers and never selects require-approval.
 - The production filter selects the same four baseline triggers plus require-approval.
 - A non-production Space must never receive require-approval from this profile.
