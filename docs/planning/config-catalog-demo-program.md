@@ -44,8 +44,10 @@ Complete when:
 
 The Argo CD form now completes the ConfigHub upload step: 17 generated `Application`
 objects were imported from one literal OCI artifact as one policy-covered base variant.
-Public registry publication and live Argo CD or GPU reconciliation remain open, so the
-example is still partial.
+The first staging variant is ready as a concrete Grafana existing-Secret change, but
+the live demo organization is at its 1,000-Link quota. The failed clone left no Units
+and its partial Space was removed. Public registry publication and live Argo CD or GPU
+reconciliation also remain open, so the example is still partial.
 
 ## Phase 3: Helm and cub installer
 

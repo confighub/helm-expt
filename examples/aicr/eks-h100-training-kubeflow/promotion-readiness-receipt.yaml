@@ -1,0 +1,75 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: VariantReadinessReceipt
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-14-0-staging
+spec:
+  checkedAt: "2026-07-26T15:16:15Z"
+  organization: helm-catalog
+  upstream:
+    space: aicr-eks-h100-training-kubeflow-v0-14-0-argocd
+    unit: aicr-eks-h100-training-kubeflow
+    sourceDigest: sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010
+  intendedVariant:
+    name: staging
+    space: aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging
+    environment: Staging
+    region: demo
+    change:
+      resource: argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack
+      path: spec.source.helm.values
+      from: grafana.adminPassword
+      to: grafana.admin.existingSecret
+      requiredSecret: monitoring/aicr-grafana-admin
+      dryRunCommand:
+        - cub
+        - run
+        - search-replace
+        - --space
+        - aicr-eks-h100-training-kubeflow-v0-14-0-argocd
+        - --unit
+        - aicr-eks-h100-training-kubeflow
+        - --search-value
+        - "  adminPassword: admin"
+        - --replace-value
+        - "  admin:\n    existingSecret: aicr-grafana-admin\n    userKey: admin-user\n    passwordKey: admin-password"
+        - --dry-run
+        - -o
+        - mutations
+      dryRunMutationCount: 1
+  attemptedCommand:
+    - cub
+    - variant
+    - create
+    - staging
+    - aicr-eks-h100-training-kubeflow-v0-14-0-argocd
+    - --space-pattern
+    - template:aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging
+    - --environment
+    - Staging
+    - --region
+    - demo
+    - --allow-exists
+    - --wait
+    - --timeout
+    - 10m
+  liveLimit:
+    entityType: Link
+    current: 1000
+    maximum: 1000
+    serverMessage: "failed to create upgrade link: exceeded maximum quota for entity type Link"
+  cleanup:
+    partialSpaceCreated: true
+    partialSpaceHadUnits: false
+    partialSpaceDeleted: true
+status:
+  result: blocked
+  baseVariant: pass
+  intendedDiffDryRun: pass
+  derivedVariant: blocked-by-link-quota
+  promotionPreview: not-run
+  promotion: not-run
+  claim: The AICR base variant is ready for an environment clone, and the intended Grafana Secret change produces one exact Application diff. The live demo organization cannot create the upstream link until its Link quota is raised or explicitly obsolete links are removed.
+  limits:
+    - No catalog links were deleted to make room for this example.
+    - No staging Space or promotion result is claimed.
+    - A newer AICR package is required before an upgrade promotion can be proved honestly.

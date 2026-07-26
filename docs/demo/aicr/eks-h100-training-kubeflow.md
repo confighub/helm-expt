@@ -188,3 +188,22 @@ The Google Artifact Registry pushes and anonymous pulls still need a fresh Googl
 login. Argo CD delivery and live GPU-cluster reconciliation have not run. The example
 therefore proves generation, OCI packaging, exact ConfigHub upload, and policy
 attachment, but remains partial for public distribution and live operation.
+
+## The first environment change
+
+The first planned staging change replaces the example Grafana
+`adminPassword: admin` value inside the `kube-prometheus-stack` Application with an
+existing Secret named `aicr-grafana-admin`. That is a useful derived-variant change:
+the AICR package remains the base, while the environment supplies its own credential.
+
+A ConfigHub dry run found one exact change, in
+`Application argocd/kube-prometheus-stack` at `spec.source.helm.values`. The live
+variant clone did not complete because the demo organization already has 1,000 Links,
+which is its current quota. The command created an empty partial Space before the
+server rejected the upstream link; that Space was deleted immediately.
+
+[promotion-readiness-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+records the command, intended change, quota response, and cleanup. No existing catalog
+links were deleted to force the demonstration through. Once the quota is raised, the
+next steps are to create the staging variant, make the reviewed Secret change, and
+wait for a newer AICR package before claiming an upgrade promotion.

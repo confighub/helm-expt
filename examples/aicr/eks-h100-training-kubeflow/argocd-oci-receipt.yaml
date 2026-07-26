@@ -54,6 +54,7 @@ spec:
     sourceManifest: examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json
     renderedManifest: examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json
     configHubUploadReceipt: examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml
+    promotionReadinessReceipt: examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml
   artifacts:
     sourcePackage:
       role: source-package

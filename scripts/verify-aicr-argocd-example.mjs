@@ -15,6 +15,7 @@ const renderedChecksumsPath = join(renderedRoot, "checksums.txt");
 const sourceManifestPath = join(root, "local-argocd-source-oci-manifest.json");
 const renderedManifestPath = join(root, "local-argocd-config-oci-manifest.json");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
@@ -26,6 +27,7 @@ for (const path of [
   sourceManifestPath,
   renderedManifestPath,
   uploadReceiptPath,
+  promotionReceiptPath,
   join(sourceLayoutRoot, "index.json"),
   join(renderedLayoutRoot, "index.json"),
 ]) {
@@ -34,6 +36,7 @@ for (const path of [
 
 const receipt = readYaml(receiptPath);
 const uploadReceipt = readYaml(uploadReceiptPath);
+const promotionReceipt = readYaml(promotionReceiptPath);
 check(receipt.spec?.deployer === "argocd-helm", "AICR Argo CD receipt must use argocd-helm");
 check(receipt.spec?.source?.version === "v0.14.0", "AICR Argo CD receipt must pin v0.14.0");
 
@@ -201,6 +204,43 @@ check(uploadReceipt.spec?.policy?.checks?.length === 5, "AICR ConfigHub upload m
 check(uploadReceipt.status?.apply === "not-run", "AICR ConfigHub upload must not claim apply");
 check(uploadReceipt.status?.liveArgoReconciliation === "not-run", "AICR ConfigHub upload must not claim live Argo CD");
 check(uploadReceipt.status?.liveGpuReconciliation === "not-run", "AICR ConfigHub upload must not claim GPU health");
+
+check(promotionReceipt.kind === "VariantReadinessReceipt", "AICR promotion readiness receipt kind changed");
+check(
+  promotionReceipt.spec?.upstream?.space === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+  "AICR promotion readiness upstream changed",
+);
+check(promotionReceipt.spec?.upstream?.sourceDigest === renderedDigest, "AICR promotion readiness digest changed");
+check(
+  promotionReceipt.spec?.intendedVariant?.change?.resource
+    === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+  "AICR intended staging resource changed",
+);
+check(
+  promotionReceipt.spec?.intendedVariant?.change?.to === "grafana.admin.existingSecret",
+  "AICR intended Grafana Secret change changed",
+);
+check(
+  promotionReceipt.spec?.intendedVariant?.change?.dryRunMutationCount === 1,
+  "AICR staging change must remain one dry-run mutation",
+);
+check(
+  promotionReceipt.spec?.intendedVariant?.change?.dryRunCommand?.includes(
+    "  admin:\n    existingSecret: aicr-grafana-admin\n    userKey: admin-user\n    passwordKey: admin-password",
+  ),
+  "AICR staging dry-run command no longer records the existing-Secret values",
+);
+check(promotionReceipt.spec?.liveLimit?.entityType === "Link", "AICR promotion blocker must name the Link quota");
+check(promotionReceipt.spec?.liveLimit?.current === 1000, "AICR promotion blocker live Link count changed");
+check(promotionReceipt.spec?.liveLimit?.maximum === 1000, "AICR promotion blocker Link quota changed");
+check(promotionReceipt.spec?.cleanup?.partialSpaceDeleted === true, "AICR failed variant Space was not cleaned up");
+check(promotionReceipt.status?.result === "blocked", "AICR promotion readiness must remain blocked");
+check(
+  promotionReceipt.status?.derivedVariant === "blocked-by-link-quota",
+  "AICR promotion blocker classification changed",
+);
+check(promotionReceipt.status?.promotionPreview === "not-run", "AICR promotion readiness must not claim a preview");
+check(promotionReceipt.status?.promotion === "not-run", "AICR promotion readiness must not claim promotion");
 
 const publicStatuses = [
   receipt.status?.publicSourcePush,
