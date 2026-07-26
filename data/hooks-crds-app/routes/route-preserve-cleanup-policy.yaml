@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "preserve-cleanup-policy"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "observe"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "preserve-cleanup-policy"
+  quirkClass: "hook-delete-policy"
+  lifecyclePhase: "observe"
+  actionKind: "accept-target-policy"
+  executionMode: "target-owned"
+  automatic: false
+  whoRuns: "Your cluster — at uninstall, automatically"
+  command: ""
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "none — your cluster handles it"
+    argoCdSnippet: ""
+    emitsControllerStep: false
+    flux: "none — your cluster handles it"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

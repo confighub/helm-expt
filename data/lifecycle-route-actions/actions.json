@@ -699,7 +699,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "hook-delete-policy",
       "route_name": "preserve-cleanup-policy",
@@ -729,12 +729,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "postsync-check-or-observation",
@@ -766,12 +766,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "preflight-or-presync",
@@ -803,12 +803,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "upgrade-action-with-receipt",
@@ -840,12 +840,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "hook-weight-ordering",
       "route_name": "preserve-ordering",
@@ -875,12 +875,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "target-facts",
       "route_name": "target-facts-or-preflight",
@@ -910,12 +910,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.0",
+      "version": "85.3.3",
       "base": "",
       "quirk_class": "webhook-readiness",
       "route_name": "webhook-readiness-observation",
@@ -943,7 +943,7 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+      "source_drift": "",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     }
   ]

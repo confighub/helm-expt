@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "preflight-or-presync"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "preflight"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "preflight-or-presync"
+  quirkClass: "hook-phase"
+  lifecyclePhase: "preflight"
+  actionKind: "run-preflight"
+  executionMode: "user-executes"
+  automatic: false
+  whoRuns: "Your delivery — a preflight step before apply (receipted)"
+  command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "PreSync · sync-wave -1"
+    argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+    emitsControllerStep: true
+    flux: "apply before the release (Kustomization dependsOn)"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

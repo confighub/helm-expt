@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "webhook-readiness-observation"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "observe"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "webhook-readiness-observation"
+  quirkClass: "webhook-readiness"
+  lifecyclePhase: "observe"
+  actionKind: "observe-webhook"
+  executionMode: "target-owned"
+  automatic: false
+  whoRuns: "Your delivery and cluster — stage any declared certificate, then check webhook readiness"
+  command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+  disposition: "observed"
+  alternatives:
+    []
+  evidence:
+    - "data/hook-lifecycle/receipt-index.csv"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+  gitOps:
+    argoCd: "observe webhook and workload health after sync"
+    argoCdSnippet: ""
+    emitsControllerStep: false
+    flux: "use post-apply health checks; stage any declared certificate first"
+  origin:
+    type: "helm-render-intent"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
+    routeSourceVersion: "85.3.3"

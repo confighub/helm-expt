@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "explicit-managed-action"
+  labels:
+    app: "hooks-crds"
+    chart: "tests-fixtures-hook-replacement-probe"
+    base: "base"
+    lifecyclePhase: "post-apply"
+spec:
+  chart: "tests/fixtures/hook-replacement-probe"
+  version: "1"
+  base: "base"
+  routeName: "explicit-managed-action"
+  quirkClass: "hook-phase"
+  lifecyclePhase: "post-apply"
+  actionKind: "run-job"
+  executionMode: "target-owned"
+  automatic: true
+  whoRuns: "Argo CD, Flux, or the direct apply script runs the packaged Job and waits for completion."
+  command: "kubectl apply -f job.yaml && kubectl wait --for=condition=complete job/hook-replacement-migration"
+  disposition: "observed"
+  alternatives:
+    - "Argo CD PostSync hook"
+    - "Flux follow-on Kustomization"
+    - "direct apply followed by kubectl wait"
+  evidence:
+    - "runs/hook-execution-proof/receipt.yaml"
+    - "runs/oci-hook-delivery-proof/receipt.yaml"
+  evidenceRequired: "Automatic is justified only for this fixture and these three recorded delivery paths."
+  gitOps:
+    emitsControllerStep: true
+    argoCd: "PostSync"
+    flux: "follow-on Kustomization with dependsOn"
+    argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+  origin:
+    type: "live-fixture"
+    record: "runs/oci-hook-delivery-proof/receipt.yaml"
+    routeSourceVersion: "1"

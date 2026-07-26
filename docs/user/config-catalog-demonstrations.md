@@ -153,20 +153,21 @@ Current limit: The repo proves parts of the workflow. It does not yet contain on
 
 **Status: partial.**
 
-Hooks, CRDs, webhook certificates, and setup jobs often need ordering and actions that are not ordinary Kubernetes apply operations.
+A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.
 
-Check prerequisites, run required setup in the recorded order, and keep a receipt of what happened.
+Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.
 
-1. Read the route and prerequisite records attached to the base variant.
-2. Check the target before delivery.
-3. Run only the chart-specific actions that are needed.
-4. Record the result for Argo CD, Flux, or direct apply.
+1. Start from the Kube Prometheus Stack 85.3.3 default preset and its recorded Helm inputs.
+2. Apply the ten CRDs and wait for them before applying dependent custom resources.
+3. Prepare the webhook certificate, apply the ordinary objects, and check readiness in the recorded order.
+4. Choose the recorded Argo CD, Flux, or direct-apply implementation for each step.
+5. Store every route as a checked LifecycleRoute and keep the execution receipts beside it.
 
-Start with [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) or [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md).
+Start with [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) or [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) or [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md).
 
-Evidence: [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml).
+Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
 
-Current limit: Several chart-specific routes are proven. Automatic execution is still false for routes that have not earned a complete live receipt.
+Current limit: The Kube Prometheus Stack routes are stored and checked, but they remain automatic false until their individual execution paths are proved. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
 
 ### RBAC Review App
 

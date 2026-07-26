@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { execFileSync } from "node:child_process";
 import {
   existsSync,
   readFileSync,
@@ -109,6 +110,11 @@ function buildReport() {
 
   validatePolicy(policy);
   validateProgram(program);
+  execFileSync(
+    process.execPath,
+    [join(repoRoot, "scripts", "generate-hooks-crds-app.mjs"), "--verify"],
+    { cwd: repoRoot, stdio: ["ignore", "ignore", "inherit"] },
+  );
 
   const records = [
     ...intents.map(buildHelmRecord),
@@ -770,13 +776,65 @@ function validatePolicy(policy) {
     sameSet(policy.spec?.sourceTypes ?? [], supportedSourceTypes),
     "policy must cover every supported configuration source type",
   );
+  const definitions = policy.spec?.triggerDefinitions ?? [];
   const baseline = policy.spec?.baseline?.checks ?? [];
   const production = policy.spec?.production?.checks ?? [];
+  const definitionRefs = definitions.map((item) => item.ref);
+  const policyTriggerRefs = [...new Set([...baseline, ...production].map((item) => item.trigger))];
+  check(definitions.length > 0, "policy trigger definitions are missing");
+  check(unique(definitionRefs), "policy trigger definitions must be unique");
+  check(
+    sameSet(definitionRefs, policyTriggerRefs),
+    "policy must define every Trigger selected by baseline or production",
+  );
+  for (const definition of definitions) {
+    check(/^platform\/[a-z0-9-]+$/.test(definition.ref ?? ""), `invalid Trigger reference ${definition.ref ?? ""}`);
+    check(definition.event === "Mutation", `${definition.ref} must run on Mutation`);
+    check(definition.toolchain === "Kubernetes/YAML", `${definition.ref} has an invalid toolchain`);
+    check(definition.functionName, `${definition.ref} has no function`);
+    check(["block", "warn"].includes(definition.effect), `${definition.ref} has an invalid effect`);
+    check(definition.description, `${definition.ref} has no description`);
+    check(Array.isArray(definition.arguments), `${definition.ref} arguments must be an array`);
+    check(
+      unique(definition.arguments.map((item) => item.name)),
+      `${definition.ref} argument names must be unique`,
+    );
+  }
+  for (const checkDefinition of [...baseline, ...production]) {
+    const definition = definitions.find((item) => item.ref === checkDefinition.trigger);
+    check(
+      definition?.effect === checkDefinition.effect,
+      `${checkDefinition.trigger} effect differs between its definition and policy set`,
+    );
+  }
+  const lifecycleDefinition = definitions.find(
+    (item) => item.ref === "platform/lifecycle-route-evidence",
+  );
+  check(lifecycleDefinition?.functionName === "vet-cel", "lifecycle route check must use vet-cel");
+  const lifecycleExpression = lifecycleDefinition?.arguments
+    ?.find((item) => item.name === "expression")?.value ?? "";
+  for (const requiredTerm of [
+    "LifecycleRoute",
+    "chart",
+    "version",
+    "base",
+    "routeName",
+    "executionMode",
+    "automatic",
+    "disposition",
+    "evidence",
+  ]) {
+    check(
+      lifecycleExpression.includes(requiredTerm),
+      `lifecycle route expression does not check ${requiredTerm}`,
+    );
+  }
   const baselineIds = baseline.map((item) => item.id);
   const productionIds = production.map((item) => item.id);
   const requiredBaseline = [
     "schema-valid",
     "no-placeholder-values",
+    "lifecycle-route-evidence",
     "images-pinned-by-digest",
     "workload-probes-declared",
   ];
@@ -789,7 +847,7 @@ function validatePolicy(policy) {
   };
   check(unique(baselineIds), "baseline policy check ids must be unique");
   check(unique(productionIds), "production policy check ids must be unique");
-  check(sameSet(baselineIds, requiredBaseline), "baseline policy must contain exactly the four standard checks");
+  check(sameSet(baselineIds, requiredBaseline), "baseline policy must contain exactly the five standard checks");
   check(!baseline.some(isApprovalCheck), "baseline policy must exclude the approval trigger");
   check(production.some((item) => item.id === "human-approval" && item.effect === "block"), "production policy must require blocking human approval");
   for (const baselineCheck of baseline) {
@@ -801,11 +859,11 @@ function validatePolicy(policy) {
   check(production.length === baseline.length + 1, "production policy must add exactly one check to the baseline");
   check(
     policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
-    "baseline filter must name exactly its four Triggers",
+    "baseline filter must name exactly its five Triggers",
   );
   check(
     policy.spec.production.filterWhere === expectedFilterWhere(policy.spec.production),
-    "production filter must name exactly its five Triggers",
+    "production filter must name exactly its six Triggers",
   );
   for (const path of policy.status?.evidence ?? []) check(existsRepo(path), `policy evidence is missing: ${path}`);
   if (policy.status?.liveReverified) {
@@ -925,6 +983,15 @@ function runSelfTest() {
   warningTurnedBlocking.spec.production.checks
     .find((item) => item.id === "images-pinned-by-digest").effect = "block";
   expectFailure(() => validatePolicy(warningTurnedBlocking), "production effect-drift fixture unexpectedly passed");
+
+  const routeEvidenceRemoved = structuredClone(policy);
+  routeEvidenceRemoved.spec.triggerDefinitions
+    .find((item) => item.ref === "platform/lifecycle-route-evidence")
+    .arguments[0].value = 'r.kind != "LifecycleRoute"';
+  expectFailure(
+    () => validatePolicy(routeEvidenceRemoved),
+    "incomplete lifecycle route expression unexpectedly passed",
+  );
 
   const broadFilter = structuredClone(policy);
   broadFilter.spec.baseline.filterWhere = "Space.Slug = 'platform'";

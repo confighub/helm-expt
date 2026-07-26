@@ -179,7 +179,7 @@ const COLUMN_PROVENANCE = [
 ];
 
 if (mode === "--generate") {
-  const generatedAt = new Date().toISOString();
+  const generatedAt = process.env.HELM_EXPT_MASTER_MATRIX_GENERATED_AT || new Date().toISOString();
   const report = buildReport(generatedAt);
   write(outputs.matrix, report.csv);
   write(outputs.summary, report.summary);

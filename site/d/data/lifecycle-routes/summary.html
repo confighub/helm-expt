@@ -480,13 +480,13 @@
 <tr><td>kyverno/kyverno@3.8.1</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>kyverno/kyverno@3.8.1</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
 <tr><td>kyverno/kyverno@3.8.1</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.0</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>target-owned</td><td>no</td></tr></tbody></table>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>target-owned</td><td>no</td></tr></tbody></table>
 <h2 id="boundaries">Boundaries</h2>
 <ul><li>Static join of committed source CSVs only. No hook is executed, no cluster is touched, no ConfigHub state is changed, no <code>runs/</code> receipt is edited.</li><li>A <code>routed</code> or <code>todo</code> row is a classification, not a proof. <code>observed</code> rows point at the committed receipt in <code>evidence_or_next_action</code>.</li><li>The master matrix value <code>candidate-route</code> maps to <code>routed</code> here; the <code>source_disposition</code> column keeps the original value for traceability.</li></ul>
     </article>

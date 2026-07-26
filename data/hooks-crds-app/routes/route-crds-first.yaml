@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "LifecycleRoute"
+metadata:
+  name: "crds-first"
+  labels:
+    app: "hooks-crds"
+    chart: "prometheus-community-kube-prometheus-stack"
+    base: "default"
+    lifecyclePhase: "pre-apply"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  routeName: "crds-first"
+  quirkClass: "crd-install"
+  lifecyclePhase: "pre-apply"
+  actionKind: "install-crds-and-wait"
+  executionMode: "target-owned"
+  automatic: false
+  whoRuns: "Your delivery system applies the CRDs and waits for them before applying custom resources."
+  command: "kubectl apply -f crds.yaml && kubectl wait --for=condition=Established crd --all"
+  disposition: "observed"
+  alternatives:
+    - "Use the no-crds preset when compatible CRDs are already managed by the platform."
+    - "Keep the default preset when this package owns the CRDs."
+  evidence:
+    - "runs/crd-ordering-gap/receipt.yaml"
+    - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+    - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+  evidenceRequired: "Repeat the ordering and compatibility checks when the chart or target Kubernetes version changes."
+  gitOps:
+    emitsControllerStep: true
+    argoCd: "Put CRDs in an earlier sync wave and wait before dependent custom resources."
+    flux: "Use an earlier CRD Kustomization and dependsOn before the workload Kustomization."
+    argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/sync-wave: \"-2\""
+  origin:
+    type: "chart-specific-addition"
+    record: "runs/crd-ordering-gap/receipt.yaml"
+    routeSourceVersion: "85.3.3"

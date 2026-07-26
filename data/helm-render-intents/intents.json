@@ -19670,14 +19670,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -19697,14 +19697,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -19724,14 +19724,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -19751,14 +19751,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -19778,14 +19778,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -19805,14 +19805,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -19832,14 +19832,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "observe webhook and workload health after sync",
@@ -19979,14 +19979,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -20006,14 +20006,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -20033,14 +20033,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -20060,14 +20060,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -20087,14 +20087,14 @@
               "disposition": "observed",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -20114,14 +20114,14 @@
               "disposition": "observed",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -20141,14 +20141,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "observe webhook and workload health after sync",
@@ -20400,14 +20400,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -20427,14 +20427,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -20454,14 +20454,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -20481,14 +20481,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -20508,14 +20508,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -20535,14 +20535,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -20562,14 +20562,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "observe webhook and workload health after sync",
@@ -20709,14 +20709,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -20736,14 +20736,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -20763,14 +20763,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -20790,14 +20790,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -20817,14 +20817,14 @@
               "disposition": "observed",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -20844,14 +20844,14 @@
               "disposition": "observed",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -20871,14 +20871,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.0",
+              "routeSourceVersion": "85.3.3",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
+              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "observe webhook and workload health after sync",

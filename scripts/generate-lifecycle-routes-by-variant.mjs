@@ -180,6 +180,9 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
         reason = `this base needs ${crdCount} CRDs supplied before deploy (the default base installs them for you)`;
       }
     }
+    const sourceDrift = variant.version && route.version !== variant.version
+      ? `route source version ${route.version}; recipe version ${variant.version}`
+      : route.source_drift;
     return {
       route_name: route.route_name,
       quirk_class: route.quirk_class,
@@ -196,7 +199,7 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       evidence: evidencePaths(route.evidence_or_next_action).join(";"),
       nextAction: evidenceNotes(route.evidence_or_next_action).join("; "),
       evidenceRequired: route.evidence_required,
-      sourceDrift: route.source_drift,
+      sourceDrift,
     };
   });
 }

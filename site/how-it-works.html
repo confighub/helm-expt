@@ -688,11 +688,11 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Checks before apply</h3>
-  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
-  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 28 Spaces on the four common checks and four production Spaces on those checks plus approval. Read the <a href="d/data/apply-policy-profiles/summary.html">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. A lifecycle-route check blocks incomplete routes and unsupported automatic claims. Image digest and workload probe checks warn. Production keeps those five checks and adds one required approval.</p>
+  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 30 Spaces on the five common checks and four production Spaces on those checks plus approval. Read the <a href="d/data/apply-policy-profiles/summary.html">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
-  <p>The <a href="d/docs/user/config-catalog-demonstrations.html">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>
+  <p>The <a href="d/docs/user/config-catalog-demonstrations.html">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="d/docs/demo/hooks-crds/kube-prometheus-stack.html">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan. Partial and planned examples stay labeled as such.</p>
 
   <h2>6 · What's yours to decide</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>

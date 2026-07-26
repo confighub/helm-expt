@@ -1,0 +1,157 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HooksCrdsAppLiveReceipt"
+metadata:
+  name: "helm-catalog-hooks-crds-app"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-07-26T14:11:01.694Z"
+  policy:
+    profile: "catalog-standard"
+    filter:
+      ref: "platform/helm-catalog-checks"
+      id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      hash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    lifecycleRouteTrigger:
+      ref: "platform/lifecycle-route-evidence"
+      id: "04746183-327b-484e-b061-91d2c7753a76"
+      hash: "4eac4ad9bf606c664b9617d568e2dc3ffad7a4e6c9dec348ce7887ec7eeee085"
+      functionName: "vet-cel"
+      arguments:
+        -
+          name: "expression"
+          value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
+      description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+      effect: "block"
+      validating: true
+  spaces:
+    -
+      role: "kps"
+      slug: "route-sketch-kube-prometheus-stack"
+      id: "0af32dfe-b6cc-4e9e-9ec6-467ebc01508f"
+      triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      labels:
+        App: "hooks-crds"
+        ApplyPolicyProfile: "catalog-standard"
+        ChartVersion: "85.3.3"
+        RouteStatus: "live-partial"
+      routes:
+        -
+          slug: "route-crds-first"
+          id: "fee156d7-4d98-4acd-88b2-13d8436e847e"
+          dataHash: "4670c747ea969fc36116e051992fe00648c91a9b628e0026680e7241e76e6859"
+          headRevision: 4
+          source: "data/hooks-crds-app/routes/route-crds-first.yaml"
+          sourceSha256: "19a75e955850a63a529b84eb0a8abd9b051a7c5426f5713f40ec13b1d0ae37c0"
+        -
+          slug: "route-postsync-check-or-observation"
+          id: "8b623ccf-3391-4aec-bcbd-ae9e0c1ac8c4"
+          dataHash: "f483e28ed0d80df15cc64b8b75d110072645c8d70edd00d1e732de582d59b214"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-postsync-check-or-observation.yaml"
+          sourceSha256: "fc1480955394a8db49c46f29366ea76e61ec0aa8ab726d55537255367eef1c69"
+        -
+          slug: "route-preflight-or-presync"
+          id: "bbf4d9e0-63f9-4da3-840c-4822143086af"
+          dataHash: "8629dc668bfb37ae8232367e4c080dfc360921ee6a2871058dff75454b4123a5"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-preflight-or-presync.yaml"
+          sourceSha256: "a60cde912051fca5529328e9fa226e5189fbce18d8078fadb1ea7dd945c9d1cc"
+        -
+          slug: "route-preserve-cleanup-policy"
+          id: "7a6e02d2-58b7-402d-a607-9222e5273cb5"
+          dataHash: "bffb357684dfd377d7d7a338ce5511815baab67dd0b62b5ef03229195277d865"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-preserve-cleanup-policy.yaml"
+          sourceSha256: "4fe7c050d6a3ae6d83aa04dbbb91e1d4666a0432c91e9e8784908fa60972a861"
+        -
+          slug: "route-preserve-ordering"
+          id: "c1e5b3a7-fe19-47ad-838f-ff0f9ea074f4"
+          dataHash: "1ac7f915292c40da89e787f9fc0b766ec6d118024ff7ee887a460815de48a469"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-preserve-ordering.yaml"
+          sourceSha256: "a6f1f1695b8524629ee58475bace97070468c82a275e87046d0641f7c825a064"
+        -
+          slug: "route-target-facts-or-preflight"
+          id: "96ad3b46-6b7b-482e-8036-777f53063ff6"
+          dataHash: "69dc89e65ddfe471ce304cf97c37fd789d8fa9748dc9f3d3364828384ddb8f75"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-target-facts-or-preflight.yaml"
+          sourceSha256: "34a1361bf6a55adfa201cf18589f7130e1bdc025636d0d6bffcdfce5909a2509"
+        -
+          slug: "route-upgrade-action-with-receipt"
+          id: "8852b109-9f15-4a6f-9e30-e789d547c095"
+          dataHash: "77f93554ccf0aecd27c583e3b8c5aee18d950f797a84d68cdb91527d4a919a18"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-upgrade-action-with-receipt.yaml"
+          sourceSha256: "7f76c5e485d096c2ec65f3d34cb5cf87967dff97a3b751939a6542d20daedb9a"
+        -
+          slug: "route-webhook-readiness-observation"
+          id: "cb083942-caa3-450f-bf34-07d516f5e831"
+          dataHash: "925d788180a70b04532f2a6b1c16c24a6946b52856e221e7aabb8cbd5282644d"
+          headRevision: 6
+          source: "data/hooks-crds-app/routes/route-webhook-readiness-observation.yaml"
+          sourceSha256: "06e9dec02aa5d76911f37d80691c90e91cb8816d960936e76e84658ad2209556"
+      readme:
+        slug: "readme"
+        id: "931a6bb6-2d0f-4f53-893d-8949fefa91fe"
+        dataHash: "b55112b326ca38234fb887e6dc707e8ed6006d9df4a437cae060676268c7b7b5"
+        headRevision: 8
+        source: "data/helm-catalog-readmes/units/route-sketch-kube-prometheus-stack/readme.yaml"
+        sourceSha256: "ab211085067b4c18939fc4f74b5e358b5d6255d267e90b84ec44f7c14a41930e"
+    -
+      role: "hook-probe"
+      slug: "hook-probe-base"
+      id: "d81bf281-d584-4268-acd7-fb097d7c75e6"
+      triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      labels:
+        App: "hooks-crds"
+        ApplyPolicyProfile: "catalog-standard"
+        RouteStatus: "proven-fixture"
+      routes:
+        -
+          slug: "route-explicit-managed-action"
+          id: "0d8155ba-360f-413b-a135-24fc8fc96591"
+          dataHash: "d9542f8dc235c62a72857a0a13bb0f06bf8ae29a8364e7add55c4f47ec1e57df"
+          headRevision: 4
+          source: "data/hooks-crds-app/hook-probe/route-explicit-managed-action.yaml"
+          sourceSha256: "12a446dee27ba41f379bb61c51d8a5131f6a40705821f1774ce11fb3bd3b31a9"
+      readme:
+        slug: "readme"
+        id: "3efaeb57-591b-4c6c-b685-7e12aa819270"
+        dataHash: "45ee8bb42c7797684006ca92e4bdced17e4fbf54badd29266da6666ac06535e9"
+        headRevision: 7
+        source: "data/helm-catalog-readmes/units/hook-probe-base/readme.yaml"
+        sourceSha256: "986fd12babe6c90c3bf264def3b5048e3f6c3578a99f6ce4bd20d7f030150578"
+  negativeGateTest:
+    testedAt: "2026-07-26T14:10:51.187Z"
+    space: "route-sketch-kube-prometheus-stack"
+    fixtureUnit: "route-policy-negative-test"
+    fixture: "automatic=true with an empty evidence list"
+    result: "blocked"
+    gate: "platform/lifecycle-route-evidence/vet-cel"
+    validation:
+      -
+        Details:
+          - "resource /crds-first failed validation"
+        FunctionName: "vet-cel"
+        Index: 3
+    target: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
+    applyExitCode: 1
+    applyMessage: "Failed: HTTP 400 for req hHwfTSZkzREhHZSqprXcAeRVaQESeUAp: outstanding ApplyGates; triggers re-queued for evaluation\nMetadata:\n  Apply Gates: platform/lifecycle-route-evidence/vet-cel"
+    fixtureDeleted: true
+    checkedUnit: "route-crds-first"
+    checkedUnitDataHashBefore: "4670c747ea969fc36116e051992fe00648c91a9b628e0026680e7241e76e6859"
+    checkedUnitDataHashAfter: "4670c747ea969fc36116e051992fe00648c91a9b628e0026680e7241e76e6859"
+  evidence:
+    - "runs/crd-ordering-gap/receipt.yaml"
+    - "runs/hook-execution-proof/receipt.yaml"
+    - "runs/oci-hook-delivery-proof/receipt.yaml"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+status:
+  result: "partial"
+  claim: "The live demo org stores the Kube Prometheus Stack route plan and the proven hook fixture under one policy. The policy blocked an unsupported automatic route from being applied."
+  limits:
+    - "The Kube Prometheus Stack route Units remain automatic: false."
+    - "The automatic hook claim applies only to the recorded fixture and its three delivery receipts."
+    - "The policy checks route records; it does not prove that every chart has a complete route plan."

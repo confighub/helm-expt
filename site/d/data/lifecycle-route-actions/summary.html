@@ -457,8 +457,7 @@
 <tr><td><code>run-check</code></td><td>1</td></tr>
 <tr><td><code>verify-render</code></td><td>1</td></tr></tbody></table>
 <h2 id="named-source-drift">Named source drift</h2>
-<p>7 packet(s) carry a source-version drift, named (not hidden):</p>
-<ul><li><code>prometheus-community/kube-prometheus-stack</code>: route source version 85.3.0; catalog has 85.3.3, 86.1.0</li></ul>
+<p>No source-version drift detected.</p>
 <h2 id="not-yet-projected">Not yet projected</h2>
 <p>These hook-like lifecycle behaviors are real but are not in the hook-disposition source, so they are not projected here yet. They are illustrated in the user doc (<a href="../../docs/user/chart-hooks-what-happens.html">../../docs/user/chart-hooks-what-happens.md</a>):</p>
 <ul><li><b>cert-manager / External Secrets</b> webhook + CRD lifecycle - observed in <code>data/lifecycle-observations/cert-manager-eso/</code> (CRD ownership per target, <code>startupapicheck</code> as a post-apply API dry-run), not a hook-disposition row.</li><li><b>Consul UI Ingress</b> - a per-target controller-health decision, not a hook-disposition row.</li></ul>
