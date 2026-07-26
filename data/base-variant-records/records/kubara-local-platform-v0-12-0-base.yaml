@@ -105,6 +105,8 @@ spec:
     profile: "catalog-standard"
     productionAdds:
       - "human-approval"
+    normalSet: "approvalRequired"
+    approvalReason: "system-configuration"
   evidence:
     generationReceipt: "examples/kubara/local-platform/generation-receipt.yaml"
     sourceLock: "examples/kubara/local-platform/source-lock.yaml"

@@ -92,8 +92,9 @@ real generation run. It contains the generated source, 77 rendered Argo CD boots
 objects, and a literal OCI layout. Its route record names three CRDs, four Helm-hook
 resources, two rendered Secrets, and the External Secrets prerequisite. ConfigHub
 pulled the local OCI and stored the 75 non-Secret objects under the catalog's
-baseline policy. Public publication, route execution, and live platform health
-remain separate checks.
+approval-required policy because this is cluster-wide system configuration.
+Public publication, route execution, and live platform health remain separate
+checks.
 
 Sveltos is one fleet placement and reconciliation path. ConfigHub stores the reviewed
 `ClusterProfile`, its history, and its policy results. Sveltos selects matching
@@ -126,12 +127,26 @@ minimum checks applied to the resulting Kubernetes data.
 - Schema and placeholder checks block apply everywhere.
 - Lifecycle route records must name their chart, version, preset, executor, disposition, and evidence. A route cannot claim automatic execution without an observed receipt.
 - Digest pinning and workload probes are warnings everywhere.
-- Production adds one required human approval.
+- Production releases add one required human approval.
+- System configuration also requires approval in development and staging because a
+  change to networking, GPU support, admission policy, or another cluster-wide
+  setting can affect every workload on that cluster.
 
 The baseline filter must select an explicit set of triggers and must exclude the
-approval trigger. The production filter must include the baseline checks as well as
-approval. A verifier checks both rules so a broad filter cannot quietly put approval
-on every Space or remove the baseline checks from production.
+approval trigger. The approval-required filter must include the baseline checks as
+well as approval. A verifier checks both rules so a broad filter cannot quietly put
+approval on every Space or remove the common checks when approval is needed.
+
+The policy uses three operational resource classes:
+
+| Resource class | Examples | Normal policy |
+| --- | --- | --- |
+| `user-workload` | An application owned and released by an application team | Common checks; add approval in production |
+| `system-service` | Shared DNS, monitoring, ingress, or another service used by many workloads | Common checks; add approval in production |
+| `system-configuration` | Cluster-wide networking, GPU, admission, or platform configuration | Common checks plus approval in every environment |
+
+The class describes what the configuration controls. It does not matter whether the
+source was Helm, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML.
 
 The lifecycle-route check applies only when a `LifecycleRoute` is stored. It checks
 whether that record is complete and honest. It does not infer that a chart needs no
@@ -143,8 +158,9 @@ The maintained profile is
 The live `helm-catalog` filters and Space assignments were checked on 26 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-31 Spaces use the five baseline checks and four production Spaces use those checks
-plus approval. Run `npm run helm-org:policy:verify` while logged into the org to
+28 Spaces use the five common checks and seven Spaces use those checks plus approval:
+four production Spaces and three system-configuration Spaces. Run
+`npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 
 ## ConfigHub Apps

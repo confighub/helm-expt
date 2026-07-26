@@ -226,6 +226,20 @@
               "items": {
                 "type": "string"
               }
+            },
+            "normalSet": {
+              "type": "string",
+              "enum": [
+                "baseline",
+                "approvalRequired"
+              ]
+            },
+            "approvalReason": {
+              "type": "string",
+              "enum": [
+                "production",
+                "system-configuration"
+              ]
             }
           }
         },

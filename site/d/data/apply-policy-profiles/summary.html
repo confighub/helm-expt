@@ -432,27 +432,32 @@
     <article class="doc-body">
 <p>Generated from <a href="../../../../config-catalog/policies/catalog-standard.yaml">config-catalog/policies/catalog-standard.yaml</a>.</p>
 <p>The <code>catalog-standard</code> profile applies to helm, aicr, cub-installer, kubara, sveltos, rendered-config after their configuration has become ConfigHub data.</p>
-<h2 id="every-matching-space">Every matching Space</h2>
+<h2 id="common-checks">Common checks</h2>
 <p>Filter: <code>platform/helm-catalog-checks</code></p>
-<p>This filter names the four allowed Triggers explicitly:</p>
+<p>This filter names the five common checks explicitly:</p>
 <p><code>Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'</code></p>
 <table><thead><tr><th>Check</th><th>Effect</th><th>Why</th></tr></thead><tbody><tr><td><code>platform/vet-schemas</code></td><td>block</td><td>Do not apply Kubernetes data that fails its declared schema.</td></tr>
 <tr><td><code>platform/vet-placeholders</code></td><td>block</td><td>Do not apply placeholder credentials or unfinished values.</td></tr>
 <tr><td><code>platform/lifecycle-route-evidence</code></td><td>block</td><td>Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt.</td></tr>
 <tr><td><code>platform/digest-pinned-images</code></td><td>warn</td><td>Report images that can change without a configuration revision.</td></tr>
 <tr><td><code>platform/probes-declared</code></td><td>warn</td><td>Report workload containers that have no readiness or liveness probe.</td></tr></tbody></table>
-<h2 id="production">Production</h2>
+<h2 id="approval-required">Approval required</h2>
 <p>Filter: <code>platform/helm-catalog-prod-gates</code></p>
-<p>Production keeps the four baseline checks and adds one blocking approval:</p>
+<p>Production releases and system configuration keep the five common checks and add one required approval:</p>
 <p><code>Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'</code></p>
 <table><thead><tr><th>Check</th><th>Effect</th><th>Why</th></tr></thead><tbody><tr><td><code>platform/vet-schemas</code></td><td>block</td><td>Do not apply Kubernetes data that fails its declared schema.</td></tr>
 <tr><td><code>platform/vet-placeholders</code></td><td>block</td><td>Do not apply placeholder credentials or unfinished values.</td></tr>
 <tr><td><code>platform/lifecycle-route-evidence</code></td><td>block</td><td>Do not apply a lifecycle route that omits its scope or evidence, or claims automatic execution without an observed receipt.</td></tr>
 <tr><td><code>platform/digest-pinned-images</code></td><td>warn</td><td>Report images that can change without a configuration revision.</td></tr>
 <tr><td><code>platform/probes-declared</code></td><td>warn</td><td>Report workload containers that have no readiness or liveness probe.</td></tr>
-<tr><td><code>platform/require-approval</code></td><td>block</td><td>Require one recorded approval before production apply.</td></tr></tbody></table>
+<tr><td><code>platform/require-approval</code></td><td>block</td><td>Require one recorded approval before production or system configuration is applied.</td></tr></tbody></table>
+<h2 id="operational-resource-classes">Operational resource classes</h2>
+<p>The source format does not decide the risk. A Helm chart, AICR package, or ordinary YAML file can describe any of these:</p>
+<table><thead><tr><th>Resource class</th><th>Normal policy</th><th>Production policy</th><th>Why</th></tr></thead><tbody><tr><td><code>user-workload</code></td><td>common checks</td><td>common checks plus approval</td><td>Application teams can revise workloads frequently; production still needs an explicit approval.</td></tr>
+<tr><td><code>system-service</code></td><td>common checks</td><td>common checks plus approval</td><td>Shared services such as DNS or monitoring use the common checks and add approval in production.</td></tr>
+<tr><td><code>system-configuration</code></td><td>common checks plus approval</td><td>common checks plus approval</td><td>Cluster-wide platform choices have broad impact, so approval is required in every environment.</td></tr></tbody></table>
 <h2 id="scope-rules">Scope rules</h2>
-<ul><li>Every supported configuration source type is named by this profile.</li><li>Every Trigger is defined here with its function, arguments, effect, and description.</li><li>The baseline filter selects exactly the five baseline triggers and never selects require-approval.</li><li>The production filter selects the same five baseline triggers plus require-approval.</li><li>A non-production Space must never receive require-approval from this profile.</li><li>A production Space must not lose the five baseline checks when approval is added.</li><li>The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.</li></ul>
+<ul><li>Every supported configuration source type is named by this profile.</li><li>Every Trigger is defined here with its function, arguments, effect, and description.</li><li>The baseline filter selects exactly the five baseline triggers and never selects require-approval.</li><li>The approval-required filter selects the same five baseline triggers plus require-approval.</li><li>Production and system-configuration Spaces receive the approval-required filter.</li><li>Other non-production Spaces remain on the baseline filter.</li><li>A Space must not lose the five baseline checks when approval is added.</li><li>The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.</li></ul>
 <p>The live <code>helm-catalog</code> filters and their assigned Spaces were checked on <b>2026-07-26</b>. Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>.</p>
 <p>Run:</p>
 <pre><code>npm run config-catalog:verify
@@ -460,7 +465,7 @@ npm run config-catalog:self-test
 npm run helm-org:policy:receipt:verify
 # With a valid helm-catalog login:
 npm run helm-org:policy:verify</code></pre>
-<p>The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, Triggers, or Space assignments have changed.</p>
+<p>The self-test inserts an approval into the common checks, removes a common check from the approval-required set, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, checks, or Space assignments have changed.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/apply-policy-profiles/summary.md</code>. The source file is the authoritative version.</p></footer>

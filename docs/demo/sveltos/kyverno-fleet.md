@@ -33,8 +33,9 @@ the `environment=staging` label.
 The `ClusterProfile` was uploaded to the live `helm-catalog` ConfigHub organization
 as the `clusterprofile` Unit in Space
 `sveltos-kyverno-fleet-3-8-1-staging`. The standard catalog policy was attached to
-that Space. A human README in the same Space explains the example before someone
-opens the YAML.
+that Space. It requires approval even in staging because the profile changes
+cluster-wide admission policy. A human README in the same Space explains the
+example before someone opens the YAML.
 
 The exact object read back from ConfigHub was applied to the management cluster.
 Sveltos then:

@@ -436,7 +436,7 @@
 <p>A catalog is not only rendered YAML. It also needs the rules that say when a change is safe to move.</p>
 <p>The platform Space shows those rules separately so chart examples do not hide policy decisions inside prose.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>Production Spaces carry approval gates. Non-production Spaces do not pretend to have a human approval workflow.</li><li>The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.</li></ul>
+<ul><li>Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.</li><li>The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.</li></ul>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The checks and filters used by the demo org.</li><li>Production Spaces such as <code>bitnami-redis-prod</code> and <code>hashicorp-vault-env-prod</code> to see where gates matter.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

@@ -11,6 +11,9 @@ together and generates their source configuration. ConfigHub can keep the exact
 rendered objects as a base variant, show changes between cluster classes, apply
 policy, and promote a reviewed platform change through a fleet.
 
+This Space requires approval before apply because it changes cluster-wide
+platform configuration, even when the target is not production.
+
 ## What is here
 
 - `source/config.yaml` is the Kubara platform description.
@@ -28,7 +31,7 @@ policy, and promote a reviewed platform change through a fleet.
 - `oci-layout/` contains the same literal render as a local OCI artifact.
 - `generation-receipt.yaml` states what ran and what has not run.
 - `confighub-upload-receipt.yaml` records the live Space, Unit, source digest,
-  omitted Secrets, and baseline policy assignment.
+  omitted Secrets, and approval required for cluster-wide system configuration.
 
 The temporary `.env` used by Kubara is not committed. It contained only local
 evaluation placeholders, but it is still treated as a credential file.

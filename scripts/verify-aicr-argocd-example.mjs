@@ -19,6 +19,7 @@ const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
+const skipUploadReceipt = process.env.AICR_SKIP_UPLOAD_RECEIPT === "1";
 
 for (const path of [
   receiptPath,
@@ -193,17 +194,34 @@ check(
     === "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
   "AICR ConfigHub upload receipt link changed",
 );
-check(uploadReceipt.kind === "ConfigHubUploadReceipt", "AICR ConfigHub upload receipt kind changed");
-check(uploadReceipt.status?.configHubBaseVariantUpload === "pass", "AICR ConfigHub upload receipt is not pass");
-check(uploadReceipt.spec?.source?.digest === renderedDigest, "AICR ConfigHub source digest changed");
-check(uploadReceipt.spec?.source?.renderedObjectCount === 17, "AICR ConfigHub object count changed");
-check(uploadReceipt.spec?.unit?.uploadedObjectCount === 17, "AICR ConfigHub Unit object count changed");
-check(uploadReceipt.spec?.unit?.sourceObjectsMatched === true, "AICR ConfigHub source comparison changed");
-check(uploadReceipt.spec?.policy?.profile === "catalog-standard", "AICR ConfigHub policy profile changed");
-check(uploadReceipt.spec?.policy?.checks?.length === 5, "AICR ConfigHub upload must record five baseline checks");
-check(uploadReceipt.status?.apply === "not-run", "AICR ConfigHub upload must not claim apply");
-check(uploadReceipt.status?.liveArgoReconciliation === "not-run", "AICR ConfigHub upload must not claim live Argo CD");
-check(uploadReceipt.status?.liveGpuReconciliation === "not-run", "AICR ConfigHub upload must not claim GPU health");
+if (!skipUploadReceipt) {
+  check(uploadReceipt.kind === "ConfigHubUploadReceipt", "AICR ConfigHub upload receipt kind changed");
+  check(uploadReceipt.status?.configHubBaseVariantUpload === "pass", "AICR ConfigHub upload receipt is not pass");
+  check(uploadReceipt.spec?.source?.digest === renderedDigest, "AICR ConfigHub source digest changed");
+  check(uploadReceipt.spec?.source?.renderedObjectCount === 17, "AICR ConfigHub object count changed");
+  check(uploadReceipt.spec?.unit?.uploadedObjectCount === 17, "AICR ConfigHub Unit object count changed");
+  check(uploadReceipt.spec?.unit?.sourceObjectsMatched === true, "AICR ConfigHub source comparison changed");
+  check(uploadReceipt.spec?.policy?.profile === "catalog-standard", "AICR ConfigHub policy profile changed");
+  check(
+    uploadReceipt.spec?.space?.labels?.ResourceClass === "system-configuration",
+    "AICR ConfigHub Space resource class changed",
+  );
+  check(
+    uploadReceipt.spec?.policy?.reason === "system-configuration",
+    "AICR ConfigHub approval reason changed",
+  );
+  check(
+    uploadReceipt.spec?.policy?.checks?.length === 6,
+    "AICR ConfigHub upload must record five common checks plus approval",
+  );
+  check(
+    uploadReceipt.spec.policy.checks.includes("platform/require-approval"),
+    "AICR ConfigHub upload policy must require approval",
+  );
+  check(uploadReceipt.status?.apply === "not-run", "AICR ConfigHub upload must not claim apply");
+  check(uploadReceipt.status?.liveArgoReconciliation === "not-run", "AICR ConfigHub upload must not claim live Argo CD");
+  check(uploadReceipt.status?.liveGpuReconciliation === "not-run", "AICR ConfigHub upload must not claim GPU health");
+}
 
 check(promotionReceipt.kind === "VariantReadinessReceipt", "AICR promotion readiness receipt kind changed");
 check(

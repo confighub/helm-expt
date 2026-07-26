@@ -188,6 +188,8 @@ The Google Artifact Registry pushes and anonymous pulls still need a fresh Googl
 login. Argo CD delivery and live GPU-cluster reconciliation have not run. The example
 therefore proves generation, OCI packaging, exact ConfigHub upload, and policy
 attachment, but remains partial for public distribution and live operation.
+The uploaded base requires approval because it changes cluster-wide GPU, monitoring,
+and training-platform configuration. That rule applies even before production.
 
 ## The first environment change
 

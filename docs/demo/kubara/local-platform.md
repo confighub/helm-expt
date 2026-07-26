@@ -69,6 +69,7 @@ record what happened.
 file, Helm dependency lock, all 77 rendered objects, the three CRDs, four hook
 resources, two Secrets, repository paths, route record, and literal OCI layout.
 
-The ConfigHub upload and baseline policy assignment passed. Public registry
-publication, route execution, Argo CD sync, and platform health remain separate
-checks. Until those receipts exist, this example remains partial.
+The ConfigHub upload passed. The Space requires approval because it contains
+cluster-wide system configuration. Public registry publication, route execution,
+Argo CD sync, and platform health remain separate checks. Until those receipts
+exist, this example remains partial.

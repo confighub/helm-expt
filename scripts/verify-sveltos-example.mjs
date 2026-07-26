@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
@@ -12,12 +12,13 @@ import {
   repoRoot,
   runCub,
   sha256File,
+  toYaml,
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const cubContext = process.env.CUB_CONTEXT ?? "";
-if (!["--verify", "--hub-verify"].includes(mode)) {
-  console.error("Usage: node scripts/verify-sveltos-example.mjs [--verify|--hub-verify]");
+if (!["--verify", "--hub-record", "--hub-verify"].includes(mode)) {
+  console.error("Usage: node scripts/verify-sveltos-example.mjs [--verify|--hub-record|--hub-verify]");
   process.exit(1);
 }
 
@@ -26,13 +27,23 @@ const profilePath = join(root, "clusterprofile.yaml");
 const sourceLockPath = join(root, "source-lock.yaml");
 const receiptPath = join(root, "live-receipt.yaml");
 const readmePath = join(root, "README.md");
-const readmeUnitPath = join(root, "readme.yaml");
+const readmeUnitPath = join(
+  repoRoot,
+  "data",
+  "helm-catalog-readmes",
+  "units",
+  "sveltos-kyverno-fleet-3-8-1-staging",
+  "readme.yaml",
+);
+const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 
 const profile = readYaml(profilePath);
 const sourceLock = readYaml(sourceLockPath);
-const receipt = readYaml(receiptPath);
+let receipt = readYaml(receiptPath);
+if (mode === "--hub-record") receipt = recordHubPolicy(receipt);
 const readmeUnit = readYaml(readmeUnitPath);
-const readmeText = readFileSync(readmePath, "utf8").trimEnd();
+const technicalReadmeText = readFileSync(readmePath, "utf8").trimEnd();
+const readmeText = readmeUnit.spec?.markdown?.trimEnd() ?? "";
 
 check(profile.apiVersion === "config.projectsveltos.io/v1beta1", "Sveltos apiVersion changed");
 check(profile.kind === "ClusterProfile", "Sveltos example must be a ClusterProfile");
@@ -83,6 +94,22 @@ check(
 check(receipt.spec?.source?.serverSideDryRun === "pass", "Sveltos API validation must stay recorded");
 check(receipt.spec?.configHub?.unit?.canonicalObjectMatchesSource === true, "ConfigHub source match changed");
 check(receipt.spec?.configHub?.policy?.profile === "catalog-standard", "Sveltos policy profile changed");
+check(
+  receipt.spec?.configHub?.space?.labels?.ResourceClass === "system-configuration",
+  "Sveltos Space resource class changed",
+);
+check(
+  receipt.spec?.configHub?.policy?.reason === "system-configuration",
+  "Sveltos approval reason changed",
+);
+check(
+  receipt.spec?.configHub?.policy?.checks?.length === 6,
+  "Sveltos policy must record five common checks plus approval",
+);
+check(
+  receipt.spec.configHub.policy.checks.includes("platform/require-approval"),
+  "Sveltos policy must require approval",
+);
 check(receipt.spec?.management?.helmFeatureStatus === "Provisioned", "Sveltos Helm result changed");
 check(receipt.spec?.workload?.helmRelease?.chart === "kyverno-3.8.1", "live Kyverno chart changed");
 check(receipt.spec?.workload?.deployments?.length === 4, "live Kyverno deployment count changed");
@@ -97,7 +124,7 @@ check(receipt.status?.result === "partial", "Sveltos overall result must remain 
 check(receipt.status?.automatedConfigHubDelivery === "not-run", "automated delivery is overclaimed");
 check(receipt.status?.multiClusterPromotionWave === "not-run", "fleet promotion is overclaimed");
 check(
-  readmeText.includes("What remains manual"),
+  technicalReadmeText.includes("What remains manual"),
   "Sveltos README must explain the manual handoff",
 );
 check(readmeUnit.kind === "HelmCatalogDemoReadme", "Sveltos README Unit kind changed");
@@ -106,15 +133,20 @@ check(
   "Sveltos README Unit points at the wrong Space",
 );
 check(
-  readmeUnit.spec?.markdown === readmeText,
-  "Sveltos README Unit markdown differs from README.md",
+  receipt.spec?.configHub?.readme?.source
+    === "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
+  "Sveltos README receipt source changed",
+);
+check(
+  readmeText.includes("requires approval before apply"),
+  "Sveltos Hub README must explain why approval is required",
 );
 
-if (mode === "--hub-verify") verifyHub();
+if (["--hub-record", "--hub-verify"].includes(mode)) verifyHub();
 
 console.log(
-  mode === "--hub-verify"
-    ? "verified live ConfigHub Sveltos Space, source object, README, and baseline policy"
+  ["--hub-record", "--hub-verify"].includes(mode)
+    ? "verified live ConfigHub Sveltos Space, source object, README, and system-configuration approval policy"
     : "verified Sveltos v1.12.0 Kyverno fleet receipt and source lock",
 );
 
@@ -127,6 +159,10 @@ function verifyHub() {
     "live Sveltos policy filter changed",
   );
   check(space.Labels?.ApplyPolicyProfile === "catalog-standard", "live Sveltos policy label changed");
+  check(
+    space.Labels?.ResourceClass === "system-configuration",
+    "live Sveltos Space resource class changed",
+  );
 
   const unit = JSON.parse(
     runHub(["unit", "get", receipt.spec.configHub.unit.slug, "--space", spaceSlug, "-o", "json"]),
@@ -156,6 +192,41 @@ function verifyHub() {
     readmeSlugs.length === 1 && readmeSlugs[0] === "readme",
     `live Sveltos Space has README Units: ${readmeSlugs.join(", ") || "(none)"}`,
   );
+}
+
+function recordHubPolicy(currentReceipt) {
+  const spaceSlug = currentReceipt.spec.configHub.space.slug;
+  const space = JSON.parse(runHub(["space", "get", spaceSlug, "-o", "json"])).Space;
+  check(space.SpaceID === currentReceipt.spec.configHub.space.id, "live Sveltos Space ID changed");
+  check(
+    space.Labels?.ResourceClass === "system-configuration",
+    "refusing to record Sveltos without ResourceClass=system-configuration",
+  );
+  const policy = readYaml(policyPath);
+  const readme = JSON.parse(
+    runHub(["unit", "get", "readme", "--space", spaceSlug, "-o", "json"]),
+  ).Unit;
+  const next = structuredClone(currentReceipt);
+  next.spec.verifiedAt = new Date().toISOString();
+  next.spec.configHub.space.labels = space.Labels;
+  next.spec.configHub.readme = {
+    slug: "readme",
+    id: readme.UnitID,
+    dataHash: readme.DataHash,
+    headRevision: readme.HeadRevisionNum,
+    source: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
+  };
+  next.spec.configHub.policy = {
+    profile: policy.metadata.name,
+    filter: policy.spec.approvalRequired.filter,
+    filterId: space.TriggerFilterID,
+    reason: "system-configuration",
+    checks: policy.spec.approvalRequired.checks.map((item) => item.trigger),
+  };
+  delete next.status.baselinePolicyAssigned;
+  next.status.approvalRequiredPolicyAssigned = "pass";
+  writeFileSync(receiptPath, `${toYaml(next)}\n`);
+  return next;
 }
 
 function runHub(args) {

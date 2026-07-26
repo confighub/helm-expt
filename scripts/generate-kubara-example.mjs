@@ -23,11 +23,12 @@ import {
   parseObjects,
   readYaml,
   repoRoot,
+  toYaml,
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-if (!["--generate", "--verify", "--live-verify"].includes(mode)) {
-  console.error("Usage: node scripts/generate-kubara-example.mjs [--generate|--verify|--live-verify]");
+if (!["--generate", "--verify", "--live-record", "--live-verify"].includes(mode)) {
+  console.error("Usage: node scripts/generate-kubara-example.mjs [--generate|--verify|--live-record|--live-verify]");
   process.exit(1);
 }
 
@@ -46,6 +47,15 @@ const sourceLockPath = join(root, "source-lock.yaml");
 const routePath = join(root, "route-intent.yaml");
 const receiptPath = join(root, "generation-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const readmeUnitPath = join(
+  repoRoot,
+  "data",
+  "helm-catalog-readmes",
+  "units",
+  "kubara-local-platform-v0-12-0",
+  "readme.yaml",
+);
 const configPath = join(sourceRoot, "config.yaml");
 const valuesOverridePath = join(sourceRoot, "values-helm-expt-paths.yaml");
 const homerValuesOverridePath = join(sourceRoot, "values-homer-links.yaml");
@@ -77,8 +87,9 @@ const expected = {
 };
 
 if (mode === "--generate") generate();
+if (mode === "--live-record") recordLive();
 verify();
-if (mode === "--live-verify") verifyLive();
+if (["--live-record", "--live-verify"].includes(mode)) verifyLive();
 
 function generate() {
   const kubaraBin = process.env.KUBARA_BIN;
@@ -201,6 +212,7 @@ function verify() {
     routePath,
     receiptPath,
     uploadReceiptPath,
+    readmeUnitPath,
     generatedChecksumsPath,
     renderedChecksumsPath,
     renderedPath,
@@ -334,7 +346,38 @@ function verify() {
   check(uploadReceipt.spec?.unit?.sourceIdentitiesMatched === true, "Kubara upload identity comparison must pass");
   check(uploadReceipt.spec?.secretsNotUploaded?.length === secrets.length, "Kubara omitted Secret count changed");
   check(uploadReceipt.spec?.policy?.profile === "catalog-standard", "Kubara upload policy profile changed");
-  check(uploadReceipt.spec?.policy?.checks?.length === 4, "Kubara upload must record four baseline checks");
+  const readmeUnit = readYaml(readmeUnitPath);
+  check(readmeUnit.kind === "HelmCatalogDemoReadme", "Kubara README Unit kind changed");
+  check(
+    readmeUnit.spec?.space === uploadReceipt.spec?.space?.slug,
+    "Kubara README Unit points at the wrong Space",
+  );
+  check(
+    readmeUnit.spec?.markdown?.includes("requires approval before apply"),
+    "Kubara Hub README must explain why approval is required",
+  );
+  check(uploadReceipt.spec?.readme?.slug === "readme", "Kubara README receipt changed");
+  check(
+    uploadReceipt.spec?.readme?.source
+      === relative(repoRoot, readmeUnitPath).replaceAll("\\", "/"),
+    "Kubara README source path changed",
+  );
+  check(
+    uploadReceipt.spec?.space?.labels?.ResourceClass === "system-configuration",
+    "Kubara Space resource class changed",
+  );
+  check(
+    uploadReceipt.spec?.policy?.reason === "system-configuration",
+    "Kubara approval reason changed",
+  );
+  check(
+    uploadReceipt.spec?.policy?.checks?.length === 6,
+    "Kubara upload must record five common checks plus approval",
+  );
+  check(
+    uploadReceipt.spec.policy.checks.includes("platform/require-approval"),
+    "Kubara upload policy must require approval",
+  );
   for (const field of [
     "publicOciPush",
     "publicOciPull",
@@ -353,6 +396,52 @@ function verify() {
 
 function verifyLive() {
   const receipt = readYaml(uploadReceiptPath);
+  const { space, unit, liveObjects } = inspectLive(receipt);
+  check(space.TriggerFilterID === receipt.spec.policy.filterId, "live Kubara apply-policy filter changed");
+  for (const [key, value] of Object.entries(receipt.spec.space.labels)) {
+    check(space.Labels?.[key] === value, `live Kubara Space label changed: ${key}`);
+  }
+  check(unit.Labels?.SourceType === "kubara", "live Kubara Unit source label changed");
+  console.log(
+    `verified live ConfigHub Kubara upload (${receipt.spec.space.slug}/${receipt.spec.unit.slug}, ${liveObjects.length} non-Secret objects, approval required for system configuration)`,
+  );
+}
+
+function recordLive() {
+  const receipt = readYaml(uploadReceiptPath);
+  const policy = readYaml(policyPath);
+  const { space, unit, readme } = inspectLive(receipt, { allowReceiptRefresh: true });
+  check(
+    space.Labels?.ResourceClass === "system-configuration",
+    "refusing to record Kubara without ResourceClass=system-configuration",
+  );
+  receipt.spec.verifiedAt = new Date().toISOString();
+  receipt.spec.space.labels = space.Labels;
+  receipt.spec.space.externalSource = space.Annotations?.ExternalSource;
+  receipt.spec.space.externalSourceDigest = space.Annotations?.ExternalSourceDigest;
+  receipt.spec.unit.dataHash = unit.DataHash;
+  receipt.spec.unit.headRevision = unit.HeadRevisionNum;
+  receipt.spec.readme = {
+    slug: "readme",
+    id: readme.UnitID,
+    dataHash: readme.DataHash,
+    headRevision: readme.HeadRevisionNum,
+    source: relative(repoRoot, readmeUnitPath).replaceAll("\\", "/"),
+  };
+  receipt.spec.policy = {
+    profile: policy.metadata.name,
+    filter: policy.spec.approvalRequired.filter,
+    filterId: space.TriggerFilterID,
+    reason: "system-configuration",
+    checks: policy.spec.approvalRequired.checks.map((item) => item.trigger),
+    liveReceipt: "data/apply-policy-profiles/live-helm-catalog.yaml",
+  };
+  delete receipt.status.baselinePolicyAssigned;
+  receipt.status.approvalRequiredPolicyAssigned = "pass";
+  writeFileSync(uploadReceiptPath, `${toYaml(receipt)}\n`);
+}
+
+function inspectLive(receipt, { allowReceiptRefresh = false } = {}) {
   const spaceSlug = receipt.spec.space.slug;
   const unitSlug = receipt.spec.unit.slug;
   const spaceResult = JSON.parse(run("cub", ["space", "get", spaceSlug, "-o", "json"]));
@@ -363,15 +452,10 @@ function verifyLive() {
     space.Annotations?.ExternalSourceDigest === receipt.spec.space.externalSourceDigest,
     "live Kubara external source digest changed",
   );
-  check(space.TriggerFilterID === receipt.spec.policy.filterId, "live Kubara apply-policy filter changed");
-  for (const [key, value] of Object.entries(receipt.spec.space.labels)) {
-    check(space.Labels?.[key] === value, `live Kubara Space label changed: ${key}`);
-  }
 
   const unitResult = JSON.parse(run("cub", ["unit", "get", unitSlug, "--space", spaceSlug, "-o", "json"]));
   const unit = unitResult.Unit;
   check(unit.UnitID === receipt.spec.unit.id, "live Kubara Unit ID changed");
-  check(unit.Labels?.SourceType === "kubara", "live Kubara Unit source label changed");
   const liveYaml = Buffer.from(unit.Data, "base64").toString("utf8");
   const sourceYaml = readFileSync(renderedPath, "utf8");
   const liveObjects = parseObjects(liveYaml);
@@ -388,9 +472,30 @@ function verifyLive() {
     JSON.stringify([...liveDocs]) === JSON.stringify([...sourceDocs]),
     "live Kubara Unit objects differ from the non-Secret render",
   );
-  console.log(
-    `verified live ConfigHub Kubara upload (${spaceSlug}/${unitSlug}, ${liveObjects.length} non-Secret objects, catalog-standard baseline policy)`,
+  const readme = JSON.parse(
+    run("cub", ["unit", "get", "readme", "--space", spaceSlug, "-o", "json"]),
+  ).Unit;
+  if (receipt.spec?.readme?.id) {
+    check(readme.UnitID === receipt.spec.readme.id, "live Kubara README Unit ID changed");
+    if (!allowReceiptRefresh) {
+      check(readme.DataHash === receipt.spec.readme.dataHash, "live Kubara README data hash changed");
+    }
+  }
+  const liveReadme = Buffer.from(readme.Data, "base64").toString("utf8");
+  check(
+    JSON.stringify(parseDocs(liveReadme))
+      === JSON.stringify(parseDocs(readFileSync(readmeUnitPath, "utf8"))),
+    "live Kubara README differs from its generated source",
   );
+  const units = JSON.parse(run("cub", ["unit", "list", "--space", spaceSlug, "--quiet", "-o", "json"]));
+  const readmeSlugs = units
+    .map((item) => item.Unit?.Slug)
+    .filter((slug) => slug?.toLowerCase().includes("readme"));
+  check(
+    readmeSlugs.length === 1 && readmeSlugs[0] === "readme",
+    `live Kubara Space has README Units: ${readmeSlugs.join(", ") || "(none)"}`,
+  );
+  return { space, unit, readme, liveObjects };
 }
 
 function canonicalDocMap(text, { excludeSecrets = false } = {}) {

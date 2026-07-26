@@ -4,7 +4,7 @@ metadata:
   name: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-26T15:18:38.395Z"
+  verifiedAt: "2026-07-26T15:56:49.743Z"
   command:
     - "cub"
     - "variant"
@@ -38,6 +38,7 @@ spec:
       Component: "aicr-eks-h100-training-kubeflow"
       Layer: "Platform"
       Owner: "Platform"
+      ResourceClass: "system-configuration"
       SourceType: "aicr"
       Variant: "v0-14-0-argocd"
     externalSource: "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
@@ -71,8 +72,8 @@ spec:
   readme:
     slug: "readme"
     id: "69771766-00db-4544-b510-ab4fa0e14c09"
-    dataHash: "0004dfc852e3fd0a3409fe291f5ff65966a39c594f403241cf5af284da96d931"
-    headRevision: 6
+    dataHash: "c061b4ecc7c578f34fce1b0aa0f33619fec6a3570d971c195136853965c1ab88"
+    headRevision: 8
     source: "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml"
   targetRequirements:
     - "Argo CD installed"
@@ -82,20 +83,22 @@ spec:
     - "H100-capable nodes for the recorded training platform"
   policy:
     profile: "catalog-standard"
-    filter: "platform/helm-catalog-checks"
-    filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+    filter: "platform/helm-catalog-prod-gates"
+    filterId: "8784a447-0e4d-4471-b924-eae5377778a2"
+    reason: "system-configuration"
     checks:
       - "platform/vet-schemas"
       - "platform/vet-placeholders"
       - "platform/lifecycle-route-evidence"
       - "platform/digest-pinned-images"
       - "platform/probes-declared"
+      - "platform/require-approval"
 status:
   result: "partial"
   ociPull: "pass"
   configHubBaseVariantUpload: "pass"
   objectIdentitiesMatched: "pass"
-  baselinePolicyAssigned: "pass"
+  approvalRequiredPolicyAssigned: "pass"
   publicSourcePushAndAnonymousPull: "not-run"
   publicConfigurationPushAndAnonymousPull: "not-run"
   apply: "not-run"

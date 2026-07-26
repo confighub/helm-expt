@@ -428,6 +428,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/config-catalog-demonstrations.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Generated from <a href="../../../../config-catalog/program.yaml">config-catalog/program.yaml</a>. Edit the programme file, then run <code>npm run config-catalog</code>.</p>
@@ -523,8 +524,8 @@
 <p>Evidence: <a href="../../../../data/ai-change-review/receipt.yaml">data/ai-change-review/receipt.yaml</a>, <a href="../../data/ai-change-review/summary.html">data/ai-change-review/summary.md</a>, <a href="../../data/app-readiness/summary.html">data/app-readiness/summary.md</a>, <a href="../../data/claims-register/summary.html">data/claims-register/summary.md</a>.</p>
 <p>Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. ConfigHub Functions, approval, apply, and live observation have not run for that candidate.</p>
 <h2 id="the-common-policy">The common policy</h2>
-<p>Every pathway uses <a href="../../../../config-catalog/policies/catalog-standard.yaml">the catalog-standard apply policy</a> after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.</p>
-<p>The two filters name their allowed Triggers explicitly. On 26 July 2026 the live <code>helm-catalog</code> org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>, or rerun <code>npm run helm-org:policy:verify</code> while logged into that org.</p>
+<p>Every pathway uses <a href="../../../../config-catalog/policies/catalog-standard.yaml">the catalog-standard apply policy</a> after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Digest pinning and workload probes produce warnings. Production releases and system configuration keep those five checks and add one required approval.</p>
+<p>This choice is based on what the configuration controls, not whether it started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or YAML. On 2026-07-26, the live <code>helm-catalog</code> org had 28 Spaces on the five common checks and 7 Spaces on those checks plus approval (4 production and 3 system configuration). Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>, or rerun <code>npm run helm-org:policy:verify</code> while logged into that org.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/config-catalog-demonstrations.md</code>. The source file is the authoritative version.</p></footer>

@@ -9,6 +9,9 @@ clusters by label, and installs the declared add-on. Teams can change the
 configuration once in ConfigHub instead of running an upgrade command against
 each cluster.
 
+This Space requires approval before apply because it changes cluster-wide
+admission policy, even though this example targets staging.
+
 ## What to inspect
 
 Open the `clusterprofile` Unit first. It contains one Sveltos

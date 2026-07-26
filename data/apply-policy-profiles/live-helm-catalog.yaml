@@ -5,7 +5,7 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-26T14:54:15.911Z"
+  verifiedAt: "2026-07-26T15:40:07.828Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
@@ -58,7 +58,7 @@ spec:
           description: "Block Kubernetes data that fails its declared schema."
           effect: "block"
           validating: true
-    production:
+    approvalRequired:
       ref: "platform/helm-catalog-prod-gates"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
       where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
@@ -100,7 +100,7 @@ spec:
             -
               name: "num-approvers"
               value: "1"
-          description: "Require one recorded approval before production apply."
+          description: "Require one recorded approval before a controlled apply."
           effect: "block"
           validating: true
         -
@@ -121,7 +121,6 @@ spec:
           validating: true
   spaces:
     baseline:
-      - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
       - "argo-cd-argo-cd-9-5-15-default"
       - "argo-cd-argo-cd-9-5-15-no-crds"
       - "bitnami-mysql-14-0-3-existing-secret"
@@ -146,17 +145,28 @@ spec:
       - "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
       - "ingress-nginx-ingress-nginx-4-15-1-default"
       - "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
-      - "kubara-local-platform-v0-12-0"
       - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
       - "prometheus-community-prometheus-29-8-0-default"
       - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
       - "route-sketch-kube-prometheus-stack"
-      - "sveltos-kyverno-fleet-3-8-1-staging"
-    production:
+    approvalRequired:
+      - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
       - "bitnami-nginx-fleet-prod-eu"
       - "bitnami-nginx-fleet-prod-us"
       - "bitnami-redis-prod"
       - "hashicorp-vault-env-prod"
+      - "kubara-local-platform-v0-12-0"
+      - "sveltos-kyverno-fleet-3-8-1-staging"
+    approvalReasons:
+      production:
+        - "bitnami-nginx-fleet-prod-eu"
+        - "bitnami-nginx-fleet-prod-us"
+        - "bitnami-redis-prod"
+        - "hashicorp-vault-env-prod"
+      systemConfiguration:
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+        - "kubara-local-platform-v0-12-0"
+        - "sveltos-kyverno-fleet-3-8-1-staging"
     excluded:
       - "bitnami-redis-27-0-0-default-pilot-live-20260705"
       - "bitnami-redis-27-0-0-prod-pilot-live-20260705"
