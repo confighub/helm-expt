@@ -26030,6 +26030,7 @@
             "examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json",
             "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
             "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+            "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
             "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
           ],
           "id": "aicr",
@@ -26038,6 +26039,7 @@
             "The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry.",
             "The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks.",
             "ConfigHub imported the 17 exact Application objects from the local OCI artifact as one policy-covered base variant.",
+            "The first staging clone is blocked by the live demo organization's 1,000-Link quota; the empty partial Space was removed and no existing catalog links were deleted.",
             "Public registry publication, controller delivery, and live GPU-cluster reconciliation have not run."
           ],
           "name": "AICR bundle to managed configuration",

@@ -4,7 +4,7 @@ metadata:
   name: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-26T14:57:22.938Z"
+  verifiedAt: "2026-07-26T15:18:38.395Z"
   command:
     - "cub"
     - "variant"
@@ -71,8 +71,8 @@ spec:
   readme:
     slug: "readme"
     id: "69771766-00db-4544-b510-ab4fa0e14c09"
-    dataHash: "67f250f9f481884c7a90cf5dd2cb2d11651c2e401474187c218c8ffcb9f4d00f"
-    headRevision: 4
+    dataHash: "0004dfc852e3fd0a3409fe291f5ff65966a39c594f403241cf5af284da96d931"
+    headRevision: 6
     source: "data/helm-catalog-readmes/units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml"
   targetRequirements:
     - "Argo CD installed"
