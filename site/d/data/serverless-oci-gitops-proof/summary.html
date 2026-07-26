@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless render → OCI → existing Flux (no ConfigHub login) · ConfigHub Helm Ops</title>
-  <meta name="description" content="Serverless render → OCI → existing Flux (no ConfigHub login): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Public OCI in, reviewed files, OCI out · ConfigHub Helm Ops</title>
+  <meta name="description" content="Public OCI in, reviewed files, OCI out: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html">
-  <meta property="og:title" content="Serverless render → OCI → existing Flux (no ConfigHub login) · ConfigHub Helm Ops">
-  <meta property="og:description" content="Serverless render → OCI → existing Flux (no ConfigHub login): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Public OCI in, reviewed files, OCI out · ConfigHub Helm Ops">
+  <meta property="og:description" content="Public OCI in, reviewed files, OCI out: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html">
   <style>
@@ -424,24 +424,28 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Serverless render → OCI → existing Flux (no ConfigHub login)</h1>
+    <h1>Public OCI in, reviewed files, OCI out</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/serverless-oci-gitops-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> The public cub CLI includes cub installer. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when they detect an older CLI without the command.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Live receipt by <code>scripts/run-serverless-oci-gitops-proof.mjs</code>; do not hand-edit. Regenerate with <code>npm run serverless-oci-gitops:proof</code>.</p>
-<p><b>Claim.</b> A SERVERLESS cub flow can publish to OCI for an existing GitOps controller instead of kubectl-applying. With no ConfigHub login: cub installer setup renders the catalog Redis base locally; <code>flux push artifact</code> pushes the RENDERED bundle (manifests + the Secret) to an OCI registry; an existing Flux (OCIRepository + Kustomization) pulls it FROM OCI and applies it. The Secret is delivered because it is in the bundle - the tradeoff being it then lives in the registry, unlike the ConfigHub path which separates secret material. <code>cub installer push</code> is NOT this path (it pushes the un-rendered installer package); the rendered-bundle push is the GitOps-consumable one.</p>
-<table><thead><tr><th>Step</th><th>OK</th><th>Detail</th></tr></thead><tbody><tr><td>1. Render (serverless, no account)</td><td>yes</td><td>cub installer setup --base default -&gt; 14 manifest file(s) + 1 secret file(s), no account</td></tr>
-<tr><td>2. Push rendered bundle to OCI</td><td>yes</td><td>flux push artifact -&gt; oci://localhost:5000/redis-serverless:v1 (rendered bundle incl. Secret)</td></tr>
-<tr><td>3. Existing Flux installed</td><td>yes</td><td>flux source + kustomize controllers installed (an existing controller)</td></tr>
-<tr><td>4. Flux pulls from OCI + applies</td><td>yes</td><td>OCIRepository Ready=True + Flux applied the serverless-pushed bundle: redis StatefulSet/Service present in ns redis</td></tr>
-<tr><td>5. Secret delivered via bundle</td><td>yes</td><td>Secret delivered through the OCI bundle (secret/redis) - serverless push ships it; tradeoff: it lives in the registry</td></tr>
-<tr><td>6. Redis workload Ready (best-effort)</td><td>pass</td><td>a redis pod reached Ready</td></tr></tbody></table>
-<p>Overall: <b>pass</b>. Proven: a no-login serverless render pushed to an OCI registry was pulled and applied by an existing Flux controller - no kubectl apply of the workload from us. The Secret rode along in the bundle (delivered, but now in the registry). So the 'push to OCI for existing Argo/Flux' mode works serverlessly for a vanilla chart; the honest caveats are secret-in-registry and that hook/CRD charts still need the lifecycle routes.</p>
-<ul><li><b>What this means for the page:</b> the &quot;serverless mode that pushes to OCI for your existing Argo/Flux&quot; is real for a vanilla chart - render locally with no login, <code>flux push artifact</code> the rendered bundle, your controller reconciles it.</li><li><b>Honest caveats (do not drop these on the page):</b> (a) <b>secrets</b> - the serverless push delivers the Secret by including it in the bundle, so it lives in the OCI registry (the ConfigHub path separates secret material instead); (b) <b><code>cub installer push</code> is the wrong tool</b> - it pushes the un-rendered installer package, not GitOps-consumable manifests; (c) hook/CRD charts still need their lifecycle routes (this proof is a vanilla chart).</li><li>Receipt: <code>runs/serverless-oci-gitops-proof/receipt.yaml</code>.</li></ul>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from a live receipt. Run <code>npm run serverless-oci-gitops:proof</code> to repeat it, or <code>npm run serverless-oci-gitops:proof:verify</code> to check the committed result.</p>
+<p>This run started with the public bitnami/nginx@24.0.2 installer package. <code>cub installer</code> pulled it using an empty registry credential file and an isolated cub home with no ConfigHub token. It rendered the <code>http-clusterip</code> configuration as 6 Kubernetes objects.</p>
+<p>The rendered files were then packaged as a second OCI artifact. Flux pulled the exact digest from that artifact and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.</p>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Public installer OCI pulled without registry credentials</td><td>pass</td></tr>
+<tr><td>ConfigHub token present</td><td>no</td></tr>
+<tr><td>Rendered objects</td><td>6: Deployment, Namespace, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount</td></tr>
+<tr><td>Output OCI pulled back and compared with the reviewed files</td><td>pass</td></tr>
+<tr><td>Output digest</td><td><code>sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9</code></td></tr>
+<tr><td>Flux OCI source</td><td>ready</td></tr>
+<tr><td>Flux Kustomization</td><td>ready</td></tr>
+<tr><td>Flux-observed digest matches output</td><td>pass</td></tr>
+<tr><td>NGINX</td><td>1/1 ready</td></tr>
+<tr><td>Cleanup</td><td>pass</td></tr></tbody></table>
+<p>This proves the temporary, no-account <code>OCI -&gt; work -&gt; OCI -&gt; Flux</code> path for this NGINX configuration. It does not prove a permanently hosted output service, and it does not cover charts whose hooks or CRDs need lifecycle routes.</p>
+<ul><li>Input publication receipt: <code>runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml</code></li><li>Live receipt: <code>runs/serverless-oci-gitops-proof/receipt.yaml</code></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/serverless-oci-gitops-proof/summary.md</code>. The source file is the authoritative version.</p></footer>

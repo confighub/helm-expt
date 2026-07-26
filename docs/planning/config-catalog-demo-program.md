@@ -24,6 +24,12 @@ These paths remain useful without ConfigHub. The handoff is **Claim this
 configuration in ConfigHub**. Claiming saves the objects and their history so a
 team can make variants, require approvals, promote changes, and roll them out.
 
+The live [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
+demonstrates the third path with `bitnami/nginx@24.0.2`. It anonymously pulls the
+public installer OCI, renders six objects in an isolated cub home with no ConfigHub
+token, packages the reviewed files as a second OCI, and pins that output digest in
+Flux. The output registry is temporary, so hosted public output remains open work.
+
 ConfigHub owns the middle. It stores the exact objects, lets teams make variants and
 review diffs, runs checks and approvals, promotes changes, and records releases and
 observations.

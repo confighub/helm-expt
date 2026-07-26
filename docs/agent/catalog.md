@@ -21,6 +21,11 @@ For source-neutral examples, start with `config-catalog/program.yaml` and
 for generation, OCI packaging, ConfigHub upload, required-approval behavior, and
 promotion. Do not use one of those receipts to claim a later stage.
 
+For the no-account boundary, use
+`runs/serverless-oci-gitops-proof/receipt.yaml`. It proves one public installer OCI
+input, isolated local rendering, one temporary output OCI, and Flux reconciliation.
+It does not prove hosted output or ConfigHub operations.
+
 ## What Not To Touch In This Pass
 
 Do not edit these unless the user explicitly asks for catalog work:

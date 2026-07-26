@@ -109,11 +109,11 @@ Pull an OCI package, work with the exact objects, and produce a deployable OCI p
 4. Pull the resulting package again and compare its objects with the reviewed files.
 5. Claim the configuration in ConfigHub when it needs stored operations.
 
-Start with [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md).
+Start with [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) or [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md).
 
-Evidence: [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
+Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The current receipt proves the anonymous input and output mechanics with one temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
+Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The output OCI used a temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
 
 ### One reviewed bundle through Argo CD, Flux, or direct apply
 

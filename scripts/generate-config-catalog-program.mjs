@@ -45,6 +45,12 @@ const ociDeployStageRolloutReceiptPath = join(
   "oci-deploy-stage-rollout-proof",
   "receipt.yaml",
 );
+const anonymousOciFluxReceiptPath = join(
+  repoRoot,
+  "runs",
+  "serverless-oci-gitops-proof",
+  "receipt.yaml",
+);
 
 const baseRoot = join(repoRoot, "data", "base-variant-records");
 const recordRoot = join(baseRoot, "records");
@@ -1219,6 +1225,7 @@ function validateProgram(program) {
   );
   validateCatalogOciDeliveryReceipt(readYaml(catalogOciDeliveryReceiptPath));
   validateOciDeployStageRolloutReceipt(readYaml(ociDeployStageRolloutReceiptPath));
+  validateAnonymousOciFluxReceipt(readYaml(anonymousOciFluxReceiptPath));
 
   const fleetSource = readYaml(join(
     repoRoot,
@@ -1433,6 +1440,59 @@ function validateAicrVariantPromotionReceipt(receipt) {
   );
 }
 
+function validateAnonymousOciFluxReceipt(receipt) {
+  check(
+    receipt.kind === "AnonymousOciFluxProofReceipt"
+      && receipt.status?.result === "pass",
+    "anonymous public-OCI to Flux receipt did not pass",
+  );
+  check(
+    receipt.spec?.pathway === "OCI -> work -> OCI"
+      && receipt.spec?.source?.chart === "bitnami/nginx"
+      && receipt.spec?.source?.version === "24.0.2"
+      && receipt.spec?.source?.base === "http-clusterip",
+    "anonymous public-OCI source drifted",
+  );
+  check(
+    receipt.spec?.source?.anonymousManifestPull === "pass"
+      && /^sha256:[a-f0-9]{64}$/.test(
+        receipt.spec?.source?.expectedManifestDigest ?? "",
+      ),
+    "anonymous public installer OCI pull did not pass",
+  );
+  check(
+    receipt.spec?.localWork?.configHubTokenFilePresent === false
+      && receipt.spec?.localWork?.configHubOrganization === ""
+      && receipt.spec?.localWork?.objectCount === 6,
+    "anonymous local rendering used ConfigHub credentials or lost NGINX objects",
+  );
+  check(
+    receipt.spec?.output?.anonymousPull === "pass"
+      && receipt.spec?.output?.pulledFilesMatched === true
+      && /^sha256:[a-f0-9]{64}$/.test(receipt.spec?.output?.digest ?? ""),
+    "anonymous output OCI pull-back did not pass",
+  );
+  check(
+    receipt.spec?.flux?.sourceReady === true
+      && receipt.spec?.flux?.kustomizationReady === true
+      && receipt.spec?.flux?.observedDigest === receipt.spec.output.digest
+      && receipt.spec?.flux?.deployment?.readyReplicas === 1
+      && receipt.spec?.flux?.deployment?.desiredReplicas === 1,
+    "Flux did not reconcile the anonymous output OCI at 1/1 replicas",
+  );
+  check(
+    Object.values(receipt.spec?.run?.cleanup ?? {}).every(
+      (value) => value === "pass",
+    ),
+    "anonymous public-OCI proof cleanup did not pass",
+  );
+  check(
+    receipt.spec?.limits?.some((limit) =>
+      limit.includes("temporary local registry")),
+    "anonymous public-OCI receipt must name its temporary registry limit",
+  );
+}
+
 function validateFleetPromotionReceipt(source, receipt) {
   check(receipt.kind === "FleetPromotionLiveReceipt", "fleet promotion receipt kind is invalid");
   check(receipt.metadata?.name === source.metadata?.name, "fleet promotion receipt name drifted");
@@ -1568,6 +1628,19 @@ function runSelfTest() {
   expectFailure(
     () => validateOciDeployStageRolloutReceipt(incompleteRolloutCleanup),
     "incomplete OCI rollout cleanup unexpectedly passed",
+  );
+  const credentialedAnonymousRun = readYaml(anonymousOciFluxReceiptPath);
+  credentialedAnonymousRun.spec.localWork.configHubTokenFilePresent = true;
+  expectFailure(
+    () => validateAnonymousOciFluxReceipt(credentialedAnonymousRun),
+    "credentialed anonymous-OCI fixture unexpectedly passed",
+  );
+  const mismatchedAnonymousDigest = readYaml(anonymousOciFluxReceiptPath);
+  mismatchedAnonymousDigest.spec.flux.observedDigest
+    = "sha256:0000000000000000000000000000000000000000000000000000000000000000";
+  expectFailure(
+    () => validateAnonymousOciFluxReceipt(mismatchedAnonymousDigest),
+    "anonymous-OCI fixture with the wrong Flux digest unexpectedly passed",
   );
 
   const fleetSource = readYaml(join(
