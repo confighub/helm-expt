@@ -47,11 +47,14 @@ not render the source package again.
 
 ConfigHub can join an existing `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
 flow without replacing the tools around it. The first change can be
-`OCI -> ConfigHub -> OCI`, with the exact configuration recorded and republished
-unchanged. Later, ConfigHub can produce named variants for environments, customers,
-regions, or cluster classes. It can also publish specific outputs to several consumers
-from one recorded base. The input and each output need their own digest and receipt so
-an unchanged pass-through, a transformation, and a fan-out are not confused.
+`OCI -> ConfigHub -> OCI`. The measured pass-through keeps every spec, label, and
+user-supplied annotation unchanged, while the ConfigHub release adds
+`confighub.com/origin` for provenance. The input and output have different OCI
+digests because they are different artifacts. Later, ConfigHub can produce named
+variants for environments, customers, regions, or cluster classes. It can also
+publish specific outputs to several consumers from one recorded base. Each input and
+output needs its own digest and receipt so a congruent pass-through, a transformation,
+and a fan-out are not confused.
 
 Current local delivery examples create their kind cluster and Argo CD setup with
 `cub cluster up` and remove it with `cub cluster down`. The string

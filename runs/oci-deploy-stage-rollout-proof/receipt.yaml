@@ -3,7 +3,7 @@ kind: "OciDeployStageRolloutReceipt"
 metadata:
   name: "bitnami-nginx-24-0-2-http-clusterip"
 spec:
-  observedAt: "2026-07-26T20:01:36.081Z"
+  observedAt: "2026-07-26T21:18:29.005Z"
   source:
     type: "literal-kubernetes-oci"
     originalSource: "helm-catalog-base"
@@ -17,17 +17,17 @@ spec:
     artifactType: "application/vnd.confighub.kubernetes.config.v1"
   serverlessInput:
     result: "pass"
-    reference: "oci://127.0.0.1:32779/bitnami-nginx-http-clusterip-config:24.0.2"
-    digest: "sha256:7cbbe182825121c0df57799d5a90d323884c8be0817c96a4f095b643be638ebe"
+    reference: "oci://127.0.0.1:32786/bitnami-nginx-http-clusterip-config:24.0.2"
+    digest: "sha256:827fea8e1e1395a4218e6364b6b0c95dad651dcd426ff4b988561b97f2a568f5"
     anonymousLocalPull: "pass"
     pulledYamlSha256: "7fb28597f2eea8113612fa9e67ac84760cba1e72c42a4c59e4c25d284e0a94ba"
     objectsMatched: true
     note: "This local proof needs no ConfigHub server until the OCI is uploaded."
   serverlessOutput:
     result: "pass"
-    reference: "oci://127.0.0.1:32779/reviewed-nginx-staging:latest"
-    clusterReference: "oci://host.docker.internal:32779/reviewed-nginx-staging"
-    digest: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+    reference: "oci://127.0.0.1:32786/reviewed-nginx-staging:latest"
+    clusterReference: "oci://host.docker.internal:32786/reviewed-nginx-staging"
+    digest: "sha256:6b50e52cbf5ef7a7799a8ca1b3fbc1c421f145558c76997bb452cf37f605ab7a"
     objectCount: 5
     yamlSha256: "d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111"
     pulledYamlSha256: "d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111"
@@ -36,9 +36,9 @@ spec:
   configHub:
     import:
       result: "pass"
-      space: "hx-oci-flow-20260726-1zhl-base"
-      externalSource: "oci://127.0.0.1:32779/bitnami-nginx-http-clusterip-config:24.0.2"
-      externalSourceDigest: "sha256:7cbbe182825121c0df57799d5a90d323884c8be0817c96a4f095b643be638ebe"
+      space: "hx-oci-flow-20260726-xlk-base"
+      externalSource: "oci://127.0.0.1:32786/bitnami-nginx-http-clusterip-config:24.0.2"
+      externalSourceDigest: "sha256:827fea8e1e1395a4218e6364b6b0c95dad651dcd426ff4b988561b97f2a568f5"
       unitCount: 5
       kubernetesFieldsMatched: true
       ignoredImporterMetadata:
@@ -48,23 +48,23 @@ spec:
       path: "base -> development -> staging"
       result: "pass"
       base:
-        space: "hx-oci-flow-20260726-1zhl-base"
+        space: "hx-oci-flow-20260726-xlk-base"
         variant: "base"
         environment: ""
         upstreamSpaceId: ""
-        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+        releaseTargetId: "780b3ad0-b3df-4238-b474-f1bd9007f308"
       development:
-        space: "hx-oci-flow-20260726-1zhl-dev"
+        space: "hx-oci-flow-20260726-xlk-dev"
         variant: "development"
         environment: "Development"
-        upstreamSpaceId: "5600dd7d-494a-4e9c-803b-64a37d2f7c34"
-        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+        upstreamSpaceId: "500ad864-156d-4457-bc95-ff050932d5d7"
+        releaseTargetId: "780b3ad0-b3df-4238-b474-f1bd9007f308"
       staging:
-        space: "hx-oci-flow-20260726-1zhl-staging"
+        space: "hx-oci-flow-20260726-xlk-staging"
         variant: "staging"
         environment: "Staging"
-        upstreamSpaceId: "587afc28-2bfe-4d99-880b-74c6d84a55fb"
-        releaseTargetId: "5e9c76ec-4e8d-43d7-8445-0b1486932719"
+        upstreamSpaceId: "b77e241f-f1f9-4917-b00a-132b5f768d3b"
+        releaseTargetId: "780b3ad0-b3df-4238-b474-f1bd9007f308"
     change:
       field: "Deployment/nginx spec.replicas"
       before: 1
@@ -73,7 +73,7 @@ spec:
     promotions:
       development:
         result: "pass"
-        space: "hx-oci-flow-20260726-1zhl-dev"
+        space: "hx-oci-flow-20260726-xlk-dev"
         preview: "pass"
         previewOutputSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         previewLeftStoredDataUnchanged: true
@@ -83,7 +83,7 @@ spec:
         pendingAfter: 0
       staging:
         result: "pass"
-        space: "hx-oci-flow-20260726-1zhl-staging"
+        space: "hx-oci-flow-20260726-xlk-staging"
         preview: "pass"
         previewOutputSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
         previewLeftStoredDataUnchanged: true
@@ -92,27 +92,45 @@ spec:
         pendingBefore: 1
         pendingAfter: 0
   delivery:
+    passThrough:
+      result: "pass"
+      input:
+        reference: "oci://127.0.0.1:32786/bitnami-nginx-http-clusterip-config:24.0.2"
+        manifestDigest: "sha256:827fea8e1e1395a4218e6364b6b0c95dad651dcd426ff4b988561b97f2a568f5"
+        objectCount: 5
+      output:
+        space: "hx-oci-flow-20260726-xlk-base"
+        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-xlk-base:latest"
+        manifestDigest: "sha256:3f0714b632a5d2fb23a7eaa3027516fff78a4a9d46fe7d0bac06df509c9bd5e4"
+        bundleDigest: "sha256:77d41612d8bb761a732dbd12bd9f2ecc9d897a4ee4fa632c72792ff2e0dba1bb"
+        releaseId: "ea25a1e5-dd1c-47b2-b615-e74457d93620"
+        resolvedManifestDigest: "sha256:3f0714b632a5d2fb23a7eaa3027516fff78a4a9d46fe7d0bac06df509c9bd5e4"
+        objectCount: 5
+      userKubernetesFieldsMatched: true
+      addedConfigHubMetadata:
+        - "/metadata/annotations/confighub.com/origin"
+      note: "The OCI manifest digests differ because ConfigHub publishes its own release artifact. The specs and user-supplied metadata are unchanged; ConfigHub adds only its confighub.com/origin provenance annotation."
     development:
       result: "pass"
       release:
-        space: "hx-oci-flow-20260726-1zhl-dev"
-        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev:latest"
-        manifestDigest: "sha256:916efa468ae7381ca4797245dd506ebf2be4ef8d330b96fe838e6069b094d770"
-        bundleDigest: "sha256:b029f06bb3e12084c4708554b14de9fc94a4887f9fb292a1ebb9bec8550cfc6b"
-        releaseId: "7861cdbb-374c-426e-a45b-e2be0a98715b"
+        space: "hx-oci-flow-20260726-xlk-dev"
+        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-xlk-dev:latest"
+        manifestDigest: "sha256:45ec9e5945277b44e26c89c14af2f0beb72a845ad95826031ca9f67b74897d75"
+        bundleDigest: "sha256:90adc72b6d7827b4153b036f9ff73903d9b1f9616f4bfcdc5d52845237507271"
+        releaseId: "d57b308c-4709-40fe-8ac1-7cc3dbbca92a"
       application:
         name: "nginx-development"
-        unit: "hx-oci-flow-20260726-1zhl-a-cluster/nginx-development-app"
-        source: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev"
+        unit: "hx-oci-flow-20260726-xlk-a-cluster/nginx-development-app"
+        source: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-xlk-dev"
         destinationNamespace: "nginx-development"
-        clusterRootReleaseDigest: "sha256:5d28190bfed75a1f46a897f0041d6a97dec871d6a41dea4560452ce1115c7ba8"
+        clusterRootReleaseDigest: "sha256:c789d9d761335c05e14214beef0391325bb36e6e660e31f224658bf8f1927322"
       initialRuntime:
         result: "pass"
         namespace: "nginx-development"
         application: "nginx-development"
         sync: "Synced"
         health: "Healthy"
-        revision: "sha256:916efa468ae7381ca4797245dd506ebf2be4ef8d330b96fe838e6069b094d770"
+        revision: "sha256:45ec9e5945277b44e26c89c14af2f0beb72a845ad95826031ca9f67b74897d75"
         deployment:
           name: "nginx"
           replicas: "1/1"
@@ -120,18 +138,18 @@ spec:
           observedGenerationMatches: true
           image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
       promotedRelease:
-        space: "hx-oci-flow-20260726-1zhl-dev"
-        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-dev:latest"
-        manifestDigest: "sha256:9130c27f5dc3aef3dbe0ae427699ba5b1c1b6ccaf65791af3637e4ec6f4cfed0"
-        bundleDigest: "sha256:aed7371d2839da6c670481f4c2f615c12aee48f6585a053211973342db7d6e44"
-        releaseId: "97d31670-c81c-488c-9989-5b254360460d"
+        space: "hx-oci-flow-20260726-xlk-dev"
+        reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-xlk-dev:latest"
+        manifestDigest: "sha256:88a64954e22cf145f963889108aed0110ffaa7efc73618495ef8873d4a302424"
+        bundleDigest: "sha256:61569d68eefa53e5ff03a31383955e4d8b3069519643d9c4517554040a100916"
+        releaseId: "221121a8-ccbe-4004-b1cb-1a6c8189b723"
       promotedRuntime:
         result: "pass"
         namespace: "nginx-development"
         application: "nginx-development"
         sync: "Synced"
         health: "Healthy"
-        revision: "sha256:9130c27f5dc3aef3dbe0ae427699ba5b1c1b6ccaf65791af3637e4ec6f4cfed0"
+        revision: "sha256:88a64954e22cf145f963889108aed0110ffaa7efc73618495ef8873d4a302424"
         deployment:
           name: "nginx"
           replicas: "2/2"
@@ -140,33 +158,33 @@ spec:
           image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
     stagingRelease:
       result: "pass"
-      space: "hx-oci-flow-20260726-1zhl-staging"
-      reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-1zhl-staging:latest"
-      manifestDigest: "sha256:211484786fc1d7d4d7631e48d3dad429f0e3c88df07b91e4fd3ff74948a2dcf9"
-      bundleDigest: "sha256:42d2322d5bf7cb730b265ab323c67bd3487860a7fc459342056657a6a4f252f6"
-      releaseId: "e83afc91-f937-4a6c-9a4e-319784c35f3d"
+      space: "hx-oci-flow-20260726-xlk-staging"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-oci-flow-20260726-xlk-staging:latest"
+      manifestDigest: "sha256:f9897450a2de450de735126a8fd12a0f3d4fd800afbb127fe79de810b046efc9"
+      bundleDigest: "sha256:b27b8ada89f9a5759f2eddf1535aa2526d9147bb2ee189b844fd8bc9d6a03390"
+      releaseId: "552c9e4b-efc8-40af-8d78-5106e20557af"
     fleet:
       size: 2
       result: "pass"
       sameReleaseDigest: true
-      digest: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+      digest: "sha256:6b50e52cbf5ef7a7799a8ca1b3fbc1c421f145558c76997bb452cf37f605ab7a"
       targets:
         -
-          cluster: "hx-oci-flow-20260726-1zhl-a"
-          clusterSpace: "hx-oci-flow-20260726-1zhl-a-cluster"
+          cluster: "hx-oci-flow-20260726-xlk-a"
+          clusterSpace: "hx-oci-flow-20260726-xlk-a-cluster"
           application:
             name: "nginx-staging"
-            unit: "hx-oci-flow-20260726-1zhl-a-cluster/nginx-staging-app"
-            source: "oci://host.docker.internal:32779/reviewed-nginx-staging"
+            unit: "hx-oci-flow-20260726-xlk-a-cluster/nginx-staging-app"
+            source: "oci://host.docker.internal:32786/reviewed-nginx-staging"
             destinationNamespace: "nginx-staging"
-            clusterRootReleaseDigest: "sha256:f69886465c1aeed785b3f2f24bf42a8a8297874f7ee465b71bf9c161eb3c82a4"
+            clusterRootReleaseDigest: "sha256:fa4827d05021dc83e6c5694d52561cdb1b416616e10d49e417509127423ff6c9"
           runtime:
             result: "pass"
             namespace: "nginx-staging"
             application: "nginx-staging"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+            revision: "sha256:6b50e52cbf5ef7a7799a8ca1b3fbc1c421f145558c76997bb452cf37f605ab7a"
             deployment:
               name: "nginx"
               replicas: "2/2"
@@ -174,21 +192,21 @@ spec:
               observedGenerationMatches: true
               image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
         -
-          cluster: "hx-oci-flow-20260726-1zhl-b"
-          clusterSpace: "hx-oci-flow-20260726-1zhl-b-cluster"
+          cluster: "hx-oci-flow-20260726-xlk-b"
+          clusterSpace: "hx-oci-flow-20260726-xlk-b-cluster"
           application:
             name: "nginx-staging"
-            unit: "hx-oci-flow-20260726-1zhl-b-cluster/nginx-staging-app"
-            source: "oci://host.docker.internal:32779/reviewed-nginx-staging"
+            unit: "hx-oci-flow-20260726-xlk-b-cluster/nginx-staging-app"
+            source: "oci://host.docker.internal:32786/reviewed-nginx-staging"
             destinationNamespace: "nginx-staging"
-            clusterRootReleaseDigest: "sha256:d11aa557da3941eef5494cd6064bb1084f886cd86c91b8e1586231fad845cfa8"
+            clusterRootReleaseDigest: "sha256:930c5f9e0f43598fa4270e1cbf74d40ac67f6a3e06070e14153af48463748461"
           runtime:
             result: "pass"
             namespace: "nginx-staging"
             application: "nginx-staging"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:a3e98e6a9533ffbf5803a1570f9e2870e770723a3682f9210d87d6d66834e13e"
+            revision: "sha256:6b50e52cbf5ef7a7799a8ca1b3fbc1c421f145558c76997bb452cf37f605ab7a"
             deployment:
               name: "nginx"
               replicas: "2/2"
@@ -216,4 +234,4 @@ spec:
     - "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead."
 status:
   result: "pass"
-  claim: "One literal Kubernetes OCI was imported as a ConfigHub base, promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas."
+  claim: "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas."

@@ -32,7 +32,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 - Existing: `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
 - With ConfigHub: `Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
-- First: ConfigHub can record and republish the exact OCI configuration unchanged.
+- First: ConfigHub can publish the same specs and user-supplied metadata unchanged. The release adds only the confighub.com/origin provenance annotation.
 - Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
 - Fan-out: One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.
 

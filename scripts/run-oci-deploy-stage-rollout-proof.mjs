@@ -6,8 +6,10 @@ import {
   existsSync,
   mkdirSync,
   mkdtempSync,
+  readdirSync,
   readFileSync,
   rmSync,
+  statSync,
   writeFileSync,
 } from "node:fs";
 import { homedir, tmpdir } from "node:os";
@@ -69,6 +71,7 @@ const summaryPath = join(
 const artifactType = "application/vnd.confighub.kubernetes.config.v1";
 const layerType = "application/yaml";
 const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
+const configHubOciHost = "oci.hub.confighub.com:443";
 const expectedImage = "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f";
 
 if (mode === "--run") {
@@ -180,6 +183,7 @@ function runProof() {
         },
       },
       delivery: {
+        passThrough: { result: "not-run" },
         development: { result: "not-run" },
         stagingRelease: { result: "not-run" },
         fleet: {
@@ -237,8 +241,6 @@ function runProof() {
 
     clusterUp(clusterA);
     clustersUp.push(clusterA);
-    clusterUp(clusterB);
-    clustersUp.push(clusterB);
 
     cub([
       "variant",
@@ -278,6 +280,31 @@ function runProof() {
       kubernetesFieldsMatched: true,
       ignoredImporterMetadata: base.ignoredImporterMetadata,
       deploymentUnit: base.deploymentUnit,
+    };
+
+    const baseRelease = publishRelease(baseSpace);
+    const passThroughPull = pullConfigHubRelease({
+      clusterName: clusterA,
+      space: baseSpace,
+      manifestDigest: baseRelease.manifestDigest,
+      expectedYaml: sourceYaml,
+      workRoot,
+    });
+    receipt.spec.delivery.passThrough = {
+      result: "pass",
+      input: {
+        reference: inputOci.reference,
+        manifestDigest: inputOci.digest,
+        objectCount: sourceRecord.spec.configuration.objectCount,
+      },
+      output: {
+        ...baseRelease,
+        resolvedManifestDigest: passThroughPull.manifestDigest,
+        objectCount: passThroughPull.objectCount,
+      },
+      userKubernetesFieldsMatched: true,
+      addedConfigHubMetadata: passThroughPull.addedConfigHubMetadata,
+      note: "The OCI manifest digests differ because ConfigHub publishes its own release artifact. The specs and user-supplied metadata are unchanged; ConfigHub adds only its confighub.com/origin provenance annotation.",
     };
 
     cub([
@@ -415,6 +442,8 @@ function runProof() {
       note: "The reviewed staging objects were exported as one anonymous OCI package. Pulling this package does not require a ConfigHub account.",
     };
 
+    clusterUp(clusterB);
+    clustersUp.push(clusterB);
     const fleetTargets = [];
     for (const [clusterName, clusterSpace] of [
       [clusterA, clusterSpaceA],
@@ -463,7 +492,7 @@ function runProof() {
       targets: fleetTargets,
     };
     receipt.status.result = "pass";
-    receipt.status.claim = "One literal Kubernetes OCI was imported as a ConfigHub base, promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas.";
+    receipt.status.claim = "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas.";
   } catch (error) {
     failure = sanitizeError(error);
     receipt.status.result = "blocked";
@@ -686,6 +715,125 @@ function exportSpaceObjects(space) {
   };
 }
 
+function pullConfigHubRelease({
+  clusterName,
+  space,
+  manifestDigest,
+  expectedYaml,
+  workRoot,
+}) {
+  const registryConfig = registryConfigFromCluster(clusterName);
+  const configPath = join(workRoot, `${space}-registry.json`);
+  const pullRoot = join(workRoot, `${space}-release`);
+  const extractedRoot = join(workRoot, `${space}-release-extracted`);
+  writeFileSync(configPath, registryConfig, { mode: 0o600 });
+  mkdirSync(pullRoot, { recursive: true });
+  mkdirSync(extractedRoot, { recursive: true });
+  const reference = `${configHubOciHost}/space/${space}@${manifestDigest}`;
+  try {
+    const resolved = command("oras", [
+      "resolve",
+      reference,
+      "--registry-config",
+      configPath,
+    ]);
+    const resolvedDigest = normalizeDigest(resolved.output);
+    check(
+      resolvedDigest === manifestDigest,
+      "pulled ConfigHub release digest differs from cub release publish",
+    );
+    command("oras", [
+      "pull",
+      reference,
+      "--registry-config",
+      configPath,
+      "--output",
+      pullRoot,
+    ], { timeout: 240_000 });
+  } finally {
+    rmSync(configPath, { force: true });
+  }
+
+  for (const path of filesUnder(pullRoot)) {
+    if (!tryCommand("tar", ["-tf", path]).ok) continue;
+    command("tar", ["-xf", path, "-C", extractedRoot]);
+  }
+  const documents = new Map();
+  for (const path of [...filesUnder(pullRoot), ...filesUnder(extractedRoot)]) {
+    let parsed = [];
+    try {
+      parsed = parseDocs(readFileSync(path, "utf8"));
+    } catch {
+      parsed = [];
+    }
+    for (const document of parsed) {
+      if (!document.apiVersion || !document.kind || !document.metadata?.name) continue;
+      documents.set(objectIdentity(document), document);
+    }
+  }
+  check(documents.size > 0, "pulled ConfigHub release contains no Kubernetes objects");
+  const pulledYaml = `${[...documents.values()]
+    .sort((left, right) => objectIdentity(left).localeCompare(objectIdentity(right)))
+    .map((document) => JSON.stringify(document, null, 2))
+    .join("\n---\n")}\n`;
+  const comparison = compareKubernetesObjects(expectedYaml, pulledYaml);
+  check(
+    comparison.matched,
+    `ConfigHub pass-through release differs from the input OCI Kubernetes objects (${comparison.summary})`,
+  );
+  return {
+    manifestDigest,
+    objectCount: documents.size,
+    addedConfigHubMetadata: comparison.ignoredMetadata,
+  };
+}
+
+function registryConfigFromCluster(clusterName) {
+  const retrieved = kubectlTry(clusterName, [
+    "-n",
+    "argocd",
+    "get",
+    "secret",
+    "confighub-oci-creds",
+    "-o",
+    "json",
+  ]);
+  check(retrieved.ok, "ConfigHub OCI pull Secret was not found");
+  let secret;
+  try {
+    secret = JSON.parse(retrieved.output);
+  } catch {
+    throw new Error("ConfigHub OCI pull Secret could not be parsed");
+  }
+  const data = secret.data ?? {};
+  if (secret.type === "kubernetes.io/dockerconfigjson" && data[".dockerconfigjson"]) {
+    return Buffer.from(data[".dockerconfigjson"], "base64").toString("utf8");
+  }
+  check(
+    data.username && data.password,
+    `unsupported ConfigHub OCI pull Secret shape (${Object.keys(data).sort().join(",") || "no data"})`,
+  );
+  const username = Buffer.from(data.username, "base64").toString("utf8");
+  const password = Buffer.from(data.password, "base64").toString("utf8");
+  return JSON.stringify({
+    auths: {
+      [configHubOciHost]: {
+        username,
+        password,
+        auth: Buffer.from(`${username}:${password}`).toString("base64"),
+      },
+    },
+  });
+}
+
+function filesUnder(root) {
+  if (!existsSync(root)) return [];
+  return readdirSync(root).flatMap((name) => {
+    const path = join(root, name);
+    return statSync(path).isDirectory() ? filesUnder(path) : [path];
+  }).sort();
+}
+
 function objectIdentity(doc) {
   return [
     doc.apiVersion ?? "",
@@ -754,13 +902,80 @@ function compareKubernetesObjects(expectedYaml, actualYaml) {
     ...Object.keys(expected),
     ...Object.keys(actual),
   ])].sort();
-  const matched = identities.every(
-    (identity) => canonicalJson(expected[identity]) === canonicalJson(actual[identity]),
+  const missing = identities.filter(
+    (identity) => expected[identity] && !actual[identity],
   );
+  const extra = identities.filter(
+    (identity) => !expected[identity] && actual[identity],
+  );
+  const changed = identities.filter(
+    (identity) =>
+      expected[identity]
+      && actual[identity]
+      && canonicalJson(expected[identity]) !== canonicalJson(actual[identity]),
+  );
+  const changedFields = Object.fromEntries(changed.map((identity) => [
+    identity,
+    differencePaths(expected[identity], actual[identity]).slice(0, 12),
+  ]));
+  const annotationKeys = Object.fromEntries(changed.map((identity) => [
+    identity,
+    {
+      source: Object.keys(expected[identity]?.metadata?.annotations ?? {}).sort(),
+      configHub: Object.keys(actual[identity]?.metadata?.annotations ?? {}).sort(),
+    },
+  ]));
+  const matched = missing.length === 0 && extra.length === 0 && changed.length === 0;
   return {
     matched,
     ignoredMetadata: [...ignoredMetadata].sort(),
+    missing,
+    extra,
+    changed,
+    changedFields,
+    annotationKeys,
+    summary: [
+      `missing=${missing.join(",") || "none"}`,
+      `extra=${extra.join(",") || "none"}`,
+      `changed=${changed.join(",") || "none"}`,
+      `fields=${JSON.stringify(changedFields)}`,
+      `annotationKeys=${JSON.stringify(annotationKeys)}`,
+    ].join("; "),
   };
+}
+
+function differencePaths(expected, actual, path = "") {
+  if (canonicalJson(expected) === canonicalJson(actual)) return [];
+  if (
+    expected === null
+    || actual === null
+    || typeof expected !== "object"
+    || typeof actual !== "object"
+    || Array.isArray(expected) !== Array.isArray(actual)
+  ) {
+    return [path || "/"];
+  }
+  if (Array.isArray(expected)) {
+    const paths = [];
+    const length = Math.max(expected.length, actual.length);
+    for (let index = 0; index < length; index += 1) {
+      if (index >= expected.length || index >= actual.length) {
+        paths.push(`${path}/${index}`);
+      } else {
+        paths.push(...differencePaths(expected[index], actual[index], `${path}/${index}`));
+      }
+    }
+    return paths;
+  }
+  const keys = [...new Set([
+    ...Object.keys(expected),
+    ...Object.keys(actual),
+  ])].sort();
+  return keys.flatMap((key) => {
+    const childPath = `${path}/${key}`;
+    if (!(key in expected) || !(key in actual)) return [childPath];
+    return differencePaths(expected[key], actual[key], childPath);
+  });
 }
 
 function pruneImporterMetadata(value, side, path, ignoredMetadata) {
@@ -775,12 +990,30 @@ function pruneImporterMetadata(value, side, path, ignoredMetadata) {
       if (side === "ConfigHub") ignoredMetadata.add(`${path}/${key}` || `/${key}`);
       continue;
     }
+    if (
+      side === "ConfigHub"
+      && path === "/metadata/annotations"
+      && key === "confighub.com/origin"
+    ) {
+      ignoredMetadata.add(`${path}/${key}`);
+      continue;
+    }
     const cleaned = pruneImporterMetadata(
       child,
       side,
       `${path}/${key}`,
       ignoredMetadata,
     );
+    if (
+      key === "annotations"
+      && path === "/metadata"
+      && cleaned
+      && typeof cleaned === "object"
+      && !Array.isArray(cleaned)
+      && Object.keys(cleaned).length === 0
+    ) {
+      continue;
+    }
     if (cleaned !== null && cleaned !== undefined) result[key] = cleaned;
   }
   return result;
@@ -1321,6 +1554,21 @@ function validateReceipt(receipt) {
       && receipt.spec?.configHub?.promotions?.staging?.result === "pass",
     "sequential promotions did not pass",
   );
+  check(
+    receipt.spec?.delivery?.passThrough?.result === "pass"
+      && receipt.spec.delivery.passThrough.userKubernetesFieldsMatched === true
+      && receipt.spec.delivery.passThrough.input.objectCount
+        === receipt.spec.delivery.passThrough.output.objectCount
+      && receipt.spec.delivery.passThrough.output.manifestDigest
+        === receipt.spec.delivery.passThrough.output.resolvedManifestDigest
+      && receipt.spec.delivery.passThrough.addedConfigHubMetadata
+        .includes("/metadata/annotations/confighub.com/origin")
+      && receipt.spec.delivery.passThrough.addedConfigHubMetadata
+        .every((path) =>
+          path === "/metadata/annotations/confighub.com/origin"
+          || path.endsWith("/$comment$head$")),
+    "congruent ConfigHub OCI pass-through did not pass",
+  );
   check(receipt.spec?.delivery?.development?.result === "pass", "development delivery did not pass");
   check(receipt.spec?.delivery?.stagingRelease?.result === "pass", "staging release did not pass");
   check(
@@ -1352,6 +1600,10 @@ function validateReceipt(receipt) {
 
 function renderSummary(receipt) {
   const spec = receipt.spec;
+  const passThrough = spec.delivery.passThrough;
+  const passThroughEvidence = passThrough.result === "pass"
+    ? `Input \`${passThrough.input.manifestDigest}\`; ConfigHub output \`${passThrough.output.manifestDigest}\`; ${passThrough.output.objectCount} objects kept the same specs and user metadata. ConfigHub added \`confighub.com/origin\`.`
+    : "The unchanged-output comparison did not complete.";
   const fleetRows = spec.delivery.fleet.targets
     .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | \`${target.runtime.revision}\` | ${target.runtime.deployment.replicas} | ${target.runtime.result} |`)
     .join("\n");
@@ -1371,6 +1623,7 @@ two clusters.
 | --- | --- | --- |
 | Build and pull the literal input OCI | ${spec.serverlessInput.result} | \`${spec.serverlessInput.digest}\`; pulled objects matched the committed NGINX catalog base. |
 | Import the OCI into ConfigHub | ${spec.configHub.import.result} | ${spec.configHub.import.unitCount} Units; source digest recorded; Kubernetes fields matched. The receipt names the internal comment marker ignored during comparison. |
+| Publish the same configuration from ConfigHub | ${passThrough.result} | ${passThroughEvidence} |
 | Create the environment chain | ${spec.configHub.chain.result} | \`${spec.configHub.chain.path}\`. |
 | Change one reviewed field | ${spec.configHub.change.result} | Deployment replicas changed from ${spec.configHub.change.before} to ${spec.configHub.change.after}. |
 | Promote to development | ${spec.configHub.promotions.development.result} | The preview changed nothing. After promotion, development had no pending upstream change. |
@@ -1388,6 +1641,9 @@ ${fleetRows}
 ## What this proves
 
 - An existing literal OCI can enter ConfigHub without rerunning Helm.
+- ConfigHub can publish its first release with the same specs and user-supplied
+  metadata. The output has its own OCI digest and adds the
+  \`confighub.com/origin\` provenance annotation.
 - ConfigHub can keep one base and advance a reviewed change through development
   and staging in sequence.
 - ConfigHub can publish its own staged release, while the same reviewed objects

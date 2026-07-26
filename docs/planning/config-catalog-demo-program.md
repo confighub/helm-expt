@@ -48,9 +48,11 @@ observations.
 ConfigHub can be inserted into an existing `Git -> CI -> OCI -> Argo CD or Flux ->
 Kubernetes` flow. The resulting path is `Git -> CI -> OCI -> ConfigHub -> OCI ->
 Argo CD or Flux -> Kubernetes`. The first use can be a checked pass-through: record
-the exact package and publish it again unchanged. Later, the team can create specific
-variants and promote them to selected clusters. One recorded base can also feed
-several environment, customer, region, or cluster-group outputs.
+the package and publish the same specs and user-supplied metadata. The ConfigHub
+release has a new OCI digest and adds `confighub.com/origin` for provenance. Later,
+the team can create specific variants and promote them to selected clusters. One
+recorded base can also feed several environment, customer, region, or cluster-group
+outputs.
 
 `cub release publish` creates an immutable Space release OCI from reviewed Units.
 The same reviewed objects can also be packaged as a portable OCI for anonymous or
@@ -81,8 +83,9 @@ back to OCI delivery. It is deliberately smaller than a production fleet claim.
 
 It must distinguish three results:
 
-1. unchanged pass-through: the ConfigHub output contains the same Kubernetes objects
-   as the input OCI;
+1. congruent pass-through: the ConfigHub output keeps the input specs and
+   user-supplied metadata, adds only the named ConfigHub provenance annotation, and
+   records both OCI digests;
 2. transformation: a reviewed variant changes named fields and the output records the
    new digest;
 3. fan-out: the same reviewed release is sent to more than one target, with delivery

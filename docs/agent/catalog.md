@@ -20,13 +20,16 @@ be described as available.
 
 Inside an existing delivery flow, distinguish ConfigHub's three roles:
 
-- unchanged pass-through: record an OCI configuration and publish the same objects;
+- congruent pass-through: keep the specs and user-supplied metadata, add only the
+  recorded `confighub.com/origin` provenance annotation, and publish a new OCI
+  artifact;
 - transformation: create a reviewed variant and publish the changed objects;
 - fan-out: publish specific outputs or deliver one reviewed release to several
   targets.
 
-Require digests and receipts for each claim. Do not infer unchanged output from a
-successful import, or fleet rollout from one controller becoming healthy.
+Require input and output digests and a field comparison for each pass-through claim.
+Do not infer congruent output from a successful import, or fleet rollout from one
+controller becoming healthy.
 
 Do not treat every OCI artifact as interchangeable. Check whether a link is a source
 or installer package, a literal bundle for `cub variant upload`, a portable deployment

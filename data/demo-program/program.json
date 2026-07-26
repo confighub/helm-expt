@@ -146,7 +146,7 @@
         "existingFlow": {
           "before": "Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes",
           "fanOut": "One recorded configuration can produce specific outputs for environments, customers, regions, or cluster groups.",
-          "firstStep": "ConfigHub can record and republish the exact OCI configuration unchanged.",
+          "firstStep": "ConfigHub can publish the same specs and user-supplied metadata unchanged. The release adds only the confighub.com/origin provenance annotation.",
           "later": "A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.",
           "withConfigHub": "Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes"
         },
@@ -366,7 +366,7 @@
         "limits": [
           "The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture.",
           "The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI.",
-          "The combined NGINX receipt proves one OCI import, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters.",
+          "The combined NGINX receipt proves one OCI import, one congruent ConfigHub output with only the confighub.com/origin annotation added, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters.",
           "These receipts do not prove that every catalog base has been delivered through all three paths.",
           "A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt."
         ],

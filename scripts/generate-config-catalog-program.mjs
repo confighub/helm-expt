@@ -1387,6 +1387,23 @@ function validateOciDeployStageRolloutReceipt(receipt) {
       && receipt.spec.configHub.import.externalSourceDigest === input.digest,
     "ConfigHub OCI import did not preserve the input",
   );
+  const passThrough = receipt.spec?.delivery?.passThrough ?? {};
+  check(
+    passThrough.result === "pass"
+      && passThrough.userKubernetesFieldsMatched === true
+      && passThrough.input?.manifestDigest === input.digest
+      && passThrough.input?.objectCount === 5
+      && passThrough.output?.objectCount === 5
+      && passThrough.output?.manifestDigest
+        === passThrough.output?.resolvedManifestDigest
+      && passThrough.addedConfigHubMetadata
+        ?.includes("/metadata/annotations/confighub.com/origin")
+      && passThrough.addedConfigHubMetadata
+        .every((path) =>
+          path === "/metadata/annotations/confighub.com/origin"
+          || path.endsWith("/$comment$head$")),
+    "ConfigHub congruent OCI pass-through did not pass",
+  );
   check(
     receipt.spec?.configHub?.chain?.result === "pass"
       && receipt.spec.configHub.chain.path === "base -> development -> staging"
@@ -1648,6 +1665,12 @@ function runSelfTest() {
   expectFailure(
     () => validateOciDeployStageRolloutReceipt(mismatchedFleetDigest),
     "mismatched two-cluster OCI digest unexpectedly passed",
+  );
+  const changedPassThrough = readYaml(ociDeployStageRolloutReceiptPath);
+  changedPassThrough.spec.delivery.passThrough.userKubernetesFieldsMatched = false;
+  expectFailure(
+    () => validateOciDeployStageRolloutReceipt(changedPassThrough),
+    "changed ConfigHub pass-through fixture unexpectedly passed",
   );
   const incompleteRolloutCleanup = readYaml(ociDeployStageRolloutReceiptPath);
   incompleteRolloutCleanup.spec.run.cleanup.clusterA = "fail";
