@@ -531,6 +531,47 @@ function validateProgram(program) {
       check(existsRepo(path), `${demo.id} points at missing ${path}`);
     }
   }
+  const fleetSource = readYaml(join(
+    repoRoot,
+    "config-catalog",
+    "demonstrations",
+    "nginx-fleet-registry-migration.yaml",
+  ));
+  const fleetReceipt = readYaml(join(
+    repoRoot,
+    "data",
+    "fleet-promotion",
+    "live-nginx-registry-migration.yaml",
+  ));
+  validateFleetPromotionReceipt(fleetSource, fleetReceipt);
+}
+
+function validateFleetPromotionReceipt(source, receipt) {
+  check(receipt.kind === "FleetPromotionLiveReceipt", "fleet promotion receipt kind is invalid");
+  check(receipt.metadata?.name === source.metadata?.name, "fleet promotion receipt name drifted");
+  check(receipt.spec?.organization === source.spec?.organization, "fleet promotion receipt organization drifted");
+  check(receipt.status?.result === "pass" && !(receipt.status?.findings ?? []).length, "fleet promotion receipt did not pass");
+  check(
+    String(receipt.spec?.verifiedAt ?? "").startsWith(source.status?.lastRecorded),
+    "fleet promotion receipt date drifted",
+  );
+  check(receipt.spec?.base?.space === source.spec?.base?.space, "fleet promotion base Space drifted");
+  check(receipt.spec?.workload?.digest === source.spec?.workload?.digest, "fleet promotion digest drifted");
+
+  const expectedSpaces = source.spec.variants.map((variant) => variant.space);
+  const recordedSpaces = (receipt.spec?.variants ?? []).map((variant) => variant.space);
+  check(sameSet(recordedSpaces, expectedSpaces), "fleet promotion variant Space set drifted");
+  for (const expected of source.spec.variants) {
+    const recorded = receipt.spec.variants.find((variant) => variant.space === expected.space);
+    const expectedImage = source.spec.migration[expected.image === "current" ? "currentImage" : "previousImage"];
+    check(recorded.images.every((image) => image.image === expectedImage), `${expected.space} image result drifted`);
+    check(recorded.replicas === expected.replicas, `${expected.space} replica result drifted`);
+    check(recorded.filter === expected.filter, `${expected.space} policy result drifted`);
+    check(
+      recorded.pendingUpstreamUnits === expected.pendingUpstreamUnits,
+      `${expected.space} pending promotion result drifted`,
+    );
+  }
 }
 
 function runSelfTest() {
@@ -559,6 +600,28 @@ function runSelfTest() {
   const broadFilter = structuredClone(policy);
   broadFilter.spec.baseline.filterWhere = "Space.Slug = 'platform'";
   expectFailure(() => validatePolicy(broadFilter), "broad baseline filter fixture unexpectedly passed");
+
+  const fleetSource = readYaml(join(
+    repoRoot,
+    "config-catalog",
+    "demonstrations",
+    "nginx-fleet-registry-migration.yaml",
+  ));
+  const fleetReceipt = readYaml(join(
+    repoRoot,
+    "data",
+    "fleet-promotion",
+    "live-nginx-registry-migration.yaml",
+  ));
+  validateFleetPromotionReceipt(fleetSource, fleetReceipt);
+  const hiddenPendingPromotion = structuredClone(fleetReceipt);
+  hiddenPendingPromotion.spec.variants
+    .find((variant) => variant.space === "bitnami-nginx-fleet-prod-eu")
+    .pendingUpstreamUnits = 0;
+  expectFailure(
+    () => validateFleetPromotionReceipt(fleetSource, hiddenPendingPromotion),
+    "hidden pending-promotion fixture unexpectedly passed",
+  );
 }
 
 function expectFailure(fn, message) {

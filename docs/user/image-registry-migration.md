@@ -1,6 +1,10 @@
 # Migrate a chart's image registry across a fleet
 
-**UNOFFICIAL/EXPERIMENTAL.** Commands verified against `cub <verb> --help` and a live end-to-end run on 2026-07-04, in the helm-catalog org on the `bitnami-nginx` fleet.
+This example was run in the `helm-catalog` org on 4 July 2026 and checked again
+on 26 July. The live verifier reads the five Spaces, their variant links,
+revision history, images, replica counts, policy filters, and pending promotion.
+It checks ConfigHub's stored configuration; it does not claim that these Spaces
+were delivered to a Kubernetes cluster.
 
 When a chart's image registry changes hands, licenses, or hosts, every environment that pulls from it has to move. This walkthrough repoints one chart's images from a public registry to an internal mirror, promotes the change across a fleet, and proves where it landed. The image digest never changes, because a digest is content-addressed: the same bytes keep the same digest at a new host.
 
@@ -63,7 +67,7 @@ Read the registry host in every environment. Three moved; prod-eu did not.
 
 ```bash
 for env in dev staging prod-us prod-eu; do
-  host=$(cub unit get deployment-nginx-nginx --space bitnami-nginx-fleet-$env --data-only \
+  host=$(cub unit data deployment-nginx-nginx --space bitnami-nginx-fleet-$env \
     | grep -m1 "image:" | awk '{print $2}' | cut -d/ -f1)
   echo "$env: $host"
 done
@@ -86,14 +90,36 @@ cub revision list deployment-nginx-nginx --space bitnami-nginx-fleet-prod-us
 The digest is identical in the migrated and the un-migrated environments, which proves the image is the same content at a new host:
 
 ```bash
-cub unit get deployment-nginx-nginx --space bitnami-nginx-fleet-prod-us --data-only \
+cub unit data deployment-nginx-nginx --space bitnami-nginx-fleet-prod-us \
   | grep -m1 -oE "sha256:[a-f0-9]+"
 # sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
 ```
 
 ## What this shows
 
-The whole migration was recorded configuration. You could read every affected image reference before touching anything, change the host with the digest intact, promote the change environment by environment, and prove afterward exactly which environments moved and which did not. A catalog you only consume moves you on the catalog owner's schedule. Config you hold as data moves on yours.
+The whole migration is recorded configuration. You can read every affected
+image reference, change the host without changing the digest, promote one
+environment at a time, and check exactly where the change arrived. Because
+ConfigHub stores each environment's configuration, the team chooses when each
+environment moves.
+
+Dev and staging now also keep their own one-replica setting while retaining the
+promoted image change. Prod-us uses the production policy. Prod-eu still uses
+the old registry and reports one pending upstream Unit. This is the useful
+split: a shared base can move forward while each environment keeps its own
+settings.
+
+Recheck the live org:
+
+```bash
+cub auth switch helm-catalog
+npm run helm-org:fleet:verify
+```
+
+The committed result is
+[data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
+The offline command `npm run helm-org:fleet:receipt:verify` checks that receipt
+without contacting ConfigHub.
 
 ## Rolling back
 

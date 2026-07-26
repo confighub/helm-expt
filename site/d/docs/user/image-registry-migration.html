@@ -430,7 +430,7 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Commands verified against <code>cub &lt;verb&gt; --help</code> and a live end-to-end run on 2026-07-04, in the helm-catalog org on the <code>bitnami-nginx</code> fleet.</p>
+<p>This example was run in the <code>helm-catalog</code> org on 4 July 2026 and checked again on 26 July. The live verifier reads the five Spaces, their variant links, revision history, images, replica counts, policy filters, and pending promotion. It checks ConfigHub's stored configuration; it does not claim that these Spaces were delivered to a Kubernetes cluster.</p>
 <p>When a chart's image registry changes hands, licenses, or hosts, every environment that pulls from it has to move. This walkthrough repoints one chart's images from a public registry to an internal mirror, promotes the change across a fleet, and proves where it landed. The image digest never changes, because a digest is content-addressed: the same bytes keep the same digest at a new host.</p>
 <h2 id="the-starting-state">The starting state</h2>
 <p>The <code>bitnami-nginx</code> fleet is one base Space and four environment variants cloned from it. Every one pulls the same digest-pinned image:</p>
@@ -466,7 +466,7 @@ done</code></pre>
 <h2 id="4-prove-where-it-landed">4. Prove where it landed</h2>
 <p>Read the registry host in every environment. Three moved; prod-eu did not.</p>
 <pre><code>for env in dev staging prod-us prod-eu; do
-  host=$(cub unit get deployment-nginx-nginx --space bitnami-nginx-fleet-$env --data-only \
+  host=$(cub unit data deployment-nginx-nginx --space bitnami-nginx-fleet-$env \
     | grep -m1 &quot;image:&quot; | awk '{print $2}' | cut -d/ -f1)
   echo &quot;$env: $host&quot;
 done
@@ -481,11 +481,16 @@ done
 # 2  Invoke       Functions: set-namespace ...
 # 1  CloneUnit    Initial Data ...</code></pre>
 <p>The digest is identical in the migrated and the un-migrated environments, which proves the image is the same content at a new host:</p>
-<pre><code>cub unit get deployment-nginx-nginx --space bitnami-nginx-fleet-prod-us --data-only \
+<pre><code>cub unit data deployment-nginx-nginx --space bitnami-nginx-fleet-prod-us \
   | grep -m1 -oE &quot;sha256:[a-f0-9]+&quot;
 # sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f</code></pre>
 <h2 id="what-this-shows">What this shows</h2>
-<p>The whole migration was recorded configuration. You could read every affected image reference before touching anything, change the host with the digest intact, promote the change environment by environment, and prove afterward exactly which environments moved and which did not. A catalog you only consume moves you on the catalog owner's schedule. Config you hold as data moves on yours.</p>
+<p>The whole migration is recorded configuration. You can read every affected image reference, change the host without changing the digest, promote one environment at a time, and check exactly where the change arrived. Because ConfigHub stores each environment's configuration, the team chooses when each environment moves.</p>
+<p>Dev and staging now also keep their own one-replica setting while retaining the promoted image change. Prod-us uses the production policy. Prod-eu still uses the old registry and reports one pending upstream Unit. This is the useful split: a shared base can move forward while each environment keeps its own settings.</p>
+<p>Recheck the live org:</p>
+<pre><code>cub auth switch helm-catalog
+npm run helm-org:fleet:verify</code></pre>
+<p>The committed result is <a href="../../../../data/fleet-promotion/live-nginx-registry-migration.yaml">data/fleet-promotion/live-nginx-registry-migration.yaml</a>. The offline command <code>npm run helm-org:fleet:receipt:verify</code> checks that receipt without contacting ConfigHub.</p>
 <h2 id="rolling-back">Rolling back</h2>
 <p>The migration is a set of revisions, so a rollback moves the head back. Restore the base to the revision before the rewrite, then promote again, or restore an individual environment's unit to its pre-migration revision. See <a href="day2-upgrade-rollback.html">day-2 upgrade and rollback</a>.</p>
     </article>

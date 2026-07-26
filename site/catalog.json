@@ -25932,11 +25932,12 @@
           ],
           "evidence": [
             "data/blast-radius-fleet/summary.md",
-            "data/environment-matrix/summary.md"
+            "data/environment-matrix/summary.md",
+            "data/fleet-promotion/live-nginx-registry-migration.yaml"
           ],
           "id": "fleet-platform-app",
           "limits": [
-            "Fleet records and blast-radius evidence exist, but Kubara and Sveltos delivery are not yet complete live lanes."
+            "The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes."
           ],
           "name": "Fleet Platform App",
           "problem": "Platform teams need to assign different system configurations to cluster groups without losing a central source of record.",
@@ -26060,11 +26061,12 @@
           ],
           "evidence": [
             "data/variant-promotion/summary.md",
-            "runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml"
+            "runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml",
+            "data/fleet-promotion/live-nginx-registry-migration.yaml"
           ],
           "id": "promotions",
           "limits": [
-            "The committed receipts prove promotion mechanics for selected examples. They do not prove every delivery controller or workload convergence case."
+            "The Nginx fleet receipt proves stored configuration, promotion history, policy assignment, and one pending environment. It does not prove delivery or workload health on a Kubernetes cluster."
           ],
           "name": "Test, development, staging, and production promotions",
           "problem": "Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.",

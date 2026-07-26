@@ -1,7 +1,8 @@
 # Registry migration, live receipt
 
-Run 2026-07-04 in the helm-catalog org on the bitnami-nginx fleet. No new
-spaces (org at 978/1000 links); the migration ran on the existing tree.
+Run 2026-07-04 in the helm-catalog org on the bitnami-nginx fleet, then checked
+again on 2026-07-26. No new Spaces were needed; the migration ran on the
+existing tree.
 
 ## What ran
 
@@ -29,9 +30,18 @@ spaces (org at 978/1000 links); the migration ran on the existing tree.
   proving the content-addressed image survived the host move.
 - 8 internal-mirror references live across base + three environments (two
   containers each).
+- Dev and staging each keep a one-replica environment setting. Prod-us keeps
+  three replicas. The shared image change is present in all three.
+- Prod-eu reports one pending upstream Unit and still uses the old registry.
+- All five Spaces carry the `catalog-standard` policy profile. The two
+  production Spaces use the approval-bearing production filter.
+
+The machine-readable result is
+[live-nginx-registry-migration.yaml](../fleet-promotion/live-nginx-registry-migration.yaml).
+Run `npm run helm-org:fleet:receipt:verify` offline, or
+`npm run helm-org:fleet:verify` while logged into the live org.
 
 ## Walkthrough
 
 [docs/user/image-registry-migration.md](../../docs/user/image-registry-migration.md)
-carries the verbatim commands. This receipt is the record that the walkthrough
-was executed live, not asserted.
+carries the commands and explains what the live verifier checks.

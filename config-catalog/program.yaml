@@ -80,8 +80,9 @@ spec:
       evidence:
         - data/variant-promotion/summary.md
         - runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml
+        - data/fleet-promotion/live-nginx-registry-migration.yaml
       limits:
-        - The committed receipts prove promotion mechanics for selected examples. They do not prove every delivery controller or workload convergence case.
+        - The Nginx fleet receipt proves stored configuration, promotion history, policy assignment, and one pending environment. It does not prove delivery or workload health on a Kubernetes cluster.
     - id: kubara
       name: Kubara platform configuration to a cluster fleet
       problem: A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
@@ -185,8 +186,9 @@ spec:
       evidence:
         - data/blast-radius-fleet/summary.md
         - data/environment-matrix/summary.md
+        - data/fleet-promotion/live-nginx-registry-migration.yaml
       limits:
-        - Fleet records and blast-radius evidence exist, but Kubara and Sveltos delivery are not yet complete live lanes.
+        - The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes.
     - id: ai-change-review-app
       name: AI Change Review App
       problem: An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.

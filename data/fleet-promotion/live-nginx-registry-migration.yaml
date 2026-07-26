@@ -1,0 +1,141 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "FleetPromotionLiveReceipt"
+metadata:
+  name: "nginx-registry-migration"
+spec:
+  organization: "helm-catalog"
+  source:
+    chart: "bitnami/nginx"
+    presetConfig: "http-clusterip"
+    type: "helm"
+    version: "24.0.2"
+  verifiedAt: "2026-07-26T11:18:39.923Z"
+  workload:
+    unit: "deployment-nginx-nginx"
+    digest: "sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+  base:
+    space: "bitnami-nginx-24-0-2-http-clusterip"
+    environment: "Base"
+    region: ""
+    filter: "helm-catalog-checks"
+    replicas: 3
+    images:
+      -
+        name: "nginx"
+        image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      -
+        name: "preserve-logs-symlinks"
+        image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+    pendingUpstreamUnits: 0
+    upstream: null
+    migrationRevisions:
+      -
+        revision: 4
+        source: "Invoke"
+        description: "Registry migration: repoint bitnami/nginx from docker.io to the internal mirror, digest unchanged. User prompt: run the registry-migration story live. Clarifications: mirror host swap, content-addressed digest preserved.| Functions: set-container-image"
+        createdAt: "2026-07-04T06:49:11.239317Z"
+      -
+        revision: 5
+        source: "Invoke"
+        description: "Registry migration: repoint bitnami/nginx from docker.io to the internal mirror, digest unchanged. User prompt: run the registry-migration story live. Clarifications: mirror host swap, content-addressed digest preserved.| Functions: set-container-image"
+        createdAt: "2026-07-04T06:49:12.799816Z"
+  variants:
+    -
+      space: "bitnami-nginx-fleet-dev"
+      environment: "Dev"
+      region: ""
+      filter: "helm-catalog-checks"
+      replicas: 1
+      images:
+        -
+          name: "nginx"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        -
+          name: "preserve-logs-symlinks"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      pendingUpstreamUnits: 0
+      upstream:
+        updateType: "UpgradeUnit"
+        upstreamSpace: "bitnami-nginx-24-0-2-http-clusterip"
+        upstreamUnit: "deployment-nginx-nginx"
+      migrationRevisions:
+        -
+          revision: 4
+          source: "UpgradeUnit"
+          description: "Pull the registry migration into dev (docker.io -> internal mirror). User prompt: run the registry-migration story live. Clarifications: prod-eu deliberately left on the old registry."
+          createdAt: "2026-07-04T06:49:39.99474Z"
+    -
+      space: "bitnami-nginx-fleet-staging"
+      environment: "Staging"
+      region: ""
+      filter: "helm-catalog-checks"
+      replicas: 1
+      images:
+        -
+          name: "nginx"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        -
+          name: "preserve-logs-symlinks"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      pendingUpstreamUnits: 0
+      upstream:
+        updateType: "UpgradeUnit"
+        upstreamSpace: "bitnami-nginx-24-0-2-http-clusterip"
+        upstreamUnit: "deployment-nginx-nginx"
+      migrationRevisions:
+        -
+          revision: 4
+          source: "UpgradeUnit"
+          description: "Pull the registry migration into staging (docker.io -> internal mirror). User prompt: run the registry-migration story live. Clarifications: prod-eu deliberately left on the old registry."
+          createdAt: "2026-07-04T06:49:41.642511Z"
+    -
+      space: "bitnami-nginx-fleet-prod-us"
+      environment: "Prod"
+      region: "us-east"
+      filter: "helm-catalog-prod-gates"
+      replicas: 3
+      images:
+        -
+          name: "nginx"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        -
+          name: "preserve-logs-symlinks"
+          image: "registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      pendingUpstreamUnits: 0
+      upstream:
+        updateType: "UpgradeUnit"
+        upstreamSpace: "bitnami-nginx-24-0-2-http-clusterip"
+        upstreamUnit: "deployment-nginx-nginx"
+      migrationRevisions:
+        -
+          revision: 4
+          source: "UpgradeUnit"
+          description: "Pull the registry migration into prod-us (docker.io -> internal mirror). User prompt: run the registry-migration story live. Clarifications: prod-eu deliberately left on the old registry."
+          createdAt: "2026-07-04T06:49:43.404892Z"
+    -
+      space: "bitnami-nginx-fleet-prod-eu"
+      environment: "Prod"
+      region: "eu-west"
+      filter: "helm-catalog-prod-gates"
+      replicas: 1
+      images:
+        -
+          name: "nginx"
+          image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        -
+          name: "preserve-logs-symlinks"
+          image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+      pendingUpstreamUnits: 1
+      upstream:
+        updateType: "UpgradeUnit"
+        upstreamSpace: "bitnami-nginx-24-0-2-http-clusterip"
+        upstreamUnit: "deployment-nginx-nginx"
+      migrationRevisions:
+        []
+status:
+  result: "pass"
+  findings:
+    []
+  limits:
+    - "This demonstration proves stored configuration, variant links, revision history, policy assignment, and a pending promotion in ConfigHub."
+    - "It does not prove delivery or workload health on a Kubernetes cluster."

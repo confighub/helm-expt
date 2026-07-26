@@ -83,6 +83,14 @@ Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does
 not prove the other one.
 
+The live Nginx fleet demonstrates the ConfigHub side of this model with a
+Helm-derived base and four environment variants. One digest-preserving image change
+was promoted to dev, staging, and one production region; the other production region
+still reports the pending change. Dev and staging retain their own replica counts.
+The [live receipt](../../data/fleet-promotion/live-nginx-registry-migration.yaml)
+checks those records and policy assignments. It does not claim Kubernetes delivery
+or workload health.
+
 ## Apply policy
 
 The standard policy profile applies the same basic checks to Helm, AICR, `cub
