@@ -5,6 +5,17 @@
 This guide does not redesign the catalog. Treat the catalog and chart pages as
 evidence to read, not as pages to rewrite.
 
+## Product Boundary
+
+The public front door supports `work -> OCI`, `OCI -> work`, and
+`OCI -> work -> OCI` without requiring a ConfigHub account. ConfigHub begins when a
+user claims the configuration so it can be saved, changed, approved, promoted, or
+rolled out.
+
+Do not treat every OCI artifact as interchangeable. Check whether a link is a source
+or installer package, a literal bundle for `cub variant upload`, a portable deployment
+bundle, or a ConfigHub release. The consumer and receipt must match the artifact.
+
 ## What Not To Touch In This Pass
 
 Do not edit these unless the user explicitly asks for catalog work:

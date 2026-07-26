@@ -6,13 +6,30 @@ The catalog begins with Helm and adds other configuration formats without making
 
 ## OCI in, managed configuration, OCI out
 
-**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage. The result is a literal configuration OCI plus a source record that names its inputs, prerequisites, lifecycle work, and evidence.
+**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
+
+### Use the front door without an account
+
+| Path | What it does |
+| --- | --- |
+| `work -> OCI` | Start with a Helm chart, AICR recipe, installer package, or Kubernetes files; inspect and test the result; then build a deployable OCI package. |
+| `OCI -> work` | Pull an existing public OCI package to inspect its objects, explain its requirements, run checks, or compare it with another version. |
+| `OCI -> work -> OCI` | Pull an OCI package, check or change its exact objects, and serve the resulting OCI package without taking ownership of it in ConfigHub. |
+
+Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
 
 **Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
 
-**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. Argo CD, Flux, A recorded direct-apply path can consume that artifact without rendering the source package again.
+ConfigHub can join an existing delivery flow without replacing it:
 
-This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.
+- Existing: `Git -> CI -> OCI -> Argo CD or Flux -> Kubernetes`
+- With ConfigHub: `Git -> CI -> OCI -> ConfigHub -> OCI -> Argo CD or Flux -> Kubernetes`
+- First: ConfigHub can record and republish the exact OCI configuration unchanged.
+- Later: A team can create named variants, apply policy, promote reviewed changes, and roll them out to selected clusters.
+
+**After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers. Argo CD, Flux, and direct apply can consume that artifact without rendering the source package again.
+
+The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.
 
 ## Ways to start
 
@@ -77,6 +94,26 @@ Evidence: [data/installer-oci-packages/summary.md](../../data/installer-oci-pack
 
 Current limit: An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload.
 
+### Public OCI inspection and packaging
+
+**Status: partial.**
+
+A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.
+
+Pull an OCI package, work with the exact objects, and produce a deployable OCI package. Claim it in ConfigHub only when the team wants saved history, variants, approvals, promotions, or fleet rollout.
+
+1. Start with source files or an existing public OCI package.
+2. Inspect and test the exact configuration objects.
+3. Keep the result as working files, package it as OCI, or do both.
+4. Pull the resulting package again and compare its objects with the reviewed files.
+5. Claim the configuration in ConfigHub when it needs stored operations.
+
+Start with [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md).
+
+Evidence: [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
+
+Current limit: The current receipt proves the anonymous input and output mechanics with one temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
+
 ### One reviewed bundle through Argo CD, Flux, or direct apply
 
 **Status: partial.**
@@ -93,9 +130,9 @@ ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, o
 
 Start with [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) or [docs/user/cub-deployment-path.md](../../docs/user/cub-deployment-path.md).
 
-Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md), [runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml](../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md).
+Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md), [runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml](../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
+Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. The combined NGINX receipt proves one OCI import, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
 
 ### Test, development, staging, and production promotions
 
@@ -113,9 +150,9 @@ Upload one base variant, keep environment changes as derived variants, preview t
 
 Start with [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) or [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
 
-Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
+Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The Nginx fleet receipt proves stored configuration, promotion history, policy assignment, and one pending environment. It does not prove delivery or workload health on a Kubernetes cluster.
+Current limit: The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery. The combined NGINX receipt proves base-to-development-to-staging promotion and a two-cluster Argo rollout, but not production approval or ConfigHub live-state collection.
 
 ### Kubara platform configuration to a cluster fleet
 

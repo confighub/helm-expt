@@ -11,13 +11,33 @@ The front door owns the work before OCI enters ConfigHub. It should help a Helm,
 useful configuration, make prerequisites and lifecycle work explicit, run tests, and
 produce a literal configuration OCI with a source record.
 
+People can use that front door in three directions without an account:
+
+- `work -> OCI`: start with a Helm chart, AICR recipe, installer package, or
+  Kubernetes files, then inspect, test, and package the result;
+- `OCI -> work`: pull a public OCI package to inspect it, explain it, scan it,
+  or compare it with another version;
+- `OCI -> work -> OCI`: pull a package, check or change the exact objects, and
+  serve the resulting package.
+
+These paths remain useful without ConfigHub. The handoff is **Claim this
+configuration in ConfigHub**. Claiming saves the objects and their history so a
+team can make variants, require approvals, promote changes, and roll them out.
+
 ConfigHub owns the middle. It stores the exact objects, lets teams make variants and
 review diffs, runs checks and approvals, promotes changes, and records releases and
 observations.
 
-`cub release publish` owns the output boundary. It turns the reviewed Units in one
-Space into an immutable release OCI. Argo CD, Flux, or another recorded delivery path
-consumes that artifact without rendering the source package again.
+ConfigHub can be inserted into an existing `Git -> CI -> OCI -> Argo CD or Flux ->
+Kubernetes` flow. The resulting path is `Git -> CI -> OCI -> ConfigHub -> OCI ->
+Argo CD or Flux -> Kubernetes`. The first use can be a checked pass-through: record
+the exact package and publish it again unchanged. Later, the team can create specific
+variants and promote them to selected clusters.
+
+`cub release publish` creates an immutable Space release OCI from reviewed Units.
+The same reviewed objects can also be packaged as a portable OCI for anonymous or
+external consumers. Argo CD, Flux, or another recorded delivery path consumes the
+chosen artifact without rendering the source package again.
 
 The website should make the first step useful even before a visitor signs up. It should
 then show why storing and operating the result in ConfigHub is more valuable than
@@ -26,6 +46,20 @@ stopping at an OCI file.
 The maintained status is generated from
 [config-catalog/program.yaml](../../config-catalog/program.yaml). This file explains the
 sequence and the acceptance criteria.
+
+## Immediate product slice
+
+The shortest complete demonstration uses one exact OCI package:
+
+1. Import it as a base without rerunning its source generator.
+2. Create development and staging variants.
+3. Change one field and promote it in sequence.
+4. Package the reviewed staging objects once.
+5. Reconcile that same OCI digest on two clusters and record controller and
+   workload health.
+
+This slice joins the public front door to ConfigHub's stored operations and then
+back to OCI delivery. It is deliberately smaller than a production fleet claim.
 
 ## Phase 1: shared records
 

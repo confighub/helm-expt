@@ -39,6 +39,12 @@ const aicrPromotionReceiptPath = join(
   "aicr-variant-promotion-proof",
   "receipt.yaml",
 );
+const ociDeployStageRolloutReceiptPath = join(
+  repoRoot,
+  "runs",
+  "oci-deploy-stage-rollout-proof",
+  "receipt.yaml",
+);
 
 const baseRoot = join(repoRoot, "data", "base-variant-records");
 const recordRoot = join(baseRoot, "records");
@@ -1139,14 +1145,39 @@ function validateProgram(program) {
     "front door must produce a literal configuration OCI",
   );
   check(
+    sameSet(
+      (architecture.frontDoor?.anonymousFlows ?? []).map((flow) => flow.shape),
+      ["work -> OCI", "OCI -> work", "OCI -> work -> OCI"],
+    ),
+    "front door must name the three anonymous OCI flows",
+  );
+  for (const flow of architecture.frontDoor.anonymousFlows) {
+    check(flow.result, `anonymous flow ${flow.shape} needs a result`);
+  }
+  check(
+    architecture.frontDoor?.claimBoundary?.before?.includes("Anonymous users")
+      && architecture.frontDoor?.claimBoundary?.action?.includes("Claim")
+      && architecture.frontDoor?.claimBoundary?.after?.includes("ConfigHub"),
+    "front door must name the anonymous-to-ConfigHub claim boundary",
+  );
+  check(
     architecture.configHub?.operations?.length >= 4,
     "ConfigHub middle must name its stored operations",
+  );
+  check(
+    architecture.configHub?.existingFlow?.withConfigHub
+      ?.includes("OCI -> ConfigHub -> OCI")
+      && architecture.configHub?.existingFlow?.firstStep
+        ?.includes("unchanged")
+      && architecture.configHub?.existingFlow?.later
+        ?.includes("variants"),
+    "ConfigHub must explain its pass-through and transformation roles in an existing OCI flow",
   );
   check(
     architecture.delivery?.result?.includes("cub release publish")
       && sameSet(
         architecture.delivery?.consumers ?? [],
-        ["Argo CD", "Flux", "A recorded direct-apply path"],
+        ["Argo CD", "Flux", "direct apply"],
       ),
     "delivery must use cub release publish and name all three consumers",
   );
@@ -1187,6 +1218,7 @@ function validateProgram(program) {
     `${relativeRepo(catalogOciDeliveryReceiptPath)} is missing`,
   );
   validateCatalogOciDeliveryReceipt(readYaml(catalogOciDeliveryReceiptPath));
+  validateOciDeployStageRolloutReceipt(readYaml(ociDeployStageRolloutReceiptPath));
 
   const fleetSource = readYaml(join(
     repoRoot,
@@ -1286,6 +1318,84 @@ function validateCatalogOciDeliveryReceipt(receipt) {
   check(
     receipt.spec?.limits?.some((limit) => limit.includes("does not prove another chart")),
     "catalog OCI delivery receipt is missing its exact-scope limit",
+  );
+}
+
+function validateOciDeployStageRolloutReceipt(receipt) {
+  check(
+    receipt.kind === "OciDeployStageRolloutReceipt"
+      && receipt.status?.result === "pass",
+    "OCI deploy-stage-rollout receipt did not pass",
+  );
+  check(
+    receipt.spec?.source?.chart === "bitnami/nginx"
+      && receipt.spec?.source?.version === "24.0.2"
+      && receipt.spec?.source?.presetConfig === "http-clusterip",
+    "OCI deploy-stage-rollout source drifted",
+  );
+  const input = receipt.spec?.serverlessInput ?? {};
+  const output = receipt.spec?.serverlessOutput ?? {};
+  check(
+    input.result === "pass"
+      && input.objectsMatched === true
+      && /^sha256:[a-f0-9]{64}$/.test(input.digest ?? ""),
+    "anonymous OCI input did not pass",
+  );
+  check(
+    output.result === "pass"
+      && output.objectsMatched === true
+      && output.objectCount === 5
+      && /^sha256:[a-f0-9]{64}$/.test(output.digest ?? ""),
+    "portable OCI output did not pass",
+  );
+  check(
+    receipt.spec?.configHub?.import?.result === "pass"
+      && receipt.spec.configHub.import.kubernetesFieldsMatched === true
+      && receipt.spec.configHub.import.externalSourceDigest === input.digest,
+    "ConfigHub OCI import did not preserve the input",
+  );
+  check(
+    receipt.spec?.configHub?.chain?.result === "pass"
+      && receipt.spec.configHub.chain.path === "base -> development -> staging"
+      && receipt.spec?.configHub?.promotions?.development?.result === "pass"
+      && receipt.spec?.configHub?.promotions?.staging?.result === "pass",
+    "sequential development and staging promotions did not pass",
+  );
+  check(
+    receipt.spec?.delivery?.development?.result === "pass"
+      && receipt.spec?.delivery?.stagingRelease?.result === "pass",
+    "ConfigHub environment delivery or release publication did not pass",
+  );
+  const fleet = receipt.spec?.delivery?.fleet ?? {};
+  check(
+    fleet.result === "pass"
+      && fleet.size === 2
+      && fleet.sameReleaseDigest === true
+      && fleet.digest === output.digest
+      && fleet.targets?.length === 2,
+    "two-cluster portable OCI rollout did not pass",
+  );
+  for (const target of fleet.targets) {
+    check(
+      target.runtime?.result === "pass"
+        && target.runtime?.sync === "Synced"
+        && target.runtime?.health === "Healthy"
+        && target.runtime?.revision === output.digest
+        && target.runtime?.deployment?.replicas === "2/2",
+      `${target.cluster ?? "fleet target"} did not reconcile the portable OCI`,
+    );
+  }
+  check(
+    receipt.spec?.run?.clusterCommand === "cub cluster up",
+    "OCI deploy-stage-rollout proof did not use the current cluster command",
+  );
+  check(
+    Object.values(receipt.spec?.run?.cleanup ?? {}).every((value) => value === "pass"),
+    "OCI deploy-stage-rollout cleanup did not pass",
+  );
+  check(
+    receipt.spec?.limits?.some((limit) => limit.includes("target-scoped OCI credential")),
+    "OCI deploy-stage-rollout receipt must state the target-credential boundary",
   );
 }
 
@@ -1445,6 +1555,19 @@ function runSelfTest() {
   expectFailure(
     () => validateCatalogOciDeliveryReceipt(missingCatalogLeg),
     "catalog OCI delivery receipt with no Flux leg unexpectedly passed",
+  );
+  const mismatchedFleetDigest = readYaml(ociDeployStageRolloutReceiptPath);
+  mismatchedFleetDigest.spec.delivery.fleet.targets[1].runtime.revision
+    = "sha256:0000000000000000000000000000000000000000000000000000000000000000";
+  expectFailure(
+    () => validateOciDeployStageRolloutReceipt(mismatchedFleetDigest),
+    "mismatched two-cluster OCI digest unexpectedly passed",
+  );
+  const incompleteRolloutCleanup = readYaml(ociDeployStageRolloutReceiptPath);
+  incompleteRolloutCleanup.spec.run.cleanup.clusterA = "fail";
+  expectFailure(
+    () => validateOciDeployStageRolloutReceipt(incompleteRolloutCleanup),
+    "incomplete OCI rollout cleanup unexpectedly passed",
   );
 
   const fleetSource = readYaml(join(
@@ -1748,15 +1871,37 @@ The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.y
 }
 
 function renderArchitecture(architecture) {
+  const anonymousRows = architecture.frontDoor.anonymousFlows
+    .map((flow) => `| \`${flow.shape}\` | ${flow.result} |`)
+    .join("\n");
+  const boundary = architecture.frontDoor.claimBoundary;
+  const existingFlow = architecture.configHub.existingFlow;
+  const consumers = architecture.delivery.consumers;
+  const consumerList = `${consumers.slice(0, -1).join(", ")}, and ${consumers.at(-1)}`;
   return `## ${architecture.name}
 
 **Before ConfigHub:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
 
+### Use the front door without an account
+
+| Path | What it does |
+| --- | --- |
+${anonymousRows}
+
+${boundary.before} The boundary is **${boundary.action}** ${boundary.after}
+
 **Inside ConfigHub:** ${architecture.configHub.result}
 
-**After ConfigHub:** ${architecture.delivery.result} ${architecture.delivery.consumers.join(", ")} can consume that artifact without rendering the source package again.
+ConfigHub can join an existing delivery flow without replacing it:
 
-This website and catalog do the work before OCI enters ConfigHub. ConfigHub then stores, transforms, checks, promotes, and operates the configuration. The release OCI is the handoff to delivery.`;
+- Existing: \`${existingFlow.before}\`
+- With ConfigHub: \`${existingFlow.withConfigHub}\`
+- First: ${existingFlow.firstStep}
+- Later: ${existingFlow.later}
+
+**After ConfigHub:** ${architecture.delivery.result} ${consumerList} can consume that artifact without rendering the source package again.
+
+The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.`;
 }
 
 function renderDemoTable(demos) {
