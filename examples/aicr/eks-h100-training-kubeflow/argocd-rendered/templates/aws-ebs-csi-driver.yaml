@@ -1,0 +1,71 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/aws-ebs-csi-driver.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "0"
+    name: aws-ebs-csi-driver
+    namespace: argocd
+spec:
+    destination:
+        namespace: kube-system
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: aws-ebs-csi-driver
+        helm:
+            values: |-
+                controller:
+                  replicaCount: 2
+                  resources:
+                    limits:
+                      memory: 256Mi
+                    requests:
+                      cpu: 10m
+                      memory: 40Mi
+                  serviceAccount:
+                    automountServiceAccountToken: true
+                    create: true
+                    name: ebs-csi-controller-sa
+                  tolerations:
+                  - operator: Exists
+                defaultStorageClass:
+                  enabled: false
+                fullnameOverride: aws-ebs-csi-driver
+                helmTester:
+                  enabled: false
+                image:
+                  pullPolicy: IfNotPresent
+                  repository: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver
+                node:
+                  enableLinux: true
+                  enableWindows: false
+                  resources:
+                    limits:
+                      memory: 256Mi
+                    requests:
+                      cpu: 10m
+                      memory: 40Mi
+                  serviceAccount:
+                    automountServiceAccountToken: true
+                    create: true
+                    name: ebs-csi-node-sa
+                  tolerateAllTaints: true
+                  tolerations:
+                  - operator: Exists
+                  updateStrategy:
+                    rollingUpdate:
+                      maxUnavailable: 10%
+                    type: RollingUpdate
+                storageClasses: []
+                volumeSnapshotClasses: []
+        repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+        targetRevision: 2.59.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

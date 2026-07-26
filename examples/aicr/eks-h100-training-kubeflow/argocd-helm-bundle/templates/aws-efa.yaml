@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: aws-efa
+    namespace: argocd
+spec:
+    destination:
+        namespace: kube-system
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: aws-efa-k8s-device-plugin
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/aws-efa.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "awsefa" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: https://aws.github.io/eks-charts
+        targetRevision: 0.5.26
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

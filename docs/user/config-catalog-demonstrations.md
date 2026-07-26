@@ -37,15 +37,16 @@ Keep the AICR recipe, remaining inputs, generated files, and OCI digest together
 1. Generate and review an AICR recipe for a named target.
 2. Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input.
 3. Keep the recipe, bundle checksums, and generation receipt together.
-4. For Flux OCI output, record the required OCIRepository, source-watcher controller, and ExternalArtifact feature gate.
-5. Upload the literal bundle as a ConfigHub base variant.
-6. Promote derived variants only after the rendered diff and target checks pass.
+4. When the generated OCI is still a source package, render it once more and put the literal Kubernetes or controller objects in a separate OCI for ConfigHub upload.
+5. For Flux OCI output, record the required OCIRepository, source-watcher controller, and ExternalArtifact feature gate.
+6. Upload the literal bundle as a ConfigHub base variant.
+7. Promote derived variants only after the rendered diff and target checks pass.
 
 Start with [docs/demo/aicr/eks-h100-training-kubeflow.md](../../docs/demo/aicr/eks-h100-training-kubeflow.md) or [examples/aicr/eks-h100-training-kubeflow/aicr.yaml](../../examples/aicr/eks-h100-training-kubeflow/aicr.yaml).
 
-Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml), [examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle](../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle), [examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json](../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json).
+Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml), [examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle](../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle), [examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json](../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json), [examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/argocd-rendered](../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered).
 
-Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. Public registry publication, ConfigHub upload, controller delivery, and live GPU-cluster reconciliation have not run.
+Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks. Public registry publication, ConfigHub upload, controller delivery, and live GPU-cluster reconciliation have not run.
 
 ### cub installer package to managed configuration
 

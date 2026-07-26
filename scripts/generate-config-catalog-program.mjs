@@ -105,6 +105,7 @@ function buildReport() {
   const records = [
     ...intents.map(buildHelmRecord),
     buildAicrRecord(),
+    buildAicrArgoCdRecord(),
     buildSveltosRecord(),
   ].sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
@@ -343,6 +344,130 @@ function buildAicrRecord() {
         "Flux needs the recorded source-watcher controller, ExternalArtifact feature gate, and OCIRepository before this bundle can reconcile.",
         "No live Flux or GPU-cluster reconciliation is claimed.",
         "The older Git-oriented bundle is kept as separate evidence and still contains its recorded YOUR_ORG/YOUR_REPO placeholder.",
+      ],
+    },
+  };
+}
+
+function buildAicrArgoCdRecord() {
+  const root = "examples/aicr/eks-h100-training-kubeflow";
+  const receiptPath = `${root}/argocd-oci-receipt.yaml`;
+  const receipt = readYaml(join(repoRoot, receiptPath));
+  const generationReceipt = readYaml(join(repoRoot, receipt.spec.source.generationReceipt));
+  const bundlePath = receipt.spec.outputs.renderedApplications;
+  const checksumsPath = receipt.spec.outputs.renderedChecksums;
+  const objects = objectsInDirectory(join(repoRoot, bundlePath), { includeTemplates: true });
+  check(objects.length === 17, `expected 17 rendered AICR Argo CD Applications, found ${objects.length}`);
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "BaseVariantRecord",
+    metadata: {
+      name: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+      labels: {
+        sourceType: "aicr",
+        component: "aicr-eks-h100-training-kubeflow",
+        sourceVersion: "v0.14.0",
+        base: "argocd",
+      },
+    },
+    spec: {
+      source: {
+        type: "aicr",
+        name: "eks-h100-training-kubeflow",
+        version: "v0.14.0",
+        record: receiptPath,
+        packageOciRef: "",
+      },
+      baseVariant: {
+        name: "argocd",
+        revision: "generated-v0.14.0",
+        digest: sha256File(join(repoRoot, checksumsPath)),
+      },
+      configuration: {
+        format: "argocd-application-yaml",
+        objects: bundlePath,
+        inventory: checksumsPath,
+        objectCount: objects.length,
+      },
+      inputs: {
+        fixedAtBuildTime: [
+          ...Object.entries(generationReceipt.spec.criteria).map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(receipt.spec.generationInputs).map(([key, value]) => `${key}=${value}`),
+          ...Object.entries(receipt.spec.renderInputs).map(([key, value]) => `${key}=${value}`),
+        ],
+        installTime: [],
+        installTimeStatus: "none-declared-for-the-rendered-applications",
+      },
+      routing: {
+        routes: [
+          {
+            id: "argocd-sync-waves",
+            status: "generated-not-live",
+            note: "AICR assigned the 16 component Applications to sync waves 0 through 15.",
+          },
+          {
+            id: "argocd-source-package",
+            status: "local-only",
+            note: "The parent and two path-based child Applications need the AICR Helm source package at the recorded OCI repository and revision.",
+          },
+        ],
+        targetFacts: {
+          platform: "EKS",
+          accelerator: "H100",
+          operatingSystem: "Ubuntu",
+          argoCd: {
+            required: true,
+            applicationNamespace: "argocd",
+            ociHelmSourceRequired: true,
+          },
+        },
+        sourceRecord: receipt.spec.source.recipe,
+      },
+      delivery: {
+        sourcePackageOci: {
+          status: "local-only",
+          localDigest: receipt.spec.artifacts.sourcePackage.portableDigest,
+          plannedRef: receipt.spec.artifacts.sourcePackage.publicTarget,
+          ociLayout: receipt.spec.artifacts.sourcePackage.ociLayout,
+        },
+        literalConfigOci: {
+          status: "local-only",
+          localDigest: receipt.spec.artifacts.literalConfiguration.digest,
+          localPush: receipt.status.renderedLocalPush,
+          localPull: receipt.status.renderedLocalPull,
+          plannedRef: receipt.spec.artifacts.literalConfiguration.publicTarget,
+          ociLayout: receipt.spec.artifacts.literalConfiguration.ociLayout,
+        },
+        configHubReleaseOci: {
+          status: "not-run",
+        },
+        argoCd: "source-package-and-applications-generated-not-live",
+        flux: "not-applicable-to-this-base",
+      },
+      policy: {
+        profile: "catalog-standard",
+        productionAdds: ["human-approval"],
+      },
+      evidence: {
+        generationReceipt: receiptPath,
+        sourceChecksums: receipt.spec.outputs.sourceChecksums,
+        renderedChecksums: receipt.spec.outputs.renderedChecksums,
+        sourceManifest: receipt.spec.outputs.sourceManifest,
+        renderedManifest: receipt.spec.outputs.renderedManifest,
+      },
+      operations: {
+        resourceClass: "system-configuration",
+        ownerClass: "platform-team",
+        changeCadence: "planned-platform-release",
+      },
+    },
+    status: {
+      level: "partial",
+      claim: `AICR v0.14.0 generated a portable Argo CD Helm source package and ${objects.length} literal Application objects. Both OCI artifacts were pushed to and pulled from a temporary local registry at their recorded digests.`,
+      limits: [
+        "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
+        "The literal Application bundle has not been uploaded to ConfigHub.",
+        "No live Argo CD or GPU-cluster reconciliation is claimed.",
       ],
     },
   };
@@ -676,10 +801,10 @@ function targetFactInputs(declared) {
   return result;
 }
 
-function objectsInDirectory(root) {
+function objectsInDirectory(root, { includeTemplates = false } = {}) {
   const files = listFiles(root)
     .filter((path) => [".yaml", ".yml"].includes(extname(path)))
-    .filter((path) => !path.includes("/templates/") && !path.endsWith("/Chart.yaml"))
+    .filter((path) => (includeTemplates || !path.includes("/templates/")) && !path.endsWith("/Chart.yaml"))
     .sort();
   return parseObjects(files.map((path) => readFileSync(path, "utf8")).join("\n---\n"));
 }
@@ -733,7 +858,12 @@ function renderBaseSummary(records) {
   const statusCounts = countBy(records, (record) => record.status.level);
   const redis = records.find((record) => record.metadata.name === "bitnami-redis-25-5-3-default");
   const argo = records.find((record) => record.metadata.name === "argo-cd-argo-cd-9-5-15-no-crds");
-  const aicr = records.find((record) => record.spec.source.type === "aicr");
+  const aicrFlux = records.find(
+    (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-14-0-base",
+  );
+  const aicrArgoCd = records.find(
+    (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+  );
   const sveltos = records.find((record) => record.spec.source.type === "sveltos");
   return `# Base variant records
 
@@ -759,7 +889,8 @@ A base-variant record connects the literal configuration to the source that prod
 
 - [Redis default](${redis ? `records/${redis.metadata.name}.yaml` : ""}) connects a Helm render intent, 14 literal objects, its revision digest, and the current OCI evidence.
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
-- [AICR EKS H100 training](${aicr ? `records/${aicr.metadata.name}.yaml` : ""}) records a genuine AICR v0.14.0 recipe and generated Flux bundle without claiming a live upload.
+- [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
+- [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
 - [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records the intended ConfigHub and Sveltos boundary and remains marked as an example.
 
 ## Files

@@ -449,6 +449,7 @@
 <tr><td>Literal configuration bundle</td><td>Kubernetes YAML that is ready to become ConfigHub Units</td><td><code>cub variant upload oci://...</code></td></tr>
 <tr><td>ConfigHub release bundle</td><td>Approved desired configuration published for delivery</td><td>Argo CD, Flux, or another ConfigHub delivery path</td></tr></tbody></table>
 <p>An entry must name which kind of OCI artifact it links to. A multi-preset installer package is not automatically a literal configuration bundle.</p>
+<p>The AICR Argo CD example makes the distinction concrete. AICR generates a Helm chart as its Argo CD source package. Helm renders that chart into 17 Argo CD <code>Application</code> objects. The source chart is useful to Argo CD, while the second OCI artifact containing those 17 objects is the one ConfigHub can upload and manage as configuration.</p>
 <h2 id="changes-after-the-base">Changes after the base</h2>
 <p>Test, development, staging, production, region, customer, and cluster differences are derived ConfigHub variants. A derived variant changes the recorded objects without re-rendering the source package. Promotion moves a reviewed change between variants and shows the exact mutations before they are accepted.</p>
 <p>When a change alters what Helm must render, it belongs in a new Helm base variant. When it changes the operating context or an object field after render, it belongs in a derived variant.</p>

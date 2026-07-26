@@ -1,0 +1,45 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/nvsentinel.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "14"
+    name: nvsentinel
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvsentinel
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: nvsentinel
+        helm:
+            values: |-
+                fullnameOverride: nvsentinel
+                global:
+                  systemNodeTolerations:
+                  - operator: Exists
+                  tolerations:
+                  - operator: Exists
+                networkPolicy:
+                  enabled: false
+                platformConnector:
+                  maxUnavailable: 1
+                  resources:
+                    limits:
+                      cpu: 200m
+                      memory: 512Mi
+                    requests:
+                      cpu: 200m
+                      memory: 512Mi
+                  updateStrategy: RollingUpdate
+        repoURL: oci://ghcr.io/nvidia/nvsentinel
+        targetRevision: v1.3.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

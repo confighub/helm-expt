@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "13"
+    name: nvidia-dra-driver-gpu
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvidia-dra-driver
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: nvidia-dra-driver-gpu
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/nvidia-dra-driver-gpu.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "dradriver" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: https://helm.ngc.nvidia.com/nvidia
+        targetRevision: 25.12.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

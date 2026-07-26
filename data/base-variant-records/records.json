@@ -4,6 +4,129 @@
       "apiVersion": "catalog.confighub.com/v1alpha1",
       "kind": "BaseVariantRecord",
       "metadata": {
+        "name": "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+        "labels": {
+          "sourceType": "aicr",
+          "component": "aicr-eks-h100-training-kubeflow",
+          "sourceVersion": "v0.14.0",
+          "base": "argocd"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "aicr",
+          "name": "eks-h100-training-kubeflow",
+          "version": "v0.14.0",
+          "record": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+          "packageOciRef": ""
+        },
+        "baseVariant": {
+          "name": "argocd",
+          "revision": "generated-v0.14.0",
+          "digest": "fc03b2950c81db63a4853424fcb30942e9ecf0e94e54f7474439421dcc254801"
+        },
+        "configuration": {
+          "format": "argocd-application-yaml",
+          "objects": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered",
+          "inventory": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+          "objectCount": 17
+        },
+        "inputs": {
+          "fixedAtBuildTime": [
+            "accelerator=h100",
+            "intent=training",
+            "os=ubuntu",
+            "platform=kubeflow",
+            "service=eks",
+            "acceleratedNodeSelector=nvidia.com/gpu.present=true",
+            "storageClass=gp3",
+            "workloadSelector=app.kubernetes.io/part-of=training",
+            "namespace=argocd",
+            "repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt",
+            "targetRevision=0.14.0"
+          ],
+          "installTime": [],
+          "installTimeStatus": "none-declared-for-the-rendered-applications"
+        },
+        "routing": {
+          "routes": [
+            {
+              "id": "argocd-sync-waves",
+              "status": "generated-not-live",
+              "note": "AICR assigned the 16 component Applications to sync waves 0 through 15."
+            },
+            {
+              "id": "argocd-source-package",
+              "status": "local-only",
+              "note": "The parent and two path-based child Applications need the AICR Helm source package at the recorded OCI repository and revision."
+            }
+          ],
+          "targetFacts": {
+            "platform": "EKS",
+            "accelerator": "H100",
+            "operatingSystem": "Ubuntu",
+            "argoCd": {
+              "required": true,
+              "applicationNamespace": "argocd",
+              "ociHelmSourceRequired": true
+            }
+          },
+          "sourceRecord": "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+        },
+        "delivery": {
+          "sourcePackageOci": {
+            "status": "local-only",
+            "localDigest": "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e",
+            "plannedRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0",
+            "ociLayout": "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-source"
+          },
+          "literalConfigOci": {
+            "status": "local-only",
+            "localDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+            "localPush": "pass",
+            "localPull": "pass",
+            "plannedRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+            "ociLayout": "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config"
+          },
+          "configHubReleaseOci": {
+            "status": "not-run"
+          },
+          "argoCd": "source-package-and-applications-generated-not-live",
+          "flux": "not-applicable-to-this-base"
+        },
+        "policy": {
+          "profile": "catalog-standard",
+          "productionAdds": [
+            "human-approval"
+          ]
+        },
+        "evidence": {
+          "generationReceipt": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+          "sourceChecksums": "examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/checksums.txt",
+          "renderedChecksums": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
+          "sourceManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json",
+          "renderedManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json"
+        },
+        "operations": {
+          "resourceClass": "system-configuration",
+          "ownerClass": "platform-team",
+          "changeCadence": "planned-platform-release"
+        }
+      },
+      "status": {
+        "level": "partial",
+        "claim": "AICR v0.14.0 generated a portable Argo CD Helm source package and 17 literal Application objects. Both OCI artifacts were pushed to and pulled from a temporary local registry at their recorded digests.",
+        "limits": [
+          "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
+          "The literal Application bundle has not been uploaded to ConfigHub.",
+          "No live Argo CD or GPU-cluster reconciliation is claimed."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "BaseVariantRecord",
+      "metadata": {
         "name": "aicr-eks-h100-training-kubeflow-v0-14-0-base",
         "labels": {
           "sourceType": "aicr",

@@ -1,0 +1,99 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kube-prometheus-stack.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "7"
+    name: kube-prometheus-stack
+    namespace: argocd
+spec:
+    destination:
+        namespace: monitoring
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: kube-prometheus-stack
+        helm:
+            values: |-
+                alertmanager:
+                  alertmanagerSpec:
+                    resources:
+                      limits:
+                        cpu: 500m
+                        memory: 512Mi
+                      requests:
+                        cpu: 100m
+                        memory: 128Mi
+                    tolerations:
+                    - operator: Exists
+                  enabled: true
+                crds:
+                  enabled: false
+                fullnameOverride: kube-prometheus
+                grafana:
+                  adminPassword: admin
+                  enabled: true
+                  fullnameOverride: grafana
+                  resources:
+                    limits:
+                      cpu: 500m
+                      memory: 512Mi
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                  tolerations:
+                  - operator: Exists
+                kube-state-metrics:
+                  fullnameOverride: kube-state-metrics
+                  tolerations:
+                  - operator: Exists
+                nodeExporter:
+                  enabled: true
+                prometheus:
+                  prometheusSpec:
+                    resources:
+                      limits:
+                        cpu: 2
+                        memory: 2Gi
+                      requests:
+                        cpu: 500m
+                        memory: 1Gi
+                    retention: 15d
+                    serviceMonitorNamespaceSelector: {}
+                    serviceMonitorSelectorNilUsesHelmValues: false
+                    storageSpec:
+                      volumeClaimTemplate:
+                        spec:
+                          accessModes:
+                          - ReadWriteOnce
+                          resources:
+                            requests:
+                              storage: 50Gi
+                          storageClassName: gp3
+                    tolerations:
+                    - operator: Exists
+                prometheus-node-exporter:
+                  fullnameOverride: prometheus-node-exporter
+                  tolerations:
+                  - operator: Exists
+                prometheusOperator:
+                  admissionWebhooks:
+                    patch:
+                      tolerations:
+                      - operator: Exists
+                  tolerations:
+                  - operator: Exists
+                thanosRuler:
+                  thanosRulerSpec:
+                    tolerations:
+                    - operator: Exists
+        repoURL: https://prometheus-community.github.io/helm-charts
+        targetRevision: 84.4.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

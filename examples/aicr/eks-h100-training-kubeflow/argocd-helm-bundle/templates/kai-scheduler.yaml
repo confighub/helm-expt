@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "10"
+    name: kai-scheduler
+    namespace: argocd
+spec:
+    destination:
+        namespace: kai-scheduler
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: kai-scheduler
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/kai-scheduler.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "kaischeduler" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: oci://ghcr.io/kai-scheduler/kai-scheduler/kai-scheduler
+        targetRevision: v0.14.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

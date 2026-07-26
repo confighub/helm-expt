@@ -1,0 +1,102 @@
+# Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Nodewright EKS Ubuntu GPU Customization
+# Minimal templating - only tolerations/nodeSelectors are dynamic for CLI flag support
+#
+# This customization configures GPU nodes on Ubuntu with:
+# - GRUB parameters for hugepages and nokaslr
+# - Containerd service limits
+# - Sysctl kernel tuning parameters
+apiVersion: skyhook.nvidia.com/v1alpha1
+kind: Skyhook
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/part-of: skyhook-operator
+    app.kubernetes.io/created-by: aicr
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: nodewright-customizations-0.1.0
+  name: tuning
+  namespace: skyhook
+spec:
+  runtimeRequired: true
+  # Default: true. Disable with --set nodewrightcustomizations:autoTaintNewNodes=false
+  autoTaintNewNodes: true
+  # Dynamic: Supports --accelerated-node-toleration CLI flag
+  additionalTolerations:
+    - operator: Exists
+  # Dynamic: Supports --accelerated-node-selector CLI flag
+  nodeSelectors:
+    matchLabels:
+      nvidia.com/gpu.present: "true"
+  # Dynamic: Supports --workload-selector CLI flag
+  podNonInterruptLabels:
+    matchLabels:
+      app.kubernetes.io/part-of: training
+  # Tuning
+  packages:
+    # Check for kernel being >= to 6.14.0-1018 and if not install
+    nvidia-setup-kernel:
+      image: ghcr.io/nvidia/nodewright-packages/nvidia-setup
+      version: "0.2.2"
+      containerSHA: sha256:76913a5deff9513f348dd4b7d66cbca9ea1dd22df63baa4ac2f6b2fa7e93664e
+      configMap:
+        service: eks
+        accelerator: h100
+      env:
+        - name: NVIDIA_SETUP_INSTALL_KERNEL
+          value: "true"
+        - name: NVIDIA_SETUP_KERNEL_ALLOW_NEWER
+          value: "false"
+      resources:
+        cpuLimit: 4000m
+        cpuRequest: 2000m
+        memoryLimit: 8192Mi
+        memoryRequest: 4096Mi
+    nvidia-tuned:
+      image: ghcr.io/nvidia/nodewright-packages/nvidia-tuned
+      version: "0.3.0"
+      containerSHA: sha256:cc99c8c0675f3752f5081f0978ae57174368952ca0bb5fcac07640fe62c156c7
+      interrupt:
+        type: reboot
+      env:
+        - name: INTERRUPT
+          value: "true"
+      configMap:
+        intent: multiNodeTraining
+        accelerator: h100
+        service: eks
+      dependsOn:
+        nvidia-setup-kernel: "0.2.2"
+    # Full setup after kernel is in place
+    nvidia-setup-full:
+      image: ghcr.io/nvidia/nodewright-packages/nvidia-setup
+      version: "0.2.2"
+      containerSHA: sha256:76913a5deff9513f348dd4b7d66cbca9ea1dd22df63baa4ac2f6b2fa7e93664e
+      interrupt:
+        type: reboot
+      resources:
+        cpuLimit: 4000m
+        cpuRequest: 2000m
+        memoryLimit: 8192Mi
+        memoryRequest: 4096Mi
+      configMap:
+        service: eks
+        accelerator: h100
+      env:
+        - name: NVIDIA_SETUP_INSTALL_KERNEL
+          value: "false"
+      dependsOn:
+        nvidia-tuned: "0.3.0"

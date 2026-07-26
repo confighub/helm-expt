@@ -63,6 +63,11 @@ The word OCI covers three different artifacts in this work.
 An entry must name which kind of OCI artifact it links to. A multi-preset installer
 package is not automatically a literal configuration bundle.
 
+The AICR Argo CD example makes the distinction concrete. AICR generates a Helm chart
+as its Argo CD source package. Helm renders that chart into 17 Argo CD `Application`
+objects. The source chart is useful to Argo CD, while the second OCI artifact containing
+those 17 objects is the one ConfigHub can upload and manage as configuration.
+
 ## Changes after the base
 
 Test, development, staging, production, region, customer, and cluster differences are
