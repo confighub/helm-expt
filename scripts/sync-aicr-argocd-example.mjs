@@ -30,6 +30,7 @@ const allowedModes = new Set([
   "--hub-sync",
   "--hub-record",
   "--hub-verify",
+  "--hub-policy-check",
 ]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
@@ -38,7 +39,8 @@ if (!allowedModes.has(mode)) {
   node scripts/sync-aicr-argocd-example.mjs --public-verify
   node scripts/sync-aicr-argocd-example.mjs --hub-sync
   node scripts/sync-aicr-argocd-example.mjs --hub-record
-  node scripts/sync-aicr-argocd-example.mjs --hub-verify`);
+  node scripts/sync-aicr-argocd-example.mjs --hub-verify
+  node scripts/sync-aicr-argocd-example.mjs --hub-policy-check`);
   process.exit(1);
 }
 
@@ -46,6 +48,7 @@ const root = join(repoRoot, "examples", "aicr", "eks-h100-training-kubeflow");
 const sourceReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
 const renderedRoot = join(root, "argocd-rendered");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const configLayoutRoot = join(root, "oci-layouts", "argocd-config");
@@ -70,6 +73,7 @@ const spaceSlug = "aicr-eks-h100-training-kubeflow-v0-14-0-argocd";
 const unitSlug = "aicr-eks-h100-training-kubeflow";
 const readmeSlug = "readme";
 const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
+const approvalGate = "platform/require-approval/vet-approvedby";
 const cubContext = process.env.CUB_CONTEXT ?? "";
 
 runLocalVerification();
@@ -112,14 +116,30 @@ if (mode === "--hub-verify") {
   assertOrg();
   const receipt = verifyCommittedUploadReceipt();
   verifyLiveAgainstReceipt(receipt);
+  verifyApplyPolicyReceipt(readYaml(policyReceiptPath), receipt);
   console.log(
     `verified live AICR base variant (${spaceSlug}/${unitSlug}, ${receipt.spec.unit.uploadedObjectCount} Argo CD Applications)`,
   );
   process.exit(0);
 }
+if (mode === "--hub-policy-check") {
+  assertOrg();
+  const uploadReceipt = verifyCommittedUploadReceipt();
+  verifyLiveAgainstReceipt(uploadReceipt);
+  const receipt = runLiveApplyPolicyCheck(uploadReceipt);
+  writeYaml(policyReceiptPath, receipt);
+  verifyApplyPolicyReceipt(receipt, uploadReceipt);
+  console.log(`recorded the live required-approval check for ${spaceSlug}/${unitSlug}`);
+  process.exit(0);
+}
 
-verifyCommittedUploadReceipt();
-console.log("verified AICR ConfigHub upload receipt and public-receipt contract");
+const committedUploadReceipt = verifyCommittedUploadReceipt();
+check(
+  existsSync(policyReceiptPath),
+  "AICR apply-policy receipt is missing; run the Hub policy check",
+);
+verifyApplyPolicyReceipt(readYaml(policyReceiptPath), committedUploadReceipt);
+console.log("verified AICR ConfigHub upload and apply-policy receipts");
 
 function runLocalVerification() {
   execFileSync(
@@ -131,6 +151,11 @@ function runLocalVerification() {
       env: {
         ...process.env,
         AICR_SKIP_UPLOAD_RECEIPT: mode === "--hub-record" ? "1" : "0",
+        AICR_SKIP_POLICY_RECEIPT: [
+          "--hub-sync",
+          "--hub-record",
+          "--hub-policy-check",
+        ].includes(mode) ? "1" : "0",
       },
     },
   );
@@ -561,6 +586,173 @@ function verifyLiveAgainstReceipt(receipt) {
   check(live.unit.DataHash === receipt.spec.unit.dataHash, "live AICR Unit data hash changed");
   check(live.readme.UnitID === receipt.spec.readme.id, "live AICR README ID changed");
   check(live.readme.DataHash === receipt.spec.readme.dataHash, "live AICR README data hash changed");
+}
+
+function runLiveApplyPolicyCheck(uploadReceipt) {
+  const before = cubJson(["unit", "get", "--space", spaceSlug, unitSlug, "-o", "json"]).Unit;
+  check(
+    before.ApplyGates?.[approvalGate] === true,
+    `live AICR Unit is not blocked by ${approvalGate}`,
+  );
+
+  const command = [
+    "unit",
+    "apply",
+    "--space",
+    spaceSlug,
+    "--unit",
+    unitSlug,
+    "--dry-run",
+    "-o",
+    "mutations",
+  ];
+  const result = cubResult(command, { allowFailure: true });
+  const response = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+  check(result.status !== 0, "unapproved AICR dry-run apply unexpectedly succeeded");
+  check(
+    response.includes("outstanding ApplyGates"),
+    "unapproved AICR dry-run did not report outstanding ApplyGates",
+  );
+
+  const after = cubJson(["unit", "get", "--space", spaceSlug, unitSlug, "-o", "json"]).Unit;
+  const beforeState = unitPolicyState(before);
+  const afterState = unitPolicyState(after);
+  check(
+    JSON.stringify(afterState) === JSON.stringify(beforeState),
+    "AICR Unit state changed during the rejected dry-run",
+  );
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "ConfigHubApplyPolicyReceipt",
+    metadata: {
+      name: "aicr-eks-h100-training-kubeflow-v0-14-0-required-approval",
+    },
+    spec: {
+      organization: expectedOrg,
+      verifiedAt: new Date().toISOString(),
+      source: {
+        reference: uploadReceipt.spec.source.reference,
+        digest: uploadReceipt.spec.source.digest,
+      },
+      space: {
+        slug: spaceSlug,
+        id: uploadReceipt.spec.space.id,
+        resourceClass: uploadReceipt.spec.space.labels.ResourceClass,
+      },
+      unit: {
+        slug: unitSlug,
+        id: before.UnitID,
+      },
+      policy: {
+        profile: uploadReceipt.spec.policy.profile,
+        filter: uploadReceipt.spec.policy.filter,
+        gate: approvalGate,
+        reason: uploadReceipt.spec.policy.reason,
+      },
+      command: ["cub", ...command],
+      dryRun: {
+        exitCode: result.status,
+        response: "outstanding ApplyGates",
+        before: beforeState,
+        after: afterState,
+      },
+    },
+    status: {
+      result: "pass",
+      requiredApprovalBlockedDryRun: "pass",
+      configurationApplied: "not-run",
+      claim: "ConfigHub refused a dry-run apply of the exact AICR base variant because the required approval was missing.",
+      limits: [
+        "The Unit had no target attached, and no configuration was sent to Kubernetes.",
+        "This proves the required-approval behavior for this recorded AICR Unit and revision. It does not prove Argo CD reconciliation or GPU workload health.",
+      ],
+    },
+  };
+}
+
+function unitPolicyState(unit) {
+  return {
+    dataHash: unit.DataHash,
+    headRevision: unit.HeadRevisionNum,
+    liveRevision: unit.LiveRevisionNum ?? null,
+    lastAppliedRevision: unit.LastAppliedRevisionNum ?? null,
+    targetId: unit.TargetID ?? null,
+    applyGates: Object.keys(unit.ApplyGates ?? {}).sort(),
+  };
+}
+
+function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
+  check(
+    receipt.kind === "ConfigHubApplyPolicyReceipt",
+    "AICR apply-policy receipt kind changed",
+  );
+  check(receipt.spec?.organization === expectedOrg, "AICR policy receipt organization changed");
+  check(
+    receipt.spec?.source?.reference === uploadReceipt.spec.source.reference,
+    "AICR policy receipt source reference changed",
+  );
+  check(
+    receipt.spec?.source?.digest === uploadReceipt.spec.source.digest,
+    "AICR policy receipt source digest changed",
+  );
+  check(receipt.spec?.space?.slug === spaceSlug, "AICR policy receipt Space changed");
+  check(
+    receipt.spec?.space?.id === uploadReceipt.spec.space.id,
+    "AICR policy receipt Space ID changed",
+  );
+  check(
+    receipt.spec?.space?.resourceClass === "system-configuration",
+    "AICR policy receipt resource class changed",
+  );
+  check(receipt.spec?.unit?.slug === unitSlug, "AICR policy receipt Unit changed");
+  check(
+    receipt.spec?.unit?.id === uploadReceipt.spec.unit.id,
+    "AICR policy receipt Unit ID changed",
+  );
+  check(
+    receipt.spec?.policy?.profile === "catalog-standard",
+    "AICR policy receipt profile changed",
+  );
+  check(
+    receipt.spec?.policy?.filter === approvalRequiredFilterRef,
+    "AICR policy receipt filter changed",
+  );
+  check(receipt.spec?.policy?.gate === approvalGate, "AICR policy receipt gate changed");
+  check(
+    receipt.spec?.policy?.reason === "system-configuration",
+    "AICR policy receipt reason changed",
+  );
+  check(
+    Number.isInteger(receipt.spec?.dryRun?.exitCode)
+      && receipt.spec.dryRun.exitCode > 0,
+    "AICR policy dry run must remain rejected",
+  );
+  check(
+    receipt.spec?.dryRun?.response === "outstanding ApplyGates",
+    "AICR policy dry-run response changed",
+  );
+  check(
+    JSON.stringify(receipt.spec?.dryRun?.before) === JSON.stringify(receipt.spec?.dryRun?.after),
+    "AICR policy dry run changed Unit state",
+  );
+  check(
+    receipt.spec?.dryRun?.before?.applyGates?.includes(approvalGate),
+    "AICR policy receipt does not record the approval gate",
+  );
+  check(
+    receipt.spec?.dryRun?.before?.targetId === null,
+    "AICR policy proof must not attach a target",
+  );
+  check(receipt.status?.result === "pass", "AICR policy receipt is not pass");
+  check(
+    receipt.status?.requiredApprovalBlockedDryRun === "pass",
+    "AICR required-approval behavior is not pass",
+  );
+  check(
+    receipt.status?.configurationApplied === "not-run",
+    "AICR policy receipt must not claim apply",
+  );
 }
 
 function assertOrg() {

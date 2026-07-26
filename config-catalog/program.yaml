@@ -81,6 +81,7 @@ spec:
         - When the generated OCI is still a source package, render it once more and put the literal Kubernetes or controller objects in a separate OCI for ConfigHub upload.
         - For Flux OCI output, record the required OCIRepository, source-watcher controller, and ExternalArtifact feature gate.
         - Upload the literal bundle as a ConfigHub base variant.
+        - Confirm that the system-configuration policy stops an unapproved dry-run before any target is used.
         - Promote derived variants only after the rendered diff and target checks pass.
       entrypoints:
         - docs/demo/aicr/eks-h100-training-kubeflow.md
@@ -92,6 +93,7 @@ spec:
         - examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json
         - examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml
         - examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml
+        - examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml
         - examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml
         - runs/aicr-variant-promotion-proof/receipt.yaml
         - data/aicr-variant-promotion-proof/summary.md

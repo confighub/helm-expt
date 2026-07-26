@@ -97,6 +97,9 @@ Complete when:
 
 The Argo CD form now completes the ConfigHub upload step: 17 generated `Application`
 objects were imported from one literal OCI artifact as one policy-covered base variant.
+The live base is classed as system configuration. A dry-run apply of its exact
+17-Application Unit was rejected because it had no recorded approval; its revision and
+data hash did not change, and no target was attached.
 The first staging variant is ready as a concrete Grafana existing-Secret change, but
 the live demo organization is at its 1,000-Link quota. The failed clone left no Units
 and its partial Space was removed. Public registry publication and live Argo CD or GPU
