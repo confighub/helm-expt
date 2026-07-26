@@ -109,6 +109,13 @@ as its Argo CD source package. Helm renders that chart into 17 Argo CD `Applicat
 objects. The source chart is useful to Argo CD, while the second OCI artifact containing
 those 17 objects is the one ConfigHub can upload and manage as configuration.
 
+That AICR base controls cluster-wide system configuration, so it uses the
+approval-required policy. The live
+[AICR policy receipt](../../examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml)
+records a rejected dry-run of the exact 17-Application Unit. The required-approval gate
+stopped it before a target was attached, and the Unit revision and data hash remained
+unchanged.
+
 ## Changes after the base
 
 Test, development, staging, production, region, customer, and cluster differences are

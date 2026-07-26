@@ -16,6 +16,11 @@ Do not treat every OCI artifact as interchangeable. Check whether a link is a so
 or installer package, a literal bundle for `cub variant upload`, a portable deployment
 bundle, or a ConfigHub release. The consumer and receipt must match the artifact.
 
+For source-neutral examples, start with `config-catalog/program.yaml` and
+`docs/reference/config-catalog-doctrine.md`. The AICR example keeps separate receipts
+for generation, OCI packaging, ConfigHub upload, required-approval behavior, and
+promotion. Do not use one of those receipts to claim a later stage.
+
 ## What Not To Touch In This Pass
 
 Do not edit these unless the user explicitly asks for catalog work:

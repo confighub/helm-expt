@@ -15,14 +15,16 @@ const renderedChecksumsPath = join(renderedRoot, "checksums.txt");
 const sourceManifestPath = join(root, "local-argocd-source-oci-manifest.json");
 const renderedManifestPath = join(root, "local-argocd-config-oci-manifest.json");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
+const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
 const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const promotionProofPath = join(repoRoot, "runs", "aicr-variant-promotion-proof", "receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
 const skipUploadReceipt = process.env.AICR_SKIP_UPLOAD_RECEIPT === "1";
+const skipPolicyReceipt = process.env.AICR_SKIP_POLICY_RECEIPT === "1";
 
-for (const path of [
+const requiredPaths = [
   receiptPath,
   sourceChecksumsPath,
   renderedChecksumsPath,
@@ -33,12 +35,15 @@ for (const path of [
   promotionProofPath,
   join(sourceLayoutRoot, "index.json"),
   join(renderedLayoutRoot, "index.json"),
-]) {
+];
+if (!skipPolicyReceipt) requiredPaths.push(policyReceiptPath);
+for (const path of requiredPaths) {
   check(existsSync(path), `missing AICR Argo CD evidence: ${relative(repoRoot, path)}`);
 }
 
 const receipt = readYaml(receiptPath);
 const uploadReceipt = readYaml(uploadReceiptPath);
+const policyReceipt = skipPolicyReceipt ? null : readYaml(policyReceiptPath);
 const promotionReceipt = readYaml(promotionReceiptPath);
 const promotionProof = readYaml(promotionProofPath);
 check(receipt.spec?.deployer === "argocd-helm", "AICR Argo CD receipt must use argocd-helm");
@@ -224,6 +229,73 @@ if (!skipUploadReceipt) {
   check(uploadReceipt.status?.apply === "not-run", "AICR ConfigHub upload must not claim apply");
   check(uploadReceipt.status?.liveArgoReconciliation === "not-run", "AICR ConfigHub upload must not claim live Argo CD");
   check(uploadReceipt.status?.liveGpuReconciliation === "not-run", "AICR ConfigHub upload must not claim GPU health");
+}
+
+if (!skipPolicyReceipt) {
+  const approvalGate = "platform/require-approval/vet-approvedby";
+  check(
+    policyReceipt.kind === "ConfigHubApplyPolicyReceipt",
+    "AICR apply-policy receipt kind changed",
+  );
+  check(
+    policyReceipt.spec?.source?.digest === renderedDigest,
+    "AICR apply-policy source digest changed",
+  );
+  check(
+    policyReceipt.spec?.space?.slug === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+    "AICR apply-policy Space changed",
+  );
+  check(
+    policyReceipt.spec?.space?.resourceClass === "system-configuration",
+    "AICR apply-policy resource class changed",
+  );
+  check(
+    policyReceipt.spec?.unit?.slug === "aicr-eks-h100-training-kubeflow",
+    "AICR apply-policy Unit changed",
+  );
+  check(
+    policyReceipt.spec?.policy?.profile === "catalog-standard",
+    "AICR apply-policy profile changed",
+  );
+  check(
+    policyReceipt.spec?.policy?.filter === "platform/helm-catalog-prod-gates",
+    "AICR apply-policy filter changed",
+  );
+  check(
+    policyReceipt.spec?.policy?.gate === approvalGate,
+    "AICR apply-policy gate changed",
+  );
+  check(
+    Number.isInteger(policyReceipt.spec?.dryRun?.exitCode)
+      && policyReceipt.spec.dryRun.exitCode > 0,
+    "AICR apply-policy dry run must remain rejected",
+  );
+  check(
+    policyReceipt.spec?.dryRun?.response === "outstanding ApplyGates",
+    "AICR apply-policy response changed",
+  );
+  check(
+    JSON.stringify(policyReceipt.spec?.dryRun?.before)
+      === JSON.stringify(policyReceipt.spec?.dryRun?.after),
+    "AICR apply-policy dry run changed the Unit",
+  );
+  check(
+    policyReceipt.spec?.dryRun?.before?.applyGates?.includes(approvalGate),
+    "AICR apply-policy receipt does not record the approval gate",
+  );
+  check(
+    policyReceipt.spec?.dryRun?.before?.targetId === null,
+    "AICR apply-policy proof must not attach a target",
+  );
+  check(policyReceipt.status?.result === "pass", "AICR apply-policy receipt is not pass");
+  check(
+    policyReceipt.status?.requiredApprovalBlockedDryRun === "pass",
+    "AICR required-approval behavior is not pass",
+  );
+  check(
+    policyReceipt.status?.configurationApplied === "not-run",
+    "AICR apply-policy receipt must not claim apply",
+  );
 }
 
 check(promotionReceipt.kind === "VariantReadinessReceipt", "AICR promotion readiness receipt kind changed");

@@ -48,6 +48,9 @@ actually receive?
 - [confighub-upload-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml)
   records the ConfigHub Space, Unit, source digest, policy, and exact-object comparison
   from the live upload.
+- [apply-policy-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml)
+  records what happened when the unapproved AICR Unit was submitted for a dry-run
+  apply.
 
 The original Git-oriented bundle still contains
 `https://github.com/YOUR_ORG/YOUR_REPO.git`. It is kept so the limitation is visible;
@@ -189,7 +192,12 @@ login. Argo CD delivery and live GPU-cluster reconciliation have not run. The ex
 therefore proves generation, OCI packaging, exact ConfigHub upload, and policy
 attachment, but remains partial for public distribution and live operation.
 The uploaded base requires approval because it changes cluster-wide GPU, monitoring,
-and training-platform configuration. That rule applies even before production.
+and training-platform configuration. That rule applies even before production. A live
+dry-run of the exact 17-Application Unit was rejected with the required-approval gate.
+The Unit had no target attached, its revision and data hash stayed unchanged, and
+nothing was sent to Kubernetes. Run
+`npm run aicr-argocd-example:hub-policy-check` while authenticated to repeat that
+check.
 
 ## Change it in development, then promote it
 

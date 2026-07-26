@@ -436,6 +436,7 @@
 <h2 id="product-boundary">Product Boundary</h2>
 <p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
 <p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
+<p>For source-neutral examples, start with <code>config-catalog/program.yaml</code> and <code>docs/reference/config-catalog-doctrine.md</code>. The AICR example keeps separate receipts for generation, OCI packaging, ConfigHub upload, required-approval behavior, and promotion. Do not use one of those receipts to claim a later stage.</p>
 <h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
 <p>Do not edit these unless the user explicitly asks for catalog work:</p>
 <ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
