@@ -24,7 +24,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
 | [try-now.md](./user/try-now.md) | Short Redis and kube-prometheus-stack paths for first public use. |
 | [installer-oci-packages.md](./user/installer-oci-packages.md) | Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI. |
-| [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
+| [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
 | [Kubara platform example](./demo/kubara/local-platform.md) | Kubara v0.12.0 source, generated Helm configuration, 77 rendered bootstrap objects, lifecycle routes, OCI layout, and current live-test boundary. |
 | [Sveltos Kyverno fleet example](./demo/sveltos/kyverno-fleet.md) | Live one-cluster example: ConfigHub stores a reviewed ClusterProfile, Sveltos installs Kyverno on a matching workload cluster, and Sveltos restores drift. |
 | [Hooks and CRDs example](./demo/hooks-crds/kube-prometheus-stack.md) | Plain-English Kube Prometheus Stack install order, chart-specific route records, Argo CD and Flux choices, live evidence, and the remaining manual boundary. |

@@ -22,6 +22,21 @@ Helm re-render in the GitOps controller path.
 
 See [cub-deployment-path](cub-deployment-path.md).
 
+## Check the receipt for the configuration you want
+
+There are two separate questions.
+
+1. Can one ConfigHub release OCI be consumed by Argo CD, Flux, and direct apply?
+2. Has the configuration you want to run been delivered and observed through your controller?
+
+The first answer is yes. A small routed-hook fixture was published once and
+successfully consumed through all three paths. That proves the delivery
+mechanism.
+
+The second answer depends on the catalog entry. Look for a delivery receipt on
+that entry's page. A receipt for the fixture, or for another chart, does not
+prove that your selected configuration has reconciled successfully.
+
 ## Argo CD
 
 An Argo `Application` can point at the OCI URL and a path inside the bundle.
@@ -69,5 +84,6 @@ See [pathway-route-hooks-transparently](pathway-route-hooks-transparently.md).
 
 - [How It Works](how-it-works.md)
 - [Deployment Path](cub-deployment-path.md)
+- [Delivery mechanism receipt](../../data/oci-hook-delivery-proof/summary.md)
 - [What Happens To Chart Hooks](chart-hooks-what-happens.md)
 - [Doctrine](../../tests/doctrine.md)

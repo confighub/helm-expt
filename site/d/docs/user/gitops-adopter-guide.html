@@ -438,6 +438,11 @@
 <h2 id="what-changes-the-source">What changes: the source</h2>
 <p>Instead of pointing the controller at a git repo of Helm values that each tool re-renders, you point it at <b>one OCI bundle</b> published from reviewed ConfigHub Units. Every controller pulls the same generated objects. There is no per-tool Helm re-render in the GitOps controller path.</p>
 <p>See <a href="cub-deployment-path.html">cub-deployment-path</a>.</p>
+<h2 id="check-the-receipt-for-the-configuration-you-want">Check the receipt for the configuration you want</h2>
+<p>There are two separate questions.</p>
+<ol><li>Can one ConfigHub release OCI be consumed by Argo CD, Flux, and direct apply?</li><li>Has the configuration you want to run been delivered and observed through your controller?</li></ol>
+<p>The first answer is yes. A small routed-hook fixture was published once and successfully consumed through all three paths. That proves the delivery mechanism.</p>
+<p>The second answer depends on the catalog entry. Look for a delivery receipt on that entry's page. A receipt for the fixture, or for another chart, does not prove that your selected configuration has reconciled successfully.</p>
 <h2 id="argo-cd">Argo CD</h2>
 <p>An Argo <code>Application</code> can point at the OCI URL and a path inside the bundle. Argo still reports sync and health as usual. The catalog records which chart/preset rows have evidence for the render, ConfigHub upload, OCI handoff, Argo sync, and live result.</p>
 <h2 id="flux">Flux</h2>
@@ -452,7 +457,7 @@
 <p>A Helm hook becomes a named piece of work, not an inherited Argo or Flux hook. For one chart the right answer may be a preflight check. For another it may be an Argo sync action, a Flux-compatible step, a target fact, or a blocker. The catalog should say which answer applies and what evidence exists.</p>
 <p>See <a href="pathway-route-hooks-transparently.html">pathway-route-hooks-transparently</a>.</p>
 <h2 id="see-also">See Also</h2>
-<ul><li><a href="how-it-works.html">How It Works</a></li><li><a href="cub-deployment-path.html">Deployment Path</a></li><li><a href="chart-hooks-what-happens.html">What Happens To Chart Hooks</a></li><li><a href="../../tests/doctrine.html">Doctrine</a></li></ul>
+<ul><li><a href="how-it-works.html">How It Works</a></li><li><a href="cub-deployment-path.html">Deployment Path</a></li><li><a href="../../data/oci-hook-delivery-proof/summary.html">Delivery mechanism receipt</a></li><li><a href="chart-hooks-what-happens.html">What Happens To Chart Hooks</a></li><li><a href="../../tests/doctrine.html">Doctrine</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/gitops-adopter-guide.md</code>. The source file is the authoritative version.</p></footer>

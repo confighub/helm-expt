@@ -109,6 +109,12 @@ Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does
 not prove the other one.
 
+The project also separates proof of the delivery mechanism from proof for a catalog
+entry. The routed-hook fixture proves that one ConfigHub release OCI can be consumed
+through Argo CD, Flux, and direct apply. A Helm base, AICR bundle, Kubara platform, or
+other catalog entry earns a delivery claim only when that exact configuration has its
+own controller and workload receipt.
+
 The live Nginx fleet demonstrates the ConfigHub side of this model with a
 Helm-derived base and four environment variants. One digest-preserving image change
 was promoted to dev, staging, and one production region; the other production region

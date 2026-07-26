@@ -449,6 +449,11 @@
 <p>Keep the public installer packages as the no-account route for selecting and rendering chart preset configurations. Add a literal configuration OCI for selected base variants so the same reviewed output can seed a ConfigHub base Space directly.</p>
 <p>Complete when:</p>
 <ul><li>the catalog page names the two OCI artifacts correctly;</li><li><code>cub installer setup --pull</code> works for the multi-preset source package;</li><li><code>cub variant upload oci://...</code> works for the single literal base bundle;</li><li>the resulting ConfigHub Units match the committed object inventory.</li></ul>
+<h2 id="phase-3a-release-oci-delivery">Phase 3A: release OCI delivery</h2>
+<p>Keep Argo CD or Flux as the delivery controller. Publish the approved ConfigHub Units once as a release OCI so each controller consumes the same Kubernetes objects instead of rendering the source package again.</p>
+<p>There are two separate checks. The routed-hook fixture proves that the delivery mechanism works through Argo CD, Flux, and direct apply. Every catalog configuration still needs its own receipt before its page claims that the controller reconciled it successfully.</p>
+<p>Complete when:</p>
+<ul><li>the mechanism receipt continues to pass for Argo CD, Flux, and direct apply;</li><li>each claimed catalog path names the exact release OCI, controller, target, and workload receipt;</li><li>controller sync and workload health are reported separately;</li><li>a fixture receipt cannot be used as a catalog-wide delivery claim.</li></ul>
 <h2 id="phase-4-promotions-and-policy">Phase 4: promotions and policy</h2>
 <p>Use the same environment path for Helm, AICR, and existing YAML after each source has become a base variant.</p>
 <p>Apply <code>catalog-standard</code> everywhere. Production receives the baseline checks plus one approval requirement. The offline verifier must reject the earlier failure mode where approval leaked onto every Space.</p>

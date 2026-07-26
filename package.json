@@ -529,6 +529,7 @@
     "hook-replacement:proof": "node scripts/run-hook-replacement-proof.mjs --run",
     "hook-replacement:proof:verify": "node scripts/run-hook-replacement-proof.mjs --verify",
     "oci-hook:proof": "node scripts/run-oci-hook-delivery-proof.mjs --run",
+    "oci-hook:proof:generate": "node scripts/run-oci-hook-delivery-proof.mjs --generate",
     "oci-hook:proof:verify": "node scripts/run-oci-hook-delivery-proof.mjs --verify",
     "live-parity:top20": "node scripts/run-top20-live-parity.mjs --run",
     "live-parity:top20:all": "node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail",

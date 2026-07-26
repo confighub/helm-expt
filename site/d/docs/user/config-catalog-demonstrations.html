@@ -458,6 +458,14 @@
 <p>Start with <a href="installer-oci-packages.html">docs/user/installer-oci-packages.md</a> or <a href="try-now.html">docs/user/try-now.md</a>.</p>
 <p>Evidence: <a href="../../data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a>.</p>
 <p>Current limit: An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload.</p>
+<h3 id="one-reviewed-bundle-through-argo-cd-flux-or-direct-apply">One reviewed bundle through Argo CD, Flux, or direct apply</h3>
+<p><b>Status: partial.</b></p>
+<p>Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.</p>
+<p>ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a managed direct-apply path can consume the same files without rendering the chart again.</p>
+<ol><li>Start with the exact Kubernetes objects held as ConfigHub Units.</li><li>Run the checks and approval required for that configuration.</li><li>Publish the approved revision once as a ConfigHub release OCI.</li><li>Point Argo CD, Flux, or the managed direct-apply path at that artifact.</li><li>Record controller status and workload observations for this configuration.</li></ol>
+<p>Start with <a href="gitops-adopter-guide.html">docs/user/gitops-adopter-guide.md</a> or <a href="cub-deployment-path.html">docs/user/cub-deployment-path.md</a>.</p>
+<p>Evidence: <a href="../../../../runs/oci-hook-delivery-proof/receipt.yaml">runs/oci-hook-delivery-proof/receipt.yaml</a>, <a href="../../data/oci-hook-delivery-proof/summary.html">data/oci-hook-delivery-proof/summary.md</a>.</p>
+<p>Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. It does not prove that every catalog base has been delivered through Argo CD, Flux, and direct apply. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.</p>
 <h3 id="test-development-staging-and-production-promotions">Test, development, staging, and production promotions</h3>
 <p><b>Status: partial.</b></p>
 <p>Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.</p>
