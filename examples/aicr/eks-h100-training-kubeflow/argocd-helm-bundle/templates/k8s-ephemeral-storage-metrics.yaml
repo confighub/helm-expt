@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "9"
+    name: k8s-ephemeral-storage-metrics
+    namespace: argocd
+spec:
+    destination:
+        namespace: monitoring
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: k8s-ephemeral-storage-metrics
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/k8s-ephemeral-storage-metrics.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "k8sephemeralstoragemetrics" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart
+        targetRevision: 1.19.2
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

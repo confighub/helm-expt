@@ -1,0 +1,28 @@
+---
+# Source: aicr-eks-h100-training-kubeflow-argocd/templates/kubeflow-trainer-post.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "12"
+    name: kubeflow-trainer-post
+    namespace: argocd
+spec:
+    destination:
+        namespace: kubeflow
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        helm:
+            values: |-
+                {}
+        path: 013-kubeflow-trainer-post
+        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd'
+        targetRevision: '0.14.0'
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

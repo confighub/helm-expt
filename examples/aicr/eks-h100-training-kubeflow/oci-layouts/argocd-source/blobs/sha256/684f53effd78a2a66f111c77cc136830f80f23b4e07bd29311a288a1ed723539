@@ -1,0 +1,1 @@
+{"name":"aicr-eks-h100-training-kubeflow-argocd","version":"0.14.0","description":"AICR deployment bundle with dynamic install-time values","apiVersion":"v2","type":"application"}

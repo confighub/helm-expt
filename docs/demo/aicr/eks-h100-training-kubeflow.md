@@ -14,8 +14,8 @@ then be kept as named variants instead of rebuilding the package by hand.
 
 The recipe pins most of the platform before installation. Four choices shape this
 example: the StorageClass, the selector for accelerated nodes, the selector for
-training workloads, and the source Flux reads. The first three are fixed when the
-bundle is generated. The fourth must point at the published bundle.
+training workloads, and the source the delivery controller reads. The first three are
+fixed when the bundle is generated. The fourth must point at the published bundle.
 
 Keeping the recipe, those four choices, and the generated files together answers two
 practical questions later: what did we ask AICR to build, and what did each cluster
@@ -38,6 +38,13 @@ actually receive?
 - [generation-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml)
   records the release commit, binary checksums, criteria, options, commands, local OCI
   digest, Flux requirements, and current proof boundary.
+- [argocd-helm-bundle/Chart.yaml](../../../examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/Chart.yaml)
+  is AICR's portable Argo CD source chart.
+- [argocd-rendered/checksums.txt](../../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt)
+  records the 17 concrete Argo CD `Application` objects rendered from that chart.
+- [argocd-oci-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml)
+  joins the source chart, rendered objects, two tested local OCI artifacts, and their
+  intended public references.
 
 The original Git-oriented bundle still contains
 `https://github.com/YOUR_ORG/YOUR_REPO.git`. It is kept so the limitation is visible;
@@ -107,24 +114,61 @@ AICR's OCI form requires Flux v2.7 or newer, the `source-watcher` controller, an
 artifact. Those are part of the operating configuration, so the receipt records them
 instead of leaving them as setup knowledge.
 
+## The Argo CD path
+
+AICR can also generate an `argocd-helm` bundle. This output is a Helm chart that
+creates one parent Argo CD `Application` and 16 component `Application` objects. The
+components use sync waves 0 through 15, so storage, certificates, GPU support,
+monitoring, scheduling, and training are presented to Argo CD in the intended order.
+
+Two OCI artifacts have different jobs:
+
+| Artifact | What it contains | Who uses it |
+| --- | --- | --- |
+| AICR Argo source package | The generated Helm chart, values, local chart files, and Argo CD templates | Helm and Argo CD |
+| Rendered Argo configuration | The 17 exact `Application` objects, one YAML layer per object | ConfigHub |
+
+The source chart was pushed to and pulled from a temporary local registry at
+`sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e`.
+It was then rendered with the intended Google registry address. Those 17 files were
+put in a second OCI artifact and pulled back at
+`sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010`.
+Both tested artifacts are also committed as small OCI layouts, so the same bytes can
+be copied to the public registry after authentication.
+
+Run `npm run aicr-argocd-example:verify` to check the source package, the 17
+Applications, both OCI manifests and layouts, every file checksum, the source
+references, and the complete set of sync waves.
+
 ## Create a ConfigHub base variant
 
-After the artifact is published, sign in to ConfigHub. The same OCI reference can then
-create a base variant:
+After the artifacts are published, sign in to ConfigHub. For the Flux form, upload the
+generated Flux YAML artifact:
 
 ```bash
 cub variant upload \
   --component aicr-eks-h100-training-kubeflow \
-  --variant base \
+  --variant flux \
   --granularity minimal \
   oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow:v0.14.0
 ```
 
-`cub variant upload` does not run AICR or render charts. It imports the generated YAML
-and records the source reference and resolved digest on the Space. ConfigHub can then
-show changes to those files and manage derived variants for environments or cluster
+For Argo CD, upload the second artifact containing the rendered `Application` objects,
+not the source Helm chart:
+
+```bash
+cub variant upload \
+  --component aicr-eks-h100-training-kubeflow \
+  --variant argocd \
+  --granularity minimal \
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+```
+
+`cub variant upload` does not run AICR or render charts. It imports exact YAML and
+records the source reference and resolved digest on the Space. ConfigHub can then show
+changes to those files and manage derived variants for environments or cluster
 classes.
 
-The Google Artifact Registry push, anonymous pull, ConfigHub upload, Flux delivery, and
-live GPU-cluster reconciliation have not run yet. The current evidence stops at a
-verified local OCI artifact, so the AICR pathway remains partial.
+The Google Artifact Registry pushes, anonymous pulls, ConfigHub uploads, controller
+delivery, and live GPU-cluster reconciliation have not run yet. The current evidence
+stops at verified local OCI artifacts, so the AICR pathway remains partial.

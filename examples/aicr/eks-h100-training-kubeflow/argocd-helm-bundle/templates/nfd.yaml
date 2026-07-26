@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "3"
+    name: nfd
+    namespace: argocd
+spec:
+    destination:
+        namespace: node-feature-discovery
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: node-feature-discovery
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/nfd.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "nfd" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: https://kubernetes-sigs.github.io/node-feature-discovery/charts
+        targetRevision: 0.18.3
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

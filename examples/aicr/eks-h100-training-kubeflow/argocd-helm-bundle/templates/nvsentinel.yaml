@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "14"
+    name: nvsentinel
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvsentinel
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: nvsentinel
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/nvsentinel.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "nv-sentinel" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: oci://ghcr.io/nvidia/nvsentinel
+        targetRevision: v1.3.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "11"
+    name: kubeflow-trainer
+    namespace: argocd
+spec:
+    destination:
+        namespace: kubeflow
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: kubeflow-trainer
+        helm:
+            values: |-
+                {{- $static := (.Files.Get "static/kubeflow-trainer.yaml") | fromYaml | default dict -}}
+                {{- $dynamic := index .Values "kubeflowtrainer" | default dict -}}
+                {{- mustMergeOverwrite $static $dynamic | toYaml | nindent 16 }}
+        repoURL: oci://ghcr.io/kubeflow/charts/kubeflow-trainer
+        targetRevision: 2.2.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

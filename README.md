@@ -23,10 +23,10 @@ supported path instead of accidentally driving Helm into hidden edge cases.
 
 Four standards guide every catalog entry. Each entry reports which standards
 are proven and which still need work. The Helm corpus is the mature part of the
-project. The first real AICR example now has a generated recipe, Git and OCI
-Flux bundles, portable checksums, and a verified local OCI manifest. It remains
-partial until the public registry push, ConfigHub upload, and live
-reconciliation are recorded.
+project. The first real AICR example now has a generated recipe, a Flux OCI
+bundle, an Argo CD source chart, 17 rendered Argo CD Applications, portable
+checksums, and tested local OCI layouts. It remains partial until the public
+registry pushes, ConfigHub uploads, and live reconciliation are recorded.
 
 1. Most choices are made and checked before you install. The reviewed package
    fixes almost everything at build time and leaves a small, typed install-time
