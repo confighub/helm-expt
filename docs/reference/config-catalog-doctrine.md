@@ -14,6 +14,21 @@ That public front door must remain useful without a ConfigHub account:
 - `OCI -> work`: pull a public OCI to explain, inspect, scan, or compare it;
 - `OCI -> work -> OCI`: check or change the exact objects and serve the result.
 
+Here, `work` means rendering, inspecting, explaining, testing, scanning, comparing, or
+editing configuration. These are not only first-run paths. They are small steps that
+can be inserted into a delivery flow wherever they are useful:
+
+| Shape | Example use |
+| --- | --- |
+| `work -> OCI` | A repository or CI job checks source files and publishes a deployable OCI package. |
+| `OCI -> work` | A person or CI job pulls a package to inspect, test, or extract its exact objects. |
+| `OCI -> work -> OCI` | A person or service pulls a package, checks or changes it, and serves a new package for Argo CD, Flux, or another consumer. |
+
+The work may run as a local command or a CI job. We also intend to offer a public
+hosted path for open configuration: inspect, test, and serve a public package without
+signing in, then claim it later. That hosted path is not yet shipped. Anonymous use
+must not quietly create private history, saved edits, variants, or approvals.
+
 The boundary is **Claim this configuration in ConfigHub**. Before that point, a user
 can work anonymously with public packages. Claiming saves the objects and their
 history so a team can transform, approve, promote, and roll them out.
@@ -34,7 +49,9 @@ ConfigHub can join an existing `Git -> CI -> OCI -> Argo CD or Flux -> Kubernete
 flow without replacing the tools around it. The first change can be
 `OCI -> ConfigHub -> OCI`, with the exact configuration recorded and republished
 unchanged. Later, ConfigHub can produce named variants for environments, customers,
-regions, or cluster classes.
+regions, or cluster classes. It can also publish specific outputs to several consumers
+from one recorded base. The input and each output need their own digest and receipt so
+an unchanged pass-through, a transformation, and a fan-out are not confused.
 
 Current local delivery examples create their kind cluster and Argo CD setup with
 `cub cluster up` and remove it with `cub cluster down`. The string

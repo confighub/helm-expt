@@ -12,6 +12,22 @@ The public front door supports `work -> OCI`, `OCI -> work`, and
 user claims the configuration so it can be saved, changed, approved, promoted, or
 rolled out.
 
+Treat `work` as a reusable operation, not a product or a mandatory first step. It may
+mean render, inspect, explain, test, scan, compare, or edit. The operation may sit
+before an OCI is built, after one is pulled, or between an input OCI and an output
+OCI. Local anonymous use is proven. A hosted anonymous service is planned and must not
+be described as available.
+
+Inside an existing delivery flow, distinguish ConfigHub's three roles:
+
+- unchanged pass-through: record an OCI configuration and publish the same objects;
+- transformation: create a reviewed variant and publish the changed objects;
+- fan-out: publish specific outputs or deliver one reviewed release to several
+  targets.
+
+Require digests and receipts for each claim. Do not infer unchanged output from a
+successful import, or fleet rollout from one controller becoming healthy.
+
 Do not treat every OCI artifact as interchangeable. Check whether a link is a source
 or installer package, a literal bundle for `cub variant upload`, a portable deployment
 bundle, or a ConfigHub release. The consumer and receipt must match the artifact.

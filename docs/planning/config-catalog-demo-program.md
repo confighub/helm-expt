@@ -20,6 +20,17 @@ People can use that front door in three directions without an account:
 - `OCI -> work -> OCI`: pull a package, check or change the exact objects, and
   serve the resulting package.
 
+`work` is the useful operation: render, inspect, explain, test, scan, compare, or
+edit. The three shapes are reusable parts of a delivery flow. They may run before the
+first OCI is built, after an OCI is pulled, or between an input OCI and an output OCI.
+They are not a separate beginner-only journey.
+
+The current proof runs the anonymous work locally. The same commands should be usable
+in CI. A later public service should let someone inspect, test, and serve public
+configuration without signing in, then claim the result in ConfigHub. Until that
+service exists, the site must call it planned and must not imply that anonymous users
+already have hosted storage or saved edits.
+
 These paths remain useful without ConfigHub. The handoff is **Claim this
 configuration in ConfigHub**. Claiming saves the objects and their history so a
 team can make variants, require approvals, promote changes, and roll them out.
@@ -38,7 +49,8 @@ ConfigHub can be inserted into an existing `Git -> CI -> OCI -> Argo CD or Flux 
 Kubernetes` flow. The resulting path is `Git -> CI -> OCI -> ConfigHub -> OCI ->
 Argo CD or Flux -> Kubernetes`. The first use can be a checked pass-through: record
 the exact package and publish it again unchanged. Later, the team can create specific
-variants and promote them to selected clusters.
+variants and promote them to selected clusters. One recorded base can also feed
+several environment, customer, region, or cluster-group outputs.
 
 `cub release publish` creates an immutable Space release OCI from reviewed Units.
 The same reviewed objects can also be packaged as a portable OCI for anonymous or
@@ -66,6 +78,15 @@ The shortest complete demonstration uses one exact OCI package:
 
 This slice joins the public front door to ConfigHub's stored operations and then
 back to OCI delivery. It is deliberately smaller than a production fleet claim.
+
+It must distinguish three results:
+
+1. unchanged pass-through: the ConfigHub output contains the same Kubernetes objects
+   as the input OCI;
+2. transformation: a reviewed variant changes named fields and the output records the
+   new digest;
+3. fan-out: the same reviewed release is sent to more than one target, with delivery
+   and workload status recorded for each target.
 
 ## Phase 1: shared records
 
