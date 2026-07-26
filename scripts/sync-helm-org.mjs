@@ -11,6 +11,10 @@
 //   --sync    execute serially with the quota-probe protocol: stop at the
 //             first server error and report exact counts
 //   --verify  compare live org state against the plan (read-only)
+//   --policy-sync     set the two apply-policy filters from the committed profile
+//   --policy-record   verify the live policy topology and write its receipt
+//   --policy-verify   compare the live topology with the profile and receipt
+//   --policy-receipt-verify  verify the committed receipt without a live login
 //
 // Safety: --sync and --verify refuse to run unless `cub auth status` reports
 // the expected organization (--org, default helm-catalog).
@@ -19,7 +23,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { readYaml, repoRoot, write } from "./lib/proof-common.mjs";
+import { readYaml, repoRoot, write, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--plan";
 const orgArg = process.argv.includes("--org") ? process.argv[process.argv.indexOf("--org") + 1] : "helm-catalog";
@@ -29,6 +33,7 @@ const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "
 const applyPolicy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
 const baselineApplyFilter = applyPolicy.spec.baseline.filter;
 const productionApplyFilter = applyPolicy.spec.production.filter;
+const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
 
 function slugify(value) {
   return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -227,6 +232,236 @@ function assertOrg() {
   }
 }
 
+function cubJson(args) {
+  return JSON.parse(cub([...args, "-o", "json"]));
+}
+
+function splitEntityRef(ref) {
+  const slash = ref.indexOf("/");
+  if (slash <= 0 || slash === ref.length - 1) {
+    throw new Error(`expected a space/entity reference, got '${ref}'`);
+  }
+  return [ref.slice(0, slash), ref.slice(slash + 1)];
+}
+
+function expectedPolicyTriggers(policySet) {
+  return policySet.checks
+    .map((check) => ({ ref: check.trigger, effect: check.effect }))
+    .sort((a, b) => a.ref.localeCompare(b.ref));
+}
+
+function receiptPolicyTriggers(policySet) {
+  return policySet.triggers
+    .map((trigger) => ({ ref: trigger.ref, effect: trigger.effect }))
+    .sort((a, b) => a.ref.localeCompare(b.ref));
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return value.map(canonicalJson);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value).sort().map((key) => [key, canonicalJson(value[key])]),
+    );
+  }
+  return value;
+}
+
+function sameJson(left, right) {
+  return JSON.stringify(canonicalJson(left)) === JSON.stringify(canonicalJson(right));
+}
+
+function readPolicyFilter(policySet, name, findings) {
+  const [space, slug] = splitEntityRef(policySet.filter);
+  const filterResult = cubJson(["filter", "get", "--space", space, slug]);
+  const filter = filterResult.Filter;
+  const rows = cubJson(["trigger", "list", "--space", "*", "--filter", policySet.filter]);
+  const triggers = rows
+    .map((row) => ({
+      ref: `${row.Space.Slug}/${row.Trigger.Slug}`,
+      functionName: row.Trigger.FunctionName,
+      effect: row.Trigger.Warn === true ? "warn" : "block",
+      validating: row.Trigger.Validating === true,
+    }))
+    .sort((a, b) => a.ref.localeCompare(b.ref));
+
+  if (filter.From !== "Trigger") findings.push(`${policySet.filter} reads ${filter.From}, not Trigger`);
+  if (filter.Where !== policySet.filterWhere) {
+    findings.push(`${policySet.filter} selector drifted: '${filter.Where}'`);
+  }
+  const expected = expectedPolicyTriggers(policySet);
+  const actual = triggers.map(({ ref, effect }) => ({ ref, effect }));
+  if (!sameJson(actual, expected)) {
+    findings.push(`${policySet.filter} selected ${actual.map((item) => `${item.ref}:${item.effect}`).join(", ") || "no triggers"}`);
+  }
+  for (const trigger of triggers) {
+    if (!trigger.validating) findings.push(`${trigger.ref} is not a validating Trigger`);
+  }
+
+  return {
+    name,
+    ref: policySet.filter,
+    id: filter.FilterID,
+    where: filter.Where,
+    triggers,
+  };
+}
+
+function matchesLabels(space, labels) {
+  return Object.entries(labels ?? {}).every(([key, value]) => space.Labels?.[key] === value);
+}
+
+function collectLivePolicyState() {
+  const findings = [];
+  const baseline = readPolicyFilter(applyPolicy.spec.baseline, "baseline", findings);
+  const production = readPolicyFilter(applyPolicy.spec.production, "production", findings);
+  const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
+  const spaces = rows.map((row) => row.Space);
+  const baselineSpaces = spaces.filter((space) => space.TriggerFilterID === baseline.id);
+  const productionSpaces = spaces.filter((space) => space.TriggerFilterID === production.id);
+  const profileSpaces = spaces.filter((space) => space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name);
+
+  if (!baselineSpaces.length) findings.push("the baseline filter is not assigned to any Space");
+  if (!productionSpaces.length) findings.push("the production filter is not assigned to any Space");
+
+  for (const space of baselineSpaces) {
+    if (!matchesLabels(space, applyPolicy.spec.baseline.spaceSelector.labels)) {
+      findings.push(`${space.Slug} uses the baseline filter without the profile label`);
+    }
+    if (space.Labels?.Environment === "Prod") {
+      findings.push(`${space.Slug} is labeled Prod but uses the baseline filter`);
+    }
+  }
+  for (const space of productionSpaces) {
+    if (!matchesLabels(space, applyPolicy.spec.production.spaceSelector.labels)) {
+      findings.push(`${space.Slug} uses the production filter without the production labels`);
+    }
+  }
+  for (const space of profileSpaces) {
+    const expectedID = space.Labels?.Environment === "Prod" ? production.id : baseline.id;
+    if (space.TriggerFilterID !== expectedID) {
+      findings.push(`${space.Slug} claims ${applyPolicy.metadata.name} but uses the wrong filter`);
+    }
+  }
+
+  const baselineSlugs = baselineSpaces.map((space) => space.Slug).sort();
+  const productionSlugs = productionSpaces.map((space) => space.Slug).sort();
+  const selected = new Set([...baselineSlugs, ...productionSlugs]);
+  const excludedSlugs = spaces.map((space) => space.Slug).filter((slug) => !selected.has(slug)).sort();
+  const verifiedAt = new Date().toISOString();
+  const receipt = {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "ApplyPolicyLiveReceipt",
+    metadata: {
+      name: `${orgArg}-${applyPolicy.metadata.name}`,
+    },
+    spec: {
+      organization: orgArg,
+      profile: applyPolicy.metadata.name,
+      verifiedAt,
+      filters: {
+        baseline: {
+          ref: baseline.ref,
+          id: baseline.id,
+          where: baseline.where,
+          triggers: baseline.triggers,
+        },
+        production: {
+          ref: production.ref,
+          id: production.id,
+          where: production.where,
+          triggers: production.triggers,
+        },
+      },
+      spaces: {
+        baseline: baselineSlugs,
+        production: productionSlugs,
+        excluded: excludedSlugs,
+      },
+    },
+    status: {
+      result: findings.length ? "fail" : "pass",
+      findings,
+      limits: [
+        "This receipt checks live filter definitions, selected Triggers, and Space assignments.",
+        "It does not claim that a deliberately invalid configuration was applied.",
+      ],
+    },
+  };
+
+  return { findings, receipt };
+}
+
+function receiptComparable(receipt) {
+  return {
+    apiVersion: receipt.apiVersion,
+    kind: receipt.kind,
+    metadata: receipt.metadata,
+    organization: receipt.spec.organization,
+    profile: receipt.spec.profile,
+    filters: receipt.spec.filters,
+    spaces: receipt.spec.spaces,
+    result: receipt.status.result,
+    findings: receipt.status.findings,
+  };
+}
+
+function policyReceiptDrift(live, committed) {
+  const current = receiptComparable(live);
+  const expected = receiptComparable(committed);
+  return Object.keys(current).filter((key) => !sameJson(current[key], expected[key]));
+}
+
+function verifyPolicyReceipt(receipt) {
+  const failures = [];
+  if (receipt?.kind !== "ApplyPolicyLiveReceipt") failures.push("receipt kind is not ApplyPolicyLiveReceipt");
+  if (receipt?.spec?.organization !== orgArg) failures.push(`receipt organization is not ${orgArg}`);
+  if (receipt?.spec?.profile !== applyPolicy.metadata.name) failures.push(`receipt profile is not ${applyPolicy.metadata.name}`);
+  if (receipt?.status?.result !== "pass") failures.push("receipt result is not pass");
+  if ((receipt?.status?.findings ?? []).length) failures.push("receipt contains findings");
+
+  for (const [name, policySet] of Object.entries({
+    baseline: applyPolicy.spec.baseline,
+    production: applyPolicy.spec.production,
+  })) {
+    const recorded = receipt?.spec?.filters?.[name];
+    if (!recorded) {
+      failures.push(`receipt is missing ${name} filter`);
+      continue;
+    }
+    if (recorded.ref !== policySet.filter) failures.push(`${name} filter reference drifted`);
+    if (recorded.where !== policySet.filterWhere) failures.push(`${name} filter selector drifted`);
+    if (!sameJson(receiptPolicyTriggers(recorded), expectedPolicyTriggers(policySet))) {
+      failures.push(`${name} Trigger set drifted`);
+    }
+    for (const trigger of recorded.triggers ?? []) {
+      if (trigger.validating !== true) failures.push(`${trigger.ref} was not recorded as validating`);
+    }
+  }
+
+  const baselineSpaces = receipt?.spec?.spaces?.baseline ?? [];
+  const productionSpaces = receipt?.spec?.spaces?.production ?? [];
+  if (!baselineSpaces.length) failures.push("receipt has no baseline Spaces");
+  if (!productionSpaces.length) failures.push("receipt has no production Spaces");
+  const overlap = baselineSpaces.filter((space) => productionSpaces.includes(space));
+  if (overlap.length) failures.push(`Spaces appear in both policy sets: ${overlap.join(", ")}`);
+  if (applyPolicy.status.liveReverified !== true) failures.push("policy status does not mark the live result as reverified");
+  if (!String(receipt?.spec?.verifiedAt ?? "").startsWith(applyPolicy.status.lastRecorded)) {
+    failures.push("policy lastRecorded date does not match the receipt");
+  }
+  if (!applyPolicy.status.evidence.includes("data/apply-policy-profiles/live-helm-catalog.yaml")) {
+    failures.push("policy evidence does not link the live receipt");
+  }
+
+  return failures;
+}
+
+function printPolicyResult(receipt) {
+  const baseline = receipt.spec.filters.baseline;
+  const production = receipt.spec.filters.production;
+  console.log(`baseline: ${baseline.triggers.length} Trigger(s), ${receipt.spec.spaces.baseline.length} Space(s)`);
+  console.log(`production: ${production.triggers.length} Trigger(s), ${receipt.spec.spaces.production.length} Space(s)`);
+}
+
 function spaceExists(slug) {
   try {
     cub(["space", "get", slug]);
@@ -246,6 +481,110 @@ function unitCount(slug) {
 }
 
 const plan = buildPlan();
+
+if (mode === "--policy-receipt-verify") {
+  if (!existsSync(policyReceiptPath)) {
+    console.error(`missing ${policyReceiptPath}`);
+    process.exit(1);
+  }
+  const receipt = readYaml(policyReceiptPath);
+  const failures = verifyPolicyReceipt(receipt);
+  if (failures.length) {
+    for (const failure of failures) console.error(`- ${failure}`);
+    process.exit(1);
+  }
+  printPolicyResult(receipt);
+  console.log("verified committed helm-catalog apply-policy receipt");
+  process.exit(0);
+}
+
+if (mode === "--policy-sync") {
+  assertOrg();
+  for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.production]) {
+    const [space, slug] = splitEntityRef(policySet.filter);
+    cub([
+      "filter", "update", "--space", space, slug, "Trigger",
+      "--where-field", policySet.filterWhere,
+      "--quiet",
+    ]);
+    console.log(`updated ${policySet.filter} to its exact Trigger allow-list`);
+  }
+
+  const baselineFilter = cubJson(["filter", "get", "--space", ...splitEntityRef(baselineApplyFilter)]).Filter;
+  const productionFilter = cubJson(["filter", "get", "--space", ...splitEntityRef(productionApplyFilter)]).Filter;
+  const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
+  const selectedSpaces = rows
+    .map((row) => row.Space)
+    .filter((space) => (
+      space.TriggerFilterID === baselineFilter.FilterID
+      || space.TriggerFilterID === productionFilter.FilterID
+      || space.Labels?.ApplyPolicyProfile === applyPolicy.metadata.name
+    ))
+    .sort((a, b) => a.Slug.localeCompare(b.Slug));
+
+  for (const space of selectedSpaces) {
+    const filterRef = space.Labels?.Environment === "Prod" ? productionApplyFilter : baselineApplyFilter;
+    cub([
+      "space", "update", space.Slug,
+      "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
+      "--trigger-filter", filterRef,
+      "--where-trigger", "-",
+      "--quiet",
+    ]);
+    cub(["space", "update", "--patch", space.Slug, "--refresh-triggers", "--quiet"]);
+  }
+
+  const { findings, receipt } = collectLivePolicyState();
+  printPolicyResult(receipt);
+  if (findings.length) {
+    for (const finding of findings) console.error(`- ${finding}`);
+    process.exit(1);
+  }
+  console.log(`synchronized and refreshed ${selectedSpaces.length} policy-bearing Space(s)`);
+  process.exit(0);
+}
+
+if (mode === "--policy-record") {
+  assertOrg();
+  const { findings, receipt } = collectLivePolicyState();
+  printPolicyResult(receipt);
+  if (findings.length) {
+    for (const finding of findings) console.error(`- ${finding}`);
+    console.error("live policy topology failed; receipt was not written");
+    process.exit(1);
+  }
+  writeYaml(policyReceiptPath, receipt);
+  console.log("recorded live helm-catalog apply-policy topology");
+  process.exit(0);
+}
+
+if (mode === "--policy-verify") {
+  assertOrg();
+  if (!existsSync(policyReceiptPath)) {
+    console.error(`missing ${policyReceiptPath}; run --policy-record after a clean live check`);
+    process.exit(1);
+  }
+  const committed = readYaml(policyReceiptPath);
+  const receiptFailures = verifyPolicyReceipt(committed);
+  const { findings, receipt: live } = collectLivePolicyState();
+  const driftedFields = policyReceiptDrift(live, committed);
+  printPolicyResult(live);
+  for (const failure of [...receiptFailures, ...findings]) console.error(`- ${failure}`);
+  if (driftedFields.length) {
+    console.error(`- current live topology differs from the committed receipt (${driftedFields.join(", ")})`);
+    if (process.env.HELM_EXPT_POLICY_DEBUG === "1") {
+      const current = receiptComparable(live);
+      const expected = receiptComparable(committed);
+      for (const field of driftedFields) {
+        console.error(`current ${field}: ${JSON.stringify(current[field])}`);
+        console.error(`receipt ${field}: ${JSON.stringify(expected[field])}`);
+      }
+    }
+  }
+  if (receiptFailures.length || findings.length || driftedFields.length) process.exit(1);
+  console.log("verified live helm-catalog apply-policy topology against the committed receipt");
+  process.exit(0);
+}
 
 if (mode === "--plan") {
   console.log(`wave 1 plan: ${plan.length} base Space(s) across ${new Set(plan.map((p) => p.chart)).size} chart(s), org '${orgArg}'`);
@@ -519,7 +858,7 @@ if (mode === "--exhibits") {
 }
 
 if (mode !== "--sync") {
-  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--exhibits] [--org <name>]");
+  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--relabel|--exhibits|--policy-sync|--policy-record|--policy-verify|--policy-receipt-verify] [--org <name>]");
   process.exit(2);
 }
 

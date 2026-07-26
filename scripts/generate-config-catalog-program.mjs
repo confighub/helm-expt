@@ -451,6 +451,13 @@ function validatePolicy(policy) {
     "images-pinned-by-digest",
     "workload-probes-declared",
   ];
+  const expectedFilterWhere = (policySet) => {
+    const [space] = policySet.filter.split("/");
+    const slugs = policySet.checks
+      .map((item) => item.trigger.split("/")[1])
+      .sort();
+    return `Space.Slug = '${space}' AND Slug ~ '^(${slugs.join("|")})$'`;
+  };
   check(unique(baselineIds), "baseline policy check ids must be unique");
   check(unique(productionIds), "production policy check ids must be unique");
   check(sameSet(baselineIds, requiredBaseline), "baseline policy must contain exactly the four standard checks");
@@ -463,7 +470,50 @@ function validatePolicy(policy) {
     check(productionCheck.effect === baselineCheck.effect, `production effect differs for ${baselineCheck.id}`);
   }
   check(production.length === baseline.length + 1, "production policy must add exactly one check to the baseline");
+  check(
+    policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
+    "baseline filter must name exactly its four Triggers",
+  );
+  check(
+    policy.spec.production.filterWhere === expectedFilterWhere(policy.spec.production),
+    "production filter must name exactly its five Triggers",
+  );
   for (const path of policy.status?.evidence ?? []) check(existsRepo(path), `policy evidence is missing: ${path}`);
+  if (policy.status?.liveReverified) {
+    const receiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
+    const receipt = readYaml(receiptPath);
+    check(receipt.kind === "ApplyPolicyLiveReceipt", "live policy receipt kind is invalid");
+    check(receipt.spec?.profile === policy.metadata.name, "live policy receipt profile drifted");
+    check(receipt.status?.result === "pass" && !(receipt.status?.findings ?? []).length, "live policy receipt did not pass");
+    check(
+      String(receipt.spec?.verifiedAt ?? "").startsWith(policy.status.lastRecorded),
+      "live policy receipt date does not match policy status",
+    );
+    for (const [name, policySet] of Object.entries({
+      baseline: policy.spec.baseline,
+      production: policy.spec.production,
+    })) {
+      const recorded = receipt.spec?.filters?.[name];
+      const expectedChecks = policySet.checks
+        .map((item) => `${item.trigger}:${item.effect}`)
+        .sort();
+      const recordedChecks = (recorded?.triggers ?? [])
+        .map((item) => `${item.ref}:${item.effect}`)
+        .sort();
+      check(recorded?.ref === policySet.filter, `${name} live filter reference drifted`);
+      check(recorded?.where === policySet.filterWhere, `${name} live filter selector drifted`);
+      check(sameSet(recordedChecks, expectedChecks), `${name} live Trigger set drifted`);
+      check((recorded?.triggers ?? []).every((item) => item.validating === true), `${name} live receipt includes a non-validating Trigger`);
+    }
+    const baselineSpaces = receipt.spec?.spaces?.baseline ?? [];
+    const productionSpaces = receipt.spec?.spaces?.production ?? [];
+    check(baselineSpaces.length > 0, "live policy receipt has no baseline Spaces");
+    check(productionSpaces.length > 0, "live policy receipt has no production Spaces");
+    check(
+      !baselineSpaces.some((space) => productionSpaces.includes(space)),
+      "live policy receipt assigns a Space to both filters",
+    );
+  }
 }
 
 function validateProgram(program) {
@@ -505,6 +555,10 @@ function runSelfTest() {
   warningTurnedBlocking.spec.production.checks
     .find((item) => item.id === "images-pinned-by-digest").effect = "block";
   expectFailure(() => validatePolicy(warningTurnedBlocking), "production effect-drift fixture unexpectedly passed");
+
+  const broadFilter = structuredClone(policy);
+  broadFilter.spec.baseline.filterWhere = "Space.Slug = 'platform'";
+  expectFailure(() => validatePolicy(broadFilter), "broad baseline filter fixture unexpectedly passed");
 }
 
 function expectFailure(fn, message) {
@@ -641,6 +695,10 @@ The \`${policy.metadata.name}\` profile applies to ${policy.spec.sourceTypes.joi
 
 Filter: \`${baseline.filter}\`
 
+This filter names the four allowed Triggers explicitly:
+
+\`${baseline.filterWhere}\`
+
 ${renderChecksTable(baseline.checks)}
 
 ## Production
@@ -649,22 +707,29 @@ Filter: \`${production.filter}\`
 
 Production keeps the four baseline checks and adds one blocking approval:
 
+\`${production.filterWhere}\`
+
 ${renderChecksTable(production.checks)}
 
 ## Scope rules
 
 ${policy.spec.scopeAssertions.map((item) => `- ${item}`).join("\n")}
 
-The last committed live-org result is dated **${policy.status.lastRecorded}**. \`liveReverified: ${policy.status.liveReverified}\` means this generated page does not present that historical receipt as a fresh read of the current org.
+${policy.status.liveReverified
+  ? `The live \`helm-catalog\` filters and their assigned Spaces were checked on **${policy.status.lastRecorded}**. Read the [live receipt](./live-helm-catalog.yaml).`
+  : `The last committed live-org result is dated **${policy.status.lastRecorded}**. It has not been rechecked against the current org.`}
 
 Run:
 
 \`\`\`bash
 npm run config-catalog:verify
 npm run config-catalog:self-test
+npm run helm-org:policy:receipt:verify
+# With a valid helm-catalog login:
+npm run helm-org:policy:verify
 \`\`\`
 
-The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail.
+The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, Triggers, or Space assignments have changed.
 `;
 }
 
@@ -723,7 +788,7 @@ ${rendered}
 
 Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.
 
-The policy verifier also checks the filter boundary. Approval must not leak onto non-production Spaces, and production must not lose the baseline checks.
+The two filters name their allowed Triggers explicitly. On 26 July 2026 the live \`helm-catalog\` org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the [live receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml), or rerun \`npm run helm-org:policy:verify\` while logged into that org.
 `;
 }
 

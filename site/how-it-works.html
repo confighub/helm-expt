@@ -689,7 +689,7 @@ em{font-style:italic;color:var(--ink);}
 
   <h3>Checks before apply</h3>
   <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Sveltos, or ordinary Kubernetes files. Schema and placeholder checks block apply. Image digest and workload probe checks warn. Production keeps those four checks and adds one required approval.</p>
-  <p>The baseline and production filters are checked as separate sets. Approval must not leak onto non-production Spaces, and production must not lose the common checks when approval is added. Read the <a href="d/data/apply-policy-profiles/summary.html">generated policy profile</a> and its scope self-test.</p>
+  <p>The filters name the allowed checks instead of selecting every Trigger in the platform Space. The live demo currently has 26 Spaces on the four common checks and four production Spaces on those checks plus approval. Read the <a href="d/data/apply-policy-profiles/summary.html">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
   <p>The <a href="d/docs/user/config-catalog-demonstrations.html">demonstration programme</a> tracks the Helm, AICR, cub installer, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Partial and planned examples stay labeled as such.</p>

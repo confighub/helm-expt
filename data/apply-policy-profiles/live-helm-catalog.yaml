@@ -1,0 +1,115 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ApplyPolicyLiveReceipt"
+metadata:
+  name: "helm-catalog-catalog-standard"
+spec:
+  organization: "helm-catalog"
+  profile: "catalog-standard"
+  verifiedAt: "2026-07-26T11:05:41.893Z"
+  filters:
+    baseline:
+      ref: "platform/helm-catalog-checks"
+      id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'"
+      triggers:
+        -
+          ref: "platform/digest-pinned-images"
+          functionName: "vet-cel"
+          effect: "warn"
+          validating: true
+        -
+          ref: "platform/probes-declared"
+          functionName: "vet-cel"
+          effect: "warn"
+          validating: true
+        -
+          ref: "platform/vet-placeholders"
+          functionName: "vet-placeholders"
+          effect: "block"
+          validating: true
+        -
+          ref: "platform/vet-schemas"
+          functionName: "vet-schemas"
+          effect: "block"
+          validating: true
+    production:
+      ref: "platform/helm-catalog-prod-gates"
+      id: "8784a447-0e4d-4471-b924-eae5377778a2"
+      where: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
+      triggers:
+        -
+          ref: "platform/digest-pinned-images"
+          functionName: "vet-cel"
+          effect: "warn"
+          validating: true
+        -
+          ref: "platform/probes-declared"
+          functionName: "vet-cel"
+          effect: "warn"
+          validating: true
+        -
+          ref: "platform/require-approval"
+          functionName: "vet-approvedby"
+          effect: "block"
+          validating: true
+        -
+          ref: "platform/vet-placeholders"
+          functionName: "vet-placeholders"
+          effect: "block"
+          validating: true
+        -
+          ref: "platform/vet-schemas"
+          functionName: "vet-schemas"
+          effect: "block"
+          validating: true
+  spaces:
+    baseline:
+      - "argo-cd-argo-cd-9-5-15-default"
+      - "argo-cd-argo-cd-9-5-15-no-crds"
+      - "bitnami-mysql-14-0-3-existing-secret"
+      - "bitnami-mysql-14-0-3-static-passwords"
+      - "bitnami-nginx-24-0-2-existing-tls-ingress"
+      - "bitnami-nginx-24-0-2-http-clusterip"
+      - "bitnami-nginx-fleet-dev"
+      - "bitnami-nginx-fleet-staging"
+      - "bitnami-rabbitmq-16-0-14-existing-secret"
+      - "bitnami-rabbitmq-16-0-14-static-passwords"
+      - "bitnami-redis-25-5-3-default"
+      - "bitnami-redis-25-5-3-reuse-existing-secret"
+      - "grafana-grafana-10-5-15-existing-secret-ingress"
+      - "grafana-grafana-10-5-15-static-passwords"
+      - "hashicorp-vault-0-32-0-default"
+      - "hashicorp-vault-0-32-0-dev-mode"
+      - "hashicorp-vault-0-32-0-ha-raft-ui"
+      - "hashicorp-vault-demo-base"
+      - "hashicorp-vault-env-dev"
+      - "hashicorp-vault-env-staging"
+      - "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
+      - "ingress-nginx-ingress-nginx-4-15-1-default"
+      - "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
+      - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+      - "prometheus-community-prometheus-29-8-0-default"
+      - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+    production:
+      - "bitnami-nginx-fleet-prod-eu"
+      - "bitnami-nginx-fleet-prod-us"
+      - "bitnami-redis-prod"
+      - "hashicorp-vault-env-prod"
+    excluded:
+      - "bitnami-redis-27-0-0-default-pilot-live-20260705"
+      - "bitnami-redis-27-0-0-prod-pilot-live-20260705"
+      - "bitnami-redis-27-0-0-stage-pilot-live-20260705"
+      - "bitnami-redis-base"
+      - "bitnami-redis-staging"
+      - "default"
+      - "hook-probe-base"
+      - "orders-api"
+      - "platform"
+      - "route-sketch-kube-prometheus-stack"
+status:
+  result: "pass"
+  findings:
+    []
+  limits:
+    - "This receipt checks live filter definitions, selected Triggers, and Space assignments."
+    - "It does not claim that a deliberately invalid configuration was applied."

@@ -97,12 +97,17 @@
       "type": "object",
       "required": [
         "filter",
+        "filterWhere",
         "spaceSelector",
         "checks"
       ],
       "properties": {
         "filter": {
           "type": "string"
+        },
+        "filterWhere": {
+          "type": "string",
+          "minLength": 1
         },
         "spaceSelector": {
           "type": "object"

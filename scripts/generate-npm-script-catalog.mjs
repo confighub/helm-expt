@@ -61,6 +61,7 @@ function categorize(name) {
   if (name.startsWith("top100:") || name.startsWith("top500:") || name.startsWith("catalog:") || name.startsWith("chart-facts") || name.startsWith("completeness") || name.startsWith("variant-backlog") || name.startsWith("extension-slots") || name.startsWith("quirk") || name.startsWith("data:index") || name.startsWith("status:dashboard") || name.startsWith("site:")) return "catalog-data";
   if (name.startsWith("production:") || name.startsWith("scan-disposition") || name.startsWith("external-scan") || name.startsWith("image-digests") || name.startsWith("kps:") || name.startsWith("eso:production-support")) return "production-support";
   if (name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("kind-parity")) return "live-parity-gitops";
+  if (name.startsWith("helm-org:")) return "confighub-catalog-org";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
@@ -85,6 +86,7 @@ function classifyMode(name, command) {
 
 function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
+  if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "none-for-verify";
   if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "local-kubernetes";
   if (name.includes("local-e2e") || name.startsWith("kind-parity") || command.includes("kubectl") || command.includes("kind")) return "local-kubernetes";
@@ -110,6 +112,7 @@ function why(category) {
     "user-install-verification": "Lets a user check their own tutorial install or ConfigHub state against the catalog expectation.",
     "local-live-evidence": "Creates or verifies local Kubernetes observation receipts.",
     "confighub-proof": "Creates or verifies ConfigHub upload, scan, variant, and safe-operation receipts.",
+    "confighub-catalog-org": "Plans, checks, or updates the live helm-catalog demonstration organization and its apply policy.",
     "latest-version-refresh": "Keeps newer upstream chart candidates separate from supported catalog versions until promotion evidence exists.",
     "catalog-readiness": "Explains which catalog bases are clean first paths and which need prerequisites or review.",
     "catalog-data": "Maintains generated catalog, top100/top500, site, and CSV front-door data.",
