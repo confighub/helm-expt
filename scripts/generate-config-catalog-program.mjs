@@ -31,6 +31,14 @@ const recordRoot = join(baseRoot, "records");
 const policyRoot = join(repoRoot, "data", "apply-policy-profiles");
 const demoRoot = join(repoRoot, "data", "demo-program");
 const generatedGuidePath = join(repoRoot, "docs", "user", "config-catalog-demonstrations.md");
+const supportedSourceTypes = [
+  "helm",
+  "aicr",
+  "cub-installer",
+  "kubara",
+  "sveltos",
+  "rendered-config",
+];
 
 if (mode === "--self-test") {
   runSelfTest();
@@ -573,7 +581,7 @@ function validateRecords(records) {
     check(record.metadata?.name, "base record name is missing");
     check(!names.has(record.metadata.name), `duplicate base record ${record.metadata.name}`);
     names.add(record.metadata.name);
-    check(["helm", "aicr", "cub-installer", "kubara", "sveltos", "rendered-config"].includes(record.spec?.source?.type), `${record.metadata.name} has an invalid source type`);
+    check(supportedSourceTypes.includes(record.spec?.source?.type), `${record.metadata.name} has an invalid source type`);
     check(["available", "partial", "planned"].includes(record.status?.level), `${record.metadata.name} has an invalid status`);
     check(Number.isInteger(record.spec?.configuration?.objectCount), `${record.metadata.name} has an invalid object count`);
     check(record.spec?.policy?.profile === "catalog-standard", `${record.metadata.name} is not bound to catalog-standard`);
@@ -592,6 +600,11 @@ function validatePolicy(policy) {
   check(policy.apiVersion === "catalog.confighub.com/v1alpha1", "policy apiVersion is invalid");
   check(policy.kind === "ApplyPolicyProfile", "policy kind is invalid");
   check(policy.metadata?.name === "catalog-standard", "policy name must be catalog-standard");
+  check(unique(policy.spec?.sourceTypes ?? []), "policy source types must be unique");
+  check(
+    sameSet(policy.spec?.sourceTypes ?? [], supportedSourceTypes),
+    "policy must cover every supported configuration source type",
+  );
   const baseline = policy.spec?.baseline?.checks ?? [];
   const production = policy.spec?.production?.checks ?? [];
   const baselineIds = baseline.map((item) => item.id);
@@ -751,6 +764,14 @@ function runSelfTest() {
   const broadFilter = structuredClone(policy);
   broadFilter.spec.baseline.filterWhere = "Space.Slug = 'platform'";
   expectFailure(() => validatePolicy(broadFilter), "broad baseline filter fixture unexpectedly passed");
+
+  const missingAicrCoverage = structuredClone(policy);
+  missingAicrCoverage.spec.sourceTypes = missingAicrCoverage.spec.sourceTypes
+    .filter((sourceType) => sourceType !== "aicr");
+  expectFailure(
+    () => validatePolicy(missingAicrCoverage),
+    "missing AICR policy coverage fixture unexpectedly passed",
+  );
 
   const fleetSource = readYaml(join(
     repoRoot,

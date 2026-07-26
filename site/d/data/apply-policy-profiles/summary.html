@@ -450,7 +450,7 @@
 <tr><td><code>platform/probes-declared</code></td><td>warn</td><td>Report workload containers that have no readiness or liveness probe.</td></tr>
 <tr><td><code>platform/require-approval</code></td><td>block</td><td>Require one recorded approval before production apply.</td></tr></tbody></table>
 <h2 id="scope-rules">Scope rules</h2>
-<ul><li>The baseline filter selects exactly the four baseline triggers and never selects require-approval.</li><li>The production filter selects the same four baseline triggers plus require-approval.</li><li>A non-production Space must never receive require-approval from this profile.</li><li>A production Space must not lose the four baseline checks when approval is added.</li><li>The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.</li></ul>
+<ul><li>Every supported configuration source type is named by this profile.</li><li>The baseline filter selects exactly the four baseline triggers and never selects require-approval.</li><li>The production filter selects the same four baseline triggers plus require-approval.</li><li>A non-production Space must never receive require-approval from this profile.</li><li>A production Space must not lose the four baseline checks when approval is added.</li><li>The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.</li></ul>
 <p>The live <code>helm-catalog</code> filters and their assigned Spaces were checked on <b>2026-07-26</b>. Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>.</p>
 <p>Run:</p>
 <pre><code>npm run config-catalog:verify

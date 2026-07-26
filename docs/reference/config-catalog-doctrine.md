@@ -106,6 +106,8 @@ or workload health.
 
 The standard policy profile applies the same basic checks to Helm, AICR, `cub
 installer`, Kubara, Sveltos, and existing YAML after they become ConfigHub data.
+The source determines how the configuration is produced; it does not change the
+minimum checks applied to the resulting Kubernetes data.
 
 - Schema and placeholder checks block apply everywhere.
 - Digest pinning and workload probes are warnings everywhere.
