@@ -42,6 +42,11 @@ Complete when:
 - upload creates the expected base Space and Units;
 - a Flux receipt shows reconciliation, or the page remains marked partial.
 
+The Argo CD form now completes the ConfigHub upload step: 17 generated `Application`
+objects were imported from one literal OCI artifact as one policy-covered base variant.
+Public registry publication and live Argo CD or GPU reconciliation remain open, so the
+example is still partial.
+
 ## Phase 3: Helm and cub installer
 
 Keep the public installer packages as the no-account route for selecting and rendering

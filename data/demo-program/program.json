@@ -181,6 +181,7 @@
           "examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle",
           "examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json",
           "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+          "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
           "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
         ],
         "id": "aicr",
@@ -188,11 +189,12 @@
           "The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable.",
           "The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry.",
           "The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks.",
-          "Public registry publication, ConfigHub upload, controller delivery, and live GPU-cluster reconciliation have not run."
+          "ConfigHub imported the 17 exact Application objects from the local OCI artifact as one policy-covered base variant.",
+          "Public registry publication, controller delivery, and live GPU-cluster reconciliation have not run."
         ],
         "name": "AICR bundle to managed configuration",
         "problem": "AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.",
-        "result": "Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload that package as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.",
+        "result": "Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.",
         "status": "partial",
         "steps": [
           "Generate and review an AICR recipe for a named target.",

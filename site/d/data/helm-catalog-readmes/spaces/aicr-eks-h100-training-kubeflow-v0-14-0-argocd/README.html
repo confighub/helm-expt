@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config catalog demonstrations · ConfigHub Helm Ops</title>
-  <meta name="description" content="Config catalog demonstrations: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/demo-program/summary.html">
-  <meta property="og:title" content="Config catalog demonstrations · ConfigHub Helm Ops">
-  <meta property="og:description" content="Config catalog demonstrations: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>AICR GPU platform configuration · ConfigHub Helm Ops</title>
+  <meta name="description" content="AICR GPU platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">
+  <meta property="og:title" content="AICR GPU platform configuration · ConfigHub Helm Ops">
+  <meta property="og:description" content="AICR GPU platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/demo-program/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -423,31 +423,28 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Config catalog demonstrations</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/demo-program/summary.md">View source markdown</a>.</p>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../testing.html">Testing</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
+    <h1>AICR GPU platform configuration</h1>
+    <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>Generated from <a href="../../../../config-catalog/program.yaml">config-catalog/program.yaml</a>.</p>
-<p>This is the status index for the source pathways and ConfigHub App demonstrations. <code>available</code> means the committed evidence supports the described path. <code>partial</code>, <code>example-only</code>, and <code>planned</code> keep the missing work visible.</p>
-<h2 id="source-pathways">Source pathways</h2>
-<table><thead><tr><th>Demonstration</th><th>Status</th><th>Problem</th><th>Result</th></tr></thead><tbody><tr><td>Helm chart to managed configuration</td><td>available</td><td>A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates.</td><td>Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.</td></tr>
-<tr><td>AICR bundle to managed configuration</td><td>partial</td><td>AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.</td><td>Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.</td></tr>
-<tr><td>cub installer package to managed configuration</td><td>available</td><td>A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test.</td><td>cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub.</td></tr>
-<tr><td>Test, development, staging, and production promotions</td><td>partial</td><td>Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.</td><td>Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval.</td></tr>
-<tr><td>Kubara platform configuration to a cluster fleet</td><td>partial</td><td>A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.</td><td>Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.</td></tr>
-<tr><td>ConfigHub desired state delivered through Sveltos</td><td>partial</td><td>Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.</td><td>ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.</td></tr></tbody></table>
-<h2 id="confighub-apps">ConfigHub Apps</h2>
-<table><thead><tr><th>Demonstration</th><th>Status</th><th>Problem</th><th>Result</th></tr></thead><tbody><tr><td>Upgrade App</td><td>partial</td><td>A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.</td><td>Show fleet impact, test the candidate configuration, promote it in waves, and check the rollout.</td></tr>
-<tr><td>Hooks and CRDs App</td><td>partial</td><td>A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.</td><td>Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.</td></tr>
-<tr><td>RBAC Review App</td><td>partial</td><td>Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.</td><td>Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.</td></tr>
-<tr><td>Fleet Platform App</td><td>partial</td><td>Platform teams need to assign different system configurations to cluster groups without losing a central source of record.</td><td>Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters and manage rollout waves from ConfigHub.</td></tr>
-<tr><td>AI Change Review App</td><td>partial</td><td>An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.</td><td>Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.</td></tr></tbody></table>
-<p>Read <a href="../../docs/user/config-catalog-demonstrations.html">docs/user/config-catalog-demonstrations.md</a> for the plain-English walkthrough and <a href="../../docs/reference/config-catalog-doctrine.html">docs/reference/config-catalog-doctrine.md</a> for the shared model.</p>
+<p>AICR selected and ordered a GPU training platform. ConfigHub stores the 17 exact Argo CD Applications produced from that recipe as one base variant.</p>
+<p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
+<h2 id="why-this-example-exists">Why this example exists</h2>
+<p>AICR can choose and package the parts of an AI platform, but a platform team still needs a record of which recipe, package, and generated configuration each cluster should run.</p>
+<p>This example keeps the AICR recipe and OCI digest connected to the exact Argo CD objects in ConfigHub. Teams can review the objects, create environment or cluster-class variants, and promote changes without rebuilding the package from memory.</p>
+<h2 id="what-this-example-shows">What this example shows</h2>
+<ul><li>The AICR v0.14.0 recipe selected 15 versioned components for EKS, H100 accelerators, Ubuntu, Kubeflow, and training.</li><li>The generated Argo CD configuration contains one parent Application and 16 component Applications, ordered with sync waves 0 through 15.</li><li>ConfigHub imported those 17 Applications from one OCI configuration artifact without running AICR or rendering the source chart again.</li></ul>
+<h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
+<ul><li>This README.</li><li>The <code>aicr-eks-h100-training-kubeflow</code> Unit to inspect the 17 Applications and their sync waves.</li><li>The Space annotations to see the OCI source reference and resolved digest.</li></ul>
+<h2 id="evidence-and-source">Evidence and source</h2>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/eks-h100-training-kubeflow.md">AICR example guide</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml">AICR source and OCI receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml">ConfigHub upload receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered">Rendered Argo CD Applications</a></li></ul>
+<h2 id="limits">Limits</h2>
+<ul><li>This proves the package-to-base-variant path. It does not claim that Argo CD reconciled the Applications or that the workloads ran on an EKS GPU cluster.</li><li>The Space currently records a temporary local OCI source. The public Google Artifact Registry copy still needs a fresh Google login.</li><li>The target must already provide the <code>argocd</code> Namespace, the default Argo CD AppProject, Argo CD itself, EKS, and the required GPU capacity.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/demo-program/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

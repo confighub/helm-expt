@@ -25,8 +25,9 @@ Four standards guide every catalog entry. Each entry reports which standards
 are proven and which still need work. The Helm corpus is the mature part of the
 project. The first real AICR example now has a generated recipe, a Flux OCI
 bundle, an Argo CD source chart, 17 rendered Argo CD Applications, portable
-checksums, and tested local OCI layouts. It remains partial until the public
-registry pushes, ConfigHub uploads, and live reconciliation are recorded.
+checksums, tested local OCI layouts, and a live ConfigHub base-variant upload.
+It remains partial until the public registry pushes and live reconciliation
+are recorded.
 
 1. Most choices are made and checked before you install. The reviewed package
    fixes almost everything at build time and leaves a small, typed install-time
@@ -49,8 +50,8 @@ Three source paths now lead toward the same ConfigHub operations path:
 
 After upload, derived variants hold test, development, staging, production,
 region, customer, and cluster differences. The same apply-policy profile checks
-schema and placeholders everywhere, reports image and probe concerns, and adds
-approval for production.
+schema, placeholders, and lifecycle-route evidence everywhere, reports image
+and probe concerns, and adds approval for production.
 
 Read the [config catalog doctrine](./docs/reference/config-catalog-doctrine.md),
 the [demonstration programme](./docs/user/config-catalog-demonstrations.md), and

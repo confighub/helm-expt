@@ -211,6 +211,37 @@ const DEMO_SPACES = [
       : ["The environment is a demo lane, not a production recommendation for Vault."],
   })),
   {
+    space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+    title: "AICR GPU platform configuration",
+    kind: "source",
+    summary: "AICR selected and ordered a GPU training platform. ConfigHub stores the 17 exact Argo CD Applications produced from that recipe as one base variant.",
+    shows: [
+      "The AICR v0.14.0 recipe selected 15 versioned components for EKS, H100 accelerators, Ubuntu, Kubeflow, and training.",
+      "The generated Argo CD configuration contains one parent Application and 16 component Applications, ordered with sync waves 0 through 15.",
+      "ConfigHub imported those 17 Applications from one OCI configuration artifact without running AICR or rendering the source chart again.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect the 17 Applications and their sync waves.",
+      "The Space annotations to see the OCI source reference and resolved digest.",
+    ],
+    why: [
+      "AICR can choose and package the parts of an AI platform, but a platform team still needs a record of which recipe, package, and generated configuration each cluster should run.",
+      "This example keeps the AICR recipe and OCI digest connected to the exact Argo CD objects in ConfigHub. Teams can review the objects, create environment or cluster-class variants, and promote changes without rebuilding the package from memory.",
+    ],
+    evidence: [
+      ["AICR example guide", "docs/demo/aicr/eks-h100-training-kubeflow.md"],
+      ["AICR source and OCI receipt", "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"],
+      ["ConfigHub upload receipt", "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"],
+      ["Rendered Argo CD Applications", "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"],
+    ],
+    limits: [
+      "This proves the package-to-base-variant path. It does not claim that Argo CD reconciled the Applications or that the workloads ran on an EKS GPU cluster.",
+      "The Space currently records a temporary local OCI source. The public Google Artifact Registry copy still needs a fresh Google login.",
+      "The target must already provide the `argocd` Namespace, the default Argo CD AppProject, Argo CD itself, EKS, and the required GPU capacity.",
+    ],
+  },
+  {
     space: "hook-probe-base",
     title: "A setup job delivered three ways",
     kind: "route",
@@ -306,7 +337,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 39, `expected 39 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 40, `expected 40 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {
@@ -585,9 +616,10 @@ function sortKind(kind) {
     org: "0-org",
     preset: "1-preset",
     environment: "2-environment",
-    fleet: "3-fleet",
-    pilot: "4-pilot",
-    route: "5-route",
+    source: "3-source",
+    fleet: "4-fleet",
+    pilot: "5-pilot",
+    route: "6-route",
   }[kind] ?? kind;
 }
 

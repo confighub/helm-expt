@@ -32,7 +32,7 @@ Current limit: A passing render does not prove that every target prerequisite or
 
 AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.
 
-Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload that package as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.
+Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.
 
 1. Generate and review an AICR recipe for a named target.
 2. Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input.
@@ -44,9 +44,9 @@ Keep the AICR recipe, remaining inputs, generated files, and OCI digest together
 
 Start with [docs/demo/aicr/eks-h100-training-kubeflow.md](../../docs/demo/aicr/eks-h100-training-kubeflow.md) or [examples/aicr/eks-h100-training-kubeflow/aicr.yaml](../../examples/aicr/eks-h100-training-kubeflow/aicr.yaml).
 
-Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml), [examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle](../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle), [examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json](../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json), [examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/argocd-rendered](../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered).
+Evidence: [examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/recipe.yaml](../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml), [examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle](../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle), [examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json](../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json), [examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml](../../examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml), [examples/aicr/eks-h100-training-kubeflow/argocd-rendered](../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered).
 
-Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks. Public registry publication, ConfigHub upload, controller delivery, and live GPU-cluster reconciliation have not run.
+Current limit: The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable. The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry. The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks. ConfigHub imported the 17 exact Application objects from the local OCI artifact as one policy-covered base variant. Public registry publication, controller delivery, and live GPU-cluster reconciliation have not run.
 
 ### cub installer package to managed configuration
 

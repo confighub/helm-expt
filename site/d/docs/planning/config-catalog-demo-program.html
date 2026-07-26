@@ -444,6 +444,7 @@
 <p>Next, package the literal bundle as OCI and run <code>cub variant upload</code> against a test ConfigHub org. A later live lane should reconcile it through Flux on a suitable target.</p>
 <p>Complete when:</p>
 <ul><li>the example regenerates from its <code>AICRConfig</code>;</li><li>all bundle checksums verify;</li><li>the literal bundle OCI digest is recorded;</li><li>upload creates the expected base Space and Units;</li><li>a Flux receipt shows reconciliation, or the page remains marked partial.</li></ul>
+<p>The Argo CD form now completes the ConfigHub upload step: 17 generated <code>Application</code> objects were imported from one literal OCI artifact as one policy-covered base variant. Public registry publication and live Argo CD or GPU reconciliation remain open, so the example is still partial.</p>
 <h2 id="phase-3-helm-and-cub-installer">Phase 3: Helm and cub installer</h2>
 <p>Keep the public installer packages as the no-account route for selecting and rendering chart preset configurations. Add a literal configuration OCI for selected base variants so the same reviewed output can seed a ConfigHub base Space directly.</p>
 <p>Complete when:</p>
