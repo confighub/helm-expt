@@ -428,6 +428,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/adversarial-strategy.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>_The adversarial-persona UX-test layer of the <a href="README.html">helm-expt test map</a>._</p>
@@ -458,7 +459,7 @@
 <h2 id="scorecard-admission-check-for-the-100">Scorecard → admission check for the 100</h2>
 <p>Output: <code>archetype × usage-dim × tier → verdict</code>, plus a per-tier thesis verdict (&quot;is ConfigHub better than the alternative at T0 / T1 / T2?&quot;). Usage patterns that come back PROVEN at a tier become <b>required cells in the 100-chart admission check at that tier</b> - so we broaden only on usage that's proven <i>and tier-honest</i>, not just installable.</p>
 <h2 id="capacity-free-tier-execution">Capacity &amp; free-tier execution</h2>
-<ul><li>Runs <b>now at free tier</b> (cub-lk = free account + kind = T0/T1). T2 cells need a paid env → <code>REQUIRES-PAID</code> until one is supplied.</li><li><b>Rig-bound:</b> process archetypes <b>sequentially</b> (one cub-lk rig per archetype, reused across its usage-dims); adversaries are read-only → fan out freely. ~4 archetypes × ~4 usage-dims ≈ 16 cells - multi-hour but bounded; heavy archetypes (vault) get a dedicated rig.</li></ul>
+<ul><li>Runs <b>now at free tier</b> (<code>cub cluster up</code> = free account + kind = T0/T1). T2 cells need a paid env → <code>REQUIRES-PAID</code> until one is supplied.</li><li><b>Cluster-bound:</b> process archetypes <b>sequentially</b> (one cub-managed cluster per archetype, reused across its usage dimensions); adversaries are read-only → fan out freely. ~4 archetypes × ~4 usage dimensions ≈ 16 cells - multi-hour but bounded; heavy archetypes such as Vault get a dedicated cluster.</li></ul>
 <h2 id="runnable-shape">Runnable Shape</h2>
 <p>Use an agent workflow or equivalent runner to fan out by tier: drive the scenario, run the adversarial checks, then synthesize the scorecard. The runner should accept inputs equivalent to:</p>
 <pre><code>tiers: [&quot;T0&quot;, &quot;T1&quot;]

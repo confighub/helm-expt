@@ -10,7 +10,7 @@ This is the live-test atom for the post-upload variant path:
   Argo OCI sync
   Kubernetes runtime observation
 
-The caller owns the cub-lk rig lifecycle. This script writes a structured
+The caller owns the `cub cluster up`/`cub cluster down` lifecycle. This script writes a structured
 TargetBoundDerivedVariantReceipt that is checked by:
 
   npm run derived-variants:target-bound:verify
@@ -116,7 +116,7 @@ def main() -> int:
     parser.add_argument("--chart", required=True)
     parser.add_argument("--chart-version", required=True)
     parser.add_argument("--namespace", required=True)
-    parser.add_argument("--rig", required=True, help="existing cub-lk rig")
+    parser.add_argument("--rig", required=True, help="existing cub-managed cluster")
     parser.add_argument("--source-space", required=True)
     parser.add_argument("--variant", required=True)
     parser.add_argument("--environment", required=True)

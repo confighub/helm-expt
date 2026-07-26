@@ -60,8 +60,8 @@ Persona drives live (at tier) → emits receipts → A1–A4 attack independentl
 Output: `archetype × usage-dim × tier → verdict`, plus a per-tier thesis verdict ("is ConfigHub better than the alternative at T0 / T1 / T2?"). Usage patterns that come back PROVEN at a tier become **required cells in the 100-chart admission check at that tier** — so we broaden only on usage that's proven *and tier-honest*, not just installable.
 
 ## Capacity & free-tier execution
-- Runs **now at free tier** (cub-lk = free account + kind = T0/T1). T2 cells need a paid env → `REQUIRES-PAID` until one is supplied.
-- **Rig-bound:** process archetypes **sequentially** (one cub-lk rig per archetype, reused across its usage-dims); adversaries are read-only → fan out freely. ~4 archetypes × ~4 usage-dims ≈ 16 cells — multi-hour but bounded; heavy archetypes (vault) get a dedicated rig.
+- Runs **now at free tier** (`cub cluster up` = free account + kind = T0/T1). T2 cells need a paid env → `REQUIRES-PAID` until one is supplied.
+- **Cluster-bound:** process archetypes **sequentially** (one cub-managed cluster per archetype, reused across its usage dimensions); adversaries are read-only → fan out freely. ~4 archetypes × ~4 usage dimensions ≈ 16 cells — multi-hour but bounded; heavy archetypes such as Vault get a dedicated cluster.
 
 ## Runnable Shape
 

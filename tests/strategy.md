@@ -138,7 +138,7 @@ compare intended objects and live outcomes
 ```
 
 This keeps the parity question separate from ConfigHub delivery machinery. It
-does not require `cub-lk`.
+does not require ConfigHub's `cub cluster` helper.
 
 Use ConfigHub/OCI live tests for a different question:
 

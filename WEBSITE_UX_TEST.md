@@ -240,7 +240,7 @@ For each page, ask:
 What am I trying to do?
 What should I type?
 What should I expect to see?
-Do I need local files, kind, cub-lk, a bring-your-own cluster, a GitOps controller, or a ConfigHub account?
+Do I need local files, a cluster created with `cub cluster up`, a bring-your-own cluster, a GitOps controller, or a ConfigHub account?
 Is this proved, watch, blocked, planned, or not applicable?
 Where do I go next?
 ```

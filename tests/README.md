@@ -123,9 +123,9 @@ parity. They prove different things.
 
 ## Cluster/runtime runners (resolve the repo from their own location)
 
-- `chart-install-test` — install one chart/base via `cub installer` → ConfigHub → OCI → Argo on a cub-lk rig; verify runtime + three-way agreement; emit a receipt.
-- `chart-install-sweep` — shardable top-20 driver: `--rig <cub-lk> [--shard i/n] [--slugs a,b]`.
-- `live-helm-installer-kind-parity-test` — strict two-cluster Helm-vs-installer parity (no cub-lk needed).
+- `chart-install-test` — install one chart/base via `cub installer` → ConfigHub → OCI → Argo on a cub-managed kind cluster; verify runtime + three-way agreement; emit a receipt.
+- `chart-install-sweep` — shardable top-20 driver: `--rig <cub-cluster-name> [--shard i/n] [--slugs a,b]`.
+- `live-helm-installer-kind-parity-test` — strict two-cluster Helm-vs-installer parity without ConfigHub's cluster helper.
 - `live-helm-confighub-parity-test` — live Helm vs ConfigHub delivery, dual compare.
 - `target-bound-derived-variant-test` — `cub variant create --target`, deliver cloned Units via OCI/Argo, verify runtime, emit a receipt.
 - `existing-secret-proof` — the F3 fix path: pre-provision the Secret, install the existing-secret base, confirm Ready.
@@ -135,9 +135,8 @@ parity. They prove different things.
 
 ```sh
 cub auth login                      # verify: cub organization list (NOT cub info)
-cub plugin install jesperfj/cub-lk  # verify: cub lk version
-cub lk up --name myrig
+cub cluster up --name myrig
 tests/chart-install-test --package packages/bitnami/nginx/24.0.2 --slug nginx \
   --namespace nginx --rig myrig --json     # add --helm-expt . if run from elsewhere
-cub lk down --name myrig
+cub cluster down --name myrig
 ```

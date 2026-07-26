@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Helm-expt Wave-1 work unit: install ONE catalog package at its default base
-via `cub installer`, deliver it through ConfigHub -> OCI -> Argo on a cub-lk rig,
+via `cub installer`, deliver it through ConfigHub -> OCI -> Argo on a
+cub-managed kind cluster,
 verify it, and emit a structured receipt.
 
-Rig-agnostic: it operates on an existing cub-lk cluster (passed via --rig); the
-caller owns `cub lk up`/`down`. That keeps this the parallel/agentic atom — a
+Cluster-agnostic: it operates on an existing cluster (passed via --rig); the
+caller owns `cub cluster up`/`down`. That keeps this the parallel/agentic atom — a
 coordinator can hand each agent its own rig (one cluster per agent) and shard the
 charts. See tests/strategy.md.
 
@@ -196,7 +197,7 @@ def main() -> int:
     ap.add_argument("--package", required=True, help="package path relative to helm-expt root, e.g. packages/bitnami/nginx/24.0.2")
     ap.add_argument("--slug", required=True, help="short id for spaces/receipt, e.g. nginx")
     ap.add_argument("--namespace", required=True, help="install namespace (use the TOP20 entry's namespace = the package's frozen ns)")
-    ap.add_argument("--rig", required=True, help="cub-lk cluster name (must already be `cub lk up`)")
+    ap.add_argument("--rig", required=True, help="cub cluster name (must already be running from `cub cluster up`)")
     ap.add_argument("--base", default=None, help="base to render; default = the package's default:true base")
     ap.add_argument("--helm-expt", default=None)
     ap.add_argument("--wait", type=int, default=180, help="seconds to wait for Argo app Healthy")
