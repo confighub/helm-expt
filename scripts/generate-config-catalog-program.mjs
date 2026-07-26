@@ -33,6 +33,12 @@ const catalogOciDeliveryReceiptPath = join(
   "bitnami-nginx-24-0-2-http-clusterip.yaml",
 );
 const catalogOciDeliveryRecord = "bitnami-nginx-24-0-2-http-clusterip";
+const aicrPromotionReceiptPath = join(
+  repoRoot,
+  "runs",
+  "aicr-variant-promotion-proof",
+  "receipt.yaml",
+);
 
 const baseRoot = join(repoRoot, "data", "base-variant-records");
 const recordRoot = join(baseRoot, "records");
@@ -410,6 +416,7 @@ function buildAicrArgoCdRecord() {
   const publicReceiptPath = `${root}/public-oci-receipt.yaml`;
   const receipt = readYaml(join(repoRoot, receiptPath));
   const uploadReceipt = readYaml(join(repoRoot, uploadReceiptPath));
+  const promotionProof = readYaml(aicrPromotionReceiptPath);
   const publicReceipt = existsSync(join(repoRoot, publicReceiptPath))
     ? readYaml(join(repoRoot, publicReceiptPath))
     : null;
@@ -510,6 +517,16 @@ function buildAicrArgoCdRecord() {
         argoCd: "applications-uploaded-not-reconciled",
         flux: "not-applicable-to-this-base",
       },
+      promotion: {
+        status: promotionProof.status.result,
+        receipt: relativeRepo(aicrPromotionReceiptPath),
+        path: promotionProof.spec.promotion.path,
+        sourceDigest: promotionProof.spec.source.digest,
+        changedApplications: promotionProof.spec.change.changedApplications,
+        devDryRun: promotionProof.spec.change.devDryRun,
+        stagingDryRun: promotionProof.spec.promotion.dryRun,
+        stagingMatchesReviewedDev: promotionProof.spec.promotion.stagingMatchesReviewedDev,
+      },
       policy: {
         profile: "catalog-standard",
         productionAdds: ["human-approval"],
@@ -523,6 +540,7 @@ function buildAicrArgoCdRecord() {
         sourceManifest: receipt.spec.outputs.sourceManifest,
         renderedManifest: receipt.spec.outputs.renderedManifest,
         configHubUploadReceipt: uploadReceiptPath,
+        variantPromotionReceipt: relativeRepo(aicrPromotionReceiptPath),
         ...(publicPassed ? { publicOciReceipt: publicReceiptPath } : {}),
       },
       operations: {
@@ -533,12 +551,13 @@ function buildAicrArgoCdRecord() {
     },
     status: {
       level: "partial",
-      claim: `AICR v0.14.0 generated a portable Argo CD Helm source package and ${objects.length} literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest as one base variant.`,
+      claim: `AICR v0.14.0 generated a portable Argo CD Helm source package and ${objects.length} literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest, kept one reviewed Grafana Secret change in development, and promoted the same configuration to staging.`,
       limits: [
         ...(publicPassed
           ? ["The two public OCI artifacts were anonymously pulled at their recorded digests."]
           : ["The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets."]),
         "No live Argo CD or GPU-cluster reconciliation is claimed.",
+        "The variant and promotion proof ran in a temporary scratch organization, started no Kubernetes cluster, and cleaned up its Spaces.",
       ],
     },
   };
@@ -865,6 +884,18 @@ function validateRecords(records) {
       `${record.metadata.name} has an unscoped current delivery claim`,
     );
   }
+  const aicrArgo = records.find(
+    (record) => record.metadata.name === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
+  );
+  check(aicrArgo, "AICR Argo CD base record is missing");
+  check(
+    aicrArgo.spec.promotion?.status === "pass"
+      && aicrArgo.spec.promotion?.receipt === relativeRepo(aicrPromotionReceiptPath)
+      && aicrArgo.spec.promotion?.path === "base -> dev -> staging"
+      && aicrArgo.spec.promotion?.stagingMatchesReviewedDev === true,
+    "AICR Argo CD base record is missing its exact variant promotion proof",
+  );
+  validateAicrVariantPromotionReceipt(readYaml(aicrPromotionReceiptPath));
 }
 
 function validatePolicy(policy) {
@@ -1250,6 +1281,40 @@ function validateCatalogOciDeliveryReceipt(receipt) {
   check(
     receipt.spec?.limits?.some((limit) => limit.includes("does not prove another chart")),
     "catalog OCI delivery receipt is missing its exact-scope limit",
+  );
+}
+
+function validateAicrVariantPromotionReceipt(receipt) {
+  check(
+    receipt.kind === "AicrVariantPromotionProofReceipt",
+    "AICR variant promotion receipt kind is invalid",
+  );
+  check(
+    receipt.status?.result === "pass"
+      && receipt.spec?.source?.applicationCount === 17
+      && receipt.spec?.source?.exactSourceObjectsMatched === true
+      && receipt.spec?.change?.changedApplicationCount === 1,
+    "AICR variant promotion receipt did not pass its exact scope",
+  );
+  check(
+    receipt.spec?.change?.changedApplications?.[0]
+      === "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack",
+    "AICR variant promotion changed an unexpected Application",
+  );
+  check(
+    receipt.spec?.promotion?.dryRun === "pass"
+      && receipt.spec?.promotion?.dryRunLeftStagingUnchanged === true
+      && receipt.spec?.promotion?.result === "pass"
+      && receipt.spec?.promotion?.stagingMatchesReviewedDev === true,
+    "AICR variant promotion preview or promotion evidence is incomplete",
+  );
+  check(
+    receipt.spec?.limits?.some((limit) => limit.includes("started no Kubernetes cluster")),
+    "AICR variant promotion must not imply cluster delivery",
+  );
+  check(
+    Object.values(receipt.spec?.cleanup ?? {}).every((value) => value === "pass"),
+    "AICR variant promotion cleanup did not pass",
   );
 }
 

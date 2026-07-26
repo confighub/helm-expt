@@ -77,13 +77,16 @@ spec:
         - examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml
         - examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml
         - examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml
+        - runs/aicr-variant-promotion-proof/receipt.yaml
+        - data/aicr-variant-promotion-proof/summary.md
         - examples/aicr/eks-h100-training-kubeflow/argocd-rendered
       limits:
         - The original Git-oriented Flux bundle retains AICR's generated YOUR_ORG/YOUR_REPO placeholder and is not deployable.
         - The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry.
         - The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks.
         - ConfigHub imported the 17 exact Application objects from the local OCI artifact as one policy-covered base variant.
-        - The first staging clone is blocked by the live demo organization's 1,000-Link quota; the empty partial Space was removed and no existing catalog links were deleted.
+        - The persistent helm-catalog organization still cannot add this staging clone because it is at its 1,000-Link quota; the empty partial Space was removed and no existing catalog links were deleted.
+        - A separate scratch run proved the exact base-to-dev-to-staging variant chain, one Grafana existing-Secret change, a dry-run that left staging unchanged, and the completed promotion. It then deleted all three temporary Spaces.
         - Public registry publication, controller delivery, and live GPU-cluster reconciliation have not run.
     - id: cub-installer
       name: cub installer package to managed configuration

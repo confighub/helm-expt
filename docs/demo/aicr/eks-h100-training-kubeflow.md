@@ -191,21 +191,34 @@ attachment, but remains partial for public distribution and live operation.
 The uploaded base requires approval because it changes cluster-wide GPU, monitoring,
 and training-platform configuration. That rule applies even before production.
 
-## The first environment change
+## Change it in development, then promote it
 
-The first planned staging change replaces the example Grafana
-`adminPassword: admin` value inside the `kube-prometheus-stack` Application with an
-existing Secret named `aicr-grafana-admin`. That is a useful derived-variant change:
-the AICR package remains the base, while the environment supplies its own credential.
+The generated AICR configuration includes the example Grafana setting
+`adminPassword: admin` inside the `kube-prometheus-stack` Application. ConfigHub can
+keep the AICR output as the base, while development and staging use an existing Secret
+named `aicr-grafana-admin`.
 
-A ConfigHub dry run found one exact change, in
-`Application argocd/kube-prometheus-stack` at `spec.source.helm.values`. The live
-variant clone did not complete because the demo organization already has 1,000 Links,
-which is its current quota. The command created an empty partial Space before the
-server rejected the upstream link; that Space was deleted immediately.
+The live proof followed four steps:
 
-[promotion-readiness-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
-records the command, intended change, quota response, and cleanup. No existing catalog
-links were deleted to force the demonstration through. Once the quota is raised, the
-next steps are to create the staging variant, make the reviewed Secret change, and
-wait for a newer AICR package before claiming an upgrade promotion.
+1. Import the exact 17-Application OCI bundle as a base variant.
+2. Create development from the base and staging from development.
+3. Preview and apply the Grafana Secret change in development. Only
+   `Application argocd/kube-prometheus-stack` changed.
+4. Preview the staging promotion, confirm that the preview changed nothing, then run
+   the promotion and confirm that staging matched the reviewed development config.
+
+[The promotion summary](../../../data/aicr-variant-promotion-proof/summary.md) explains
+the result in plain English. The
+[live receipt](../../../runs/aicr-variant-promotion-proof/receipt.yaml) records the OCI
+digest, Space and Unit revisions, exact changed Application, dry-run results,
+promotion result, and cleanup.
+
+This proof used a temporary scratch organization and deleted its three Spaces. It did
+not start a Kubernetes cluster, so it does not claim Argo CD delivery, application
+health, or GPU workload health.
+
+The persistent `helm-catalog` demo organization is still at its 1,000-Link quota, so
+the same staging clone has not been added there. The earlier
+[readiness receipt](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+records that quota response and the cleanup of the empty partial Space. No existing
+catalog links were deleted to make room.

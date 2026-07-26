@@ -97,6 +97,18 @@
           "argoCd": "applications-uploaded-not-reconciled",
           "flux": "not-applicable-to-this-base"
         },
+        "promotion": {
+          "status": "pass",
+          "receipt": "runs/aicr-variant-promotion-proof/receipt.yaml",
+          "path": "base -> dev -> staging",
+          "sourceDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+          "changedApplications": [
+            "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+          ],
+          "devDryRun": "pass",
+          "stagingDryRun": "pass",
+          "stagingMatchesReviewedDev": true
+        },
         "policy": {
           "profile": "catalog-standard",
           "productionAdds": [
@@ -111,7 +123,8 @@
           "renderedChecksums": "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt",
           "sourceManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json",
           "renderedManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json",
-          "configHubUploadReceipt": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"
+          "configHubUploadReceipt": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
+          "variantPromotionReceipt": "runs/aicr-variant-promotion-proof/receipt.yaml"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -121,10 +134,11 @@
       },
       "status": {
         "level": "partial",
-        "claim": "AICR v0.14.0 generated a portable Argo CD Helm source package and 17 literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest as one base variant.",
+        "claim": "AICR v0.14.0 generated a portable Argo CD Helm source package and 17 literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest, kept one reviewed Grafana Secret change in development, and promoted the same configuration to staging.",
         "limits": [
           "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
-          "No live Argo CD or GPU-cluster reconciliation is claimed."
+          "No live Argo CD or GPU-cluster reconciliation is claimed.",
+          "The variant and promotion proof ran in a temporary scratch organization, started no Kubernetes cluster, and cleaned up its Spaces."
         ]
       }
     },
