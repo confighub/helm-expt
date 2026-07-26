@@ -60,11 +60,14 @@ The source format does not decide the risk. A Helm chart, AICR package, or ordin
 
 The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-26**. Read the [live receipt](./live-helm-catalog.yaml).
 
+The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the apply boundary. Placeholder values, invalid Kubernetes data, and unapproved system configuration are blocked. An unpinned image and missing probes are reported as warnings without blocking a dry run. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked.
+
 Run:
 
 ```bash
 npm run config-catalog:verify
 npm run config-catalog:self-test
+npm run config-catalog:policy:verify
 npm run helm-org:policy:receipt:verify
 # With a valid helm-catalog login:
 npm run helm-org:policy:verify

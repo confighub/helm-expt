@@ -188,6 +188,13 @@ four production Spaces and three system-configuration Spaces. Run
 `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 
+The topology receipt says which checks are connected. The
+[functional policy proof](../../data/apply-policy-functional-proof/summary.md)
+shows what they did with temporary records. ConfigHub blocked an unresolved
+placeholder, invalid Kubernetes data, and unapproved system configuration. It
+reported an unpinned image and missing health probes as warnings and still allowed
+the dry-run apply. No fixture configuration was applied to Kubernetes.
+
 ## ConfigHub Apps
 
 The catalog should lead into useful Apps rather than ending at installation.

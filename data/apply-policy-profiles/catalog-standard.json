@@ -223,11 +223,15 @@
     "evidence": [
       "data/helm-org/summary.md",
       "data/apply-policy-profiles/live-helm-catalog.yaml",
-      "scripts/sync-helm-org.mjs"
+      "data/apply-policy-functional-proof/summary.md",
+      "runs/config-catalog-policy-functional-proof/receipt.yaml",
+      "scripts/sync-helm-org.mjs",
+      "scripts/run-config-catalog-policy-proof.mjs"
     ],
     "lastRecorded": "2026-07-26",
     "limits": [
-      "The live receipt proves Trigger definitions, filter definitions, and assigned Spaces. The Hooks and CRDs App receipt separately records a dry-run apply that the policy blocked.",
+      "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove three blocking checks and two warning-only checks at the dry-run apply boundary.",
+      "The Hooks and CRDs App receipt separately proves that an unsupported automatic lifecycle route is blocked.",
       "The builder rewires production and system-configuration Spaces explicitly because cub variant create copies the template TriggerFilterID."
     ],
     "liveReverified": true
