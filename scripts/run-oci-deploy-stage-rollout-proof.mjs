@@ -68,6 +68,13 @@ const summaryPath = join(
   "oci-deploy-stage-rollout-proof",
   "summary.md",
 );
+const observationRoot = join(
+  repoRoot,
+  "runs",
+  "oci-deploy-stage-rollout-proof",
+  "observations",
+);
+const observationDesiredPath = join(observationRoot, "staging-desired.yaml");
 const artifactType = "application/vnd.confighub.kubernetes.config.v1";
 const layerType = "application/yaml";
 const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
@@ -112,6 +119,7 @@ function runProof() {
     ["kind", ["version"]],
     ["kubectl", ["version", "--client"]],
     ["oras", ["version"]],
+    ["cub-scout", ["version"]],
   ];
   for (const [tool, args] of toolChecks) {
     const result = tryCommand(tool, args);
@@ -210,7 +218,7 @@ function runProof() {
       limits: [
         "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt.",
         "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target.",
-        "This test read Argo CD and Kubernetes status directly. It did not test ConfigHub's cluster observation feed.",
+        "cub-scout recorded fingerprinted object-match and workload-convergence receipts locally. This test did not submit those receipts to ConfigHub observation storage.",
         "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts.",
         "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead.",
       ],
@@ -430,12 +438,18 @@ function runProof() {
       result: "pass",
       ...stagingRelease,
     };
-    const portableRelease = publishSpaceOci({
+    const portableReleaseResult = publishSpaceOci({
       workRoot,
       space: stagingSpace,
       registryHost: registry.host,
       clusterRegistryHost: registry.clusterHost,
     });
+    const {
+      desiredYaml: stagingDesiredYaml,
+      ...portableRelease
+    } = portableReleaseResult;
+    mkdirSync(observationRoot, { recursive: true });
+    writeFileSync(observationDesiredPath, stagingDesiredYaml);
     receipt.spec.serverlessOutput = {
       result: "pass",
       ...portableRelease,
@@ -445,9 +459,9 @@ function runProof() {
     clusterUp(clusterB);
     clustersUp.push(clusterB);
     const fleetTargets = [];
-    for (const [clusterName, clusterSpace] of [
-      [clusterA, clusterSpaceA],
-      [clusterB, clusterSpaceB],
+    for (const [clusterName, clusterSpace, observationSlot] of [
+      [clusterA, clusterSpaceA, "target-a"],
+      [clusterB, clusterSpaceB, "target-b"],
     ]) {
       const application = addApplication({
         clusterName,
@@ -468,11 +482,17 @@ function runProof() {
         replicas: 2,
       });
       check(runtime.result === "pass", `${clusterName} staging rollout did not pass: ${runtime.reason}`);
+      const observations = collectScoutObservations({
+        clusterName,
+        namespace: "nginx-staging",
+        slot: observationSlot,
+      });
       fleetTargets.push({
         cluster: clusterName,
         clusterSpace,
         application,
         runtime,
+        observations,
       });
     }
     const revisions = new Set(
@@ -492,7 +512,7 @@ function runProof() {
       targets: fleetTargets,
     };
     receipt.status.result = "pass";
-    receipt.status.claim = "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Both NGINX Deployments reached two ready replicas.";
+    receipt.status.claim = "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Fingerprinted cub-scout receipts confirm that both live object sets match the reviewed package and both NGINX Deployments reached two ready replicas.";
   } catch (error) {
     failure = sanitizeError(error);
     receipt.status.result = "blocked";
@@ -696,7 +716,132 @@ function publishSpaceOci({
     yamlSha256: sha256(exported.yaml),
     pulledYamlSha256: sha256(pulledYaml),
     objectsMatched: true,
+    desiredYaml: exported.yaml,
   };
+}
+
+function collectScoutObservations({
+  clusterName,
+  namespace,
+  slot,
+}) {
+  const env = {
+    ...process.env,
+    CLUSTER_NAME: clusterName,
+    CUB_SCOUT_OFFLINE: "true",
+    KUBECONFIG: clusterKubeconfig(clusterName),
+  };
+  const desiredRef = relativeRepo(observationDesiredPath);
+  const objectSetPath = join(observationRoot, `${slot}-object-set.json`);
+  const workloadsPath = join(observationRoot, `${slot}-workloads.json`);
+  runScoutReceipt({
+    env,
+    namespace,
+    predicate: "object-set-matches",
+    outputPath: objectSetPath,
+  });
+  runScoutReceipt({
+    env,
+    namespace,
+    predicate: "workloads-converged",
+    outputPath: workloadsPath,
+  });
+  const objectSet = readScoutReceipt(objectSetPath, "object-set-matches");
+  const workloads = readScoutReceipt(workloadsPath, "workloads-converged");
+  check(
+    objectSet.predicate.evidence.objectSet.desiredSource.ref === desiredRef,
+    `${slot} object-set receipt did not record the repository-relative desired source`,
+  );
+  check(
+    workloads.predicate.evidence.workloads.desiredSource.ref === desiredRef,
+    `${slot} workload receipt did not record the repository-relative desired source`,
+  );
+  return {
+    objectSet: {
+      result: "pass",
+      receipt: relativeRepo(objectSetPath),
+      fingerprint: objectSet.predicate.fingerprint,
+      desiredDigest: objectSet.predicate.evidence.objectSet.desiredDigest,
+      liveDigest: objectSet.predicate.evidence.objectSet.liveDigest,
+      summary: objectSet.predicate.evidence.objectSet.summary,
+      expiresAt: objectSet.predicate.freshness.expiresAt,
+    },
+    workloads: {
+      result: "pass",
+      receipt: relativeRepo(workloadsPath),
+      fingerprint: workloads.predicate.fingerprint,
+      desiredDigest: workloads.predicate.evidence.workloads.desiredDigest,
+      liveDigest: workloads.predicate.evidence.workloads.liveDigest,
+      summary: workloads.predicate.evidence.workloads.summary,
+      expiresAt: workloads.predicate.freshness.expiresAt,
+    },
+  };
+}
+
+function runScoutReceipt({
+  env,
+  namespace,
+  predicate,
+  outputPath,
+}) {
+  const args = [
+    "receipt",
+    "verify",
+    "--file",
+    relativeRepo(observationDesiredPath),
+    "--scope",
+    `namespace/${namespace}`,
+    "--predicate",
+    predicate,
+    "--format",
+    "json",
+    "--out",
+    relativeRepo(outputPath),
+    "--fail-on",
+    "any-non-pass",
+    "--ttl",
+    "1h",
+  ];
+  if (predicate === "object-set-matches") {
+    args.push(
+      "--normalization-profile",
+      "k8s-zero-defaults/v1",
+    );
+  }
+  command("cub-scout", args, {
+    env,
+    timeout: 180_000,
+  });
+  command("cub-scout", [
+    "receipt",
+    "validate",
+    relativeRepo(outputPath),
+  ], {
+    env,
+    timeout: 120_000,
+  });
+}
+
+function readScoutReceipt(path, predicateName) {
+  check(existsSync(path), `${relativeRepo(path)} is missing`);
+  const receipt = JSON.parse(readFileSync(path, "utf8"));
+  check(
+    receipt._type === "https://in-toto.io/Statement/v1"
+      && receipt.predicateType === "https://cub-scout.dev/receipt/v1"
+      && receipt.predicate?.predicateName === predicateName
+      && receipt.predicate?.verdict === "PASS"
+      && /^sha256:[a-f0-9]{64}$/.test(receipt.predicate?.fingerprint ?? "")
+      && receipt.predicate?.freshness?.ttl === "1h0m0s",
+    `${relativeRepo(path)} is not a fresh passing cub-scout ${predicateName} receipt`,
+  );
+  if (predicateName === "object-set-matches") {
+    check(
+      receipt.predicate?.evidence?.objectSet?.normalizationProfile
+        === "k8s-zero-defaults/v1",
+      `${relativeRepo(path)} lost its Kubernetes zero-default normalization profile`,
+    );
+  }
+  return receipt;
 }
 
 function exportSpaceObjects(space) {
@@ -1587,6 +1732,50 @@ function validateReceipt(receipt) {
       target.runtime?.deployment?.replicas === "2/2",
       `${target.cluster} did not reach two ready replicas`,
     );
+    check(
+      target.observations?.objectSet?.result === "pass"
+        && target.observations.objectSet.desiredDigest
+          === target.observations.objectSet.liveDigest
+        && target.observations.objectSet.summary?.desired === 5
+        && target.observations.objectSet.summary?.matched === 5
+        && target.observations.objectSet.summary?.missing === 0
+        && target.observations.objectSet.summary?.mismatched === 0
+        && /^sha256:[a-f0-9]{64}$/.test(
+          target.observations.objectSet.fingerprint ?? "",
+        ),
+      `${target.cluster} object-set observation did not pass`,
+    );
+    check(
+      target.observations?.workloads?.result === "pass"
+        && target.observations.workloads.summary?.desired
+          === target.observations.objectSet.summary?.desired
+        && target.observations.workloads.summary?.converged
+          === target.observations.workloads.summary?.desired
+        && target.observations.workloads.summary?.progressing === 0
+        && target.observations.workloads.summary?.failed === 0
+        && target.observations.workloads.summary?.missing === 0
+        && /^sha256:[a-f0-9]{64}$/.test(
+          target.observations.workloads.fingerprint ?? "",
+        ),
+      `${target.cluster} workload observation did not pass`,
+    );
+    for (const [observation, predicateName] of [
+      [target.observations.objectSet, "object-set-matches"],
+      [target.observations.workloads, "workloads-converged"],
+    ]) {
+      check(
+        existsSync(join(repoRoot, observation.receipt)),
+        `${observation.receipt} is missing`,
+      );
+      const stored = readScoutReceipt(
+        join(repoRoot, observation.receipt),
+        predicateName,
+      );
+      check(
+        stored.predicate.fingerprint === observation.fingerprint,
+        `${observation.receipt} fingerprint differs from the rollout receipt`,
+      );
+    }
   }
   check(
     Object.values(receipt.spec?.run?.cleanup ?? {}).every((value) => value === "pass"),
@@ -1605,7 +1794,14 @@ function renderSummary(receipt) {
     ? `Input \`${passThrough.input.manifestDigest}\`; ConfigHub output \`${passThrough.output.manifestDigest}\`; ${passThrough.output.objectCount} objects kept the same specs and user metadata. ConfigHub added \`confighub.com/origin\`.`
     : "The unchanged-output comparison did not complete.";
   const fleetRows = spec.delivery.fleet.targets
-    .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | \`${target.runtime.revision}\` | ${target.runtime.deployment.replicas} | ${target.runtime.result} |`)
+    .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | \`${target.runtime.revision}\` | ${target.observations.objectSet.summary.matched}/${target.observations.objectSet.summary.desired} | ${target.runtime.deployment.replicas} | ${target.observations.workloads.summary.converged}/${target.observations.workloads.summary.desired} | ${target.runtime.result} |`)
+    .join("\n");
+  const observationRows = spec.delivery.fleet.targets
+    .map((target) => {
+      const objectSet = target.observations.objectSet;
+      const workloads = target.observations.workloads;
+      return `| \`${target.cluster}\` | [object match](../../${objectSet.receipt}) | \`${objectSet.fingerprint}\` | [workload convergence](../../${workloads.receipt}) | \`${workloads.fingerprint}\` |`;
+    })
     .join("\n");
   return `# One OCI deployed, promoted, and rolled out to two clusters
 
@@ -1634,9 +1830,22 @@ two clusters.
 
 ## Live controller feedback
 
-| Cluster | Argo sync | Argo health | OCI revision | Ready replicas | Result |
-| --- | --- | --- | --- | --- | --- |
+| Cluster | Argo sync | Argo health | OCI revision | Exact objects | Ready replicas | Current objects | Result |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${fleetRows}
+
+## Live observation receipts
+
+\`cub-scout\` checked the reviewed staging files against each live cluster. The
+object receipts compare the five namespaced Kubernetes objects and their authored
+fields, using the named Kubernetes zero-default normalization profile for fields
+the API server may omit. The convergence receipts check that all five objects are
+current, including the NGINX Deployment at two ready replicas. Each receipt records
+a one-hour freshness boundary and a fingerprint that can be validated later.
+
+| Cluster | Object receipt | Fingerprint | Workload receipt | Fingerprint |
+| --- | --- | --- | --- | --- |
+${observationRows}
 
 ## What this proves
 
@@ -1648,8 +1857,9 @@ ${fleetRows}
   and staging in sequence.
 - ConfigHub can publish its own staged release, while the same reviewed objects
   can also leave as a portable OCI package.
-- Two Argo CD controllers can pull the same portable OCI digest and report live
-  workload health.
+- Two Argo CD controllers can pull the same portable OCI digest. Fingerprinted
+  observation receipts confirm that both live object sets match the reviewed
+  files and both workloads converged.
 
 ## What this does not prove
 
@@ -1659,6 +1869,7 @@ The run removed both kind clusters, their ConfigHub cluster Spaces, the three
 workload Spaces, the temporary registry, and the generated local files.
 
 - Receipt: [\`${relativeRepo(receiptPath)}\`](../../${relativeRepo(receiptPath)})
+- Reviewed staging files: [\`${relativeRepo(observationDesiredPath)}\`](../../${relativeRepo(observationDesiredPath)})
 - Source record: [\`${spec.source.sourceRecord}\`](../../${spec.source.sourceRecord})
 - Literal objects: [\`${spec.source.objects}\`](../../${spec.source.objects})
 `;
