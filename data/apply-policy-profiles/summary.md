@@ -8,6 +8,10 @@ The `catalog-standard` profile applies to helm, aicr, cub-installer, kubara, sve
 
 Filter: `platform/helm-catalog-checks`
 
+This filter names the four allowed Triggers explicitly:
+
+`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'`
+
 | Check | Effect | Why |
 | --- | --- | --- |
 | `platform/vet-schemas` | block | Do not apply Kubernetes data that fails its declared schema. |
@@ -20,6 +24,8 @@ Filter: `platform/helm-catalog-checks`
 Filter: `platform/helm-catalog-prod-gates`
 
 Production keeps the four baseline checks and adds one blocking approval:
+
+`Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'`
 
 | Check | Effect | Why |
 | --- | --- | --- |
@@ -37,13 +43,16 @@ Production keeps the four baseline checks and adds one blocking approval:
 - A production Space must not lose the four baseline checks when approval is added.
 - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
 
-The last committed live-org result is dated **2026-07-03**. `liveReverified: false` means this generated page does not present that historical receipt as a fresh read of the current org.
+The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-26**. Read the [live receipt](./live-helm-catalog.yaml).
 
 Run:
 
 ```bash
 npm run config-catalog:verify
 npm run config-catalog:self-test
+npm run helm-org:policy:receipt:verify
+# With a valid helm-catalog login:
+npm run helm-org:policy:verify
 ```
 
-The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail.
+The self-test inserts the earlier approval leak, removes a baseline check from production, and changes a warning into a block. Each broken profile must fail. The receipt verifier checks the committed result without contacting ConfigHub. The live verifier re-reads ConfigHub and fails if the filters, Triggers, or Space assignments have changed.

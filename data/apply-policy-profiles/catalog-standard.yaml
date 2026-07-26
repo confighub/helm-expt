@@ -26,6 +26,7 @@ spec:
         reason: "Report workload containers that have no readiness or liveness probe."
         trigger: "platform/probes-declared"
     filter: "platform/helm-catalog-checks"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       labels:
         ApplyPolicyProfile: "catalog-standard"
@@ -57,6 +58,7 @@ spec:
         reason: "Require one recorded approval before production apply."
         trigger: "platform/require-approval"
     filter: "platform/helm-catalog-prod-gates"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       labels:
         ApplyPolicyProfile: "catalog-standard"
@@ -77,9 +79,10 @@ spec:
 status:
   evidence:
     - "data/helm-org/summary.md"
+    - "data/apply-policy-profiles/live-helm-catalog.yaml"
     - "scripts/sync-helm-org.mjs"
-  lastRecorded: "2026-07-03"
+  lastRecorded: "2026-07-26"
   limits:
-    - "This file records the intended profile and the last committed live-org result. It does not claim that the current live org was re-read during this generation."
-    - "The current builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID."
-  liveReverified: false
+    - "The live receipt proves the filter definitions, selected Triggers, and assigned Spaces. It does not claim that a deliberately bad configuration was applied."
+    - "The builder rewires production Spaces explicitly because cub variant create copies the template TriggerFilterID."
+  liveReverified: true

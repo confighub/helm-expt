@@ -99,9 +99,12 @@ on every Space or remove the baseline checks from production.
 
 The maintained profile is
 [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
-The live `helm-catalog` result was last recorded in
-[data/helm-org/summary.md](../../data/helm-org/summary.md). That receipt is historical
-until the live org is checked again.
+The live `helm-catalog` filters and Space assignments were checked on 26 July 2026.
+The result is recorded in
+[data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
+26 Spaces use the four baseline checks and four production Spaces use those checks
+plus approval. Run `npm run helm-org:policy:verify` while logged into the org to
+compare the current live state with that receipt.
 
 ## ConfigHub Apps
 

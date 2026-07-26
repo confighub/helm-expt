@@ -524,7 +524,7 @@
 <p>Current limit: The checks and data model exist in parts. A complete AI Change Review App run is not yet committed.</p>
 <h2 id="the-common-policy">The common policy</h2>
 <p>Every pathway uses <a href="../../../../config-catalog/policies/catalog-standard.yaml">the catalog-standard apply policy</a> after upload. Schema and placeholder checks block bad configuration. Digest pinning and workload probes produce warnings. Production keeps those four checks and adds one required approval.</p>
-<p>The policy verifier also checks the filter boundary. Approval must not leak onto non-production Spaces, and production must not lose the baseline checks.</p>
+<p>The two filters name their allowed Triggers explicitly. On 26 July 2026 the live <code>helm-catalog</code> org had 26 Spaces on the four-check baseline and four production Spaces on the five-check policy. Read the <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">live receipt</a>, or rerun <code>npm run helm-org:policy:verify</code> while logged into that org.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/config-catalog-demonstrations.md</code>. The source file is the authoritative version.</p></footer>
