@@ -1,0 +1,65 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: FleetPromotionDemonstration
+metadata:
+  name: nginx-registry-migration
+spec:
+  organization: helm-catalog
+  source:
+    type: helm
+    chart: bitnami/nginx
+    version: 24.0.2
+    presetConfig: http-clusterip
+  workload:
+    unit: deployment-nginx-nginx
+    containers:
+      - preserve-logs-symlinks
+      - nginx
+    digest: sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+  migration:
+    previousImage: registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+    currentImage: registry.internal.example.com/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+  base:
+    space: bitnami-nginx-24-0-2-http-clusterip
+    replicas: 3
+    filter: helm-catalog-checks
+  variants:
+    - space: bitnami-nginx-fleet-dev
+      environment: Dev
+      replicas: 1
+      image: current
+      promoted: true
+      pendingUpstreamUnits: 0
+      filter: helm-catalog-checks
+    - space: bitnami-nginx-fleet-staging
+      environment: Staging
+      replicas: 1
+      image: current
+      promoted: true
+      pendingUpstreamUnits: 0
+      filter: helm-catalog-checks
+    - space: bitnami-nginx-fleet-prod-us
+      environment: Prod
+      region: us-east
+      replicas: 3
+      image: current
+      promoted: true
+      pendingUpstreamUnits: 0
+      filter: helm-catalog-prod-gates
+    - space: bitnami-nginx-fleet-prod-eu
+      environment: Prod
+      region: eu-west
+      replicas: 1
+      image: previous
+      promoted: false
+      pendingUpstreamUnits: 1
+      filter: helm-catalog-prod-gates
+status:
+  lastRecorded: "2026-07-26"
+  liveReverified: true
+  evidence:
+    - data/fleet-promotion/live-nginx-registry-migration.yaml
+    - data/registry-migration/summary.md
+    - docs/user/image-registry-migration.md
+  limits:
+    - This demonstration proves stored configuration, variant links, revision history, policy assignment, and a pending promotion in ConfigHub.
+    - It does not prove delivery or workload health on a Kubernetes cluster.

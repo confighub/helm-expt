@@ -81,9 +81,9 @@ Upload one base variant, keep environment changes as derived variants, preview t
 
 Start with [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md) or [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
 
-Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml).
+Evidence: [data/variant-promotion/summary.md](../../data/variant-promotion/summary.md), [runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml](../../runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
 
-Current limit: The committed receipts prove promotion mechanics for selected examples. They do not prove every delivery controller or workload convergence case.
+Current limit: The Nginx fleet receipt proves stored configuration, promotion history, policy assignment, and one pending environment. It does not prove delivery or workload health on a Kubernetes cluster.
 
 ### Kubara platform configuration to a cluster fleet
 
@@ -198,9 +198,9 @@ Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters 
 
 Start with [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md).
 
-Evidence: [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [data/environment-matrix/summary.md](../../data/environment-matrix/summary.md).
+Evidence: [data/blast-radius-fleet/summary.md](../../data/blast-radius-fleet/summary.md), [data/environment-matrix/summary.md](../../data/environment-matrix/summary.md), [data/fleet-promotion/live-nginx-registry-migration.yaml](../../data/fleet-promotion/live-nginx-registry-migration.yaml).
 
-Current limit: Fleet records and blast-radius evidence exist, but Kubara and Sveltos delivery are not yet complete live lanes.
+Current limit: The live Nginx fleet proves a Helm-derived base and four managed environments. Kubara and Sveltos delivery are not yet complete live lanes.
 
 ### AI Change Review App
 

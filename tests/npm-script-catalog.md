@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 532
+scripts: 535
 ```
 
 ## By Category
@@ -26,12 +26,12 @@ scripts: 532
 | `live-parity-gitops` | 25 |
 | `latest-version-refresh` | 18 |
 | `repo-integrity` | 15 |
+| `confighub-catalog-org` | 9 |
 | `derived-variants` | 8 |
 | `local-live-evidence` | 8 |
 | `scale-proof` | 8 |
 | `confighub-proof` | 7 |
 | `user-install-verification` | 7 |
-| `confighub-catalog-org` | 6 |
 | `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
 | `pilot-variant-model` | 2 |
@@ -40,9 +40,9 @@ scripts: 532
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 264 |
+| `verify` | 266 |
 | `generate-or-run` | 215 |
-| `run` | 42 |
+| `run` | 43 |
 | `summary` | 7 |
 | `self-test` | 3 |
 | `full-corpus-verify` | 1 |
@@ -51,8 +51,8 @@ scripts: 532
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 487 |
-| `confighub-or-live-cluster` | 17 |
+| `none-for-verify` | 488 |
+| `confighub-or-live-cluster` | 19 |
 | `local-kubernetes` | 14 |
 | `network-or-helm-repo` | 9 |
 | `user-supplied-cluster-or-confighub` | 5 |
