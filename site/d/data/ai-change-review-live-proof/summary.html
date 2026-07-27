@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review an AI change before it is released · ConfigHub Helm Ops</title>
-  <meta name="description" content="Review an AI change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Check an AICR training change before it is released · ConfigHub Helm Ops</title>
+  <meta name="description" content="Check an AICR training change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
-  <meta property="og:title" content="Review an AI change before it is released · ConfigHub Helm Ops">
-  <meta property="og:description" content="Review an AI change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Check an AICR training change before it is released · ConfigHub Helm Ops">
+  <meta property="og:description" content="Check an AICR training change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
   <style>
@@ -424,26 +424,29 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Review an AI change before it is released</h1>
+    <h1>Check an AICR training change before it is released</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/ai-change-review-live-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>The example begins with a proposed change to an AICR PyTorch training runtime. The unchecked proposal asks for eight H100 nodes when the recorded target limit is four, replaces a digest-pinned image with <code>latest</code>, and leaves an API key as a placeholder. The reviewed file uses four nodes, keeps the pinned image, and refers to an existing Secret.</p>
-<p>This live run uploaded that reviewed YAML to a temporary Space in the <code>helm-catalog</code> ConfigHub organization. ConfigHub stored the same Kubernetes object fields. Because the object is cluster-wide system configuration, ConfigHub blocked the first dry-run apply until its exact head revision was approved. After approval, the same dry run against the recorded OCI target was allowed.</p>
-<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Reviewed object stored without field changes</td><td>Pass</td></tr>
+<p>This example sends two versions of the same AICR PyTorch <code>ClusterTrainingRuntime</code> through ConfigHub. The first version asks for eight H100 nodes, changes a digest-pinned image to <code>latest</code>, and puts a placeholder API key directly in the object. ConfigHub reports the mutable AICR image and blocks the inline API key. It does not run Deployment image or probe checks against this custom resource.</p>
+<p>The reviewed version uses four nodes, restores the pinned image, and refers to an existing Secret. Its AICR image and API-key checks are clear. The four-node capacity limit is checked separately against the recorded target facts because the current ConfigHub policy cannot read that target-specific value.</p>
+<p>Both versions were uploaded to a temporary Space in the <code>helm-catalog</code> ConfigHub organization. ConfigHub stored the reviewed Kubernetes fields without changing them. Because this is cluster-wide system configuration, ConfigHub blocked the reviewed version until its exact revision was approved. After approval, the same dry run against the recorded OCI target was allowed.</p>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Mutable image in the unsafe AICR proposal</td><td>Reported</td></tr>
+<tr><td>Inline API key in the unsafe AICR proposal</td><td>Blocked</td></tr>
+<tr><td>Deployment image or probe warnings on either AICR object</td><td>None</td></tr>
+<tr><td>AICR image and API-key findings on the reviewed object</td><td>None</td></tr>
+<tr><td>Reviewed object stored without field changes</td><td>Pass</td></tr>
 <tr><td>Content hash changed during approval</td><td>No</td></tr>
 <tr><td>Dry run before approval</td><td>Blocked</td></tr>
 <tr><td>Revision selector</td><td><code>HeadRevisionNum</code></td></tr>
 <tr><td>Recorded approvals</td><td>1</td></tr>
 <tr><td>Dry run after approval</td><td>Allowed</td></tr>
-<tr><td>Generic image and probe warnings</td><td>Reported, but not useful for this custom resource</td></tr>
 <tr><td>Kubernetes apply</td><td>Not run</td></tr>
 <tr><td>Temporary Space removed</td><td>Yes</td></tr></tbody></table>
-<p>The standard ConfigHub checks and approval ran. The four-node capacity rule was checked by the repository example; it is not yet a ConfigHub Function. The two generic workload checks also reported image and probe warnings. They inspect the ordinary workload-controller field shape and do not understand the deeper container path in this AICR custom resource. Those warnings do not tell us whether this object is safe. The policy needs AICR-aware checks or narrower generic checks.</p>
-<p>Both apply attempts used <code>--dry-run</code> against an OCI target. This run did not publish a release, read the referenced Secret, start a GPU workload, promote the change, roll it back, or observe a cluster.</p>
-<ul><li><a href="../../../../data/ai-change-review/reviewed.yaml">Reviewed AICR object</a></li><li><a href="../ai-change-review/summary.html">Unchecked proposal and local checks</a></li><li><a href="../../../../runs/ai-change-review-live-proof/receipt.yaml">Committed live receipt</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Catalog policy</a></li></ul>
+<p>All apply attempts used <code>--dry-run</code> against an OCI target. This run did not publish a release, read the referenced Secret, start a GPU workload, promote the change, roll it back, or observe a cluster.</p>
+<ul><li><a href="../../../../data/ai-change-review/proposal.yaml">Unsafe AICR proposal</a></li><li><a href="../../../../data/ai-change-review/reviewed.yaml">Reviewed AICR object</a></li><li><a href="../ai-change-review/summary.html">Local target-capacity check</a></li><li><a href="../../../../runs/ai-change-review-live-proof/receipt.yaml">Committed live receipt</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Catalog policy</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/ai-change-review-live-proof/summary.md</code>. The source file is the authoritative version.</p></footer>

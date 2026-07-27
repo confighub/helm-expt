@@ -67,6 +67,8 @@ const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "int
 const demoProgramPath = join(repoRoot, "data", "demo-program", "program.json");
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
+const applyPolicyProfilePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
+const applyPolicyLiveReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionJsonPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json");
@@ -1551,8 +1553,21 @@ rollback  prior revision recorded         <span class="ok">ok</span>
 `;
 }
 
+function applyPolicyFacts() {
+  const profile = readYaml(applyPolicyProfilePath);
+  const receipt = readYaml(applyPolicyLiveReceiptPath);
+  return {
+    baselineChecks: profile.spec.baseline.checks.length,
+    baselineSpaces: receipt.spec.spaces.baseline.length,
+    approvalSpaces: receipt.spec.spaces.approvalRequired.length,
+    productionSpaces: receipt.spec.spaces.approvalReasons.production.length,
+    systemConfigurationSpaces:
+      receipt.spec.spaces.approvalReasons.systemConfiguration.length,
+  };
+}
 
 function howItWorksHtml(catalog) {
+  const policyFacts = applyPolicyFacts();
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1752,8 +1767,8 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Checks before apply</h3>
-  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Image digest and workload probe checks warn. Production releases and system configuration keep those five checks and add one required approval.</p>
-  <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has 28 Spaces on the five common checks and seven Spaces on those checks plus approval: four production Spaces and three system-configuration Spaces. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration keep those ${policyFacts.baselineChecks} checks and add one required approval.</p>
+  <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has ${policyFacts.baselineSpaces} Spaces on the ${policyFacts.baselineChecks} common checks and ${policyFacts.approvalSpaces} Spaces on those checks plus approval: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
   <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan, or the <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> for one exact permission correction that is checked, approved, published as OCI, and delivered by Argo CD. Partial and planned examples stay labeled as such.</p>
@@ -2909,7 +2924,7 @@ function docsHtml(catalog) {
     ["Redis upgrade, promotion, and rollout", "A live chart upgrade keeps a post-render replica change, shows the development and staging waves, and checks the same OCI digest on two Argo CD clusters.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
     ["AICR OCI round trip", "A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.", "../data/aicr-oci-roundtrip-proof/summary.md"],
-    ["AI change review proof", "A reviewed AICR training object is stored without field changes, blocked until its exact revision is approved, then dry-run again against an OCI target. The result also names the current AICR policy-check gap.", "../data/ai-change-review-live-proof/summary.md"],
+    ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
@@ -3974,6 +3989,7 @@ function privateHtml(catalog) {
 }
 
 function demoOrgHtml(catalog) {
+  const policyFacts = applyPolicyFacts();
   const keepRows = [
     ["bitnami/redis", "default, reuse-existing-secret", "The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved."],
     ["argo-cd/argo-cd", "default, no-crds", "The CRD split: the same chart with CRDs bundled or separated, side by side."],
@@ -4089,8 +4105,8 @@ function demoOrgHtml(catalog) {
 
     <section aria-labelledby="checks">
       <h2 id="checks">The checks are live, and honest</h2>
-      <p>Every policy-covered Space has five common checks. Schema, placeholder, and lifecycle-route checks can stop incomplete configuration. Image digest and workload probe checks report warnings. Production releases and system configuration also require approval before apply. The source format does not decide the policy: the same rule works after Helm, AICR, Kubara, Sveltos, or ordinary YAML has become ConfigHub data.</p>
-      <p>The live org currently has 28 Spaces on the common checks and seven on the approval-required policy: four production Spaces and three system-configuration Spaces. Each covered Space records its policy profile and proof labels. <code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with the committed catalog and policy receipts.</p>
+      <p>Every policy-covered Space has ${policyFacts.baselineChecks} common checks. Schema, placeholder, and lifecycle-route checks can stop incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration also require approval before apply. The source format does not decide the policy: the same rule works after Helm, AICR, Kubara, Sveltos, or ordinary YAML has become ConfigHub data.</p>
+      <p>The live org currently has ${policyFacts.baselineSpaces} Spaces on the common checks and ${policyFacts.approvalSpaces} on the approval-required policy: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. Each covered Space records its policy profile and proof labels. <code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with the committed catalog and policy receipts.</p>
       <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>; the org is regenerable and drift-checkable like every other catalog surface. The org is named <code>helm-catalog</code> and is member-visible today; non-members should use the committed receipts, these pages, and the walkthroughs as the public record of it.</p>
     </section>
 
@@ -4546,8 +4562,8 @@ function aiHtml(catalog) {
     <section aria-labelledby="live-review">
       <h2 id="live-review">A Change We Checked In ConfigHub</h2>
       <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
-      <p>In the live run, ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes.</p>
-      <p>The run also found a real policy gap. The generic image and probe checks do not understand the deeper container path in this AICR custom resource. Those warnings do not tell us whether this object is safe. We need checks that understand AICR, or we need to limit the generic checks to ordinary Kubernetes workloads.</p>
+      <p>In the live run, ConfigHub read the nested AICR fields. It reported the mutable image and blocked the inline API key. The reviewed version cleared both checks. Ordinary Deployment image and probe checks did not run against either custom resource.</p>
+      <p>ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the result and its limits</a>.</p>
     </section>
 

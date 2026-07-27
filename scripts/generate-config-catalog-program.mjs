@@ -1009,12 +1009,91 @@ function validatePolicy(policy) {
       `lifecycle route expression does not check ${requiredTerm}`,
     );
   }
+  const expressionFor = (ref) => definitions
+    .find((item) => item.ref === ref)
+    ?.arguments?.find((item) => item.name === "expression")?.value ?? "";
+  const ordinaryImageExpression = expressionFor(
+    "platform/digest-pinned-images",
+  );
+  const ordinaryProbeExpression = expressionFor("platform/probes-declared");
+  for (const requiredTerm of [
+    "Deployment",
+    "StatefulSet",
+    "DaemonSet",
+    "ReplicaSet",
+  ]) {
+    check(
+      ordinaryImageExpression.includes(requiredTerm)
+        && ordinaryProbeExpression.includes(requiredTerm),
+      `ordinary workload checks do not scope ${requiredTerm}`,
+    );
+  }
+  check(
+    ordinaryImageExpression.includes("Job")
+      && !ordinaryProbeExpression.includes('"Job"'),
+    "ordinary workload checks must inspect Job images without requiring probes",
+  );
+  check(
+    !ordinaryImageExpression.includes("ClusterTrainingRuntime")
+      && !ordinaryProbeExpression.includes("ClusterTrainingRuntime"),
+    "ordinary workload checks must not guess at custom-resource container paths",
+  );
+  const aicrImageDefinition = definitions.find(
+    (item) => item.ref === "platform/aicr-training-images-pinned",
+  );
+  const aicrSecretDefinition = definitions.find(
+    (item) => item.ref === "platform/aicr-training-secret-refs",
+  );
+  check(
+    aicrImageDefinition?.effect === "warn"
+      && aicrImageDefinition.functionName === "vet-cel",
+    "AICR image check must remain an advisory CEL check",
+  );
+  check(
+    aicrSecretDefinition?.effect === "block"
+      && aicrSecretDefinition.functionName === "vet-cel",
+    "AICR Secret check must remain a blocking CEL check",
+  );
+  const aicrImageExpression = expressionFor(
+    "platform/aicr-training-images-pinned",
+  );
+  for (const requiredTerm of [
+    "trainer.kubeflow.org/v1alpha1",
+    "ClusterTrainingRuntime",
+    "replicatedJobs",
+    "containers",
+    "image",
+    "@sha256:",
+  ]) {
+    check(
+      aicrImageExpression.includes(requiredTerm),
+      `AICR image expression does not check ${requiredTerm}`,
+    );
+  }
+  const aicrSecretExpression = expressionFor(
+    "platform/aicr-training-secret-refs",
+  );
+  for (const requiredTerm of [
+    "trainer.kubeflow.org/v1alpha1",
+    "ClusterTrainingRuntime",
+    "replicatedJobs",
+    "containers",
+    "AI_API_KEY",
+    "secretKeyRef",
+  ]) {
+    check(
+      aicrSecretExpression.includes(requiredTerm),
+      `AICR Secret expression does not check ${requiredTerm}`,
+    );
+  }
   const baselineIds = baseline.map((item) => item.id);
   const approvalRequiredIds = approvalRequired.map((item) => item.id);
   const requiredBaseline = [
     "schema-valid",
     "no-placeholder-values",
     "lifecycle-route-evidence",
+    "aicr-training-api-key-secret",
+    "aicr-training-images-pinned",
     "images-pinned-by-digest",
     "workload-probes-declared",
   ];
@@ -1027,7 +1106,10 @@ function validatePolicy(policy) {
   };
   check(unique(baselineIds), "baseline policy check ids must be unique");
   check(unique(approvalRequiredIds), "approval-required policy check ids must be unique");
-  check(sameSet(baselineIds, requiredBaseline), "baseline policy must contain exactly the five standard checks");
+  check(
+    sameSet(baselineIds, requiredBaseline),
+    "baseline policy must contain exactly the seven standard checks",
+  );
   check(!baseline.some(isApprovalCheck), "baseline policy must exclude the approval trigger");
   check(
     approvalRequired.some(
@@ -1056,12 +1138,12 @@ function validatePolicy(policy) {
   );
   check(
     policy.spec.baseline.filterWhere === expectedFilterWhere(policy.spec.baseline),
-    "baseline filter must name exactly its five Triggers",
+    "baseline filter must name exactly its seven Triggers",
   );
   check(
     policy.spec.approvalRequired.filterWhere
       === expectedFilterWhere(policy.spec.approvalRequired),
-    "approval-required filter must name exactly its six Triggers",
+    "approval-required filter must name exactly its eight Triggers",
   );
   check(
     policy.spec.baseline.spaceSelector?.labels?.ApplyPolicyProfile
@@ -2177,6 +2259,7 @@ A base-variant record connects the literal configuration to the source that prod
 function renderPolicySummary(policy) {
   const baseline = policy.spec.baseline;
   const approvalRequired = policy.spec.approvalRequired;
+  const baselineCheckCount = baseline.checks.length;
   return `# Apply policy profiles
 
 Generated from [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
@@ -2187,7 +2270,7 @@ The \`${policy.metadata.name}\` profile applies to ${policy.spec.sourceTypes.joi
 
 Filter: \`${baseline.filter}\`
 
-This filter names the five common checks explicitly:
+This filter names the ${baselineCheckCount} common checks explicitly:
 
 \`${baseline.filterWhere}\`
 
@@ -2197,7 +2280,7 @@ ${renderChecksTable(baseline.checks)}
 
 Filter: \`${approvalRequired.filter}\`
 
-Production releases and system configuration keep the five common checks and add one required approval:
+Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval:
 
 \`${approvalRequired.filterWhere}\`
 
@@ -2302,8 +2385,9 @@ Current limit: ${demo.limits.join(" ")}`).join("\n\n");
   const productionCount = liveReceipt?.spec?.spaces?.approvalReasons?.production?.length;
   const systemConfigurationCount
     = liveReceipt?.spec?.spaces?.approvalReasons?.systemConfiguration?.length;
+  const baselineCheckCount = policy.spec.baseline.checks.length;
   const liveCounts = Number.isInteger(baselineCount) && Number.isInteger(approvalCount)
-    ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the five common checks and ${approvalCount} Spaces on those checks plus approval (${productionCount} production and ${systemConfigurationCount} system configuration).`
+    ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the ${baselineCheckCount} common checks and ${approvalCount} Spaces on those checks plus approval (${productionCount} production and ${systemConfigurationCount} system configuration).`
     : `The live receipt records which Spaces use the common checks and which also require approval.`;
 
   return `# Config catalog demonstrations
@@ -2324,7 +2408,7 @@ ${rendered}
 
 ## The common policy
 
-Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Digest pinning and workload probes produce warnings. Production releases and system configuration keep those five checks and add one required approval.
+Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval.
 
 This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts}
 

@@ -154,6 +154,18 @@ const expectedIdentities = sourceDocs.map(identityFor).sort();
 const expectedCheckSlugs = policy.spec.baseline.checks
   .map((item) => item.trigger.split("/").at(-1))
   .sort();
+const historicalBaselineCheckSlugs = [
+  "digest-pinned-images",
+  "lifecycle-route-evidence",
+  "probes-declared",
+  "vet-placeholders",
+  "vet-schemas",
+];
+check(
+  historicalBaselineCheckSlugs.every((slug) =>
+    expectedCheckSlugs.includes(slug)),
+  "current catalog policy removed a check used by the recorded deployment proofs",
+);
 
 verifyInputs();
 
@@ -536,7 +548,7 @@ function prepareDeliverySpace({ deliverySpace, target }) {
   const triggerSlugs = selectedTriggerSlugs(space);
   check(
     sameSet(triggerSlugs, expectedCheckSlugs),
-    "delivery Space does not select the five catalog-standard checks",
+    "delivery Space does not select the current catalog-standard checks",
   );
   if (scenario.sourceMode === "public-oci") {
     check(
@@ -1037,7 +1049,7 @@ function verifyReceipt(receipt) {
       && managed.objectSetSha256 === objectSetSha256(sourceDocs)
       && managed.objectsMatched === true
       && managed.release?.manifestDigest
-      && sameSet(managed.policy?.checks ?? [], expectedCheckSlugs),
+      && recordedPolicyChecksMatch(managed.policy?.checks ?? []),
     "ConfigHub delivery evidence changed",
   );
   check(
@@ -1073,6 +1085,11 @@ function verifyReceipt(receipt) {
     !serialized.includes("proof-only-not-a-real-key"),
     "receipt contains the fake Secret value",
   );
+}
+
+function recordedPolicyChecksMatch(checks) {
+  return sameSet(checks, expectedCheckSlugs)
+    || sameSet(checks, historicalBaselineCheckSlugs);
 }
 
 function renderSummary(receipt) {

@@ -26035,9 +26035,9 @@
           "id": "ai-change-review-app",
           "limits": [
             "The committed training-runtime example proves exact local objects, diffs, and deterministic checks.",
-            "A live ConfigHub run stored the reviewed object without changing its Kubernetes fields, blocked an OCI-target dry run until the exact head revision was approved, and allowed the same dry run after approval.",
+            "A live ConfigHub run reported the unsafe nested AICR image, blocked the inline API key, and left the reviewed candidate clear. It stored the reviewed object without changing its Kubernetes fields, blocked an OCI-target dry run until the exact head revision was approved, and allowed the same dry run after approval.",
             "The four-node capacity rule remains a repository check rather than a ConfigHub Function.",
-            "The generic image and probe checks reported advisories because this AICR custom resource uses a deeper container path. Those warnings do not tell us whether this object is safe; the policy needs AICR-aware checks or narrower generic checks.",
+            "The ordinary Deployment image and probe checks are limited to Kubernetes workload kinds they understand, so they do not report findings for this AICR custom resource.",
             "Kubernetes apply, promotion, rollback, GPU workload health, and live observation have not run for this candidate."
           ],
           "name": "AI Change Review App",

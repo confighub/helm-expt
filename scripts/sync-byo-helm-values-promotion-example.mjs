@@ -95,6 +95,18 @@ const policy = readYaml(policyPath);
 const expectedCheckSlugs = policy.spec.baseline.checks
   .map((item) => item.trigger.split("/").at(-1))
   .sort();
+const historicalBaselineCheckSlugs = [
+  "digest-pinned-images",
+  "lifecycle-route-evidence",
+  "probes-declared",
+  "vet-placeholders",
+  "vet-schemas",
+];
+check(
+  historicalBaselineCheckSlugs.every((slug) =>
+    expectedCheckSlugs.includes(slug)),
+  "current catalog policy removed a check used by the recorded promotion proof",
+);
 const publicReference = publicReceipt.spec.artifact.reference;
 const publicDigest = publicReceipt.spec.artifact.digest;
 
@@ -674,7 +686,7 @@ function verifyReceipt(receipt) {
     check(
       lane.objectCount === 5
         && lane.readmeUnit.fromLinkIds.length === 0
-        && sameSet(lane.policy.checks, expectedCheckSlugs),
+        && recordedPolicyChecksMatch(lane.policy.checks),
       `${lane.space} evidence changed`,
     );
   }
@@ -722,6 +734,11 @@ function verifyReceipt(receipt) {
     !serialized.includes("proof-only-not-a-real-key"),
     "promotion receipt contains a Secret value",
   );
+}
+
+function recordedPolicyChecksMatch(checks) {
+  return sameSet(checks, expectedCheckSlugs)
+    || sameSet(checks, historicalBaselineCheckSlugs);
 }
 
 function verifyLiveAgainstReceipt(receipt) {

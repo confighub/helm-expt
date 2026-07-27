@@ -8,10 +8,10 @@ its image. The unchecked proposal is not safe to apply. It asks for twice the
 recorded target capacity, replaces a digest-pinned image with `latest`, and
 leaves the API key as an unfinished placeholder.
 
-ConfigHub should show those exact changes and run the checks attached to the
-configuration. The placeholder is a blocking error. The mutable image produces
-a warning. The requested node count fails the target-capacity check. Nothing is
-sent to a cluster.
+ConfigHub shows those exact changes and runs checks that understand this AICR
+object. The mutable image produces a warning. Putting `AI_API_KEY` directly in
+the object is blocked. The requested node count also fails the repository's
+recorded target-capacity check. Nothing is sent to a cluster.
 
 The reviewed candidate uses four nodes, keeps the pinned image, and reads the
 API key from an existing Secret.
@@ -21,16 +21,20 @@ for the two complete YAML objects and the receipt. The receipt says which
 checks ran locally.
 
 A separate [live ConfigHub receipt](../../../data/ai-change-review-live-proof/summary.md)
-uploads the reviewed object to a temporary Space. ConfigHub stores the same
-Kubernetes fields, blocks a dry run until the exact head revision is approved,
-then allows the same dry run against an OCI target. Nothing is applied to
-Kubernetes.
+uploads both versions to a temporary Space. ConfigHub reports the unsafe
+AICR image and blocks the inline API key. The reviewed version clears both
+checks. ConfigHub stores the same Kubernetes fields, blocks a dry run until the
+exact head revision is approved, then allows the same dry run against an OCI
+target. Nothing is applied to Kubernetes.
 
-The live run also found a policy limitation. The generic image and probe
-checks look at ordinary workload-controller fields. This AICR custom resource
-stores its container deeper in the object, so those two warnings do not tell us
-whether this candidate is safe. The policy needs AICR-aware checks or narrower
-generic checks.
+The ordinary Deployment image and probe checks do not run against the AICR
+custom resource. They now name the Kubernetes workload kinds they understand.
+The AICR checks read the deeper image and environment-variable fields used by
+`trainer.kubeflow.org/v1alpha1` `ClusterTrainingRuntime`.
+
+The four-node target limit is still checked outside ConfigHub. It depends on a
+fact about one target, so it should not be hard-coded into a rule that every
+cluster receives.
 
 This is a deterministic example of an agent-produced change. It is not a
 transcript from a named model, and it does not claim that the candidate was
