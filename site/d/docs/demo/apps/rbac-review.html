@@ -432,7 +432,7 @@
     <article class="doc-body">
 <p>This example starts with a small application whose service account can read both ConfigMaps and Secrets. It only needs the ConfigMaps. The extra Secret access is easy to miss when RBAC is spread across rendered chart files.</p>
 <p>The RBAC Review App follows a short path:</p>
-<ol><li>Read the Kubernetes objects already stored as configuration.</li><li>Report that the <code>report-reader</code> Role can read Secrets.</li><li>Propose one change: remove <code>secrets</code> from that Role.</li><li>Let a person review and approve the exact ConfigHub revision.</li><li>Apply the approved data to an isolated cluster and check the real permission.</li></ol>
+<ol><li>Read the Kubernetes objects already stored as configuration.</li><li>Report that the <code>report-reader</code> Role can read Secrets.</li><li>Propose one change: remove <code>secrets</code> from that Role.</li><li>Let a person review and approve the exact ConfigHub revision.</li><li>Publish the approved Space as a private ConfigHub release OCI.</li><li>Package the same approved objects as a portable OCI for the throwaway cluster.</li><li>Let Argo CD apply that OCI and check the real permission.</li></ol>
 <p>The <a href="../../../../../examples/apps/rbac-review/before.yaml">starting configuration</a> contains:</p>
 <pre><code>resources:
   - configmaps
@@ -444,8 +444,9 @@ verbs:
 <p>The <a href="../../../../../examples/apps/rbac-review/after.yaml">reviewed correction</a> keeps the same objects and verbs but removes the resource that the service account does not need:</p>
 <pre><code>resources:
   - configmaps</code></pre>
-<p>The live proof stores both revisions in ConfigHub. The corrected revision cannot pass the ConfigHub dry-run apply check until that exact revision is approved. After approval, the proof applies the stored ConfigHub data to a throwaway cluster. The service account can still read ConfigMaps and can no longer list Secrets.</p>
-<p>This first proof deliberately uses a manual handoff from the approved ConfigHub Unit to <code>kubectl</code>. It proves the review, approval, stored data, and Kubernetes permission change. It does not yet prove automated ConfigHub delivery, a fleet-wide binding analysis, or a correction to a production chart.</p>
+<p>The live proof stores both revisions in ConfigHub. The corrected revision cannot pass the ConfigHub dry-run apply check until that exact revision is approved. After approval, ConfigHub publishes its private release OCI.</p>
+<p>The throwaway cluster belongs to a different organization, so the proof does not copy a private OCI credential into it. Instead, the script packages the same approved objects as a temporary portable OCI, pulls that package back, and compares all five objects with the approved ConfigHub data. Argo CD then reconciles that portable digest. The service account can still read ConfigMaps and can no longer list Secrets.</p>
+<p><code>kubectl</code> creates only the deliberately unsafe starting state. It does not deliver the correction. This example proves one namespaced review and correction on one throwaway cluster. It does not yet prove a permanent public package, Flux delivery, fleet-wide binding analysis, or a correction to a production chart.</p>
 <p>Evidence:</p>
 <ul><li><a href="../../../data/rbac-review-live-proof/summary.html">Live result</a></li><li><a href="../../../../../runs/rbac-review-live-proof/receipt.yaml">Committed receipt</a></li><li><a href="../../../data/app-readiness/summary.html">Catalog-wide RBAC report</a></li></ul>
     </article>

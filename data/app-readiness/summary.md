@@ -50,14 +50,14 @@ Findings across the catalog:
 
 A finding is a reason to inspect the rendered Role or ClusterRole. If the permission is not needed, propose a precise object change, review the diff, run the normal policy checks, and require approval before delivery.
 
-The [live RBAC review example](../rbac-review-live-proof/summary.md) follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, and checks the result on an isolated Kubernetes cluster. The [walkthrough](../../docs/demo/apps/rbac-review.md) explains each step.
+The [live RBAC review example](../rbac-review-live-proof/summary.md) follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, publishes the approved objects as OCI, and lets Argo CD deliver the result to an isolated Kubernetes cluster. The [walkthrough](../../docs/demo/apps/rbac-review.md) explains each step.
 
 
 ## Limits
 
 - The rules are conservative. A finding asks for review; it does not declare that a chart is wrong.
 - The report does not expand aggregated ClusterRoles or resolve the complete RoleBinding and ClusterRoleBinding graph.
-- The catalog-wide scan is read-only. The live example proves one reviewed correction with a manual handoff to `kubectl`; automated ConfigHub, Argo CD, or Flux delivery is separate work.
+- The catalog-wide scan is read-only. The live example proves one reviewed correction and Argo CD delivery on one throwaway cluster. It does not prove a permanent public package, Flux delivery, or fleet-wide RBAC analysis.
 
 ## Regenerate
 

@@ -3,7 +3,7 @@ kind: "RbacReviewLiveProofReceipt"
 metadata:
   name: "namespaced-secret-read-correction"
 spec:
-  recordedAt: "2026-07-27T01:53:27.574Z"
+  recordedAt: "2026-07-27T02:34:28.984Z"
   source:
     before:
       path: "examples/apps/rbac-review/before.yaml"
@@ -37,14 +37,14 @@ spec:
       otherFieldsChanged: false
   configHubReview:
     organization: "helm-catalog"
-    space: "hx-rbac-review-20260727015327"
+    space: "hx-rbac-review-20260727023428"
     unit: "rbac-review-example"
-    unitId: "7aef7e9a-9863-4d94-b3d3-8055fe4c4077"
+    unitId: "663b6374-a62c-43a7-b840-2a150d51bd09"
     target:
       ref: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
       id: "7d32ab9b-6259-40e6-871d-e78f84761d2b"
       provider: "OCI"
-      usedForDryRunOnly: true
+      usedForDryRunAndReleasePublish: true
     policy:
       profile: "catalog-standard"
       resourceClass: "system-configuration"
@@ -88,10 +88,26 @@ spec:
       exitCode: 0
       dryRun: true
     approvedDataMatchesReviewedFile: true
+    release:
+      space: "hx-rbac-review-20260727023428"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-rbac-review-20260727023428:latest"
+      manifestDigest: "sha256:9a1c9b52efaf39493d783fe3d9674102bef18ab1c2ccee7a95f951c276144ebf"
+      bundleDigest: "sha256:d31850ea6de1ca172e8ec743df5cb7879ee6a202e483e4c62c311ffdca0c7261"
+      releaseId: "0e722c4a-39bc-4dcc-97f8-c03c72e151f5"
+    portableRelease:
+      reference: "oci://127.0.0.1:32793/rbac-review-correction:latest"
+      clusterReference: "oci://host.docker.internal:32793/rbac-review-correction"
+      manifestDigest: "sha256:92c3fa146b7b510d047a459ad9402177ae696405137fcca4d7fd234120c448d8"
+      objectCount: 5
+      approvedDataSha256: "7c0ca0e20a30a4bccc6ad58bba7760306e83a15b365e59a54e5b7b555061cded"
+      pulledDataSha256: "7c0ca0e20a30a4bccc6ad58bba7760306e83a15b365e59a54e5b7b555061cded"
+      objectsMatchApprovedData: true
+      anonymousPull: true
+      registryLifetime: "temporary"
   liveCluster:
     organization: "DP1-Sandbox"
     creationCommand: "cub cluster up"
-    name: "hx-rbac-review-20260727015327"
+    name: "hx-rbac-review-20260727023428"
     namespace: "rbac-review"
     serviceAccount: "report-reader"
     startingPermissions:
@@ -115,20 +131,40 @@ spec:
     liveRoleMatchesApprovedData: true
     handoff:
       source: "approved ConfigHub Unit data"
-      method: "kubectl apply"
-      automatedConfigHubDelivery: false
+      method: "Argo CD"
+      applicationDelivery: "ConfigHub cluster Space release OCI"
+      workloadDelivery: "temporary portable OCI"
+      portablePackaging: "scripted from the approved Unit data"
+      automatedArgoDelivery: true
+      application:
+        name: "rbac-review-20260727023428"
+        unit: "hx-rbac-review-20260727023428-cluster/rbac-review-application"
+        source: "oci://host.docker.internal:32793/rbac-review-correction"
+        approvedConfigHubSpace: "hx-rbac-review-20260727023428"
+        destinationNamespace: "rbac-review"
+        clusterRootReleaseDigest: "sha256:9f200524af85316f3cdab7adc81b7eace266fb4cda6b8e68893c5ae5ca80beac"
+      delivery:
+        result: "pass"
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:92c3fa146b7b510d047a459ad9402177ae696405137fcca4d7fd234120c448d8"
+        expectedRevision: "sha256:92c3fa146b7b510d047a459ad9402177ae696405137fcca4d7fd234120c448d8"
+        digestMatchesPortableOci: true
   cleanup:
     policySpace: "pass"
     namespace: "pass"
     cluster: "pass"
     clusterSpace: "pass"
+    registry: "pass"
     localFiles: "pass"
   limits:
     - "The scanner uses conservative RBAC rules. A finding asks for review; it does not prove that a permission is unnecessary."
     - "This fixture is deliberately small and namespaced. It does not resolve RoleBinding graphs across a fleet or change a production chart."
-    - "The ConfigHub target was used only for the blocked and allowed dry-run checks."
-    - "The approved ConfigHub Unit data was handed to kubectl explicitly. Automated ConfigHub, Argo CD, or Flux delivery was not tested in this run."
-    - "The temporary ConfigHub Space, namespace, kind cluster, cluster Space, and local files were removed."
+    - "The existing catalog OCI target was used for the blocked and allowed dry-run checks and to publish the approved Space release."
+    - "kubectl created the deliberately unsafe starting state. The reviewed correction was packaged from the approved ConfigHub Unit data and delivered as portable OCI through Argo CD."
+    - "The disposable cluster's target-scoped OCI credential was not copied into another organization. Argo CD consumed a temporary anonymous OCI containing the same approved objects."
+    - "This run proves one ConfigHub-to-Argo correction on one throwaway cluster. It does not prove Flux delivery, a fleet rollout, or every RBAC change."
+    - "The temporary ConfigHub Space, namespace, kind cluster, cluster Space, OCI registry, and local files were removed."
 status:
   result: "pass"
-  claim: "ConfigHub stored an exact RBAC correction, blocked it until its head revision was approved, and the approved data removed Secret access on an isolated Kubernetes cluster while preserving ConfigMap access."
+  claim: "ConfigHub stored an exact RBAC correction, blocked it until its head revision was approved, and published its private release OCI. The same approved objects were packaged as a portable OCI, and Argo CD reconciled that portable digest on an isolated cluster. Secret access was removed while ConfigMap access remained."

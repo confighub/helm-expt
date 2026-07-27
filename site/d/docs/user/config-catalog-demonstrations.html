@@ -538,10 +538,10 @@
 <p><b>Status: partial.</b></p>
 <p>Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.</p>
 <p>Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.</p>
-<ol><li>Read Role, ClusterRole, and binding Units across selected Spaces.</li><li>Report broad verbs, resources, and subjects.</li><li>Propose a concrete object diff.</li><li>Apply the change only after policy and approval.</li></ol>
+<ol><li>Read Role, ClusterRole, and binding Units across selected Spaces.</li><li>Report broad verbs, resources, and subjects.</li><li>Propose a concrete object diff.</li><li>Publish the approved objects as OCI and let Argo CD deliver the correction.</li></ol>
 <p>Start with <a href="../demo/apps/rbac-review.html">docs/demo/apps/rbac-review.md</a> or <a href="../../data/app-readiness/summary.html">data/app-readiness/summary.md</a>.</p>
 <p>Evidence: <a href="../../data/app-readiness/summary.html">data/app-readiness/summary.md</a>, <a href="../../data/rbac-review-live-proof/summary.html">data/rbac-review-live-proof/summary.md</a>, <a href="../../../../runs/rbac-review-live-proof/receipt.yaml">runs/rbac-review-live-proof/receipt.yaml</a>.</p>
-<p>Current limit: The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet. The live example proves one exact namespaced correction, approval, and Kubernetes permission change. It hands approved ConfigHub Unit data to kubectl explicitly; automated ConfigHub, Argo CD, or Flux delivery remains separate work.</p>
+<p>Current limit: The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet. The live example proves one exact namespaced correction, approval, private ConfigHub release, portable OCI output, Argo CD reconciliation, and Kubernetes permission change. The portable OCI used a temporary anonymous registry. A permanent public package, Flux delivery, and fleet rollout remain separate work.</p>
 <h3 id="fleet-platform-app">Fleet Platform App</h3>
 <p><b>Status: partial.</b></p>
 <p>Platform teams need to assign different system configurations to cluster groups without losing a central source of record.</p>

@@ -467,9 +467,9 @@
 <tr><td>_… and 25 more_</td><td></td><td></td><td></td><td></td></tr></tbody></table>
 <h2 id="what-happens-after-a-finding">What happens after a finding</h2>
 <p>A finding is a reason to inspect the rendered Role or ClusterRole. If the permission is not needed, propose a precise object change, review the diff, run the normal policy checks, and require approval before delivery.</p>
-<p>The <a href="../rbac-review-live-proof/summary.html">live RBAC review example</a> follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, and checks the result on an isolated Kubernetes cluster. The <a href="../../docs/demo/apps/rbac-review.html">walkthrough</a> explains each step.</p>
+<p>The <a href="../rbac-review-live-proof/summary.html">live RBAC review example</a> follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, publishes the approved objects as OCI, and lets Argo CD deliver the result to an isolated Kubernetes cluster. The <a href="../../docs/demo/apps/rbac-review.html">walkthrough</a> explains each step.</p>
 <h2 id="limits">Limits</h2>
-<ul><li>The rules are conservative. A finding asks for review; it does not declare that a chart is wrong.</li><li>The report does not expand aggregated ClusterRoles or resolve the complete RoleBinding and ClusterRoleBinding graph.</li><li>The catalog-wide scan is read-only. The live example proves one reviewed correction with a manual handoff to <code>kubectl</code>; automated ConfigHub, Argo CD, or Flux delivery is separate work.</li></ul>
+<ul><li>The rules are conservative. A finding asks for review; it does not declare that a chart is wrong.</li><li>The report does not expand aggregated ClusterRoles or resolve the complete RoleBinding and ClusterRoleBinding graph.</li><li>The catalog-wide scan is read-only. The live example proves one reviewed correction and Argo CD delivery on one throwaway cluster. It does not prove a permanent public package, Flux delivery, or fleet-wide RBAC analysis.</li></ul>
 <h2 id="regenerate">Regenerate</h2>
 <pre><code>npm run app-readiness:generate
 npm run app-readiness:verify</code></pre>

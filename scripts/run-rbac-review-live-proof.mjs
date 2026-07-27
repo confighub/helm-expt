@@ -3,6 +3,7 @@
 import { spawnSync } from "node:child_process";
 import {
   existsSync,
+  mkdirSync,
   mkdtempSync,
   readFileSync,
   rmSync,
@@ -35,7 +36,7 @@ if (!allowedModes.has(mode)) {
 const expectedPolicyOrg = "helm-catalog";
 const approvalFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
-const dryRunTargetRef =
+const catalogOciTargetRef =
   "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target";
 const expectedTriggers = [
   "platform/digest-pinned-images",
@@ -74,6 +75,9 @@ const summaryPath = join(
 const namespace = "rbac-review";
 const serviceAccount = "report-reader";
 const unitSlug = "rbac-review-example";
+const configHubOciHost = "oci.hub.confighub.com:443";
+const artifactType = "application/vnd.confighub.kubernetes.config.v1";
+const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
 
 if (mode === "--run") {
   run();
@@ -123,8 +127,10 @@ function run() {
   );
   for (const [tool, args] of [
     ["cub", ["version"]],
+    ["docker", ["version"]],
     ["kind", ["version"]],
     ["kubectl", ["version", "--client"]],
+    ["oras", ["version"]],
   ]) {
     check(tryCommand(tool, args).ok, `${tool} is required for the RBAC proof`);
   }
@@ -176,11 +182,14 @@ function run() {
     "target",
     "get",
     "--space",
-    ...dryRunTargetRef.split("/"),
+    ...catalogOciTargetRef.split("/"),
     "-o",
     "json",
   ]).Target;
-  check(target?.ProviderType === "OCI", `${dryRunTargetRef} is not an OCI target`);
+  check(
+    target?.ProviderType === "OCI",
+    `${catalogOciTargetRef} is not an OCI target`,
+  );
 
   const recordedAt = new Date().toISOString();
   const runId = safeRunId(
@@ -189,17 +198,21 @@ function run() {
   const policySpace = `hx-rbac-review-${runId}`;
   const clusterName = `hx-rbac-review-${runId}`;
   const clusterSpace = `${clusterName}-cluster`;
+  const applicationName = `rbac-review-${runId}`;
+  const applicationUnit = "rbac-review-application";
+  const registryName = `hx-rbac-review-registry-${runId}`;
   const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-rbac-review-"));
-  const approvedPath = join(tempRoot, "approved.yaml");
   const cleanup = {
     policySpace: "not-created",
     namespace: "not-created",
     cluster: "not-created",
     clusterSpace: "not-created",
+    registry: "not-created",
     localFiles: "pending",
   };
   let clusterStarted = false;
   let policySpaceCreated = false;
+  let registryStarted = false;
   let receipt;
 
   try {
@@ -215,7 +228,14 @@ function run() {
       !spacePresent(clusterContext, clusterSpace),
       `refusing to reuse existing cluster Space ${clusterSpace}`,
     );
+    check(
+      !dockerContainerPresent(registryName),
+      `refusing to reuse existing registry ${registryName}`,
+    );
 
+    const registry = startRegistry(registryName);
+    registryStarted = true;
+    cleanup.registry = "pending";
     clusterUp(clusterContext, clusterName);
     clusterStarted = true;
     cleanup.cluster = "pending";
@@ -235,7 +255,12 @@ function run() {
     createPolicySpace(policyContext, policySpace);
     policySpaceCreated = true;
     cleanup.policySpace = "pending";
-    assertSpaceTriggers(policyContext, policySpace, topology.triggerIds);
+    assertPolicySpace(
+      policyContext,
+      policySpace,
+      topology.triggerIds,
+      target.TargetID,
+    );
 
     cub(policyContext, [
       "unit",
@@ -258,7 +283,7 @@ function run() {
       "--space",
       policySpace,
       unitSlug,
-      dryRunTargetRef,
+      catalogOciTargetRef,
       "--quiet",
     ]);
     const storedBefore = waitForPolicy(
@@ -336,11 +361,35 @@ function run() {
     check(approvalCountValue >= 1, "the corrected Unit has no recorded approval");
     const allowed = allowedDryRun(policyContext, policySpace, unitSlug);
 
+    const workloadRelease = publishRelease(policyContext, policySpace);
     const approvedText = storedData(approved);
-    writeFileSync(approvedPath, approvedText, { mode: 0o600 });
-    kubeCommand(clusterName, ["apply", "-f", approvedPath], {
-      timeout: 180_000,
+    const portableRelease = publishPortableOci({
+      workRoot: tempRoot,
+      approvedText,
+      registryHost: registry.host,
+      clusterRegistryHost: registry.clusterHost,
     });
+    const application = addApplication({
+      context: clusterContext,
+      clusterName,
+      clusterSpace,
+      applicationName,
+      applicationUnit,
+      workloadSpace: policySpace,
+      sourceReference: portableRelease.clusterReference,
+      anonymousOciHost: registry.clusterHost,
+      destinationNamespace: namespace,
+      workRoot: tempRoot,
+    });
+    const delivery = waitForApplication({
+      clusterName,
+      applicationName,
+      expectedRevision: portableRelease.manifestDigest,
+    });
+    check(
+      delivery.result === "pass",
+      `${applicationName} did not reconcile: ${delivery.reason ?? "unknown"}`,
+    );
     const liveAfter = permissionSnapshot(clusterName);
     check(
       liveAfter.secrets.allowed === false
@@ -394,10 +443,10 @@ function run() {
           unit: unitSlug,
           unitId: storedBefore.UnitID,
           target: {
-            ref: dryRunTargetRef,
+            ref: catalogOciTargetRef,
             id: target.TargetID,
             provider: target.ProviderType,
-            usedForDryRunOnly: true,
+            usedForDryRunAndReleasePublish: true,
           },
           policy: {
             profile: "catalog-standard",
@@ -422,6 +471,8 @@ function run() {
           },
           afterApproval: allowed,
           approvedDataMatchesReviewedFile: true,
+          release: workloadRelease,
+          portableRelease,
         },
         liveCluster: {
           organization: clusterContextInfo.metadata.organizationName,
@@ -434,25 +485,63 @@ function run() {
           liveRoleMatchesApprovedData: true,
           handoff: {
             source: "approved ConfigHub Unit data",
-            method: "kubectl apply",
-            automatedConfigHubDelivery: false,
+            method: "Argo CD",
+            applicationDelivery: "ConfigHub cluster Space release OCI",
+            workloadDelivery: "temporary portable OCI",
+            portablePackaging: "scripted from the approved Unit data",
+            automatedArgoDelivery: true,
+            application,
+            delivery,
           },
         },
         cleanup,
         limits: [
           "The scanner uses conservative RBAC rules. A finding asks for review; it does not prove that a permission is unnecessary.",
           "This fixture is deliberately small and namespaced. It does not resolve RoleBinding graphs across a fleet or change a production chart.",
-          "The ConfigHub target was used only for the blocked and allowed dry-run checks.",
-          "The approved ConfigHub Unit data was handed to kubectl explicitly. Automated ConfigHub, Argo CD, or Flux delivery was not tested in this run.",
-          "The temporary ConfigHub Space, namespace, kind cluster, cluster Space, and local files were removed.",
+          "The existing catalog OCI target was used for the blocked and allowed dry-run checks and to publish the approved Space release.",
+          "kubectl created the deliberately unsafe starting state. The reviewed correction was packaged from the approved ConfigHub Unit data and delivered as portable OCI through Argo CD.",
+          "The disposable cluster's target-scoped OCI credential was not copied into another organization. Argo CD consumed a temporary anonymous OCI containing the same approved objects.",
+          "This run proves one ConfigHub-to-Argo correction on one throwaway cluster. It does not prove Flux delivery, a fleet rollout, or every RBAC change.",
+          "The temporary ConfigHub Space, namespace, kind cluster, cluster Space, OCI registry, and local files were removed.",
         ],
       },
       status: {
         result: "pass",
-        claim: "ConfigHub stored an exact RBAC correction, blocked it until its head revision was approved, and the approved data removed Secret access on an isolated Kubernetes cluster while preserving ConfigMap access.",
+        claim: "ConfigHub stored an exact RBAC correction, blocked it until its head revision was approved, and published its private release OCI. The same approved objects were packaged as a portable OCI, and Argo CD reconciled that portable digest on an isolated cluster. Secret access was removed while ConfigMap access remained.",
       },
     };
   } finally {
+    if (clusterStarted || clusterPresent(clusterName)) {
+      kubeTry(clusterName, [
+        "delete",
+        "application",
+        applicationName,
+        "-n",
+        "argocd",
+        "--wait=false",
+      ], { timeout: 60_000 });
+      if (namespacePresent(clusterName)) {
+        kubeTry(clusterName, [
+          "delete",
+          "namespace",
+          namespace,
+          "--wait=true",
+          "--timeout=120s",
+        ], { timeout: 180_000 });
+      }
+      cleanup.namespace = namespacePresent(clusterName) ? "fail" : "pass";
+      clusterDown(clusterContext, clusterName);
+    } else if (cleanup.namespace === "not-created") {
+      cleanup.namespace = "pass";
+    }
+    cleanup.cluster = clusterPresent(clusterName) ? "fail" : "pass";
+    if (cleanup.cluster === "pass") {
+      cleanup.namespace = "pass";
+    }
+    cleanup.clusterSpace = spacePresent(clusterContext, clusterSpace)
+      ? "fail"
+      : "pass";
+
     if (
       policySpaceCreated
       || spacePresent(policyContext, policySpace)
@@ -469,25 +558,10 @@ function run() {
       ? "fail"
       : "pass";
 
-    if (clusterStarted || clusterPresent(clusterName)) {
-      if (namespacePresent(clusterName)) {
-        kubeTry(clusterName, [
-          "delete",
-          "namespace",
-          namespace,
-          "--wait=true",
-          "--timeout=120s",
-        ], { timeout: 180_000 });
-      }
-      cleanup.namespace = namespacePresent(clusterName) ? "fail" : "pass";
-      clusterDown(clusterContext, clusterName);
-    } else if (cleanup.namespace === "not-created") {
-      cleanup.namespace = "pass";
+    if (registryStarted || dockerContainerPresent(registryName)) {
+      tryCommand("docker", ["rm", "-f", registryName], { timeout: 120_000 });
     }
-    cleanup.cluster = clusterPresent(clusterName) ? "fail" : "pass";
-    cleanup.clusterSpace = spacePresent(clusterContext, clusterSpace)
-      ? "fail"
-      : "pass";
+    cleanup.registry = dockerContainerPresent(registryName) ? "fail" : "pass";
 
     rmSync(tempRoot, { recursive: true, force: true });
     cleanup.localFiles = existsSync(tempRoot) ? "fail" : "pass";
@@ -649,6 +723,14 @@ function createPolicySpace(context, space) {
   cub(context, [
     "space",
     "update",
+    space,
+    "--release-target",
+    catalogOciTargetRef,
+    "--quiet",
+  ]);
+  cub(context, [
+    "space",
+    "update",
     "--patch",
     space,
     "--refresh-triggers",
@@ -670,11 +752,20 @@ function readApprovalTopology(context) {
   };
 }
 
-function assertSpaceTriggers(context, space, expectedTriggerIds) {
+function assertPolicySpace(
+  context,
+  space,
+  expectedTriggerIds,
+  expectedReleaseTargetId,
+) {
   const actual = cubJson(context, ["space", "get", space, "-o", "json"]).Space;
   check(
     sameSet(actual.TriggerIDs ?? [], expectedTriggerIds),
     `${space} received the wrong Trigger set`,
+  );
+  check(
+    actual.ReleaseTargetID === expectedReleaseTargetId,
+    `${space} received the wrong release target`,
   );
 }
 
@@ -758,6 +849,316 @@ function allowedDryRun(context, space, unit) {
   };
 }
 
+function startRegistry(name) {
+  const started = tryCommand("docker", [
+    "run",
+    "-d",
+    "--rm",
+    "--name",
+    name,
+    "-p",
+    "127.0.0.1::5000",
+    "registry:2",
+  ], { timeout: 120_000 });
+  check(
+    started.ok,
+    `could not start the temporary OCI registry: ${started.error}`,
+  );
+  for (let attempt = 0; attempt < 30; attempt += 1) {
+    const port = tryCommand("docker", ["port", name, "5000/tcp"]);
+    const match = port.output.match(/127\.0\.0\.1:(\d+)/);
+    if (match) {
+      const host = `127.0.0.1:${match[1]}`;
+      if (tryCommand("curl", ["-fsS", `http://${host}/v2/`]).ok) {
+        return {
+          host,
+          clusterHost: `host.docker.internal:${match[1]}`,
+        };
+      }
+    }
+    sleep(1000);
+  }
+  tryCommand("docker", ["rm", "-f", name], { timeout: 120_000 });
+  throw new Error("temporary OCI registry did not publish a host port");
+}
+
+function publishPortableOci({
+  workRoot,
+  approvedText,
+  registryHost,
+  clusterRegistryHost,
+}) {
+  const outputRoot = join(workRoot, "portable-output");
+  const pullRoot = join(workRoot, "portable-output-pulled");
+  const outputFile = join(outputRoot, "release-objects.yaml");
+  const bundleFile = join(outputRoot, "bundle.tar.gz");
+  mkdirSync(outputRoot, { recursive: true });
+  writeFileSync(outputFile, approvedText);
+  command("tar", [
+    "-czf",
+    bundleFile,
+    "release-objects.yaml",
+  ], { cwd: outputRoot });
+
+  const repository = "rbac-review-correction";
+  const localReference = `${registryHost}/${repository}:latest`;
+  command("oras", [
+    "push",
+    "--plain-http",
+    "--artifact-type",
+    artifactType,
+    "--format",
+    "json",
+    localReference,
+    `bundle.tar.gz:${deployableLayerType}`,
+  ], { cwd: outputRoot, timeout: 180_000 });
+  const descriptor = JSON.parse(command("oras", [
+    "manifest",
+    "fetch",
+    "--plain-http",
+    "--descriptor",
+    localReference,
+  ]).output);
+  const manifestDigest = normalizeDigest(descriptor.digest);
+  check(manifestDigest, "portable RBAC OCI has no manifest digest");
+
+  command("oras", [
+    "pull",
+    "--plain-http",
+    "--output",
+    pullRoot,
+    `${registryHost}/${repository}@${manifestDigest}`,
+  ], { timeout: 120_000 });
+  const pulledBundle = join(pullRoot, "bundle.tar.gz");
+  check(existsSync(pulledBundle), "pulled portable OCI is missing bundle.tar.gz");
+  command("tar", ["-xzf", pulledBundle, "-C", pullRoot]);
+  const pulledFile = join(pullRoot, "release-objects.yaml");
+  check(
+    existsSync(pulledFile),
+    "pulled portable OCI is missing release-objects.yaml",
+  );
+  const pulledText = readFileSync(pulledFile, "utf8");
+  check(
+    canonicalDocs(parseDocs(pulledText))
+      === canonicalDocs(parseDocs(approvedText)),
+    "pulled portable OCI differs from the approved ConfigHub Unit data",
+  );
+  return {
+    reference: `oci://${localReference}`,
+    clusterReference: `oci://${clusterRegistryHost}/${repository}`,
+    manifestDigest,
+    objectCount: parseDocs(approvedText).length,
+    approvedDataSha256: sha256(approvedText),
+    pulledDataSha256: sha256(pulledText),
+    objectsMatchApprovedData: true,
+    anonymousPull: true,
+    registryLifetime: "temporary",
+  };
+}
+
+function publishRelease(context, space) {
+  const response = cubJson(
+    context,
+    ["release", "publish", space, "-o", "json"],
+    { timeout: 300_000 },
+  );
+  const release = response.Release ?? response.release ?? response;
+  const manifestDigest = normalizeDigest(
+    release.ManifestDigest ?? release.manifestDigest,
+  );
+  check(manifestDigest, `${space} release publish returned no manifest digest`);
+  return {
+    space,
+    reference: `oci://${configHubOciHost}/space/${space}:latest`,
+    manifestDigest,
+    bundleDigest: normalizeDigest(release.Digest ?? release.digest),
+    releaseId: String(release.ReleaseID ?? release.releaseId ?? ""),
+  };
+}
+
+function addApplication({
+  context,
+  clusterName,
+  clusterSpace,
+  applicationName,
+  applicationUnit,
+  workloadSpace,
+  sourceReference,
+  anonymousOciHost,
+  destinationNamespace,
+  workRoot,
+}) {
+  const targetRef = `${clusterSpace}/oci`;
+  const target = cubJson(context, [
+    "target",
+    "get",
+    "--space",
+    clusterSpace,
+    "oci",
+    "-o",
+    "json",
+  ]).Target;
+  check(target?.ProviderType === "OCI", `${targetRef} is not an OCI target`);
+
+  const applicationPath = join(workRoot, `${applicationName}.yaml`);
+  writeFileSync(
+    applicationPath,
+    applicationYaml({
+      applicationName,
+      sourceReference,
+      destinationNamespace,
+    }),
+    { mode: 0o600 },
+  );
+  configureAnonymousOci(clusterName, anonymousOciHost, workRoot);
+  cub(context, [
+    "unit",
+    "create",
+    "--space",
+    clusterSpace,
+    applicationUnit,
+    applicationPath,
+    "--target",
+    targetRef,
+    "--change-desc",
+    `Deploy the approved RBAC correction from ${workloadSpace}`,
+    "--quiet",
+  ], { timeout: 180_000 });
+  const rootRelease = publishRelease(context, clusterSpace);
+  kubeCommand(clusterName, [
+    "annotate",
+    "application",
+    clusterSpace,
+    "-n",
+    "argocd",
+    "argocd.argoproj.io/refresh=hard",
+    "--overwrite",
+  ]);
+  return {
+    name: applicationName,
+    unit: `${clusterSpace}/${applicationUnit}`,
+    source: sourceReference,
+    approvedConfigHubSpace: workloadSpace,
+    destinationNamespace,
+    clusterRootReleaseDigest: rootRelease.manifestDigest,
+  };
+}
+
+function configureAnonymousOci(clusterName, registryHost, workRoot) {
+  const secretPath = join(workRoot, `${clusterName}-anonymous-oci.yaml`);
+  writeFileSync(secretPath, `apiVersion: v1
+kind: Secret
+metadata:
+  name: helm-expt-anonymous-oci
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repo-creds
+type: Opaque
+stringData:
+  url: oci://${registryHost}
+  type: oci
+  enableOCI: "true"
+  insecureOCIForceHttp: "true"
+`, { mode: 0o600 });
+  kubeCommand(clusterName, ["apply", "-f", secretPath]);
+}
+
+function waitForApplication({
+  clusterName,
+  applicationName,
+  expectedRevision,
+}) {
+  let last = {
+    sync: "",
+    health: "",
+    revision: "",
+    comparisonError: "",
+  };
+  for (let attempt = 0; attempt < 72; attempt += 1) {
+    const result = kubeTry(clusterName, [
+      "get",
+      "application",
+      applicationName,
+      "-n",
+      "argocd",
+      "-o",
+      "json",
+    ]);
+    if (result.ok) {
+      const application = JSON.parse(result.output);
+      last = {
+        sync: String(application.status?.sync?.status ?? ""),
+        health: String(application.status?.health?.status ?? ""),
+        revision: normalizeDigest(application.status?.sync?.revision),
+        comparisonError: String(
+          (application.status?.conditions ?? [])
+            .find((condition) => condition.type === "ComparisonError")
+            ?.message
+          ?? "",
+        ),
+      };
+      if (
+        last.sync === "Synced"
+        && last.health === "Healthy"
+        && last.revision === expectedRevision
+      ) {
+        return {
+          result: "pass",
+          sync: last.sync,
+          health: last.health,
+          revision: last.revision,
+          expectedRevision,
+          digestMatchesPortableOci: true,
+        };
+      }
+      if (attempt >= 3 && last.comparisonError) {
+        return {
+          result: "blocked",
+          reason: sanitizeError(last.comparisonError),
+        };
+      }
+    }
+    sleep(5000);
+  }
+  return {
+    result: "blocked",
+    reason: `sync=${last.sync || "missing"}; health=${
+      last.health || "missing"
+    }; revision=${last.revision || "missing"}; expected=${expectedRevision}; error=${
+      last.comparisonError || "none"
+    }`,
+  };
+}
+
+function applicationYaml({
+  applicationName,
+  sourceReference,
+  destinationNamespace,
+}) {
+  return `apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${applicationName}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: ${sourceReference}
+    targetRevision: latest
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ${destinationNamespace}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+`;
+}
+
 function clusterUp(context, name) {
   const result = cubTry(
     context,
@@ -838,6 +1239,18 @@ function clusterPresent(name) {
   return result.ok && result.output.split(/\r?\n/).includes(name);
 }
 
+function dockerContainerPresent(name) {
+  const result = tryCommand("docker", [
+    "ps",
+    "-a",
+    "--filter",
+    `name=^/${name}$`,
+    "--format",
+    "{{.Names}}",
+  ]);
+  return result.ok && result.output.split(/\r?\n/).includes(name);
+}
+
 function spacePresent(context, space) {
   return cubTry(context, ["space", "get", space, "-o", "json"]).ok;
 }
@@ -891,6 +1304,11 @@ function identity(doc) {
 
 function sameSet(left, right) {
   return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
+}
+
+function normalizeDigest(value) {
+  const match = String(value ?? "").match(/sha256:[a-f0-9]{64}/i);
+  return match ? match[0].toLowerCase() : "";
 }
 
 function cub(context, args, options = {}) {
@@ -1016,6 +1434,9 @@ function verifyReceipt(receipt) {
       && review.policy?.profile === "catalog-standard"
       && review.policy?.resourceClass === "system-configuration"
       && review.policy?.approvalGate === approvalGate
+      && review.target?.ref === catalogOciTargetRef
+      && review.target?.provider === "OCI"
+      && review.target?.usedForDryRunAndReleasePublish === true
       && sameSet(review.policy.filter?.triggerRefs ?? [], expectedTriggers),
     "RBAC ConfigHub policy record changed",
   );
@@ -1045,6 +1466,24 @@ function verifyReceipt(receipt) {
       && review.approvedDataMatchesReviewedFile === true,
     "RBAC correction did not pass after approval",
   );
+  check(
+    review?.release?.reference
+      === `oci://${configHubOciHost}/space/${review.space}:latest`
+      && normalizeDigest(review.release.manifestDigest)
+      === review.release.manifestDigest,
+    "RBAC ConfigHub release record is incomplete",
+  );
+  check(
+    review?.portableRelease?.objectsMatchApprovedData === true
+      && review.portableRelease.objectCount === 5
+      && review.portableRelease.anonymousPull === true
+      && review.portableRelease.registryLifetime === "temporary"
+      && review.portableRelease.approvedDataSha256
+      === review.portableRelease.pulledDataSha256
+      && normalizeDigest(review.portableRelease.manifestDigest)
+      === review.portableRelease.manifestDigest,
+    "RBAC portable release record is incomplete",
+  );
 
   const live = receipt.spec?.liveCluster;
   check(
@@ -1058,8 +1497,22 @@ function verifyReceipt(receipt) {
   );
   check(
     live?.handoff?.source === "approved ConfigHub Unit data"
-      && live.handoff.method === "kubectl apply"
-      && live.handoff.automatedConfigHubDelivery === false,
+      && live.handoff.method === "Argo CD"
+      && live.handoff.applicationDelivery
+      === "ConfigHub cluster Space release OCI"
+      && live.handoff.workloadDelivery === "temporary portable OCI"
+      && live.handoff.portablePackaging
+      === "scripted from the approved Unit data"
+      && live.handoff.automatedArgoDelivery === true
+      && live.handoff.application?.source
+      === review.portableRelease.clusterReference
+      && live.handoff.application.approvedConfigHubSpace === review.space
+      && live.handoff.delivery?.result === "pass"
+      && live.handoff.delivery.sync === "Synced"
+      && live.handoff.delivery.health === "Healthy"
+      && live.handoff.delivery.digestMatchesPortableOci === true
+      && live.handoff.delivery.revision
+      === review.portableRelease.manifestDigest,
     "RBAC delivery boundary changed",
   );
   check(
@@ -1093,8 +1546,11 @@ The review found that extra Secret access and proposed one change: remove
 ConfigHub stored the corrected revision and blocked its dry-run apply until that
 exact revision was approved.
 
-After approval, the proof applied the stored ConfigHub data to an isolated cluster.
-The service account can still list ConfigMaps and can no longer list Secrets.
+After approval, ConfigHub published its release OCI. The same approved objects were
+also packaged as a portable OCI that the throwaway cluster could read without
+borrowing another cluster's credentials. Argo CD reconciled the portable digest on
+an isolated cluster. The service account can still list ConfigMaps and can no longer
+list Secrets.
 
 | Check | Before | After |
 | --- | --- | --- |
@@ -1102,6 +1558,9 @@ The service account can still list ConfigMaps and can no longer list Secrets.
 | List Secrets | ${live.startingPermissions.secrets.allowed ? "Allowed" : "Denied"} | ${live.correctedPermissions.secrets.allowed ? "Allowed" : "Denied"} |
 | List ConfigMaps | ${live.startingPermissions.configmaps.allowed ? "Allowed" : "Denied"} | ${live.correctedPermissions.configmaps.allowed ? "Allowed" : "Denied"} |
 | ConfigHub apply check | Not attempted for the imported state | Blocked before approval, allowed after approval |
+| ConfigHub release OCI | - | \`${review.release.manifestDigest}\` |
+| Portable OCI | - | \`${review.portableRelease.manifestDigest}\`; pulled back and matched |
+| Argo CD | - | ${live.handoff.delivery.sync} and ${live.handoff.delivery.health}; portable digest matched |
 | Live Role matches approved data | - | ${live.liveRoleMatchesApprovedData ? "Yes" : "No"} |
 
 ## What changed
@@ -1119,10 +1578,14 @@ This is a small namespaced fixture. The catalog-wide report uses conservative ru
 so a finding asks for review rather than declaring that a chart is wrong. This run
 does not resolve binding graphs across a fleet or modify a production chart.
 
-The ConfigHub target was used for dry-run policy checks. After approval, the proof
-read the exact Unit data and handed it to \`kubectl apply\`. Automated ConfigHub,
-Argo CD, or Flux delivery was not tested. The temporary Space and cluster were
-removed.
+The existing catalog OCI target was used for the policy checks and release
+publication. \`kubectl\` created the deliberately unsafe starting state. It did not
+deliver the correction. After approval, ConfigHub published its private release OCI.
+The proof also built a temporary portable OCI from the same approved data, pulled it
+back to compare the objects, and let Argo CD apply it without copying a
+target-scoped credential between organizations. This proves one correction on one
+throwaway cluster; it does not prove a permanent public registry, Flux delivery, or
+a fleet rollout. The temporary registry, Spaces, and cluster were removed.
 
 - [Starting configuration](../../examples/apps/rbac-review/before.yaml)
 - [Reviewed correction](../../examples/apps/rbac-review/after.yaml)
