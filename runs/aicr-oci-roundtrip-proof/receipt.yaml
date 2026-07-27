@@ -1,0 +1,81 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrOciRoundTripProofReceipt"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-v0-14-0"
+spec:
+  observedAt: "2026-07-27T01:20:30.880Z"
+  context:
+    organization: "DP1-Sandbox"
+    purpose: "temporary source-neutral OCI round-trip proof"
+  input:
+    format: "AICR Argo CD literal configuration OCI"
+    committedLayout: "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config"
+    digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+    applicationCount: 17
+    syncWaves:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+    temporaryRegistry: true
+    anonymousLocalPull: "pass"
+  configHub:
+    base:
+      space: "hx-aicr-oci-20260727012030-base"
+      unit: "hx-aicr-oci-20260727012030"
+      spaceId: "d81584ae-fae5-48ab-bd82-2613f29e6f64"
+      unitId: "93f80330-5a55-460f-bb0d-1af4b00f688b"
+      externalSourceDigest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+      sourceObjectsMatched: true
+      releaseTargetId: "c4e805cb-8c10-4a61-baea-9ef17a04c580"
+    release:
+      space: "hx-aicr-oci-20260727012030-base"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-aicr-oci-20260727012030-base:latest"
+      manifestDigest: "sha256:652f2427bfe9d798efa4521b518a3b18b0c5d0ccb6be6b937d136917c64b0915"
+      bundleDigest: "sha256:289b27644daa2d30ec0f36fdde0b645b1a380236faaa0f3022219b1ca2be6eb7"
+      releaseId: "0f20d739-0317-4621-a7d0-463745449a32"
+      resolvedManifestDigest: "sha256:652f2427bfe9d798efa4521b518a3b18b0c5d0ccb6be6b937d136917c64b0915"
+      pulledApplicationCount: 17
+      sourceObjectsMatched: true
+      originAnnotationCount: 17
+      addedMetadata:
+        - "/metadata/annotations/confighub.com/origin"
+  target:
+    shape: "throwaway cub-managed kind cluster with an OCI release target"
+    provider: "OCI"
+    toolchain: "Any"
+    configurationApplied: false
+  cleanup:
+    baseSpace: "pass"
+    cluster: "pass"
+    clusterSpace: "pass"
+    registry: "pass"
+    localFiles: "pass"
+  limits:
+    - "The input AICR OCI used a temporary local registry. Public Google Artifact Registry publication remains a separate receipt."
+    - "The throwaway cluster supplied a ConfigHub release target and scoped OCI pull credential. The 17 Argo CD Applications were not applied to that cluster."
+    - "This run did not reconcile the AICR stack, create an EKS cluster, use H100 nodes, or check workload health."
+    - "The proof compares the 17 Kubernetes Application objects and permits only ConfigHub's confighub.com/origin annotation as added metadata."
+    - "The temporary ConfigHub Space, cluster Space, kind cluster, registry, and local files were removed."
+status:
+  result: "pass"
+  inputOci: "pass"
+  configHubImport: "pass"
+  configHubRelease: "pass"
+  releasePull: "pass"
+  exactApplicationSet: "pass"
+  controllerReconciliation: "not-run"
+  gpuWorkloadHealth: "not-run"
+  claim: "ConfigHub imported the 17 exact Argo CD Applications from the AICR literal-configuration OCI and published a release OCI containing the same Kubernetes objects plus its origin annotation."

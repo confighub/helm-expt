@@ -15,6 +15,20 @@ files as OCI for an existing GitOps controller.
 ConfigHub is not involved until you choose to save the configuration and use shared
 history, variants, approvals, promotions, releases, or fleet rollout.
 
+## Where this work can fit
+
+The no-account tools do not require one fixed workflow:
+
+| Path | What you can do |
+| --- | --- |
+| `work -> OCI` | Start with a chart, recipe, installer package, or Kubernetes files. Inspect and test the result, then build an OCI package. |
+| `OCI -> work` | Pull a public OCI package to inspect its objects, run checks, or compare it with another version. |
+| `OCI -> work -> OCI` | Pull a package, test or edit the exact objects, then publish a new package for Argo CD, Flux, or another consumer. |
+
+Here, work means inspect, explain, test, scan, compare, or edit. It can run as a
+local command or in CI today. A public hosted service that can do this work without
+sign-in is planned, but not yet shipped.
+
 ## Start with files
 
 This NGINX example needs no server, account, or cluster:

@@ -153,6 +153,13 @@ records a rejected dry-run of the exact 17-Application Unit. The required-approv
 stopped it before a target was attached, and the Unit revision and data hash remained
 unchanged.
 
+The [AICR OCI round-trip receipt](../../data/aicr-oci-roundtrip-proof/summary.md)
+checks the other side of the boundary. ConfigHub imports the literal configuration
+OCI, publishes a ConfigHub release OCI, and the proof pulls it back. All 17
+Applications keep the same Kubernetes fields; ConfigHub adds only its origin
+annotation. The run does not claim that Argo CD reconciled those Applications or that
+an EKS or GPU workload became healthy.
+
 ## Changes after the base
 
 Test, development, staging, production, region, customer, and cluster differences are

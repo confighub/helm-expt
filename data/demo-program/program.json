@@ -289,6 +289,8 @@
           "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
           "runs/aicr-variant-promotion-proof/receipt.yaml",
           "data/aicr-variant-promotion-proof/summary.md",
+          "runs/aicr-oci-roundtrip-proof/receipt.yaml",
+          "data/aicr-oci-roundtrip-proof/summary.md",
           "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"
         ],
         "id": "aicr",
@@ -297,6 +299,7 @@
           "The OCI-oriented Flux bundle is generated and checksum-verified, but it has only been pushed to a temporary local registry.",
           "The Argo CD source package and 17 rendered Application objects have both passed local OCI push and pull checks.",
           "ConfigHub imported the 17 exact Application objects from the local OCI artifact as one policy-covered base variant.",
+          "A separate live round trip proved that ConfigHub can publish those 17 Applications as a release OCI and that the pulled release keeps every Kubernetes field, with only the ConfigHub origin annotation added.",
           "The persistent helm-catalog organization still cannot add this staging clone because it is at its 1,000-Link quota; the empty partial Space was removed and no existing catalog links were deleted.",
           "A separate scratch run proved the exact base-to-dev-to-staging variant chain, one Grafana existing-Secret change, a dry-run that left staging unchanged, and the completed promotion. It then deleted all three temporary Spaces.",
           "Public registry publication, controller delivery, and live GPU-cluster reconciliation have not run."
