@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "sourceObjectSetSha256": "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345",
+  "outputObjectSetSha256": "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340",
+  "changes": [
+    {
+      "object": "Deployment/nginx",
+      "namespace": "nginx",
+      "field": "spec.replicas",
+      "before": 3,
+      "after": 4
+    }
+  ]
+}

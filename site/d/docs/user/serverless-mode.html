@@ -444,6 +444,16 @@
 <p>Use the <a href="inspect-oci-package.html">OCI inspection command</a> when the starting point is an OCI reference rather than a chart or local files:</p>
 <pre><code>npm run oci:inspect -- oci://REGISTRY/REPOSITORY:TAG</code></pre>
 <p>It resolves the digest, identifies whether the package is a Helm source, cub installer source, or literal Kubernetes configuration, and reports the objects and obvious lifecycle work it can read. It does not apply anything.</p>
+<h2 id="change-a-literal-configuration-oci">Change a literal configuration OCI</h2>
+<p>Use the <a href="transform-oci-package.html">OCI transformation command</a> when the package already contains exact Kubernetes objects and you want a checked replacement:</p>
+<pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST \
+  --object Deployment/example \
+  --namespace example \
+  --field spec.replicas \
+  --value 4 \
+  --output oci-layout:./changed-example:reviewed</code></pre>
+<p>The command records the input digest, exact field change, and check results in the output OCI, then pulls it back for comparison. Existing companion records are retained. The output remains local until someone deliberately publishes or uploads it.</p>
+<p>The <a href="../../data/anonymous-oci-transform-proof/summary.html">public NGINX proof</a> does this with an empty registry credential file and no ConfigHub account.</p>
 <h2 id="start-with-files">Start with files</h2>
 <p>This NGINX example needs no server, account, or cluster:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>

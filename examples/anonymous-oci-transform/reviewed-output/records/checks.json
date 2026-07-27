@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "decision": "allow-with-warnings",
+  "checks": [
+    {
+      "id": "kubernetes-object-shape",
+      "result": "pass",
+      "detail": "5 object(s) have apiVersion, kind, and metadata.name."
+    },
+    {
+      "id": "unique-object-identities",
+      "result": "pass",
+      "detail": "Object identities are unique."
+    },
+    {
+      "id": "no-obvious-placeholders",
+      "result": "pass",
+      "detail": "No common unfinished-value markers were found."
+    },
+    {
+      "id": "digest-pinned-images",
+      "result": "pass",
+      "detail": "2 container image(s) are pinned by digest."
+    },
+    {
+      "id": "workload-probes",
+      "result": "pass",
+      "detail": "Every workload container declares liveness and readiness probes."
+    },
+    {
+      "id": "external-secret-references",
+      "result": "warn",
+      "detail": "Create or otherwise supply these Secrets before deployment: nginx/ai-provider-credentials."
+    },
+    {
+      "id": "lifecycle-work",
+      "result": "pass",
+      "detail": "No CRDs, Jobs, or Helm hook annotations were found."
+    },
+    {
+      "id": "exact-change-scope",
+      "result": "pass",
+      "detail": "Only Deployment/nginx spec.replicas changed."
+    }
+  ]
+}
