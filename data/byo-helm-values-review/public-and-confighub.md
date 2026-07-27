@@ -21,17 +21,22 @@ on the Space.
 - Public OCI push: **pass**
 - Anonymous pull: **pass**
 - ConfigHub base upload: **pass**
-- Kubernetes apply: **not-run**
-- Promotion: **not-run**
-- Controller delivery: **not-run**
+- Reviewed result through Argo CD: **pass**
+- Development-to-staging promotion: **pass**
+- Promoted staging result through Argo CD: **pass**
 
 ## Records
 
 - [Local render and review](./summary.md)
 - [Public OCI receipt](../../runs/byo-helm-values-proof/public-oci-receipt.yaml)
 - [ConfigHub upload receipt](../../runs/byo-helm-values-proof/confighub-upload-receipt.yaml)
+- [First deployment result](../../data/byo-helm-values-deploy-proof/summary.md)
+- [Development-to-staging promotion](../../data/byo-helm-values-promotion-proof/summary.md)
+- [Promoted staging deployment](../../data/byo-helm-values-staging-deploy-proof/summary.md)
 - [README used inside Hub](../../data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.md)
 
 The reviewed Deployment still requires the
-`nginx/ai-provider-credentials` Secret. No target was assigned, so this
-example does not claim a Kubernetes result.
+`nginx/ai-provider-credentials` Secret. The live runs supplied a fake value
+separately and did not record it. The reviewed result reached three ready
+replicas, and the promoted staging result reached four ready replicas, through
+Argo CD on throwaway kind clusters.

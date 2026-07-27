@@ -4,7 +4,7 @@ metadata:
   name: "byo-nginx-ai-values-24-0-2-reviewed"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-27T13:14:07.875Z"
+  verifiedAt: "2026-07-27T14:07:48.573Z"
   command:
     - "cub"
     - "variant"
@@ -54,8 +54,8 @@ spec:
   readme:
     slug: "readme"
     id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
-    dataHash: "87e6798d3f8ab56943b010c6781992c11810536e4b6b4e6d8cd96deb0945d42a"
-    headRevision: 8
+    dataHash: "0f0991ebdf1e8f719993f8e0288c1dcb94f4e566a1f34b4c8103da9e1f935684"
+    headRevision: 12
     source: "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
   objectCount: 5
   objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
@@ -78,6 +78,10 @@ spec:
       - "probes-declared"
       - "vet-placeholders"
       - "vet-schemas"
+  followOnEvidence:
+    firstDeployment: "runs/byo-helm-values-deploy-proof/receipt.yaml"
+    promotion: "runs/byo-helm-values-promotion-proof/receipt.yaml"
+    stagingDeployment: "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
 status:
   result: "pass"
   claim: "ConfigHub imported the five exact reviewed NGINX objects from the public OCI into one configuration Unit and attached the catalog checks."
@@ -86,5 +90,5 @@ status:
   delivery: "not-run"
   limits:
     - "The required ai-provider-credentials Secret was not created or read."
-    - "No target was assigned and no Kubernetes apply, workload check, promotion, or controller delivery ran."
+    - "No target was assigned to this saved base. Kubernetes delivery and promotion are proved in the separate follow-on receipts named above."
     - "The catalog checks are attached, but this receipt does not claim that every policy is sufficient for every private chart."

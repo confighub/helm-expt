@@ -32,6 +32,7 @@ const allowedModes = new Set([
   "--publish",
   "--public-verify",
   "--hub-sync",
+  "--hub-capture",
   "--hub-verify",
   "--generate",
   "--verify",
@@ -41,6 +42,7 @@ if (!allowedModes.has(mode)) {
   node scripts/sync-byo-helm-values-example.mjs --publish
   node scripts/sync-byo-helm-values-example.mjs --public-verify
   node scripts/sync-byo-helm-values-example.mjs --hub-sync
+  node scripts/sync-byo-helm-values-example.mjs --hub-capture
   node scripts/sync-byo-helm-values-example.mjs --hub-verify
   node scripts/sync-byo-helm-values-example.mjs --generate
   node scripts/sync-byo-helm-values-example.mjs --verify`);
@@ -70,6 +72,24 @@ const hubReceiptPath = join(
   "runs",
   "byo-helm-values-proof",
   "confighub-upload-receipt.yaml",
+);
+const deploymentReceiptPath = join(
+  repoRoot,
+  "runs",
+  "byo-helm-values-deploy-proof",
+  "receipt.yaml",
+);
+const promotionReceiptPath = join(
+  repoRoot,
+  "runs",
+  "byo-helm-values-promotion-proof",
+  "receipt.yaml",
+);
+const stagingDeploymentReceiptPath = join(
+  repoRoot,
+  "runs",
+  "byo-helm-values-staging-deploy-proof",
+  "receipt.yaml",
 );
 const reviewedRenderPath = join(
   repoRoot,
@@ -144,6 +164,20 @@ if (mode === "--publish") {
   verifyHubReceipt(receipt);
   verifyLiveAgainstReceipt(receipt);
   console.log(`synchronized ${spaceSlug} in the ${expectedOrg} organization`);
+} else if (mode === "--hub-capture") {
+  check(
+    process.env.HELM_EXPT_ALLOW_BYO_HUB_CAPTURE === "1",
+    "set HELM_EXPT_ALLOW_BYO_HUB_CAPTURE=1 to refresh the live receipt without changing the configuration",
+  );
+  assertOrg();
+  verifyPublicReceipt(readYaml(publicReceiptPath));
+  upsertReadme();
+  const receipt = collectHubReceipt();
+  writeYaml(hubReceiptPath, receipt);
+  writeSummary();
+  verifyHubReceipt(receipt);
+  verifyLiveAgainstReceipt(receipt);
+  console.log(`captured current ${spaceSlug} evidence without reuploading the OCI`);
 } else if (mode === "--hub-verify") {
   assertOrg();
   const receipt = verifyHubReceipt(readYaml(hubReceiptPath));
@@ -428,8 +462,13 @@ function collectHubReceipt() {
         filterWhere: live.filter.Where,
         checks: live.triggerSlugs,
       },
+      followOnEvidence: {
+        firstDeployment: relativeRepo(deploymentReceiptPath),
+        promotion: relativeRepo(promotionReceiptPath),
+        stagingDeployment: relativeRepo(stagingDeploymentReceiptPath),
+      },
     },
-      status: {
+    status: {
       result: "pass",
       claim: "ConfigHub imported the five exact reviewed NGINX objects from the public OCI into one configuration Unit and attached the catalog checks.",
       apply: "not-run",
@@ -437,7 +476,7 @@ function collectHubReceipt() {
       delivery: "not-run",
       limits: [
         "The required ai-provider-credentials Secret was not created or read.",
-        "No target was assigned and no Kubernetes apply, workload check, promotion, or controller delivery ran.",
+        "No target was assigned to this saved base. Kubernetes delivery and promotion are proved in the separate follow-on receipts named above.",
         "The catalog checks are attached, but this receipt does not claim that every policy is sufficient for every private chart.",
       ],
     },
@@ -550,6 +589,12 @@ function verifyHubReceipt(receipt) {
       && receipt.spec?.policy?.filterHash
       && receipt.spec?.policy?.filterWhere === policy.spec.baseline.filterWhere
       && sameSet(receipt.spec?.policy?.checks ?? [], expectedCheckSlugs)
+      && receipt.spec?.followOnEvidence?.firstDeployment
+        === relativeRepo(deploymentReceiptPath)
+      && receipt.spec?.followOnEvidence?.promotion
+        === relativeRepo(promotionReceiptPath)
+      && receipt.spec?.followOnEvidence?.stagingDeployment
+        === relativeRepo(stagingDeploymentReceiptPath)
       && receipt.status?.apply === "not-run"
       && receipt.status?.promotion === "not-run"
       && receipt.status?.delivery === "not-run",
@@ -665,6 +710,15 @@ function renderSummary() {
   const hubReceipt = existsSync(hubReceiptPath)
     ? readYaml(hubReceiptPath)
     : null;
+  const deploymentReceipt = existsSync(deploymentReceiptPath)
+    ? readYaml(deploymentReceiptPath)
+    : null;
+  const promotionReceipt = existsSync(promotionReceiptPath)
+    ? readYaml(promotionReceiptPath)
+    : null;
+  const stagingDeploymentReceipt = existsSync(stagingDeploymentReceiptPath)
+    ? readYaml(stagingDeploymentReceiptPath)
+    : null;
   return `# Public OCI and ConfigHub upload
 
 The reviewed NGINX configuration from the bring-your-own values example is
@@ -688,20 +742,25 @@ on the Space.
 - Public OCI push: **${publicReceipt?.status?.result ?? "not-run"}**
 - Anonymous pull: **${publicReceipt?.spec?.artifact?.anonymousPull ?? "not-run"}**
 - ConfigHub base upload: **${hubReceipt?.status?.result ?? "not-run"}**
-- Kubernetes apply: **${hubReceipt?.status?.apply ?? "not-run"}**
-- Promotion: **${hubReceipt?.status?.promotion ?? "not-run"}**
-- Controller delivery: **${hubReceipt?.status?.delivery ?? "not-run"}**
+- Reviewed result through Argo CD: **${deploymentReceipt?.status?.result ?? "not-run"}**
+- Development-to-staging promotion: **${promotionReceipt?.status?.result ?? "not-run"}**
+- Promoted staging result through Argo CD: **${stagingDeploymentReceipt?.status?.result ?? "not-run"}**
 
 ## Records
 
 - [Local render and review](./summary.md)
 - [Public OCI receipt](../../${relativeRepo(publicReceiptPath)})
 - [ConfigHub upload receipt](../../${relativeRepo(hubReceiptPath)})
+- [First deployment result](../../data/byo-helm-values-deploy-proof/summary.md)
+- [Development-to-staging promotion](../../data/byo-helm-values-promotion-proof/summary.md)
+- [Promoted staging deployment](../../data/byo-helm-values-staging-deploy-proof/summary.md)
 - [README used inside Hub](../../data/helm-catalog-readmes/spaces/${spaceSlug}/README.md)
 
 The reviewed Deployment still requires the
-\`nginx/ai-provider-credentials\` Secret. No target was assigned, so this
-example does not claim a Kubernetes result.
+\`nginx/ai-provider-credentials\` Secret. The live runs supplied a fake value
+separately and did not record it. The reviewed result reached three ready
+replicas, and the promoted staging result reached four ready replicas, through
+Argo CD on throwaway kind clusters.
 `;
 }
 

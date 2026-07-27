@@ -1,0 +1,120 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BringYourOwnHelmValuesStagingDeploymentReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-staging"
+spec:
+  observedAt: "2026-07-27T13:55:15.275Z"
+  source:
+    lane: "staging"
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    reviewedObjects: "data/byo-helm-values-review/reviewed-render.yaml"
+    objectCount: 5
+    objectSetSha256: "a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+    publicOci:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+      digest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+      anonymousPull: "pass"
+    persistentConfigHubBase:
+      space: "byo-nginx-ai-values-24-0-2-reviewed"
+      id: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+      objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    promotedConfigHubSource:
+      space: "byo-nginx-ai-values-24-0-2-staging"
+      id: "4cd6276c-f6c1-4afc-8fcb-66589241f732"
+      promotionReceipt: "runs/byo-helm-values-promotion-proof/receipt.yaml"
+      objectSetSha256: "a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+  configHubDelivery:
+    result: "pass"
+    space: "hx-byo-nginx-staging-20260727-he2-delivery"
+    spaceId: "2339df11-1846-45c1-b06d-83d31e7d871f"
+    sourceType: "variant-clone"
+    sourceReference: "byo-nginx-ai-values-24-0-2-staging"
+    sourceDigest: "a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+    unit:
+      slug: "byo-nginx-ai-values"
+      id: "3f810201-64d8-4836-b12a-1a44db247231"
+      dataHash: "f18c62d9f41b7d5d1c4e120e94510a58d0c81cb7003ac64abce8848b5d31b649"
+    objectCount: 5
+    objectSetSha256: "a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+    objectsMatched: true
+    policy:
+      filter: "platform/helm-catalog-checks"
+      filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      filterHash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
+      checks:
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "vet-placeholders"
+        - "vet-schemas"
+    release:
+      reference: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery:latest"
+      manifestDigest: "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d"
+      releaseId: "5388783a-2fe6-4f91-9faf-4235269e6915"
+  prerequisite:
+    kind: "Secret"
+    namespace: "nginx-staging"
+    name: "ai-provider-credentials"
+    requiredKey: "AI_API_KEY"
+    suppliedOutOfBand: "pass"
+    valueRecorded: false
+    observedKeyNames:
+      - "AI_API_KEY"
+  delivery:
+    result: "pass"
+    application:
+      name: "byo-nginx-staging"
+      unit: "hx-byo-nginx-staging-20260727-he2-cluster/byo-nginx-staging-application"
+      source: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery"
+      destinationNamespace: "nginx-staging"
+      clusterRootReleaseDigest: "sha256:08ff1cd2cb21368ab81553231679282b0f9b7e12447343e13619966db48f1e44"
+      sync: "Synced"
+      health: "Healthy"
+      revision: "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d"
+    kubernetes:
+      namespace: "nginx-staging"
+      objectCount: 5
+      objectIdentities:
+        - "apps/v1|Deployment|nginx-staging|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx-staging|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx-staging|nginx"
+        - "v1|ServiceAccount|nginx-staging|nginx"
+        - "v1|Service|nginx-staging|nginx"
+      deployment:
+        name: "nginx"
+        replicas: 4
+        readyReplicas: 4
+        availableReplicas: 4
+        image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        secretRef: "ai-provider-credentials"
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+      serviceType: "ClusterIP"
+      requiredSecret:
+        namespace: "nginx-staging"
+        name: "ai-provider-credentials"
+        observedKeyNames:
+          - "AI_API_KEY"
+        valueRecorded: false
+  run:
+    clusterCommand: "cub cluster up"
+    targetShape: "one throwaway cub-managed kind cluster with Argo CD"
+    organization: "helm-catalog"
+    clusterName: "hx-byo-nginx-staging-20260727-he2"
+    clusterSpace: "hx-byo-nginx-staging-20260727-he2-cluster"
+    deliverySpace: "hx-byo-nginx-staging-20260727-he2-delivery"
+    cleanup:
+      deliverySpace: "pass"
+      cluster: "pass"
+      clusterSpace: "pass"
+      localFiles: "pass"
+  limits:
+    - "The Secret value was a fake proof value and is not present in this receipt."
+    - "The persistent staging Space has no release target, so this run cloned its configuration Unit into a temporary target-bound delivery Space. The README was removed from that delivery copy before publication."
+    - "This proves one fresh Argo CD deployment of the staging lane on one local kind cluster."
+    - "Rollback, chart upgrade, Flux delivery, fleet rollout, and ConfigHub observation storage did not run."
+status:
+  result: "pass"
+  claim: "The promoted staging configuration was published by ConfigHub, reconciled by Argo CD at the recorded release digest, and reached four ready replicas while using the required existing Secret."

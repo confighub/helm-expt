@@ -124,8 +124,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/base-variant-records/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-accuracy/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-fleet/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-deploy-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/public-and-confighub.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-review/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-staging-deploy-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/capability-profile-witnesses/selectablefields/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-index/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-oci-delivery-proof/summary.html</loc></url>
@@ -364,12 +367,12 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-base/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-prod/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/bitnami-redis-staging/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-development/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-staging/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/default/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/grafana-grafana-10-5-15-static-passwords/README.html</loc></url>

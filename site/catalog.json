@@ -26172,6 +26172,12 @@
               "runs/byo-helm-values-proof/receipt.yaml",
               "runs/byo-helm-values-proof/public-oci-receipt.yaml",
               "runs/byo-helm-values-proof/confighub-upload-receipt.yaml",
+              "data/byo-helm-values-deploy-proof/summary.md",
+              "runs/byo-helm-values-deploy-proof/receipt.yaml",
+              "data/byo-helm-values-promotion-proof/summary.md",
+              "runs/byo-helm-values-promotion-proof/receipt.yaml",
+              "data/byo-helm-values-staging-deploy-proof/summary.md",
+              "runs/byo-helm-values-staging-deploy-proof/receipt.yaml",
               "docs/user/choosing-commands.md",
               "docs/reference/direct-cub-helm-model.md",
               "docs/user/ai-assisted-helm-changes.md",
@@ -26181,12 +26187,13 @@
             "level": "basics",
             "limits": [
               "The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically.",
-              "The reviewed Deployment requires an existing Secret. Kubernetes apply, workload health, promotion, and controller delivery have not run for this example."
+              "The required Secret was supplied separately and its value was not recorded. The exact example has passed Argo CD delivery at three replicas, a development-to-staging promotion to four replicas, and a second Argo CD delivery at four ready replicas.",
+              "Flux delivery, rollback, chart upgrade, and fleet rollout have not run for this configuration."
             ],
             "name": "Bring your own chart and values",
             "problem": "You have a chart and values written by your team or an AI, and you do not want to apply plausible configuration without seeing what it creates.",
             "result": "Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result.",
-            "status": "partial",
+            "status": "available",
             "steps": [
               "Supply the chart, version, values, namespace, release name, and target capabilities.",
               "Render the exact objects without applying them.",
@@ -26199,7 +26206,9 @@
             "evidence": [
               "docs/user/variants-after-upload.md",
               "data/base-variant-records/summary.md",
-              "data/catalog-oci-delivery-proof/summary.md"
+              "data/catalog-oci-delivery-proof/summary.md",
+              "data/byo-helm-values-promotion-proof/summary.md",
+              "runs/byo-helm-values-promotion-proof/receipt.yaml"
             ],
             "id": "claim-and-customize",
             "level": "managed",
@@ -26222,6 +26231,8 @@
             "evidence": [
               "runs/redis-upgrade-app-proof/receipt.yaml",
               "data/redis-upgrade-app-proof/summary.md",
+              "data/byo-helm-values-promotion-proof/summary.md",
+              "runs/byo-helm-values-promotion-proof/receipt.yaml",
               "docs/user/day2-upgrade-rollback.md"
             ],
             "id": "upgrade-and-promote",
@@ -26243,6 +26254,10 @@
           },
           {
             "evidence": [
+              "data/byo-helm-values-deploy-proof/summary.md",
+              "runs/byo-helm-values-deploy-proof/receipt.yaml",
+              "data/byo-helm-values-staging-deploy-proof/summary.md",
+              "runs/byo-helm-values-staging-deploy-proof/receipt.yaml",
               "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
               "data/oci-deploy-stage-rollout-proof/summary.md",
               "docs/user/app-to-live-walkthrough.md"
@@ -26833,6 +26848,22 @@
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-staging/readme.yaml"
     },
     {
+      "space": "byo-nginx-ai-values-24-0-2-development",
+      "kind": "environment",
+      "title": "Change the reviewed NGINX configuration",
+      "summary": "A development variant that changes the reviewed NGINX result from three replicas to four without changing the saved base.",
+      "source_path": "data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-development/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-development/readme.yaml"
+    },
+    {
+      "space": "byo-nginx-ai-values-24-0-2-staging",
+      "kind": "environment",
+      "title": "Promote the NGINX change to staging",
+      "summary": "A staging variant that received the reviewed four-replica change from development.",
+      "source_path": "data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-staging/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-staging/readme.yaml"
+    },
+    {
       "space": "hashicorp-vault-demo-base",
       "kind": "environment",
       "title": "Vault base application",
@@ -26935,22 +26966,6 @@
       "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default lane.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-default-pilot-live-20260705/readme.yaml"
-    },
-    {
-      "space": "bitnami-redis-27-0-0-prod-pilot-live-20260705",
-      "kind": "pilot",
-      "title": "Redis 27.0.0 prod pilot run",
-      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the prod lane.",
-      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.md",
-      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-prod-pilot-live-20260705/readme.yaml"
-    },
-    {
-      "space": "bitnami-redis-27-0-0-stage-pilot-live-20260705",
-      "kind": "pilot",
-      "title": "Redis 27.0.0 stage pilot run",
-      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the stage lane.",
-      "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.md",
-      "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-stage-pilot-live-20260705/readme.yaml"
     },
     {
       "space": "hook-probe-base",

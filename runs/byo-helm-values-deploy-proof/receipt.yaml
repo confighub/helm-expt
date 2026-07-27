@@ -1,0 +1,113 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BringYourOwnHelmValuesDeploymentReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-reviewed"
+spec:
+  observedAt: "2026-07-27T13:27:39.632Z"
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    reviewedObjects: "data/byo-helm-values-review/reviewed-render.yaml"
+    objectCount: 5
+    objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    publicOci:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+      digest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+      anonymousPull: "pass"
+    persistentConfigHubBase:
+      space: "byo-nginx-ai-values-24-0-2-reviewed"
+      id: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+      objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+  configHubDelivery:
+    result: "pass"
+    space: "hx-byo-nginx-20260727-qo4-delivery"
+    spaceId: "ecce1c81-3516-414f-b56d-788f35261f8f"
+    sourceReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    sourceDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    unit:
+      slug: "byo-nginx-ai-values"
+      id: "30947fec-f0d7-4e3d-8cb8-78d4d61d4be0"
+      dataHash: "3f424da50c106d818ebba3f8d70d56140dcc45671bff8f548de15eafb55eccc1"
+    objectCount: 5
+    objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    objectsMatched: true
+    policy:
+      filter: "platform/helm-catalog-checks"
+      filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+      filterHash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
+      checks:
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "vet-placeholders"
+        - "vet-schemas"
+    release:
+      reference: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-20260727-qo4-delivery:latest"
+      manifestDigest: "sha256:e9e5938c021fa294cde478c6537bd869d42792213e4e6ce1c541954c61020397"
+      releaseId: "df082999-2702-452b-8ab4-1c05b594f0c5"
+  prerequisite:
+    kind: "Secret"
+    namespace: "nginx"
+    name: "ai-provider-credentials"
+    requiredKey: "AI_API_KEY"
+    suppliedOutOfBand: "pass"
+    valueRecorded: false
+    observedKeyNames:
+      - "AI_API_KEY"
+  delivery:
+    result: "pass"
+    application:
+      name: "byo-nginx"
+      unit: "hx-byo-nginx-20260727-qo4-cluster/byo-nginx-application"
+      source: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-20260727-qo4-delivery"
+      destinationNamespace: "nginx"
+      clusterRootReleaseDigest: "sha256:164ddc3618bbd90cfbe6dbd03850d760608e6b14500deb0df2058fce7cec1992"
+      sync: "Synced"
+      health: "Healthy"
+      revision: "sha256:e9e5938c021fa294cde478c6537bd869d42792213e4e6ce1c541954c61020397"
+    kubernetes:
+      namespace: "nginx"
+      objectCount: 5
+      objectIdentities:
+        - "apps/v1|Deployment|nginx|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx|nginx"
+        - "v1|ServiceAccount|nginx|nginx"
+        - "v1|Service|nginx|nginx"
+      deployment:
+        name: "nginx"
+        replicas: 3
+        readyReplicas: 3
+        availableReplicas: 3
+        image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+        secretRef: "ai-provider-credentials"
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+      serviceType: "ClusterIP"
+      requiredSecret:
+        namespace: "nginx"
+        name: "ai-provider-credentials"
+        observedKeyNames:
+          - "AI_API_KEY"
+        valueRecorded: false
+  run:
+    clusterCommand: "cub cluster up"
+    targetShape: "one throwaway cub-managed kind cluster with Argo CD"
+    organization: "helm-catalog"
+    clusterName: "hx-byo-nginx-20260727-qo4"
+    clusterSpace: "hx-byo-nginx-20260727-qo4-cluster"
+    deliverySpace: "hx-byo-nginx-20260727-qo4-delivery"
+    cleanup:
+      deliverySpace: "pass"
+      cluster: "pass"
+      clusterSpace: "pass"
+      localFiles: "pass"
+  limits:
+    - "The Secret value was a fake proof value and is not present in this receipt."
+    - "The persistent base has no release target, so this run imported the same public OCI into a temporary delivery Space owned by the throwaway cluster target."
+    - "This proves one fresh Argo CD deployment on one local kind cluster."
+    - "Promotion, rollback, upgrade, Flux delivery, fleet rollout, and ConfigHub observation storage did not run."
+status:
+  result: "pass"
+  claim: "The reviewed NGINX configuration was published by ConfigHub, reconciled by Argo CD at the recorded release digest, and reached three ready replicas while using the required existing Secret."

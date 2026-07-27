@@ -33,4 +33,13 @@ spec:
 status:
   proposal: rejected
   reviewed: ready-for-upload
-  kubernetesApply: not-run
+  configHubUpload: pass
+  kubernetesApply: pass
+  argoDelivery: pass
+  developmentChange: pass
+  stagingPromotion: pass
+  stagingDelivery: pass
+  evidence:
+    firstDeployment: runs/byo-helm-values-deploy-proof/receipt.yaml
+    promotion: runs/byo-helm-values-promotion-proof/receipt.yaml
+    stagingDeployment: runs/byo-helm-values-staging-deploy-proof/receipt.yaml

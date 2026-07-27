@@ -18,6 +18,7 @@ This example renders first, compares the result with the checked catalog configu
 - The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.
 - The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.
 - The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.
+- A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.
 
 ## What to inspect in Hub
 
@@ -34,10 +35,13 @@ This example renders first, compares the result with the checked catalog configu
 - [Local OCI round-trip receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/receipt.yaml)
 - [Public OCI receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/public-oci-receipt.yaml)
 - [ConfigHub import receipt](https://github.com/confighub/helm-expt/blob/main/runs/byo-helm-values-proof/confighub-upload-receipt.yaml)
+- [First deployment result](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-deploy-proof/summary.md)
+- [Development-to-staging promotion](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-promotion-proof/summary.md)
+- [Promoted staging deployment](https://github.com/confighub/helm-expt/blob/main/data/byo-helm-values-staging-deploy-proof/summary.md)
 - [NGINX chart page](https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html)
 
 ## Limits
 
 - The API key in the proposed values is deliberately fake.
-- The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. This example does not create or read it.
-- No Kubernetes apply, workload check, promotion, or controller delivery has run for this reviewed configuration.
+- The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. The Secret was supplied separately for the live test and its value was not recorded.
+- The reviewed and promoted staging configurations each ran on one throwaway kind cluster with Argo CD. Flux, rollback, chart upgrade, and a fleet rollout have not run for this configuration.

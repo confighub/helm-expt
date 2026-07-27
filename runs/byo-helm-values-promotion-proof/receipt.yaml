@@ -1,0 +1,176 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BringYourOwnHelmValuesPromotionReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-development-to-staging"
+spec:
+  observedAt: "2026-07-27T14:23:14.069Z"
+  organization: "helm-catalog"
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    publicOci:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+      digest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    firstDeploymentReceipt: "runs/byo-helm-values-deploy-proof/receipt.yaml"
+  chain:
+    base:
+      space: "byo-nginx-ai-values-24-0-2-reviewed"
+      id: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+      variant: "reviewed"
+      environment: ""
+      upstreamSpaceId: ""
+      namespace: "nginx"
+      replicas: 3
+      objectCount: 5
+      objectIdentities:
+        - "apps/v1|Deployment|nginx|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx|nginx"
+        - "v1|ServiceAccount|nginx|nginx"
+        - "v1|Service|nginx|nginx"
+      objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+      configurationUnit:
+        slug: "byo-nginx-ai-values"
+        id: "63f66d73-7c57-4316-b8ef-2d79dedbf4cf"
+        dataHash: "3f424da50c106d818ebba3f8d70d56140dcc45671bff8f548de15eafb55eccc1"
+        headRevision: 1
+        upstreamRevision: 0
+        fromLinkIds:
+          []
+      readmeUnit:
+        slug: "readme"
+        id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
+        dataHash: "0f0991ebdf1e8f719993f8e0288c1dcb94f4e566a1f34b4c8103da9e1f935684"
+        fromLinkIds:
+          []
+      policy:
+        triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+        checks:
+          - "digest-pinned-images"
+          - "lifecycle-route-evidence"
+          - "probes-declared"
+          - "vet-placeholders"
+          - "vet-schemas"
+      pendingUpstreamChanges: 0
+    development:
+      space: "byo-nginx-ai-values-24-0-2-development"
+      id: "5040afb4-5848-4bff-9773-c428e5c5e092"
+      variant: "development"
+      environment: "Development"
+      upstreamSpaceId: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+      namespace: "nginx-development"
+      replicas: 4
+      objectCount: 5
+      objectIdentities:
+        - "apps/v1|Deployment|nginx-development|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx-development|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx-development|nginx"
+        - "v1|ServiceAccount|nginx-development|nginx"
+        - "v1|Service|nginx-development|nginx"
+      objectSetSha256: "5b6cebaf0a68b06789094f3ada631d7a0e281a7f613a251a367428b210dfd065"
+      configurationUnit:
+        slug: "byo-nginx-ai-values"
+        id: "0a088848-c5ce-4b89-bf1f-ccee15767abf"
+        dataHash: "6d86000f6c8aad4c66b9d930060e5aa2779f477ce2e8a3318ee663791c13e036"
+        headRevision: 3
+        upstreamRevision: 1
+        fromLinkIds:
+          - "7a16cd9d-d8e8-43fa-abce-9fbde595b8ea"
+      readmeUnit:
+        slug: "readme"
+        id: "4b9fdd81-b9df-44ca-9122-a64ad559ce5d"
+        dataHash: "6ad27c953c68d99db567d6b5dec6d165b1d95858e832cb770f72c5be5ef34dda"
+        fromLinkIds:
+          []
+      policy:
+        triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+        checks:
+          - "digest-pinned-images"
+          - "lifecycle-route-evidence"
+          - "probes-declared"
+          - "vet-placeholders"
+          - "vet-schemas"
+      pendingUpstreamChanges: 0
+    staging:
+      space: "byo-nginx-ai-values-24-0-2-staging"
+      id: "4cd6276c-f6c1-4afc-8fcb-66589241f732"
+      variant: "staging"
+      environment: "Staging"
+      upstreamSpaceId: "5040afb4-5848-4bff-9773-c428e5c5e092"
+      namespace: "nginx-staging"
+      replicas: 4
+      objectCount: 5
+      objectIdentities:
+        - "apps/v1|Deployment|nginx-staging|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx-staging|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx-staging|nginx"
+        - "v1|ServiceAccount|nginx-staging|nginx"
+        - "v1|Service|nginx-staging|nginx"
+      objectSetSha256: "a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+      configurationUnit:
+        slug: "byo-nginx-ai-values"
+        id: "9c4f3352-0be0-4513-8802-f347e7523207"
+        dataHash: "f18c62d9f41b7d5d1c4e120e94510a58d0c81cb7003ac64abce8848b5d31b649"
+        headRevision: 3
+        upstreamRevision: 3
+        fromLinkIds:
+          - "6220cb87-bf64-4d8d-bd07-699b58087be3"
+      readmeUnit:
+        slug: "readme"
+        id: "9b33dcca-abf2-40e1-820b-4aa569dd8dac"
+        dataHash: "76ef976dd20bc97c191ed2a04fd2d7a6a03ee8c7388bcc75dc71d69884956f43"
+        fromLinkIds:
+          []
+      policy:
+        triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+        checks:
+          - "digest-pinned-images"
+          - "lifecycle-route-evidence"
+          - "probes-declared"
+          - "vet-placeholders"
+          - "vet-schemas"
+      pendingUpstreamChanges: 0
+  change:
+    resource: "apps/v1 Deployment/nginx"
+    field: "spec.replicas"
+    baseValue: 3
+    developmentValue: 4
+    stagingBeforePromotion: 3
+    stagingAfterPromotion: 4
+    developmentRevision:
+      id: "47a17a06-05bd-429e-95e3-7a4be1277bfc"
+      number: 3
+      source: "Invoke"
+      description: "Test four replicas in development before promoting to staging| Functions: set-replicas"
+      createdAt: "2026-07-27T13:36:32.790765Z"
+  preview:
+    command: "cub variant promote byo-nginx-ai-values-24-0-2-staging --dry-run -o mutations"
+    note: "The live dry-run left staging at three replicas but printed no mutation preview."
+    output: "empty"
+    outputBytes: 0
+    result: "pass"
+    stagingRevisionBefore: 2
+    storedDataUnchanged: true
+  promotion:
+    command: "cub variant promote byo-nginx-ai-values-24-0-2-staging"
+    result: "pass"
+    stagingRevision:
+      id: "343a9d24-d526-4aff-9fdd-499e74fb98dc"
+      number: 3
+      source: "UpgradeUnit"
+      description: "Promote the four-replica NGINX review from development to staging"
+      createdAt: "2026-07-27T13:38:13.27719Z"
+    upstreamRevisionMatched: true
+    pendingAfter: 0
+    namespacePreserved: true
+  documentation:
+    oneReadmePerSpace: true
+    readmesIndependentOfConfigurationLinks: true
+  limits:
+    - "The dry-run command left staging unchanged but printed no useful mutation preview. That CLI limitation remains open."
+    - "This receipt proves one development-to-staging field promotion in ConfigHub."
+    - "The reviewed three-replica base and the promoted four-replica staging result were each deployed through Argo CD in separate live runs."
+    - "Rollback, chart upgrade, Flux delivery, and fleet rollout have not run for this configuration."
+status:
+  result: "pass"
+  claim: "The exact reviewed OCI result remained unchanged as the base, development changed NGINX from three to four replicas, and ConfigHub promoted that change to staging while preserving the staging namespace."

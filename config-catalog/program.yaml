@@ -138,7 +138,7 @@ spec:
       - id: bring-your-own-configuration
         level: basics
         name: Bring your own chart and values
-        status: partial
+        status: available
         problem: You have a chart and values written by your team or an AI, and you do not want to apply plausible configuration without seeing what it creates.
         result: Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result.
         steps:
@@ -156,13 +156,20 @@ spec:
           - runs/byo-helm-values-proof/receipt.yaml
           - runs/byo-helm-values-proof/public-oci-receipt.yaml
           - runs/byo-helm-values-proof/confighub-upload-receipt.yaml
+          - data/byo-helm-values-deploy-proof/summary.md
+          - runs/byo-helm-values-deploy-proof/receipt.yaml
+          - data/byo-helm-values-promotion-proof/summary.md
+          - runs/byo-helm-values-promotion-proof/receipt.yaml
+          - data/byo-helm-values-staging-deploy-proof/summary.md
+          - runs/byo-helm-values-staging-deploy-proof/receipt.yaml
           - docs/user/choosing-commands.md
           - docs/reference/direct-cub-helm-model.md
           - docs/user/ai-assisted-helm-changes.md
           - data/ai-change-review/summary.md
         limits:
           - The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically.
-          - The reviewed Deployment requires an existing Secret. Kubernetes apply, workload health, promotion, and controller delivery have not run for this example.
+          - The required Secret was supplied separately and its value was not recorded. The exact example has passed Argo CD delivery at three replicas, a development-to-staging promotion to four replicas, and a second Argo CD delivery at four ready replicas.
+          - Flux delivery, rollback, chart upgrade, and fleet rollout have not run for this configuration.
       - id: claim-and-customize
         level: managed
         name: Save the reviewed result and change it
@@ -179,6 +186,8 @@ spec:
           - docs/user/variants-after-upload.md
           - data/base-variant-records/summary.md
           - data/catalog-oci-delivery-proof/summary.md
+          - data/byo-helm-values-promotion-proof/summary.md
+          - runs/byo-helm-values-promotion-proof/receipt.yaml
         limits:
           - A field that changes the Helm render belongs in a new rendered base; post-render fields belong in derived variants.
       - id: upgrade-and-promote
@@ -196,6 +205,8 @@ spec:
         evidence:
           - runs/redis-upgrade-app-proof/receipt.yaml
           - data/redis-upgrade-app-proof/summary.md
+          - data/byo-helm-values-promotion-proof/summary.md
+          - runs/byo-helm-values-promotion-proof/receipt.yaml
           - docs/user/day2-upgrade-rollback.md
         limits:
           - The current CLI dry-run does not yet print a useful human mutation preview.
@@ -212,6 +223,10 @@ spec:
           - Advance the same accepted revision to a sibling environment.
           - Roll it out to a small target set and record every result.
         evidence:
+          - data/byo-helm-values-deploy-proof/summary.md
+          - runs/byo-helm-values-deploy-proof/receipt.yaml
+          - data/byo-helm-values-staging-deploy-proof/summary.md
+          - runs/byo-helm-values-staging-deploy-proof/receipt.yaml
           - runs/oci-deploy-stage-rollout-proof/receipt.yaml
           - data/oci-deploy-stage-rollout-proof/summary.md
           - docs/user/app-to-live-walkthrough.md

@@ -12,10 +12,10 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | --- | ---: |
 | org | 2 |
 | preset | 21 |
-| environment | 7 |
+| environment | 9 |
 | source | 3 |
 | fleet | 5 |
-| pilot | 3 |
+| pilot | 1 |
 | route | 2 |
 | total | 43 |
 
@@ -55,6 +55,8 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `bitnami-redis-base` | environment | [README](spaces/bitnami-redis-base/README.md) | [readme.yaml](units/bitnami-redis-base/readme.yaml) |
 | `bitnami-redis-prod` | environment | [README](spaces/bitnami-redis-prod/README.md) | [readme.yaml](units/bitnami-redis-prod/readme.yaml) |
 | `bitnami-redis-staging` | environment | [README](spaces/bitnami-redis-staging/README.md) | [readme.yaml](units/bitnami-redis-staging/readme.yaml) |
+| `byo-nginx-ai-values-24-0-2-development` | environment | [README](spaces/byo-nginx-ai-values-24-0-2-development/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-development/readme.yaml) |
+| `byo-nginx-ai-values-24-0-2-staging` | environment | [README](spaces/byo-nginx-ai-values-24-0-2-staging/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-staging/readme.yaml) |
 | `hashicorp-vault-demo-base` | environment | [README](spaces/hashicorp-vault-demo-base/README.md) | [readme.yaml](units/hashicorp-vault-demo-base/readme.yaml) |
 | `hashicorp-vault-env-dev` | environment | [README](spaces/hashicorp-vault-env-dev/README.md) | [readme.yaml](units/hashicorp-vault-env-dev/readme.yaml) |
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
@@ -68,7 +70,5 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `bitnami-nginx-fleet-staging` | fleet | [README](spaces/bitnami-nginx-fleet-staging/README.md) | [readme.yaml](units/bitnami-nginx-fleet-staging/readme.yaml) |
 | `sveltos-kyverno-fleet-3-8-1-staging` | fleet | [README](spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md) | [readme.yaml](units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml) |
 | `bitnami-redis-27-0-0-default-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-default-pilot-live-20260705/readme.yaml) |
-| `bitnami-redis-27-0-0-prod-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-prod-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-prod-pilot-live-20260705/readme.yaml) |
-| `bitnami-redis-27-0-0-stage-pilot-live-20260705` | pilot | [README](spaces/bitnami-redis-27-0-0-stage-pilot-live-20260705/README.md) | [readme.yaml](units/bitnami-redis-27-0-0-stage-pilot-live-20260705/readme.yaml) |
 | `hook-probe-base` | route | [README](spaces/hook-probe-base/README.md) | [readme.yaml](units/hook-probe-base/readme.yaml) |
 | `route-sketch-kube-prometheus-stack` | route | [README](spaces/route-sketch-kube-prometheus-stack/README.md) | [readme.yaml](units/route-sketch-kube-prometheus-stack/readme.yaml) |

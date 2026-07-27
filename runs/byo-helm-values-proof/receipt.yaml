@@ -3,7 +3,7 @@ kind: "BringYourOwnHelmValuesProofReceipt"
 metadata:
   name: "bitnami-nginx-ai-values"
 spec:
-  recordedAt: "2026-07-27T07:16:26.385Z"
+  recordedAt: "2026-07-27T14:10:38.790Z"
   source:
     chart: "bitnami/nginx"
     version: "24.0.2"
@@ -21,7 +21,7 @@ spec:
     objectCount: 5
   proposal:
     values: "examples/byo-helm-values/ai-values.yaml"
-    valuesSha256: "3c90254e13652843b1d1cfb8a02ba4ddee551ed05262ef3755440d9150849670"
+    valuesSha256: "b4ad2871252aade1da32fe0bbe463a4928c7cc793dbda593d6bdbf36d5684e03"
     renderedObjects: "data/byo-helm-values-review/proposed-render.yaml"
     renderedObjectsSha256: "94a3794be45f4132a1966cd36ecc0407dda1696bdfd6136d879bfddf2648a582"
     objectSetSha256: "3fb02d7935c9cdc271e84ea85628a36adce6ca10f0acc8d0e1164ea5c4f41562"
@@ -98,14 +98,19 @@ spec:
     objectsMatched: true
     publicPush: "not-run"
     configHubUpload: "not-run"
+  followOnEvidence:
+    publicAndConfigHub: "data/byo-helm-values-review/public-and-confighub.md"
+    firstDeployment: "data/byo-helm-values-deploy-proof/summary.md"
+    promotion: "data/byo-helm-values-promotion-proof/summary.md"
+    stagingDeployment: "data/byo-helm-values-staging-deploy-proof/summary.md"
   cleanup:
     localFiles: "pass"
   limits:
     - "The proposed values are a deterministic fixture, not a transcript from a named AI model."
     - "The API key is deliberately fake. The check proves that a literal value reached a rendered Deployment."
     - "The reviewed package references an existing Secret that this proof does not create or read."
-    - "The local OCI round trip passed. Public registry publication and ConfigHub upload are separate follow-on checks."
-    - "No Kubernetes apply, workload health check, promotion, or controller delivery ran."
+    - "This local receipt stops after the OCI pull-back comparison. Public registry publication and ConfigHub upload are separate follow-on checks."
+    - "Separate receipts prove the first Argo CD deployment, development-to-staging promotion, and promoted staging deployment."
 status:
   result: "pass"
   claim: "A supplied Helm values file was rendered before apply, compared with the checked catalog baseline, rejected for six concrete findings, corrected without losing the requested scale, and packaged as an OCI containing the same five reviewed Kubernetes objects."
