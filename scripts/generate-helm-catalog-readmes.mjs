@@ -339,16 +339,81 @@ const DEMO_SPACES = [
     evidence: [
       ["AICR example guide", "docs/demo/aicr/eks-h100-training-kubeflow.md"],
       ["AICR source and OCI receipt", "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"],
+      ["Public OCI receipt", "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"],
       ["ConfigHub upload receipt", "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"],
-      ["Staging variant readiness", "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"],
       ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
       ["Rendered Argo CD Applications", "examples/aicr/eks-h100-training-kubeflow/argocd-rendered"],
     ],
     limits: [
       "This proves the package-to-base-variant path. It does not claim that Argo CD reconciled the Applications or that the workloads ran on an EKS GPU cluster.",
-      "The Space currently records a temporary local OCI source. The public Google Artifact Registry copy still needs a fresh Google login.",
-      "The first staging clone is blocked because this demo organization is at its 1,000-Link quota. The empty partial Space was removed; no existing catalog links were deleted.",
+      "The source Helm chart OCI and the 17-object literal configuration OCI are public and anonymously pullable. The ConfigHub Space records the public literal OCI and its digest.",
+      "The development and staging Spaces prove one reviewed Application change and promotion. They do not prove an AICR package upgrade.",
       "The target must already provide the `argocd` Namespace, the default Argo CD AppProject, Argo CD itself, EKS, and the required GPU capacity.",
+    ],
+  },
+  {
+    space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development",
+    title: "Review an AICR platform change in development",
+    kind: "environment",
+    summary: "This development variant starts with the 17 Applications produced by AICR and changes only the Grafana administrator setting in the kube-prometheus-stack Application.",
+    shows: [
+      "The saved AICR base remains unchanged and records the public literal-configuration OCI digest.",
+      "Development replaces the literal Grafana admin password with a reference to the `aicr-grafana-admin` Secret.",
+      "The dry-run named one changed Application and left the stored configuration unchanged.",
+      "The same six catalog checks remain attached, including required approval for system configuration.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect all 17 Applications.",
+      "The Unit revision history to see the one-Application development change.",
+      "`aicr-eks-h100-training-kubeflow-v0-14-0-argocd` for the unchanged public-OCI base.",
+    ],
+    why: [
+      "A generated platform bundle still needs target-specific choices. A password for Grafana should come from a Secret owned by the target, not remain as a literal value in the generated Application.",
+      "This Space makes that choice explicit without editing the AICR package or changing the other 16 Applications.",
+    ],
+    evidence: [
+      ["AICR example guide", "docs/demo/aicr/eks-h100-training-kubeflow.md"],
+      ["Public OCI receipt", "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"],
+      ["Required-approval check", "examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml"],
+    ],
+    limits: [
+      "The target must provide `monitoring/aicr-grafana-admin` with the expected user and password keys.",
+      "This development configuration has not been reconciled by Argo CD on an EKS GPU cluster.",
+    ],
+  },
+  {
+    space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging",
+    title: "Promote the AICR change to staging",
+    kind: "environment",
+    summary: "This staging variant received the reviewed Grafana existing-Secret change from development while keeping the other 16 AICR Applications unchanged.",
+    shows: [
+      "Staging started from the same 17-Application baseline as development.",
+      "The promotion preview reported one changed Unit and left staging unchanged.",
+      "The completed promotion made staging match the reviewed development configuration.",
+      "Required approval and the other catalog checks remain attached before any apply.",
+    ],
+    open: [
+      "This README.",
+      "The `aicr-eks-h100-training-kubeflow` Unit to inspect the promoted result.",
+      "The Unit revision history to see the ConfigHub promotion.",
+      "`aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development` for the upstream review.",
+    ],
+    why: [
+      "Copying a large generated platform bundle into staging would hide the one intended difference.",
+      "This Space records the upstream relationship and proves that the promotion changed only the reviewed kube-prometheus-stack Application.",
+    ],
+    evidence: [
+      ["AICR example guide", "docs/demo/aicr/eks-h100-training-kubeflow.md"],
+      ["Public OCI receipt", "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"],
+      ["Development and staging promotion", "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"],
+      ["Required-approval check", "examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml"],
+    ],
+    limits: [
+      "The target must provide `monitoring/aicr-grafana-admin` before delivery.",
+      "The promotion proves stored configuration and policy behavior. It does not prove Argo CD reconciliation or GPU workload health.",
     ],
   },
   {
@@ -526,7 +591,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 43, `expected 43 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 45, `expected 45 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {

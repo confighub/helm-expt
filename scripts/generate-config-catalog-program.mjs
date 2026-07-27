@@ -39,6 +39,13 @@ const aicrPromotionReceiptPath = join(
   "aicr-variant-promotion-proof",
   "receipt.yaml",
 );
+const aicrPersistentPromotionReceiptPath = join(
+  repoRoot,
+  "examples",
+  "aicr",
+  "eks-h100-training-kubeflow",
+  "promotion-readiness-receipt.yaml",
+);
 const ociDeployStageRolloutReceiptPath = join(
   repoRoot,
   "runs",
@@ -439,7 +446,7 @@ function buildAicrArgoCdRecord() {
   const publicReceiptPath = `${root}/public-oci-receipt.yaml`;
   const receipt = readYaml(join(repoRoot, receiptPath));
   const uploadReceipt = readYaml(join(repoRoot, uploadReceiptPath));
-  const promotionProof = readYaml(aicrPromotionReceiptPath);
+  const promotionProof = readYaml(aicrPersistentPromotionReceiptPath);
   const publicReceipt = existsSync(join(repoRoot, publicReceiptPath))
     ? readYaml(join(repoRoot, publicReceiptPath))
     : null;
@@ -542,13 +549,13 @@ function buildAicrArgoCdRecord() {
       },
       promotion: {
         status: promotionProof.status.result,
-        receipt: relativeRepo(aicrPromotionReceiptPath),
+        receipt: relativeRepo(aicrPersistentPromotionReceiptPath),
         path: promotionProof.spec.promotion.path,
-        sourceDigest: promotionProof.spec.source.digest,
-        changedApplications: promotionProof.spec.change.changedApplications,
-        devDryRun: promotionProof.spec.change.devDryRun,
-        stagingDryRun: promotionProof.spec.promotion.dryRun,
-        stagingMatchesReviewedDev: promotionProof.spec.promotion.stagingMatchesReviewedDev,
+        sourceDigest: promotionProof.spec.source.literalConfiguration.digest,
+        changedApplications: [promotionProof.spec.change.resource],
+        devDryRun: promotionProof.spec.change.preview.result,
+        stagingDryRun: promotionProof.spec.promotion.preview.result,
+        stagingMatchesReviewedDev: promotionProof.spec.promotion.stagingMatchesDevelopment,
       },
       policy: {
         profile: "catalog-standard",
@@ -563,7 +570,8 @@ function buildAicrArgoCdRecord() {
         sourceManifest: receipt.spec.outputs.sourceManifest,
         renderedManifest: receipt.spec.outputs.renderedManifest,
         configHubUploadReceipt: uploadReceiptPath,
-        variantPromotionReceipt: relativeRepo(aicrPromotionReceiptPath),
+        variantPromotionReceipt: relativeRepo(aicrPersistentPromotionReceiptPath),
+        scratchPromotionReceipt: relativeRepo(aicrPromotionReceiptPath),
         ...(publicPassed ? { publicOciReceipt: publicReceiptPath } : {}),
       },
       operations: {
@@ -579,8 +587,9 @@ function buildAicrArgoCdRecord() {
         ...(publicPassed
           ? ["The two public OCI artifacts were anonymously pulled at their recorded digests."]
           : ["The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets."]),
+        "The persistent helm-catalog demo contains the base, development, and staging Spaces. Exactly one Application changes in development and staging.",
         "No live Argo CD or GPU-cluster reconciliation is claimed.",
-        "The variant and promotion proof ran in a temporary scratch organization, started no Kubernetes cluster, and cleaned up its Spaces.",
+        "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys.",
       ],
     },
   };
@@ -924,10 +933,14 @@ function validateRecords(records) {
   check(aicrArgo, "AICR Argo CD base record is missing");
   check(
     aicrArgo.spec.promotion?.status === "pass"
-      && aicrArgo.spec.promotion?.receipt === relativeRepo(aicrPromotionReceiptPath)
-      && aicrArgo.spec.promotion?.path === "base -> dev -> staging"
+      && aicrArgo.spec.promotion?.receipt
+        === relativeRepo(aicrPersistentPromotionReceiptPath)
+      && aicrArgo.spec.promotion?.path === "base -> development -> staging"
       && aicrArgo.spec.promotion?.stagingMatchesReviewedDev === true,
     "AICR Argo CD base record is missing its exact variant promotion proof",
+  );
+  validateAicrPersistentPromotionReceipt(
+    readYaml(aicrPersistentPromotionReceiptPath),
   );
   validateAicrVariantPromotionReceipt(readYaml(aicrPromotionReceiptPath));
 }
@@ -1627,6 +1640,57 @@ function validateOciDeployStageRolloutReceipt(receipt) {
     receipt.spec?.limits?.some((limit) => limit.includes("target-scoped OCI credential")),
     "OCI deploy-stage-rollout receipt must state the target-credential boundary",
   );
+}
+
+function validateAicrPersistentPromotionReceipt(receipt) {
+  check(
+    receipt.kind === "VariantReadinessReceipt"
+      && receipt.status?.result === "pass",
+    "persistent AICR promotion receipt is invalid",
+  );
+  check(
+    receipt.spec?.source?.literalConfiguration?.anonymousPull === "pass"
+      && receipt.spec?.chain?.base?.applicationCount === 17
+      && receipt.spec?.chain?.development?.applicationCount === 17
+      && receipt.spec?.chain?.staging?.applicationCount === 17,
+    "persistent AICR source or Application counts changed",
+  );
+  check(
+    receipt.spec?.change?.resource
+      === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+      && receipt.spec?.change?.changedApplicationCount === 1
+      && receipt.spec?.change?.preview?.result === "pass"
+      && receipt.spec?.change?.preview?.storedDataUnchanged === true,
+    "persistent AICR development change evidence changed",
+  );
+  check(
+    receipt.spec?.promotion?.path === "base -> development -> staging"
+      && receipt.spec?.promotion?.preview?.result === "pass"
+      && receipt.spec?.promotion?.preview?.storedDataUnchanged === true
+      && receipt.spec?.promotion?.result === "pass"
+      && receipt.spec?.promotion?.stagingMatchesDevelopment === true,
+    "persistent AICR promotion evidence changed",
+  );
+  check(
+    receipt.spec?.chain?.development?.canonicalDataSha256
+      === receipt.spec?.chain?.staging?.canonicalDataSha256
+      && receipt.spec?.chain?.base?.canonicalDataSha256
+        !== receipt.spec?.chain?.development?.canonicalDataSha256,
+    "persistent AICR staging does not contain the reviewed development change",
+  );
+  for (const record of [
+    receipt.spec.chain.base,
+    receipt.spec.chain.development,
+    receipt.spec.chain.staging,
+  ]) {
+    check(
+      record.policyChecks?.length === 6
+        && record.applyGates?.includes(
+          "platform/require-approval/vet-approvedby",
+        ),
+      `${record.space} lost its AICR checks or approval gate`,
+    );
+  }
 }
 
 function validateAicrVariantPromotionReceipt(receipt) {

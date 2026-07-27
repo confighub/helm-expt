@@ -4,9 +4,9 @@ metadata:
   name: "aicr-eks-h100-training-kubeflow-v0-14-0-required-approval"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-26T20:32:28.658Z"
+  verifiedAt: "2026-07-27T14:50:36.841Z"
   source:
-    reference: "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
     digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
   space:
     slug: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"

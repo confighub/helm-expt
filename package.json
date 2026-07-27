@@ -453,6 +453,8 @@
     "aicr-argocd-example:hub-record": "node scripts/sync-aicr-argocd-example.mjs --hub-record",
     "aicr-argocd-example:hub-verify": "node scripts/sync-aicr-argocd-example.mjs --hub-verify",
     "aicr-argocd-example:hub-policy-check": "node scripts/sync-aicr-argocd-example.mjs --hub-policy-check",
+    "aicr-argocd-example:promotion-sync": "node scripts/sync-aicr-argocd-example.mjs --hub-promotion-sync",
+    "aicr-argocd-example:promotion-verify": "node scripts/sync-aicr-argocd-example.mjs --hub-promotion-verify",
     "aicr-variant-promotion:run": "node scripts/run-aicr-variant-promotion-proof.mjs --run",
     "aicr-variant-promotion:generate": "node scripts/run-aicr-variant-promotion-proof.mjs --generate",
     "aicr-variant-promotion:verify": "node scripts/run-aicr-variant-promotion-proof.mjs --verify",

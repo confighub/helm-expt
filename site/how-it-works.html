@@ -594,7 +594,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
     <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package, then upload the files or a single-base literal OCI bundle.</td></tr>
-    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, and checksums.</td><td>Upload the generated files or literal OCI bundle as a base variant. <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">Open the committed AICR example</a>.</td></tr>
+    <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
     <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
   </table>
   <p>The generated <a href="d/data/base-variant-records/summary.html">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>

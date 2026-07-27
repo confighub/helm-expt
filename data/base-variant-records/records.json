@@ -18,7 +18,7 @@
           "name": "eks-h100-training-kubeflow",
           "version": "v0.14.0",
           "record": "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
-          "packageOciRef": ""
+          "packageOciRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0"
         },
         "baseVariant": {
           "name": "argocd",
@@ -57,8 +57,8 @@
             },
             {
               "id": "argocd-source-package",
-              "status": "local-only",
-              "note": "The parent and two path-based child Applications need the AICR Helm source package at the recorded OCI repository and revision."
+              "status": "published",
+              "note": "The parent and two path-based child Applications refer to the public AICR Helm source package at its recorded version and digest."
             }
           ],
           "targetFacts": {
@@ -75,13 +75,13 @@
         },
         "delivery": {
           "sourcePackageOci": {
-            "status": "local-only",
+            "status": "public-anonymous-pull-proved",
             "localDigest": "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e",
             "plannedRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0",
             "ociLayout": "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-source"
           },
           "literalConfigOci": {
-            "status": "local-only",
+            "status": "public-anonymous-pull-proved",
             "localDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
             "localPush": "pass",
             "localPull": "pass",
@@ -90,7 +90,7 @@
           },
           "configHubReleaseOci": {
             "status": "base-variant-uploaded",
-            "sourceRef": "oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
+            "sourceRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0",
             "sourceDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
             "receipt": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"
           },
@@ -99,11 +99,11 @@
         },
         "promotion": {
           "status": "pass",
-          "receipt": "runs/aicr-variant-promotion-proof/receipt.yaml",
-          "path": "base -> dev -> staging",
+          "receipt": "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
+          "path": "base -> development -> staging",
           "sourceDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
           "changedApplications": [
-            "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+            "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
           ],
           "devDryRun": "pass",
           "stagingDryRun": "pass",
@@ -124,7 +124,9 @@
           "sourceManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-source-oci-manifest.json",
           "renderedManifest": "examples/aicr/eks-h100-training-kubeflow/local-argocd-config-oci-manifest.json",
           "configHubUploadReceipt": "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml",
-          "variantPromotionReceipt": "runs/aicr-variant-promotion-proof/receipt.yaml"
+          "variantPromotionReceipt": "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml",
+          "scratchPromotionReceipt": "runs/aicr-variant-promotion-proof/receipt.yaml",
+          "publicOciReceipt": "examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml"
         },
         "operations": {
           "resourceClass": "system-configuration",
@@ -136,9 +138,10 @@
         "level": "partial",
         "claim": "AICR v0.14.0 generated a portable Argo CD Helm source package and 17 literal Application objects. ConfigHub imported those exact Applications from the recorded OCI digest, kept one reviewed Grafana Secret change in development, and promoted the same configuration to staging.",
         "limits": [
-          "The source package and literal configuration OCI artifacts have not been published to their public Google Artifact Registry targets.",
+          "The two public OCI artifacts were anonymously pulled at their recorded digests.",
+          "The persistent helm-catalog demo contains the base, development, and staging Spaces. Exactly one Application changes in development and staging.",
           "No live Argo CD or GPU-cluster reconciliation is claimed.",
-          "The variant and promotion proof ran in a temporary scratch organization, started no Kubernetes cluster, and cleaned up its Spaces."
+          "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys."
         ]
       }
     },
