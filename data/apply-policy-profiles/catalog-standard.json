@@ -26,15 +26,27 @@
           "trigger": "platform/lifecycle-route-evidence"
         },
         {
+          "effect": "block",
+          "id": "aicr-training-api-key-secret",
+          "reason": "Do not apply an AICR training runtime that puts AI_API_KEY directly in the object instead of naming a Secret and key.",
+          "trigger": "platform/aicr-training-secret-refs"
+        },
+        {
+          "effect": "warn",
+          "id": "aicr-training-images-pinned",
+          "reason": "Report AICR training images that can change without a configuration revision.",
+          "trigger": "platform/aicr-training-images-pinned"
+        },
+        {
           "effect": "warn",
           "id": "images-pinned-by-digest",
-          "reason": "Report images that can change without a configuration revision.",
+          "reason": "Report ordinary Kubernetes workload images that can change without a configuration revision.",
           "trigger": "platform/digest-pinned-images"
         },
         {
           "effect": "warn",
           "id": "workload-probes-declared",
-          "reason": "Report workload containers that have no readiness or liveness probe.",
+          "reason": "Report ordinary long-running Kubernetes workload containers that have no readiness or liveness probe.",
           "trigger": "platform/probes-declared"
         },
         {
@@ -45,7 +57,7 @@
         }
       ],
       "filter": "platform/helm-catalog-prod-gates",
-      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'",
+      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'",
       "spaceSelector": {
         "anyOf": [
           {
@@ -84,20 +96,32 @@
           "trigger": "platform/lifecycle-route-evidence"
         },
         {
+          "effect": "block",
+          "id": "aicr-training-api-key-secret",
+          "reason": "Do not apply an AICR training runtime that puts AI_API_KEY directly in the object instead of naming a Secret and key.",
+          "trigger": "platform/aicr-training-secret-refs"
+        },
+        {
+          "effect": "warn",
+          "id": "aicr-training-images-pinned",
+          "reason": "Report AICR training images that can change without a configuration revision.",
+          "trigger": "platform/aicr-training-images-pinned"
+        },
+        {
           "effect": "warn",
           "id": "images-pinned-by-digest",
-          "reason": "Report images that can change without a configuration revision.",
+          "reason": "Report ordinary Kubernetes workload images that can change without a configuration revision.",
           "trigger": "platform/digest-pinned-images"
         },
         {
           "effect": "warn",
           "id": "workload-probes-declared",
-          "reason": "Report workload containers that have no readiness or liveness probe.",
+          "reason": "Report ordinary long-running Kubernetes workload containers that have no readiness or liveness probe.",
           "trigger": "platform/probes-declared"
         }
       ],
       "filter": "platform/helm-catalog-checks",
-      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'",
+      "filterWhere": "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'",
       "spaceSelector": {
         "labels": {
           "ApplyPolicyProfile": "catalog-standard"
@@ -127,11 +151,11 @@
     "scopeAssertions": [
       "Every supported configuration source type is named by this profile.",
       "Every Trigger is defined here with its function, arguments, effect, and description.",
-      "The baseline filter selects exactly the five baseline triggers and never selects require-approval.",
-      "The approval-required filter selects the same five baseline triggers plus require-approval.",
+      "The baseline filter selects exactly the seven baseline triggers and never selects require-approval.",
+      "The approval-required filter selects the same seven baseline triggers plus require-approval.",
       "Production and system-configuration Spaces receive the approval-required filter.",
       "Other non-production Spaces remain on the baseline filter.",
-      "A Space must not lose the five baseline checks when approval is added.",
+      "A Space must not lose the seven baseline checks when approval is added.",
       "The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger."
     ],
     "sourceTypes": [
@@ -147,14 +171,42 @@
         "arguments": [
           {
             "name": "expression",
-            "value": "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, c.image.contains(\"@sha256:\"))"
+            "value": "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\")))"
           }
         ],
-        "description": "Warn when a workload image is not pinned by digest.",
+        "description": "Warn when an ordinary Kubernetes workload image is not pinned by digest.",
         "effect": "warn",
         "event": "Mutation",
         "functionName": "vet-cel",
         "ref": "platform/digest-pinned-images",
+        "toolchain": "Kubernetes/YAML"
+      },
+      {
+        "arguments": [
+          {
+            "name": "expression",
+            "value": "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && size(r.spec.template.spec.replicatedJobs) > 0 && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && size(j.template.spec.template.spec.containers) > 0 && j.template.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\"))))"
+          }
+        ],
+        "description": "Warn when an AICR ClusterTrainingRuntime uses an image that is not pinned by digest.",
+        "effect": "warn",
+        "event": "Mutation",
+        "functionName": "vet-cel",
+        "ref": "platform/aicr-training-images-pinned",
+        "toolchain": "Kubernetes/YAML"
+      },
+      {
+        "arguments": [
+          {
+            "name": "expression",
+            "value": "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && j.template.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || e.name != \"AI_API_KEY\" || (!has(e.value) && has(e.valueFrom) && has(e.valueFrom.secretKeyRef) && has(e.valueFrom.secretKeyRef.name) && e.valueFrom.secretKeyRef.name != \"\" && has(e.valueFrom.secretKeyRef.key) && e.valueFrom.secretKeyRef.key != \"\")))))"
+          }
+        ],
+        "description": "Require an AICR ClusterTrainingRuntime AI_API_KEY environment variable to refer to a named Secret and key.",
+        "effect": "block",
+        "event": "Mutation",
+        "functionName": "vet-cel",
+        "ref": "platform/aicr-training-secret-refs",
         "toolchain": "Kubernetes/YAML"
       },
       {
@@ -175,10 +227,10 @@
         "arguments": [
           {
             "name": "expression",
-            "value": "!has(r.spec) || !has(r.spec.template) || !has(r.spec.template.spec) || r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe))"
+            "value": "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe)))"
           }
         ],
-        "description": "Warn when a workload container has no liveness or readiness probe.",
+        "description": "Warn when an ordinary long-running Kubernetes workload container has no liveness or readiness probe.",
         "effect": "warn",
         "event": "Mutation",
         "functionName": "vet-cel",
@@ -228,9 +280,10 @@
       "scripts/sync-helm-org.mjs",
       "scripts/run-config-catalog-policy-proof.mjs"
     ],
-    "lastRecorded": "2026-07-26",
+    "lastRecorded": "2026-07-27",
     "limits": [
       "The live topology receipt proves Trigger definitions, filter definitions, and assigned Spaces. The functional receipt uses exact temporary fixtures to prove three blocking checks and two warning-only checks at the dry-run apply boundary.",
+      "The AI change review receipt proves the two AICR checks against one ClusterTrainingRuntime shape. A target-specific node limit remains a repository check because this profile does not yet read a target-capacity fact.",
       "The Hooks and CRDs App receipt separately proves that an unsupported automatic lifecycle route is blocked.",
       "The builder rewires production and system-configuration Spaces explicitly because cub variant create copies the template TriggerFilterID."
     ],

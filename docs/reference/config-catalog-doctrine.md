@@ -268,7 +268,13 @@ minimum checks applied to the resulting Kubernetes data.
 
 - Schema and placeholder checks block apply everywhere.
 - Lifecycle route records must name their chart, version, preset, executor, disposition, and evidence. A route cannot claim automatic execution without an observed receipt.
-- Digest pinning and workload probes are warnings everywhere.
+- Deployments, StatefulSets, DaemonSets, and ReplicaSets receive checks for
+  digest-pinned images and health probes. Jobs receive the image check but not
+  the long-running workload probe check.
+- AICR `ClusterTrainingRuntime` objects receive checks that read their nested
+  training image and `AI_API_KEY` fields. A mutable image is reported. An API
+  key stored directly in the object is blocked; it must refer to a named Secret
+  and key.
 - Production releases add one required human approval.
 - System configuration also requires approval in development and staging because a
   change to networking, GPU support, admission policy, or another cluster-wide
@@ -288,7 +294,9 @@ The policy uses three operational resource classes:
 | `system-configuration` | Cluster-wide networking, GPU, admission, or platform configuration | Common checks plus approval in every environment |
 
 The class describes what the configuration controls. It does not matter whether the
-source was Helm, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML.
+source was Helm, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML. Individual
+checks still need to understand the object they inspect. A Deployment check must not
+guess where a custom resource stores its containers.
 
 The lifecycle-route check applies only when a `LifecycleRoute` is stored. It checks
 whether that record is complete and honest. It does not infer that a chart needs no
@@ -297,11 +305,11 @@ determine which CRD, hook, certificate, setup, and observation routes are requir
 
 The maintained profile is
 [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
-The live `helm-catalog` filters and Space assignments were checked on 26 July 2026.
+The live `helm-catalog` filters and Space assignments were checked on 27 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-28 Spaces use the five common checks and seven Spaces use those checks plus approval:
-four production Spaces and three system-configuration Spaces. Run
+31 Spaces use the seven common checks and nine Spaces use those checks plus approval:
+four production Spaces and five system-configuration Spaces. Run
 `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 
@@ -343,13 +351,16 @@ OCI used a temporary registry, and the workflow is still a guarded script rather
 a finished App interface.
 
 The [AI Change Review proof](../../data/ai-change-review-live-proof/summary.md)
-starts with a corrected AICR training object. ConfigHub stores the same Kubernetes
-fields, blocks a dry run until the exact head revision is approved, and allows the
-same dry run to an OCI target after approval. It also exposes an important policy
-limit: generic workload checks do not understand every custom-resource field shape.
-The image and probe warnings in that run do not tell us whether the AICR object is safe.
-Source-specific checks must be added where a generic check cannot read the source
-format correctly.
+sends an unsafe and a reviewed AICR training object through the live checks.
+ConfigHub reports the mutable nested image and blocks the inline API key in the
+unsafe version. The reviewed version clears both checks, and the ordinary
+Deployment checks leave both AICR objects alone. ConfigHub stores the reviewed
+Kubernetes fields, blocks a dry run until the exact head revision is approved,
+and allows the same dry run to an OCI target after approval.
+
+The four-node training limit remains a repository check because it depends on a
+fact about the selected target. It should become a ConfigHub check only when the
+policy can read that recorded target fact.
 
 ## AI use
 

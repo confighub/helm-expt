@@ -15,7 +15,16 @@ The test created temporary configuration records in the live `helm-catalog` orga
 | The same system configuration after its exact revision was approved | Allowed the dry run |
 | A lifecycle route claiming automatic work without evidence | Blocked it in the separately recorded Hooks and CRDs test |
 
-The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. Its first dry run was blocked. After the test approved that exact revision, the second dry run was allowed. This confirms that approval is added where it is needed without turning ordinary warnings into blockers or leaving an approved revision permanently blocked.
+The first three fixtures used the seven common checks. The two AICR checks did
+nothing to these ordinary Kubernetes objects, as intended. The
+system-configuration fixture used the same checks plus required approval. Its first
+dry run was blocked. After the test approved that exact revision, the second dry run
+was allowed. This confirms that approval is added where it is needed without turning
+ordinary warnings into blockers or leaving an approved revision permanently blocked.
+
+The [AI change review proof](../ai-change-review-live-proof/summary.md) tests the
+other side of the same rule: an AICR training runtime receives checks for its actual
+nested image and API-key fields, while the ordinary Deployment checks leave it alone.
 
 All temporary Spaces were deleted. The target was used only to exercise ConfigHub's apply boundary with `--dry-run`; this did not test a Kubernetes rollout or application health.
 

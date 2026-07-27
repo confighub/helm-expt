@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 23
-partial:   25
+available: 24
+partial:   24
 planned:   2
 blocked:   0
 total:     50
@@ -83,7 +83,7 @@ The source status definitions are:
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
 | T22 | Apply blocking checks everywhere and approvals only in production | partial | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[runs/config-catalog-policy-functional-proof/receipt.yaml](../../runs/config-catalog-policy-functional-proof/receipt.yaml) | Repeat the live policy proof for source types beyond Helm-derived Kubernetes objects. |
-| T23 | Make policy checks source-neutral | partial | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[data/ai-change-review-live-proof/summary.md](../../data/ai-change-review-live-proof/summary.md) | Add AICR-aware and custom-resource-aware checks instead of relying on generic nested-field guesses. |
+| T23 | Make policy checks source-neutral | available | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[data/ai-change-review-live-proof/summary.md](../../data/ai-change-review-live-proof/summary.md)<br>[runs/ai-change-review-live-proof/receipt.yaml](../../runs/ai-change-review-live-proof/receipt.yaml) | Add checks for more custom-resource versions and teach target-specific checks to read recorded target facts instead of hard-coding one cluster's limits. |
 
 ## OCI output
 

@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 23,
-      "partial": 25,
+      "available": 24,
+      "partial": 24,
       "planned": 2,
       "blocked": 0
     },
@@ -374,13 +374,14 @@
         "area": "Policy and approval",
         "evidence": [
           "config-catalog/policies/catalog-standard.yaml",
-          "data/ai-change-review-live-proof/summary.md"
+          "data/ai-change-review-live-proof/summary.md",
+          "runs/ai-change-review-live-proof/receipt.yaml"
         ],
         "id": "T23",
         "name": "Make policy checks source-neutral",
-        "next": "Add AICR-aware and custom-resource-aware checks instead of relying on generic nested-field guesses.",
-        "outcome": "The same policy model can check Helm, AICR, installer, Kubara, Sveltos, and literal Kubernetes configurations appropriately.",
-        "status": "partial",
+        "next": "Add checks for more custom-resource versions and teach target-specific checks to read recorded target facts instead of hard-coding one cluster's limits.",
+        "outcome": "One policy profile applies shared checks to Helm, AICR, installer, Kubara, Sveltos, and literal Kubernetes data, limits ordinary workload checks to known Kubernetes kinds, and uses AICR checks for its deeper fields.",
+        "status": "available",
         "verify": [
           "npm run config-catalog:policy:verify",
           "npm run ai-change-review:live:verify"

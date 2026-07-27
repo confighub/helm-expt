@@ -531,8 +531,8 @@
     <section aria-labelledby="live-review">
       <h2 id="live-review">A Change We Checked In ConfigHub</h2>
       <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
-      <p>In the live run, ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes.</p>
-      <p>The run also found a real policy gap. The generic image and probe checks do not understand the deeper container path in this AICR custom resource. Those warnings do not tell us whether this object is safe. We need checks that understand AICR, or we need to limit the generic checks to ordinary Kubernetes workloads.</p>
+      <p>In the live run, ConfigHub read the nested AICR fields. It reported the mutable image and blocked the inline API key. The reviewed version cleared both checks. Ordinary Deployment image and probe checks did not run against either custom resource.</p>
+      <p>ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
       <p><a href="d/data/ai-change-review-live-proof/summary.html">Read the result and its limits</a>.</p>
     </section>
 

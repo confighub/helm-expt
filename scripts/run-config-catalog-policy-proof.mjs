@@ -23,7 +23,7 @@ import {
 
 const mode = process.argv[2] ?? "--help";
 const expectedOrg = "helm-catalog";
-const targetRef = "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target";
+const targetRef = process.env.HELM_EXPT_POLICY_PROOF_TARGET?.trim() ?? "";
 const baselineFilterRef = "platform/helm-catalog-checks";
 const approvalFilterRef = "platform/helm-catalog-prod-gates";
 const receiptPath = join(
@@ -87,6 +87,10 @@ function run() {
     "set HELM_EXPT_ALLOW_LIVE_POLICY_PROOF=1 to confirm this live-org proof",
   );
   check(context, "set CUB_CONTEXT to an authenticated helm-catalog context");
+  check(
+    targetRef,
+    "set HELM_EXPT_POLICY_PROOF_TARGET to a current Space/OCI-target reference",
+  );
   check(tryCommand("cub", ["version"]).ok, "cub is required for the policy proof");
 
   const contextInfo = jsonCommand("cub", ["context", "get", context, "-o", "json"], {
@@ -96,6 +100,12 @@ function run() {
     contextInfo.metadata?.organizationName === expectedOrg,
     `refusing to run in organization ${contextInfo.metadata?.organizationName ?? "unknown"}; expected ${expectedOrg}`,
   );
+
+  const target = cubJson(
+    context,
+    ["target", "get", "--space", ...targetRef.split("/"), "-o", "json"],
+  ).Target;
+  check(target?.ProviderType === "OCI", `${targetRef} is not an OCI target`);
 
   const topology = readTopology(context);
   const lifecycleReceipt = readYaml(lifecycleReceiptPath);
@@ -204,6 +214,7 @@ function run() {
         target: {
           ref: targetRef,
           id: warning.unit.TargetID,
+          provider: target.ProviderType,
           dryRunOnly: true,
         },
         filters: {
@@ -251,6 +262,7 @@ function run() {
           "The target was used only to exercise ConfigHub's apply boundary; this run does not test workload health or controller convergence.",
           "The fixtures prove the recorded checks for these exact inputs. They do not prove that every possible invalid configuration is detected.",
           "The lifecycle-route result comes from the separately recorded Hooks and CRDs App fixture.",
+          "The AICR image and Secret checks are exercised by the separate live AI change review proof.",
         ],
       },
       status: {
@@ -603,6 +615,8 @@ function readTopology(context) {
     baseline: {
       filter: baselineFilterRef,
       triggers: [
+        "platform/aicr-training-images-pinned",
+        "platform/aicr-training-secret-refs",
         "platform/digest-pinned-images",
         "platform/lifecycle-route-evidence",
         "platform/probes-declared",
@@ -613,6 +627,8 @@ function readTopology(context) {
     approvalRequired: {
       filter: approvalFilterRef,
       triggers: [
+        "platform/aicr-training-images-pinned",
+        "platform/aicr-training-secret-refs",
         "platform/digest-pinned-images",
         "platform/lifecycle-route-evidence",
         "platform/probes-declared",
@@ -662,7 +678,12 @@ function verifyReceipt(receipt) {
   check(receipt.status?.result === "pass", "policy functional proof is not pass");
   check(receipt.spec?.context?.organization === expectedOrg, "policy proof organization changed");
   check(receipt.spec?.target?.dryRunOnly === true, "policy proof must be dry-run only");
-  check(receipt.spec?.target?.ref === targetRef, "policy proof target changed");
+  check(
+    typeof receipt.spec?.target?.ref === "string"
+      && receipt.spec.target.ref.includes("/")
+      && receipt.spec.target.provider === "OCI",
+    "policy proof target is not a recorded OCI target",
+  );
 
   for (const [name, gate] of [
     ["placeholder", gates.placeholder],
@@ -747,7 +768,16 @@ The test created temporary configuration records in the live \`helm-catalog\` or
 | The same system configuration after its exact revision was approved | Allowed the dry run |
 | A lifecycle route claiming automatic work without evidence | Blocked it in the separately recorded Hooks and CRDs test |
 
-The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. Its first dry run was blocked. After the test approved that exact revision, the second dry run was allowed. This confirms that approval is added where it is needed without turning ordinary warnings into blockers or leaving an approved revision permanently blocked.
+The first three fixtures used the seven common checks. The two AICR checks did
+nothing to these ordinary Kubernetes objects, as intended. The
+system-configuration fixture used the same checks plus required approval. Its first
+dry run was blocked. After the test approved that exact revision, the second dry run
+was allowed. This confirms that approval is added where it is needed without turning
+ordinary warnings into blockers or leaving an approved revision permanently blocked.
+
+The [AI change review proof](../ai-change-review-live-proof/summary.md) tests the
+other side of the same rule: an AICR training runtime receives checks for its actual
+nested image and API-key fields, while the ordinary Deployment checks leave it alone.
 
 All temporary Spaces were deleted. The target was used only to exercise ConfigHub's apply boundary with \`--dry-run\`; this did not test a Kubernetes rollout or application health.
 

@@ -4,7 +4,7 @@ metadata:
   name: "byo-nginx-ai-values-24-0-2-reviewed"
 spec:
   organization: "helm-catalog"
-  verifiedAt: "2026-07-27T14:07:48.573Z"
+  verifiedAt: "2026-07-27T20:22:07.028Z"
   command:
     - "cub"
     - "variant"
@@ -55,7 +55,7 @@ spec:
     slug: "readme"
     id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
     dataHash: "0f0991ebdf1e8f719993f8e0288c1dcb94f4e566a1f34b4c8103da9e1f935684"
-    headRevision: 12
+    headRevision: 14
     source: "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
   objectCount: 5
   objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
@@ -70,9 +70,11 @@ spec:
     profile: "catalog-standard"
     filter: "platform/helm-catalog-checks"
     filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
-    filterHash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
-    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    filterHash: "b42dcf124959da754d5b5bac08bce74bd450d6c6d52983af134f5fc7c8434554"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
     checks:
+      - "aicr-training-images-pinned"
+      - "aicr-training-secret-refs"
       - "digest-pinned-images"
       - "lifecycle-route-evidence"
       - "probes-declared"
