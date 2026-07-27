@@ -25,6 +25,7 @@ spec:
   evidence:
     - "data/hook-lifecycle/receipt-index.csv"
     - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+    - "runs/kps-lifecycle-route-proof/receipt.yaml"
   evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "PostSync"
@@ -35,3 +36,20 @@ spec:
     type: "helm-render-intent"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
     routeSourceVersion: "85.3.3"
+  implementations:
+    directApply:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      observation: "Ran the chart's admission-patch Job after the webhook objects existed."
+    argoCd:
+      result: "not-run"
+      automatic: false
+      evidence: ""
+      observation: "No chart-specific Argo CD route receipt exists yet."
+    flux:
+      result: "not-run"
+      automatic: false
+      evidence: ""
+      observation: "No chart-specific Flux route receipt exists yet."

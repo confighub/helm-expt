@@ -434,7 +434,7 @@
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
@@ -761,7 +761,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+
       <h4>default</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>hook-delete-policy (delete-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>none - your cluster handles it</td><td>none - your cluster handles it</td><td>-</td></tr><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>none - your cluster handles it</td><td>none - your cluster handles it</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)</td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)</td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>PostSync test Job (Argo has no native helm test)</td><td>HelmRelease .spec.test.enable=true</td><td>-</td></tr><tr><td>hook-weight-ordering (preserve-ordering)</td><td>Your applier - must apply CRDs before dependent objects</td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy</td><td>-</td></tr><tr><td>target-facts (target-facts-or-preflight)</td><td>Prerequisite - supply once (Secret / CRD / storage), like values</td><td>none - supply the inputs before sync</td><td>none - supply the inputs before sync</td><td>-</td></tr></tbody>

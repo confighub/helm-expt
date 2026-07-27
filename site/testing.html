@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Making Configuration Easier To Test · ConfigHub Helm Ops</title>
-  <meta name="description" content="Why the catalog makes configuration easier to test: most choices fixed and checked before install, proof you can read before you ship, and the messy parts named and proven.">
+  <meta name="description" content="Why the catalog makes configuration easier to test: inspect exact objects, repeat the recorded checks, and see hooks, CRDs, and setup work before deployment.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/testing.html">
   <meta property="og:title" content="Making Configuration Easier To Test · ConfigHub Helm Ops">
-  <meta property="og:description" content="Why the catalog makes configuration easier to test: most choices fixed and checked before install, proof you can read before you ship, and the messy parts named and proven.">
+  <meta property="og:description" content="Why the catalog makes configuration easier to test: inspect exact objects, repeat the recorded checks, and see hooks, CRDs, and setup work before deployment.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/testing.html">
   <style>
@@ -500,12 +500,28 @@
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart or an AICR bundle is not running a command. It is knowing what will run, which choices remain, what the target needs, and how to undo a bad change. The catalog uses four standards and reports which ones each entry has proved.</p>
+    <p class="tagline">Start with a Helm chart, an AICR bundle, or one of the catalog packages. Render it without applying, inspect the exact objects and required setup, then run the recorded checks. Each catalog page tells you which checks passed, which did not, and how to repeat them.</p>
   </header>
   <main>
+    <section aria-labelledby="bring-your-own">
+      <h2 id="bring-your-own">Bring your own chart and values</h2>
+      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. Render them to files without applying them:</p>
+      <pre><code>helm template &lt;release&gt; &lt;chart&gt;   --version &lt;version&gt;   --namespace &lt;namespace&gt;   --values &lt;values.yaml&gt;   &gt; rendered.yaml</code></pre>
+      <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
+      <p>This is also the path for values written by an AI. The generated values are only an input. The rendered objects and their diff are what you review.</p>
+      <p>The current project proves this process for selected charts and recorded changes. It does not yet provide one hosted action that judges every private chart or arbitrary values file. Use the <a href="./charts/index.html">catalog</a> for known comparisons and the <a href="./verification.html">verification guide</a> for repeatable checks.</p>
+    </section>
+
+    <section aria-labelledby="source-to-oci">
+      <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
+      <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package, renders one base, checks it, builds a literal configuration OCI, pulls that OCI back, and compares its objects with the reviewed files. It runs without ConfigHub credentials.</p>
+      <p><a href="d/data/anonymous-oci-ci-proof/summary.html">Read the CI source-to-OCI proof</a> and <a href="d/data/serverless-oci-gitops-proof/summary.html">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
+      <p>For an arbitrary private chart, the same building blocks exist, but there is not yet one polished public service that performs the whole analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
+    </section>
+
     <section aria-labelledby="pillar-fewer">
       <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
-      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records four remaining inputs, including its Git repository, and stays marked partial until the placeholder is replaced, upload succeeds, and live reconciliation is proved.</p>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records its remaining inputs and has passed local OCI and ConfigHub upload checks; public publication, controller delivery, and a live GPU-cluster result remain open.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
     </section>
 
@@ -516,8 +532,8 @@
     </section>
 
     <section aria-labelledby="pillar-messy">
-      <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
-      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the evidence that exists for each delivery path. A route stays non-automatic until a live receipt supports automation. A missing receipt remains visible.</p>
+      <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the result for each delivery path. The Kube Prometheus Stack direct install now has a receipt; its Argo CD, Flux, and upgrade paths remain not-run. A missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
     </section>
 

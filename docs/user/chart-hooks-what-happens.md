@@ -9,9 +9,10 @@ That may be a setup step, a CRD ownership choice, a GitOps action where evidence
 exists, a target-specific decision, a blocker, or a refusal. The answer is
 chart-specific because Helm hooks are chart-specific.
 
-A recorded route is not the same as automatic execution. Today nothing in the
-public catalog executes hooks automatically. The value is that the work is
-named, checked, and attached to the preset instead of being hidden inside Helm.
+A recorded route is not the same as automatic execution. The Kube Prometheus
+Stack direct example now runs seven fresh-install steps in the recorded order,
+including its certificate Jobs and CRDs. Its Argo CD, Flux, and upgrade paths
+have not run, so the chart's top-level routes remain `automatic: false`.
 
 ## The Practical Choices
 
@@ -37,8 +38,10 @@ support is claimed.
 - **Where it goes** - a lifecycle phase: `pre-render`, `preflight`, `pre-apply`,
   `post-apply`, `observe`, or `refuse`.
 - **Who runs it** - you, your cluster/controller, or (not yet) the product.
-- **Whether it's automatic** - `automatic` stays `false` until the product runs
-  the route and a receipt proves it. So far it is `false` for every route.
+- **Whether it's automatic** - the route record says which exact implementation
+  ran. A direct script result does not prove the Argo CD or Flux version of the
+  same step. Top-level `automatic` stays `false` until every delivery path named
+  by the claim has its own receipt.
 - **What's needed next** - the target facts to supply, and the evidence required
   before the route can be called supported.
 
@@ -72,6 +75,25 @@ each chart's routes, disposition, `automatic: false`, and whether a skill applie
 6. The behavior becomes `observed` for your scope once there is a receipt.
 
 ## Worked examples
+
+### Kube Prometheus Stack - one complete direct install
+
+Kube Prometheus Stack 85.3.3 renders 124 ordinary objects, ten CRDs, and seven
+Helm hook objects. The direct example applies the CRDs first, runs the chart's
+certificate creation Job, checks the resulting Secret, applies the ordinary
+objects, runs the webhook patch Job, checks the webhook and six workloads, and
+removes the temporary hook objects.
+
+Run the guarded example with:
+
+```bash
+HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 npm run kps:lifecycle-route:run
+```
+
+The [human guide](../demo/hooks-crds/kube-prometheus-stack.md), [summary](../../data/kps-lifecycle-route-proof/summary.md),
+and [receipt](../../runs/kps-lifecycle-route-proof/receipt.yaml) show the order,
+objects, checks, and limits. This proves one fresh direct install on kind. It
+does not prove the chart's Argo CD, Flux, or upgrade routes.
 
 ### cert-manager / External Secrets — `observed`
 

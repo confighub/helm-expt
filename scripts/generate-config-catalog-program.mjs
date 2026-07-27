@@ -1243,6 +1243,114 @@ function validateProgram(program) {
     architecture.delivery?.rule?.includes("its own release OCI"),
     "delivery claims must remain scoped to the exact configuration",
   );
+  const catalogNavigation = program.spec?.catalogNavigation;
+  check(
+    catalogNavigation?.startingQuestion === "What do you already have?"
+      && catalogNavigation?.nextQuestion === "What do you want to do next?",
+    "catalog navigation must begin with the user's starting point and next job",
+  );
+  check(
+    sameSet(
+      catalogNavigation.startingPoints ?? [],
+      [
+        "Helm chart and values",
+        "AICR recipe or bundle",
+        "cub installer package",
+        "Existing OCI package",
+        "Kubernetes YAML",
+      ],
+    ),
+    "catalog navigation starting points changed",
+  );
+  check(
+    sameSet(
+      catalogNavigation.nextJobs ?? [],
+      [
+        "Inspect and verify",
+        "Install",
+        "Upload and save",
+        "Customize",
+        "Promote",
+        "Deliver",
+        "Operate",
+        "Build an App",
+      ],
+    ),
+    "catalog navigation jobs changed",
+  );
+  check(
+    (catalogNavigation.entryOrder ?? []).length === 7
+      && catalogNavigation.entryOrder[0] === "Ready-made configurations"
+      && catalogNavigation.entryOrder.at(-1) === "Current limits",
+    "catalog entry pages need the maintained seven-part reading order",
+  );
+
+  const reviewQuestions = program.spec?.reviewQuestions;
+  check(
+    reviewQuestions?.rule?.includes("plain English"),
+    "catalog review questions must require plain English",
+  );
+  const requiredQuestions = [
+    "What can a new user do first?",
+    "Is testing and understanding this configuration easier than using Helm normally?",
+    "Can I find the hooks, CRDs, prerequisites, and other chart quirks?",
+    "Can I use the rendered-manifest pattern without giving up my Helm chart?",
+    "Can source-to-OCI be automated?",
+    "Can I bring the chart and values my team or AI produced?",
+    "What happens after the first deployment?",
+    "What has not been proved?",
+  ];
+  check(
+    sameSet(
+      (reviewQuestions?.questions ?? []).map((item) => item.question),
+      requiredQuestions,
+    ),
+    "catalog review questions changed",
+  );
+  for (const item of reviewQuestions.questions) {
+    check(item.standard, `${item.question} needs an acceptance standard`);
+  }
+
+  const exampleJourney = program.spec?.exampleJourney;
+  check(
+    exampleJourney?.rule?.includes("one person getting one deployable result"),
+    "the example journey must begin with one deployable result",
+  );
+  const examples = exampleJourney?.examples ?? [];
+  check(examples.length === 7, `expected seven example levels, found ${examples.length}`);
+  check(
+    examples[0]?.id === "ready-made-package"
+      && examples[1]?.id === "bring-your-own-configuration"
+      && examples.at(-1)?.id === "apps",
+    "the example journey must lead with ready-made and bring-your-own paths and end with Apps",
+  );
+  const exampleIds = new Set();
+  for (const example of examples) {
+    check(
+      example.id && !exampleIds.has(example.id),
+      `duplicate or missing example id ${example.id ?? ""}`,
+    );
+    exampleIds.add(example.id);
+    check(
+      ["basics", "managed", "delivery", "advanced", "apps"].includes(example.level),
+      `${example.id} has an invalid example level`,
+    );
+    check(
+      ["available", "partial", "example-only", "planned"].includes(example.status),
+      `${example.id} has an invalid status`,
+    );
+    check(
+      example.problem && example.result && (example.steps ?? []).length > 0,
+      `${example.id} needs a problem, result, and steps`,
+    );
+    check(
+      (example.evidence ?? []).length > 0 && (example.limits ?? []).length > 0,
+      `${example.id} needs evidence and an explicit limit`,
+    );
+    for (const path of example.evidence) {
+      check(existsRepo(path), `${example.id} points at missing ${path}`);
+    }
+  }
   const demos = [...(program.spec?.pathways ?? []), ...(program.spec?.apps ?? [])];
   const ids = new Set();
   for (const demo of demos) {
@@ -2073,6 +2181,14 @@ This is the status index for the source pathways and ConfigHub App demonstration
 
 ${renderArchitecture(program.spec.architecture)}
 
+${renderCatalogNavigation(program.spec.catalogNavigation)}
+
+${renderReviewQuestions(program.spec.reviewQuestions)}
+
+## Example journey
+
+${renderExampleJourneyTable(program.spec.exampleJourney)}
+
 ## Source pathways
 
 ${renderDemoTable(program.spec.pathways)}
@@ -2133,6 +2249,12 @@ Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml).
 The catalog begins with Helm and adds other configuration formats without making teams rewrite them.
 
 ${renderArchitecture(program.spec.architecture)}
+
+${renderCatalogNavigation(program.spec.catalogNavigation)}
+
+${renderReviewQuestions(program.spec.reviewQuestions)}
+
+${renderExampleJourney(program.spec.exampleJourney)}
 
 ${rendered}
 
@@ -2195,6 +2317,60 @@ ConfigHub can join an existing delivery flow without replacing it:
 **After ConfigHub:** ${architecture.delivery.result} ${consumerList} can consume that artifact without rendering the source package again.
 
 These public paths can run before ConfigHub, after a ConfigHub output, or without ConfigHub. A person or team brings a configuration into ConfigHub when they want saved records and managed operations. A release OCI is one handoff from ConfigHub to delivery.`;
+}
+
+function renderCatalogNavigation(navigation) {
+  return `## Find your path
+
+Start with two questions:
+
+1. **${navigation.startingQuestion}** ${navigation.startingPoints.join(", ")}.
+2. **${navigation.nextQuestion}** ${navigation.nextJobs.join(", ")}.
+
+Every catalog entry should then use the same reading order:
+
+${navigation.entryOrder.map((item, index) => `${index + 1}. ${item}`).join("\n")}
+
+${navigation.rule}`;
+}
+
+function renderExampleJourneyTable(exampleJourney) {
+  return `${exampleJourney.rule}
+
+| Level | Example | Status | Result |
+| --- | --- | --- | --- |
+${exampleJourney.examples.map((example) => `| ${example.level} | ${example.name} | ${example.status} | ${example.result} |`).join("\n")}`;
+}
+
+function renderReviewQuestions(reviewQuestions) {
+  return `## Questions every example must answer
+
+${reviewQuestions.rule}
+
+| Question | A useful answer must |
+| --- | --- |
+${reviewQuestions.questions.map((item) => `| ${item.question} | ${item.standard} |`).join("\n")}`;
+}
+
+function renderExampleJourney(exampleJourney) {
+  const examples = exampleJourney.examples.map((example, exampleIndex) => `### ${exampleIndex + 1}. ${example.name}
+
+**Status: ${example.status}.**
+
+${example.problem}
+
+${example.result}
+
+${example.steps.map((step, stepIndex) => `${stepIndex + 1}. ${step}`).join("\n")}
+
+Evidence: ${example.evidence.map((path) => repoLink(path)).join(", ")}.
+
+Current limit: ${example.limits.join(" ")}`).join("\n\n");
+  return `## Examples from first deployment to Apps
+
+${exampleJourney.rule}
+
+${examples}`;
 }
 
 function renderDemoTable(demos) {

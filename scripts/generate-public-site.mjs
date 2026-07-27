@@ -178,7 +178,7 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
-  "testing.html": "Why the catalog makes configuration easier to test: most choices fixed and checked before install, proof you can read before you ship, and the messy parts named and proven.",
+  "testing.html": "Why the catalog makes configuration easier to test: inspect exact objects, repeat the recorded checks, and see hooks, CRDs, and setup work before deployment.",
   "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.",
@@ -4035,10 +4035,11 @@ function demoOrgHtml(catalog) {
 
     <section aria-labelledby="live-proof">
       <h2 id="live-proof">What ran live, exactly</h2>
-      <p>Two of the exhibits above make claims about behaviour on a real cluster, so both were executed, observed, and receipted rather than asserted. Here is what happened, and what it does and does not prove.</p>
+      <p>Three examples below make claims about behavior on a real cluster. Each was executed, observed, and recorded. Here is what happened, and what each result does and does not prove.</p>
       <p><strong>The hook delivery proof.</strong> The claim is that ConfigHub publishes a bundle <em>once</em> to its OCI registry, and the delivery tool is a free choice, not a fork in behaviour. To test it, the hook fixture (a workload ConfigMap plus a migration Job carrying Argo hook annotations) was published from this org to the org's OCI registry, and three consumers pulled <em>the same artifact</em> on a throwaway kind cluster. Argo CD used an OCI-sourced Application. Flux used an OCIRepository and a Kustomization. A no-controller path pulled the bundle and applied it directly. Under each of the three, the workload landed <em>and the hook Job ran to completion on the cluster</em>. All three legs pass. This does not prove every chart, every hook shape, or production scale. It proves the transport claim for the routed fixture, on one rig, on the recorded day. The receipt names the rig, the times, and each observation.</p>
-      <p><strong>The CRD-ordering proof.</strong> This claim is a limitation, stated honestly. The no-controller path has no dependency ordering, so on a first install of a bundle where a custom resource precedes its CRD, plain apply fails. The run reproduced that failure. The custom resource was refused with the named Kubernetes error and never created. The fix, CRDs first with a wait for them to establish, made the same bundle succeed. We record this as <em>watch</em>, not pass, because the gap is the finding. It is also why the catalog routes CRD-carrying charts to Argo or Flux, which order and retry, and why the no-crds base variants exist as a contract that the cluster owns its CRDs.</p>
-      <p class="quiet-line">Both receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>) and summarized under <code>data/</code>; the Spaces involved wear the receipt names as labels. The rig was torn down after the run; nothing in the org depends on it.</p>
+      <p><strong>The CRD-ordering proof.</strong> This claim is a limitation, stated honestly. The no-controller path has no dependency ordering, so on a first install of a bundle where a custom resource precedes its CRD, plain apply fails. The run reproduced that failure. The custom resource was refused with the named Kubernetes error and never created. The fix, CRDs first with a wait for them to establish, made the same bundle succeed. We record this as <em>watch</em>, not pass, because the gap is the finding. Argo CD and Flux can be configured to order this work, but the Kube Prometheus Stack controller-specific routes still need their own receipts.</p>
+      <p><strong>The Kube Prometheus Stack direct install.</strong> A separate run pulled the locked 85.3.3 chart, matched its 124 ordinary objects with the catalog render, applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked the webhook and six workloads, and removed the temporary hook objects. Seven direct fresh-install routes pass. The upgrade route and the chart-specific Argo CD and Flux implementations remain not-run.</p>
+      <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
     </section>
 
     <section aria-labelledby="sketches">
@@ -4049,13 +4050,14 @@ function demoOrgHtml(catalog) {
         ["A recipe, the DRY source of a base variant: chart, version, declared inputs, and routing intent", "A plain Unit whose data happens to be recipe YAML; the server cannot tell it from a ConfigMap", "The recipe unit in every chart Space", "Any Space, unit recipe, data tab"],
         ["The act of rendering: who rendered what, from which recipe, when, producing which units", "Nothing. Rendering happens client-side in the installer; the server only sees the finished units arrive", "A render-record unit stating chart, base, renderer, time, and output count, marked status: sketch", "Space hashicorp-vault-demo-base, unit render-record"],
         ["Render provenance: an edge from every rendered unit back to its recipe", "Links exist, but they express apply-order dependencies between resources, not provenance", "One exemplar rendered-from-recipe Link, from the statefulset to the recipe. One rather than thirteen because the org's Link quota is nearly spent; the render-record describes the full set", "Space hashicorp-vault-demo-base, unit statefulset-vault-vault, links"],
-        ["A lifecycle route as a thing: an addressable decision about behaviour that config alone cannot carry", "Rows in the repo's route data, labels on Spaces, annotations readable inside unit data. Real, but not objects", "Seven LifecycleRoute units, one per recorded kube-prometheus-stack route, each carrying its class, phases, execution mode, alternatives, and evidence pointers", "Space route-sketch-kube-prometheus-stack"],
+        ["A lifecycle route as a thing: an addressable decision about behaviour that config alone cannot carry", "Rows in the repo's route data, labels on Spaces, annotations readable inside unit data. Real, but not product entities", "Eight LifecycleRoute units: seven chart lifecycle routes plus one explicit CRD-first route. Each stores its class, phase, executor, alternatives, evidence, and per-delivery implementation results.", "Space route-sketch-kube-prometheus-stack"],
       ])}
-      <p>If the product later grows these entity types, every sketch collapses into the real object and this section gets shorter. Until then the rule from the rest of the catalog applies here too: each sketch mirrors committed repo data verbatim, and <code>automatic</code> stays <code>false</code> on every route until the product itself executes one and committed evidence proves it.</p>
-      <h3 id="kps-routes">The seven kube-prometheus-stack routes, one by one</h3>
-      <p>A route exists for anything in a chart that does not survive a config-only render. That is the behaviour Helm hides in hooks, weights, and cluster lookups. kube-prometheus-stack is the quirk-richest chart in the keep set, which is why it carries seven. Five are hook-derived; the last two show that routes are a bigger idea than hooks.</p>
+      <p>If the product later grows these entity types, every sketch collapses into the real object and this section gets shorter. Until then, each Unit mirrors committed repo data. The top-level chart route stays <code>automatic: false</code> while its direct, Argo CD, Flux, and upgrade implementations are proved separately.</p>
+      <h3 id="kps-routes">The eight kube-prometheus-stack routes, one by one</h3>
+      <p>A route records work that ordinary rendered objects do not perform. Five routes come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
       ${markdownLikeTable([
         ["Route", "Quirk it routes", "What it decides", "Execution"],
+        ["crds-first", "ten bundled CRDs", "Apply and establish the CRDs before the chart's custom resources", "target-owned"],
         ["preflight-or-presync", "pre-install and pre-upgrade hooks", "Work the chart wants done before objects land runs as an explicit preflight or an Argo/Flux pre-sync step", "user-executes"],
         ["postsync-check-or-observation", "post-install and post-upgrade hooks", "Work the chart wants done after objects land runs as a post-sync check or a recorded observation", "user-executes"],
         ["upgrade-action-with-receipt", "upgrade-time hooks", "Upgrade-time actions run explicitly and leave a receipt, instead of firing invisibly mid-upgrade", "user-executes"],
@@ -4064,7 +4066,7 @@ function demoOrgHtml(catalog) {
         ["target-facts-or-preflight", "cluster lookups, not a hook", "Where the chart consults live cluster state, the answer comes from recorded target facts or an explicit preflight, not a hidden render-time lookup", "user-executes"],
         ["webhook-readiness-observation", "admission webhook readiness, not a hook", "The operator's admission webhook must be observed ready before dependent resources apply; an observation, not a timing gamble", "target-owned"],
       ])}
-      <p class="quiet-line">Execution modes split four <em>user-executes</em> (a person or agent runs the step and keeps the receipt) and three <em>target-owned</em> (the delivery target's own mechanics carry the behaviour). Every route lists its alternatives and its evidence in the unit data; nothing in the set is marked automatic.</p>
+      <p class="quiet-line">Execution modes split four <em>user-executes</em> and four <em>target-owned</em>. Seven direct fresh-install implementations passed. The direct upgrade implementation and all eight chart-specific Argo CD and Flux implementations remain not-run, so none of the eight top-level chart routes is marked automatic.</p>
     </section>
 
     <section aria-labelledby="checks">
@@ -4629,12 +4631,32 @@ function pillarsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Making configuration easier to test</h1>
-    <p class="tagline">The hard part of installing a Helm chart or an AICR bundle is not running a command. It is knowing what will run, which choices remain, what the target needs, and how to undo a bad change. The catalog uses four standards and reports which ones each entry has proved.</p>
+    <p class="tagline">Start with a Helm chart, an AICR bundle, or one of the catalog packages. Render it without applying, inspect the exact objects and required setup, then run the recorded checks. Each catalog page tells you which checks passed, which did not, and how to repeat them.</p>
   </header>
   <main>
+    <section aria-labelledby="bring-your-own">
+      <h2 id="bring-your-own">Bring your own chart and values</h2>
+      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. Render them to files without applying them:</p>
+      <pre><code>helm template &lt;release&gt; &lt;chart&gt; \
+  --version &lt;version&gt; \
+  --namespace &lt;namespace&gt; \
+  --values &lt;values.yaml&gt; \
+  &gt; rendered.yaml</code></pre>
+      <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
+      <p>This is also the path for values written by an AI. The generated values are only an input. The rendered objects and their diff are what you review.</p>
+      <p>The current project proves this process for selected charts and recorded changes. It does not yet provide one hosted action that judges every private chart or arbitrary values file. Use the <a href="./charts/index.html">catalog</a> for known comparisons and the <a href="./verification.html">verification guide</a> for repeatable checks.</p>
+    </section>
+
+    <section aria-labelledby="source-to-oci">
+      <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
+      <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package, renders one base, checks it, builds a literal configuration OCI, pulls that OCI back, and compares its objects with the reviewed files. It runs without ConfigHub credentials.</p>
+      <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a> and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
+      <p>For an arbitrary private chart, the same building blocks exist, but there is not yet one polished public service that performs the whole analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
+    </section>
+
     <section aria-labelledby="pillar-fewer">
       <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
-      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records four remaining inputs, including its Git repository, and stays marked partial until the placeholder is replaced, upload succeeds, and live reconciliation is proved.</p>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The committed AICR example records its remaining inputs and has passed local OCI and ConfigHub upload checks; public publication, controller delivery, and a live GPU-cluster result remain open.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
     </section>
 
@@ -4645,8 +4667,8 @@ function pillarsHtml(catalog) {
     </section>
 
     <section aria-labelledby="pillar-messy">
-      <h2 id="pillar-messy">The messy parts are proven, not hidden</h2>
-      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the evidence that exists for each delivery path. A route stays non-automatic until a live receipt supports automation. A missing receipt remains visible.</p>
+      <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the result for each delivery path. The Kube Prometheus Stack direct install now has a receipt; its Argo CD, Flux, and upgrade paths remain not-run. A missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
     </section>
 
@@ -5116,20 +5138,33 @@ function chartIndexHtml(catalog) {
   <header>
     ${topNav("..")}
     <h1>Helm Ops Catalog</h1>
-    <p class="lead">Start here when a Helm chart gives you too many choices. Pick the chart, then choose a ready-to-use <a href="#base-variants">base variant</a> for the way you want to run it.</p>
-    <p>The problem is not that Helm lacks options. The problem is that teams have to guess which options are safe, which CRDs or Secrets must already exist, which hooks or setup jobs matter, and what will happen on the next upgrade.</p>
-    <p>A base variant is our named answer for a common operating choice: default, no-CRDs, existing Secret, server-only, HA, internal service, and similar patterns. We are not trying to generate every possible Helm values combination. Most real cases can be handled with chart-specific base variants and patterns when the choices are recorded, tested, and maintained.</p>
-    <p>AI helps with the maintenance work: reading chart behavior, proposing useful base variants, updating them across chart versions, and checking the rendered output. Tests and evidence decide what lands in the catalog.</p>
-    <p>Each base variant has a full rendered YAML output file, usually named <code>release-objects.yaml</code>. The chart page links that file, then links the render intent, revision, package base, routes, and receipts that explain where it came from and what still needs attention.</p>
-    <p>Each chart page also shows the installer package OCI ref. After that package is pushed, users pull it with <code>cub installer setup --pull oci://...</code>. It contains the package metadata, available bases, and the files needed to render the selected base variant locally.</p>
-    <p>This site has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public chart packages. The installer OCI catalog currently tracks ${publishedPackageCount} published tagged package refs because we also keep a small number of extra chart-version packages for refresh and comparison work.</p>
-    <p>Use a chart page before you use a generated package folder. The page puts the YAML output, render record, and hook/CRD/setup decisions in one place.</p>
-    <p>Ten of these charts also live as running configuration in a real ConfigHub org, with version ladders, a fleet, and live checks: <a href="../demo-org.html">the demo org</a>.</p>
-    <p>Inside that org, every demo Space starts with a README. The same README text is rendered on this site, starting at the <a href="../../data/helm-catalog-readmes/summary.md">demo org README index</a>, and chart pages link directly to the matching preset README when one exists. Each README says why the Space exists, which problem it demonstrates, and what to inspect first. The Kubernetes YAML in the Space is what ConfigHub can search, compare, change with review, and send to the cluster.</p>
-    <p>We snapshot public Helm repos and build a page for each chart. The top-20 have the strongest catalog evidence. The next-80 are proof-grade until promoted. The full database of charts and variants is in the <a href="../matrix.html">status matrix</a>, and the short explanation of chart quirks is in the <a href="../quirks.html">Helm Quirks guide</a>. <a href="${SITE_FEEDBACK_ISSUE_URL}">Contact us</a> with suggestions and questions.</p>
+    <p class="lead">Choose a checked configuration for a public Helm chart, or bring the chart and values your team has already made.</p>
+    <p>The catalog keeps the Helm chart as the source. It shows the Kubernetes objects before installation, records the inputs that produced them, and names the CRDs, hooks, Secrets, setup work, and target requirements that ordinary rendered YAML does not explain.</p>
   </header>
   <main>
-    <section aria-labelledby="base variants">
+    <section aria-labelledby="start-path">
+      <h2 id="start-path">Start with what you have</h2>
+      <h3>A public Helm chart</h3>
+      <p>Use the <a href="#charts">chart directory</a>. Pick one ready-made base variant, inspect its Kubernetes objects, inputs, hooks, CRDs, and test results, then run its script when it fits your target.</p>
+      <h3>Your own chart and values</h3>
+      <p>Render them without applying them. Compare the result with the chart defaults and any matching catalog configurations, then review the Secrets, privileges, CRDs, hooks, and other unusual changes. The <a href="../testing.html#bring-your-own">bring-your-own guide</a> explains the current path and its limits.</p>
+      <h3>An installer package, OCI package, AICR bundle, or Kubernetes YAML</h3>
+      <p>Keep that source format. Inspect or package it without an account, then upload the literal Kubernetes configuration when you want saved history, variants, approvals, promotions, or rollout records. The <a href="../d/docs/user/config-catalog-demonstrations.html">configuration catalog examples</a> show the available and partial paths.</p>
+    </section>
+
+    <section aria-labelledby="next-job">
+      <h2 id="next-job">Then choose what you need to do</h2>
+      <ol>
+        <li><strong>Inspect and verify.</strong> Read the objects, package digest, recorded inputs, parity result, chart extras, and receipt.</li>
+        <li><strong>Install or upload.</strong> Run the no-account script, or upload the reviewed result when it should become shared ConfigHub data.</li>
+        <li><strong>Customize and promote.</strong> Create named development, staging, production, region, or customer variants and review the exact object changes.</li>
+        <li><strong>Deliver and operate.</strong> Publish an immutable OCI for Argo CD, Flux, or direct apply, then keep the rollout result and later operational work with the configuration.</li>
+      </ol>
+      <p><a href="../how-it-works.html">How the source, rendered objects, routes, variants, and OCI handoffs fit together</a> · <a href="../demo-org.html">Examples in the live ConfigHub demo org</a> · <a href="../../data/helm-catalog-readmes/summary.md">Demo README index</a></p>
+      <p>The catalog currently has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public installer packages. Open the chart page before using its generated files: it keeps the ready-made configurations, package OCI, full YAML, render record, hooks and CRDs, test results, and current limits together. ${publishedPackageCount} tagged package refs have publication receipts.</p>
+    </section>
+
+    <section aria-labelledby="base-variants">
       <h2 id="base-variants">Base Variants, Not Every Values Combination</h2>
       <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides base variants for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that choice.</p>
       <p>If your values file changes what Helm renders, it can become another base variant. If it only fills or refines already-rendered objects after upload, it belongs in a derived ConfigHub variant. If it needs a cluster, Secret, CRD owner, cloud account, or hook-like setup step, the chart page should say so before you install.</p>
@@ -5601,6 +5636,11 @@ function chartPageHtml(catalog, entry) {
   const firstBaseRecordLink = firstBaseRecordPath && existsSync(join(repoRoot, firstBaseRecordPath))
     ? `<a href="../../${escapeHtml(firstBaseRecordPath)}">${escapeHtml(firstRunnableRow.variant)} base-variant record</a>`
     : `<a href="../../data/base-variant-records/summary.md">base-variant record index</a>`;
+  const kpsLifecycleProofPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && entry.version === "85.3.3"
+      ? "runs/kps-lifecycle-route-proof/receipt.yaml"
+      : "";
   const packageRequirements = packageRequirementsForEntry(entry);
   const packageRequirementRows = packageRequirements.map((requirement) => [
     requirement.name || requirement.kind || "required target input",
@@ -5639,6 +5679,7 @@ function chartPageHtml(catalog, entry) {
     ["Chart skills", "data/chart-skills/summary.md"],
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
+    [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof" : "", kpsLifecycleProofPath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
         ? "Exact NGINX three-path delivery receipt"
@@ -5723,7 +5764,7 @@ function chartPageHtml(catalog, entry) {
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
@@ -5872,7 +5913,8 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ["Base variant", "Required resource", "How to provide it", "Full record"],
         ...basePrerequisiteRows,
       ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+${kpsLifecycleProofPath ? `      <p><strong>Direct fresh install:</strong> seven Kube Prometheus Stack lifecycle steps passed on a throwaway kind cluster, including ten CRDs, the chart's certificate and webhook patch Jobs, readiness checks, and cleanup. The <a href="../../${kpsLifecycleProofPath}">receipt</a> does not cover Argo CD, Flux, or the 85.3.3 to 86.1.0 upgrade.</p>` : ""}
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length
@@ -5969,7 +6011,7 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
   if (entry.chart === "prometheus-community/kube-prometheus-stack") {
     return `<section aria-labelledby="kps-teaching">
       <h2 id="kps-teaching">Serious Chart Example</h2>
-      <p>kube-prometheus-stack is the serious-chart exemplar. It is where the model has to deal with CRDs, webhooks, RBAC, generated facts, extension slots, target facts, upgrade checks, and live observations.</p>
+      <p>kube-prometheus-stack is the serious-chart example. Its fresh install needs ten CRDs, certificate setup, webhook patching, ordinary Kubernetes objects, readiness checks, and cleanup in a particular order.</p>
       <div class="card">
         <h3>What to look for</h3>
         ${markdownLikeTable([
@@ -5980,7 +6022,8 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
           ["Watch rows", "A non-green row can be the honest result when lifecycle evidence or target support is bounded."],
         ])}
       </div>
-      <p><a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a> · <a href="../../data/hard-chart-production-packets/summary.md">Hard-chart packets</a></p>
+      <p>The direct script has run that full fresh-install sequence. Argo CD, Flux, and the chart upgrade still need their own receipts.</p>
+      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the direct lifecycle proof</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
     </section>`;
   }
   return "";

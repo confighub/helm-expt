@@ -19647,7 +19647,12 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "todo",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven",
+          "lifecycleDirectFreshInstall": "yes",
+          "lifecycleDirectFreshInstallReceipt": "runs/kps-lifecycle-route-proof/receipt.yaml",
+          "lifecycleArgoCd": "not-run",
+          "lifecycleFlux": "not-run",
+          "lifecycleUpgrade": "not-run"
         },
         "lifecycle": {
           "routeContract": "yes",

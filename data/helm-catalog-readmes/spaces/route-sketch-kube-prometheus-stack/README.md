@@ -2,7 +2,7 @@
 
 # Kube Prometheus Stack: hooks and CRDs
 
-This example records the install and upgrade work around Kube Prometheus Stack 85.3.3, including CRDs, webhook certificates, setup jobs, and checks.
+This example runs the Kube Prometheus Stack 85.3.3 fresh-install sequence directly and records the controller and upgrade work that still needs proof.
 
 Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
@@ -10,13 +10,14 @@ Start here when you open this Space in Hub. This page explains the problem this 
 
 A successful Helm render is not a complete install plan for this chart. Kubernetes must see the CRDs first, and the admission webhook needs certificate setup and readiness checks.
 
-We keep the upstream chart and record those choices beside the rendered objects. Teams can review, test, and update the plan instead of hiding it in an imperative install.
+We keep the upstream chart, make each step visible beside the rendered objects, and retain a receipt for the path that ran.
 
 ## What this example shows
 
 - The default preset owns ten CRDs, so they must be applied and established before the chart's custom resources.
 - Eight route Units record the CRD order, webhook setup, upgrade jobs, checks, target facts, and cleanup behavior.
-- Every route names its executor and evidence. These chart routes remain `automatic: false` until their individual delivery paths are proved.
+- Seven fresh-install steps passed in the direct script, using the chart's own certificate and webhook patch Jobs.
+- The upgrade step and the chart-specific Argo CD and Flux implementations remain `not-run`, so the top-level chart routes stay `automatic: false`.
 
 ## What to inspect in Hub
 
@@ -28,10 +29,13 @@ We keep the upstream chart and record those choices beside the rendered objects.
 
 - [Hooks and CRDs guide](https://github.com/confighub/helm-expt/blob/main/docs/demo/hooks-crds/kube-prometheus-stack.md)
 - [Kube Prometheus Stack chart page](https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html)
+- [Direct lifecycle proof](https://github.com/confighub/helm-expt/blob/main/runs/kps-lifecycle-route-proof/receipt.yaml)
 - [CRD ordering proof](https://github.com/confighub/helm-expt/blob/main/runs/crd-ordering-gap/receipt.yaml)
 - [Lifecycle receipt](https://github.com/confighub/helm-expt/blob/main/data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml)
 - [Render intent](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml)
 
 ## Limits
 
-- The routes are live records, but ConfigHub does not yet execute all eight automatically. The delivery owner still chooses and runs the recorded Argo CD, Flux, or direct path.
+- The direct receipt covers one fresh install on one kind cluster.
+- The chart-specific Argo CD, Flux, and 85.3.3 to 86.1.0 upgrade paths have not run.
+- ConfigHub stores and checks the route records but does not yet choose and execute all eight routes automatically.

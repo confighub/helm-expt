@@ -27,6 +27,7 @@ spec:
     - "runs/crd-ordering-gap/receipt.yaml"
     - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
     - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+    - "runs/kps-lifecycle-route-proof/receipt.yaml"
   evidenceRequired: "Repeat the ordering and compatibility checks when the chart or target Kubernetes version changes."
   gitOps:
     emitsControllerStep: true
@@ -37,3 +38,20 @@ spec:
     type: "chart-specific-addition"
     record: "runs/crd-ordering-gap/receipt.yaml"
     routeSourceVersion: "85.3.3"
+  implementations:
+    directApply:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      observation: "Applied ten CRDs and waited for Established before dependent objects."
+    argoCd:
+      result: "not-run"
+      automatic: false
+      evidence: ""
+      observation: "No chart-specific Argo CD route receipt exists yet."
+    flux:
+      result: "not-run"
+      automatic: false
+      evidence: ""
+      observation: "No chart-specific Flux route receipt exists yet."

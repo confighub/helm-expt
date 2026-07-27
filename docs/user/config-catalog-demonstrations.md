@@ -46,6 +46,170 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 These public paths can run before ConfigHub, after a ConfigHub output, or without ConfigHub. A person or team brings a configuration into ConfigHub when they want saved records and managed operations. A release OCI is one handoff from ConfigHub to delivery.
 
+## Find your path
+
+Start with two questions:
+
+1. **What do you already have?** Helm chart and values, AICR recipe or bundle, cub installer package, Existing OCI package, Kubernetes YAML.
+2. **What do you want to do next?** Inspect and verify, Install, Upload and save, Customize, Promote, Deliver, Operate, Build an App.
+
+Every catalog entry should then use the same reading order:
+
+1. Ready-made configurations
+2. Package and artifact choices
+3. Inputs, prerequisites, CRDs, hooks, and other work before install
+4. ConfigHub upload
+5. Variants, upgrades, and promotions
+6. Delivery evidence
+7. Current limits
+
+Keep the detailed evidence pages. Use this order on catalog entry pages so a person can choose a starting point and a next action before reading the proof details.
+
+## Questions every example must answer
+
+Every example and catalog entry must answer these questions in plain English and link to the exact files or receipts that support the answer.
+
+| Question | A useful answer must |
+| --- | --- |
+| What can a new user do first? | Give one short path from a named input to one inspected, deployable result before introducing ConfigHub accounts, fleets, policy, or Apps. |
+| Is testing and understanding this configuration easier than using Helm normally? | Show the rendered objects, the recorded inputs, the relevant comparison or parity result, and the command that repeats the check. |
+| Can I find the hooks, CRDs, prerequisites, and other chart quirks? | List them beside the package, explain what each one does, name who performs it, and distinguish a proved route from a proposed route. |
+| Can I use the rendered-manifest pattern without giving up my Helm chart? | Keep the chart as source, make the literal Kubernetes objects easy to inspect and save, and explain how later edits and upgrades are handled. |
+| Can source-to-OCI be automated? | Name the repeatable command or workflow, record the source and output digests, and state which steps still require a person or target-specific input. |
+| Can I bring the chart and values my team or AI produced? | Render them without applying, compare them with known configurations, point out risky or unusual changes, and let the user deploy or save the reviewed result. |
+| What happens after the first deployment? | Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD, Flux, or direct apply. |
+| What has not been proved? | Keep missing controller paths, upgrades, target checks, and product work visible. Do not turn one passing path into a general claim. |
+
+## Examples from first deployment to Apps
+
+Every example starts with one person getting one deployable result. Saved configuration, environments, rollout, and Apps come afterward.
+
+### 1. Pull, inspect, and verify a ready-made package
+
+**Status: available.**
+
+You want to deploy a public package, but you need to know what it contains and why this configuration was chosen.
+
+Pull one public installer OCI without an account, inspect the exact Kubernetes objects and recorded Helm inputs, then check the parity, prerequisite, route, and verification evidence before deployment.
+
+1. Choose a ready-made configuration from the catalog.
+2. Pull the recorded package digest and render it locally.
+3. Read the objects, Helm render intent, prerequisites, CRD and hook routes, and known limitations.
+4. Run the named verification command or inspect the committed receipt.
+5. Deploy only after the result matches the target you intend to use.
+
+Evidence: [data/installer-oci-packages/summary.md](../../data/installer-oci-packages/summary.md), [data/helm-render-intents/summary.md](../../data/helm-render-intents/summary.md), [data/outcome-coverage/summary.md](../../data/outcome-coverage/summary.md), [docs/user/verify-it-yourself.md](../../docs/user/verify-it-yourself.md).
+
+Current limit: Evidence is scoped to the named chart, version, preset configuration, render inputs, and proof lane.
+
+### 2. Bring your own chart and values
+
+**Status: partial.**
+
+You have a chart and values written by your team or an AI, and you do not want to apply plausible configuration without seeing what it creates.
+
+Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result.
+
+1. Supply the chart, version, values, namespace, release name, and target capabilities.
+2. Render the exact objects without applying them.
+3. Compare the result with the chart defaults and relevant catalog configurations.
+4. Review the object diff, placeholders, Secrets, CRDs, hooks, dependencies, and checks.
+5. Deploy the reviewed files or claim them in ConfigHub.
+
+Evidence: [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md), [docs/reference/direct-cub-helm-model.md](../../docs/reference/direct-cub-helm-model.md), [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md).
+
+Current limit: The current evidence covers selected charts and changes. It is not a universal safety decision for arbitrary generated values.
+
+### 3. Save the reviewed result and change it
+
+**Status: available.**
+
+Local files are useful for one deployment, but a team needs shared history and changes that remain visible.
+
+Upload the reviewed objects as a ConfigHub base variant, then change exact Kubernetes fields in named derived variants.
+
+1. Upload the literal configuration OCI or rendered files.
+2. Check the imported Units against the reviewed object inventory.
+3. Create a named development or customer variant.
+4. Make one exact field change and review the diff.
+5. Publish a new OCI only after the revision is accepted.
+
+Evidence: [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md), [data/base-variant-records/summary.md](../../data/base-variant-records/summary.md), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md).
+
+Current limit: A field that changes the Helm render belongs in a new rendered base; post-render fields belong in derived variants.
+
+### 4. Upgrade and promote through environments
+
+**Status: partial.**
+
+Copying values or manifests between environments hides the exact change and makes upgrades hard to repeat.
+
+Reconcile a candidate base, keep the intended post-render changes, preview the affected variants, and promote the accepted revision in sequence.
+
+1. Compare the current and candidate source versions.
+2. Reapply the recorded derived changes to the candidate objects.
+3. Run checks and inspect the exact mutations.
+4. Promote through development and staging in order.
+5. Require approval before the production revision is delivered.
+
+Evidence: [runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml), [data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md), [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md).
+
+Current limit: The current CLI dry-run does not yet print a useful human mutation preview.
+
+### 5. Deliver one reviewed OCI and roll it out
+
+**Status: partial.**
+
+A reviewed configuration is not useful until the intended controller applies the same objects and the workload becomes healthy.
+
+Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and record controller and workload results for each target.
+
+1. Publish the approved Units as one release OCI.
+2. Pin the exact digest in the delivery controller.
+3. Reconcile one development target.
+4. Advance the same accepted revision to a sibling environment.
+5. Roll it out to a small target set and record every result.
+
+Evidence: [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
+
+Current limit: The current flagship receipts use small local target sets, not a large production fleet.
+
+### 6. Manage the CRDs, hooks, and setup work around a package
+
+**Status: partial.**
+
+Some packages need CRDs, certificates, jobs, or checks in a specific order that a flat manifest bundle does not perform by itself.
+
+Keep that work beside the package, name who runs each step, execute only the supported path, and retain a receipt.
+
+1. Read the chart-specific lifecycle routes.
+2. Apply CRDs and wait before dependent custom resources.
+3. Run or replace the chart-specific setup work.
+4. Deliver the ordinary objects.
+5. Check readiness and record what actually ran.
+
+Evidence: [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md), [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md).
+
+Current limit: Seven fresh-install steps passed in the direct script. The Kube Prometheus Stack upgrade step and its Argo CD and Flux implementations have not run. A route is automatic only for the chart, version, delivery path, and execution receipt that proves it.
+
+### 7. Use an App for a repeated operational job
+
+**Status: partial.**
+
+Upgrade review, RBAC review, fleet assignment, and AI change review require several configuration operations to work together.
+
+Use saved configuration, checks, approvals, delivery, and observations as one repeatable operational workflow.
+
+1. Choose the operational question the App answers.
+2. Select the saved configurations and targets in scope.
+3. Produce exact proposed changes and affected-target results.
+4. Run policy and approval before delivery.
+5. Observe the rollout and keep the decision record.
+
+Evidence: [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [docs/demo/apps/ai-change-review.md](../../docs/demo/apps/ai-change-review.md), [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md).
+
+Current limit: The current Apps are reproducible demonstrations, not finished ConfigHub App interfaces.
+
 ## Ways to start
 
 ### Helm chart to managed configuration
@@ -250,9 +414,9 @@ Keep the chart, record its install and upgrade sequence beside the rendered obje
 
 Start with [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) or [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) or [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md).
 
-Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
+Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
 
-Current limit: The Kube Prometheus Stack routes are stored and checked, but they remain automatic false until their individual execution paths are proved. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
+Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The upgrade step remains not-run. The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path. The chart-specific Argo CD and Flux implementations remain not-run. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
 
 ### RBAC Review App
 

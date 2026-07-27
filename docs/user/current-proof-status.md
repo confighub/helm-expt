@@ -57,7 +57,7 @@ these frontiers remains open.
 | Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
 | Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
 | Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
-| Universal hook execution | Hooks are inventoried, routed, observed, refused, or marked per-target. This is not a claim that every Helm hook in the top-100 runs automatically. |
+| Universal hook execution | The Kube Prometheus Stack direct example now proves seven fresh-install steps, including CRD ordering and the chart's certificate Jobs. Its Argo CD, Flux, and upgrade implementations remain unproved. Other hooks are inventoried, routed, observed, refused, or marked per-target; this is not a claim that every Helm hook in the top-100 runs automatically. |
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
 | Signatures as trust | The [claims register](../../data/claims-register/summary.md) enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context. |
 
@@ -78,7 +78,7 @@ not rely on prose summaries for counts.
 | Does the selected top-20 path match regular Helm in live clusters? | [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md) | One row per selected chart/base: regular Helm compared with ConfigHub delivery and live semantic parity. |
 | Which latest chart versions are ready for promotion work? | [Promotion Work Orders](../../data/latest-top20-refresh/promotion-work-orders.md) | Per-candidate work orders for newer upstream versions. |
 | Which top-100 charts are covered, partial, or decision-needed? | [Top-100 Coverage](../../data/top100-coverage/summary.md) and [Top-100 Readiness](../../data/top100-readiness/summary.md) | Coverage-contract status per chart, and the adoption bucket with next action. |
-| Which hard chart shows the model under serious Helm complexity? | [Serious Chart Proof](./serious-chart-proof.md), [kube-prometheus-stack catalog page](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md), [Webhook Certificate Lifecycle Evidence](../../data/webhook-cert-lifecycle/summary.md), and [Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | CRDs, webhooks, RBAC, generated facts, dependency locks, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts. |
+| Which hard chart shows the model under serious Helm complexity? | [Serious Chart Proof](./serious-chart-proof.md), [Kube Prometheus Stack direct lifecycle proof](../../data/kps-lifecycle-route-proof/summary.md), [kube-prometheus-stack catalog page](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md), [Webhook Certificate Lifecycle Evidence](../../data/webhook-cert-lifecycle/summary.md), and [Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | CRDs, webhooks, RBAC, generated facts, dependency locks, a complete fresh-install sequence using the chart's actual setup Jobs, staged CRD/admission certificate evidence, live CRD upgrade rehearsal, and observed CRD/webhook/controller runtime behavior on related charts. |
 | Is value-change blast radius measured or assumed? | [Blast-Radius Accuracy](../../data/blast-radius-accuracy/summary.md) | The generated harness currently scores 13 measured cases: 13 pass, 0 fail, and 0 value-source rows are unmeasured. |
 | Which watch/blocked rows are trust signals, not failures? | [cub-scout Watchlist](../../data/live-e2e/cub-scout-watchlist.md) and [What We Refuse To Claim](./what-we-refuse-to-claim.md) | Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model. |
 | Which public claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md) | One row per claim with evidence paths, scoped verifier, and the limit that keeps the claim honest. |
@@ -196,6 +196,14 @@ The lifecycle observation summary tracks cert-manager and External Secrets
 checks that rendered YAML alone cannot prove:
 
 [Cert-Manager And External Secrets Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md)
+
+The Kube Prometheus Stack direct lifecycle proof records one complete
+fresh-install sequence: ten CRDs, the chart's certificate creation and webhook
+patch Jobs, 124 ordinary objects, readiness checks, and cleanup:
+
+[Kube Prometheus Stack Lifecycle Route Proof](../../data/kps-lifecycle-route-proof/summary.md)
+
+The receipt does not cover Argo CD, Flux, or chart upgrades.
 
 The webhook certificate lifecycle summary tracks staged generated certificate
 material and staged CRDs for bases where render parity is not enough to prove

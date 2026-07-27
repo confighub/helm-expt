@@ -46,6 +46,54 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 These public paths can run before ConfigHub, after a ConfigHub output, or without ConfigHub. A person or team brings a configuration into ConfigHub when they want saved records and managed operations. A release OCI is one handoff from ConfigHub to delivery.
 
+## Find your path
+
+Start with two questions:
+
+1. **What do you already have?** Helm chart and values, AICR recipe or bundle, cub installer package, Existing OCI package, Kubernetes YAML.
+2. **What do you want to do next?** Inspect and verify, Install, Upload and save, Customize, Promote, Deliver, Operate, Build an App.
+
+Every catalog entry should then use the same reading order:
+
+1. Ready-made configurations
+2. Package and artifact choices
+3. Inputs, prerequisites, CRDs, hooks, and other work before install
+4. ConfigHub upload
+5. Variants, upgrades, and promotions
+6. Delivery evidence
+7. Current limits
+
+Keep the detailed evidence pages. Use this order on catalog entry pages so a person can choose a starting point and a next action before reading the proof details.
+
+## Questions every example must answer
+
+Every example and catalog entry must answer these questions in plain English and link to the exact files or receipts that support the answer.
+
+| Question | A useful answer must |
+| --- | --- |
+| What can a new user do first? | Give one short path from a named input to one inspected, deployable result before introducing ConfigHub accounts, fleets, policy, or Apps. |
+| Is testing and understanding this configuration easier than using Helm normally? | Show the rendered objects, the recorded inputs, the relevant comparison or parity result, and the command that repeats the check. |
+| Can I find the hooks, CRDs, prerequisites, and other chart quirks? | List them beside the package, explain what each one does, name who performs it, and distinguish a proved route from a proposed route. |
+| Can I use the rendered-manifest pattern without giving up my Helm chart? | Keep the chart as source, make the literal Kubernetes objects easy to inspect and save, and explain how later edits and upgrades are handled. |
+| Can source-to-OCI be automated? | Name the repeatable command or workflow, record the source and output digests, and state which steps still require a person or target-specific input. |
+| Can I bring the chart and values my team or AI produced? | Render them without applying, compare them with known configurations, point out risky or unusual changes, and let the user deploy or save the reviewed result. |
+| What happens after the first deployment? | Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD, Flux, or direct apply. |
+| What has not been proved? | Keep missing controller paths, upgrades, target checks, and product work visible. Do not turn one passing path into a general claim. |
+
+## Example journey
+
+Every example starts with one person getting one deployable result. Saved configuration, environments, rollout, and Apps come afterward.
+
+| Level | Example | Status | Result |
+| --- | --- | --- | --- |
+| basics | Pull, inspect, and verify a ready-made package | available | Pull one public installer OCI without an account, inspect the exact Kubernetes objects and recorded Helm inputs, then check the parity, prerequisite, route, and verification evidence before deployment. |
+| basics | Bring your own chart and values | partial | Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result. |
+| managed | Save the reviewed result and change it | available | Upload the reviewed objects as a ConfigHub base variant, then change exact Kubernetes fields in named derived variants. |
+| managed | Upgrade and promote through environments | partial | Reconcile a candidate base, keep the intended post-render changes, preview the affected variants, and promote the accepted revision in sequence. |
+| delivery | Deliver one reviewed OCI and roll it out | partial | Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and record controller and workload results for each target. |
+| advanced | Manage the CRDs, hooks, and setup work around a package | partial | Keep that work beside the package, name who runs each step, execute only the supported path, and retain a receipt. |
+| apps | Use an App for a repeated operational job | partial | Use saved configuration, checks, approvals, delivery, and observations as one repeatable operational workflow. |
+
 ## Source pathways
 
 | Demonstration | Status | Problem | Result |
