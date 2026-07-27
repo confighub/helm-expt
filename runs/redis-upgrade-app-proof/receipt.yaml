@@ -3,7 +3,7 @@ kind: "RedisUpgradeAppReceipt"
 metadata:
   name: "bitnami-redis-reuse-existing-secret-25-5-3-to-27-0-0"
 spec:
-  observedAt: "2026-07-26T23:43:05.514Z"
+  observedAt: "2026-07-27T22:53:57.480Z"
   source:
     chart: "bitnami/redis"
     base: "reuse-existing-secret"
@@ -29,7 +29,7 @@ spec:
   configHub:
     import:
       result: "pass"
-      space: "hx-redis-upgrade-20260726-15p2-base"
+      space: "hx-redis-upgrade-20260727-w12-base"
       objectCount: 14
       unitCount: 15
       chartVersion: "25.5.3"
@@ -45,20 +45,20 @@ spec:
       path: "base -> development -> staging"
       result: "pass"
       base:
-        space: "hx-redis-upgrade-20260726-15p2-base"
+        space: "hx-redis-upgrade-20260727-w12-base"
         variant: "base"
         environment: ""
         upstreamSpaceId: ""
       development:
-        space: "hx-redis-upgrade-20260726-15p2-dev"
+        space: "hx-redis-upgrade-20260727-w12-dev"
         variant: "development"
         environment: "Development"
-        upstreamSpaceId: "681b95d1-f827-4f08-893b-fe7f2c42b9bc"
+        upstreamSpaceId: "7d0449a5-4959-435d-b664-ca5a82eb7e32"
       staging:
-        space: "hx-redis-upgrade-20260726-15p2-staging"
+        space: "hx-redis-upgrade-20260727-w12-staging"
         variant: "staging"
         environment: "Staging"
-        upstreamSpaceId: "c4a5fc83-0e4a-4c51-94b7-5c8e9604fc23"
+        upstreamSpaceId: "252858a7-1ecc-4e33-bb29-6452fb3ffc81"
     candidatePlan:
       result: "pass"
       add: 0
@@ -67,7 +67,7 @@ spec:
       recordedStateProtected: true
       chartVersionChangeShown: true
       replicaResetProposed: false
-      outputSha256: "26f7028c371a941ee601e998f5643c07c7dcca8fc949b10709e9c79ba327f829"
+      outputSha256: "90fff9632d96f62424e91980863a548a92019aae43e43a67ea9eaabe5be8978d"
     reconcile:
       result: "pass"
       chartVersionBefore: "25.5.3"
@@ -84,12 +84,12 @@ spec:
       explanation: "Development is directly behind the base. Staging is behind development, so it becomes pending after the development wave completes."
       spaces:
         -
-          space: "hx-redis-upgrade-20260726-15p2-dev"
+          space: "hx-redis-upgrade-20260727-w12-dev"
           currentChartVersion: "25.5.3"
           pendingUnits: 14
           wave: 1
         -
-          space: "hx-redis-upgrade-20260726-15p2-staging"
+          space: "hx-redis-upgrade-20260727-w12-staging"
           currentChartVersion: "25.5.3"
           pendingUnits: 0
           wave: 2
@@ -97,7 +97,7 @@ spec:
     promotions:
       development:
         result: "pass"
-        space: "hx-redis-upgrade-20260726-15p2-dev"
+        space: "hx-redis-upgrade-20260727-w12-dev"
         beforeChartVersion: "25.5.3"
         afterChartVersion: "27.0.0"
         recordedReplicasBefore: 2
@@ -113,7 +113,7 @@ spec:
           note: "The command returned no text; this is a known CLI presentation gap."
       staging:
         result: "pass"
-        space: "hx-redis-upgrade-20260726-15p2-staging"
+        space: "hx-redis-upgrade-20260727-w12-staging"
         beforeChartVersion: "25.5.3"
         afterChartVersion: "27.0.0"
         recordedReplicasBefore: 2
@@ -127,18 +127,116 @@ spec:
           outputSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
           disposition: "watch"
           note: "The command returned no text; this is a known CLI presentation gap."
+    rollback:
+      result: "pass"
+      space: "hx-redis-upgrade-20260727-w12-staging"
+      changeSet: "rollback-to-25-5-3"
+      changeSetId: "a5776e8a-2b86-4459-84bb-fd5df6331a43"
+      restoredUnitCount: 14
+      unchangedUnitCount: 1
+      chartVersionBefore: "27.0.0"
+      chartVersionAfter: "25.5.3"
+      appVersionBefore: "8.8.0"
+      appVersionAfter: "8.6.3"
+      recordedReplicasBefore: 2
+      recordedReplicasAfter: 2
+      restoredUnits:
+        -
+          slug: "configmap-redis-redis-configuration"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "1404185ec3e6360b53b5e9e219b60224157ec4a8bd725904bb443513f73b0d7a"
+        -
+          slug: "configmap-redis-redis-health"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "70455e10c038a704234b07aaa8b64d6d6520338d778bbfcd736fbddc7a47ed91"
+        -
+          slug: "configmap-redis-redis-scripts"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "e9bd6bfcbe2a2e951a1a5f0d8711f594f0ceb01a258a26b85b729ac957a54ccb"
+        -
+          slug: "installer-record"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "2e045cfe95f3bac1ddbc06c3e724b96af675330fe174909ecdc4f1ae5fa327bd"
+        -
+          slug: "networkpolicy-redis-redis"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "8d326a3e30c99109d40432bfdde37c2b590938029aa492bc1b9809841875704c"
+        -
+          slug: "poddisruptionbudget-redis-redis-master"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "1a83f9d39ff7ede101f48320354fc25f9156109e992a7fc5c8f53f71ccf0356c"
+        -
+          slug: "poddisruptionbudget-redis-redis-replicas"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "5f2276ba1b67812153d9a2adee7fc38df5e3b44f670f41c9ea42d2382eb6c314"
+        -
+          slug: "service-redis-redis-headless"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "1bb65f615f2f4da2f12e5c94e92077b9a8605a26ceabf8c2c4a42bf926bad20d"
+        -
+          slug: "service-redis-redis-master"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "7c0a3a87573e29f696e0742339e7dc063abd390bca67d62dd9e7a8a2e7a224cd"
+        -
+          slug: "service-redis-redis-replicas"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "532d9cf595f11daeb1eaa45dd8001bf2ed0131c12a30cc02b911ced0fe82b271"
+        -
+          slug: "serviceaccount-redis-redis-master"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "b4eb5b7759ab38353511d4f04bad2ec939f268a533dbceb0a479097d3e7f014b"
+        -
+          slug: "serviceaccount-redis-redis-replica"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "207cd6c6781e85c20a99fa4029d1085f92a682ebaf97af830ac529c0733a6b58"
+        -
+          slug: "statefulset-redis-redis-master"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "cdcf52edabe0609197d83a1c4f6ac1d69b0c15a5132abea5fa65b876edfdffa3"
+        -
+          slug: "statefulset-redis-redis-replicas"
+          priorRevision: 1
+          candidateRevision: 2
+          rollbackRevision: 3
+          dataSha256: "c4a7489340b7eacd1d0e90bc1103992709cbb5a8dd108a11c9b4525af668727d"
   delivery:
     configHubRelease:
       result: "pass"
-      space: "hx-redis-upgrade-20260726-15p2-staging"
-      reference: "oci://oci.hub.confighub.com:443/space/hx-redis-upgrade-20260726-15p2-staging:latest"
-      manifestDigest: "sha256:07f1e5cd3bef7472e955149bfe32e548e491f86ff926d6f84bf1212b5452315b"
-      bundleDigest: "sha256:6146076f8cddf03c2df5edfd776298747787428ed1cbdfa2b7de80d66e873e5e"
-      releaseId: "efb8cb82-7aa4-40b8-9c13-64af3493523e"
+      space: "hx-redis-upgrade-20260727-w12-staging"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-redis-upgrade-20260727-w12-staging:latest"
+      manifestDigest: "sha256:347293667741cf5235b716438cd7f39a16a3b7ab005721210c8d7a7ca66ec7c5"
+      bundleDigest: "sha256:2d95f04214f721dce7a2fdbe268abcac361d791502ad945a7d7535ec967c46a5"
+      releaseId: "20d38908-8f15-42cd-89bd-5a972d70cf64"
     portableOci:
       result: "pass"
-      reference: "oci://127.0.0.1:32790/reviewed-redis-staging:latest"
-      digest: "sha256:8e129cd6a55b438b7c90731afed414ed929525fe9a05ba80beb1114dbe8ab663"
+      reference: "oci://127.0.0.1:32808/reviewed-redis-staging:candidate"
+      digest: "sha256:40be80f19dacbc9d2e2f32d2b77967ef60a872c0c4b3b3f6fd54b5f6fa2ffe0f"
       objectCount: 14
       yamlSha256: "a9d03e6bce4241396aebd527aaff7ee1a02ce36085719b1092848ba2491d1bc0"
       pulledYamlSha256: "a9d03e6bce4241396aebd527aaff7ee1a02ce36085719b1092848ba2491d1bc0"
@@ -149,32 +247,35 @@ spec:
       size: 2
       result: "pass"
       sameReleaseDigest: true
-      digest: "sha256:8e129cd6a55b438b7c90731afed414ed929525fe9a05ba80beb1114dbe8ab663"
+      digest: "sha256:40be80f19dacbc9d2e2f32d2b77967ef60a872c0c4b3b3f6fd54b5f6fa2ffe0f"
       targets:
         -
-          cluster: "hx-redis-upgrade-20260726-15p2-a"
+          cluster: "hx-redis-upgrade-20260727-w12-a"
           application:
             name: "redis-staging"
-            unit: "hx-redis-upgrade-20260726-15p2-a-cluster/redis-staging-app"
-            source: "oci://host.docker.internal:32790/reviewed-redis-staging"
+            unit: "hx-redis-upgrade-20260727-w12-a-cluster/redis-staging-app"
+            source: "oci://host.docker.internal:32808/reviewed-redis-staging"
+            targetRevision: "candidate"
             destinationNamespace: "redis"
-            clusterRootReleaseDigest: "sha256:6fabb8ea05ff94399ac53812d5b0f289d855036d759a4626e11117ee3ed08c1b"
+            clusterRootReleaseDigest: "sha256:b18889cf7d00515f95a866c45ef7bbc9774df4e7713efbf0514624f2b21e2ccf"
           runtime:
             result: "pass"
             application: "redis-staging"
             namespace: "redis"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:8e129cd6a55b438b7c90731afed414ed929525fe9a05ba80beb1114dbe8ab663"
+            revision: "sha256:40be80f19dacbc9d2e2f32d2b77967ef60a872c0c4b3b3f6fd54b5f6fa2ffe0f"
             masterReady: "1/1"
             replicasReady: "2/2"
             image: "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+            chartVersion: "27.0.0"
+            appVersion: "8.8.0"
             ping: "PONG"
           observations:
             objectSet:
               result: "pass"
               receipt: "runs/redis-upgrade-app-proof/observations/target-a-object-set.json"
-              fingerprint: "sha256:2500f61d1facc80f5ed49ae0f61b7964b037c7d5cc6a0c54fe09207031956564"
+              fingerprint: "sha256:428ba3a8dde64534dd369d77c968589e7db934d3cf0f8db32430328011bb296a"
               desiredDigest: "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
               liveDigest: "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
               summary:
@@ -183,11 +284,11 @@ spec:
                 missing: 0
                 mismatched: 0
                 inconclusive: 0
-              expiresAt: "2026-07-27T00:51:34Z"
+              expiresAt: "2026-07-28T00:03:19Z"
             workloads:
               result: "pass"
               receipt: "runs/redis-upgrade-app-proof/observations/target-a-workloads.json"
-              fingerprint: "sha256:4bd0d1934d9dc00cdd866c163af46522a05700f63680f54ff4b204e932eee61d"
+              fingerprint: "sha256:bf6f20f0289290ba1bf319c700e0f5ae764a5053b7637b0687e0f391816e4080"
               desiredDigest: "621e8c6f4821c078f73d768f0a5ef8e028b203f41c717657d1420d9f0444f407"
               liveDigest: "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32"
               summary:
@@ -197,31 +298,34 @@ spec:
                 failed: 0
                 missing: 0
                 inconclusive: 0
-              expiresAt: "2026-07-27T00:51:35Z"
+              expiresAt: "2026-07-28T00:03:20Z"
         -
-          cluster: "hx-redis-upgrade-20260726-15p2-b"
+          cluster: "hx-redis-upgrade-20260727-w12-b"
           application:
             name: "redis-staging"
-            unit: "hx-redis-upgrade-20260726-15p2-b-cluster/redis-staging-app"
-            source: "oci://host.docker.internal:32790/reviewed-redis-staging"
+            unit: "hx-redis-upgrade-20260727-w12-b-cluster/redis-staging-app"
+            source: "oci://host.docker.internal:32808/reviewed-redis-staging"
+            targetRevision: "candidate"
             destinationNamespace: "redis"
-            clusterRootReleaseDigest: "sha256:78700d81e04b5a1eafabc922114f4cf5290c5c21a3c0ce7518af04d7d758c711"
+            clusterRootReleaseDigest: "sha256:0ba3431a85a21c0453c230a1d8507d7875fa50bbf4c4d1d1e1d414e09f595b3d"
           runtime:
             result: "pass"
             application: "redis-staging"
             namespace: "redis"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:8e129cd6a55b438b7c90731afed414ed929525fe9a05ba80beb1114dbe8ab663"
+            revision: "sha256:40be80f19dacbc9d2e2f32d2b77967ef60a872c0c4b3b3f6fd54b5f6fa2ffe0f"
             masterReady: "1/1"
             replicasReady: "2/2"
             image: "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+            chartVersion: "27.0.0"
+            appVersion: "8.8.0"
             ping: "PONG"
           observations:
             objectSet:
               result: "pass"
               receipt: "runs/redis-upgrade-app-proof/observations/target-b-object-set.json"
-              fingerprint: "sha256:2a3424d0736ba1ea906549b23428c4404d9008ca6ab7a2c85f9e043edf738c8e"
+              fingerprint: "sha256:592503f4ec4d49b43c9d3d7b3e8782242dcf551af0faaedb89bb4579c4304d13"
               desiredDigest: "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
               liveDigest: "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
               summary:
@@ -230,11 +334,11 @@ spec:
                 missing: 0
                 mismatched: 0
                 inconclusive: 0
-              expiresAt: "2026-07-27T00:54:16Z"
+              expiresAt: "2026-07-28T00:06:20Z"
             workloads:
               result: "pass"
               receipt: "runs/redis-upgrade-app-proof/observations/target-b-workloads.json"
-              fingerprint: "sha256:2be6d4f427c624a7d09f1d57d8917ac0752544eadfdce8539942e35d10c3030d"
+              fingerprint: "sha256:a18678faed5ea0adf175558bd5ff6eaf09574782ef1322cfe53f9507cb6bf17d"
               desiredDigest: "621e8c6f4821c078f73d768f0a5ef8e028b203f41c717657d1420d9f0444f407"
               liveDigest: "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32"
               summary:
@@ -244,7 +348,130 @@ spec:
                 failed: 0
                 missing: 0
                 inconclusive: 0
-              expiresAt: "2026-07-27T00:54:17Z"
+              expiresAt: "2026-07-28T00:06:21Z"
+    rollbackRelease:
+      result: "pass"
+      space: "hx-redis-upgrade-20260727-w12-staging"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-redis-upgrade-20260727-w12-staging:latest"
+      manifestDigest: "sha256:a8838f931e07168d5373a04f03c542cebdf786572ddb2bab2643c85cb9a4ceab"
+      bundleDigest: "sha256:5528a00c7156786eee2c68b0276d5e57f44b104da096c67011f234116d1fc602"
+      releaseId: "ff81ee68-9fcf-4c1e-ab5f-7f8ab0457d19"
+    rollbackOci:
+      result: "pass"
+      reference: "oci://127.0.0.1:32808/reviewed-redis-staging:rollback"
+      digest: "sha256:0fdd44e42cf01fdb8b8a7200871a8f6647f65298aacb1f4d880c54e9d99f34c6"
+      objectCount: 14
+      yamlSha256: "5aee996408218a4ead4588f5496e24963e3ded9a8a1929335139871a74148251"
+      pulledYamlSha256: "5aee996408218a4ead4588f5496e24963e3ded9a8a1929335139871a74148251"
+      observationYamlSha256: "7dc070bdb391df76e6de586ef605442b98f84d6e114c2eab92d38be659487f2a"
+      observationNormalization: "remove explicit null fields that the Kubernetes API omits"
+      objectsMatched: true
+    rollbackFleet:
+      size: 2
+      result: "pass"
+      sameReleaseDigest: true
+      digest: "sha256:0fdd44e42cf01fdb8b8a7200871a8f6647f65298aacb1f4d880c54e9d99f34c6"
+      targets:
+        -
+          cluster: "hx-redis-upgrade-20260727-w12-a"
+          application:
+            name: "redis-staging"
+            unit: "hx-redis-upgrade-20260727-w12-a-cluster/redis-staging-app"
+            source: "oci://host.docker.internal:32808/reviewed-redis-staging"
+            targetRevision: "rollback"
+            destinationNamespace: "redis"
+            clusterRootReleaseDigest: "sha256:5fd96a3e006cde48c0966c888a8881835e8d3b30415e5abaa6b97d53dd1f95f1"
+          runtime:
+            result: "pass"
+            application: "redis-staging"
+            namespace: "redis"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:0fdd44e42cf01fdb8b8a7200871a8f6647f65298aacb1f4d880c54e9d99f34c6"
+            masterReady: "1/1"
+            replicasReady: "2/2"
+            image: "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+            chartVersion: "25.5.3"
+            appVersion: "8.6.3"
+            ping: "PONG"
+          observations:
+            objectSet:
+              result: "pass"
+              receipt: "runs/redis-upgrade-app-proof/observations/target-a-rollback-object-set.json"
+              fingerprint: "sha256:4f5327e422829dc2a1267efc1c0ba4b795d7b26930bc66c66336daa5ab6c2135"
+              desiredDigest: "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
+              liveDigest: "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
+              summary:
+                desired: 14
+                matched: 14
+                missing: 0
+                mismatched: 0
+                inconclusive: 0
+              expiresAt: "2026-07-28T00:08:29Z"
+            workloads:
+              result: "pass"
+              receipt: "runs/redis-upgrade-app-proof/observations/target-a-rollback-workloads.json"
+              fingerprint: "sha256:255113882ab279808f3d94f4e7b33d9d623b49b50fc8877e3f35cf47a0b8237c"
+              desiredDigest: "2e43a4e07616d578432aec13c0c7ff2cc802d56afdd07b89032741e559923744"
+              liveDigest: "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32"
+              summary:
+                desired: 14
+                converged: 14
+                progressing: 0
+                failed: 0
+                missing: 0
+                inconclusive: 0
+              expiresAt: "2026-07-28T00:08:30Z"
+        -
+          cluster: "hx-redis-upgrade-20260727-w12-b"
+          application:
+            name: "redis-staging"
+            unit: "hx-redis-upgrade-20260727-w12-b-cluster/redis-staging-app"
+            source: "oci://host.docker.internal:32808/reviewed-redis-staging"
+            targetRevision: "rollback"
+            destinationNamespace: "redis"
+            clusterRootReleaseDigest: "sha256:ed4c95851198731584d3cac987c9c264299e33d2465470b1e78a0b88f537f9ec"
+          runtime:
+            result: "pass"
+            application: "redis-staging"
+            namespace: "redis"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:0fdd44e42cf01fdb8b8a7200871a8f6647f65298aacb1f4d880c54e9d99f34c6"
+            masterReady: "1/1"
+            replicasReady: "2/2"
+            image: "registry-1.docker.io/bitnami/redis@sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+            chartVersion: "25.5.3"
+            appVersion: "8.6.3"
+            ping: "PONG"
+          observations:
+            objectSet:
+              result: "pass"
+              receipt: "runs/redis-upgrade-app-proof/observations/target-b-rollback-object-set.json"
+              fingerprint: "sha256:ef4174a5cca3014089a61861984bf6ba10191f5bf6a14b8a1e46c376a09a2c01"
+              desiredDigest: "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
+              liveDigest: "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
+              summary:
+                desired: 14
+                matched: 14
+                missing: 0
+                mismatched: 0
+                inconclusive: 0
+              expiresAt: "2026-07-28T00:09:35Z"
+            workloads:
+              result: "pass"
+              receipt: "runs/redis-upgrade-app-proof/observations/target-b-rollback-workloads.json"
+              fingerprint: "sha256:7457be395c5002187ead5ebaf7f5205023348274278889fb16197c8d73db276b"
+              desiredDigest: "2e43a4e07616d578432aec13c0c7ff2cc802d56afdd07b89032741e559923744"
+              liveDigest: "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32"
+              summary:
+                desired: 14
+                converged: 14
+                progressing: 0
+                failed: 0
+                missing: 0
+                inconclusive: 0
+              expiresAt: "2026-07-28T00:09:36Z"
   run:
     clusterCommand: "cub cluster up"
     organizationPurpose: "ephemeral scratch organization"
@@ -262,8 +489,9 @@ spec:
     - "cub variant promote --dry-run -o mutations returned no text in this run. The proof checked that the dry run changed no stored data, but it does not claim that the current CLI shows a useful mutation preview."
     - "The portable output OCI used a temporary local registry. Public registry publication is a separate receipt."
     - "The OCI keeps the reviewed ConfigHub objects. The cub-scout input removes only explicit null fields that the Kubernetes API omits before comparison."
-    - "This proves one Redis base, one post-render field change, two environment promotions, and two throwaway clusters. It does not prove every chart upgrade or production scale."
+    - "The rollback restored the desired Kubernetes objects and checked workload health. It did not restore database data or exercise an irreversible migration."
+    - "This proves one Redis base, one post-render field change, two environment promotions, one manifest rollback, and two throwaway clusters. It does not prove every chart upgrade, rollback, or production scale."
     - "The cub-scout observations were recorded locally and were not submitted to ConfigHub observation storage."
 status:
   result: "pass"
-  claim: "A Redis chart upgrade from 25.5.3 to 27.0.0 kept a recorded post-render replica change, exposed two affected environment variants, promoted the candidate through development and staging, and reconciled the same reviewed OCI digest on two Argo CD clusters. Both clusters reached one ready master and two ready replicas, returned PONG, and passed exact-object and workload-convergence checks."
+  claim: "A Redis chart upgrade from 25.5.3 to 27.0.0 kept a recorded post-render replica change, exposed two affected environment variants, promoted the candidate through development and staging, and reconciled the same reviewed OCI digest on two Argo CD clusters. The test then restored the exact pre-upgrade staging revisions, published a separate rollback OCI, and reconciled both clusters back to chart 25.5.3 with two replicas. Both forward and rollback states passed exact-object, workload-convergence, and PONG checks."

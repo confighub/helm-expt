@@ -2,22 +2,22 @@
   "_type": "https://in-toto.io/Statement/v1",
   "subject": [
     {
-      "name": "rendered-object-set://sha256/4f36cd36fdeb81cf",
+      "name": "rendered-object-set://sha256/a00dd42357f68fd6",
       "digest": {
-        "sha256": "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
+        "sha256": "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
       }
     },
     {
       "name": "k8s-live-object-set://namespace/redis",
       "digest": {
-        "sha256": "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c"
+        "sha256": "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390"
       }
     }
   ],
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "live object set matches rendered manifests from runs/redis-upgrade-app-proof/observations/staging-desired.yaml",
+    "claim": "live object set matches rendered manifests from runs/redis-upgrade-app-proof/observations/staging-rollback-desired.yaml",
     "scope": {
       "kind": "ObjectSet",
       "name": "rendered-install",
@@ -27,10 +27,10 @@
       "tool": "cub-scout",
       "version": "dev"
     },
-    "verifiedAt": "2026-07-27T23:03:19Z",
+    "verifiedAt": "2026-07-27T23:09:35Z",
     "freshness": {
-      "observedAt": "2026-07-27T23:03:19Z",
-      "expiresAt": "2026-07-28T00:03:19Z",
+      "observedAt": "2026-07-27T23:09:35Z",
+      "expiresAt": "2026-07-28T00:09:35Z",
       "ttl": "1h0m0s"
     },
     "predicateName": "object-set-matches",
@@ -39,8 +39,8 @@
       "objectSet": {
         "desiredSource": {
           "type": "file",
-          "ref": "runs/redis-upgrade-app-proof/observations/staging-desired.yaml",
-          "digest": "11cd3f77927eaf566c58449ae7aafb8a878d42d500b43772de8948c440c4993c",
+          "ref": "runs/redis-upgrade-app-proof/observations/staging-rollback-desired.yaml",
+          "digest": "f5ee242c0ae6e28dbb014d40c7b9a83252ce9a5a501ad8864da1ff7d587e21f5",
           "objectCount": 14
         },
         "scope": {
@@ -48,8 +48,8 @@
           "namespace": "redis"
         },
         "matchMode": "authored-fields",
-        "desiredDigest": "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c",
-        "liveDigest": "4f36cd36fdeb81cf40fd2c35041592e8706f444fe2387e59f5cf4548171b8a3c",
+        "desiredDigest": "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390",
+        "liveDigest": "a00dd42357f68fd69899d2cfc2095547a79fb7eed92d521a809fa8d8831ed390",
         "summary": {
           "desired": 14,
           "matched": 14,
@@ -66,8 +66,8 @@
               "name": "redis-master"
             },
             "status": "matched",
-            "desiredDigest": "a14d300dd02e88e2b276e331c9b6d43aef89c899b73847e8eefd453f523c0abd",
-            "liveDigest": "a14d300dd02e88e2b276e331c9b6d43aef89c899b73847e8eefd453f523c0abd"
+            "desiredDigest": "bae55f7dd282d4fccdfebf6bbdeffbc6650bd04798f30b364d74f9dfa01792a6",
+            "liveDigest": "bae55f7dd282d4fccdfebf6bbdeffbc6650bd04798f30b364d74f9dfa01792a6"
           },
           {
             "id": {
@@ -77,8 +77,8 @@
               "name": "redis-replicas"
             },
             "status": "matched",
-            "desiredDigest": "2ce12507fe18afb8621fee813f80ced6d05f9037f535548cc4f2e6a33e73a577",
-            "liveDigest": "2ce12507fe18afb8621fee813f80ced6d05f9037f535548cc4f2e6a33e73a577"
+            "desiredDigest": "f39c6f0d24d821e02b4434b9fb4b457d47fa1670c6a2687d33822cfbbbf596be",
+            "liveDigest": "f39c6f0d24d821e02b4434b9fb4b457d47fa1670c6a2687d33822cfbbbf596be"
           },
           {
             "id": {
@@ -88,8 +88,8 @@
               "name": "redis"
             },
             "status": "matched",
-            "desiredDigest": "ce13f2e86b3c69b5379ad105184620e43b29c4c080853bb16b833d3973e953e3",
-            "liveDigest": "ce13f2e86b3c69b5379ad105184620e43b29c4c080853bb16b833d3973e953e3"
+            "desiredDigest": "2b4f81bad517715049bbfac40c66be94ff4121c0f5157a0955ceddf4d1deda56",
+            "liveDigest": "2b4f81bad517715049bbfac40c66be94ff4121c0f5157a0955ceddf4d1deda56"
           },
           {
             "id": {
@@ -99,8 +99,8 @@
               "name": "redis-master"
             },
             "status": "matched",
-            "desiredDigest": "1052688563fe3b29608239b5210fff7732aeac9b51c3cef3817f02e04a868a7b",
-            "liveDigest": "1052688563fe3b29608239b5210fff7732aeac9b51c3cef3817f02e04a868a7b"
+            "desiredDigest": "030b437f18f7d11a94a6430acb9572407cf8ec9560eac762b7f02deed96af38b",
+            "liveDigest": "030b437f18f7d11a94a6430acb9572407cf8ec9560eac762b7f02deed96af38b"
           },
           {
             "id": {
@@ -110,8 +110,8 @@
               "name": "redis-replicas"
             },
             "status": "matched",
-            "desiredDigest": "4a6358a2a1e1db4d60c7bb86553c4c60d1af41d4139de0c17215393dafe596f1",
-            "liveDigest": "4a6358a2a1e1db4d60c7bb86553c4c60d1af41d4139de0c17215393dafe596f1"
+            "desiredDigest": "2bb0bdbb1d0e0ab2f07c5dfa7dc971f7839ead08d7777b3a1199a1ef62b57a76",
+            "liveDigest": "2bb0bdbb1d0e0ab2f07c5dfa7dc971f7839ead08d7777b3a1199a1ef62b57a76"
           },
           {
             "id": {
@@ -121,8 +121,8 @@
               "name": "redis-configuration"
             },
             "status": "matched",
-            "desiredDigest": "cd5561ce4fdce19000c9bfe8c470af6a155908b8609fd269efc13b3f8fab87d8",
-            "liveDigest": "cd5561ce4fdce19000c9bfe8c470af6a155908b8609fd269efc13b3f8fab87d8"
+            "desiredDigest": "9193ae96cc7d3e0f4a2c6e9fc05447b8965eb597bdd98ce7d72e2d2abcb32f7b",
+            "liveDigest": "9193ae96cc7d3e0f4a2c6e9fc05447b8965eb597bdd98ce7d72e2d2abcb32f7b"
           },
           {
             "id": {
@@ -132,8 +132,8 @@
               "name": "redis-health"
             },
             "status": "matched",
-            "desiredDigest": "deec51734838302abe28b16bde0307a91236b3e2a07b14dad34f7677ca1a16b9",
-            "liveDigest": "deec51734838302abe28b16bde0307a91236b3e2a07b14dad34f7677ca1a16b9"
+            "desiredDigest": "4ca9fa7f53693f32a3c0657018f1554296e84c2d1007ea8b5d2f3bb5fb9adf6c",
+            "liveDigest": "4ca9fa7f53693f32a3c0657018f1554296e84c2d1007ea8b5d2f3bb5fb9adf6c"
           },
           {
             "id": {
@@ -143,8 +143,8 @@
               "name": "redis-scripts"
             },
             "status": "matched",
-            "desiredDigest": "38807663db6cfafe48d588f2dfbcc2bf2019e57a3eac397b2ad6852110101643",
-            "liveDigest": "38807663db6cfafe48d588f2dfbcc2bf2019e57a3eac397b2ad6852110101643"
+            "desiredDigest": "2593773e88a62917915003f1a6707b0f454f5397c0305ac2bf00c77ff554034b",
+            "liveDigest": "2593773e88a62917915003f1a6707b0f454f5397c0305ac2bf00c77ff554034b"
           },
           {
             "id": {
@@ -164,8 +164,8 @@
               "name": "redis-master"
             },
             "status": "matched",
-            "desiredDigest": "cf9c3fec71e8a1ff7f91a0be9249057cd39d9486e9119eab5b2f00a34c2a9fff",
-            "liveDigest": "cf9c3fec71e8a1ff7f91a0be9249057cd39d9486e9119eab5b2f00a34c2a9fff"
+            "desiredDigest": "4d76792ff5c7a86a22c4e6c6b9daac10fd260ea8af905faac3dc790302b828bd",
+            "liveDigest": "4d76792ff5c7a86a22c4e6c6b9daac10fd260ea8af905faac3dc790302b828bd"
           },
           {
             "id": {
@@ -175,8 +175,8 @@
               "name": "redis-replica"
             },
             "status": "matched",
-            "desiredDigest": "eaabf0d71ed8f11a6380cb57f04cc6f07ccb36681f8bac183e486d820ab114d9",
-            "liveDigest": "eaabf0d71ed8f11a6380cb57f04cc6f07ccb36681f8bac183e486d820ab114d9"
+            "desiredDigest": "7ca641bcbb225754671bb9a79f652a84d77e53b79b2bc6287879f1b47af26945",
+            "liveDigest": "7ca641bcbb225754671bb9a79f652a84d77e53b79b2bc6287879f1b47af26945"
           },
           {
             "id": {
@@ -186,8 +186,8 @@
               "name": "redis-headless"
             },
             "status": "matched",
-            "desiredDigest": "08241a8f4847d8ad004b0de5528a75078fddcba5ceb1458c5fa48ead0803dc47",
-            "liveDigest": "08241a8f4847d8ad004b0de5528a75078fddcba5ceb1458c5fa48ead0803dc47"
+            "desiredDigest": "4fc10327fdf1fdf3a91b30b86254ed4d433375734203da1381f700d95c1ec921",
+            "liveDigest": "4fc10327fdf1fdf3a91b30b86254ed4d433375734203da1381f700d95c1ec921"
           },
           {
             "id": {
@@ -197,8 +197,8 @@
               "name": "redis-master"
             },
             "status": "matched",
-            "desiredDigest": "0c3b1d17843202a41cc2252d8ba066c34b4b8557151f44310bee24d533e4e6e0",
-            "liveDigest": "0c3b1d17843202a41cc2252d8ba066c34b4b8557151f44310bee24d533e4e6e0"
+            "desiredDigest": "4e93961540e458fb50cb5d85c2069c083835be4251f699dd3862b56b9e079eda",
+            "liveDigest": "4e93961540e458fb50cb5d85c2069c083835be4251f699dd3862b56b9e079eda"
           },
           {
             "id": {
@@ -208,8 +208,8 @@
               "name": "redis-replicas"
             },
             "status": "matched",
-            "desiredDigest": "6e19bbcf493f3803e965858d2ccf7ed3d400ae90ce87961184145625b3ed0f00",
-            "liveDigest": "6e19bbcf493f3803e965858d2ccf7ed3d400ae90ce87961184145625b3ed0f00"
+            "desiredDigest": "0d8bac2b4566950afcce34b618b65e857e621b3e798e623acb7d7688a8735ed1",
+            "liveDigest": "0d8bac2b4566950afcce34b618b65e857e621b3e798e623acb7d7688a8735ed1"
           }
         ],
         "normalizationProfile": "k8s-zero-defaults/v1"
@@ -231,6 +231,6 @@
         "nextSurface": "cub-scout"
       }
     ],
-    "fingerprint": "sha256:428ba3a8dde64534dd369d77c968589e7db934d3cf0f8db32430328011bb296a"
+    "fingerprint": "sha256:ef4174a5cca3014089a61861984bf6ba10191f5bf6a14b8a1e46c376a09a2c01"
   }
 }

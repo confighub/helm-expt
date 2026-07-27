@@ -2,9 +2,9 @@
   "_type": "https://in-toto.io/Statement/v1",
   "subject": [
     {
-      "name": "rendered-object-set://sha256/621e8c6f4821c078",
+      "name": "rendered-object-set://sha256/2e43a4e07616d578",
       "digest": {
-        "sha256": "621e8c6f4821c078f73d768f0a5ef8e028b203f41c717657d1420d9f0444f407"
+        "sha256": "2e43a4e07616d578432aec13c0c7ff2cc802d56afdd07b89032741e559923744"
       }
     },
     {
@@ -17,7 +17,7 @@
   "predicateType": "https://cub-scout.dev/receipt/v1",
   "predicate": {
     "version": "v1",
-    "claim": "desired workloads from runs/redis-upgrade-app-proof/observations/staging-desired.yaml converged to a ready state in the live cluster",
+    "claim": "desired workloads from runs/redis-upgrade-app-proof/observations/staging-rollback-desired.yaml converged to a ready state in the live cluster",
     "scope": {
       "kind": "WorkloadSet",
       "name": "rendered-install",
@@ -27,10 +27,10 @@
       "tool": "cub-scout",
       "version": "dev"
     },
-    "verifiedAt": "2026-07-27T23:03:20Z",
+    "verifiedAt": "2026-07-27T23:08:30Z",
     "freshness": {
-      "observedAt": "2026-07-27T23:03:20Z",
-      "expiresAt": "2026-07-28T00:03:20Z",
+      "observedAt": "2026-07-27T23:08:30Z",
+      "expiresAt": "2026-07-28T00:08:30Z",
       "ttl": "1h0m0s"
     },
     "predicateName": "workloads-converged",
@@ -39,16 +39,16 @@
       "workloads": {
         "desiredSource": {
           "type": "file",
-          "ref": "runs/redis-upgrade-app-proof/observations/staging-desired.yaml",
-          "digest": "11cd3f77927eaf566c58449ae7aafb8a878d42d500b43772de8948c440c4993c",
+          "ref": "runs/redis-upgrade-app-proof/observations/staging-rollback-desired.yaml",
+          "digest": "f5ee242c0ae6e28dbb014d40c7b9a83252ce9a5a501ad8864da1ff7d587e21f5",
           "objectCount": 14
         },
         "scope": {
           "kind": "namespace",
           "namespace": "redis"
         },
-        "observedAt": "2026-07-27T23:03:20Z",
-        "desiredDigest": "621e8c6f4821c078f73d768f0a5ef8e028b203f41c717657d1420d9f0444f407",
+        "observedAt": "2026-07-27T23:08:30Z",
+        "desiredDigest": "2e43a4e07616d578432aec13c0c7ff2cc802d56afdd07b89032741e559923744",
         "liveDigest": "8f22f9b0736c95140b09fb6030598395e3d25159582041b135ca5be76658fd32",
         "summary": {
           "desired": 14,
@@ -69,7 +69,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "All replicas scheduled as expected. Replicas: 1",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -81,7 +81,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "All replicas scheduled as expected. Replicas: 2",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -93,7 +93,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -105,7 +105,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "AllowedDisruptions has been computed.",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -117,7 +117,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "AllowedDisruptions has been computed.",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -129,7 +129,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -141,7 +141,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -153,7 +153,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is always ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -164,7 +164,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 87
+            "ageSeconds": 397
           },
           {
             "id": {
@@ -176,7 +176,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -188,7 +188,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -200,7 +200,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -212,7 +212,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           },
           {
             "id": {
@@ -224,7 +224,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 76
+            "ageSeconds": 386
           }
         ]
       }
@@ -245,6 +245,6 @@
         "nextSurface": "cub-scout"
       }
     ],
-    "fingerprint": "sha256:bf6f20f0289290ba1bf319c700e0f5ae764a5053b7637b0687e0f391816e4080"
+    "fingerprint": "sha256:255113882ab279808f3d94f4e7b33d9d623b49b50fc8877e3f35cf47a0b8237c"
   }
 }

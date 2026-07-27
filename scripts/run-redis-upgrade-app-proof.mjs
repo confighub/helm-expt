@@ -50,6 +50,7 @@ const receiptPath = join(repoRoot, "runs", "redis-upgrade-app-proof", "receipt.y
 const summaryPath = join(repoRoot, "data", "redis-upgrade-app-proof", "summary.md");
 const observationRoot = join(repoRoot, "runs", "redis-upgrade-app-proof", "observations");
 const observationDesiredPath = join(observationRoot, "staging-desired.yaml");
+const rollbackObservationDesiredPath = join(observationRoot, "staging-rollback-desired.yaml");
 
 if (mode === "--run") {
   const receipt = runProof();
@@ -166,11 +167,19 @@ function runProof() {
           development: { result: "not-run" },
           staging: { result: "not-run" },
         },
+        rollback: { result: "not-run" },
       },
       delivery: {
         configHubRelease: { result: "not-run" },
         portableOci: { result: "not-run" },
         fleet: {
+          size: 2,
+          result: "not-run",
+          targets: [],
+        },
+        rollbackRelease: { result: "not-run" },
+        rollbackOci: { result: "not-run" },
+        rollbackFleet: {
           size: 2,
           result: "not-run",
           targets: [],
@@ -195,7 +204,8 @@ function runProof() {
         "cub variant promote --dry-run -o mutations returned no text in this run. The proof checked that the dry run changed no stored data, but it does not claim that the current CLI shows a useful mutation preview.",
         "The portable output OCI used a temporary local registry. Public registry publication is a separate receipt.",
         "The OCI keeps the reviewed ConfigHub objects. The cub-scout input removes only explicit null fields that the Kubernetes API omits before comparison.",
-        "This proves one Redis base, one post-render field change, two environment promotions, and two throwaway clusters. It does not prove every chart upgrade or production scale.",
+        "The rollback restored the desired Kubernetes objects and checked workload health. It did not restore database data or exercise an irreversible migration.",
+        "This proves one Redis base, one post-render field change, two environment promotions, one manifest rollback, and two throwaway clusters. It does not prove every chart upgrade, rollback, or production scale.",
         "The cub-scout observations were recorded locally and were not submitted to ConfigHub observation storage.",
       ],
     },
@@ -317,6 +327,7 @@ function runProof() {
         && stagingBefore.replicas === 2,
       "the environment variants did not clone the recorded current configuration",
     );
+    const stagingRollbackBaseline = snapshotSpaceUnits(stagingSpace);
     receipt.spec.configHub.chain = {
       path: "base -> development -> staging",
       result: "pass",
@@ -465,6 +476,8 @@ function runProof() {
       space: stagingSpace,
       registryHost: registry.host,
       clusterRegistryHost: registry.clusterHost,
+      outputName: "candidate",
+      tag: "candidate",
     });
     mkdirSync(observationRoot, { recursive: true });
     writeFileSync(observationDesiredPath, portable.observationYaml);
@@ -495,6 +508,7 @@ function runProof() {
         appName: "redis-staging",
         unitName: "redis-staging-app",
         sourceReference: portable.clusterReference,
+        targetRevision: portable.tag,
         namespace,
         workRoot,
       });
@@ -502,11 +516,15 @@ function runProof() {
         clusterName,
         appName: "redis-staging",
         expectedDigest: portable.digest,
+        expectedChartVersion: candidateVersion,
+        expectedAppVersion: candidateAppVersion,
+        expectedReplicas: 2,
       });
       check(runtime.result === "pass", `${clusterName} Redis rollout did not pass: ${runtime.reason}`);
       const observations = collectScoutObservations({
         clusterName,
         slot,
+        desiredPath: observationDesiredPath,
       });
       targets.push({
         cluster: clusterName,
@@ -527,8 +545,93 @@ function runProof() {
       digest: portable.digest,
       targets,
     };
+
+    receipt.spec.configHub.rollback = restoreSpaceRevisions({
+      space: stagingSpace,
+      baseline: stagingRollbackBaseline,
+      changeSet: "rollback-to-25-5-3",
+    });
+    const rolledBack = inspectRedisSpace(stagingSpace);
+    check(
+      rolledBack.chartVersion === oldVersion
+        && rolledBack.appVersion === oldAppVersion
+        && rolledBack.replicas === 2,
+      "staging did not return to the pre-upgrade Redis configuration",
+    );
+
+    receipt.spec.delivery.rollbackRelease = {
+      result: "pass",
+      ...publishRelease(stagingSpace),
+    };
+    const rollbackPortable = publishSpaceOci({
+      workRoot,
+      space: stagingSpace,
+      registryHost: registry.host,
+      clusterRegistryHost: registry.clusterHost,
+      outputName: "rollback",
+      tag: "rollback",
+    });
+    writeFileSync(rollbackObservationDesiredPath, rollbackPortable.observationYaml);
+    receipt.spec.delivery.rollbackOci = {
+      result: "pass",
+      reference: rollbackPortable.reference,
+      digest: rollbackPortable.digest,
+      objectCount: rollbackPortable.objectCount,
+      yamlSha256: rollbackPortable.yamlSha256,
+      pulledYamlSha256: rollbackPortable.pulledYamlSha256,
+      observationYamlSha256: sha256(rollbackPortable.observationYaml),
+      observationNormalization: "remove explicit null fields that the Kubernetes API omits",
+      objectsMatched: true,
+    };
+
+    const rollbackTargets = [];
+    for (const [clusterName, slot] of [
+      [clusterA, "target-a-rollback"],
+      [clusterB, "target-b-rollback"],
+    ]) {
+      const application = updateApplication({
+        clusterName,
+        appName: "redis-staging",
+        unitName: "redis-staging-app",
+        sourceReference: rollbackPortable.clusterReference,
+        targetRevision: rollbackPortable.tag,
+        namespace,
+        workRoot,
+      });
+      const runtime = waitForRedisApplication({
+        clusterName,
+        appName: "redis-staging",
+        expectedDigest: rollbackPortable.digest,
+        expectedChartVersion: oldVersion,
+        expectedAppVersion: oldAppVersion,
+        expectedReplicas: 2,
+      });
+      check(runtime.result === "pass", `${clusterName} Redis rollback did not pass: ${runtime.reason}`);
+      const observations = collectScoutObservations({
+        clusterName,
+        slot,
+        desiredPath: rollbackObservationDesiredPath,
+      });
+      rollbackTargets.push({
+        cluster: clusterName,
+        application,
+        runtime,
+        observations,
+      });
+    }
+    check(
+      rollbackTargets.every((target) => target.runtime.revision === rollbackPortable.digest),
+      "the Argo applications did not report the rollback OCI digest",
+    );
+    receipt.spec.delivery.rollbackFleet = {
+      size: 2,
+      result: "pass",
+      sameReleaseDigest: true,
+      digest: rollbackPortable.digest,
+      targets: rollbackTargets,
+    };
     receipt.status.result = "pass";
-    receipt.status.claim = "A Redis chart upgrade from 25.5.3 to 27.0.0 kept a recorded post-render replica change, exposed two affected environment variants, promoted the candidate through development and staging, and reconciled the same reviewed OCI digest on two Argo CD clusters. Both clusters reached one ready master and two ready replicas, returned PONG, and passed exact-object and workload-convergence checks.";
+    receipt.status.claim = "A Redis chart upgrade from 25.5.3 to 27.0.0 kept a recorded post-render replica change, exposed two affected environment variants, promoted the candidate through development and staging, and reconciled the same reviewed OCI digest on two Argo CD clusters. The test then restored the exact pre-upgrade staging revisions, published a separate rollback OCI, and reconciled both clusters back to chart 25.5.3 with two replicas. Both forward and rollback states passed exact-object, workload-convergence, and PONG checks.";
   } catch (error) {
     failure = sanitizeError(error);
     receipt.status.result = "blocked";
@@ -639,6 +742,135 @@ function inspectRedisSpace(space) {
     image: String(replica.document.spec?.template?.spec?.containers?.[0]?.image ?? ""),
     masterImage: String(master.document.spec?.template?.spec?.containers?.[0]?.image ?? ""),
     upgradableUnitCount: Number(spaceResponse.UpgradableUnitCount ?? 0),
+  };
+}
+
+function snapshotSpaceUnits(space) {
+  const response = cubJson(["unit", "list", "--space", space, "-o", "json"]);
+  const rows = Array.isArray(response) ? response : response.Units ?? response.units ?? [];
+  const units = rows
+    .map((row) => row.Unit ?? row.unit ?? row)
+    .filter((unit) => unit?.Slug ?? unit?.slug)
+    .map((unit) => {
+      const slug = String(unit.Slug ?? unit.slug);
+      const data = cub(["unit", "data", slug, "--space", space]);
+      return {
+        slug,
+        headRevision: Number(unit.HeadRevisionNum ?? unit.headRevisionNum ?? 0),
+        dataSha256: sha256(data),
+      };
+    })
+    .sort((left, right) => left.slug.localeCompare(right.slug));
+  check(units.length === 15, `${space} did not contain 14 objects and one installer record`);
+  check(
+    units.every((unit) => unit.headRevision > 0 && /^[a-f0-9]{64}$/.test(unit.dataSha256)),
+    `${space} did not return complete Unit revision metadata`,
+  );
+  return units;
+}
+
+function restoreSpaceRevisions({
+  space,
+  baseline,
+  changeSet,
+}) {
+  const before = snapshotSpaceUnits(space);
+  const baselineBySlug = new Map(baseline.map((unit) => [unit.slug, unit]));
+  const changed = before.filter((unit) => {
+    const prior = baselineBySlug.get(unit.slug);
+    check(prior, `${unit.slug} was not present in the rollback baseline`);
+    return unit.dataSha256 !== prior.dataSha256;
+  });
+  check(changed.length > 0, `${space} had no changed Units to restore`);
+
+  const created = cubJson([
+    "changeset",
+    "create",
+    "--space",
+    space,
+    changeSet,
+    "--description",
+    `Restore the reviewed Redis ${oldVersion} staging configuration`,
+    "-o",
+    "json",
+  ]);
+  const createdChangeSet = created.ChangeSet ?? created.changeset ?? created;
+  const changeSetId = String(
+    createdChangeSet.ChangeSetID
+      ?? createdChangeSet.changeSetId
+      ?? createdChangeSet.ID
+      ?? createdChangeSet.id
+      ?? "",
+  );
+  check(changeSetId, "ConfigHub did not return an ID for the rollback ChangeSet");
+
+  for (const unit of changed) {
+    const prior = baselineBySlug.get(unit.slug);
+    cub([
+      "unit",
+      "update",
+      unit.slug,
+      "--space",
+      space,
+      "--restore",
+      String(prior.headRevision),
+      "--changeset",
+      changeSet,
+      "--change-desc",
+      `Restore ${unit.slug} to its reviewed pre-upgrade revision`,
+      "--quiet",
+    ], { timeout: 300_000 });
+  }
+
+  const after = snapshotSpaceUnits(space);
+  const afterBySlug = new Map(after.map((unit) => [unit.slug, unit]));
+  for (const prior of baseline) {
+    const restored = afterBySlug.get(prior.slug);
+    check(restored, `${prior.slug} disappeared during rollback`);
+    check(
+      restored.dataSha256 === prior.dataSha256,
+      `${prior.slug} does not match its pre-upgrade data after rollback`,
+    );
+  }
+  const recorded = cubJson([
+    "changeset",
+    "get",
+    "--space",
+    space,
+    changeSet,
+    "-o",
+    "json",
+  ]);
+  const recordedChangeSet = recorded.ChangeSet ?? recorded.changeset ?? recorded;
+  check(
+    String(recordedChangeSet.ChangeSetID ?? recordedChangeSet.changeSetId ?? "") === changeSetId,
+    "the rollback ChangeSet could not be read back",
+  );
+
+  return {
+    result: "pass",
+    space,
+    changeSet,
+    changeSetId,
+    restoredUnitCount: changed.length,
+    unchangedUnitCount: baseline.length - changed.length,
+    chartVersionBefore: candidateVersion,
+    chartVersionAfter: oldVersion,
+    appVersionBefore: candidateAppVersion,
+    appVersionAfter: oldAppVersion,
+    recordedReplicasBefore: 2,
+    recordedReplicasAfter: 2,
+    restoredUnits: changed.map((unit) => {
+      const prior = baselineBySlug.get(unit.slug);
+      const restored = afterBySlug.get(unit.slug);
+      return {
+        slug: unit.slug,
+        priorRevision: prior.headRevision,
+        candidateRevision: unit.headRevision,
+        rollbackRevision: restored.headRevision,
+        dataSha256: restored.dataSha256,
+      };
+    }),
   };
 }
 
@@ -790,9 +1022,11 @@ function publishSpaceOci({
   space,
   registryHost,
   clusterRegistryHost,
+  outputName,
+  tag,
 }) {
-  const outputRoot = join(workRoot, "portable-output");
-  const pullRoot = join(workRoot, "portable-output-pulled");
+  const outputRoot = join(workRoot, `portable-output-${outputName}`);
+  const pullRoot = join(workRoot, `portable-output-${outputName}-pulled`);
   const outputFile = join(outputRoot, "release-objects.yaml");
   const bundleFile = join(outputRoot, "bundle.tar.gz");
   mkdirSync(outputRoot, { recursive: true });
@@ -803,7 +1037,7 @@ function publishSpaceOci({
     timeout: 120_000,
   });
   const repository = "reviewed-redis-staging";
-  const localReference = `${registryHost}/${repository}:latest`;
+  const localReference = `${registryHost}/${repository}:${tag}`;
   command("oras", [
     "push",
     "--plain-http",
@@ -843,6 +1077,7 @@ function publishSpaceOci({
   return {
     reference: `oci://${localReference}`,
     clusterReference: `oci://${clusterRegistryHost}/${repository}`,
+    tag,
     digest,
     objectCount: exported.objectCount,
     yamlSha256: sha256(exported.yaml),
@@ -917,6 +1152,7 @@ function addApplication({
   appName,
   unitName,
   sourceReference,
+  targetRevision,
   namespace: destinationNamespace,
   workRoot,
 }) {
@@ -926,6 +1162,7 @@ function addApplication({
   writeFileSync(appPath, applicationYaml({
     appName,
     sourceReference,
+    targetRevision,
     namespace: destinationNamespace,
   }));
   configureAnonymousOci(clusterName, new URL(sourceReference).host, workRoot);
@@ -955,6 +1192,54 @@ function addApplication({
     name: appName,
     unit: `${clusterSpace}/${unitName}`,
     source: sourceReference,
+    targetRevision,
+    destinationNamespace,
+    clusterRootReleaseDigest: rootRelease.manifestDigest,
+  };
+}
+
+function updateApplication({
+  clusterName,
+  appName,
+  unitName,
+  sourceReference,
+  targetRevision,
+  namespace: destinationNamespace,
+  workRoot,
+}) {
+  const clusterSpace = `${clusterName}-cluster`;
+  const appPath = join(workRoot, `${clusterName}-${appName}-${targetRevision}.yaml`);
+  writeFileSync(appPath, applicationYaml({
+    appName,
+    sourceReference,
+    targetRevision,
+    namespace: destinationNamespace,
+  }));
+  cub([
+    "unit",
+    "update",
+    "--space",
+    clusterSpace,
+    unitName,
+    appPath,
+    "--change-desc",
+    `Point ${appName} at the reviewed Redis rollback`,
+  ], { timeout: 240_000 });
+  const rootRelease = publishRelease(clusterSpace);
+  kubectl(clusterName, [
+    "annotate",
+    "application",
+    clusterSpace,
+    "-n",
+    "argocd",
+    "argocd.argoproj.io/refresh=hard",
+    "--overwrite",
+  ]);
+  return {
+    name: appName,
+    unit: `${clusterSpace}/${unitName}`,
+    source: sourceReference,
+    targetRevision,
     destinationNamespace,
     clusterRootReleaseDigest: rootRelease.manifestDigest,
   };
@@ -963,6 +1248,7 @@ function addApplication({
 function applicationYaml({
   appName,
   sourceReference,
+  targetRevision,
   namespace: destinationNamespace,
 }) {
   return `apiVersion: argoproj.io/v1alpha1
@@ -974,7 +1260,7 @@ spec:
   project: default
   source:
     repoURL: ${sourceReference}
-    targetRevision: latest
+    targetRevision: ${targetRevision}
     path: .
   destination:
     server: https://kubernetes.default.svc
@@ -1012,6 +1298,9 @@ function waitForRedisApplication({
   clusterName,
   appName,
   expectedDigest,
+  expectedChartVersion,
+  expectedAppVersion,
+  expectedReplicas,
 }) {
   let last = {
     sync: "",
@@ -1020,6 +1309,8 @@ function waitForRedisApplication({
     masterReady: 0,
     replicaReady: 0,
     image: "",
+    chartVersion: "",
+    appVersion: "",
     ping: "",
   };
   for (let attempt = 0; attempt < 120; attempt += 1) {
@@ -1071,6 +1362,9 @@ function waitForRedisApplication({
         masterReady: Number(masterObject.status?.readyReplicas ?? 0),
         replicaReady: Number(replicaObject.status?.readyReplicas ?? 0),
         image: String(replicaObject.spec?.template?.spec?.containers?.[0]?.image ?? ""),
+        chartVersion: String(replicaObject.metadata?.labels?.["helm.sh/chart"] ?? "")
+          .replace(/^redis-/, ""),
+        appVersion: String(replicaObject.metadata?.labels?.["app.kubernetes.io/version"] ?? ""),
         ping: ping.ok ? ping.output.trim() : "",
       };
       if (
@@ -1078,8 +1372,10 @@ function waitForRedisApplication({
         && last.health === "Healthy"
         && last.revision === expectedDigest
         && last.masterReady === 1
-        && last.replicaReady === 2
+        && last.replicaReady === expectedReplicas
         && last.image === expectedImage
+        && last.chartVersion === expectedChartVersion
+        && last.appVersion === expectedAppVersion
         && last.ping === "PONG"
       ) {
         return {
@@ -1090,8 +1386,10 @@ function waitForRedisApplication({
           health: last.health,
           revision: last.revision,
           masterReady: "1/1",
-          replicasReady: "2/2",
+          replicasReady: `${expectedReplicas}/${expectedReplicas}`,
           image: last.image,
+          chartVersion: last.chartVersion,
+          appVersion: last.appVersion,
           ping: last.ping,
         };
       }
@@ -1100,13 +1398,14 @@ function waitForRedisApplication({
   }
   return {
     result: "blocked",
-    reason: `sync=${last.sync || "missing"}; health=${last.health || "missing"}; revision=${last.revision || "missing"}; master=${last.masterReady}/1; replicas=${last.replicaReady}/2; image=${last.image || "missing"}; ping=${last.ping || "missing"}`,
+    reason: `sync=${last.sync || "missing"}; health=${last.health || "missing"}; revision=${last.revision || "missing"}; chart=${last.chartVersion || "missing"}; app=${last.appVersion || "missing"}; master=${last.masterReady}/1; replicas=${last.replicaReady}/${expectedReplicas}; image=${last.image || "missing"}; ping=${last.ping || "missing"}`,
   };
 }
 
 function collectScoutObservations({
   clusterName,
   slot,
+  desiredPath,
 }) {
   const env = {
     ...process.env,
@@ -1120,11 +1419,13 @@ function collectScoutObservations({
     env,
     predicate: "object-set-matches",
     outputPath: objectSetPath,
+    desiredPath,
   });
   runScoutReceipt({
     env,
     predicate: "workloads-converged",
     outputPath: workloadsPath,
+    desiredPath,
   });
   const objectSet = readScoutReceipt(objectSetPath, "object-set-matches");
   const workloads = readScoutReceipt(workloadsPath, "workloads-converged");
@@ -1138,12 +1439,13 @@ function runScoutReceipt({
   env,
   predicate,
   outputPath,
+  desiredPath,
 }) {
   const args = [
     "receipt",
     "verify",
     "--file",
-    relativeRepo(observationDesiredPath),
+    relativeRepo(desiredPath),
     "--scope",
     `namespace/${namespace}`,
     "--predicate",
@@ -1498,6 +1800,8 @@ function validateReceipt(receipt) {
         && target.runtime.health === "Healthy"
         && target.runtime.masterReady === "1/1"
         && target.runtime.replicasReady === "2/2"
+        && target.runtime.chartVersion === candidateVersion
+        && target.runtime.appVersion === candidateAppVersion
         && target.runtime.ping === "PONG",
       `${target.cluster} runtime did not pass`,
     );
@@ -1506,6 +1810,56 @@ function validateReceipt(receipt) {
       [target.observations?.workloads, "workloads-converged"],
     ]) {
       check(observation?.result === "pass", `${target.cluster} ${predicate} did not pass`);
+      const stored = readScoutReceipt(join(repoRoot, observation.receipt), predicate);
+      check(
+        stored.predicate.fingerprint === observation.fingerprint,
+        `${observation.receipt} fingerprint differs from the main receipt`,
+      );
+    }
+  }
+  check(
+    receipt.spec?.configHub?.rollback?.result === "pass"
+      && receipt.spec.configHub.rollback.restoredUnitCount > 0
+      && receipt.spec.configHub.rollback.chartVersionAfter === oldVersion
+      && receipt.spec.configHub.rollback.appVersionAfter === oldAppVersion
+      && receipt.spec.configHub.rollback.recordedReplicasAfter === 2
+      && receipt.spec.configHub.rollback.changeSetId,
+    "the ConfigHub rollback did not restore the recorded pre-upgrade revisions",
+  );
+  check(
+    receipt.spec?.delivery?.rollbackRelease?.result === "pass",
+    "the ConfigHub rollback release did not pass",
+  );
+  check(
+    receipt.spec?.delivery?.rollbackOci?.result === "pass"
+      && receipt.spec.delivery.rollbackOci.objectCount === 14
+      && /^sha256:[a-f0-9]{64}$/.test(receipt.spec.delivery.rollbackOci.digest ?? ""),
+    "the rollback OCI did not pass",
+  );
+  check(
+    receipt.spec?.delivery?.rollbackFleet?.result === "pass"
+      && receipt.spec.delivery.rollbackFleet.size === 2
+      && receipt.spec.delivery.rollbackFleet.sameReleaseDigest === true
+      && receipt.spec.delivery.rollbackFleet.targets?.length === 2,
+    "the two-target rollback rollout did not pass",
+  );
+  for (const target of receipt.spec.delivery.rollbackFleet.targets) {
+    check(
+      target.runtime?.result === "pass"
+        && target.runtime.sync === "Synced"
+        && target.runtime.health === "Healthy"
+        && target.runtime.masterReady === "1/1"
+        && target.runtime.replicasReady === "2/2"
+        && target.runtime.chartVersion === oldVersion
+        && target.runtime.appVersion === oldAppVersion
+        && target.runtime.ping === "PONG",
+      `${target.cluster} rollback runtime did not pass`,
+    );
+    for (const [observation, predicate] of [
+      [target.observations?.objectSet, "object-set-matches"],
+      [target.observations?.workloads, "workloads-converged"],
+    ]) {
+      check(observation?.result === "pass", `${target.cluster} rollback ${predicate} did not pass`);
       const stored = readScoutReceipt(join(repoRoot, observation.receipt), predicate);
       check(
         stored.predicate.fingerprint === observation.fingerprint,
@@ -1525,10 +1879,16 @@ function validateReceipt(receipt) {
 
 function renderSummary(receipt) {
   const spec = receipt.spec;
+  const unchangedUnitLabel = spec.configHub.rollback.unchangedUnitCount === 1
+    ? "Unit was"
+    : "Units were";
   const rows = spec.delivery.fleet.targets
-    .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | ${target.runtime.masterReady} | ${target.runtime.replicasReady} | ${target.runtime.ping} | [objects](../../${target.observations.objectSet.receipt}) | [workloads](../../${target.observations.workloads.receipt}) |`)
+    .map((target) => `| \`${target.cluster}\` | ${target.runtime.chartVersion} | ${target.runtime.sync} | ${target.runtime.health} | ${target.runtime.masterReady} | ${target.runtime.replicasReady} | ${target.runtime.ping} | [objects](../../${target.observations.objectSet.receipt}) | [workloads](../../${target.observations.workloads.receipt}) |`)
     .join("\n");
-  return `# Redis upgrade: keep a change, promote it, and check the rollout
+  const rollbackRows = spec.delivery.rollbackFleet.targets
+    .map((target) => `| \`${target.cluster}\` | ${target.runtime.chartVersion} | ${target.runtime.sync} | ${target.runtime.health} | ${target.runtime.masterReady} | ${target.runtime.replicasReady} | ${target.runtime.ping} | [objects](../../${target.observations.objectSet.receipt}) | [workloads](../../${target.observations.workloads.receipt}) |`)
+    .join("\n");
+  return `# Redis upgrade and rollback
 
 This live test starts from the public Redis \`${oldVersion}\` installer package.
 It records a change from three replicas to two, prepares Redis
@@ -1536,6 +1896,11 @@ It records a change from three replicas to two, prepares Redis
 back to the chart default. ConfigHub then promotes the candidate through development
 and staging. The reviewed staging configuration is packaged once and reconciled by
 Argo CD on two throwaway clusters.
+
+The test then restores the exact staging Unit revisions recorded before the promotion.
+It publishes that restored configuration as a separate OCI artifact and checks both
+clusters again. This is a rollback of desired Kubernetes configuration. It does not
+claim to reverse database data or an irreversible migration.
 
 ## Result
 
@@ -1554,12 +1919,21 @@ Argo CD on two throwaway clusters.
 | Publish the ConfigHub release | ${spec.delivery.configHubRelease.result} | \`${spec.delivery.configHubRelease.manifestDigest}\`. |
 | Build and pull the portable OCI | ${spec.delivery.portableOci.result} | ${spec.delivery.portableOci.objectCount} objects at \`${spec.delivery.portableOci.digest}\`; pulled files matched the reviewed staging files. |
 | Roll out to two clusters | ${spec.delivery.fleet.result} | Both Argo CD applications reported the same OCI digest and both Redis installations became ready. |
+| Restore the prior revisions | ${spec.configHub.rollback.result} | ${spec.configHub.rollback.restoredUnitCount} changed Units were restored under ChangeSet \`${spec.configHub.rollback.changeSet}\`; ${spec.configHub.rollback.unchangedUnitCount} unchanged ${unchangedUnitLabel} left alone. |
+| Publish the rollback OCI | ${spec.delivery.rollbackOci.result} | ${spec.delivery.rollbackOci.objectCount} objects at \`${spec.delivery.rollbackOci.digest}\`; pulled files matched the restored staging Units. |
+| Reconcile the rollback | ${spec.delivery.rollbackFleet.result} | Both Argo CD applications reported the rollback digest and both Redis installations became ready on chart ${spec.configHub.rollback.chartVersionAfter}. |
 
-## Live results
+## Candidate results
 
-| Cluster | Argo sync | Argo health | Master | Replicas | Redis check | Exact objects | Current workloads |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| Cluster | Chart | Argo sync | Argo health | Master | Replicas | Redis check | Exact objects | Current workloads |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows}
+
+## Rollback results
+
+| Cluster | Chart | Argo sync | Argo health | Master | Replicas | Redis check | Exact objects | Current workloads |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+${rollbackRows}
 
 ## The Secret is separate
 
@@ -1585,8 +1959,12 @@ a known presentation gap rather than describing the preview as complete.
   promote them in order.
 - The reviewed result can leave ConfigHub as OCI and reconcile at the same digest on
   two Argo CD clusters.
-- Both live clusters matched the reviewed object set, reached one ready Redis master
-  and two ready replicas, and returned \`PONG\`.
+- A named ChangeSet can restore the staging Units to their exact pre-upgrade
+  revisions while retaining the two-replica edit.
+- The restored result can be published as a separate OCI artifact and reconciled by
+  the same two Argo CD clusters.
+- Both clusters matched the reviewed object set, reached one ready Redis master and
+  two ready replicas, and returned \`PONG\` before and after rollback.
 
 ## Limits
 

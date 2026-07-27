@@ -2939,7 +2939,7 @@ function docsHtml(catalog) {
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
     ["Anonymous OCI change", "Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.", "../data/anonymous-oci-transform-proof/summary.md"],
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
-    ["Redis upgrade, promotion, and rollout", "A live chart upgrade keeps a post-render replica change, shows the development and staging waves, and checks the same OCI digest on two Argo CD clusters.", "../data/redis-upgrade-app-proof/summary.md"],
+    ["Redis upgrade, promotion, and rollback", "A live chart upgrade keeps a post-render replica change, moves through development and staging, reaches two Argo CD clusters, then restores the exact pre-upgrade revisions and checks both clusters again.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
     ["AICR OCI round trip", "A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.", "../data/aicr-oci-roundtrip-proof/summary.md"],
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
@@ -3476,7 +3476,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "How do upgrades and rollback work?",
           answer:
-            "An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert, with irreversible migration steps flagged as explicit routes, never run silently.",
+            "ConfigHub compares the candidate with the Kubernetes objects you already reviewed, then publishes the approved result as OCI. Every Unit keeps its revision history. The Redis live test restored the exact pre-upgrade revisions, published a rollback OCI, and checked both clusters again. That restores configuration, not database data; irreversible migrations still need a chart-specific recovery plan.",
           links: [["Day-2: upgrade & rollback", "../docs/user/day2-upgrade-rollback.md"], ["Why synced is not working", "../docs/user/why-synced-is-not-working.md"]],
         },
         {
@@ -4268,7 +4268,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         ["Existing app", "An application already in a cluster can be inventoried first, then brought under review when you are ready."],
         ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
       ])}
-      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade proof</a> follows one complete run from chart 25.5.3 to 27.0.0. A two-replica edit stays in place, the candidate moves through development and staging, and the same reviewed OCI runs on two Argo CD clusters.</p>
+      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place, the candidate moves through development and staging, and two Argo CD clusters run both the candidate OCI and the separately published rollback OCI.</p>
       <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
     </section>

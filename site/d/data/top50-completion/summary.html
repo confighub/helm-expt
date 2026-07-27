@@ -433,8 +433,8 @@
 <p>This is the maintained completion tracker for the public configuration catalog and its path into ConfigHub. It replaces conversational task counts with fifty stable task IDs, current evidence, verification commands, and a concrete completion step.</p>
 <p>Generated from <a href="../../../../config-catalog/top50.yaml">config-catalog/top50.yaml</a>. Edit that source and run <code>npm run top50:completion</code>.</p>
 <h2 id="current-state">Current State</h2>
-<pre><code>available: 26
-partial:   22
+<pre><code>available: 27
+partial:   21
 planned:   2
 blocked:   0
 total:     50</code></pre>
@@ -482,7 +482,7 @@ total:     50</code></pre>
 <tr><td>T27</td><td>Deliver reviewed OCI through Flux</td><td>partial</td><td><a href="../../../../runs/serverless-oci-gitops-proof/receipt.yaml">runs/serverless-oci-gitops-proof/receipt.yaml</a>&lt;br&gt;<a href="../../docs/user/gitops-adopter-guide.html">docs/user/gitops-adopter-guide.md</a></td><td>Add ConfigHub-output Flux receipts for representative Helm, AICR, and lifecycle-route examples.</td></tr>
 <tr><td>T28</td><td>Deliver reviewed objects by direct apply</td><td>available</td><td><a href="../../docs/user/serverless-mode.html">docs/user/serverless-mode.md</a>&lt;br&gt;<a href="../live-kind-parity/summary.html">data/live-kind-parity/summary.md</a></td><td>Keep direct apply as a simple option while making interruptions and lifecycle ordering explicit.</td></tr>
 <tr><td>T29</td><td>Record live convergence and observation freshness</td><td>partial</td><td><a href="../live-e2e/summary.html">data/live-e2e/summary.md</a>&lt;br&gt;<a href="../../docs/reference/observation-freshness-slo.html">docs/reference/observation-freshness-slo.md</a></td><td>Store more live observations in ConfigHub and refresh receipts when target state or packages change.</td></tr>
-<tr><td>T30</td><td>Roll back or unwind a reviewed change</td><td>partial</td><td><a href="../../docs/user/day2-upgrade-rollback.html">docs/user/day2-upgrade-rollback.md</a>&lt;br&gt;<a href="../../docs/reference/upgrade-rollback-receipts.html">docs/reference/upgrade-rollback-receipts.md</a></td><td>Execute rollback in a live representative promotion lane and record the resulting workload observation.</td></tr></tbody></table>
+<tr><td>T30</td><td>Roll back or unwind a reviewed change</td><td>available</td><td><a href="../../docs/user/day2-upgrade-rollback.html">docs/user/day2-upgrade-rollback.md</a>&lt;br&gt;<a href="../../docs/reference/upgrade-rollback-receipts.html">docs/reference/upgrade-rollback-receipts.md</a>&lt;br&gt;<a href="../redis-upgrade-app-proof/summary.html">data/redis-upgrade-app-proof/summary.md</a>&lt;br&gt;<a href="../../../../runs/redis-upgrade-app-proof/receipt.yaml">runs/redis-upgrade-app-proof/receipt.yaml</a></td><td>Repeat the receipt pattern for charts with CRD changes, hooks, or data migrations whose rollback limits need a chart-specific recovery plan.</td></tr></tbody></table>
 <h2 id="fleet-operations">Fleet operations</h2>
 <table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T31</td><td>Preview fleet blast radius before rollout</td><td>partial</td><td><a href="../blast-radius-fleet/summary.html">data/blast-radius-fleet/summary.md</a>&lt;br&gt;<a href="../blast-radius-accuracy/summary.html">data/blast-radius-accuracy/summary.md</a></td><td>Increase measured cases and report misses and false predictions for every supported inheritance pattern.</td></tr>
 <tr><td>T32</td><td>Roll out one revision in bounded waves</td><td>partial</td><td><a href="../oci-deploy-stage-rollout-proof/summary.html">data/oci-deploy-stage-rollout-proof/summary.md</a>&lt;br&gt;<a href="../sveltos-oci-delivery-proof/summary.html">data/sveltos-oci-delivery-proof/summary.md</a></td><td>Prove the same bounded rollout using a mixed-source platform fleet and production approval.</td></tr>

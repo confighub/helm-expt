@@ -410,14 +410,17 @@ spec:
     - id: T30
       area: Delivery
       name: Roll back or unwind a reviewed change
-      status: partial
+      status: available
       outcome: A team can identify the prior revision, restore reversible fields, and retain an operation record without hiding irreversible migrations.
       evidence:
         - docs/user/day2-upgrade-rollback.md
         - docs/reference/upgrade-rollback-receipts.md
+        - data/redis-upgrade-app-proof/summary.md
+        - runs/redis-upgrade-app-proof/receipt.yaml
       verify:
         - npm run docs:verify
-      next: Execute rollback in a live representative promotion lane and record the resulting workload observation.
+        - npm run redis-upgrade-app:verify
+      next: Repeat the receipt pattern for charts with CRD changes, hooks, or data migrations whose rollback limits need a chart-specific recovery plan.
 
     - id: T31
       area: Fleet operations

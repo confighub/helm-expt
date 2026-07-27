@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 26
-partial:   22
+available: 27
+partial:   21
 planned:   2
 blocked:   0
 total:     50
@@ -100,7 +100,7 @@ The source status definitions are:
 | T27 | Deliver reviewed OCI through Flux | partial | [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml)<br>[docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | Add ConfigHub-output Flux receipts for representative Helm, AICR, and lifecycle-route examples. |
 | T28 | Deliver reviewed objects by direct apply | available | [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md)<br>[data/live-kind-parity/summary.md](../../data/live-kind-parity/summary.md) | Keep direct apply as a simple option while making interruptions and lifecycle ordering explicit. |
 | T29 | Record live convergence and observation freshness | partial | [data/live-e2e/summary.md](../../data/live-e2e/summary.md)<br>[docs/reference/observation-freshness-slo.md](../../docs/reference/observation-freshness-slo.md) | Store more live observations in ConfigHub and refresh receipts when target state or packages change. |
-| T30 | Roll back or unwind a reviewed change | partial | [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md)<br>[docs/reference/upgrade-rollback-receipts.md](../../docs/reference/upgrade-rollback-receipts.md) | Execute rollback in a live representative promotion lane and record the resulting workload observation. |
+| T30 | Roll back or unwind a reviewed change | available | [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md)<br>[docs/reference/upgrade-rollback-receipts.md](../../docs/reference/upgrade-rollback-receipts.md)<br>[data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md)<br>[runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml) | Repeat the receipt pattern for charts with CRD changes, hooks, or data migrations whose rollback limits need a chart-specific recovery plan. |
 
 ## Fleet operations
 

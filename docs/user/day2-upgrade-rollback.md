@@ -28,6 +28,12 @@ sequence from beginning to end:
 9. Reconcile the same OCI digest with Argo CD on two clusters.
 10. Check both clusters. Each reached one ready master, two ready replicas, and
     returned `PONG`.
+11. Restore every changed staging Unit to its exact revision from before the
+    promotion, under a named rollback ChangeSet.
+12. Publish the restored configuration as a separate OCI artifact.
+13. Reconcile both Argo CD applications to that rollback artifact and check both
+    clusters again. Each returned to chart 25.5.3, kept two replicas, and returned
+    `PONG`.
 
 Development reported 14 pending Units after the base changed. Staging was not pending
 yet because its direct parent was development. Once development accepted the update,
@@ -56,13 +62,20 @@ preview. The receipt records that gap plainly.
 
 ## Rollback
 
-ConfigHub keeps Unit revisions and the installer update creates a named ChangeSet with
-a restore path. A team can review and republish an earlier desired revision.
+ConfigHub keeps a revision history for every Unit. Before promotion, the Redis test
+recorded the exact revision number and content digest for all 14 Kubernetes objects
+and the installer record. After the candidate was running, it created the
+`rollback-to-25-5-3` ChangeSet and restored only the Units whose content had changed.
+Unchanged Units were left alone.
 
-The Redis proof did not execute a rollback, so it does not claim that every chart can
-be rolled back safely. Database migrations, CRD schema changes, and some hooks may be
-irreversible even when the Kubernetes objects can be restored. Those cases need a
-chart-specific route and recovery plan.
+The restored objects matched the pre-upgrade records exactly. ConfigHub published
+them as a new OCI artifact, Argo CD reconciled both clusters to that digest, and the
+live checks passed again.
+
+This is a configuration rollback. It does not restore data inside Redis. Database
+migrations, CRD schema changes, and some hooks may be irreversible even when the
+Kubernetes objects can be restored. Those cases need a chart-specific route and
+recovery plan.
 
 Read [How chart hooks are handled](./chart-hooks-what-happens.md) and
 [Why synced is not the same as working](./why-synced-is-not-working.md) for those two
