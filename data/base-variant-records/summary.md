@@ -6,6 +6,8 @@ There are **203 records**: 2 aicr, 199 helm, 1 kubara, 1 sveltos. Their current 
 
 A base-variant record connects the literal configuration to the source that produced it, the choices fixed before install, the remaining target inputs, hooks and CRDs, proof results, policy, and OCI handoffs. It does not imply that every record is present in a live ConfigHub org.
 
+3 canonical records also name who owns the configuration, where it should run, which checks apply, and how it should roll out. The [operational class examples](../operational-class-examples/summary.md) explain those choices. The other records remain `not-yet-classified`; the generator does not guess from a chart name.
+
 ## What to read
 
 | Question | Field |
@@ -16,6 +18,7 @@ A base-variant record connects the literal configuration to the source that prod
 | What must happen around ordinary apply? | `spec.routing` |
 | Which OCI artifact is this? | `spec.delivery` |
 | Which checks run before apply? | `spec.policy` |
+| Who owns it, where does it run, and how should it roll out? | `spec.operations` when classified |
 | What has actually been proved? | `spec.evidence` and `status` |
 
 ## Examples

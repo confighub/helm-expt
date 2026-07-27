@@ -1,0 +1,118 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "OperationalClassExamples",
+  "metadata": {
+    "name": "catalog-operational-classes"
+  },
+  "spec": {
+    "examples": [
+      {
+        "evidence": [
+          "data/oci-deploy-stage-rollout-proof/summary.md",
+          "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+        ],
+        "gates": {
+          "normalSet": "baseline",
+          "productionSet": "approvalRequired"
+        },
+        "id": "nginx-user-workload",
+        "liveSpace": "bitnami-nginx-24-0-2-http-clusterip",
+        "name": "NGINX application",
+        "operations": {
+          "changeCadence": "application-release",
+          "ownerClass": "application-team",
+          "resourceClass": "user-workload"
+        },
+        "record": "bitnami-nginx-24-0-2-http-clusterip",
+        "rollout": {
+          "limit": "The receipt covers two staging clusters; it is not a large production rollout.",
+          "method": "environment-promotion-then-fleet",
+          "sequence": [
+            "development",
+            "staging",
+            "production targets"
+          ],
+          "status": "observed"
+        },
+        "sourceType": "helm",
+        "target": {
+          "ownerClass": "application-team",
+          "scope": "application-namespace",
+          "selection": "Start in a development namespace, promote to staging, then release to the selected production clusters."
+        },
+        "why": "One application team owns this release and can change it often without changing shared cluster services."
+      },
+      {
+        "evidence": [
+          "data/kps-lifecycle-route-proof/summary.md",
+          "runs/kps-lifecycle-route-proof/receipt.yaml"
+        ],
+        "gates": {
+          "normalSet": "baseline",
+          "productionSet": "approvalRequired"
+        },
+        "id": "prometheus-system-service",
+        "liveSpace": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+        "name": "Kube Prometheus Stack monitoring service",
+        "operations": {
+          "changeCadence": "planned-service-release",
+          "ownerClass": "platform-service-team",
+          "resourceClass": "system-service"
+        },
+        "record": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+        "rollout": {
+          "limit": "Fresh install passed on one kind cluster; the chart upgrade and multi-cluster wave have not run.",
+          "method": "pilot-cluster-then-service-wave",
+          "sequence": [
+            "non-production pilot",
+            "production service wave"
+          ],
+          "status": "fresh-install-observed"
+        },
+        "sourceType": "helm",
+        "target": {
+          "ownerClass": "platform-service-team",
+          "scope": "shared-service-namespace",
+          "selection": "Install on one non-production cluster first, then move the reviewed service release to the remaining clusters."
+        },
+        "why": "Monitoring is shared by many workloads, so a platform service team owns it and introduces changes more deliberately."
+      },
+      {
+        "evidence": [
+          "docs/demo/kubara/local-platform.md",
+          "data/kubara-oci-delivery-proof/summary.md",
+          "runs/kubara-oci-delivery-proof/receipt.yaml"
+        ],
+        "gates": {
+          "normalSet": "approvalRequired",
+          "productionSet": "approvalRequired"
+        },
+        "id": "kubara-system-configuration",
+        "liveSpace": "kubara-local-platform-v0-12-0",
+        "name": "Kubara platform configuration",
+        "operations": {
+          "changeCadence": "planned-platform-release",
+          "ownerClass": "platform-team",
+          "resourceClass": "system-configuration"
+        },
+        "record": "kubara-local-platform-v0-12-0-base",
+        "rollout": {
+          "limit": "One kind cluster and one downstream service passed; a multi-cluster wave has not run.",
+          "method": "pilot-cluster-then-platform-wave",
+          "sequence": [
+            "test cluster",
+            "selected fleet wave"
+          ],
+          "status": "single-cluster-observed"
+        },
+        "sourceType": "kubara",
+        "target": {
+          "ownerClass": "platform-team",
+          "scope": "cluster",
+          "selection": "Select one test cluster first; expand only after the platform configuration and its dependent service are healthy."
+        },
+        "why": "This configuration changes cluster-wide platform behavior, so every environment requires approval and rollout starts with one test cluster."
+      }
+    ]
+  }
+}

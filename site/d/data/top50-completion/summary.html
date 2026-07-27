@@ -433,8 +433,8 @@
 <p>This is the maintained completion tracker for the public configuration catalog and its path into ConfigHub. It replaces conversational task counts with fifty stable task IDs, current evidence, verification commands, and a concrete completion step.</p>
 <p>Generated from <a href="../../../../config-catalog/top50.yaml">config-catalog/top50.yaml</a>. Edit that source and run <code>npm run top50:completion</code>.</p>
 <h2 id="current-state">Current State</h2>
-<pre><code>available: 25
-partial:   23
+<pre><code>available: 26
+partial:   22
 planned:   2
 blocked:   0
 total:     50</code></pre>
@@ -488,7 +488,7 @@ total:     50</code></pre>
 <tr><td>T32</td><td>Roll out one revision in bounded waves</td><td>partial</td><td><a href="../oci-deploy-stage-rollout-proof/summary.html">data/oci-deploy-stage-rollout-proof/summary.md</a>&lt;br&gt;<a href="../sveltos-oci-delivery-proof/summary.html">data/sveltos-oci-delivery-proof/summary.md</a></td><td>Prove the same bounded rollout using a mixed-source platform fleet and production approval.</td></tr>
 <tr><td>T33</td><td>Manage a Sveltos fleet from reviewed OCI</td><td>partial</td><td><a href="../../docs/demo/sveltos/kyverno-fleet.html">docs/demo/sveltos/kyverno-fleet.md</a>&lt;br&gt;<a href="../../../../runs/sveltos-oci-delivery-proof/receipt.yaml">runs/sveltos-oci-delivery-proof/receipt.yaml</a></td><td>Add rollback, larger selectors, and a source update that exercises ConfigHub variant propagation.</td></tr>
 <tr><td>T34</td><td>Manage a Kubara platform configuration</td><td>partial</td><td><a href="../../docs/demo/kubara/local-platform.html">docs/demo/kubara/local-platform.md</a>&lt;br&gt;<a href="../../../../runs/kubara-oci-delivery-proof/receipt.yaml">runs/kubara-oci-delivery-proof/receipt.yaml</a></td><td>Add a multi-cluster Kubara rollout and show which fleet CRD fields are intended to vary.</td></tr>
-<tr><td>T35</td><td>Distinguish workloads services and system configuration</td><td>partial</td><td><a href="../../../../config-catalog/program.yaml">config-catalog/program.yaml</a>&lt;br&gt;<a href="../../docs/reference/config-catalog-doctrine.html">docs/reference/config-catalog-doctrine.md</a></td><td>Encode the classification in executable example metadata and apply it to target, gate, and rollout choices.</td></tr></tbody></table>
+<tr><td>T35</td><td>Distinguish workloads services and system configuration</td><td>available</td><td><a href="../../../../config-catalog/operational-class-examples.yaml">config-catalog/operational-class-examples.yaml</a>&lt;br&gt;<a href="../operational-class-examples/summary.html">data/operational-class-examples/summary.md</a>&lt;br&gt;<a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">data/apply-policy-profiles/live-helm-catalog.yaml</a></td><td>Classify more catalog records only after their owner, target scope, gate set, rollout choice, and evidence are known.</td></tr></tbody></table>
 <h2 id="confighub-apps">ConfigHub Apps</h2>
 <table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T36</td><td>Complete the Upgrade App</td><td>partial</td><td><a href="../redis-upgrade-app-proof/summary.html">data/redis-upgrade-app-proof/summary.md</a>&lt;br&gt;<a href="../../../../runs/redis-upgrade-app-proof/receipt.yaml">runs/redis-upgrade-app-proof/receipt.yaml</a></td><td>Add the product App interface, readable promotion preview, persistent registry, and stored live observations.</td></tr>
 <tr><td>T37</td><td>Complete the Hooks and CRDs App</td><td>partial</td><td><a href="../../docs/demo/hooks-crds/kube-prometheus-stack.html">docs/demo/hooks-crds/kube-prometheus-stack.md</a>&lt;br&gt;<a href="../hooks-crds-app/summary.html">data/hooks-crds-app/summary.md</a></td><td>Run the upgrade route and the chart-specific Argo CD and Flux implementations before marking them automatic.</td></tr>

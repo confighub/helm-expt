@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 25
-partial:   23
+available: 26
+partial:   22
 planned:   2
 blocked:   0
 total:     50
@@ -110,7 +110,7 @@ The source status definitions are:
 | T32 | Roll out one revision in bounded waves | partial | [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md)<br>[data/sveltos-oci-delivery-proof/summary.md](../../data/sveltos-oci-delivery-proof/summary.md) | Prove the same bounded rollout using a mixed-source platform fleet and production approval. |
 | T33 | Manage a Sveltos fleet from reviewed OCI | partial | [docs/demo/sveltos/kyverno-fleet.md](../../docs/demo/sveltos/kyverno-fleet.md)<br>[runs/sveltos-oci-delivery-proof/receipt.yaml](../../runs/sveltos-oci-delivery-proof/receipt.yaml) | Add rollback, larger selectors, and a source update that exercises ConfigHub variant propagation. |
 | T34 | Manage a Kubara platform configuration | partial | [docs/demo/kubara/local-platform.md](../../docs/demo/kubara/local-platform.md)<br>[runs/kubara-oci-delivery-proof/receipt.yaml](../../runs/kubara-oci-delivery-proof/receipt.yaml) | Add a multi-cluster Kubara rollout and show which fleet CRD fields are intended to vary. |
-| T35 | Distinguish workloads services and system configuration | partial | [config-catalog/program.yaml](../../config-catalog/program.yaml)<br>[docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | Encode the classification in executable example metadata and apply it to target, gate, and rollout choices. |
+| T35 | Distinguish workloads services and system configuration | available | [config-catalog/operational-class-examples.yaml](../../config-catalog/operational-class-examples.yaml)<br>[data/operational-class-examples/summary.md](../../data/operational-class-examples/summary.md)<br>[data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml) | Classify more catalog records only after their owner, target scope, gate set, rollout choice, and evidence are known. |
 
 ## ConfigHub Apps
 

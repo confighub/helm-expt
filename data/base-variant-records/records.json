@@ -5173,7 +5173,8 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "baseline"
         },
         "evidence": {
           "renderParity": "yes",
@@ -5186,9 +5187,31 @@
           "variantPromotion": "proven"
         },
         "operations": {
-          "resourceClass": "not-yet-classified",
-          "ownerClass": "not-yet-classified",
-          "changeCadence": "not-yet-classified"
+          "changeCadence": "application-release",
+          "ownerClass": "application-team",
+          "resourceClass": "user-workload",
+          "classificationSource": "config-catalog/operational-class-examples.yaml",
+          "classificationReason": "One application team owns this release and can change it often without changing shared cluster services.",
+          "liveSpace": "bitnami-nginx-24-0-2-http-clusterip",
+          "target": {
+            "ownerClass": "application-team",
+            "scope": "application-namespace",
+            "selection": "Start in a development namespace, promote to staging, then release to the selected production clusters."
+          },
+          "gates": {
+            "normalSet": "baseline",
+            "productionSet": "approvalRequired"
+          },
+          "rollout": {
+            "limit": "The receipt covers two staging clusters; it is not a large production rollout.",
+            "method": "environment-promotion-then-fleet",
+            "sequence": [
+              "development",
+              "staging",
+              "production targets"
+            ],
+            "status": "observed"
+          }
         }
       },
       "status": {
@@ -17961,9 +17984,30 @@
           "configHubUploadReceipt": "examples/kubara/local-platform/confighub-upload-receipt.yaml"
         },
         "operations": {
-          "resourceClass": "system-configuration",
+          "changeCadence": "planned-platform-release",
           "ownerClass": "platform-team",
-          "changeCadence": "planned-platform-release"
+          "resourceClass": "system-configuration",
+          "classificationSource": "config-catalog/operational-class-examples.yaml",
+          "classificationReason": "This configuration changes cluster-wide platform behavior, so every environment requires approval and rollout starts with one test cluster.",
+          "liveSpace": "kubara-local-platform-v0-12-0",
+          "target": {
+            "ownerClass": "platform-team",
+            "scope": "cluster",
+            "selection": "Select one test cluster first; expand only after the platform configuration and its dependent service are healthy."
+          },
+          "gates": {
+            "normalSet": "approvalRequired",
+            "productionSet": "approvalRequired"
+          },
+          "rollout": {
+            "limit": "One kind cluster and one downstream service passed; a multi-cluster wave has not run.",
+            "method": "pilot-cluster-then-platform-wave",
+            "sequence": [
+              "test cluster",
+              "selected fleet wave"
+            ],
+            "status": "single-cluster-observed"
+          }
         }
       },
       "status": {
@@ -23262,7 +23306,8 @@
           "profile": "catalog-standard",
           "productionAdds": [
             "human-approval"
-          ]
+          ],
+          "normalSet": "baseline"
         },
         "evidence": {
           "renderParity": "yes",
@@ -23275,9 +23320,30 @@
           "variantPromotion": "proven"
         },
         "operations": {
-          "resourceClass": "not-yet-classified",
-          "ownerClass": "not-yet-classified",
-          "changeCadence": "not-yet-classified"
+          "changeCadence": "planned-service-release",
+          "ownerClass": "platform-service-team",
+          "resourceClass": "system-service",
+          "classificationSource": "config-catalog/operational-class-examples.yaml",
+          "classificationReason": "Monitoring is shared by many workloads, so a platform service team owns it and introduces changes more deliberately.",
+          "liveSpace": "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+          "target": {
+            "ownerClass": "platform-service-team",
+            "scope": "shared-service-namespace",
+            "selection": "Install on one non-production cluster first, then move the reviewed service release to the remaining clusters."
+          },
+          "gates": {
+            "normalSet": "baseline",
+            "productionSet": "approvalRequired"
+          },
+          "rollout": {
+            "limit": "Fresh install passed on one kind cluster; the chart upgrade and multi-cluster wave have not run.",
+            "method": "pilot-cluster-then-service-wave",
+            "sequence": [
+              "non-production pilot",
+              "production service wave"
+            ],
+            "status": "fresh-install-observed"
+          }
         }
       },
       "status": {

@@ -5,7 +5,7 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-27T20:59:49.957Z"
+  verifiedAt: "2026-07-27T22:17:55.096Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
@@ -261,6 +261,31 @@ spec:
       rendered-config:
         - "hook-probe-base"
         - "route-sketch-kube-prometheus-stack"
+    operationalExamples:
+      nginx-user-workload:
+        space: "bitnami-nginx-24-0-2-http-clusterip"
+        labels:
+          ResourceClass: "user-workload"
+          OwnerClass: "application-team"
+          ChangeCadence: "application-release"
+          OperationalClassExample: "nginx-user-workload"
+        policySet: "baseline"
+      prometheus-system-service:
+        space: "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+        labels:
+          ResourceClass: "system-service"
+          OwnerClass: "platform-service-team"
+          ChangeCadence: "planned-service-release"
+          OperationalClassExample: "prometheus-system-service"
+        policySet: "baseline"
+      kubara-system-configuration:
+        space: "kubara-local-platform-v0-12-0"
+        labels:
+          ResourceClass: "system-configuration"
+          OwnerClass: "platform-team"
+          ChangeCadence: "planned-platform-release"
+          OperationalClassExample: "kubara-system-configuration"
+        policySet: "approvalRequired"
     excluded:
       - "bitnami-redis-27-0-0-default-pilot-live-20260705"
       - "bitnami-redis-base"

@@ -116,9 +116,26 @@ spec:
     localOciManifest: "examples/kubara/local-platform/local-config-oci-manifest.json"
     configHubUploadReceipt: "examples/kubara/local-platform/confighub-upload-receipt.yaml"
   operations:
-    resourceClass: "system-configuration"
-    ownerClass: "platform-team"
     changeCadence: "planned-platform-release"
+    ownerClass: "platform-team"
+    resourceClass: "system-configuration"
+    classificationSource: "config-catalog/operational-class-examples.yaml"
+    classificationReason: "This configuration changes cluster-wide platform behavior, so every environment requires approval and rollout starts with one test cluster."
+    liveSpace: "kubara-local-platform-v0-12-0"
+    target:
+      ownerClass: "platform-team"
+      scope: "cluster"
+      selection: "Select one test cluster first; expand only after the platform configuration and its dependent service are healthy."
+    gates:
+      normalSet: "approvalRequired"
+      productionSet: "approvalRequired"
+    rollout:
+      limit: "One kind cluster and one downstream service passed; a multi-cluster wave has not run."
+      method: "pilot-cluster-then-platform-wave"
+      sequence:
+        - "test cluster"
+        - "selected fleet wave"
+      status: "single-cluster-observed"
 status:
   level: "partial"
   claim: "Kubara v0.12.0 generated the committed platform source and 77 literal Argo CD bootstrap objects. The routes for 3 CRDs, 4 Helm hook resources, 2 Secrets, and the External Secrets prerequisite are recorded beside the base."

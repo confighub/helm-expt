@@ -472,14 +472,15 @@ spec:
     - id: T35
       area: Fleet operations
       name: Distinguish workloads services and system configuration
-      status: partial
+      status: available
       outcome: Delivery policy and ownership can differ for user workloads, shared services, and cluster system configuration.
       evidence:
-        - config-catalog/program.yaml
-        - docs/reference/config-catalog-doctrine.md
+        - config-catalog/operational-class-examples.yaml
+        - data/operational-class-examples/summary.md
+        - data/apply-policy-profiles/live-helm-catalog.yaml
       verify:
         - npm run config-catalog:verify
-      next: Encode the classification in executable example metadata and apply it to target, gate, and rollout choices.
+      next: Classify more catalog records only after their owner, target scope, gate set, rollout choice, and evidence are known.
 
     - id: T36
       area: ConfigHub Apps

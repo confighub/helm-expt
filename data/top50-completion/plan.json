@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 25,
-      "partial": 23,
+      "available": 26,
+      "partial": 22,
       "planned": 2,
       "blocked": 0
     },
@@ -573,14 +573,15 @@
       {
         "area": "Fleet operations",
         "evidence": [
-          "config-catalog/program.yaml",
-          "docs/reference/config-catalog-doctrine.md"
+          "config-catalog/operational-class-examples.yaml",
+          "data/operational-class-examples/summary.md",
+          "data/apply-policy-profiles/live-helm-catalog.yaml"
         ],
         "id": "T35",
         "name": "Distinguish workloads services and system configuration",
-        "next": "Encode the classification in executable example metadata and apply it to target, gate, and rollout choices.",
+        "next": "Classify more catalog records only after their owner, target scope, gate set, rollout choice, and evidence are known.",
         "outcome": "Delivery policy and ownership can differ for user workloads, shared services, and cluster system configuration.",
-        "status": "partial",
+        "status": "available",
         "verify": [
           "npm run config-catalog:verify"
         ]

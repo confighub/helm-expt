@@ -263,6 +263,81 @@
             },
             "changeCadence": {
               "type": "string"
+            },
+            "classificationSource": {
+              "type": "string"
+            },
+            "classificationReason": {
+              "type": "string"
+            },
+            "liveSpace": {
+              "type": "string"
+            },
+            "target": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "scope",
+                "ownerClass",
+                "selection"
+              ],
+              "properties": {
+                "scope": {
+                  "type": "string"
+                },
+                "ownerClass": {
+                  "type": "string"
+                },
+                "selection": {
+                  "type": "string"
+                }
+              }
+            },
+            "gates": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "normalSet",
+                "productionSet"
+              ],
+              "properties": {
+                "normalSet": {
+                  "enum": [
+                    "baseline",
+                    "approvalRequired"
+                  ]
+                },
+                "productionSet": {
+                  "const": "approvalRequired"
+                }
+              }
+            },
+            "rollout": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "method",
+                "sequence",
+                "status",
+                "limit"
+              ],
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "sequence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "status": {
+                  "type": "string"
+                },
+                "limit": {
+                  "type": "string"
+                }
+              }
             }
           }
         }

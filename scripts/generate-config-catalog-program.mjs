@@ -26,6 +26,11 @@ const mode = process.argv[2] ?? "--generate";
 const intentIndexPath = join(repoRoot, "data", "helm-render-intents", "intents.json");
 const policySourcePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const programSourcePath = join(repoRoot, "config-catalog", "program.yaml");
+const operationalClassSourcePath = join(
+  repoRoot,
+  "config-catalog",
+  "operational-class-examples.yaml",
+);
 const catalogOciDeliveryReceiptPath = join(
   repoRoot,
   "runs",
@@ -68,6 +73,7 @@ const anonymousOciCiReceiptPath = join(
 const baseRoot = join(repoRoot, "data", "base-variant-records");
 const recordRoot = join(baseRoot, "records");
 const policyRoot = join(repoRoot, "data", "apply-policy-profiles");
+const operationalClassRoot = join(repoRoot, "data", "operational-class-examples");
 const demoRoot = join(repoRoot, "data", "demo-program");
 const generatedGuidePath = join(repoRoot, "docs", "user", "config-catalog-demonstrations.md");
 const supportedSourceTypes = [
@@ -108,6 +114,13 @@ if (mode === "--generate") {
   write(join(policyRoot, "catalog-standard.json"), `${JSON.stringify(report.policy, null, 2)}\n`);
   write(join(policyRoot, "summary.md"), report.policySummary);
 
+  writeYaml(join(operationalClassRoot, "examples.yaml"), report.operationalClassExamples);
+  write(
+    join(operationalClassRoot, "examples.json"),
+    `${JSON.stringify(report.operationalClassExamples, null, 2)}\n`,
+  );
+  write(join(operationalClassRoot, "summary.md"), report.operationalClassSummary);
+
   write(join(demoRoot, "program.json"), `${JSON.stringify(report.program, null, 2)}\n`);
   write(join(demoRoot, "summary.md"), report.demoSummary);
   write(generatedGuidePath, report.generatedGuide);
@@ -122,6 +135,15 @@ if (mode === "--generate") {
   verifyFile(join(policyRoot, "catalog-standard.yaml"), `${toYaml(report.policy)}\n`);
   verifyFile(join(policyRoot, "catalog-standard.json"), `${JSON.stringify(report.policy, null, 2)}\n`);
   verifyFile(join(policyRoot, "summary.md"), report.policySummary);
+  verifyFile(
+    join(operationalClassRoot, "examples.yaml"),
+    `${toYaml(report.operationalClassExamples)}\n`,
+  );
+  verifyFile(
+    join(operationalClassRoot, "examples.json"),
+    `${JSON.stringify(report.operationalClassExamples, null, 2)}\n`,
+  );
+  verifyFile(join(operationalClassRoot, "summary.md"), report.operationalClassSummary);
   verifyFile(join(demoRoot, "program.json"), `${JSON.stringify(report.program, null, 2)}\n`);
   verifyFile(join(demoRoot, "summary.md"), report.demoSummary);
   verifyFile(generatedGuidePath, report.generatedGuide);
@@ -145,6 +167,7 @@ function buildReport() {
   const intents = JSON.parse(readFileSync(intentIndexPath, "utf8")).intents ?? [];
   const policy = readYaml(policySourcePath);
   const program = readYaml(programSourcePath);
+  const operationalClassExamples = readYaml(operationalClassSourcePath);
 
   validatePolicy(policy);
   validateProgram(program);
@@ -167,14 +190,22 @@ function buildReport() {
     buildSveltosRecord(),
   ].sort((left, right) => left.metadata.name.localeCompare(right.metadata.name));
 
+  applyOperationalClassExamples(records, operationalClassExamples, policy);
   validateRecords(records);
+  validateOperationalClassExamples(records, operationalClassExamples, policy);
   return {
     records,
     policy,
     program,
+    operationalClassExamples,
     recordsCsv: renderRecordsCsv(records),
     baseSummary: renderBaseSummary(records),
     policySummary: renderPolicySummary(policy),
+    operationalClassSummary: renderOperationalClassSummary(
+      operationalClassExamples,
+      policy,
+      records,
+    ),
     demoSummary: renderDemoSummary(program),
     generatedGuide: renderGeneratedGuide(program, policy),
   };
@@ -860,6 +891,164 @@ function buildSveltosRecord() {
       ],
     },
   };
+}
+
+function applyOperationalClassExamples(records, source, policy) {
+  const recordsByName = new Map(
+    records.map((record) => [record.metadata.name, record]),
+  );
+  const policyByClass = new Map(
+    (policy.spec?.operationalClasses ?? []).map((item) => [item.name, item]),
+  );
+  for (const example of source.spec?.examples ?? []) {
+    const record = recordsByName.get(example.record);
+    check(record, `operational example ${example.id} points at missing record ${example.record}`);
+    const classPolicy = policyByClass.get(example.operations?.resourceClass);
+    check(
+      classPolicy,
+      `operational example ${example.id} uses unknown resource class ${example.operations?.resourceClass ?? ""}`,
+    );
+    record.spec.operations = {
+      ...example.operations,
+      classificationSource: relativeRepo(operationalClassSourcePath),
+      classificationReason: example.why,
+      liveSpace: example.liveSpace,
+      target: example.target,
+      gates: example.gates,
+      rollout: example.rollout,
+    };
+    record.spec.policy.normalSet = example.gates.normalSet;
+    if (example.operations.resourceClass === "system-configuration") {
+      record.spec.policy.approvalReason = "system-configuration";
+    } else {
+      delete record.spec.policy.approvalReason;
+    }
+  }
+}
+
+function validateOperationalClassExamples(records, source, policy) {
+  check(
+    source.apiVersion === "catalog.confighub.com/v1alpha1",
+    "operational class examples apiVersion is invalid",
+  );
+  check(
+    source.kind === "OperationalClassExamples",
+    "operational class examples kind is invalid",
+  );
+  check(
+    source.metadata?.name === "catalog-operational-classes",
+    "operational class examples name is invalid",
+  );
+  const examples = source.spec?.examples ?? [];
+  const recordsByName = new Map(
+    records.map((record) => [record.metadata.name, record]),
+  );
+  const policyByClass = new Map(
+    (policy.spec?.operationalClasses ?? []).map((item) => [item.name, item]),
+  );
+  check(examples.length === policyByClass.size, "operational examples must cover every resource class once");
+  check(unique(examples.map((item) => item.id)), "operational example ids must be unique");
+  check(unique(examples.map((item) => item.record)), "operational example records must be unique");
+  check(unique(examples.map((item) => item.liveSpace)), "operational example Spaces must be unique");
+  check(
+    sameSet(
+      examples.map((item) => item.operations?.resourceClass),
+      [...policyByClass.keys()],
+    ),
+    "operational examples do not cover the policy resource classes exactly",
+  );
+
+  const liveReceiptPath = join(
+    repoRoot,
+    "data",
+    "apply-policy-profiles",
+    "live-helm-catalog.yaml",
+  );
+  check(existsSync(liveReceiptPath), "live helm-catalog policy receipt is missing");
+  const liveReceipt = readYaml(liveReceiptPath);
+  const baselineSpaces = new Set(liveReceipt.spec?.spaces?.baseline ?? []);
+  const approvalSpaces = new Set(
+    liveReceipt.spec?.spaces?.approvalRequired ?? [],
+  );
+  const systemConfigurationSpaces = new Set(
+    liveReceipt.spec?.spaces?.approvalReasons?.systemConfiguration ?? [],
+  );
+
+  for (const example of examples) {
+    check(/^[a-z0-9-]+$/.test(example.id ?? ""), `invalid operational example id ${example.id ?? ""}`);
+    check(example.name && example.why, `operational example ${example.id} needs a name and reason`);
+    const record = recordsByName.get(example.record);
+    check(record, `operational example ${example.id} has no base-variant record`);
+    check(
+      supportedSourceTypes.includes(example.sourceType),
+      `operational example ${example.id} has an unsupported source type`,
+    );
+    check(
+      record.spec.source.type === example.sourceType,
+      `operational example ${example.id} source type differs from its base record`,
+    );
+    const classPolicy = policyByClass.get(example.operations?.resourceClass);
+    check(classPolicy, `operational example ${example.id} has an unknown resource class`);
+    check(
+      example.gates?.normalSet === classPolicy.normalPolicy
+        && example.gates?.productionSet === classPolicy.productionPolicy,
+      `operational example ${example.id} gate sets differ from the policy`,
+    );
+    check(
+      example.target?.ownerClass === example.operations?.ownerClass,
+      `operational example ${example.id} target owner differs from its operating owner`,
+    );
+    check(
+      Array.isArray(example.rollout?.sequence)
+        && example.rollout.sequence.length >= 2
+        && example.rollout.method
+        && example.rollout.status
+        && example.rollout.limit,
+      `operational example ${example.id} has an incomplete rollout choice`,
+    );
+    check(
+      Array.isArray(example.evidence)
+        && example.evidence.length >= 2
+        && example.evidence.some((path) => path.startsWith("runs/")),
+      `operational example ${example.id} needs readable evidence and a run receipt`,
+    );
+    for (const path of example.evidence) {
+      check(existsRepo(path), `operational example ${example.id} points at missing ${path}`);
+    }
+    check(
+      sameJson(record.spec.operations, {
+        ...example.operations,
+        classificationSource: relativeRepo(operationalClassSourcePath),
+        classificationReason: example.why,
+        liveSpace: example.liveSpace,
+        target: example.target,
+        gates: example.gates,
+        rollout: example.rollout,
+      }),
+      `operational example ${example.id} was not applied to its base record`,
+    );
+    check(
+      record.spec.policy.normalSet === example.gates.normalSet,
+      `operational example ${example.id} did not select its normal gate set`,
+    );
+    if (example.gates.normalSet === "approvalRequired") {
+      check(
+        approvalSpaces.has(example.liveSpace),
+        `operational example ${example.id} is not on the approval-required live filter`,
+      );
+    } else {
+      check(
+        baselineSpaces.has(example.liveSpace),
+        `operational example ${example.id} is not on the baseline live filter`,
+      );
+    }
+    if (example.operations.resourceClass === "system-configuration") {
+      check(
+        systemConfigurationSpaces.has(example.liveSpace),
+        `operational example ${example.id} is not recorded as live system configuration`,
+      );
+    }
+  }
 }
 
 function validateRecords(records) {
@@ -2202,6 +2391,11 @@ function renderRecordsCsv(records) {
     "literal_config_oci_status",
     "release_oci_status",
     "policy_profile",
+    "resource_class",
+    "owner_class",
+    "change_cadence",
+    "classification_source",
+    "live_space",
   ];
   const rows = records.map((record) => {
     const row = {
@@ -2218,6 +2412,11 @@ function renderRecordsCsv(records) {
       literal_config_oci_status: record.spec.delivery.literalConfigOci.status,
       release_oci_status: record.spec.delivery.configHubReleaseOci.status,
       policy_profile: record.spec.policy.profile,
+      resource_class: record.spec.operations.resourceClass,
+      owner_class: record.spec.operations.ownerClass,
+      change_cadence: record.spec.operations.changeCadence,
+      classification_source: record.spec.operations.classificationSource,
+      live_space: record.spec.operations.liveSpace,
     };
     return headers.map((header) => csvCell(row[header] ?? "")).join(",");
   });
@@ -2227,6 +2426,9 @@ function renderRecordsCsv(records) {
 function renderBaseSummary(records) {
   const sourceCounts = countBy(records, (record) => record.spec.source.type);
   const statusCounts = countBy(records, (record) => record.status.level);
+  const classifiedRecords = records.filter(
+    (record) => record.spec.operations.classificationSource,
+  );
   const redis = records.find((record) => record.metadata.name === "bitnami-redis-25-5-3-default");
   const nginxDelivery = records.find(
     (record) => record.metadata.name === catalogOciDeliveryRecord,
@@ -2248,6 +2450,8 @@ There are **${records.length} records**: ${formatCounts(sourceCounts)}. Their cu
 
 A base-variant record connects the literal configuration to the source that produced it, the choices fixed before install, the remaining target inputs, hooks and CRDs, proof results, policy, and OCI handoffs. It does not imply that every record is present in a live ConfigHub org.
 
+${classifiedRecords.length} canonical records also name who owns the configuration, where it should run, which checks apply, and how it should roll out. The [operational class examples](../operational-class-examples/summary.md) explain those choices. The other records remain \`not-yet-classified\`; the generator does not guess from a chart name.
+
 ## What to read
 
 | Question | Field |
@@ -2258,6 +2462,7 @@ A base-variant record connects the literal configuration to the source that prod
 | What must happen around ordinary apply? | \`spec.routing\` |
 | Which OCI artifact is this? | \`spec.delivery\` |
 | Which checks run before apply? | \`spec.policy\` |
+| Who owns it, where does it run, and how should it roll out? | \`spec.operations\` when classified |
 | What has actually been proved? | \`spec.evidence\` and \`status\` |
 
 ## Examples
@@ -2276,6 +2481,68 @@ A base-variant record connects the literal configuration to the source that prod
 - [records.json](./records.json) contains every generated record.
 - [schemas/base-variant-record.schema.json](../../schemas/base-variant-record.schema.json) defines the record shape.
 - [Config catalog doctrine](../../docs/reference/config-catalog-doctrine.md) explains how the sources, variants, policy, delivery, and Apps fit together.
+`;
+}
+
+function renderOperationalClassSummary(source, policy, records) {
+  const examples = source.spec.examples;
+  const policyByClass = new Map(
+    policy.spec.operationalClasses.map((item) => [item.name, item]),
+  );
+  const classNames = {
+    "user-workload": "User workload",
+    "system-service": "Shared system service",
+    "system-configuration": "Cluster-wide system configuration",
+  };
+  const policyName = {
+    baseline: "common checks",
+    approvalRequired: "common checks plus approval",
+  };
+  const table = examples.map((example) => {
+    const resourceClass = example.operations.resourceClass;
+    return `| ${classNames[resourceClass]} | [${example.name}](../base-variant-records/records/${example.record}.yaml) | \`${example.operations.ownerClass}\` | \`${example.target.scope}\` | ${policyName[example.gates.normalSet]} | ${policyName[example.gates.productionSet]} |`;
+  }).join("\n");
+  const details = examples.map((example) => {
+    const resourceClass = example.operations.resourceClass;
+    const classPolicy = policyByClass.get(resourceClass);
+    const evidence = example.evidence
+      .map((path) => `- [${path}](../../${path})`)
+      .join("\n");
+    return `## ${classNames[resourceClass]}: ${example.name}
+
+${example.why}
+
+- **Owner:** \`${example.operations.ownerClass}\`
+- **Target:** \`${example.target.scope}\`. ${example.target.selection}
+- **Checks outside production:** ${policyName[example.gates.normalSet]}.
+- **Checks in production:** ${policyName[example.gates.productionSet]}.
+- **Rollout:** ${example.rollout.sequence.join(" -> ")}.
+- **Recorded result:** \`${example.rollout.status}\`. ${example.rollout.limit}
+- **Live demo Space:** \`${example.liveSpace}\`
+
+Why these checks apply: ${classPolicy.reason}
+
+Evidence:
+
+${evidence}`;
+  }).join("\n\n");
+  return `# Who operates this configuration?
+
+When a configuration reaches ConfigHub, the team must decide who owns it and how widely a mistake could spread. An application, a shared monitoring service, and cluster-wide platform configuration should not use identical approval and rollout rules, even when they started from the same package format.
+
+These three examples are checked by the catalog generator and attached to their base-variant records:
+
+| What it controls | Example | Owner | Target | Normal checks | Production checks |
+| --- | --- | --- | --- | --- | --- |
+${table}
+
+${details}
+
+## Current boundary
+
+These are the three canonical examples, not an automatic classification of all ${records.length} base records. Unclassified records continue to say \`not-yet-classified\`; the generator does not guess from a chart name. Add a classification only when ownership, target scope, policy, rollout choice, and evidence are known.
+
+Source: [config-catalog/operational-class-examples.yaml](../../config-catalog/operational-class-examples.yaml). Schema: [schemas/operational-class-examples.schema.json](../../schemas/operational-class-examples.schema.json).
 `;
 }
 
@@ -2608,6 +2875,20 @@ function unique(values) {
 
 function sameSet(left, right) {
   return left.length === right.length && left.every((item) => right.includes(item));
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return value.map(canonicalJson);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.keys(value).sort().map((key) => [key, canonicalJson(value[key])]),
+    );
+  }
+  return value;
+}
+
+function sameJson(left, right) {
+  return JSON.stringify(canonicalJson(left)) === JSON.stringify(canonicalJson(right));
 }
 
 function countBy(items, keyFn) {
