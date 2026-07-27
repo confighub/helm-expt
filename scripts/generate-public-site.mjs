@@ -1599,7 +1599,7 @@ em{font-style:italic;color:var(--ink);}
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
     <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. The public tools support three paths: <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code>. Here, work means inspect, explain, test, scan, compare, or edit. <strong>Serverless</strong> means the work does not use ConfigHub Server; <strong>anonymous</strong> means it does not use a ConfigHub account. A local command or CI job can be both. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">CI test</a> records a complete no-account run. Claim the configuration in ConfigHub when you want to save its history, make variants, require approval, promote changes, or roll it out to a fleet.</p>
-    <p>ConfigHub can sit inside an existing <code>Git -&gt; CI -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code> flow. It can first publish the same specs and user-supplied metadata, then make specific variants later. The ConfigHub release has its own OCI digest and adds <code>confighub.com/origin</code> for provenance. The <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">live OCI, promotion, and two-cluster test</a> records that first unchanged pass-through, a reviewed promotion, and fingerprinted live observations on both clusters. <code>cub release publish</code> creates a ConfigHub Space release OCI; the same reviewed objects can also be packaged for anonymous or external consumers.</p>
+    <p>ConfigHub can sit inside an existing <code>Git -&gt; CI -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code> flow. It can first publish the same specs and user-supplied metadata, then make specific variants later. The ConfigHub release has its own OCI digest and adds <code>confighub.com/origin</code> for provenance. The <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">live OCI, promotion, and two-cluster test</a> records that first unchanged pass-through, a reviewed promotion, and fingerprinted live observations on both clusters. The <a href="./d/data/aicr-oci-roundtrip-proof/summary.html">AICR OCI round trip</a> separately proves the same object-preserving boundary for 17 generated Argo CD Applications, without claiming controller or GPU health. <code>cub release publish</code> creates a ConfigHub Space release OCI; the same reviewed objects can also be packaged for anonymous or external consumers.</p>
   </div>
 </header>
 <main>
@@ -2810,6 +2810,17 @@ function serverlessHtml(catalog) {
       <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
     </section>
 
+    <section class="narrow-section" aria-labelledby="where-it-fits">
+      <h2 id="where-it-fits">Where the no-account tools fit</h2>
+      <p>You can use them before an OCI package is built, after you pull one, or between an input package and an output package.</p>
+      <div class="step-grid">
+        <div class="card"><h3><code>work -&gt; OCI</code></h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files, then build an OCI package.</p></div>
+        <div class="card"><h3><code>OCI -&gt; work</code></h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
+        <div class="card"><h3><code>OCI -&gt; work -&gt; OCI</code></h3><p>Pull a package, test or edit the exact objects, then publish a new package for Argo CD, Flux, or another consumer.</p></div>
+      </div>
+      <p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without signing in is planned, but not yet shipped.</p>
+    </section>
+
     <section class="narrow-section" aria-labelledby="how">
       <h2 id="how">Helm hides one step. cub shows it.</h2>
       <p><code>helm install</code> renders and applies the chart in one command. The ConfigHub path splits that into render, inspect, then apply.</p>
@@ -2880,6 +2891,7 @@ function docsHtml(catalog) {
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
     ["Redis upgrade, promotion, and rollout", "A live chart upgrade keeps a post-render replica change, shows the development and staging waves, and checks the same OCI digest on two Argo CD clusters.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform; ConfigHub imports its 17 exact Argo CD Applications as one checked base variant. The guide shows the recipe, OCI artifacts, target requirements, live upload receipt, and remaining limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
+    ["AICR OCI round trip", "A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.", "../data/aicr-oci-roundtrip-proof/summary.md"],
     ["AI change review proof", "A reviewed AICR training object is stored without field changes, blocked until its exact revision is approved, then dry-run again against an OCI target. The result also names the current AICR policy-check gap.", "../data/ai-change-review-live-proof/summary.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],

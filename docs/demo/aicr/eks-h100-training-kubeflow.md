@@ -175,6 +175,25 @@ records the source reference and resolved digest on the Space. ConfigHub can the
 changes to those files and manage derived variants for environments or cluster
 classes.
 
+## OCI in, ConfigHub, OCI out
+
+A separate live test checked the next boundary. It imported the same
+17-Application literal configuration OCI into a temporary ConfigHub base, published
+a ConfigHub release OCI, pulled that release back, and compared every Application
+with the AICR input.
+
+All 17 Applications matched. ConfigHub added its `confighub.com/origin` annotation
+to each object so the released configuration can be traced back to its ConfigHub
+record. The input and output OCI digests are different because they are different
+artifacts; the object comparison proves that the Kubernetes configuration stayed the
+same.
+
+Read the [plain-English result](../../../data/aicr-oci-roundtrip-proof/summary.md) or
+the [live receipt](../../../runs/aicr-oci-roundtrip-proof/receipt.yaml). The test used
+a temporary local input registry and a throwaway cluster only to obtain a legitimate
+ConfigHub release target and scoped OCI credential. It did not apply the Applications,
+reconcile the AICR stack, create an EKS cluster, or run a GPU workload.
+
 After the publisher completes Google authentication and copies the artifact, the same
 command can use the planned public reference without a registry login:
 
