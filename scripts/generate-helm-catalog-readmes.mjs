@@ -282,17 +282,18 @@ const DEMO_SPACES = [
     space: "sveltos-kyverno-fleet-3-8-1-staging",
     title: "Sveltos Kyverno fleet",
     kind: "fleet",
-    summary: "ConfigHub stores one reviewed Sveltos ClusterProfile. Sveltos selects the matching cluster, installs Kyverno, and repairs drift.",
+    summary: "ConfigHub stores and approves one Sveltos ClusterProfile. A portable OCI carries it through Argo CD to the management cluster, then Sveltos installs Kyverno on the matching workload cluster and repairs drift.",
     shows: [
       "The `ClusterProfile` selects clusters labeled `environment=staging` and installs Kyverno chart 3.8.1 with three admission-controller replicas.",
       "ConfigHub stores the exact reviewed profile and its revision history.",
+      "A live runner proved the profile was blocked before approval, packaged from the approved ConfigHub data, pulled anonymously, and reconciled by Argo CD at the recorded OCI digest.",
       "A live test proved that Sveltos installed Kyverno and restored the replica count after it was changed by hand.",
       "This Space requires approval before apply because it changes cluster-wide admission policy.",
     ],
     open: [
       "This README.",
       "The `clusterprofile` Unit to inspect the source Sveltos will reconcile.",
-      "The live receipt to see the management cluster, workload cluster, and drift test.",
+      "The OCI delivery receipt to see approval, package comparison, Argo CD, Sveltos, the workload, and cleanup.",
     ],
     why: [
       "A fleet tool can place and reconcile configuration, but teams still need a shared record of what each cluster group should run and how that record changed.",
@@ -301,12 +302,14 @@ const DEMO_SPACES = [
     evidence: [
       ["Sveltos example guide", "docs/demo/sveltos/kyverno-fleet.md"],
       ["ClusterProfile source", "examples/sveltos/kyverno-fleet/clusterprofile.yaml"],
-      ["Live receipt", "examples/sveltos/kyverno-fleet/live-receipt.yaml"],
+      ["First live receipt", "examples/sveltos/kyverno-fleet/live-receipt.yaml"],
+      ["OCI delivery summary", "data/sveltos-oci-delivery-proof/summary.md"],
+      ["OCI delivery receipt", "runs/sveltos-oci-delivery-proof/receipt.yaml"],
       ["Pinned source versions", "examples/sveltos/kyverno-fleet/source-lock.yaml"],
       ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
     ],
     limits: [
-      "ConfigHub-to-Sveltos delivery was manual in this run.",
+      "The portable OCI used a temporary registry, and Sveltos was installed directly as a pinned prerequisite.",
       "The test used one workload cluster, not a multi-cluster promotion wave.",
       "The receipt proves this Kyverno profile and drift test, not every Sveltos feature.",
     ],

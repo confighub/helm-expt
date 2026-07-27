@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-07-27 (commit `067f9d4bd`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-07-27 (commit `58ce319f9`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 231 |
-| Fresh (no linked source newer than the doc) | 32 |
-| **Review-due** | 58 |
+| Fresh (no linked source newer than the doc) | 31 |
+| **Review-due** | 59 |
 | No linked evidence sources (cannot auto-trigger) | 141 |
 
 ## Review queue
@@ -87,8 +87,9 @@ most recently changed triggers.
 | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 6 | `data/webhook-cert-lifecycle/summary.md (2026-06-17)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 4 | `tests/README.md (2026-07-26)`<br>`tests/doctrine.md (2026-07-26)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [README.md](../../README.md) | root | 2026-07-26 | 1 | `data/apply-policy-profiles/summary.md (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-26)` |
+| [README.md](../../README.md) | root | 2026-07-26 | 1 | `data/app-readiness/summary.md (2026-07-27)`<br>`data/apply-policy-profiles/summary.md (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-26)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/user/README.md](../../docs/user/README.md) | user | 2026-07-26 | 1 | `data/app-readiness/summary.md (2026-07-27)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-07-26 | 1 | `tests/doctrine.md (2026-07-26)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-30 | 1 | `data/chart-use-guide/summary.md (2026-07-01)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 1 | `tests/README.md (2026-07-26)`<br>`tests/doctrine.md (2026-07-26)` |

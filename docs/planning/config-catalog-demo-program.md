@@ -6,10 +6,11 @@ promotion, and ConfigHub App examples in a controlled order.
 
 ## Strategy
 
-The front door owns the work before OCI enters ConfigHub. It should help a Helm, AICR,
-`cub installer`, Kubara, Sveltos, or existing-YAML user inspect the source, choose a
-useful configuration, make prerequisites and lifecycle work explicit, run tests, and
-produce a literal configuration OCI with a source record.
+The public catalog and tools own useful configuration work around OCI. They should
+help a Helm, AICR, `cub installer`, Kubara, Sveltos, or existing-YAML user inspect
+source before an OCI is built, inspect an OCI that already exists, or produce a new
+OCI after checking or changing its contents. The result may be an inspection report,
+working files, or a literal configuration OCI with a source record.
 
 People can use that front door in three directions without an account:
 
@@ -27,7 +28,9 @@ mean the work must happen at the start of a user's journey.
 `work` is the useful operation: render, inspect, explain, test, scan, compare, or
 edit. The three shapes are reusable parts of a delivery flow. They may run before the
 first OCI is built, after an OCI is pulled, or between an input OCI and an output OCI.
-They are not a separate beginner-only journey.
+They are not a separate beginner-only journey or three competing products. A user
+may choose one shape or compose several. ConfigHub becomes part of the path when the
+user wants durable records, shared changes, policy, promotion, or fleet delivery.
 
 The current proofs run the anonymous work locally and in GitHub Actions. The
 [CI receipt](../../data/anonymous-oci-ci-proof/summary.md) records the public input
@@ -44,9 +47,11 @@ publishes its private release. A script packages the same approved objects as a
 temporary portable OCI for Argo CD in another organization. This demonstrates
 `ConfigHub -> work -> OCI -> Argo CD` without copying a target-scoped credential.
 
-These paths remain useful without ConfigHub. The handoff is **Claim this
-configuration in ConfigHub**. Claiming saves the objects and their history so a
-team can make variants, require approvals, promote changes, and roll them out.
+These paths remain useful without ConfigHub. The optional handoff is **Claim this
+configuration in ConfigHub**. Claiming saves the objects and their history so a team
+can make variants, require approvals, promote changes, and roll them out. A team can
+claim at whichever OCI boundary it needs managed records; this is not a required
+first step.
 
 The live [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
 demonstrates the third path with `bitnami/nginx@24.0.2`. It anonymously pulls the
@@ -203,15 +208,18 @@ Complete when:
 Add a real Kubara-generated Kubernetes configuration and upload it as a platform base
 variant. Use ConfigHub variants for cluster classes and rollout waves.
 
-Keep the Sveltos `ClusterProfile` example as a placement contract. Build a live lane
-only after the desired ConfigHub ownership and Sveltos reconciliation boundary are
-clear.
+Keep the Sveltos `ClusterProfile` example as a placement contract. The first live run
+proved selection, Helm installation, and drift repair after a manual handoff. The
+second live run proved the intended boundary: ConfigHub review and approval, local
+portable OCI packaging, anonymous pull, Argo CD delivery to the management cluster,
+then Sveltos reconciliation on the selected workload cluster.
 
 Complete when:
 
 - Kubara generation and upload have a reproducible receipt;
 - blast-radius output names the affected clusters before promotion;
-- Sveltos reconciliation reports the selected clusters and deployed add-ons;
+- a multi-cluster Sveltos wave records selection, deployed add-ons, and target
+  results for every cluster;
 - every page distinguishes source generation, ConfigHub desired state, and the
   delivery controller.
 
