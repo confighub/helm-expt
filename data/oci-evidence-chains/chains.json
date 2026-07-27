@@ -1,0 +1,833 @@
+{
+  "records": [
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "aicr-eks-h100-training-kubeflow",
+        "labels": {
+          "sourceType": "aicr"
+        }
+      },
+      "spec": {
+        "sourceType": "aicr",
+        "example": "AICR EKS H100 training configuration captured as 17 Argo CD Applications",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+            "reference": "oci-layout:examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config",
+            "identifiers": [
+              "applications:17"
+            ],
+            "evidence": [
+              "examples/aicr/eks-h100-training-kubeflow/aicr.yaml",
+              "examples/aicr/eks-h100-training-kubeflow/recipe.yaml",
+              "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+            ],
+            "detail": "The AICR recipe and its literal Argo CD configuration OCI are recorded at an immutable digest.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+            "reference": "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config",
+            "identifiers": [
+              "applications:17",
+              "sync-waves:16"
+            ],
+            "evidence": [
+              "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+              "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+            ],
+            "detail": "The reviewed input is the exact set of 17 Argo CD Application objects in the literal OCI.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "",
+            "reference": "space:hx-aicr-oci-20260727012030-base",
+            "identifiers": [
+              "space-id:d81584ae-fae5-48ab-bd82-2613f29e6f64",
+              "unit-id:93f80330-5a55-460f-bb0d-1af4b00f688b",
+              "unit:hx-aicr-oci-20260727012030"
+            ],
+            "evidence": [
+              "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub imported the 17 objects into one base Space and confirmed that the source objects matched.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:652f2427bfe9d798efa4521b518a3b18b0c5d0ccb6be6b937d136917c64b0915",
+            "reference": "oci://oci.hub.confighub.com:443/space/hx-aicr-oci-20260727012030-base:latest",
+            "identifiers": [
+              "release-id:0f20d739-0317-4621-a7d0-463745449a32",
+              "bundle-digest:sha256:289b27644daa2d30ec0f36fdde0b645b1a380236faaa0f3022219b1ca2be6eb7"
+            ],
+            "evidence": [
+              "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub published a release OCI with the same Kubernetes objects plus its origin annotation.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "not-run",
+            "digest": "",
+            "reference": "",
+            "identifiers": [],
+            "evidence": [
+              "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+            ],
+            "detail": "The 17 Applications were pulled back and compared, but no controller applied them.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "not-run",
+            "digest": "",
+            "reference": "",
+            "identifiers": [],
+            "evidence": [
+              "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+            ],
+            "detail": "No EKS cluster, H100 node, controller reconciliation, or GPU workload health was observed.",
+            "observedAt": "",
+            "expiresAt": ""
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "examples/aicr/eks-h100-training-kubeflow/aicr.yaml",
+            "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+          ],
+          "lifecycle": [
+            "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"
+          ],
+          "checks": [
+            "examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml"
+          ],
+          "receipts": [
+            "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml",
+            "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml",
+            "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-to-oci",
+        "completeThrough": "outputOci",
+        "claim": "The AICR configuration can be followed from its recipe and literal OCI into ConfigHub and back to an object-preserving ConfigHub release OCI.",
+        "limits": [
+          "The input AICR OCI used a temporary local registry. Public Google Artifact Registry publication remains a separate receipt.",
+          "The throwaway cluster supplied a ConfigHub release target and scoped OCI pull credential. The 17 Argo CD Applications were not applied to that cluster.",
+          "This run did not reconcile the AICR stack, create an EKS cluster, use H100 nodes, or check workload health.",
+          "The proof compares the 17 Kubernetes Application objects and permits only ConfigHub's confighub.com/origin annotation as added metadata.",
+          "The temporary ConfigHub Space, cluster Space, kind cluster, registry, and local files were removed."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "cub-installer-nginx-three-consumers",
+        "labels": {
+          "sourceType": "cub-installer"
+        }
+      },
+      "spec": {
+        "sourceType": "cub-installer",
+        "example": "A public NGINX installer package rendered once and delivered three ways",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1",
+            "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2",
+            "identifiers": [
+              "package-layer:sha256:2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d",
+              "preset:http-clusterip"
+            ],
+            "evidence": [
+              "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml",
+              "packages/bitnami/nginx/24.0.2/installer.yaml"
+            ],
+            "detail": "The public multi-preset installer package is identified by its OCI manifest and package-layer digests.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:9547e0067fbdbb318d9e4309e3dcc74211bf01cb7ac243b8b23586ccc337d7e7",
+            "reference": "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml",
+            "identifiers": [
+              "objects:6",
+              "preset:http-clusterip"
+            ],
+            "evidence": [
+              "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml",
+              "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+            ],
+            "detail": "The http-clusterip preset produced the committed catalog objects plus the requested Namespace.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "",
+            "reference": "space:hx-catalog-oci-20260726-wr7-nginx",
+            "identifiers": [
+              "release-id:1dbed784-4fb6-4092-a734-075eb8bdfd4c",
+              "units:6"
+            ],
+            "evidence": [
+              "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+            ],
+            "detail": "ConfigHub held the selected, rendered configuration and published one release for all three consumers.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049",
+            "reference": "oci://oci.hub.confighub.com:443/space/hx-catalog-oci-20260726-wr7-nginx:latest",
+            "identifiers": [
+              "release-id:1dbed784-4fb6-4092-a734-075eb8bdfd4c",
+              "bundle-digest:sha256:882622f0736d2bd740da6189689cd716ee427b8f1ce44814291e9dc0274fbb89"
+            ],
+            "evidence": [
+              "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+            ],
+            "detail": "ConfigHub published one immutable release OCI.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "pass",
+            "digest": "sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049",
+            "reference": "oci://oci.hub.confighub.com:443/space/hx-catalog-oci-20260726-wr7-nginx:latest",
+            "identifiers": [
+              "consumer:Argo CD",
+              "consumer:Direct apply",
+              "consumer:Flux"
+            ],
+            "evidence": [
+              "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+            ],
+            "detail": "Argo CD, Flux, and direct apply all consumed the same release digest.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "pass",
+            "digest": "sha256:26d97438d5b52dcacf140d2ef4c57a97bacd0c63e22d5cfa19076a0723b73049",
+            "reference": "",
+            "identifiers": [
+              "Argo CD:replicas-1/1",
+              "Direct apply:replicas-1/1",
+              "Flux:replicas-1/1"
+            ],
+            "evidence": [
+              "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+            ],
+            "detail": "Each delivery method reported a ready NGINX workload with the expected image and replica count.",
+            "observedAt": "2026-07-26T17:10:27.568Z",
+            "expiresAt": ""
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "packages/bitnami/nginx/24.0.2/installer.yaml",
+            "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ],
+          "lifecycle": [
+            "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ],
+          "checks": [
+            "data/helm-render-intents/intents/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ],
+          "receipts": [
+            "runs/installer-oci/bitnami-nginx/24.0.2/installer-package-publication-receipt.yaml",
+            "runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-and-observed",
+        "completeThrough": "observation",
+        "claim": "One public cub installer package can be followed from the package digest through a selected preset, one ConfigHub release OCI, and ready workloads delivered by Argo CD, Flux, and direct apply.",
+        "limits": [
+          "This proves bitnami/nginx 24.0.2 with the http-clusterip base on the recorded throwaway kind target.",
+          "It does not prove another chart, base, Kubernetes version, or production target.",
+          "The scratch organization did not have the helm-catalog apply-policy Triggers; this run proves delivery, not policy execution.",
+          "The test applied the Argo CD Application and Flux source objects directly so that it measured release-OCI consumption without also testing app-of-apps delivery.",
+          "The direct leg proves first apply and workload readiness. Separate receipts cover prune, CRD ordering, and field-conflict handling."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "helm-byo-nginx-staging",
+        "labels": {
+          "sourceType": "helm"
+        }
+      },
+      "spec": {
+        "sourceType": "helm",
+        "example": "A team-supplied NGINX chart and values, reviewed and promoted to staging",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:de4124245234c508f16f074351f66e701e101177439f38ddee89e5a038dae3a3",
+            "reference": "helm:bitnami/nginx@24.0.2",
+            "identifiers": [
+              "values-sha256:76ae29404f608188051a59bb182a994bf082d9c7f9a9d526c8eb53ae5ceb59c0",
+              "release:nginx",
+              "namespace:nginx"
+            ],
+            "evidence": [
+              "examples/byo-helm-values/reviewed-values.yaml",
+              "recipes/bitnami/nginx/24.0.2/source-lock.yaml",
+              "runs/byo-helm-values-proof/receipt.yaml"
+            ],
+            "detail": "The chart package, reviewed values, release name, namespace, and Kubernetes version are recorded.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345",
+            "reference": "data/byo-helm-values-review/reviewed-render.yaml",
+            "identifiers": [
+              "objects:5",
+              "decision:ready-for-upload"
+            ],
+            "evidence": [
+              "data/byo-helm-values-review/reviewed-render.yaml",
+              "data/byo-helm-values-review/review.yaml"
+            ],
+            "detail": "The rejected AI values were corrected, and the five exact Kubernetes objects were approved.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "sha256:f18c62d9f41b7d5d1c4e120e94510a58d0c81cb7003ac64abce8848b5d31b649",
+            "reference": "space:byo-nginx-ai-values-24-0-2-staging",
+            "identifiers": [
+              "space-id:4cd6276c-f6c1-4afc-8fcb-66589241f732",
+              "unit-id:9c4f3352-0be0-4513-8802-f347e7523207",
+              "unit-revision:3",
+              "upstream-revision:3"
+            ],
+            "evidence": [
+              "runs/byo-helm-values-proof/confighub-upload-receipt.yaml",
+              "runs/byo-helm-values-promotion-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub stores the reviewed base and the promoted staging variant as named, revisioned records.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d",
+            "reference": "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery:latest",
+            "identifiers": [
+              "release-id:5388783a-2fe6-4f91-9faf-4235269e6915"
+            ],
+            "evidence": [
+              "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub published the promoted staging objects as a release OCI.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "pass",
+            "digest": "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d",
+            "reference": "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery",
+            "identifiers": [
+              "consumer:Argo CD",
+              "application:byo-nginx-staging",
+              "namespace:nginx-staging"
+            ],
+            "evidence": [
+              "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+            ],
+            "detail": "Argo CD reconciled the exact ConfigHub release digest.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "pass",
+            "digest": "sha256:a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6",
+            "reference": "",
+            "identifiers": [
+              "deployment:nginx",
+              "ready-replicas:4",
+              "required-secret:ai-provider-credentials"
+            ],
+            "evidence": [
+              "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+            ],
+            "detail": "The staging Deployment reached four ready replicas and used the required Secret reference.",
+            "observedAt": "2026-07-27T13:55:15.275Z",
+            "expiresAt": ""
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "recipes/bitnami/nginx/24.0.2/source-lock.yaml",
+            "examples/byo-helm-values/reviewed-values.yaml"
+          ],
+          "lifecycle": [
+            "data/byo-helm-values-review/review.yaml"
+          ],
+          "checks": [
+            "data/byo-helm-values-review/review.yaml"
+          ],
+          "receipts": [
+            "runs/byo-helm-values-proof/receipt.yaml",
+            "runs/byo-helm-values-proof/confighub-upload-receipt.yaml",
+            "runs/byo-helm-values-promotion-proof/receipt.yaml",
+            "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-and-observed",
+        "completeThrough": "observation",
+        "claim": "One supplied Helm chart and values file can be followed from locked source through review, ConfigHub promotion, release OCI, Argo CD, and a live staging workload.",
+        "limits": [
+          "The Secret value was a fake proof value and is not present in this receipt.",
+          "The persistent staging Space has no release target, so this run cloned its configuration Unit into a temporary target-bound delivery Space. The README was removed from that delivery copy before publication.",
+          "This proves one fresh Argo CD deployment of the staging lane on one local kind cluster.",
+          "Rollback, chart upgrade, Flux delivery, fleet rollout, and ConfigHub observation storage did not run."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "kubara-local-platform-argocd",
+        "labels": {
+          "sourceType": "kubara"
+        }
+      },
+      "spec": {
+        "sourceType": "kubara",
+        "example": "A Kubara platform configuration prepared, approved, and delivered through Argo CD",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541",
+            "reference": "examples/kubara/local-platform/rendered/release-objects.yaml",
+            "identifiers": [
+              "objects:77",
+              "source-lock:examples/kubara/local-platform/source-lock.yaml"
+            ],
+            "evidence": [
+              "examples/kubara/local-platform/rendered/release-objects.yaml",
+              "examples/kubara/local-platform/source-lock.yaml"
+            ],
+            "detail": "The Kubara objects and source lock identify the exact starting configuration.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:0a0d877dd9ba8be80a2405ca0ff53270a9fc8f27aeb915e04eb956b5e130e8ad",
+            "reference": "prepared Kubara configuration",
+            "identifiers": [
+              "objects:69",
+              "deferred:2",
+              "route-objects:4"
+            ],
+            "evidence": [
+              "runs/kubara-oci-delivery-proof/receipt.yaml",
+              "examples/kubara/local-platform/route-intent.yaml"
+            ],
+            "detail": "The target-specific edits, deferred objects, CRD order, and Redis initializer are recorded before packaging.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "sha256:222de125a8c4b342365997921973ee45604b7e40e10101cdb24202b883573c9e",
+            "reference": "space:kubara-local-platform-v0-12-0",
+            "identifiers": [
+              "unit-id:35144adb-8095-4f20-a1b5-1bd8ab480d74",
+              "revision:2",
+              "approval-count:1"
+            ],
+            "evidence": [
+              "runs/kubara-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub stored revision 2 and required approval because this is system configuration.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f",
+            "reference": "oci://127.0.0.1:32804/kubara-local-platform:latest",
+            "identifiers": [
+              "objects:69"
+            ],
+            "evidence": [
+              "runs/kubara-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "The prepared, approved objects were packaged as one portable OCI.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "pass",
+            "digest": "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f",
+            "reference": "oci://127.0.0.1:32804/kubara-local-platform:latest",
+            "identifiers": [
+              "consumer:Argo CD",
+              "cluster:hx-kubara-20260727045336"
+            ],
+            "evidence": [
+              "runs/kubara-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "Bootstrap Argo CD reconciled the portable OCI at the recorded digest.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "pass",
+            "digest": "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f",
+            "reference": "",
+            "identifiers": [
+              "namespace:metrics-server",
+              "downstream-app:test-cluster-metrics-server",
+              "ready-deployments:1"
+            ],
+            "evidence": [
+              "runs/kubara-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "Kubara's Argo CD became ready and the selected Metrics Server application became Synced and Healthy.",
+            "observedAt": "2026-07-27T04:56:30.404Z",
+            "expiresAt": ""
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "examples/kubara/local-platform/source-lock.yaml",
+            "examples/kubara/local-platform/rendered/release-objects.yaml"
+          ],
+          "lifecycle": [
+            "examples/kubara/local-platform/route-intent.yaml",
+            "runs/kubara-oci-delivery-proof/receipt.yaml"
+          ],
+          "checks": [
+            "examples/kubara/local-platform/confighub-upload-receipt.yaml"
+          ],
+          "receipts": [
+            "runs/kubara-oci-delivery-proof/receipt.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-and-observed",
+        "completeThrough": "observation",
+        "claim": "One Kubara platform configuration can be followed from locked source through ConfigHub approval, target-specific preparation, portable OCI, Argo CD, and a healthy downstream service.",
+        "limits": [
+          "The public OCI used a temporary registry.",
+          "The blocked pre-approval dry-run was observed in guarded run 20260727043744, but ConfigHub did not retain a UnitEvent for the failed dry-run.",
+          "The route selected Metrics Server as the one downstream platform service; it did not install every service enabled in the original local-evaluation profile.",
+          "The ClusterExternalSecret stayed deferred because this lane did not install External Secrets, a ClusterSecretStore, or its remote key.",
+          "The Argo CD gRPC Ingress stayed deferred because this lane did not install an ingress controller.",
+          "The local-kind Metrics Server adjustment adds --kubelet-insecure-tls for this throwaway cluster and is not a production recommendation.",
+          "The proof uses one cluster. It does not prove a multi-cluster Kubara promotion wave."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "rendered-config-nginx-two-cluster-fleet",
+        "labels": {
+          "sourceType": "rendered-config"
+        }
+      },
+      "spec": {
+        "sourceType": "rendered-config",
+        "example": "Literal NGINX OCI promoted through ConfigHub and rolled out to two clusters",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:5ca7ea87efa64f76a29cfa564a9af8e0f087c2bd638962e24a2b1b144417e261",
+            "reference": "oci://127.0.0.1:32788/bitnami-nginx-http-clusterip-config:24.0.2",
+            "identifiers": [
+              "objects:5"
+            ],
+            "evidence": [
+              "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml",
+              "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+            ],
+            "detail": "The literal Kubernetes OCI is resolved and compared with the recorded source objects before upload.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111",
+            "reference": "reviewed staging Kubernetes objects",
+            "identifiers": [
+              "objects:5",
+              "change:Deployment/nginx spec.replicas 1 -> 2"
+            ],
+            "evidence": [
+              "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+            ],
+            "detail": "The reviewed staging configuration contains the exact five objects after the replica change.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "",
+            "reference": "space:hx-oci-flow-20260726-1oq1-staging",
+            "identifiers": [
+              "variant:staging",
+              "upstream-space-id:cee89b7a-7098-45d4-844a-f4f095d3c1bf",
+              "release-id:dc0c8c1d-d4ce-43d5-a9ac-c358cd5bf2aa"
+            ],
+            "evidence": [
+              "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub stores the base, development, and staging chain and records both promotions.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210",
+            "reference": "oci://127.0.0.1:32788/reviewed-nginx-staging:latest",
+            "identifiers": [
+              "objects:5"
+            ],
+            "evidence": [
+              "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+            ],
+            "detail": "The reviewed staging objects were exported as one portable OCI for both targets.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "pass",
+            "digest": "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210",
+            "reference": "oci://host.docker.internal:32788/reviewed-nginx-staging",
+            "identifiers": [
+              "consumer:Argo CD",
+              "targets:2"
+            ],
+            "evidence": [
+              "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+            ],
+            "detail": "Argo CD reconciled the same portable OCI digest on both clusters.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "pass",
+            "digest": "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210",
+            "reference": "",
+            "identifiers": [
+              "targets:2",
+              "object-sets:matched",
+              "workloads:converged"
+            ],
+            "evidence": [
+              "runs/oci-deploy-stage-rollout-proof/observations/target-a-object-set.json",
+              "runs/oci-deploy-stage-rollout-proof/observations/target-a-workloads.json",
+              "runs/oci-deploy-stage-rollout-proof/observations/target-b-object-set.json",
+              "runs/oci-deploy-stage-rollout-proof/observations/target-b-workloads.json"
+            ],
+            "detail": "Fingerprint receipts show that both live object sets matched and both NGINX workloads converged.",
+            "observedAt": "2026-07-26T22:39:11.147Z",
+            "expiresAt": "2026-07-26T23:47:41Z"
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ],
+          "lifecycle": [
+            "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+          ],
+          "checks": [
+            "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
+            "runs/oci-deploy-stage-rollout-proof/observations/target-a-object-set.json",
+            "runs/oci-deploy-stage-rollout-proof/observations/target-a-workloads.json",
+            "runs/oci-deploy-stage-rollout-proof/observations/target-b-object-set.json",
+            "runs/oci-deploy-stage-rollout-proof/observations/target-b-workloads.json"
+          ],
+          "receipts": [
+            "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-and-observed",
+        "completeThrough": "observation",
+        "claim": "One literal Kubernetes OCI can be followed through ConfigHub variants and promotion to a portable OCI consumed at the same digest by Argo CD on two observed clusters.",
+        "limits": [
+          "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt.",
+          "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target.",
+          "cub-scout recorded fingerprinted object-match and workload-convergence receipts locally. This test did not submit those receipts to ConfigHub observation storage.",
+          "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts.",
+          "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead."
+        ]
+      }
+    },
+    {
+      "apiVersion": "catalog.confighub.com/v1alpha1",
+      "kind": "OciEvidenceChain",
+      "metadata": {
+        "name": "sveltos-kyverno-two-cluster-fleet",
+        "labels": {
+          "sourceType": "sveltos"
+        }
+      },
+      "spec": {
+        "sourceType": "sveltos",
+        "example": "A Sveltos Kyverno profile expanded from a pilot to two clusters",
+        "boundaries": {
+          "source": {
+            "result": "pass",
+            "digest": "sha256:f5115db99a6b0cb90e8f71b1d74def3d042fff2fd21be24a835b3295a63b0387",
+            "reference": "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+            "identifiers": [
+              "source-lock:examples/sveltos/kyverno-fleet/source-lock.yaml"
+            ],
+            "evidence": [
+              "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+              "examples/sveltos/kyverno-fleet/source-lock.yaml"
+            ],
+            "detail": "The ClusterProfile and source lock identify the exact starting configuration.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "reviewedConfiguration": {
+            "result": "pass",
+            "digest": "sha256:6c873f78591921ab8c0e114a12977802c06900e690502f7f7ea7147992b1c7fe",
+            "reference": "approved Sveltos fleet ClusterProfile",
+            "identifiers": [
+              "objects:1",
+              "selector:environment=staging"
+            ],
+            "evidence": [
+              "runs/sveltos-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "The approved selector change expands the reviewed profile from the pilot to both staging clusters.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "configHubRecord": {
+            "result": "pass",
+            "digest": "",
+            "reference": "space:hx-sveltos-20260727054324",
+            "identifiers": [
+              "unit-id:68a2acb7-d72f-4b69-92e2-44b11cd75508",
+              "pilot-revision:2",
+              "fleet-revision:4",
+              "approval-count:1"
+            ],
+            "evidence": [
+              "runs/sveltos-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "ConfigHub stores and approves the pilot and fleet revisions separately.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "outputOci": {
+            "result": "pass",
+            "digest": "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911",
+            "reference": "oci://127.0.0.1:32807/sveltos-kyverno-staging:fleet",
+            "identifiers": [
+              "target-revision:fleet"
+            ],
+            "evidence": [
+              "runs/sveltos-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "The approved fleet ClusterProfile was packaged as one portable OCI.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "delivery": {
+            "result": "pass",
+            "digest": "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911",
+            "reference": "oci://host.docker.internal:32807/sveltos-kyverno-staging",
+            "identifiers": [
+              "consumer:Argo CD",
+              "fleet-controller:Sveltos",
+              "targets:2"
+            ],
+            "evidence": [
+              "runs/sveltos-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "Argo CD reconciled the OCI, and Sveltos selected both workload clusters.",
+            "observedAt": "",
+            "expiresAt": ""
+          },
+          "observation": {
+            "result": "pass",
+            "digest": "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911",
+            "reference": "",
+            "identifiers": [
+              "hx-sveltos-pilot-20260727054324:pass",
+              "hx-sveltos-next-20260727054324:pass"
+            ],
+            "evidence": [
+              "runs/sveltos-oci-delivery-proof/receipt.yaml"
+            ],
+            "detail": "Kyverno became ready on both clusters, and Sveltos repaired deliberate replica drift on each target.",
+            "observedAt": "2026-07-27T05:43:24.883Z",
+            "expiresAt": ""
+          }
+        },
+        "companionRecords": {
+          "sourceInputs": [
+            "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml",
+            "examples/sveltos/kyverno-fleet/source-lock.yaml"
+          ],
+          "lifecycle": [
+            "docs/demo/sveltos/kyverno-fleet.md",
+            "runs/sveltos-oci-delivery-proof/receipt.yaml"
+          ],
+          "checks": [
+            "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+          ],
+          "receipts": [
+            "runs/sveltos-oci-delivery-proof/receipt.yaml"
+          ]
+        }
+      },
+      "status": {
+        "coverage": "managed-and-observed",
+        "completeThrough": "observation",
+        "claim": "One Sveltos system configuration can be followed from locked source through two approved ConfigHub revisions, portable OCI, Argo CD, and healthy Kyverno workloads on two clusters.",
+        "limits": [
+          "The pinned Sveltos controllers were installed directly as a prerequisite on the throwaway management cluster.",
+          "The reviewed ClusterProfile, not the Sveltos controller installation, was delivered through ConfigHub, OCI, and Argo CD.",
+          "The portable OCI used a temporary anonymous registry; this is not a permanent public package.",
+          "The proof used two local kind workload clusters. It does not prove a large production fleet or a failure-and-pause rollout.",
+          "The proof covers this Kyverno ClusterProfile, not every Sveltos feature or add-on."
+        ]
+      }
+    }
+  ]
+}

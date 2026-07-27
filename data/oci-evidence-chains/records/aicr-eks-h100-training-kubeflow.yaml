@@ -1,0 +1,105 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciEvidenceChain"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow"
+  labels:
+    sourceType: "aicr"
+spec:
+  sourceType: "aicr"
+  example: "AICR EKS H100 training configuration captured as 17 Argo CD Applications"
+  boundaries:
+    source:
+      result: "pass"
+      digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+      reference: "oci-layout:examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config"
+      identifiers:
+        - "applications:17"
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow/aicr.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+        - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+      detail: "The AICR recipe and its literal Argo CD configuration OCI are recorded at an immutable digest."
+      observedAt: ""
+      expiresAt: ""
+    reviewedConfiguration:
+      result: "pass"
+      digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+      reference: "examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config"
+      identifiers:
+        - "applications:17"
+        - "sync-waves:16"
+      evidence:
+        - "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+        - "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+      detail: "The reviewed input is the exact set of 17 Argo CD Application objects in the literal OCI."
+      observedAt: ""
+      expiresAt: ""
+    configHubRecord:
+      result: "pass"
+      digest: ""
+      reference: "space:hx-aicr-oci-20260727012030-base"
+      identifiers:
+        - "space-id:d81584ae-fae5-48ab-bd82-2613f29e6f64"
+        - "unit-id:93f80330-5a55-460f-bb0d-1af4b00f688b"
+        - "unit:hx-aicr-oci-20260727012030"
+      evidence:
+        - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+      detail: "ConfigHub imported the 17 objects into one base Space and confirmed that the source objects matched."
+      observedAt: ""
+      expiresAt: ""
+    outputOci:
+      result: "pass"
+      digest: "sha256:652f2427bfe9d798efa4521b518a3b18b0c5d0ccb6be6b937d136917c64b0915"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-aicr-oci-20260727012030-base:latest"
+      identifiers:
+        - "release-id:0f20d739-0317-4621-a7d0-463745449a32"
+        - "bundle-digest:sha256:289b27644daa2d30ec0f36fdde0b645b1a380236faaa0f3022219b1ca2be6eb7"
+      evidence:
+        - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+      detail: "ConfigHub published a release OCI with the same Kubernetes objects plus its origin annotation."
+      observedAt: ""
+      expiresAt: ""
+    delivery:
+      result: "not-run"
+      digest: ""
+      reference: ""
+      identifiers:
+        []
+      evidence:
+        - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+      detail: "The 17 Applications were pulled back and compared, but no controller applied them."
+      observedAt: ""
+      expiresAt: ""
+    observation:
+      result: "not-run"
+      digest: ""
+      reference: ""
+      identifiers:
+        []
+      evidence:
+        - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+      detail: "No EKS cluster, H100 node, controller reconciliation, or GPU workload health was observed."
+      observedAt: ""
+      expiresAt: ""
+  companionRecords:
+    sourceInputs:
+      - "examples/aicr/eks-h100-training-kubeflow/aicr.yaml"
+      - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+    lifecycle:
+      - "examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml"
+    checks:
+      - "examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml"
+    receipts:
+      - "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+      - "examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml"
+      - "runs/aicr-oci-roundtrip-proof/receipt.yaml"
+status:
+  coverage: "managed-to-oci"
+  completeThrough: "outputOci"
+  claim: "The AICR configuration can be followed from its recipe and literal OCI into ConfigHub and back to an object-preserving ConfigHub release OCI."
+  limits:
+    - "The input AICR OCI used a temporary local registry. Public Google Artifact Registry publication remains a separate receipt."
+    - "The throwaway cluster supplied a ConfigHub release target and scoped OCI pull credential. The 17 Argo CD Applications were not applied to that cluster."
+    - "This run did not reconcile the AICR stack, create an EKS cluster, use H100 nodes, or check workload health."
+    - "The proof compares the 17 Kubernetes Application objects and permits only ConfigHub's confighub.com/origin annotation as added metadata."
+    - "The temporary ConfigHub Space, cluster Space, kind cluster, registry, and local files were removed."

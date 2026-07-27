@@ -1,0 +1,105 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciEvidenceChain"
+metadata:
+  name: "sveltos-kyverno-two-cluster-fleet"
+  labels:
+    sourceType: "sveltos"
+spec:
+  sourceType: "sveltos"
+  example: "A Sveltos Kyverno profile expanded from a pilot to two clusters"
+  boundaries:
+    source:
+      result: "pass"
+      digest: "sha256:f5115db99a6b0cb90e8f71b1d74def3d042fff2fd21be24a835b3295a63b0387"
+      reference: "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+      identifiers:
+        - "source-lock:examples/sveltos/kyverno-fleet/source-lock.yaml"
+      evidence:
+        - "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+        - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+      detail: "The ClusterProfile and source lock identify the exact starting configuration."
+      observedAt: ""
+      expiresAt: ""
+    reviewedConfiguration:
+      result: "pass"
+      digest: "sha256:6c873f78591921ab8c0e114a12977802c06900e690502f7f7ea7147992b1c7fe"
+      reference: "approved Sveltos fleet ClusterProfile"
+      identifiers:
+        - "objects:1"
+        - "selector:environment=staging"
+      evidence:
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+      detail: "The approved selector change expands the reviewed profile from the pilot to both staging clusters."
+      observedAt: ""
+      expiresAt: ""
+    configHubRecord:
+      result: "pass"
+      digest: ""
+      reference: "space:hx-sveltos-20260727054324"
+      identifiers:
+        - "unit-id:68a2acb7-d72f-4b69-92e2-44b11cd75508"
+        - "pilot-revision:2"
+        - "fleet-revision:4"
+        - "approval-count:1"
+      evidence:
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+      detail: "ConfigHub stores and approves the pilot and fleet revisions separately."
+      observedAt: ""
+      expiresAt: ""
+    outputOci:
+      result: "pass"
+      digest: "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911"
+      reference: "oci://127.0.0.1:32807/sveltos-kyverno-staging:fleet"
+      identifiers:
+        - "target-revision:fleet"
+      evidence:
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+      detail: "The approved fleet ClusterProfile was packaged as one portable OCI."
+      observedAt: ""
+      expiresAt: ""
+    delivery:
+      result: "pass"
+      digest: "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911"
+      reference: "oci://host.docker.internal:32807/sveltos-kyverno-staging"
+      identifiers:
+        - "consumer:Argo CD"
+        - "fleet-controller:Sveltos"
+        - "targets:2"
+      evidence:
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+      detail: "Argo CD reconciled the OCI, and Sveltos selected both workload clusters."
+      observedAt: ""
+      expiresAt: ""
+    observation:
+      result: "pass"
+      digest: "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911"
+      reference: ""
+      identifiers:
+        - "hx-sveltos-pilot-20260727054324:pass"
+        - "hx-sveltos-next-20260727054324:pass"
+      evidence:
+        - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+      detail: "Kyverno became ready on both clusters, and Sveltos repaired deliberate replica drift on each target."
+      observedAt: "2026-07-27T05:43:24.883Z"
+      expiresAt: ""
+  companionRecords:
+    sourceInputs:
+      - "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+      - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+    lifecycle:
+      - "docs/demo/sveltos/kyverno-fleet.md"
+      - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+    checks:
+      - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+    receipts:
+      - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+status:
+  coverage: "managed-and-observed"
+  completeThrough: "observation"
+  claim: "One Sveltos system configuration can be followed from locked source through two approved ConfigHub revisions, portable OCI, Argo CD, and healthy Kyverno workloads on two clusters."
+  limits:
+    - "The pinned Sveltos controllers were installed directly as a prerequisite on the throwaway management cluster."
+    - "The reviewed ClusterProfile, not the Sveltos controller installation, was delivered through ConfigHub, OCI, and Argo CD."
+    - "The portable OCI used a temporary anonymous registry; this is not a permanent public package."
+    - "The proof used two local kind workload clusters. It does not prove a large production fleet or a failure-and-pause rollout."
+    - "The proof covers this Kyverno ClusterProfile, not every Sveltos feature or add-on."

@@ -1,0 +1,109 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciEvidenceChain"
+metadata:
+  name: "rendered-config-nginx-two-cluster-fleet"
+  labels:
+    sourceType: "rendered-config"
+spec:
+  sourceType: "rendered-config"
+  example: "Literal NGINX OCI promoted through ConfigHub and rolled out to two clusters"
+  boundaries:
+    source:
+      result: "pass"
+      digest: "sha256:5ca7ea87efa64f76a29cfa564a9af8e0f087c2bd638962e24a2b1b144417e261"
+      reference: "oci://127.0.0.1:32788/bitnami-nginx-http-clusterip-config:24.0.2"
+      identifiers:
+        - "objects:5"
+      evidence:
+        - "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+        - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      detail: "The literal Kubernetes OCI is resolved and compared with the recorded source objects before upload."
+      observedAt: ""
+      expiresAt: ""
+    reviewedConfiguration:
+      result: "pass"
+      digest: "sha256:d236f619e2e4ea8f22160be1b453e3224e3f82b6e407182903d9d8aa3568c111"
+      reference: "reviewed staging Kubernetes objects"
+      identifiers:
+        - "objects:5"
+        - "change:Deployment/nginx spec.replicas 1 -> 2"
+      evidence:
+        - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      detail: "The reviewed staging configuration contains the exact five objects after the replica change."
+      observedAt: ""
+      expiresAt: ""
+    configHubRecord:
+      result: "pass"
+      digest: ""
+      reference: "space:hx-oci-flow-20260726-1oq1-staging"
+      identifiers:
+        - "variant:staging"
+        - "upstream-space-id:cee89b7a-7098-45d4-844a-f4f095d3c1bf"
+        - "release-id:dc0c8c1d-d4ce-43d5-a9ac-c358cd5bf2aa"
+      evidence:
+        - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      detail: "ConfigHub stores the base, development, and staging chain and records both promotions."
+      observedAt: ""
+      expiresAt: ""
+    outputOci:
+      result: "pass"
+      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
+      reference: "oci://127.0.0.1:32788/reviewed-nginx-staging:latest"
+      identifiers:
+        - "objects:5"
+      evidence:
+        - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      detail: "The reviewed staging objects were exported as one portable OCI for both targets."
+      observedAt: ""
+      expiresAt: ""
+    delivery:
+      result: "pass"
+      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
+      reference: "oci://host.docker.internal:32788/reviewed-nginx-staging"
+      identifiers:
+        - "consumer:Argo CD"
+        - "targets:2"
+      evidence:
+        - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      detail: "Argo CD reconciled the same portable OCI digest on both clusters."
+      observedAt: ""
+      expiresAt: ""
+    observation:
+      result: "pass"
+      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
+      reference: ""
+      identifiers:
+        - "targets:2"
+        - "object-sets:matched"
+        - "workloads:converged"
+      evidence:
+        - "runs/oci-deploy-stage-rollout-proof/observations/target-a-object-set.json"
+        - "runs/oci-deploy-stage-rollout-proof/observations/target-a-workloads.json"
+        - "runs/oci-deploy-stage-rollout-proof/observations/target-b-object-set.json"
+        - "runs/oci-deploy-stage-rollout-proof/observations/target-b-workloads.json"
+      detail: "Fingerprint receipts show that both live object sets matched and both NGINX workloads converged."
+      observedAt: "2026-07-26T22:39:11.147Z"
+      expiresAt: "2026-07-26T23:47:41Z"
+  companionRecords:
+    sourceInputs:
+      - "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    lifecycle:
+      - "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
+    checks:
+      - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+      - "runs/oci-deploy-stage-rollout-proof/observations/target-a-object-set.json"
+      - "runs/oci-deploy-stage-rollout-proof/observations/target-a-workloads.json"
+      - "runs/oci-deploy-stage-rollout-proof/observations/target-b-object-set.json"
+      - "runs/oci-deploy-stage-rollout-proof/observations/target-b-workloads.json"
+    receipts:
+      - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
+status:
+  coverage: "managed-and-observed"
+  completeThrough: "observation"
+  claim: "One literal Kubernetes OCI can be followed through ConfigHub variants and promotion to a portable OCI consumed at the same digest by Argo CD on two observed clusters."
+  limits:
+    - "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt."
+    - "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target."
+    - "cub-scout recorded fingerprinted object-match and workload-convergence receipts locally. This test did not submit those receipts to ConfigHub observation storage."
+    - "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts."
+    - "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead."

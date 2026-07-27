@@ -1,0 +1,7 @@
+source_type,name,source,reviewed_configuration,confighub_record,output_oci,delivery,observation,coverage,complete_through,record
+aicr,aicr-eks-h100-training-kubeflow,pass,pass,pass,pass,not-run,not-run,managed-to-oci,outputOci,data/oci-evidence-chains/records/aicr-eks-h100-training-kubeflow.yaml
+cub-installer,cub-installer-nginx-three-consumers,pass,pass,pass,pass,pass,pass,managed-and-observed,observation,data/oci-evidence-chains/records/cub-installer-nginx-three-consumers.yaml
+helm,helm-byo-nginx-staging,pass,pass,pass,pass,pass,pass,managed-and-observed,observation,data/oci-evidence-chains/records/helm-byo-nginx-staging.yaml
+kubara,kubara-local-platform-argocd,pass,pass,pass,pass,pass,pass,managed-and-observed,observation,data/oci-evidence-chains/records/kubara-local-platform-argocd.yaml
+rendered-config,rendered-config-nginx-two-cluster-fleet,pass,pass,pass,pass,pass,pass,managed-and-observed,observation,data/oci-evidence-chains/records/rendered-config-nginx-two-cluster-fleet.yaml
+sveltos,sveltos-kyverno-two-cluster-fleet,pass,pass,pass,pass,pass,pass,managed-and-observed,observation,data/oci-evidence-chains/records/sveltos-kyverno-two-cluster-fleet.yaml

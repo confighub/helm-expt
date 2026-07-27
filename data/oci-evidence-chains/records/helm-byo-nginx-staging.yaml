@@ -1,0 +1,112 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciEvidenceChain"
+metadata:
+  name: "helm-byo-nginx-staging"
+  labels:
+    sourceType: "helm"
+spec:
+  sourceType: "helm"
+  example: "A team-supplied NGINX chart and values, reviewed and promoted to staging"
+  boundaries:
+    source:
+      result: "pass"
+      digest: "sha256:de4124245234c508f16f074351f66e701e101177439f38ddee89e5a038dae3a3"
+      reference: "helm:bitnami/nginx@24.0.2"
+      identifiers:
+        - "values-sha256:76ae29404f608188051a59bb182a994bf082d9c7f9a9d526c8eb53ae5ceb59c0"
+        - "release:nginx"
+        - "namespace:nginx"
+      evidence:
+        - "examples/byo-helm-values/reviewed-values.yaml"
+        - "recipes/bitnami/nginx/24.0.2/source-lock.yaml"
+        - "runs/byo-helm-values-proof/receipt.yaml"
+      detail: "The chart package, reviewed values, release name, namespace, and Kubernetes version are recorded."
+      observedAt: ""
+      expiresAt: ""
+    reviewedConfiguration:
+      result: "pass"
+      digest: "sha256:ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+      reference: "data/byo-helm-values-review/reviewed-render.yaml"
+      identifiers:
+        - "objects:5"
+        - "decision:ready-for-upload"
+      evidence:
+        - "data/byo-helm-values-review/reviewed-render.yaml"
+        - "data/byo-helm-values-review/review.yaml"
+      detail: "The rejected AI values were corrected, and the five exact Kubernetes objects were approved."
+      observedAt: ""
+      expiresAt: ""
+    configHubRecord:
+      result: "pass"
+      digest: "sha256:f18c62d9f41b7d5d1c4e120e94510a58d0c81cb7003ac64abce8848b5d31b649"
+      reference: "space:byo-nginx-ai-values-24-0-2-staging"
+      identifiers:
+        - "space-id:4cd6276c-f6c1-4afc-8fcb-66589241f732"
+        - "unit-id:9c4f3352-0be0-4513-8802-f347e7523207"
+        - "unit-revision:3"
+        - "upstream-revision:3"
+      evidence:
+        - "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+        - "runs/byo-helm-values-promotion-proof/receipt.yaml"
+      detail: "ConfigHub stores the reviewed base and the promoted staging variant as named, revisioned records."
+      observedAt: ""
+      expiresAt: ""
+    outputOci:
+      result: "pass"
+      digest: "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery:latest"
+      identifiers:
+        - "release-id:5388783a-2fe6-4f91-9faf-4235269e6915"
+      evidence:
+        - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+      detail: "ConfigHub published the promoted staging objects as a release OCI."
+      observedAt: ""
+      expiresAt: ""
+    delivery:
+      result: "pass"
+      digest: "sha256:708e6708202ec1a0d47d955db61449d961528cf4433d8b35f86462b997173b2d"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-byo-nginx-staging-20260727-he2-delivery"
+      identifiers:
+        - "consumer:Argo CD"
+        - "application:byo-nginx-staging"
+        - "namespace:nginx-staging"
+      evidence:
+        - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+      detail: "Argo CD reconciled the exact ConfigHub release digest."
+      observedAt: ""
+      expiresAt: ""
+    observation:
+      result: "pass"
+      digest: "sha256:a086d85ba66dede1b03056317da4338f779323af9cb9b6fca69bc57846314ce6"
+      reference: ""
+      identifiers:
+        - "deployment:nginx"
+        - "ready-replicas:4"
+        - "required-secret:ai-provider-credentials"
+      evidence:
+        - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+      detail: "The staging Deployment reached four ready replicas and used the required Secret reference."
+      observedAt: "2026-07-27T13:55:15.275Z"
+      expiresAt: ""
+  companionRecords:
+    sourceInputs:
+      - "recipes/bitnami/nginx/24.0.2/source-lock.yaml"
+      - "examples/byo-helm-values/reviewed-values.yaml"
+    lifecycle:
+      - "data/byo-helm-values-review/review.yaml"
+    checks:
+      - "data/byo-helm-values-review/review.yaml"
+    receipts:
+      - "runs/byo-helm-values-proof/receipt.yaml"
+      - "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"
+      - "runs/byo-helm-values-promotion-proof/receipt.yaml"
+      - "runs/byo-helm-values-staging-deploy-proof/receipt.yaml"
+status:
+  coverage: "managed-and-observed"
+  completeThrough: "observation"
+  claim: "One supplied Helm chart and values file can be followed from locked source through review, ConfigHub promotion, release OCI, Argo CD, and a live staging workload."
+  limits:
+    - "The Secret value was a fake proof value and is not present in this receipt."
+    - "The persistent staging Space has no release target, so this run cloned its configuration Unit into a temporary target-bound delivery Space. The README was removed from that delivery copy before publication."
+    - "This proves one fresh Argo CD deployment of the staging lane on one local kind cluster."
+    - "Rollback, chart upgrade, Flux delivery, fleet rollout, and ConfigHub observation storage did not run."

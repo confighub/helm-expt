@@ -55,6 +55,7 @@ smallest generated surface that answers it.
 | I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically. | [lifecycle-route-actions/summary.md](./lifecycle-route-actions/summary.md)<br>[lifecycle-route-actions/actions.csv](./lifecycle-route-actions/actions.csv)<br>[lifecycle-route-actions/actions.json](./lifecycle-route-actions/actions.json) |
 | I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached. | [helm-render-intents/summary.md](./helm-render-intents/summary.md)<br>[helm-render-intents/intents.csv](./helm-render-intents/intents.csv)<br>[helm-render-intents/intents.json](./helm-render-intents/intents.json) |
 | I want the installer package OCI ref users should pull for each chart/version. | [installer-oci-packages/summary.md](./installer-oci-packages/summary.md)<br>[installer-oci-packages/packages.csv](./installer-oci-packages/packages.csv)<br>[installer-oci-packages/packages.json](./installer-oci-packages/packages.json) |
+| I want to follow one configuration from its source digest through ConfigHub, output OCI, delivery, and live observation. | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md)<br>[oci-evidence-chains/matrix.csv](./oci-evidence-chains/matrix.csv)<br>[oci-evidence-chains/chains.json](./oci-evidence-chains/chains.json) |
 | I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today. | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md)<br>[kind-parity-decisions/decisions.csv](./kind-parity-decisions/decisions.csv)<br>[kind-parity-decisions/decisions.json](./kind-parity-decisions/decisions.json) |
 | I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today. | [live-parity-decisions/summary.md](./live-parity-decisions/summary.md)<br>[live-parity-decisions/decisions.csv](./live-parity-decisions/decisions.csv)<br>[live-parity-decisions/decisions.json](./live-parity-decisions/decisions.json) |
 | I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim). | [live-run-blocks/summary.md](./live-run-blocks/summary.md)<br>[live-run-blocks/run-blocks.csv](./live-run-blocks/run-blocks.csv)<br>[live-run-blocks/run-blocks.json](./live-run-blocks/run-blocks.json) |
@@ -84,6 +85,7 @@ smallest generated surface that answers it.
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
 | [confighub-example-guides/summary.md](./confighub-example-guides/summary.md) | Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain. |
 | [anonymous-oci-ci-proof/summary.md](./anonymous-oci-ci-proof/summary.md) | Anonymous OCI work in GitHub Actions: public package digest, rendered object set, OCI-layout digest, pull-back comparison, and explicit limits. |
+| [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md) | Source-neutral OCI evidence chains for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration, with missing delivery or observation kept explicit. |
 | [redis-upgrade-app-proof/summary.md](./redis-upgrade-app-proof/summary.md) | Live Redis Upgrade App proof: retain a post-render replica change across a chart upgrade, show the two-wave environment impact, promote in sequence, and check one OCI digest on two Argo CD clusters. |
 | [kubara-oci-delivery-proof/summary.md](./kubara-oci-delivery-proof/summary.md) | Live platform proof: approve a Kubara-generated base in ConfigHub, run its CRD, Secret, and Redis setup work, package the prepared objects as portable OCI, reconcile them with Argo CD, and bring up one selected Metrics Server Application. |
 | [sveltos-oci-delivery-proof/summary.md](./sveltos-oci-delivery-proof/summary.md) | Live fleet-platform proof: approve a Sveltos ClusterProfile in ConfigHub, package the approved object as portable OCI, reconcile it with Argo CD, let Sveltos install Kyverno on the matching workload cluster, and repair drift. |
@@ -307,6 +309,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
 | `nginx-config-checks` | [nginx-config-checks/summary.md](./nginx-config-checks/summary.md) | NGINX supported-base config extension checks |
+| `oci-evidence-chains` | [oci-evidence-chains/summary.md](./oci-evidence-chains/summary.md) | source-neutral records linking source digest, reviewed configuration, ConfigHub record, output OCI, delivery, and observation |
 | `outcome-coverage` | [outcome-coverage/summary.md](./outcome-coverage/summary.md) | front-door outcome, test, and status map |
 | `outcome-evidence-contract` | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md) | supporting generated evidence |
 | `pain-point-coverage` | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | front-door Helm pain point coverage map |
@@ -356,7 +359,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 169 CSV files. Each row records the path, audience,
+It includes 170 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

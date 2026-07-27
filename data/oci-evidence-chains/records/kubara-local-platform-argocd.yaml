@@ -1,0 +1,109 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "OciEvidenceChain"
+metadata:
+  name: "kubara-local-platform-argocd"
+  labels:
+    sourceType: "kubara"
+spec:
+  sourceType: "kubara"
+  example: "A Kubara platform configuration prepared, approved, and delivered through Argo CD"
+  boundaries:
+    source:
+      result: "pass"
+      digest: "sha256:fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541"
+      reference: "examples/kubara/local-platform/rendered/release-objects.yaml"
+      identifiers:
+        - "objects:77"
+        - "source-lock:examples/kubara/local-platform/source-lock.yaml"
+      evidence:
+        - "examples/kubara/local-platform/rendered/release-objects.yaml"
+        - "examples/kubara/local-platform/source-lock.yaml"
+      detail: "The Kubara objects and source lock identify the exact starting configuration."
+      observedAt: ""
+      expiresAt: ""
+    reviewedConfiguration:
+      result: "pass"
+      digest: "sha256:0a0d877dd9ba8be80a2405ca0ff53270a9fc8f27aeb915e04eb956b5e130e8ad"
+      reference: "prepared Kubara configuration"
+      identifiers:
+        - "objects:69"
+        - "deferred:2"
+        - "route-objects:4"
+      evidence:
+        - "runs/kubara-oci-delivery-proof/receipt.yaml"
+        - "examples/kubara/local-platform/route-intent.yaml"
+      detail: "The target-specific edits, deferred objects, CRD order, and Redis initializer are recorded before packaging."
+      observedAt: ""
+      expiresAt: ""
+    configHubRecord:
+      result: "pass"
+      digest: "sha256:222de125a8c4b342365997921973ee45604b7e40e10101cdb24202b883573c9e"
+      reference: "space:kubara-local-platform-v0-12-0"
+      identifiers:
+        - "unit-id:35144adb-8095-4f20-a1b5-1bd8ab480d74"
+        - "revision:2"
+        - "approval-count:1"
+      evidence:
+        - "runs/kubara-oci-delivery-proof/receipt.yaml"
+      detail: "ConfigHub stored revision 2 and required approval because this is system configuration."
+      observedAt: ""
+      expiresAt: ""
+    outputOci:
+      result: "pass"
+      digest: "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f"
+      reference: "oci://127.0.0.1:32804/kubara-local-platform:latest"
+      identifiers:
+        - "objects:69"
+      evidence:
+        - "runs/kubara-oci-delivery-proof/receipt.yaml"
+      detail: "The prepared, approved objects were packaged as one portable OCI."
+      observedAt: ""
+      expiresAt: ""
+    delivery:
+      result: "pass"
+      digest: "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f"
+      reference: "oci://127.0.0.1:32804/kubara-local-platform:latest"
+      identifiers:
+        - "consumer:Argo CD"
+        - "cluster:hx-kubara-20260727045336"
+      evidence:
+        - "runs/kubara-oci-delivery-proof/receipt.yaml"
+      detail: "Bootstrap Argo CD reconciled the portable OCI at the recorded digest."
+      observedAt: ""
+      expiresAt: ""
+    observation:
+      result: "pass"
+      digest: "sha256:2285659325b97e5bc0093a1b230323bcebd95164874846c16497911c3ddb910f"
+      reference: ""
+      identifiers:
+        - "namespace:metrics-server"
+        - "downstream-app:test-cluster-metrics-server"
+        - "ready-deployments:1"
+      evidence:
+        - "runs/kubara-oci-delivery-proof/receipt.yaml"
+      detail: "Kubara's Argo CD became ready and the selected Metrics Server application became Synced and Healthy."
+      observedAt: "2026-07-27T04:56:30.404Z"
+      expiresAt: ""
+  companionRecords:
+    sourceInputs:
+      - "examples/kubara/local-platform/source-lock.yaml"
+      - "examples/kubara/local-platform/rendered/release-objects.yaml"
+    lifecycle:
+      - "examples/kubara/local-platform/route-intent.yaml"
+      - "runs/kubara-oci-delivery-proof/receipt.yaml"
+    checks:
+      - "examples/kubara/local-platform/confighub-upload-receipt.yaml"
+    receipts:
+      - "runs/kubara-oci-delivery-proof/receipt.yaml"
+status:
+  coverage: "managed-and-observed"
+  completeThrough: "observation"
+  claim: "One Kubara platform configuration can be followed from locked source through ConfigHub approval, target-specific preparation, portable OCI, Argo CD, and a healthy downstream service."
+  limits:
+    - "The public OCI used a temporary registry."
+    - "The blocked pre-approval dry-run was observed in guarded run 20260727043744, but ConfigHub did not retain a UnitEvent for the failed dry-run."
+    - "The route selected Metrics Server as the one downstream platform service; it did not install every service enabled in the original local-evaluation profile."
+    - "The ClusterExternalSecret stayed deferred because this lane did not install External Secrets, a ClusterSecretStore, or its remote key."
+    - "The Argo CD gRPC Ingress stayed deferred because this lane did not install an ingress controller."
+    - "The local-kind Metrics Server adjustment adds --kubelet-insecure-tls for this throwaway cluster and is not a production recommendation."
+    - "The proof uses one cluster. It does not prove a multi-cluster Kubara promotion wave."

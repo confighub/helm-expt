@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chain Of Proof · ConfigHub Helm Ops</title>
-  <meta name="description" content="Chain Of Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/chain-of-proof.html">
-  <meta property="og:title" content="Chain Of Proof · ConfigHub Helm Ops">
-  <meta property="og:description" content="Chain Of Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>OCI Evidence Chains · ConfigHub Helm Ops</title>
+  <meta name="description" content="OCI Evidence Chains: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/oci-evidence-chains/summary.html">
+  <meta property="og:title" content="OCI Evidence Chains · ConfigHub Helm Ops">
+  <meta property="og:description" content="OCI Evidence Chains: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/chain-of-proof.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/oci-evidence-chains/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,87 +424,33 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Chain Of Proof</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/chain-of-proof.md">View source markdown</a>.</p>
+    <h1>OCI Evidence Chains</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/oci-evidence-chains/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>The project does not ask users to trust one large black-box install step. It breaks a Helm install into proof boundaries and records what each boundary can truthfully prove.</p>
-<p>The same rule applies to simple charts, serious charts, AI-assisted edits, fleet operations, and production support decisions:</p>
-<pre><code>claim only to the strongest unbroken proof boundary</code></pre>
-<h2 id="proof-boundaries">Proof Boundaries</h2>
-<table><thead><tr><th>Boundary</th><th>Tool or home</th><th>What it proves</th><th>Time behavior</th><th>What it does not prove</th></tr></thead><tbody><tr><td>Chart inputs to rendered Kubernetes objects</td><td><code>helm-expt</code> recipe artifacts and <code>cub installer</code> packages</td><td>The chart source, values, capability profile, generated facts, and base variant render to a known object set.</td><td>Recomputable from locked inputs.</td><td>Live cluster health, GitOps sync, hook execution, or controller mutations.</td></tr>
-<tr><td>Rendered objects to ConfigHub-managed desired state</td><td><code>cub installer upload</code>, ConfigHub Units, labels, scans, gates, receipts</td><td>The reviewed object set is present in ConfigHub with searchable metadata, revisions, checks, and operation history.</td><td>Historical and reviewable.</td><td>That a cluster has applied the desired state.</td></tr>
-<tr><td>Base variant to derived ConfigHub variant</td><td><code>cub variant create</code>, links, placeholders, TransformPaths, functions, gates, approvals</td><td>An already-rendered object set was cloned or refined through explicit ConfigHub operations.</td><td>Historical and reviewable.</td><td>Any change that requires a new Helm render.</td></tr>
-<tr><td>Desired state to delivery handoff</td><td>ConfigHub OCI, GitOps, apply receipts, controller receipts</td><td>The approved desired object set was handed to the delivery mechanism.</td><td>Historical, with controller-specific evidence.</td><td>Workload convergence unless observed.</td></tr>
-<tr><td>Delivery to live state</td><td>cub-scout, controller status, CI checks, operator checks, observation receipts</td><td>The target cluster was observed at a time, by a named method, with a freshness boundary.</td><td>Perishable; check <code>observedAt</code> and <code>expiresAt</code>.</td><td>Future health after the receipt expires.</td></tr></tbody></table>
-<h2 id="follow-one-result-from-source-to-cluster">Follow One Result From Source To Cluster</h2>
-<p>The <a href="../../data/oci-evidence-chains/summary.html">OCI evidence-chain index</a> puts the same six checkpoints in one record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration:</p>
-<pre><code>source
--&gt; reviewed configuration
--&gt; ConfigHub record
--&gt; output OCI
--&gt; delivery
--&gt; live observation</code></pre>
-<p>The input and output OCI digests will usually differ because they are different artifacts. A ConfigHub release can also add its <code>confighub.com/origin</code> annotation, and a reviewed variant can deliberately change fields. The record states what changed. The digest reported by Argo CD or Flux must then match the output OCI named for that delivery.</p>
-<p>Five current examples reach a recorded live result. The AICR example stops after ConfigHub republishes the reviewed Applications. Its delivery and GPU observation remain <code>not-run</code>, which prevents the repository from presenting an OCI round trip as a live AICR deployment.</p>
-<h2 id="tool-roles">Tool Roles</h2>
-<p>The tools are useful because they prove different boundaries. They are not competing ways to say &quot;install this chart.&quot;</p>
-<table><thead><tr><th>Tool or layer</th><th>Proof role</th></tr></thead><tbody><tr><td><code>helm-expt</code></td><td>Proves fidelity and origin: the captured objects match the Helm chart, values, facts, and capability profile that produced them.</td></tr>
-<tr><td><code>cub installer</code></td><td>Proves the action surface: a reviewed package/base can produce, package, upload, sign, or inspect the intended object set through a repeatable command path.</td></tr>
-<tr><td>ConfigHub Server</td><td>Proves desired-state management: rendered objects become Units with labels, links, variants, approvals, gates, changesets, revisions, and queryable history.</td></tr>
-<tr><td>GitOps or apply controller</td><td>Proves handoff: the approved desired object set was submitted to the delivery mechanism.</td></tr>
-<tr><td>cub-scout or other observers</td><td>Proves reality for a time window: the cluster was checked by a named observer and the result has freshness.</td></tr></tbody></table>
-<p>This is why AI-assisted changes still need the harness. AI can generate values, overlays, patches, and variant plans quickly. The proof chain gives each change a bounded check target before it becomes a production claim.</p>
-<h2 id="how-to-use-it">How To Use It</h2>
-<p>Start with the narrow question you need to answer.</p>
-<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>What will this chart/base render?</td><td>Per-chart <code>CATALOG.md</code>, rendered objects, render parity receipts.</td></tr>
-<tr><td>Did the <code>cub installer</code> path match regular Helm?</td><td>The chart's compare proof and Helm-equivalence receipt.</td></tr>
-<tr><td>Can I manage this as ConfigHub Units?</td><td>ConfigHub upload, Unit labels, scans, gates, safe-operation receipts.</td></tr>
-<tr><td>Can I make an environment, region, customer, or target variant?</td><td>Derived ConfigHub variant docs and <code>cub variant create</code> receipts.</td></tr>
-<tr><td>Did GitOps or apply hand the object set to Kubernetes?</td><td>OCI/GitOps or apply receipts.</td></tr>
-<tr><td>Did the workload actually converge?</td><td>Live observation receipts and freshness.</td></tr></tbody></table>
-<p>This prevents overclaiming. Render parity is valuable, but it is not a live cluster proof. A live observation is valuable, but it does not replace the render-parity proof that says where the desired objects came from.</p>
-<p>For serious charts, the most important proof often sits between those two boundaries. A chart can render correctly and still need explicit target facts, staged CRDs, admission certificates, cloud credentials, hook routing, or controller readiness before it can be used safely. The catalog treats those as first-class contracts: declare the prerequisite, stage or route it, observe the target where possible, and keep the claim bounded to the tested scope.</p>
-<h2 id="why-this-matters-for-ai-and-day-2-ops">Why This Matters For AI And Day-2 Ops</h2>
-<p>AI makes it easier to generate values, overlays, patches, functions, and variant plans. That is useful only if every generated change has a small proof target.</p>
-<p>The chain of proof gives those targets:</p>
-<pre><code>new render input
--&gt; render parity and scan proof
-
-new ConfigHub-only variant
--&gt; clone, diff, check, approval, and receipt
-
-new delivery target
--&gt; target facts, handoff receipt, and live observation
-
-new patch or bulk operation
--&gt; selected Units, preview diff, changeset, approval, re-scan, and receipt</code></pre>
-<p>This is how the project turns AI-assisted configuration work from &quot;it produced YAML&quot; into &quot;it produced a bounded change with evidence.&quot;</p>
-<h2 id="where-kube-prometheus-stack-fits">Where kube-prometheus-stack Fits</h2>
-<p>Redis is the teaching chart because the happy path is short. NGINX is the simple web/live path. <code>prometheus-community/kube-prometheus-stack</code> is the serious chart because it exercises many of the hard Helm behaviors in one place:</p>
-<pre><code>large object fanout
-CRDs
-webhooks
-cluster RBAC
-generated facts
-dependencies
-extension slots
-target prerequisites
-lifecycle and observation boundaries</code></pre>
-<p>The kube-prometheus-stack page shows how one base choice changes the object set and prerequisites:</p>
-<ul><li><a href="prometheus-high-fanout.html"><code>kube-prometheus-stack</code> high-fanout example</a></li><li><a href="../../data/webhook-cert-lifecycle/summary.html">Webhook certificate lifecycle evidence</a></li></ul>
-<p>Use that chart when you want to know whether the model survives a complex, popular Helm chart, not just a small happy path.</p>
-<h2 id="read-next">Read Next</h2>
-<table><thead><tr><th>Need</th><th>Read</th></tr></thead><tbody><tr><td>Current proof counts and authoritative summaries</td><td><a href="current-proof-status.html">Current Proof Status</a></td></tr>
-<tr><td>What each verification lane means</td><td><a href="verification-lanes.html">Verification Lanes</a></td></tr>
-<tr><td>The seven-stage lifecycle and quirk routing</td><td><a href="../reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></td></tr>
-<tr><td>The serious-chart example</td><td><a href="prometheus-high-fanout.html">Prometheus High-Fanout Example</a></td></tr></tbody></table>
+<p>These records answer six questions in the same order for every starting format:</p>
+<ol><li>What source did we start with?</li><li>Which exact configuration did we review?</li><li>Which ConfigHub Space, Unit, or revision held it?</li><li>Which OCI did we publish?</li><li>Which controller or command consumed that OCI?</li><li>What did we observe on the target?</li></ol>
+<p>The record is companion information for people and tools. Kubernetes controllers do not need to read it. The format is experimental while the project looks for a compatible public standard.</p>
+<h2 id="current-coverage">Current Coverage</h2>
+<p>5/6 source paths reach a ConfigHub-managed OCI, delivery, and a recorded live result. AICR currently stops after ConfigHub republishes the 17 reviewed Argo CD Applications. It does not yet claim EKS, H100, controller, or GPU workload health.</p>
+<table><thead><tr><th>Starting format</th><th>Example</th><th>ConfigHub record</th><th>Output OCI</th><th>Delivery</th><th>Observation</th><th>Full record</th></tr></thead><tbody><tr><td><code>aicr</code></td><td>AICR EKS H100 training configuration captured as 17 Argo CD Applications</td><td>yes</td><td>yes</td><td>not run</td><td>not run</td><td><a href="../../../../data/oci-evidence-chains/records/aicr-eks-h100-training-kubeflow.yaml">record</a></td></tr>
+<tr><td><code>cub-installer</code></td><td>A public NGINX installer package rendered once and delivered three ways</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td><a href="../../../../data/oci-evidence-chains/records/cub-installer-nginx-three-consumers.yaml">record</a></td></tr>
+<tr><td><code>helm</code></td><td>A team-supplied NGINX chart and values, reviewed and promoted to staging</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td><a href="../../../../data/oci-evidence-chains/records/helm-byo-nginx-staging.yaml">record</a></td></tr>
+<tr><td><code>kubara</code></td><td>A Kubara platform configuration prepared, approved, and delivered through Argo CD</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td><a href="../../../../data/oci-evidence-chains/records/kubara-local-platform-argocd.yaml">record</a></td></tr>
+<tr><td><code>rendered-config</code></td><td>Literal NGINX OCI promoted through ConfigHub and rolled out to two clusters</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td><a href="../../../../data/oci-evidence-chains/records/rendered-config-nginx-two-cluster-fleet.yaml">record</a></td></tr>
+<tr><td><code>sveltos</code></td><td>A Sveltos Kyverno profile expanded from a pilot to two clusters</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td><a href="../../../../data/oci-evidence-chains/records/sveltos-kyverno-two-cluster-fleet.yaml">record</a></td></tr></tbody></table>
+<h2 id="why-the-digests-can-differ">Why The Digests Can Differ</h2>
+<p>The input OCI and the ConfigHub release OCI are different artifacts, so their manifest digests normally differ. The chain must say whether the Kubernetes content was unchanged, changed deliberately, or gained ConfigHub's <code>confighub.com/origin</code> annotation.</p>
+<p>The digest used by Argo CD or Flux must match the output OCI named by that delivery step. A live observation is separate: it records what the cluster showed at a particular time and, where available, when that observation expires.</p>
+<h2 id="files">Files</h2>
+<ul><li><a href="../../../../data/oci-evidence-chains/chains.json"><code>chains.json</code></a> contains every record for tools.</li><li><a href="../../../../data/oci-evidence-chains/matrix.csv"><code>matrix.csv</code></a> is a compact source-by-boundary table.</li><li><a href="../../../../data/oci-evidence-chains/records"><code>records/</code></a> contains one readable YAML record per starting format.</li><li><a href="../../../../schemas/oci-evidence-chain.schema.json"><code>schemas/oci-evidence-chain.schema.json</code></a> defines the record fields.</li></ul>
+<h2 id="verify">Verify</h2>
+<pre><code>npm run oci-evidence:verify</code></pre>
+<p>This verification is network-free. It rebuilds the six records from committed receipts, checks their digests and links, and refuses to call the AICR path delivered or observed before that work has actually run.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/chain-of-proof.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/oci-evidence-chains/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
