@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Making Configuration Easier To Test · ConfigHub Helm Ops</title>
-  <meta name="description" content="Why the catalog makes configuration easier to test: inspect exact objects, repeat the recorded checks, and see hooks, CRDs, and setup work before deployment.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/testing.html">
-  <meta property="og:title" content="Making Configuration Easier To Test · ConfigHub Helm Ops">
-  <meta property="og:description" content="Why the catalog makes configuration easier to test: inspect exact objects, repeat the recorded checks, and see hooks, CRDs, and setup work before deployment.">
+  <title>Promote the AICR change to staging · ConfigHub Helm Ops</title>
+  <meta name="description" content="Promote the AICR change to staging: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html">
+  <meta property="og:title" content="Promote the AICR change to staging · ConfigHub Helm Ops">
+  <meta property="og:description" content="Promote the AICR change to staging: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/testing.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -413,177 +413,38 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>Making configuration easier to test</h1>
-    <p class="tagline">Start with a Helm chart, an AICR bundle, or one of the catalog packages. Render it without applying, inspect the exact objects and required setup, then run the recorded checks. Each catalog page tells you which checks passed, which did not, and how to repeat them.</p>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../testing.html">Testing</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
+    <h1>Promote the AICR change to staging</h1>
+    <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="bring-your-own">
-      <h2 id="bring-your-own">Bring your own chart and values</h2>
-      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
-      <pre><code>helm template &lt;release&gt; &lt;chart&gt;   --version &lt;version&gt;   --namespace &lt;namespace&gt;   --values &lt;values.yaml&gt;   &gt; rendered.yaml</code></pre>
-      <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
-      <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas, but also embeds an API key, changes to an unpinned image, exposes a public LoadBalancer, and weakens three container security settings. The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. Open the <a href="d/data/byo-helm-values-review/summary.html">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
-      <p>The proof freshly renders the locked chart, checks that the baseline matches the catalog, finds the six intended problems, and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="d/data/byo-helm-values-review/public-and-confighub.html">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
-      <div class="card"><table>
-        <thead><tr><th>Then what?</th><th>Recorded result</th></tr></thead>
-        <tbody><tr><td>Deploy the reviewed result</td><td><a href="d/data/byo-helm-values-deploy-proof/summary.html">Argo CD synced the ConfigHub release and NGINX reached 3/3 ready replicas</a>.</td></tr><tr><td>Change development</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">The saved base stayed at three replicas while development changed to four</a>.</td></tr><tr><td>Promote to staging</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">ConfigHub promoted the four-replica change and preserved the staging namespace</a>.</td></tr><tr><td>Deploy staging</td><td><a href="d/data/byo-helm-values-staging-deploy-proof/summary.html">Argo CD synced the promoted ConfigHub release and NGINX reached 4/4 ready replicas</a>.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The target still has to provide the <code>ai-provider-credentials</code> Secret. Both live runs supplied a fake value separately and did not record it. This exact example has not run through Flux, rollback, a chart upgrade, or a fleet rollout. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
-    </section>
-
-    <section aria-labelledby="aicr-platform">
-      <h2 id="aicr-platform">Start with an AICR platform package</h2>
-      <p>AICR selected 15 versioned components for an EKS H100 training platform and generated an Argo CD source package. We published that package and a second OCI containing the 17 exact Argo CD Applications. Both are public and passed anonymous pull checks at their recorded digests.</p>
-      <p>ConfigHub imported the 17 Applications as one unchanged base. Development changes only the kube-prometheus-stack Application so Grafana reads its administrator credentials from a Secret owned by the target. A dry run named that Application and changed nothing. Staging then received the same reviewed configuration, while the other 16 Applications stayed unchanged.</p>
-      <div class="card"><table>
-        <thead><tr><th>Open</th><th>What it answers</th></tr></thead>
-        <tbody><tr><td>AICR guide</td><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">How the recipe became two public OCI artifacts and three ConfigHub Spaces</a>.</td></tr><tr><td>Public OCI receipt</td><td><a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Which references and digests passed anonymous pulls</a>.</td></tr><tr><td>Promotion receipt</td><td><a href="../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">Which Application changed, what the dry runs checked, and what reached staging</a>.</td></tr><tr><td>Live Space guides</td><td><a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">Base</a> · <a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.html">development</a> · <a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html">staging</a>.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
-    </section>
-
-    <section aria-labelledby="source-to-oci">
-      <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
-      <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package, renders one base, checks it, builds a literal configuration OCI, pulls that OCI back, and compares its objects with the reviewed files. It runs without ConfigHub credentials.</p>
-      <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="d/data/byo-helm-values-review/public-and-confighub.html">Open its OCI and ConfigHub record</a>.</p>
-      <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
-      <p><a href="d/data/anonymous-oci-ci-proof/summary.html">Read the CI source-to-OCI proof</a> and <a href="d/data/serverless-oci-gitops-proof/summary.html">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
-      <p>For an arbitrary private chart, the same building blocks exist, but there is not yet one polished public service that performs the whole analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
-    </section>
-
-    <section aria-labelledby="pillar-fewer">
-      <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
-      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
-      <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
-    </section>
-
-    <section aria-labelledby="pillar-proof">
-      <h2 id="pillar-proof">You can read the proof before you ship</h2>
-      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
-      <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
-    </section>
-
-    <section aria-labelledby="pillar-messy">
-      <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
-      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the result for each delivery path. The Kube Prometheus Stack direct install now has a receipt; its Argo CD, Flux, and upgrade paths remain not-run. A missing receipt remains visible.</p>
-      <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
-    </section>
-
-    <section aria-labelledby="pillar-reverse">
-      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
-      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
-      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
-    </section>
-
-    <section aria-labelledby="pillar-installer">
-      <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
-      <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
-    </section>
-
-    <section aria-labelledby="pillar-policy">
-      <h2 id="pillar-policy">The checks follow the configuration</h2>
-      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Image digest and workload probe checks warn. Production releases and system configuration keep those checks and add one approval.</p>
-      <p><a href="d/data/apply-policy-profiles/summary.html">Read the policy, resource classes, and live assignments</a>.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
+    <article class="doc-body">
+<p>This staging variant received the reviewed Grafana existing-Secret change from development while keeping the other 16 AICR Applications unchanged.</p>
+<p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
+<h2 id="why-this-example-exists">Why this example exists</h2>
+<p>Copying a large generated platform bundle into staging would hide the one intended difference.</p>
+<p>This Space records the upstream relationship and proves that the promotion changed only the reviewed kube-prometheus-stack Application.</p>
+<h2 id="what-this-example-shows">What this example shows</h2>
+<ul><li>Staging started from the same 17-Application baseline as development.</li><li>The promotion preview reported one changed Unit and left staging unchanged.</li><li>The completed promotion made staging match the reviewed development configuration.</li><li>Required approval and the other catalog checks remain attached before any apply.</li></ul>
+<h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
+<ul><li>This README.</li><li>The <code>aicr-eks-h100-training-kubeflow</code> Unit to inspect the promoted result.</li><li>The Unit revision history to see the ConfigHub promotion.</li><li><code>aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development</code> for the upstream review.</li></ul>
+<h2 id="evidence-and-source">Evidence and source</h2>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/eks-h100-training-kubeflow.md">AICR example guide</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Public OCI receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">Development and staging promotion</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml">Required-approval check</a></li></ul>
+<h2 id="limits">Limits</h2>
+<ul><li>The target must provide <code>monitoring/aicr-grafana-admin</code> before delivery.</li><li>The promotion proves stored configuration and policy behavior. It does not prove Argo CD reconciliation or GPU workload health.</li></ul>
+    </article>
   </main>
-  <footer>Every claim on this page points at committed evidence in the catalog.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

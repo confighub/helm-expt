@@ -1,75 +1,205 @@
-apiVersion: catalog.confighub.com/v1alpha1
-kind: VariantReadinessReceipt
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "VariantReadinessReceipt"
 metadata:
-  name: aicr-eks-h100-training-kubeflow-v0-14-0-staging
+  name: "aicr-eks-h100-training-kubeflow-v0-14-0-staging"
 spec:
-  checkedAt: "2026-07-26T15:16:15Z"
-  organization: helm-catalog
-  upstream:
-    space: aicr-eks-h100-training-kubeflow-v0-14-0-argocd
-    unit: aicr-eks-h100-training-kubeflow
-    sourceDigest: sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010
-  intendedVariant:
-    name: staging
-    space: aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging
-    environment: Staging
-    region: demo
-    change:
-      resource: argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack
-      path: spec.source.helm.values
-      from: grafana.adminPassword
-      to: grafana.admin.existingSecret
-      requiredSecret: monitoring/aicr-grafana-admin
-      dryRunCommand:
-        - cub
-        - run
-        - search-replace
-        - --space
-        - aicr-eks-h100-training-kubeflow-v0-14-0-argocd
-        - --unit
-        - aicr-eks-h100-training-kubeflow
-        - --search-value
+  checkedAt: "2026-07-27T14:55:30.581Z"
+  organization: "helm-catalog"
+  source:
+    sourcePackage:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0"
+      digest: "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e"
+      anonymousPull: "pass"
+    literalConfiguration:
+      reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0"
+      digest: "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010"
+      anonymousPull: "pass"
+    configHubUploadReceipt: "examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml"
+  chain:
+    base:
+      space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+      id: "0748b39f-8a70-42a9-8be2-7d452b601eb6"
+      variant: "v0-14-0-argocd"
+      environment: ""
+      upstreamSpaceId: ""
+      applicationCount: 17
+      canonicalDataSha256: "72d72e790b949708cf718784859fd20c23c34886e648ea4000d8c5f3ea6b96f0"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "5a84f800-f583-4c45-b5f8-9e4f5837b375"
+        dataHash: "1789bab93a26a891f5b5b4cd5a954a3e81fff5cd3ba3c1ecc1dca1bbc82f15c8"
+        headRevision: 2
+        upstreamRevision: 0
+        fromLinkIds:
+          []
+      readmeUnit:
+        slug: "readme"
+        id: "69771766-00db-4544-b510-ab4fa0e14c09"
+        dataHash: "780d892a44e9caea9428f2c2b6ba6ca39e5efd8f4fee249aa8a38e5e8bbbf615"
+        fromLinkIds:
+          []
+      policyChecks:
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+    development:
+      space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development"
+      id: "78c45acc-1ccb-4d88-a567-3d047492a01c"
+      variant: "development"
+      environment: "Development"
+      upstreamSpaceId: "0748b39f-8a70-42a9-8be2-7d452b601eb6"
+      applicationCount: 17
+      canonicalDataSha256: "67a683aa59d5f94c49202ad045e7524333e64a5f8cf2ab1e4257a0197e1a7597"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "dc54574d-36ed-4ae9-b901-f3ede231c578"
+        dataHash: "652b8252725582b209d87c9cf2c8bfa3a7f7f09e521bb8e3e9b90793af17d07c"
+        headRevision: 2
+        upstreamRevision: 2
+        fromLinkIds:
+          - "ee759e34-acab-4476-ac36-ca4e503aad2f"
+      readmeUnit:
+        slug: "readme"
+        id: "128101e3-1ed5-435d-a3ae-8b42dd312307"
+        dataHash: "76db56b540f4ad2eed6c02a006bbdef022fe0cb115551528361b6be2c87b15a5"
+        fromLinkIds:
+          []
+      policyChecks:
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+    staging:
+      space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging"
+      id: "31848ca8-511a-4c78-816b-89aaa6be0262"
+      variant: "staging"
+      environment: "Staging"
+      upstreamSpaceId: "78c45acc-1ccb-4d88-a567-3d047492a01c"
+      applicationCount: 17
+      canonicalDataSha256: "67a683aa59d5f94c49202ad045e7524333e64a5f8cf2ab1e4257a0197e1a7597"
+      configurationUnit:
+        slug: "aicr-eks-h100-training-kubeflow"
+        id: "517b9cc4-781a-4b65-8125-429fc555ff48"
+        dataHash: "652b8252725582b209d87c9cf2c8bfa3a7f7f09e521bb8e3e9b90793af17d07c"
+        headRevision: 2
+        upstreamRevision: 2
+        fromLinkIds:
+          - "c1bfc021-a407-419a-9857-32faa9e8f4bc"
+      readmeUnit:
+        slug: "readme"
+        id: "2cb7a9ac-c57c-4e00-b33a-9ee43aa89d21"
+        dataHash: "c656782d2f6b3e6dc1c5d2f6ba88756c37945bf93d1d58cc6c3b89b978b620d2"
+        fromLinkIds:
+          []
+      policyChecks:
+        - "digest-pinned-images"
+        - "lifecycle-route-evidence"
+        - "probes-declared"
+        - "require-approval"
+        - "vet-placeholders"
+        - "vet-schemas"
+      applyGates:
+        - "platform/require-approval/vet-approvedby"
+      pendingUpstreamChanges: 0
+  change:
+    resource: "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+    path: "spec.source.helm.values.grafana"
+    from: "grafana.adminPassword"
+    to: "grafana.admin.existingSecret"
+    requiredSecret: "monitoring/aicr-grafana-admin"
+    changedApplicationCount: 1
+    preview:
+      command:
+        - "cub"
+        - "run"
+        - "search-replace"
+        - "--space"
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development"
+        - "--unit"
+        - "aicr-eks-h100-training-kubeflow"
+        - "--search-value"
         - "  adminPassword: admin"
-        - --replace-value
+        - "--replace-value"
         - "  admin:\n    existingSecret: aicr-grafana-admin\n    userKey: admin-user\n    passwordKey: admin-password"
-        - --dry-run
-        - -o
-        - mutations
-      dryRunMutationCount: 1
-  attemptedCommand:
-    - cub
-    - variant
-    - create
-    - staging
-    - aicr-eks-h100-training-kubeflow-v0-14-0-argocd
-    - --space-pattern
-    - template:aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging
-    - --environment
-    - Staging
-    - --region
-    - demo
-    - --allow-exists
-    - --wait
-    - --timeout
-    - 10m
-  liveLimit:
-    entityType: Link
-    current: 1000
-    maximum: 1000
-    serverMessage: "failed to create upgrade link: exceeded maximum quota for entity type Link"
-  cleanup:
-    partialSpaceCreated: true
-    partialSpaceHadUnits: false
-    partialSpaceDeleted: true
-status:
-  result: blocked
-  baseVariant: pass
-  intendedDiffDryRun: pass
-  derivedVariant: blocked-by-link-quota
-  promotionPreview: not-run
-  promotion: not-run
-  claim: The AICR base variant is ready for an environment clone, and the intended Grafana Secret change produces one exact Application diff. The live demo organization cannot create the upstream link until its Link quota is raised or explicitly obsolete links are removed.
+        - "--dry-run"
+        - "-o"
+        - "mutations"
+      result: "pass"
+      changedApplicationCount: 1
+      namedApplication: "argocd/kube-prometheus-stack"
+      storedDataUnchanged: true
+    revision:
+      id: "d8b8c2e5-2869-48a8-88ef-e83250565898"
+      number: 2
+      source: "Invoke"
+      description: "Use an existing Secret for the AICR Grafana administrator| Functions: search-replace"
+      createdAt: "2026-07-27T14:54:59.188331Z"
+  promotion:
+    path: "base -> development -> staging"
+    scope: "configuration Unit aicr-eks-h100-training-kubeflow"
+    preview:
+      command:
+        - "cub"
+        - "unit"
+        - "update"
+        - "--space"
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging"
+        - "aicr-eks-h100-training-kubeflow"
+        - "--upgrade"
+        - "--dry-run"
+        - "-o"
+        - "mutations"
+      result: "pass"
+      reportedUnitCount: 1
+      namedApplication: "argocd/kube-prometheus-stack"
+      storedDataUnchanged: true
+    result: "pass"
+    stagingRevision:
+      id: "b15c6c9a-bebc-4888-85c6-914d2a1a48f1"
+      number: 2
+      source: "UpgradeUnit"
+      description: "Promote the reviewed AICR Grafana Secret change to staging"
+      createdAt: "2026-07-27T14:55:11.352845Z"
+    upstreamRevisionMatched: true
+    pendingAfter: 0
+    stagingMatchesDevelopment: true
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-prod-gates"
+    checks:
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "require-approval"
+      - "vet-placeholders"
+      - "vet-schemas"
+    approvalGate: "platform/require-approval/vet-approvedby"
+    approvalRequiredOnEverySpace: true
+  documentation:
+    oneReadmePerSpace: true
+    readmesIndependentOfConfigurationLinks: true
+    promotionScope: "The configuration Unit is promoted by itself so each Space keeps its own README."
   limits:
-    - No catalog links were deleted to make room for this example.
-    - No staging Space or promotion result is claimed.
-    - A newer AICR package is required before an upgrade promotion can be proved honestly.
+    - "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys."
+    - "This receipt proves stored configuration, policy assignment, one development change, and one promotion. It does not prove Argo CD reconciliation or GPU workload health."
+    - "This changes one AICR v0.14.0 bundle. It does not prove an AICR package-version upgrade."
+status:
+  result: "pass"
+  publicOci: "pass"
+  baseVariant: "pass"
+  developmentChange: "pass"
+  promotionPreview: "pass"
+  promotion: "pass"
+  approvalRequired: "pass"
+  claim: "ConfigHub kept the public AICR configuration as an unchanged base, changed one Application in development to use an existing Secret, and promoted that exact reviewed result to staging."

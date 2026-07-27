@@ -12,12 +12,12 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | --- | ---: |
 | org | 2 |
 | preset | 21 |
-| environment | 9 |
+| environment | 11 |
 | source | 3 |
 | fleet | 5 |
 | pilot | 1 |
 | route | 2 |
-| total | 43 |
+| total | 45 |
 
 ## Files
 
@@ -52,6 +52,8 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `prometheus-community-kube-prometheus-stack-85-3-3-no-crds` | preset | [README](spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md) | [readme.yaml](units/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/readme.yaml) |
 | `prometheus-community-prometheus-29-8-0-default` | preset | [README](spaces/prometheus-community-prometheus-29-8-0-default/README.md) | [readme.yaml](units/prometheus-community-prometheus-29-8-0-default/readme.yaml) |
 | `prometheus-community-prometheus-29-8-0-server-only-ephemeral` | preset | [README](spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md) | [readme.yaml](units/prometheus-community-prometheus-29-8-0-server-only-ephemeral/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/readme.yaml) |
+| `aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging` | environment | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/readme.yaml) |
 | `bitnami-redis-base` | environment | [README](spaces/bitnami-redis-base/README.md) | [readme.yaml](units/bitnami-redis-base/readme.yaml) |
 | `bitnami-redis-prod` | environment | [README](spaces/bitnami-redis-prod/README.md) | [readme.yaml](units/bitnami-redis-prod/readme.yaml) |
 | `bitnami-redis-staging` | environment | [README](spaces/bitnami-redis-staging/README.md) | [readme.yaml](units/bitnami-redis-staging/readme.yaml) |

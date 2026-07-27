@@ -29,14 +29,15 @@ This example keeps the AICR recipe and OCI digest connected to the exact Argo CD
 
 - [AICR example guide](https://github.com/confighub/helm-expt/blob/main/docs/demo/aicr/eks-h100-training-kubeflow.md)
 - [AICR source and OCI receipt](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml)
+- [Public OCI receipt](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml)
 - [ConfigHub upload receipt](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml)
-- [Staging variant readiness](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+- [Development and staging promotion](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
 - [Apply policy and live assignments](https://github.com/confighub/helm-expt/blob/main/data/apply-policy-profiles/summary.md)
 - [Rendered Argo CD Applications](https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/argocd-rendered)
 
 ## Limits
 
 - This proves the package-to-base-variant path. It does not claim that Argo CD reconciled the Applications or that the workloads ran on an EKS GPU cluster.
-- The Space currently records a temporary local OCI source. The public Google Artifact Registry copy still needs a fresh Google login.
-- The first staging clone is blocked because this demo organization is at its 1,000-Link quota. The empty partial Space was removed; no existing catalog links were deleted.
+- The source Helm chart OCI and the 17-object literal configuration OCI are public and anonymously pullable. The ConfigHub Space records the public literal OCI and its digest.
+- The development and staging Spaces prove one reviewed Application change and promotion. They do not prove an AICR package upgrade.
 - The target must already provide the `argocd` Namespace, the default Argo CD AppProject, Argo CD itself, EKS, and the required GPU capacity.

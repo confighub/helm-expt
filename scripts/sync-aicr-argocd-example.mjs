@@ -31,6 +31,8 @@ const allowedModes = new Set([
   "--hub-record",
   "--hub-verify",
   "--hub-policy-check",
+  "--hub-promotion-sync",
+  "--hub-promotion-verify",
 ]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
@@ -40,7 +42,9 @@ if (!allowedModes.has(mode)) {
   node scripts/sync-aicr-argocd-example.mjs --hub-sync
   node scripts/sync-aicr-argocd-example.mjs --hub-record
   node scripts/sync-aicr-argocd-example.mjs --hub-verify
-  node scripts/sync-aicr-argocd-example.mjs --hub-policy-check`);
+  node scripts/sync-aicr-argocd-example.mjs --hub-policy-check
+  node scripts/sync-aicr-argocd-example.mjs --hub-promotion-sync
+  node scripts/sync-aicr-argocd-example.mjs --hub-promotion-verify`);
   process.exit(1);
 }
 
@@ -49,6 +53,7 @@ const sourceReceiptPath = join(root, "argocd-oci-receipt.yaml");
 const publicReceiptPath = join(root, "public-oci-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
 const policyReceiptPath = join(root, "apply-policy-receipt.yaml");
+const promotionReceiptPath = join(root, "promotion-readiness-receipt.yaml");
 const renderedRoot = join(root, "argocd-rendered");
 const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const configLayoutRoot = join(root, "oci-layouts", "argocd-config");
@@ -70,11 +75,30 @@ const publicConfigRef = configArtifact.publicTarget;
 const configRef = process.env.AICR_CONFIG_OCI_REF || publicConfigRef;
 const expectedOrg = "helm-catalog";
 const spaceSlug = "aicr-eks-h100-training-kubeflow-v0-14-0-argocd";
+const developmentSpaceSlug = `${spaceSlug}-development`;
+const stagingSpaceSlug = `${spaceSlug}-staging`;
 const unitSlug = "aicr-eks-h100-training-kubeflow";
 const readmeSlug = "readme";
 const approvalRequiredFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
 const cubContext = process.env.CUB_CONTEXT ?? "";
+const oldGrafanaValue = "  adminPassword: admin";
+const newGrafanaValue = [
+  "  admin:",
+  "    existingSecret: aicr-grafana-admin",
+  "    userKey: admin-user",
+  "    passwordKey: admin-password",
+].join("\n");
+const promotionDescription =
+  "Promote the reviewed AICR Grafana Secret change to staging";
+const variantReadmeUnitPath = (space) => join(
+  repoRoot,
+  "data",
+  "helm-catalog-readmes",
+  "units",
+  space,
+  "readme.yaml",
+);
 
 runLocalVerification();
 
@@ -132,6 +156,33 @@ if (mode === "--hub-policy-check") {
   console.log(`recorded the live required-approval check for ${spaceSlug}/${unitSlug}`);
   process.exit(0);
 }
+if (mode === "--hub-promotion-sync") {
+  check(
+    process.env.HELM_EXPT_ALLOW_AICR_PROMOTION === "1",
+    "set HELM_EXPT_ALLOW_AICR_PROMOTION=1 to update the persistent AICR environment variants",
+  );
+  assertOrg();
+  verifyPublicReceipt({ fetch: true });
+  const uploadReceipt = verifyCommittedUploadReceipt();
+  verifyLiveAgainstReceipt(uploadReceipt);
+  const receipt = syncPersistentPromotion(uploadReceipt);
+  writeYaml(promotionReceiptPath, receipt);
+  verifyPersistentPromotionReceipt(receipt, uploadReceipt);
+  verifyPersistentPromotionLive(receipt);
+  console.log(
+    `synchronized ${spaceSlug} -> ${developmentSpaceSlug} -> ${stagingSpaceSlug}`,
+  );
+  process.exit(0);
+}
+if (mode === "--hub-promotion-verify") {
+  assertOrg();
+  const uploadReceipt = verifyCommittedUploadReceipt();
+  const receipt = readYaml(promotionReceiptPath);
+  verifyPersistentPromotionReceipt(receipt, uploadReceipt);
+  verifyPersistentPromotionLive(receipt);
+  console.log("verified the persistent AICR development and staging chain");
+  process.exit(0);
+}
 
 const committedUploadReceipt = verifyCommittedUploadReceipt();
 check(
@@ -156,6 +207,13 @@ function runLocalVerification() {
           "--hub-record",
           "--hub-policy-check",
         ].includes(mode) ? "1" : "0",
+        AICR_SKIP_PROMOTION_RECEIPT:
+          [
+            "--hub-sync",
+            "--hub-record",
+            "--hub-policy-check",
+            "--hub-promotion-sync",
+          ].includes(mode) ? "1" : "0",
       },
     },
   );
@@ -753,6 +811,653 @@ function verifyApplyPolicyReceipt(receipt, uploadReceipt) {
     receipt.status?.configurationApplied === "not-run",
     "AICR policy receipt must not claim apply",
   );
+}
+
+function syncPersistentPromotion(uploadReceipt) {
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  let base = inspectPersistentVariant(spaceSlug);
+  verifyPersistentVariant(base, {
+    variant: "v0-14-0-argocd",
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  check(
+    base.space.Annotations?.ExternalSource === publicConfigRef
+      && base.space.Annotations?.ExternalSourceDigest === configArtifact.digest,
+    "persistent AICR base does not record the public literal configuration OCI",
+  );
+
+  if (!spacePresent(developmentSpaceSlug)) {
+    cub([
+      "variant",
+      "create",
+      "development",
+      spaceSlug,
+      "--space-pattern",
+      `template:${developmentSpaceSlug}`,
+      "--environment",
+      "Development",
+      "--region",
+      "demo",
+      "--wait",
+      "--timeout",
+      "10m",
+    ], { inherit: true });
+  }
+
+  ensureIndependentVariantReadme(developmentSpaceSlug);
+  let development = inspectPersistentVariant(developmentSpaceSlug);
+  if (!spacePresent(stagingSpaceSlug)) {
+    verifyPersistentVariant(development, {
+      variant: "development",
+      environment: "Development",
+      upstreamSpaceId: base.space.SpaceID,
+      fromLinks: 1,
+      expectedDocs: baseDocs,
+    });
+    cub([
+      "variant",
+      "create",
+      "staging",
+      developmentSpaceSlug,
+      "--space-pattern",
+      `template:${stagingSpaceSlug}`,
+      "--environment",
+      "Staging",
+      "--region",
+      "demo",
+      "--wait",
+      "--timeout",
+      "10m",
+    ], { inherit: true });
+  }
+
+  ensureIndependentVariantReadme(developmentSpaceSlug);
+  ensureIndependentVariantReadme(stagingSpaceSlug);
+  development = inspectPersistentVariant(developmentSpaceSlug);
+  let staging = inspectPersistentVariant(stagingSpaceSlug);
+
+  let changePreview = previousPromotionEvidence()?.spec?.change?.preview ?? null;
+  if (canonicalDocs(development.docs) === canonicalDocs(baseDocs)) {
+    const before = persistentUnitState(development);
+    const args = [
+      "run",
+      "search-replace",
+      "--space",
+      developmentSpaceSlug,
+      "--unit",
+      unitSlug,
+      "--search-value",
+      oldGrafanaValue,
+      "--replace-value",
+      newGrafanaValue,
+    ];
+    const output = cub([...args, "--dry-run", "-o", "mutations"]);
+    check(
+      output.includes("kube-prometheus-stack"),
+      "AICR development dry-run did not name kube-prometheus-stack",
+    );
+    development = inspectPersistentVariant(developmentSpaceSlug);
+    check(
+      JSON.stringify(persistentUnitState(development)) === JSON.stringify(before),
+      "AICR development dry-run changed stored configuration",
+    );
+    changePreview = {
+      command: ["cub", ...args, "--dry-run", "-o", "mutations"],
+      result: "pass",
+      changedApplicationCount: 1,
+      namedApplication: "argocd/kube-prometheus-stack",
+      storedDataUnchanged: true,
+    };
+    cub([
+      ...args,
+      "--change-desc",
+      "Use an existing Secret for the AICR Grafana administrator",
+      "--wait",
+    ], { inherit: true });
+    development = inspectPersistentVariant(developmentSpaceSlug);
+  }
+
+  verifyPersistentVariant(development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: base.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+
+  const needsPromotion =
+    staging.configuration.upstreamRevision !== development.configuration.headRevision;
+  let promotionPreview =
+    previousPromotionEvidence()?.spec?.promotion?.preview ?? null;
+  if (needsPromotion) {
+    verifyPersistentVariant(staging, {
+      variant: "staging",
+      environment: "Staging",
+      upstreamSpaceId: development.space.SpaceID,
+      fromLinks: 1,
+      expectedDocs: baseDocs,
+    });
+    const before = persistentUnitState(staging);
+    const command = [
+      "unit",
+      "update",
+      "--space",
+      stagingSpaceSlug,
+      unitSlug,
+      "--upgrade",
+      "--dry-run",
+      "-o",
+      "mutations",
+    ];
+    const output = cub(command);
+    check(
+      output.includes("kube-prometheus-stack"),
+      `AICR promotion dry-run did not name kube-prometheus-stack: ${output.trim()}`,
+    );
+    staging = inspectPersistentVariant(stagingSpaceSlug);
+    check(
+      JSON.stringify(persistentUnitState(staging)) === JSON.stringify(before),
+      "AICR promotion dry-run changed staging",
+    );
+    promotionPreview = {
+      command: ["cub", ...command],
+      result: "pass",
+      reportedUnitCount: 1,
+      namedApplication: "argocd/kube-prometheus-stack",
+      storedDataUnchanged: true,
+    };
+    cub([
+      "unit",
+      "update",
+      "--space",
+      stagingSpaceSlug,
+      unitSlug,
+      "--upgrade",
+      "--change-desc",
+      promotionDescription,
+    ], { inherit: true });
+    staging = inspectPersistentVariant(stagingSpaceSlug);
+  }
+
+  ensureIndependentVariantReadme(developmentSpaceSlug);
+  ensureIndependentVariantReadme(stagingSpaceSlug);
+  base = inspectPersistentVariant(spaceSlug);
+  development = inspectPersistentVariant(developmentSpaceSlug);
+  staging = inspectPersistentVariant(stagingSpaceSlug);
+  verifyPersistentVariant(base, {
+    variant: "v0-14-0-argocd",
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  verifyPersistentVariant(development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: base.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(staging, {
+    variant: "staging",
+    environment: "Staging",
+    upstreamSpaceId: development.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  check(
+    staging.configuration.upstreamRevision
+      === development.configuration.headRevision
+      && staging.upgradableUnitCount === 0,
+    "persistent AICR staging has not caught up with development",
+  );
+  check(changePreview, "AICR development preview evidence is missing");
+  check(promotionPreview, "AICR promotion preview evidence is missing");
+
+  const developmentRevision = findPersistentRevision(
+    development.revisions,
+    (revision) =>
+      revision.Source === "Invoke"
+      && revision.Description?.includes("existing Secret"),
+    "AICR development Secret revision",
+  );
+  const stagingRevision = findPersistentRevision(
+    staging.revisions,
+    (revision) =>
+      revision.Source === "UpgradeUnit"
+      && revision.Description === promotionDescription,
+    "AICR staging promotion revision",
+  );
+  const policy = readYaml(policyPath);
+
+  return {
+    apiVersion: "catalog.confighub.com/v1alpha1",
+    kind: "VariantReadinessReceipt",
+    metadata: {
+      name: "aicr-eks-h100-training-kubeflow-v0-14-0-staging",
+    },
+    spec: {
+      checkedAt: new Date().toISOString(),
+      organization: expectedOrg,
+      source: {
+        sourcePackage: {
+          reference: publicSourceRef,
+          digest: sourceArtifact.portableDigest,
+          anonymousPull: "pass",
+        },
+        literalConfiguration: {
+          reference: publicConfigRef,
+          digest: configArtifact.digest,
+          anonymousPull: "pass",
+        },
+        configHubUploadReceipt: relative(repoRoot, uploadReceiptPath)
+          .replaceAll("\\", "/"),
+      },
+      chain: {
+        base: persistentVariantRecord(base),
+        development: persistentVariantRecord(development),
+        staging: persistentVariantRecord(staging),
+      },
+      change: {
+        resource:
+          "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
+        path: "spec.source.helm.values.grafana",
+        from: "grafana.adminPassword",
+        to: "grafana.admin.existingSecret",
+        requiredSecret: "monitoring/aicr-grafana-admin",
+        changedApplicationCount: 1,
+        preview: changePreview,
+        revision: persistentRevisionRecord(developmentRevision),
+      },
+      promotion: {
+        path: "base -> development -> staging",
+        scope: `configuration Unit ${unitSlug}`,
+        preview: promotionPreview,
+        result: "pass",
+        stagingRevision: persistentRevisionRecord(stagingRevision),
+        upstreamRevisionMatched: true,
+        pendingAfter: 0,
+        stagingMatchesDevelopment: true,
+      },
+      policy: {
+        profile: policy.metadata.name,
+        filter: approvalRequiredFilterRef,
+        checks: expectedPersistentCheckSlugs(),
+        approvalGate,
+        approvalRequiredOnEverySpace: true,
+      },
+      documentation: {
+        oneReadmePerSpace: true,
+        readmesIndependentOfConfigurationLinks: true,
+        promotionScope:
+          "The configuration Unit is promoted by itself so each Space keeps its own README.",
+      },
+      limits: [
+        "The target must provide monitoring/aicr-grafana-admin with the expected user and password keys.",
+        "This receipt proves stored configuration, policy assignment, one development change, and one promotion. It does not prove Argo CD reconciliation or GPU workload health.",
+        "This changes one AICR v0.14.0 bundle. It does not prove an AICR package-version upgrade.",
+      ],
+    },
+    status: {
+      result: "pass",
+      publicOci: "pass",
+      baseVariant: "pass",
+      developmentChange: "pass",
+      promotionPreview: "pass",
+      promotion: "pass",
+      approvalRequired: "pass",
+      claim: "ConfigHub kept the public AICR configuration as an unchanged base, changed one Application in development to use an existing Secret, and promoted that exact reviewed result to staging.",
+    },
+  };
+}
+
+function inspectPersistentVariant(slug) {
+  const response = cubJson(["space", "get", slug, "-o", "json"]);
+  const space = response.Space;
+  const listed = cubJson(["unit", "list", "--space", slug, "-o", "json"])
+    .map((item) => item.Unit ?? item);
+  const units = listed.map((item) =>
+    cubJson(["unit", "get", "--space", slug, item.Slug, "-o", "json"]).Unit
+  );
+  const configuration = units.find((item) => item.Slug === unitSlug);
+  const readme = units.find((item) => item.Slug === readmeSlug);
+  check(configuration, `${slug} has no ${unitSlug} Unit`);
+  check(readme, `${slug} has no README Unit`);
+  const docs = parseDocs(storedUnitData(configuration));
+  const revisions = cubJson([
+    "revision",
+    "list",
+    "--space",
+    slug,
+    unitSlug,
+    "-o",
+    "json",
+  ]).map((item) => item.Revision ?? item);
+  return {
+    slug,
+    space,
+    docs,
+    upgradableUnitCount: Number(response.UpgradableUnitCount ?? 0),
+    configuration: {
+      id: configuration.UnitID,
+      dataHash: configuration.DataHash,
+      headRevision: Number(configuration.HeadRevisionNum ?? 0),
+      upstreamRevision: Number(configuration.UpstreamRevisionNum ?? 0),
+      fromLinkIds: configuration.FromLinkID ?? [],
+      applyGates: Object.keys(configuration.ApplyGates ?? {}).sort(),
+    },
+    readme: {
+      id: readme.UnitID,
+      dataHash: readme.DataHash,
+      fromLinkIds: readme.FromLinkID ?? [],
+    },
+    checkSlugs: selectedPersistentTriggerSlugs(space),
+    revisions,
+  };
+}
+
+function verifyPersistentVariant(record, expected) {
+  check(
+    record.space.Labels?.Variant === expected.variant,
+    `${record.slug} Variant label changed`,
+  );
+  check(
+    String(record.space.Labels?.Environment ?? "") === expected.environment,
+    `${record.slug} Environment label changed`,
+  );
+  check(
+    String(record.space.Annotations?.UpstreamSpaceID ?? "")
+      === expected.upstreamSpaceId,
+    `${record.slug} upstream Space changed`,
+  );
+  check(
+    record.configuration.fromLinkIds.length === expected.fromLinks,
+    `${record.slug} configuration link count changed`,
+  );
+  check(
+    record.readme.fromLinkIds.length === 0,
+    `${record.slug} README must not be inherited through the promotion chain`,
+  );
+  check(record.docs.length === 17, `${record.slug} must contain 17 Applications`);
+  check(
+    canonicalDocs(record.docs) === canonicalDocs(expected.expectedDocs),
+    `${record.slug} contains an unexpected Application change`,
+  );
+  check(
+    sameStringSet(record.checkSlugs, expectedPersistentCheckSlugs()),
+    `${record.slug} does not select the six system-configuration checks`,
+  );
+  check(
+    record.configuration.applyGates.includes(approvalGate),
+    `${record.slug} is not blocked by required approval`,
+  );
+}
+
+function verifyPersistentPromotionReceipt(receipt, uploadReceipt) {
+  check(
+    receipt.kind === "VariantReadinessReceipt"
+      && receipt.status?.result === "pass",
+    "persistent AICR promotion receipt is not pass",
+  );
+  check(
+    receipt.spec?.source?.literalConfiguration?.reference === publicConfigRef
+      && receipt.spec.source.literalConfiguration.digest === configArtifact.digest
+      && receipt.spec.source.literalConfiguration.anonymousPull === "pass"
+      && receipt.spec.source.sourcePackage.reference === publicSourceRef
+      && receipt.spec.source.sourcePackage.digest === sourceArtifact.portableDigest,
+    "persistent AICR promotion source changed",
+  );
+  const chain = receipt.spec?.chain;
+  check(
+    chain?.base?.space === spaceSlug
+      && chain.base.id === uploadReceipt.spec.space.id
+      && chain.development?.space === developmentSpaceSlug
+      && chain.development.upstreamSpaceId === chain.base.id
+      && chain.staging?.space === stagingSpaceSlug
+      && chain.staging.upstreamSpaceId === chain.development.id
+      && chain.staging.configurationUnit.upstreamRevision
+        === chain.development.configurationUnit.headRevision,
+    "persistent AICR promotion chain changed",
+  );
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  check(
+    chain.base.canonicalDataSha256 === hash(canonicalDocs(baseDocs))
+      && chain.development.canonicalDataSha256
+        === hash(canonicalDocs(changedDocs))
+      && chain.staging.canonicalDataSha256
+        === hash(canonicalDocs(changedDocs)),
+    "persistent AICR receipt contains an unexpected Application set",
+  );
+  for (const record of [chain.base, chain.development, chain.staging]) {
+    check(
+      record.applicationCount === 17
+        && record.readmeUnit.fromLinkIds.length === 0
+        && sameStringSet(record.policyChecks, expectedPersistentCheckSlugs())
+        && record.applyGates.includes(approvalGate),
+      `${record.space} receipt evidence changed`,
+    );
+  }
+  check(
+    receipt.spec?.change?.resource
+      === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+      && receipt.spec.change.changedApplicationCount === 1
+      && receipt.spec.change.preview?.result === "pass"
+      && receipt.spec.change.preview.storedDataUnchanged === true,
+    "persistent AICR development change evidence changed",
+  );
+  check(
+    receipt.spec?.promotion?.preview?.result === "pass"
+      && receipt.spec.promotion.preview.reportedUnitCount === 1
+      && receipt.spec.promotion.preview.storedDataUnchanged === true
+      && receipt.spec.promotion.result === "pass"
+      && receipt.spec.promotion.stagingRevision?.source === "UpgradeUnit"
+      && receipt.spec.promotion.stagingRevision?.description
+        === promotionDescription
+      && receipt.spec.promotion.upstreamRevisionMatched === true
+      && receipt.spec.promotion.pendingAfter === 0
+      && receipt.spec.promotion.stagingMatchesDevelopment === true,
+    "persistent AICR promotion evidence changed",
+  );
+  check(
+    receipt.spec?.policy?.profile === "catalog-standard"
+      && receipt.spec.policy.filter === approvalRequiredFilterRef
+      && receipt.spec.policy.approvalGate === approvalGate
+      && receipt.spec.policy.approvalRequiredOnEverySpace === true,
+    "persistent AICR policy evidence changed",
+  );
+}
+
+function verifyPersistentPromotionLive(receipt) {
+  const records = {
+    base: inspectPersistentVariant(spaceSlug),
+    development: inspectPersistentVariant(developmentSpaceSlug),
+    staging: inspectPersistentVariant(stagingSpaceSlug),
+  };
+  const baseDocs = sourceApplicationDocs();
+  const changedDocs = withGrafanaSecret(baseDocs);
+  verifyPersistentVariant(records.base, {
+    variant: "v0-14-0-argocd",
+    environment: "",
+    upstreamSpaceId: "",
+    fromLinks: 0,
+    expectedDocs: baseDocs,
+  });
+  verifyPersistentVariant(records.development, {
+    variant: "development",
+    environment: "Development",
+    upstreamSpaceId: records.base.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  verifyPersistentVariant(records.staging, {
+    variant: "staging",
+    environment: "Staging",
+    upstreamSpaceId: records.development.space.SpaceID,
+    fromLinks: 1,
+    expectedDocs: changedDocs,
+  });
+  for (const key of Object.keys(records)) {
+    const live = persistentVariantRecord(records[key]);
+    const saved = receipt.spec.chain[key];
+    check(
+      live.id === saved.id
+        && live.configurationUnit.id === saved.configurationUnit.id
+        && live.configurationUnit.dataHash === saved.configurationUnit.dataHash
+        && live.configurationUnit.headRevision
+          === saved.configurationUnit.headRevision
+        && live.readmeUnit.id === saved.readmeUnit.id
+        && live.readmeUnit.dataHash === saved.readmeUnit.dataHash,
+      `${saved.space} drifted from the persistent AICR receipt`,
+    );
+  }
+}
+
+function ensureIndependentVariantReadme(space) {
+  const path = variantReadmeUnitPath(space);
+  check(
+    existsSync(path),
+    `${relative(repoRoot, path)} is missing; run npm run helm-catalog-readmes`,
+  );
+  const existingResult = cubResult(
+    ["unit", "get", "--space", space, readmeSlug, "-o", "json"],
+    { allowFailure: true },
+  );
+  let existing = existingResult.status === 0
+    ? JSON.parse(existingResult.stdout).Unit
+    : null;
+  if (existing && (existing.FromLinkID ?? []).length) {
+    cub(["unit", "delete", readmeSlug, "--space", space, "--quiet"]);
+    existing = null;
+  }
+  const source = readFileSync(path, "utf8");
+  if (existing && storedUnitData(existing) === source) return;
+  cub([
+    "unit",
+    existing ? "update" : "create",
+    "--space",
+    space,
+    readmeSlug,
+    path,
+    "--change-desc",
+    `Explain ${space}`,
+    "--label",
+    "helm-expt.confighub.com/readme=true",
+    "--label",
+    `helm-expt.confighub.com/source-space=${space}`,
+    "--quiet",
+  ]);
+}
+
+function persistentVariantRecord(record) {
+  return {
+    space: record.slug,
+    id: record.space.SpaceID,
+    variant: record.space.Labels?.Variant ?? "",
+    environment: record.space.Labels?.Environment ?? "",
+    upstreamSpaceId: String(record.space.Annotations?.UpstreamSpaceID ?? ""),
+    applicationCount: record.docs.length,
+    canonicalDataSha256: hash(canonicalDocs(record.docs)),
+    configurationUnit: {
+      slug: unitSlug,
+      id: record.configuration.id,
+      dataHash: record.configuration.dataHash,
+      headRevision: record.configuration.headRevision,
+      upstreamRevision: record.configuration.upstreamRevision,
+      fromLinkIds: record.configuration.fromLinkIds,
+    },
+    readmeUnit: {
+      slug: readmeSlug,
+      id: record.readme.id,
+      dataHash: record.readme.dataHash,
+      fromLinkIds: record.readme.fromLinkIds,
+    },
+    policyChecks: record.checkSlugs,
+    applyGates: record.configuration.applyGates,
+    pendingUpstreamChanges: record.upgradableUnitCount,
+  };
+}
+
+function persistentUnitState(record) {
+  return {
+    dataHash: record.configuration.dataHash,
+    headRevision: record.configuration.headRevision,
+    upstreamRevision: record.configuration.upstreamRevision,
+  };
+}
+
+function withGrafanaSecret(docs) {
+  const changed = structuredClone(docs);
+  const application = changed.find(
+    (doc) =>
+      doc.kind === "Application"
+      && doc.metadata?.namespace === "argocd"
+      && doc.metadata?.name === "kube-prometheus-stack",
+  );
+  check(application, "AICR kube-prometheus-stack Application is missing");
+  const values = String(application.spec?.source?.helm?.values ?? "");
+  check(values.includes(oldGrafanaValue), "AICR Grafana password fixture changed");
+  application.spec.source.helm.values = values.replace(
+    oldGrafanaValue,
+    newGrafanaValue,
+  );
+  return changed;
+}
+
+function selectedPersistentTriggerSlugs(space) {
+  const selected = new Set(space.TriggerIDs ?? []);
+  return cubJson(["trigger", "list", "--space", "platform", "-o", "json"])
+    .map((item) => item.Trigger ?? item)
+    .filter((item) => selected.has(item.TriggerID))
+    .map((item) => item.Slug)
+    .sort();
+}
+
+function expectedPersistentCheckSlugs() {
+  return readYaml(policyPath).spec.approvalRequired.checks
+    .map((item) => item.trigger.split("/").at(-1))
+    .sort();
+}
+
+function previousPromotionEvidence() {
+  if (!existsSync(promotionReceiptPath)) return null;
+  const receipt = readYaml(promotionReceiptPath);
+  return receipt.status?.result === "pass" ? receipt : null;
+}
+
+function persistentRevisionRecord(revision) {
+  return {
+    id: revision.RevisionID,
+    number: Number(revision.RevisionNum),
+    source: revision.Source,
+    description: revision.Description,
+    createdAt: revision.CreatedAt,
+  };
+}
+
+function findPersistentRevision(revisions, predicate, label) {
+  const revision = revisions.find(predicate);
+  check(revision, `missing ${label}`);
+  return revision;
+}
+
+function storedUnitData(unit) {
+  check(unit.Data, `${unit.SpaceSlug}/${unit.Slug} has no data`);
+  return Buffer.from(unit.Data, "base64").toString("utf8");
+}
+
+function spacePresent(space) {
+  return cubResult(["space", "get", space, "-o", "json"], {
+    allowFailure: true,
+  }).status === 0;
+}
+
+function sameStringSet(left, right) {
+  return JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
 }
 
 function assertOrg() {

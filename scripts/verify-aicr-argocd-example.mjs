@@ -23,6 +23,8 @@ const sourceLayoutRoot = join(root, "oci-layouts", "argocd-source");
 const renderedLayoutRoot = join(root, "oci-layouts", "argocd-config");
 const skipUploadReceipt = process.env.AICR_SKIP_UPLOAD_RECEIPT === "1";
 const skipPolicyReceipt = process.env.AICR_SKIP_POLICY_RECEIPT === "1";
+const skipPromotionReceipt =
+  process.env.AICR_SKIP_PROMOTION_RECEIPT === "1";
 
 const requiredPaths = [
   receiptPath,
@@ -31,12 +33,13 @@ const requiredPaths = [
   sourceManifestPath,
   renderedManifestPath,
   uploadReceiptPath,
-  promotionReceiptPath,
   promotionProofPath,
+  publicReceiptPath,
   join(sourceLayoutRoot, "index.json"),
   join(renderedLayoutRoot, "index.json"),
 ];
 if (!skipPolicyReceipt) requiredPaths.push(policyReceiptPath);
+if (!skipPromotionReceipt) requiredPaths.push(promotionReceiptPath);
 for (const path of requiredPaths) {
   check(existsSync(path), `missing AICR Argo CD evidence: ${relative(repoRoot, path)}`);
 }
@@ -44,7 +47,9 @@ for (const path of requiredPaths) {
 const receipt = readYaml(receiptPath);
 const uploadReceipt = readYaml(uploadReceiptPath);
 const policyReceipt = skipPolicyReceipt ? null : readYaml(policyReceiptPath);
-const promotionReceipt = readYaml(promotionReceiptPath);
+const promotionReceipt = skipPromotionReceipt
+  ? null
+  : readYaml(promotionReceiptPath);
 const promotionProof = readYaml(promotionProofPath);
 check(receipt.spec?.deployer === "argocd-helm", "AICR Argo CD receipt must use argocd-helm");
 check(receipt.spec?.source?.version === "v0.14.0", "AICR Argo CD receipt must pin v0.14.0");
@@ -298,42 +303,78 @@ if (!skipPolicyReceipt) {
   );
 }
 
-check(promotionReceipt.kind === "VariantReadinessReceipt", "AICR promotion readiness receipt kind changed");
-check(
-  promotionReceipt.spec?.upstream?.space === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
-  "AICR promotion readiness upstream changed",
-);
-check(promotionReceipt.spec?.upstream?.sourceDigest === renderedDigest, "AICR promotion readiness digest changed");
-check(
-  promotionReceipt.spec?.intendedVariant?.change?.resource
-    === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack",
-  "AICR intended staging resource changed",
-);
-check(
-  promotionReceipt.spec?.intendedVariant?.change?.to === "grafana.admin.existingSecret",
-  "AICR intended Grafana Secret change changed",
-);
-check(
-  promotionReceipt.spec?.intendedVariant?.change?.dryRunMutationCount === 1,
-  "AICR staging change must remain one dry-run mutation",
-);
-check(
-  promotionReceipt.spec?.intendedVariant?.change?.dryRunCommand?.includes(
-    "  admin:\n    existingSecret: aicr-grafana-admin\n    userKey: admin-user\n    passwordKey: admin-password",
-  ),
-  "AICR staging dry-run command no longer records the existing-Secret values",
-);
-check(promotionReceipt.spec?.liveLimit?.entityType === "Link", "AICR promotion blocker must name the Link quota");
-check(promotionReceipt.spec?.liveLimit?.current === 1000, "AICR promotion blocker live Link count changed");
-check(promotionReceipt.spec?.liveLimit?.maximum === 1000, "AICR promotion blocker Link quota changed");
-check(promotionReceipt.spec?.cleanup?.partialSpaceDeleted === true, "AICR failed variant Space was not cleaned up");
-check(promotionReceipt.status?.result === "blocked", "AICR promotion readiness must remain blocked");
-check(
-  promotionReceipt.status?.derivedVariant === "blocked-by-link-quota",
-  "AICR promotion blocker classification changed",
-);
-check(promotionReceipt.status?.promotionPreview === "not-run", "AICR promotion readiness must not claim a preview");
-check(promotionReceipt.status?.promotion === "not-run", "AICR promotion readiness must not claim promotion");
+if (!skipPromotionReceipt) {
+  check(
+    promotionReceipt.kind === "VariantReadinessReceipt",
+    "AICR promotion readiness receipt kind changed",
+  );
+  check(
+    promotionReceipt.status?.result === "pass"
+      && promotionReceipt.status?.publicOci === "pass"
+      && promotionReceipt.status?.baseVariant === "pass"
+      && promotionReceipt.status?.developmentChange === "pass"
+      && promotionReceipt.status?.promotionPreview === "pass"
+      && promotionReceipt.status?.promotion === "pass"
+      && promotionReceipt.status?.approvalRequired === "pass",
+    "AICR persistent promotion result changed",
+  );
+  check(
+    promotionReceipt.spec?.source?.literalConfiguration?.digest === renderedDigest
+      && promotionReceipt.spec.source.literalConfiguration.anonymousPull === "pass",
+    "AICR promotion source digest or anonymous pull changed",
+  );
+  const chain = promotionReceipt.spec?.chain;
+  check(
+    chain?.base?.space === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+      && chain.development?.space
+        === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development"
+      && chain.staging?.space
+        === "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging"
+      && chain.development.upstreamSpaceId === chain.base.id
+      && chain.staging.upstreamSpaceId === chain.development.id,
+    "AICR persistent base, development, and staging chain changed",
+  );
+  for (const record of [chain.base, chain.development, chain.staging]) {
+    check(
+      record.applicationCount === 17
+        && record.readmeUnit?.fromLinkIds?.length === 0
+        && record.policyChecks?.length === 6
+        && record.applyGates?.includes("platform/require-approval/vet-approvedby"),
+      `${record.space} persistent evidence changed`,
+    );
+  }
+  check(
+    chain.base.canonicalDataSha256 !== chain.development.canonicalDataSha256
+      && chain.development.canonicalDataSha256 === chain.staging.canonicalDataSha256,
+    "AICR development change was not carried unchanged into staging",
+  );
+  check(
+    promotionReceipt.spec?.change?.resource
+      === "argoproj.io/v1alpha1/Application argocd/kube-prometheus-stack"
+      && promotionReceipt.spec.change.to === "grafana.admin.existingSecret"
+      && promotionReceipt.spec.change.requiredSecret
+        === "monitoring/aicr-grafana-admin"
+      && promotionReceipt.spec.change.changedApplicationCount === 1
+      && promotionReceipt.spec.change.preview?.result === "pass"
+      && promotionReceipt.spec.change.preview.storedDataUnchanged === true,
+    "AICR development Secret change evidence changed",
+  );
+  check(
+    promotionReceipt.spec?.promotion?.preview?.result === "pass"
+      && promotionReceipt.spec.promotion.preview.reportedUnitCount === 1
+      && promotionReceipt.spec.promotion.preview.storedDataUnchanged === true
+      && promotionReceipt.spec.promotion.result === "pass"
+      && promotionReceipt.spec.promotion.upstreamRevisionMatched === true
+      && promotionReceipt.spec.promotion.pendingAfter === 0
+      && promotionReceipt.spec.promotion.stagingMatchesDevelopment === true,
+    "AICR development-to-staging promotion evidence changed",
+  );
+  check(
+    promotionReceipt.spec?.policy?.profile === "catalog-standard"
+      && promotionReceipt.spec.policy.approvalRequiredOnEverySpace === true,
+    "AICR persistent promotion policy changed",
+  );
+}
 
 check(
   promotionProof.kind === "AicrVariantPromotionProofReceipt",

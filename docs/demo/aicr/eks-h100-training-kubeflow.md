@@ -43,14 +43,18 @@ actually receive?
 - [argocd-rendered/checksums.txt](../../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt)
   records the 17 concrete Argo CD `Application` objects rendered from that chart.
 - [argocd-oci-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml)
-  joins the source chart, rendered objects, two tested local OCI artifacts, and their
-  intended public references.
+  joins the source chart, rendered objects, OCI layouts, and public references.
+- [public-oci-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml)
+  records the public digests and anonymous pull checks for both artifacts.
 - [confighub-upload-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml)
   records the ConfigHub Space, Unit, source digest, policy, and exact-object comparison
   from the live upload.
 - [apply-policy-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml)
   records what happened when the unapproved AICR Unit was submitted for a dry-run
   apply.
+- [promotion-readiness-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+  records the persistent base, development, and staging Spaces and their exact
+  configuration change.
 
 The original Git-oriented bundle still contains
 `https://github.com/YOUR_ORG/YOUR_REPO.git`. It is kept so the limitation is visible;
@@ -134,22 +138,29 @@ Two OCI artifacts have different jobs:
 | AICR Argo source package | The generated Helm chart, values, local chart files, and Argo CD templates | Helm and Argo CD |
 | Rendered Argo configuration | The 17 exact `Application` objects, one YAML layer per object | ConfigHub |
 
-The source chart was pushed to and pulled from a temporary local registry at
+Both artifacts are public in Google Artifact Registry:
+
+```text
+oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0
+oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+```
+
+The source package digest is
 `sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e`.
-It was then rendered with the intended Google registry address. Those 17 files were
-put in a second OCI artifact and pulled back at
+The 17-object configuration digest is
 `sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010`.
-Both tested artifacts are also committed as small OCI layouts, so the same bytes can
-be copied to the public registry after authentication.
+Both passed anonymous pull checks. The small OCI layouts are also committed, so the
+verifier can compare the public artifacts with the exact source and rendered files.
 
 Run `npm run aicr-argocd-example:verify` to check the source package, the 17
 Applications, both OCI manifests and layouts, every file checksum, the source
-references, and the complete set of sync waves.
+references, and the complete set of sync waves. Run
+`npm run aicr-argocd-example:public-verify` to pull both public artifacts without
+registry credentials and check their recorded digests.
 
 ## The ConfigHub base variant
 
-The live demo used the literal Argo CD configuration artifact from a temporary local
-registry:
+The live demo imports the public literal configuration OCI:
 
 ```bash
 cub variant upload \
@@ -157,7 +168,7 @@ cub variant upload \
   --variant v0-14-0-argocd \
   --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd \
   --granularity minimal \
-  oci://localhost:5002/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
 ```
 
 ConfigHub pulled digest
@@ -166,9 +177,9 @@ created one base Space, and stored all 17 `Application` objects in one Unit. A v
 compared every live object with the committed AICR output and confirmed sync waves 0
 through 15.
 
-The upload also exposed two target requirements instead of hiding them: Argo CD needs
-the `argocd` Namespace and the default AppProject before these Applications can run.
-The live Space records those requirements in its README.
+The upload also names two requirements that must already exist: the `argocd`
+Namespace and the default Argo CD AppProject. The live Space records both in its
+README.
 
 `cub variant upload` does not run AICR or render charts. It imports exact YAML and
 records the source reference and resolved digest on the Space. ConfigHub can then show
@@ -194,25 +205,14 @@ a temporary local input registry and a throwaway cluster only to obtain a legiti
 ConfigHub release target and scoped OCI credential. It did not apply the Applications,
 reconcile the AICR stack, create an EKS cluster, or run a GPU workload.
 
-After the publisher completes Google authentication and copies the artifact, the same
-command can use the planned public reference without a registry login:
+The public pull does not need a Google login. Argo CD delivery and live GPU-cluster
+reconciliation have not run. The example proves generation, public OCI packaging,
+exact ConfigHub upload, policy attachment, and promotion, but it does not claim a
+working GPU platform.
 
-```bash
-cub variant upload \
-  --component aicr-eks-h100-training-kubeflow \
-  --variant v0-14-0-argocd \
-  --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd \
-  --granularity minimal \
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0
-```
-
-The Google Artifact Registry pushes and anonymous pulls still need a fresh Google
-login. Argo CD delivery and live GPU-cluster reconciliation have not run. The example
-therefore proves generation, OCI packaging, exact ConfigHub upload, and policy
-attachment, but remains partial for public distribution and live operation.
 The uploaded base requires approval because it changes cluster-wide GPU, monitoring,
-and training-platform configuration. That rule applies even before production. A live
-dry-run of the exact 17-Application Unit was rejected with the required-approval gate.
+and training-platform configuration. That rule applies before production too. A live
+dry-run of the exact 17-Application Unit was rejected by the required-approval gate.
 The Unit had no target attached, its revision and data hash stayed unchanged, and
 nothing was sent to Kubernetes. Run
 `npm run aicr-argocd-example:hub-policy-check` while authenticated to repeat that
@@ -225,7 +225,7 @@ The generated AICR configuration includes the example Grafana setting
 keep the AICR output as the base, while development and staging use an existing Secret
 named `aicr-grafana-admin`.
 
-The live proof followed four steps:
+The persistent `helm-catalog` demo follows four steps:
 
 1. Import the exact 17-Application OCI bundle as a base variant.
 2. Create development from the base and staging from development.
@@ -234,18 +234,22 @@ The live proof followed four steps:
 4. Preview the staging promotion, confirm that the preview changed nothing, then run
    the promotion and confirm that staging matched the reviewed development config.
 
-[The promotion summary](../../../data/aicr-variant-promotion-proof/summary.md) explains
-the result in plain English. The
-[live receipt](../../../runs/aicr-variant-promotion-proof/receipt.yaml) records the OCI
-digest, Space and Unit revisions, exact changed Application, dry-run results,
-promotion result, and cleanup.
+[The persistent promotion receipt](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
+records the public OCI digests, three live Spaces, exact changed Application, dry-run
+results, promotion revision, policy checks, and required approval. Each Space has one
+short README that explains what to inspect.
 
-This proof used a temporary scratch organization and deleted its three Spaces. It did
-not start a Kubernetes cluster, so it does not claim Argo CD delivery, application
-health, or GPU workload health.
+The configuration Unit is promoted by itself so development and staging can keep
+different README text. This is the same upstream upgrade operation used by a bulk
+variant promotion, scoped to the one Unit that contains the 17 Applications.
 
-The persistent `helm-catalog` demo organization is still at its 1,000-Link quota, so
-the same staging clone has not been added there. The earlier
-[readiness receipt](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
-records that quota response and the cleanup of the empty partial Space. No existing
-catalog links were deleted to make room.
+Run the live check while authenticated:
+
+```bash
+CUB_CONTEXT=<context> npm run aicr-argocd-example:promotion-verify
+```
+
+A separate [scratch proof](../../../data/aicr-variant-promotion-proof/summary.md)
+records an earlier temporary run of the same configuration change. Neither proof
+started a Kubernetes cluster, so neither claims Argo CD delivery, application health,
+or GPU workload health.
