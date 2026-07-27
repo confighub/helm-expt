@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import {
   check,
@@ -87,7 +88,8 @@ function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionS
   const source = sourceFeatures.get(chart) ?? {};
   const observations = lifecycleObservations.get(chart) ?? [];
   const version = String(catalog.spec.version);
-  const receipt = configHubProof.get(chart);
+  const defaultBase = (index.spec?.installerPackage?.bases ?? []).find((base) => base.default === true)?.name ?? "";
+  const receipt = selectConfigHubProof(configHubProof.get(chart) ?? [], version, defaultBase);
   const configHubProofStatus = receipt?.status ?? "missing";
   const live = liveStatus(chart, liveE2E);
   const requiredDispositions = dispositionList({
@@ -206,7 +208,14 @@ function lifecyclePolicyBasis(points, source, observations) {
 
 function configHubProofIndex() {
   const result = new Map();
-  for (const receiptPath of listFiles(join(repoRoot, "runs")).filter((file) => file.endsWith("/latest/confighub-proof-receipt.yaml"))) {
+  const trackedRuns = execFileSync("git", ["ls-files", "-z", "--", "runs"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+  })
+    .split("\0")
+    .filter(Boolean)
+    .map((path) => join(repoRoot, path));
+  for (const receiptPath of trackedRuns.filter((file) => file.endsWith("/latest/confighub-proof-receipt.yaml"))) {
     const receipt = readYaml(receiptPath);
     const chart = receipt.spec?.package?.chart;
     if (!chart) continue;
@@ -225,9 +234,32 @@ function configHubProofIndex() {
       safeOps.spec?.safetyResult === "pass"
         ? "pass"
         : "fail";
-    result.set(chart, { status, path: relativeRepo(receiptPath) });
+    if (!result.has(chart)) result.set(chart, []);
+    result.get(chart).push({
+      status,
+      path: relativeRepo(receiptPath),
+      chartVersion: String(receipt.spec?.package?.chartVersion ?? ""),
+      selectedBase: String(receipt.spec?.package?.selectedBase ?? ""),
+    });
   }
+  for (const receipts of result.values()) receipts.sort((left, right) => left.path.localeCompare(right.path));
   return result;
+}
+
+function selectConfigHubProof(receipts, version, defaultBase) {
+  return (
+    receipts.find(
+      (receipt) =>
+        receipt.status === "pass" &&
+        receipt.chartVersion === version &&
+        defaultBase &&
+        receipt.selectedBase === defaultBase,
+    ) ??
+    receipts.find((receipt) => receipt.status === "pass" && receipt.chartVersion === version) ??
+    receipts.find((receipt) => receipt.status === "pass") ??
+    receipts.find((receipt) => receipt.chartVersion === version) ??
+    receipts[0]
+  );
 }
 
 function liveE2EIndex() {

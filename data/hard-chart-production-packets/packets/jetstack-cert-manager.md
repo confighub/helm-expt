@@ -32,8 +32,8 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
-| `crds-enabled` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | none | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager` |
-| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io | `cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` |
+| `crds-enabled` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | none | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager` |
+| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | required CRD challenges.acme.cert-manager.io; required CRD orders.acme.cert-manager.io; required CRD certificaterequests.cert-manager.io; required CRD certificates.cert-manager.io; required CRD clusterissuers.cert-manager.io; required CRD issuers.cert-manager.io | `cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2 --base default --work-dir <tmp> --non-interactive --namespace cert-manager` |
 
 ## Quirks And Inputs
 

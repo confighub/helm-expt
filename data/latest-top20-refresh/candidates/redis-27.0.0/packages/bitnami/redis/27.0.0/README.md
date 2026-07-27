@@ -4,10 +4,10 @@ This is the current executable Redis installer package proof.
 
 It contains two real `cub installer setup --base` variants:
 
-- `default`
-- `reuse-existing-secret`, which declares the existing Redis Secret through
+- `reuse-existing-secret` is the default. It declares the existing Redis Secret through
   installer `externalRequires` and records the target-fact binding in
   `out/spec/facts.yaml` through the package collector.
+- `default` is kept as an explicit static-password demonstration.
 
 The existing-Secret variant expects:
 

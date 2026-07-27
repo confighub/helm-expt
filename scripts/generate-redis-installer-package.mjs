@@ -77,16 +77,16 @@ spec:
   bases:
     - name: default
       path: bases/default
-      default: true
-      description: "Redis default variant rendered from bitnami/redis@${chartVersion}"
+      description: "Redis static password demo variant rendered from bitnami/redis@${chartVersion}"
     - name: reuse-existing-secret
       path: bases/reuse-existing-secret
-      description: "Redis variant that uses an existing Secret target fact"
+      default: true
+      description: "Redis existing Secret default variant rendered from bitnami/redis@${chartVersion}"
       externalRequires:
         - kind: ClusterFeature
           name: "Secret redis/redis-existing-secret key redis-password"
           namespace: redis
-          suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+          suggestedSource: 'kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password="$(openssl rand -base64 32)"'
   collector:
     command: /bin/sh
     args:
@@ -103,10 +103,10 @@ This is the current executable Redis installer package proof.
 
 It contains two real \`cub installer setup --base\` variants:
 
-- \`default\`
-- \`reuse-existing-secret\`, which declares the existing Redis Secret through
+- \`reuse-existing-secret\` is the default. It declares the existing Redis Secret through
   installer \`externalRequires\` and records the target-fact binding in
   \`out/spec/facts.yaml\` through the package collector.
+- \`default\` is kept as an explicit static-password demonstration.
 
 The existing-Secret variant expects:
 
@@ -148,7 +148,7 @@ write(
   `#!/bin/sh
 set -eu
 
-base="\${INSTALLER_BASE:-default}"
+base="\${INSTALLER_BASE:-reuse-existing-secret}"
 secret_namespace="\${REDIS_EXISTING_SECRET_NAMESPACE:-redis}"
 secret_name="\${REDIS_EXISTING_SECRET_NAME:-redis-existing-secret}"
 secret_key="\${REDIS_EXISTING_SECRET_KEY:-redis-password}"

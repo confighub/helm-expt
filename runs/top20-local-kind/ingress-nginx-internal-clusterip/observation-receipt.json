@@ -46,7 +46,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.object-set.receipt.json",
-        "evidenceSHA256": "5612fc48866b8031f33a9e4359e06f591040a28175a16694a750a0e82c47c40e",
+        "evidenceSHA256": "9d8c9756ca178b6b5bc0da5380289b3c0839ff54c6ad45b7fd8712c6506209d3",
         "stderrPath": "cub-scout.object-set.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -56,7 +56,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.closed-world.receipt.json",
-        "evidenceSHA256": "16b96a5e85b65a59140ab42f389039a6d3bbf7f2d68acc86946922ad7b329a74",
+        "evidenceSHA256": "1fd719afa11b96225e70a6e0dc16b32f3a427b42904b9d3a0c28f4fd9918c7ca",
         "stderrPath": "cub-scout.closed-world.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -66,7 +66,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.workloads.receipt.json",
-        "evidenceSHA256": "9d5fae17bc056f95b971865fc13cd227962523cbece0a76f4210e7b7d15f3a59",
+        "evidenceSHA256": "c4b4696d86619baaba8de0ac2673acde4ff3ad833cb106201ddf6bf45359d853",
         "stderrPath": "cub-scout.workloads.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }

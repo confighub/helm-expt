@@ -235,7 +235,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.object-set.receipt.json",
-        "evidenceSHA256": "6de9d989ee14655fa69fedbbbf4d2c941290ea49aedc077c5a6193a060537c7b",
+        "evidenceSHA256": "54ec3960bad1554273631258045d8f3dddd656ad98b75d64e5116f08fd5fdada",
         "stderrPath": "cub-scout.object-set.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -245,7 +245,7 @@
         "verdict": "WATCH",
         "exitCode": 2,
         "evidencePath": "cub-scout.closed-world.receipt.json",
-        "evidenceSHA256": "c2cdd18a2c3cad9da6686ec8fc3d054807bb8a576215e86a87534c949abc8a4d",
+        "evidenceSHA256": "95e8f1649f1a76fe0b67066e3fddb908ad6c10f6da8dd1f612d04540433a4e45",
         "stderrPath": "cub-scout.closed-world.stderr.txt",
         "stderrSHA256": "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
       },
@@ -255,7 +255,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.workloads.receipt.json",
-        "evidenceSHA256": "55e3ee941f1658cba8576c7b290e33c7736b6257aec735357ae06dcfd9a117ad",
+        "evidenceSHA256": "6387c2f456f011a9d4481bb595e8dbdb3acbf7ee1b240f2122a85ca4485f0ff4",
         "stderrPath": "cub-scout.workloads.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -265,7 +265,7 @@
         "verdict": "PASS",
         "exitCode": 0,
         "evidencePath": "cub-scout.prerequisites.receipt.json",
-        "evidenceSHA256": "a98a55bad8400f0ae41e473acc4239c89908d790e19e84154d24b9273fa89703",
+        "evidenceSHA256": "b4f927928e297787e4c8cf64d38655a7f3b37bfda914ca0d2747848a8dd7c92e",
         "stderrPath": "cub-scout.prerequisites.stderr.txt",
         "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
