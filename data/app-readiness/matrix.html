@@ -1,7 +1,7 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Green-Field App-Readiness (RBAC read-app)</title>
+<!doctype html><html><head><meta charset="utf-8"><title>RBAC permissions in catalog charts</title>
 <style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23}h1{font-size:20px}table{border-collapse:collapse;margin:10px 0;font-size:12.5px}th,td{border:1px solid #d0d7de;padding:5px 9px;text-align:left}th{background:#f6f8fa}td.n{text-align:right}.note{color:#57606a;font-size:13px;max-width:64em}</style></head><body>
-<h1>Green-Field App-Readiness — an RBAC read-app on the held data</h1>
-<p class="note">A tool built on the held config-as-data (no cluster, no re-render): broad/risky RBAC across the catalog's committed default renders. Proves the data is app-able (the green-field thesis). Red intensity scales with risky-rule count.</p>
+<h1>RBAC permissions in catalog charts</h1>
+<p class="note">This report checks committed default renders for broad RBAC rules. It needs no cluster and does not run Helm again. A finding asks for review; it does not declare that a chart is wrong. Red intensity scales with the number of rules found.</p>
 <table><tr><th>Chart</th><th>ClusterRoles</th><th>Roles</th><th>Risky rules</th><th>Findings</th></tr>
 <tr><td><code>crossplane-stable/crossplane/2.3.1</code></td><td class="n">12</td><td class="n">0</td><td class="n" style="background:rgba(207,34,46,0.58)">22</td><td>all-resources, full-wildcard, priv-escalation, secret-read</td></tr>
 <tr><td><code>rook-release/rook-ceph/v1.19.5</code></td><td class="n">33</td><td class="n">14</td><td class="n" style="background:rgba(207,34,46,0.44)">16</td><td>secret-read</td></tr>

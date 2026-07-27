@@ -1,0 +1,134 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "RbacReviewLiveProofReceipt"
+metadata:
+  name: "namespaced-secret-read-correction"
+spec:
+  recordedAt: "2026-07-27T01:53:27.574Z"
+  source:
+    before:
+      path: "examples/apps/rbac-review/before.yaml"
+      sha256: "295dbd1488d15655015dae02027b6711f07f43b195857881c7e17b06e2c29697"
+      objectCount: 5
+      findings:
+        -
+          id: "secret-read"
+          object: "rbac.authorization.k8s.io/v1|Role|rbac-review|report-reader"
+          ruleIndex: 0
+          resources:
+            - "configmaps"
+            - "secrets"
+          verbs:
+            - "get"
+            - "list"
+            - "watch"
+    after:
+      path: "examples/apps/rbac-review/after.yaml"
+      sha256: "3d110795dbe1cbf4d2e97f1223136db257ff779d0ae0fe04bb39ebc2d11bd83a"
+      objectCount: 5
+      findings:
+        []
+    proposedChange:
+      object: "rbac.authorization.k8s.io/v1|Role|rbac-review|report-reader"
+      path: "/rules/0/resources"
+      removed:
+        - "secrets"
+      retained:
+        - "configmaps"
+      otherFieldsChanged: false
+  configHubReview:
+    organization: "helm-catalog"
+    space: "hx-rbac-review-20260727015327"
+    unit: "rbac-review-example"
+    unitId: "7aef7e9a-9863-4d94-b3d3-8055fe4c4077"
+    target:
+      ref: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
+      id: "7d32ab9b-6259-40e6-871d-e78f84761d2b"
+      provider: "OCI"
+      usedForDryRunOnly: true
+    policy:
+      profile: "catalog-standard"
+      resourceClass: "system-configuration"
+      filter:
+        ref: "platform/helm-catalog-prod-gates"
+        id: "8784a447-0e4d-4471-b924-eae5377778a2"
+        hash: "53b704e063e156905f5b7f56e7a001cdacd8d300506981e9f6ce97167a0d0b5b"
+        triggerRefs:
+          - "platform/digest-pinned-images"
+          - "platform/lifecycle-route-evidence"
+          - "platform/probes-declared"
+          - "platform/require-approval"
+          - "platform/vet-placeholders"
+          - "platform/vet-schemas"
+        triggerIds:
+          - "04746183-327b-484e-b061-91d2c7753a76"
+          - "2651b7cc-31a2-4833-adde-11e018656dee"
+          - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+          - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+          - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+          - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+      approvalGate: "platform/require-approval/vet-approvedby"
+    revisions:
+      imported: 2
+      corrected: 4
+      importedContentHash: -866092711
+      correctedContentHash: 1306112189
+    beforeApproval:
+      result: "blocked"
+      exitCode: 1
+      gate: "platform/require-approval/vet-approvedby"
+      dryRun: true
+    approval:
+      revisionSelector: "HeadRevisionNum"
+      recordedApprovals: 1
+      approverIdentityRecordedInReceipt: false
+      contentHashUnchanged: true
+      gateCleared: true
+    afterApproval:
+      result: "allowed"
+      exitCode: 0
+      dryRun: true
+    approvedDataMatchesReviewedFile: true
+  liveCluster:
+    organization: "DP1-Sandbox"
+    creationCommand: "cub cluster up"
+    name: "hx-rbac-review-20260727015327"
+    namespace: "rbac-review"
+    serviceAccount: "report-reader"
+    startingPermissions:
+      secrets:
+        verb: "list"
+        resource: "secrets"
+        allowed: true
+      configmaps:
+        verb: "list"
+        resource: "configmaps"
+        allowed: true
+    correctedPermissions:
+      secrets:
+        verb: "list"
+        resource: "secrets"
+        allowed: false
+      configmaps:
+        verb: "list"
+        resource: "configmaps"
+        allowed: true
+    liveRoleMatchesApprovedData: true
+    handoff:
+      source: "approved ConfigHub Unit data"
+      method: "kubectl apply"
+      automatedConfigHubDelivery: false
+  cleanup:
+    policySpace: "pass"
+    namespace: "pass"
+    cluster: "pass"
+    clusterSpace: "pass"
+    localFiles: "pass"
+  limits:
+    - "The scanner uses conservative RBAC rules. A finding asks for review; it does not prove that a permission is unnecessary."
+    - "This fixture is deliberately small and namespaced. It does not resolve RoleBinding graphs across a fleet or change a production chart."
+    - "The ConfigHub target was used only for the blocked and allowed dry-run checks."
+    - "The approved ConfigHub Unit data was handed to kubectl explicitly. Automated ConfigHub, Argo CD, or Flux delivery was not tested in this run."
+    - "The temporary ConfigHub Space, namespace, kind cluster, cluster Space, and local files were removed."
+status:
+  result: "pass"
+  claim: "ConfigHub stored an exact RBAC correction, blocked it until its head revision was approved, and the approved data removed Secret access on an isolated Kubernetes cluster while preserving ConfigMap access."

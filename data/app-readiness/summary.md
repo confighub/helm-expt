@@ -1,6 +1,8 @@
-# Green-Field App-Readiness: an RBAC read-app on the held data
+# RBAC permissions in catalog charts
 
-This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool the *"There should be an app for that"* thesis builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.
+This report checks the rendered default configuration for every catalog chart and lists RBAC rules that deserve review. It reads the committed Kubernetes objects, so it does not need access to a cluster and does not run Helm again.
+
+Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.
 
 Scanned **95** default renders; **69** ship RBAC; **50** contain at least one broad/risky rule by these conservative heuristics.
 
@@ -13,7 +15,7 @@ Findings across the catalog:
 | `priv-escalation` | 2 | a rule has `escalate`/`bind`/`impersonate` |
 | `all-resources` | 8 | a rule targets `*` resources (non-wildcard verbs) |
 
-## Charts with the most broad/risky RBAC rules
+## Charts to review first
 
 | Chart | ClusterRoles | Roles | Risky rules | Findings |
 | --- | ---: | ---: | ---: | --- |
@@ -44,17 +46,18 @@ Findings across the catalog:
 | `argo-cd/argo-rollouts/2.40.9` | 4 | 0 | 1 | `secret-read` |
 | _… and 25 more_ | | | | |
 
-## Why this matters (the green-field thesis)
+## What happens after a finding
 
-- It runs entirely on the **held render-once data** - no cluster lookup, no `helm template`, no re-render. The objects are already explicit, queryable WET YAML.
-- This is the **read** half of an app on the data. The **write** half (make a change, gated + reviewed) is the reverse-reconcile design (`docs/user/reverse-reconcile-design.md`).
-- You could not build this cleanly on Helm charts / kustomize / jsonnet source (you would have to render first, per chart, per cluster). That is the config-as-code gap the catalog closes.
+A finding is a reason to inspect the rendered Role or ClusterRole. If the permission is not needed, propose a precise object change, review the diff, run the normal policy checks, and require approval before delivery.
 
-## Honest scope
+The [live RBAC review example](../rbac-review-live-proof/summary.md) follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, and checks the result on an isolated Kubernetes cluster. The [walkthrough](../../docs/demo/apps/rbac-review.md) explains each step.
 
-- These are **conservative heuristics over rendered RBAC**, not a full authorization analysis (no aggregationRule expansion, no binding-graph resolution of who-binds-what yet).
-- A risky finding is a **review prompt**, not a verdict: many infrastructure charts legitimately need broad RBAC. The point is that the data makes it *visible and queryable*.
-- The production app (e.g. the RBAC Manager) lives in ConfigHub; this proves the **substrate** that such an app needs.
+
+## Limits
+
+- The rules are conservative. A finding asks for review; it does not declare that a chart is wrong.
+- The report does not expand aggregated ClusterRoles or resolve the complete RoleBinding and ClusterRoleBinding graph.
+- The catalog-wide scan is read-only. The live example proves one reviewed correction with a manual handoff to `kubectl`; automated ConfigHub, Argo CD, or Flux delivery is separate work.
 
 ## Regenerate
 
