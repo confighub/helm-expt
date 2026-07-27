@@ -4618,6 +4618,35 @@ function securityHtml(catalog) {
 `;
 }
 
+function catalogPathfinderHtml(root) {
+  const href = (path) => `${root}/${path}`;
+  return `<section aria-labelledby="catalog-paths">
+      <h2 id="catalog-paths">Choose Your Path</h2>
+      <p>Start from the configuration you already have. Then follow the link for the job you want to do.</p>
+      <h3 id="catalog-starting-points">What do you have?</h3>
+      ${markdownLikeTable([
+        ["Starting point", "What you can do first"],
+        ["Helm chart and values", `Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="${href("charts/index.html#charts")}">Browse public charts</a> · <a href="${href("testing.html#bring-your-own")}">Review your own values</a>`],
+        ["AICR recipe or bundle", `Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="${href("testing.html#aicr-platform")}">Open the AICR example</a>`],
+        ["cub installer package", `Pull a public package, write its Kubernetes files locally, and inspect them without an account.<br><a href="${href("try.html")}">Run a package</a>`],
+        ["Existing OCI package", `Pull an OCI package, inspect or test its objects, and decide whether to publish a checked replacement.<br><a href="${href("serverless.html#where-it-fits")}">Inspect an OCI package</a>`],
+        ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("existing-apps.html#start")}">Start from existing YAML</a>`],
+      ], { rawSecondColumn: true })}
+      <h3 id="catalog-next-jobs">What do you want to do next?</h3>
+      ${markdownLikeTable([
+        ["Job", "Where to continue"],
+        ["Inspect and verify", `<a href="${href("testing.html")}">Inspect exact objects and inputs</a> · <a href="${href("verification.html")}">Check the evidence</a>`],
+        ["Install", `<a href="${href("try.html")}">Render and install one package</a>`],
+        ["Upload and save", `<a href="${href("variants.html#flow")}">Upload the reviewed objects to ConfigHub</a>`],
+        ["Customize", `<a href="${href("variants.html#choose")}">Choose a base or derived variant</a>`],
+        ["Promote", `<a href="${href("variants.html#journey")}">Move a reviewed change through environments</a>`],
+        ["Deliver", `<a href="${href("operations.html#ops")}">Publish OCI for Argo CD, Flux, or direct apply</a>`],
+        ["Operate", `<a href="${href("operations.html#fleet-record")}">Track changes and live results across a fleet</a>`],
+        ["Build an App", `<a href="${href("journey.html#app-program")}">Use saved configuration for a repeated operational job</a>`],
+      ], { rawSecondColumn: true })}
+    </section>`;
+}
+
 function pillarsHtml(catalog) {
   return `<!doctype html>
 <html lang="en">
@@ -4634,6 +4663,7 @@ function pillarsHtml(catalog) {
     <p class="tagline">Start with a Helm chart, an AICR bundle, or one of the catalog packages. Render it without applying, inspect the exact objects and required setup, then run the recorded checks. Each catalog page tells you which checks passed, which did not, and how to repeat them.</p>
   </header>
   <main>
+    ${catalogPathfinderHtml(".")}
     <section aria-labelledby="bring-your-own">
       <h2 id="bring-your-own">Bring your own chart and values</h2>
       <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
@@ -5166,24 +5196,10 @@ function chartIndexHtml(catalog) {
     <p>The catalog keeps the Helm chart as the source. It shows the Kubernetes objects before installation, records the inputs that produced them, and names the CRDs, hooks, Secrets, setup work, and target requirements that ordinary rendered YAML does not explain.</p>
   </header>
   <main>
-    <section aria-labelledby="start-path">
-      <h2 id="start-path">Start with what you have</h2>
-      <h3>A public Helm chart</h3>
-      <p>Use the <a href="#charts">chart directory</a>. Pick one ready-made base variant, inspect its Kubernetes objects, inputs, hooks, CRDs, and test results, then run its script when it fits your target.</p>
-      <h3>Your own chart and values</h3>
-      <p>Render them without applying them. Compare the result with the chart defaults and any matching catalog configurations, then review the Secrets, privileges, CRDs, hooks, and other unusual changes. The <a href="../testing.html#bring-your-own">bring-your-own guide</a> includes a worked NGINX example with supplied values, six exact findings, reviewed objects, a public OCI, and a ConfigHub import.</p>
-      <h3>An installer package, OCI package, AICR bundle, or Kubernetes YAML</h3>
-      <p>Keep that source format. Inspect or package it without an account, then upload the literal Kubernetes configuration when you want saved history, variants, approvals, promotions, or rollout records. The <a href="../d/docs/user/config-catalog-demonstrations.html">configuration catalog examples</a> show the available and partial paths.</p>
-    </section>
+    ${catalogPathfinderHtml("..")}
 
-    <section aria-labelledby="next-job">
-      <h2 id="next-job">Then choose what you need to do</h2>
-      <ol>
-        <li><strong>Inspect and verify.</strong> Read the objects, package digest, recorded inputs, parity result, chart extras, and receipt.</li>
-        <li><strong>Install or upload.</strong> Run the no-account script, or upload the reviewed result when it should become shared ConfigHub data.</li>
-        <li><strong>Customize and promote.</strong> Create named development, staging, production, region, or customer variants and review the exact object changes.</li>
-        <li><strong>Deliver and operate.</strong> Publish an immutable OCI for Argo CD, Flux, or direct apply, then keep the rollout result and later operational work with the configuration.</li>
-      </ol>
+    <section aria-labelledby="catalog-summary">
+      <h2 id="catalog-summary">What the catalog contains</h2>
       <p><a href="../how-it-works.html">How the source, rendered objects, routes, variants, and OCI handoffs fit together</a> · <a href="../demo-org.html">Examples in the live ConfigHub demo org</a> · <a href="../../data/helm-catalog-readmes/summary.md">Demo README index</a></p>
       <p>The catalog currently has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public installer packages. Open the chart page before using its generated files: it keeps the ready-made configurations, package OCI, full YAML, render record, hooks and CRDs, test results, and current limits together. ${publishedPackageCount} tagged package refs have publication receipts.</p>
     </section>

@@ -24,7 +24,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown"],
+    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -72,7 +72,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "AICR", "cub installer"],
+    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App"],
   },
   {
     file: "site/how-it-works.html",
