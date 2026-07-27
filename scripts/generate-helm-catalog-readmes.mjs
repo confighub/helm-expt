@@ -123,7 +123,7 @@ const DEMO_SPACES = [
     ],
     limits: ["This is a demo production Space, not a live customer production environment."],
   },
-  ...["default", "stage", "prod"].map((lane) => ({
+  ...["default"].map((lane) => ({
     space: `bitnami-redis-27-0-0-${lane}-pilot-live-20260705`,
     title: `Redis 27.0.0 ${lane} pilot run`,
     kind: "pilot",
@@ -220,6 +220,7 @@ const DEMO_SPACES = [
       "The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.",
       "The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.",
       "The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.",
+      "A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.",
     ],
     open: [
       "This README.",
@@ -238,12 +239,81 @@ const DEMO_SPACES = [
       ["Local OCI round-trip receipt", "runs/byo-helm-values-proof/receipt.yaml"],
       ["Public OCI receipt", "runs/byo-helm-values-proof/public-oci-receipt.yaml"],
       ["ConfigHub import receipt", "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"],
+      ["First deployment result", "data/byo-helm-values-deploy-proof/summary.md"],
+      ["Development-to-staging promotion", "data/byo-helm-values-promotion-proof/summary.md"],
+      ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
       ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
     ],
     limits: [
       "The API key in the proposed values is deliberately fake.",
-      "The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. This example does not create or read it.",
-      "No Kubernetes apply, workload check, promotion, or controller delivery has run for this reviewed configuration.",
+      "The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. The Secret was supplied separately for the live test and its value was not recorded.",
+      "The reviewed and promoted staging configurations each ran on one throwaway kind cluster with Argo CD. Flux, rollback, chart upgrade, and a fleet rollout have not run for this configuration.",
+    ],
+  },
+  {
+    space: "byo-nginx-ai-values-24-0-2-development",
+    title: "Change the reviewed NGINX configuration",
+    kind: "environment",
+    summary: "A development variant that changes the reviewed NGINX result from three replicas to four without changing the saved base.",
+    shows: [
+      "The reviewed base remains the exact three-replica result imported from the public OCI package.",
+      "Development has its own namespace and changes the Deployment directly to four replicas.",
+      "The container image stays pinned, the existing-Secret reference stays in place, and the reviewed security settings stay unchanged.",
+      "The catalog checks are inherited from the base.",
+    ],
+    open: [
+      "This README.",
+      "The configuration Unit and its revision history to see the replica change.",
+      "`byo-nginx-ai-values-24-0-2-reviewed` for the unchanged upstream base.",
+      "`byo-nginx-ai-values-24-0-2-staging` for the promoted result.",
+    ],
+    why: [
+      "A useful reviewed configuration soon needs a development version. The important part is that the team can change the real Kubernetes object without editing or forking the Helm chart.",
+      "This Space records that change and keeps the checked base available for comparison.",
+    ],
+    evidence: [
+      ["Original values review", "data/byo-helm-values-review/summary.md"],
+      ["First deployment result", "data/byo-helm-values-deploy-proof/summary.md"],
+      ["Development-to-staging promotion", "data/byo-helm-values-promotion-proof/summary.md"],
+      ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
+      ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
+    ],
+    limits: [
+      "Four replicas are a demonstration choice, not a sizing recommendation.",
+      "This development Space has not been deployed to a long-lived cluster.",
+    ],
+  },
+  {
+    space: "byo-nginx-ai-values-24-0-2-staging",
+    title: "Promote the NGINX change to staging",
+    kind: "environment",
+    summary: "A staging variant that received the reviewed four-replica change from development.",
+    shows: [
+      "Staging started as a three-replica copy of development in its own namespace.",
+      "Development changed to four replicas while staging stayed at three.",
+      "The promotion updated staging to four replicas without changing the saved base or losing the staging namespace.",
+      "The staging Unit records its upstream link and the exact promoted revision.",
+    ],
+    open: [
+      "This README.",
+      "The configuration Unit to see the four-replica staging result.",
+      "Revision history to see the `UpgradeUnit` promotion record.",
+      "`byo-nginx-ai-values-24-0-2-development` for the upstream change.",
+    ],
+    why: [
+      "Copying values files between environments makes it hard to prove what moved and what stayed local.",
+      "This Space shows one concrete promotion: a tested field change moves from development to staging, while ConfigHub keeps the relationship and revision history.",
+    ],
+    evidence: [
+      ["Original values review", "data/byo-helm-values-review/summary.md"],
+      ["First deployment result", "data/byo-helm-values-deploy-proof/summary.md"],
+      ["Development-to-staging promotion", "data/byo-helm-values-promotion-proof/summary.md"],
+      ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
+      ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
+    ],
+    limits: [
+      "The promotion dry-run did not print a useful mutation preview. The command left stored data unchanged, but the empty output remains a product limitation.",
+      "The promoted staging result reached four ready replicas through Argo CD on one throwaway kind cluster. It has not been tested on a long-lived or production target.",
     ],
   },
   {

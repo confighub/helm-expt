@@ -4645,7 +4645,14 @@ function pillarsHtml(catalog) {
       <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
       <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas, but also embeds an API key, changes to an unpinned image, exposes a public LoadBalancer, and weakens three container security settings. The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. Open the <a href="../data/byo-helm-values-review/summary.md">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
       <p>The proof freshly renders the locked chart, checks that the baseline matches the catalog, finds the six intended problems, and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="../data/byo-helm-values-review/public-and-confighub.md">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
-      <p>The reviewed Deployment still needs the <code>nginx/ai-provider-credentials</code> Secret. This example has not applied the objects to Kubernetes, checked workload health, promoted them, or delivered them through Argo CD or Flux. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
+      ${markdownLikeTable([
+        ["Then what?", "Recorded result"],
+        ["Deploy the reviewed result", `<a href="../data/byo-helm-values-deploy-proof/summary.md">Argo CD synced the ConfigHub release and NGINX reached 3/3 ready replicas</a>.`],
+        ["Change development", `<a href="../data/byo-helm-values-promotion-proof/summary.md">The saved base stayed at three replicas while development changed to four</a>.`],
+        ["Promote to staging", `<a href="../data/byo-helm-values-promotion-proof/summary.md">ConfigHub promoted the four-replica change and preserved the staging namespace</a>.`],
+        ["Deploy staging", `<a href="../data/byo-helm-values-staging-deploy-proof/summary.md">Argo CD synced the promoted ConfigHub release and NGINX reached 4/4 ready replicas</a>.`],
+      ], { rawSecondColumn: true })}
+      <p>The target still has to provide the <code>ai-provider-credentials</code> Secret. Both live runs supplied a fake value separately and did not record it. This exact example has not run through Flux, rollback, a chart upgrade, or a fleet rollout. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
     </section>
 
     <section aria-labelledby="source-to-oci">
@@ -5989,14 +5996,17 @@ function chartTeachingHtml(entry) {
     return `<section aria-labelledby="nginx-byo-teaching">
       <h2 id="nginx-byo-teaching">Bring Your Own Values</h2>
       <p>This worked example starts with a NGINX values file supplied by a person or coding agent. The requested change is three replicas. The same file also embeds an API key, removes the checked image digest, exposes a public LoadBalancer, and weakens three container security settings.</p>
-      <p>The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. The proof freshly renders the locked chart, matches the catalog baseline, reports the six intended findings, packages the five reviewed objects as OCI, pulls them anonymously, and imports the same object set into ConfigHub.</p>
+      <p>The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. The proof freshly renders the locked chart, matches the catalog baseline, reports the six intended findings, packages the five reviewed objects as OCI, pulls them anonymously, and imports the same object set into ConfigHub. A live run then deploys that result through Argo CD. Development changes to four replicas, ConfigHub promotes the change to staging, and a second live run reaches 4/4 ready replicas.</p>
       ${markdownLikeTable([
         ["Question", "Answer in this example"],
         ["What do I start with?", `<a href="../../examples/byo-helm-values/ai-values.yaml">The supplied values file</a> and the locked NGINX 24.0.2 chart.`],
         ["What changed?", `<a href="../../data/byo-helm-values-review/summary.md">The plain-English review</a> and <a href="../../data/byo-helm-values-review/review.yaml">structured findings</a>.`],
         ["What would Kubernetes receive?", `<a href="../../data/byo-helm-values-review/reviewed-render.yaml">Five reviewed objects</a>.`],
         ["Can I use OCI?", `<a href="../../data/byo-helm-values-review/public-and-confighub.md">The public digest, anonymous pull, and ConfigHub import record</a>.`],
-        ["What remains?", "The existing Secret, Kubernetes apply, workload health, promotion, and controller delivery have not run for this example."],
+        ["Did the reviewed result run?", `<a href="../../data/byo-helm-values-deploy-proof/summary.md">Yes. Argo CD synced it and NGINX reached 3/3 ready replicas</a>.`],
+        ["Can I change and promote it?", `<a href="../../data/byo-helm-values-promotion-proof/summary.md">Yes. The base stayed at three replicas; development changed to four; staging received the promoted revision</a>.`],
+        ["Did staging run?", `<a href="../../data/byo-helm-values-staging-deploy-proof/summary.md">Yes. Argo CD synced the promoted release and NGINX reached 4/4 ready replicas</a>.`],
+        ["What remains?", "The target Secret is still supplied separately. Flux, rollback, chart upgrade, and fleet rollout have not run for this configuration."],
       ], { rawSecondColumn: true })}
       <p>Repeat the local proof with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>.</p>
     </section>`;

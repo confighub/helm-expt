@@ -87,7 +87,7 @@ Every example starts with one person getting one deployable result. Saved config
 | Level | Example | Status | Result |
 | --- | --- | --- | --- |
 | basics | Pull, inspect, and verify a ready-made package | available | Pull one public installer OCI without an account, inspect the exact Kubernetes objects and recorded Helm inputs, then check the parity, prerequisite, route, and verification evidence before deployment. |
-| basics | Bring your own chart and values | partial | Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result. |
+| basics | Bring your own chart and values | available | Render the chart into exact Kubernetes objects, compare it with chart defaults and known catalog configurations, identify prerequisites and risky changes, then deploy it or save the reviewed result. |
 | managed | Save the reviewed result and change it | available | Upload the reviewed objects as a ConfigHub base variant, then change exact Kubernetes fields in named derived variants. |
 | managed | Upgrade and promote through environments | partial | Reconcile a candidate base, keep the intended post-render changes, preview the affected variants, and promote the accepted revision in sequence. |
 | delivery | Deliver one reviewed OCI and roll it out | partial | Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and record controller and workload results for each target. |

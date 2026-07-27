@@ -264,13 +264,19 @@ function run() {
           publicPush: "not-run",
           configHubUpload: "not-run",
         },
+        followOnEvidence: {
+          publicAndConfigHub: "data/byo-helm-values-review/public-and-confighub.md",
+          firstDeployment: "data/byo-helm-values-deploy-proof/summary.md",
+          promotion: "data/byo-helm-values-promotion-proof/summary.md",
+          stagingDeployment: "data/byo-helm-values-staging-deploy-proof/summary.md",
+        },
         cleanup,
         limits: [
           "The proposed values are a deterministic fixture, not a transcript from a named AI model.",
           "The API key is deliberately fake. The check proves that a literal value reached a rendered Deployment.",
           "The reviewed package references an existing Secret that this proof does not create or read.",
-          "The local OCI round trip passed. Public registry publication and ConfigHub upload are separate follow-on checks.",
-          "No Kubernetes apply, workload health check, promotion, or controller delivery ran.",
+          "This local receipt stops after the OCI pull-back comparison. Public registry publication and ConfigHub upload are separate follow-on checks.",
+          "Separate receipts prove the first Argo CD deployment, development-to-staging promotion, and promoted staging deployment.",
         ],
       },
       status: {
@@ -326,7 +332,18 @@ function verifyScenario(scenario) {
   check(
     scenario.status?.proposal === "rejected"
       && scenario.status?.reviewed === "ready-for-upload"
-      && scenario.status?.kubernetesApply === "not-run",
+      && scenario.status?.configHubUpload === "pass"
+      && scenario.status?.kubernetesApply === "pass"
+      && scenario.status?.argoDelivery === "pass"
+      && scenario.status?.developmentChange === "pass"
+      && scenario.status?.stagingPromotion === "pass"
+      && scenario.status?.stagingDelivery === "pass"
+      && scenario.status?.evidence?.firstDeployment
+        === "runs/byo-helm-values-deploy-proof/receipt.yaml"
+      && scenario.status?.evidence?.promotion
+        === "runs/byo-helm-values-promotion-proof/receipt.yaml"
+      && scenario.status?.evidence?.stagingDeployment
+        === "runs/byo-helm-values-staging-deploy-proof/receipt.yaml",
     "scenario status boundary changed",
   );
 }
@@ -584,6 +601,17 @@ function verifyReceipt(receipt) {
       && spec.cleanup?.localFiles === "pass",
     "receipt overstates publication, upload, or cleanup",
   );
+  check(
+    spec.followOnEvidence?.publicAndConfigHub
+      === "data/byo-helm-values-review/public-and-confighub.md"
+      && spec.followOnEvidence?.firstDeployment
+        === "data/byo-helm-values-deploy-proof/summary.md"
+      && spec.followOnEvidence?.promotion
+        === "data/byo-helm-values-promotion-proof/summary.md"
+      && spec.followOnEvidence?.stagingDeployment
+        === "data/byo-helm-values-staging-deploy-proof/summary.md",
+    "follow-on evidence links changed",
+  );
 }
 
 function renderSummary(receipt) {
@@ -624,6 +652,18 @@ object-set hash, \`${spec.reviewed.objectSetSha256}\`.
 - Reviewed render: [\`${spec.reviewed.renderedObjects}\`](./reviewed-render.yaml)
 - Structured review: [\`${relativeRepo(reviewPath)}\`](./review.yaml)
 - Receipt: [\`${relativeRepo(receiptPath)}\`](../../${relativeRepo(receiptPath)})
+
+## What happened next
+
+This receipt covers the local review and OCI round trip. The same reviewed
+objects were then published publicly, saved in ConfigHub, deployed through
+Argo CD at three ready replicas, changed to four replicas in development,
+promoted to staging, and deployed again at four ready replicas:
+
+- [Public OCI and ConfigHub record](./public-and-confighub.md)
+- [First Argo CD deployment](../byo-helm-values-deploy-proof/summary.md)
+- [Development-to-staging promotion](../byo-helm-values-promotion-proof/summary.md)
+- [Promoted staging deployment](../byo-helm-values-staging-deploy-proof/summary.md)
 
 Rerun the proof with:
 

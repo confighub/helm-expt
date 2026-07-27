@@ -104,7 +104,7 @@ Current limit: Evidence is scoped to the named chart, version, preset configurat
 
 ### 2. Bring your own chart and values
 
-**Status: partial.**
+**Status: available.**
 
 You have a chart and values written by your team or an AI, and you do not want to apply plausible configuration without seeing what it creates.
 
@@ -116,9 +116,9 @@ Render the chart into exact Kubernetes objects, compare it with chart defaults a
 4. Review the object diff, placeholders, Secrets, CRDs, hooks, dependencies, and checks.
 5. Deploy the reviewed files or claim them in ConfigHub.
 
-Evidence: [examples/byo-helm-values/ai-values.yaml](../../examples/byo-helm-values/ai-values.yaml), [examples/byo-helm-values/reviewed-values.yaml](../../examples/byo-helm-values/reviewed-values.yaml), [data/byo-helm-values-review/summary.md](../../data/byo-helm-values-review/summary.md), [data/byo-helm-values-review/review.yaml](../../data/byo-helm-values-review/review.yaml), [data/byo-helm-values-review/public-and-confighub.md](../../data/byo-helm-values-review/public-and-confighub.md), [runs/byo-helm-values-proof/receipt.yaml](../../runs/byo-helm-values-proof/receipt.yaml), [runs/byo-helm-values-proof/public-oci-receipt.yaml](../../runs/byo-helm-values-proof/public-oci-receipt.yaml), [runs/byo-helm-values-proof/confighub-upload-receipt.yaml](../../runs/byo-helm-values-proof/confighub-upload-receipt.yaml), [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md), [docs/reference/direct-cub-helm-model.md](../../docs/reference/direct-cub-helm-model.md), [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md).
+Evidence: [examples/byo-helm-values/ai-values.yaml](../../examples/byo-helm-values/ai-values.yaml), [examples/byo-helm-values/reviewed-values.yaml](../../examples/byo-helm-values/reviewed-values.yaml), [data/byo-helm-values-review/summary.md](../../data/byo-helm-values-review/summary.md), [data/byo-helm-values-review/review.yaml](../../data/byo-helm-values-review/review.yaml), [data/byo-helm-values-review/public-and-confighub.md](../../data/byo-helm-values-review/public-and-confighub.md), [runs/byo-helm-values-proof/receipt.yaml](../../runs/byo-helm-values-proof/receipt.yaml), [runs/byo-helm-values-proof/public-oci-receipt.yaml](../../runs/byo-helm-values-proof/public-oci-receipt.yaml), [runs/byo-helm-values-proof/confighub-upload-receipt.yaml](../../runs/byo-helm-values-proof/confighub-upload-receipt.yaml), [data/byo-helm-values-deploy-proof/summary.md](../../data/byo-helm-values-deploy-proof/summary.md), [runs/byo-helm-values-deploy-proof/receipt.yaml](../../runs/byo-helm-values-deploy-proof/receipt.yaml), [data/byo-helm-values-promotion-proof/summary.md](../../data/byo-helm-values-promotion-proof/summary.md), [runs/byo-helm-values-promotion-proof/receipt.yaml](../../runs/byo-helm-values-promotion-proof/receipt.yaml), [data/byo-helm-values-staging-deploy-proof/summary.md](../../data/byo-helm-values-staging-deploy-proof/summary.md), [runs/byo-helm-values-staging-deploy-proof/receipt.yaml](../../runs/byo-helm-values-staging-deploy-proof/receipt.yaml), [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md), [docs/reference/direct-cub-helm-model.md](../../docs/reference/direct-cub-helm-model.md), [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md).
 
-Current limit: The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically. The reviewed Deployment requires an existing Secret. Kubernetes apply, workload health, promotion, and controller delivery have not run for this example.
+Current limit: The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically. The required Secret was supplied separately and its value was not recorded. The exact example has passed Argo CD delivery at three replicas, a development-to-staging promotion to four replicas, and a second Argo CD delivery at four ready replicas. Flux delivery, rollback, chart upgrade, and fleet rollout have not run for this configuration.
 
 ### 3. Save the reviewed result and change it
 
@@ -134,7 +134,7 @@ Upload the reviewed objects as a ConfigHub base variant, then change exact Kuber
 4. Make one exact field change and review the diff.
 5. Publish a new OCI only after the revision is accepted.
 
-Evidence: [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md), [data/base-variant-records/summary.md](../../data/base-variant-records/summary.md), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md).
+Evidence: [docs/user/variants-after-upload.md](../../docs/user/variants-after-upload.md), [data/base-variant-records/summary.md](../../data/base-variant-records/summary.md), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md), [data/byo-helm-values-promotion-proof/summary.md](../../data/byo-helm-values-promotion-proof/summary.md), [runs/byo-helm-values-promotion-proof/receipt.yaml](../../runs/byo-helm-values-promotion-proof/receipt.yaml).
 
 Current limit: A field that changes the Helm render belongs in a new rendered base; post-render fields belong in derived variants.
 
@@ -152,7 +152,7 @@ Reconcile a candidate base, keep the intended post-render changes, preview the a
 4. Promote through development and staging in order.
 5. Require approval before the production revision is delivered.
 
-Evidence: [runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml), [data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md), [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md).
+Evidence: [runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml), [data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md), [data/byo-helm-values-promotion-proof/summary.md](../../data/byo-helm-values-promotion-proof/summary.md), [runs/byo-helm-values-promotion-proof/receipt.yaml](../../runs/byo-helm-values-promotion-proof/receipt.yaml), [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md).
 
 Current limit: The current CLI dry-run does not yet print a useful human mutation preview.
 
@@ -170,7 +170,7 @@ Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and rec
 4. Advance the same accepted revision to a sibling environment.
 5. Roll it out to a small target set and record every result.
 
-Evidence: [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
+Evidence: [data/byo-helm-values-deploy-proof/summary.md](../../data/byo-helm-values-deploy-proof/summary.md), [runs/byo-helm-values-deploy-proof/receipt.yaml](../../runs/byo-helm-values-deploy-proof/receipt.yaml), [data/byo-helm-values-staging-deploy-proof/summary.md](../../data/byo-helm-values-staging-deploy-proof/summary.md), [runs/byo-helm-values-staging-deploy-proof/receipt.yaml](../../runs/byo-helm-values-staging-deploy-proof/receipt.yaml), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
 
 Current limit: The current flagship receipts use small local target sets, not a large production fleet.
 

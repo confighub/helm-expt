@@ -510,7 +510,17 @@
       <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
       <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas, but also embeds an API key, changes to an unpinned image, exposes a public LoadBalancer, and weakens three container security settings. The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. Open the <a href="d/data/byo-helm-values-review/summary.html">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
       <p>The proof freshly renders the locked chart, checks that the baseline matches the catalog, finds the six intended problems, and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="d/data/byo-helm-values-review/public-and-confighub.html">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
-      <p>The reviewed Deployment still needs the <code>nginx/ai-provider-credentials</code> Secret. This example has not applied the objects to Kubernetes, checked workload health, promoted them, or delivered them through Argo CD or Flux. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
+      <div class="card"><table>
+        <thead><tr><th>Then what?</th><th>Recorded result</th></tr></thead>
+        <tbody><tr><td>Deploy the reviewed result</td><td><a href="d/data/byo-helm-values-deploy-proof/summary.html">Argo CD synced the ConfigHub release and NGINX reached 3/3 ready replicas</a>.</td></tr><tr><td>Change development</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">The saved base stayed at three replicas while development changed to four</a>.</td></tr><tr><td>Promote to staging</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">ConfigHub promoted the four-replica change and preserved the staging namespace</a>.</td></tr><tr><td>Deploy staging</td><td><a href="d/data/byo-helm-values-staging-deploy-proof/summary.html">Argo CD synced the promoted ConfigHub release and NGINX reached 4/4 ready replicas</a>.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The target still has to provide the <code>ai-provider-credentials</code> Secret. Both live runs supplied a fake value separately and did not record it. This exact example has not run through Flux, rollback, a chart upgrade, or a fleet rollout. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
     </section>
 
     <section aria-labelledby="source-to-oci">

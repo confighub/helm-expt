@@ -40,6 +40,18 @@ object-set hash, `ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca514493
 - Structured review: [`data/byo-helm-values-review/review.yaml`](./review.yaml)
 - Receipt: [`runs/byo-helm-values-proof/receipt.yaml`](../../runs/byo-helm-values-proof/receipt.yaml)
 
+## What happened next
+
+This receipt covers the local review and OCI round trip. The same reviewed
+objects were then published publicly, saved in ConfigHub, deployed through
+Argo CD at three ready replicas, changed to four replicas in development,
+promoted to staging, and deployed again at four ready replicas:
+
+- [Public OCI and ConfigHub record](./public-and-confighub.md)
+- [First Argo CD deployment](../byo-helm-values-deploy-proof/summary.md)
+- [Development-to-staging promotion](../byo-helm-values-promotion-proof/summary.md)
+- [Promoted staging deployment](../byo-helm-values-staging-deploy-proof/summary.md)
+
 Rerun the proof with:
 
 ```bash
@@ -51,5 +63,5 @@ HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run
 - The proposed values are a deterministic fixture, not a transcript from a named AI model.
 - The API key is deliberately fake. The check proves that a literal value reached a rendered Deployment.
 - The reviewed package references an existing Secret that this proof does not create or read.
-- The local OCI round trip passed. Public registry publication and ConfigHub upload are separate follow-on checks.
-- No Kubernetes apply, workload health check, promotion, or controller delivery ran.
+- This local receipt stops after the OCI pull-back comparison. Public registry publication and ConfigHub upload are separate follow-on checks.
+- Separate receipts prove the first Argo CD deployment, development-to-staging promotion, and promoted staging deployment.
