@@ -115,7 +115,9 @@
         ],
         "id": "fleet-platform-app",
         "limits": [
-          "The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos now proves ConfigHub review, portable OCI and Argo CD delivery, one selected workload cluster, Helm installation, and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete."
+          "The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout.",
+          "Sveltos proves a reviewed pilot selector, a second approved revision, two OCI digests, target-by-target Kyverno results on two clusters, and drift recovery on each target.",
+          "Kubara proves one approved platform configuration through route work, OCI, Argo CD, Kubara Argo CD readiness, and one healthy downstream Metrics Server Application. A large mixed-source fleet wave remains open."
         ],
         "name": "Fleet Platform App",
         "problem": "Platform teams need to assign different system configurations to cluster groups without losing a central source of record.",
@@ -503,7 +505,8 @@
         "limits": [
           "The original live receipt records a manual export and kubectl apply. A newer receipt proves approval, private ConfigHub release, local portable OCI packaging, anonymous pull, and Argo CD delivery without copying the ClusterProfile with kubectl.",
           "Sveltos itself was installed directly as a pinned management-cluster prerequisite, and the portable OCI used a temporary registry.",
-          "Both live tests used one staging workload cluster. A multi-cluster promotion wave has not run."
+          "The current OCI receipt starts with one pilot cluster, then removes one reviewed selector label and records healthy Kyverno results on two staging clusters at a second OCI digest.",
+          "The current wave used two local kind clusters. It does not prove a large production fleet or a rollout that pauses after a failed target."
         ],
         "name": "ConfigHub desired state delivered through Sveltos",
         "problem": "Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.",

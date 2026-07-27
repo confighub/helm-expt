@@ -45,20 +45,20 @@ spec:
     routes:
       -
         id: "confighub-to-management-cluster"
-        status: "manual-pass"
-        note: "The checked ConfigHub Unit was exported and applied to the management cluster with kubectl. Automated ConfigHub delivery did not run."
+        status: "live-pass"
+        note: "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster."
       -
         id: "sveltos-cluster-selection"
         status: "live-pass"
-        note: "Sveltos selected the registered workload cluster labeled environment=staging."
+        note: "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters."
       -
         id: "sveltos-helm-reconciliation"
         status: "live-pass"
-        note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned."
+        note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets."
       -
         id: "sveltos-drift-recovery"
         status: "live-pass"
-        note: "After the admission-controller replica count was changed from three to one, Sveltos restored it to three."
+        note: "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three."
     targetFacts:
       managementClusterRequiresSveltos: true
       managementKubernetesVersion: "v1.35.0"
@@ -68,10 +68,14 @@ spec:
     sourceRecord: "examples/sveltos/kyverno-fleet/live-receipt.yaml"
   delivery:
     literalConfigOci:
-      status: "not-used-direct-unit-upload"
+      status: "temporary-pass"
+      pilotDigest: "sha256:0de702823d0d0cb41bfa667e29f40871f6d28e3122815ccd2f2931a9aacbc3bc"
+      fleetDigest: "sha256:a9907fd5f277f4dff5a4ec78841562657b7fd706e2ddf1e14a347d6a66493911"
     configHubReleaseOci:
-      status: "not-run"
-    argoCd: "not-used-in-this-run"
+      status: "private-pass"
+      pilotDigest: "sha256:f7f8fbfd93b6f33ce0cd5e5ea23250eae096d09ff08c0d8e55077ad2f9d6610a"
+      fleetDigest: "sha256:0e177fbb247e4642ff925a1beef0f403f7999a72b36d70eff88a26a2f997c179"
+    argoCd: "live-pass-two-revisions"
     flux: "not-used-in-this-run"
   policy:
     profile: "catalog-standard"
@@ -84,6 +88,9 @@ spec:
     readmeUnit: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
     sourceLock: "examples/sveltos/kyverno-fleet/source-lock.yaml"
     liveReceipt: "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+    pilotProfile: "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+    ociDeliveryReceipt: "runs/sveltos-oci-delivery-proof/receipt.yaml"
+    ociDeliverySummary: "data/sveltos-oci-delivery-proof/summary.md"
     configHubSpace: "sveltos-kyverno-fleet-3-8-1-staging"
     configHubUnit: "clusterprofile"
     clusterSummary: "projectsveltos/kyverno-staging-sveltos-helm-expt-sveltos-workload"
@@ -93,8 +100,9 @@ spec:
     changeCadence: "planned-platform-release"
 status:
   level: "partial"
-  claim: "ConfigHub stored the reviewed ClusterProfile under the catalog policy. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count."
+  claim: "ConfigHub approved a pilot Sveltos ClusterProfile and a second selector revision at different OCI digests. Sveltos installed Kyverno 3.8.1 on the pilot first, then on both staging clusters, and restored replica drift on each target."
   limits:
-    - "ConfigHub did not deliver the ClusterProfile automatically; the checked Unit was exported and applied with kubectl."
-    - "The live test used one staging workload cluster, not a multi-cluster promotion wave."
+    - "Sveltos itself was installed directly as a pinned management-cluster prerequisite."
+    - "The portable OCI artifacts used a temporary local registry."
+    - "The live test used two local kind clusters; it did not test a large production fleet or a rollout that pauses after a failed target."
     - "The receipt proves this profile and drift test, not every Sveltos feature."

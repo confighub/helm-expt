@@ -218,15 +218,14 @@ seven-service profile and a multi-cluster promotion wave remain separate work.
 Sveltos is one fleet placement and reconciliation path. ConfigHub stores the reviewed
 `ClusterProfile`, its history, and its policy results. Sveltos selects matching
 clusters and reconciles the declared add-ons. The
-[Kyverno fleet example](../demo/sveltos/kyverno-fleet.md) proves that split on one
-workload cluster: ConfigHub stored the exact profile, Sveltos installed Kyverno, and
-Sveltos restored a changed replica count. A second live run removed the manual
-handoff: ConfigHub blocked the profile until approval, published its private release,
-and a local no-server step packaged the approved object as a portable OCI. Argo CD
-reconciled that digest on the management cluster before Sveltos acted. Pulling the
-portable OCI needed no ConfigHub account. The proof used a temporary registry and one
-workload cluster, so permanent publication and a multi-cluster promotion wave remain
-separate work.
+[Kyverno fleet example](../demo/sveltos/kyverno-fleet.md) proves that split in two
+steps. The first approved profile selected only the pilot cluster. The second
+revision removed one selector label and added another staging cluster. Each revision
+had a different OCI digest, and Argo CD reconciled both on the management cluster.
+Sveltos installed Kyverno on the pilot first, then on both clusters, and restored a
+changed replica count on each target. Pulling the portable OCI needed no ConfigHub
+account. The proof used a temporary registry and two local kind clusters, so
+permanent publication, a large fleet, and a failed-target pause remain separate work.
 
 Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does

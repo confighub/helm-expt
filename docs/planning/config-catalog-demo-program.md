@@ -214,9 +214,11 @@ rollout waves next.
 
 Keep the Sveltos `ClusterProfile` example as a placement contract. The first live run
 proved selection, Helm installation, and drift repair after a manual handoff. The
-second live run proved the intended boundary: ConfigHub review and approval, local
-portable OCI packaging, anonymous pull, Argo CD delivery to the management cluster,
-then Sveltos reconciliation on the selected workload cluster.
+current OCI run proves the intended boundary and a bounded wave: ConfigHub review
+and approval, local portable OCI packaging, anonymous pull, Argo CD delivery to the
+management cluster, one pilot target, then a second approved selector revision that
+adds another staging cluster at a new OCI digest. Both clusters reached the declared
+Kyverno state and repaired replica drift.
 
 Complete when:
 
@@ -227,6 +229,9 @@ Complete when:
   results for every cluster;
 - every page distinguishes source generation, ConfigHub desired state, and the
   delivery controller.
+
+The Kubara delivery and two-cluster Sveltos wave now have reproducible receipts.
+Large fleets, a failed-target pause, and a mixed-source promotion wave remain open.
 
 ## Phase 6: Apps
 

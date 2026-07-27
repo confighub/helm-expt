@@ -26,7 +26,7 @@ A base-variant record connects the literal configuration to the source that prod
 - [AICR EKS H100 training for Flux](records/aicr-eks-h100-training-kubeflow-v0-14-0-base.yaml) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](records/aicr-eks-h100-training-kubeflow-v0-14-0-argocd.yaml) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
 - [Kubara local platform](records/kubara-local-platform-v0-12-0-base.yaml) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
-- [Sveltos Kyverno fleet](records/sveltos-kyverno-fleet-3-8-1-staging.yaml) records a live one-cluster result: ConfigHub stored the reviewed profile, Sveltos installed Kyverno, and Sveltos repaired a changed replica count.
+- [Sveltos Kyverno fleet](records/sveltos-kyverno-fleet-3-8-1-staging.yaml) records a two-wave result: ConfigHub approved a pilot and one selector expansion at different OCI digests, then Sveltos installed Kyverno and repaired drift on both staging clusters.
 
 ## Files
 

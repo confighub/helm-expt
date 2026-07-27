@@ -24,6 +24,7 @@ if (!["--verify", "--hub-record", "--hub-verify"].includes(mode)) {
 
 const root = join(repoRoot, "examples", "sveltos", "kyverno-fleet");
 const profilePath = join(root, "clusterprofile.yaml");
+const pilotProfilePath = join(root, "clusterprofile-pilot.yaml");
 const sourceLockPath = join(root, "source-lock.yaml");
 const receiptPath = join(root, "live-receipt.yaml");
 const ociReceiptPath = join(
@@ -44,6 +45,7 @@ const readmeUnitPath = join(
 const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 
 const profile = readYaml(profilePath);
+const pilotProfile = readYaml(pilotProfilePath);
 const sourceLock = readYaml(sourceLockPath);
 let receipt = readYaml(receiptPath);
 if (mode === "--hub-record") receipt = recordHubPolicy(receipt);
@@ -58,6 +60,11 @@ check(profile.metadata?.name === "kyverno-staging", "Sveltos ClusterProfile name
 check(
   profile.spec?.clusterSelector?.matchLabels?.environment === "staging",
   "Sveltos cluster selector changed",
+);
+check(
+  pilotProfile.spec?.clusterSelector?.matchLabels?.environment === "staging"
+    && pilotProfile.spec.clusterSelector.matchLabels.rollout === "pilot",
+  "Sveltos pilot selector changed",
 );
 check(
   profile.spec?.syncMode === "ContinuousWithDriftDetection",
@@ -138,7 +145,7 @@ check(
 check(receipt.status?.multiClusterPromotionWave === "not-run", "fleet promotion is overclaimed");
 check(
   technicalReadmeText.includes(
-    "A second run removed the manual delivery step.",
+    "The current OCI delivery run used two workload clusters.",
   )
     && technicalReadmeText.includes("## What remains"),
   "Sveltos README must explain the newer delivery proof and its limits",
@@ -146,24 +153,40 @@ check(
 check(
   ociReceipt.kind === "SveltosOciDeliveryProofReceipt"
     && ociReceipt.status?.result === "pass"
-    && ociReceipt.spec?.source?.rawSha256 === sha256File(profilePath),
+    && ociReceipt.spec?.source?.rawSha256 === sha256File(pilotProfilePath),
   "Sveltos OCI delivery receipt or source record changed",
 );
 check(
-  ociReceipt.spec?.configHubReview?.beforeApproval?.result === "blocked"
-    && ociReceipt.spec.configHubReview.afterApproval?.result === "allowed"
-    && ociReceipt.spec.configHubReview.approvedDataMatchesSource === true
-    && ociReceipt.spec.configHubReview.portableRelease?.objectsMatchApprovedData
-    === true
-    && ociReceipt.spec.configHubReview.portableRelease.anonymousPull === true,
+  ociReceipt.spec?.configHubReview?.pilot?.beforeApproval?.result === "blocked"
+    && ociReceipt.spec.configHubReview.pilot.afterApproval?.result === "allowed"
+    && ociReceipt.spec.configHubReview.pilot.approvedDataMatchesSource === true
+    && ociReceipt.spec.configHubReview.pilot.portableRelease
+      ?.objectsMatchApprovedData === true
+    && ociReceipt.spec.configHubReview.pilot.portableRelease.anonymousPull === true
+    && ociReceipt.spec.configHubReview.fleet?.beforeApproval?.result === "blocked"
+    && ociReceipt.spec.configHubReview.fleet.afterApproval?.result === "allowed"
+    && ociReceipt.spec.configHubReview.fleet.change?.path
+      === "spec.clusterSelector.matchLabels.rollout"
+    && ociReceipt.spec.configHubReview.fleet.portableRelease
+      ?.objectsMatchApprovedData === true,
   "Sveltos OCI review or portable package evidence changed",
 );
 check(
-  ociReceipt.spec?.management?.delivery?.argo?.result === "pass"
-    && ociReceipt.spec.management.delivery.approvedFieldsMatchLive === true
-    && ociReceipt.spec.management.reconciliation?.helmFeatureStatus
-    === "Provisioned"
-    && ociReceipt.spec.workload?.drift?.result === "pass",
+  ociReceipt.spec?.management?.waves?.pilot?.argo?.result === "pass"
+    && ociReceipt.spec.management.waves.pilot.targets?.length === 2
+    && ociReceipt.spec.management.waves.pilot.targets
+      .filter((target) => target.selected).length === 1
+    && ociReceipt.spec.management.waves.fleet?.argo?.result === "pass"
+    && ociReceipt.spec.management.waves.fleet.targets?.length === 2
+    && ociReceipt.spec.management.waves.fleet.targets.every(
+      (target) =>
+        target.selected === true
+        && target.reconciliation?.helmFeatureStatus === "Provisioned",
+    )
+    && ociReceipt.spec.workloads?.length === 2
+    && ociReceipt.spec.workloads.every(
+      (workload) => workload.drift?.result === "pass",
+    ),
   "Sveltos OCI delivery, reconciliation, or drift evidence changed",
 );
 check(
