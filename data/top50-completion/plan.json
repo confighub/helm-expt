@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 20,
-      "partial": 28,
+      "available": 21,
+      "partial": 27,
       "planned": 2,
       "blocked": 0
     },
@@ -714,13 +714,14 @@
         "evidence": [
           "config-catalog/program.yaml",
           "docs/user/config-catalog-demonstrations.md",
+          "site/charts/index.html",
           "site/testing.html"
         ],
         "id": "T45",
         "name": "Let users browse by starting point and next job",
-        "next": "Apply the two-axis navigation consistently to the catalog index and source-family pages.",
+        "next": "Keep both navigation tables and their linked source pages current as starting points and jobs change.",
         "outcome": "A user can enter by Helm, AICR, installer, OCI, or YAML and then choose inspect, install, upload, customize, promote, deliver, operate, or build an App.",
-        "status": "partial",
+        "status": "available",
         "verify": [
           "npm run config-catalog:verify",
           "npm run site:verify"

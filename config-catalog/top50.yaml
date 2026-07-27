@@ -581,16 +581,17 @@ spec:
     - id: T45
       area: Catalog
       name: Let users browse by starting point and next job
-      status: partial
+      status: available
       outcome: A user can enter by Helm, AICR, installer, OCI, or YAML and then choose inspect, install, upload, customize, promote, deliver, operate, or build an App.
       evidence:
         - config-catalog/program.yaml
         - docs/user/config-catalog-demonstrations.md
+        - site/charts/index.html
         - site/testing.html
       verify:
         - npm run config-catalog:verify
         - npm run site:verify
-      next: Apply the two-axis navigation consistently to the catalog index and source-family pages.
+      next: Keep both navigation tables and their linked source pages current as starting points and jobs change.
 
     - id: T46
       area: Catalog

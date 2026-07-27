@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 20
-partial:   28
+available: 21
+partial:   27
 planned:   2
 blocked:   0
 total:     50
@@ -130,7 +130,7 @@ The source status definitions are:
 | T42 | Complete production-scoped support decisions for the top 20 | partial | [data/production-support-decisions/summary.md](../../data/production-support-decisions/summary.md)<br>[data/production-disposition/summary.md](../../data/production-disposition/summary.md) | Close the remaining support decision and keep every decision tied to fresh target and image evidence. |
 | T43 | Promote the next 80 from proof-grade to useful catalog configs | partial | [data/top100-coverage/summary.md](../../data/top100-coverage/summary.md)<br>[data/useful-base-realization-wave/summary.md](../../data/useful-base-realization-wave/summary.md) | Build the remaining useful-base proposals and review promotion candidates in evidence order. |
 | T44 | Expand the catalog beyond Helm | partial | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md)<br>[data/demo-program/summary.md](../../data/demo-program/summary.md) | Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations. |
-| T45 | Let users browse by starting point and next job | partial | [config-catalog/program.yaml](../../config-catalog/program.yaml)<br>[docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md)<br>[site/testing.html](../../site/testing.html) | Apply the two-axis navigation consistently to the catalog index and source-family pages. |
+| T45 | Let users browse by starting point and next job | available | [config-catalog/program.yaml](../../config-catalog/program.yaml)<br>[docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md)<br>[site/charts/index.html](../../site/charts/index.html)<br>[site/testing.html](../../site/testing.html) | Keep both navigation tables and their linked source pages current as starting points and jobs change. |
 | T46 | Put one plain-English README in every live demo Space | available | [data/helm-catalog-readmes/summary.md](../../data/helm-catalog-readmes/summary.md)<br>`data/helm-catalog-readmes/spaces/` | Keep README Units synchronized whenever a Space, preset config, route, or linked chart page changes. |
 | T47 | Join chart pages to packages scripts README and proof | available | [site/charts/bitnami-redis-25-5-3.html](../../site/charts/bitnami-redis-25-5-3.html)<br>[site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh](../../site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh) | Keep generated links valid and preserve plain-English summaries as the catalog gains more source formats. |
 | T48 | Make hooks CRDs and setup work manageable per chart | partial | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md)<br>[data/hook-route-candidates/work-orders.md](../../data/hook-route-candidates/work-orders.md)<br>[data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md) | Execute the highest-value route work orders under Argo CD, Flux, and direct apply where each route applies. |
