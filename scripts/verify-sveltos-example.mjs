@@ -26,6 +26,12 @@ const root = join(repoRoot, "examples", "sveltos", "kyverno-fleet");
 const profilePath = join(root, "clusterprofile.yaml");
 const sourceLockPath = join(root, "source-lock.yaml");
 const receiptPath = join(root, "live-receipt.yaml");
+const ociReceiptPath = join(
+  repoRoot,
+  "runs",
+  "sveltos-oci-delivery-proof",
+  "receipt.yaml",
+);
 const readmePath = join(root, "README.md");
 const readmeUnitPath = join(
   repoRoot,
@@ -41,6 +47,7 @@ const profile = readYaml(profilePath);
 const sourceLock = readYaml(sourceLockPath);
 let receipt = readYaml(receiptPath);
 if (mode === "--hub-record") receipt = recordHubPolicy(receipt);
+const ociReceipt = readYaml(ociReceiptPath);
 const readmeUnit = readYaml(readmeUnitPath);
 const technicalReadmeText = readFileSync(readmePath, "utf8").trimEnd();
 const readmeText = readmeUnit.spec?.markdown?.trimEnd() ?? "";
@@ -120,12 +127,50 @@ check(
 check(receipt.spec?.driftTest?.result === "pass", "Sveltos drift test must stay recorded");
 check(receipt.spec?.driftTest?.changedReplicas === 1, "Sveltos drift fixture changed");
 check(receipt.spec?.driftTest?.restoredReplicas === 3, "Sveltos drift recovery changed");
-check(receipt.status?.result === "partial", "Sveltos overall result must remain partial");
-check(receipt.status?.automatedConfigHubDelivery === "not-run", "automated delivery is overclaimed");
+check(
+  receipt.status?.result === "partial",
+  "the first Sveltos receipt must remain a historical partial result",
+);
+check(
+  receipt.status?.automatedConfigHubDelivery === "not-run",
+  "the first Sveltos receipt must not be rewritten as automated delivery",
+);
 check(receipt.status?.multiClusterPromotionWave === "not-run", "fleet promotion is overclaimed");
 check(
-  technicalReadmeText.includes("What remains manual"),
-  "Sveltos README must explain the manual handoff",
+  technicalReadmeText.includes(
+    "A second run removed the manual delivery step.",
+  )
+    && technicalReadmeText.includes("## What remains"),
+  "Sveltos README must explain the newer delivery proof and its limits",
+);
+check(
+  ociReceipt.kind === "SveltosOciDeliveryProofReceipt"
+    && ociReceipt.status?.result === "pass"
+    && ociReceipt.spec?.source?.rawSha256 === sha256File(profilePath),
+  "Sveltos OCI delivery receipt or source record changed",
+);
+check(
+  ociReceipt.spec?.configHubReview?.beforeApproval?.result === "blocked"
+    && ociReceipt.spec.configHubReview.afterApproval?.result === "allowed"
+    && ociReceipt.spec.configHubReview.approvedDataMatchesSource === true
+    && ociReceipt.spec.configHubReview.portableRelease?.objectsMatchApprovedData
+    === true
+    && ociReceipt.spec.configHubReview.portableRelease.anonymousPull === true,
+  "Sveltos OCI review or portable package evidence changed",
+);
+check(
+  ociReceipt.spec?.management?.delivery?.argo?.result === "pass"
+    && ociReceipt.spec.management.delivery.approvedFieldsMatchLive === true
+    && ociReceipt.spec.management.reconciliation?.helmFeatureStatus
+    === "Provisioned"
+    && ociReceipt.spec.workload?.drift?.result === "pass",
+  "Sveltos OCI delivery, reconciliation, or drift evidence changed",
+);
+check(
+  Object.values(ociReceipt.spec?.cleanup ?? {}).every(
+    (result) => result === "pass",
+  ),
+  "Sveltos OCI delivery cleanup did not pass",
 );
 check(readmeUnit.kind === "HelmCatalogDemoReadme", "Sveltos README Unit kind changed");
 check(
@@ -140,6 +185,12 @@ check(
 check(
   readmeText.includes("requires approval before apply"),
   "Sveltos Hub README must explain why approval is required",
+);
+check(
+  readmeText.includes("portable OCI")
+    && readmeText.includes("Argo CD")
+    && !readmeText.includes("delivery was manual"),
+  "Sveltos Hub README must explain the current OCI delivery proof",
 );
 
 if (["--hub-record", "--hub-verify"].includes(mode)) verifyHub();

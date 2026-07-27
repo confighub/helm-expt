@@ -25,24 +25,31 @@ Open the `clusterprofile` Unit first. It contains one Sveltos
 The chart version and values are fixed in the reviewed object. A cluster only
 needs the staging label to receive this configuration.
 
-## What the live test showed
+## What the live tests showed
 
 The test used Sveltos v1.12.0 with separate kind management and workload
 clusters. ConfigHub stored the `ClusterProfile` under the catalog's standard
 checks. The exact object exported from ConfigHub was applied to the management
 cluster.
 
-Sveltos selected the staging workload cluster, installed Kyverno 3.8.1, and
+In the first run, Sveltos selected the staging workload cluster, installed Kyverno 3.8.1, and
 reported the Helm feature as `Provisioned`. All four Kyverno deployments became
 available. The test then changed the admission-controller replica count from
 three to one on the workload cluster. Sveltos restored it to three.
 
-## What remains manual
+A second run removed the manual delivery step. ConfigHub blocked the
+`ClusterProfile` until its exact revision was approved and published its private
+release. A local no-server step packaged the approved data as a portable OCI. The
+package was pulled back without a ConfigHub account and compared with the approved
+data. Argo CD reconciled that OCI digest on the management cluster, then Sveltos
+installed Kyverno and repaired the same replica change.
 
-The test exported the ConfigHub Unit and applied it to the management cluster
-with `kubectl`. ConfigHub did not publish this object through an OCI target to
-Argo CD or Flux in this run. A later test should automate that handoff and
-promote the same profile across more than one workload cluster.
+## What remains
+
+The second run installed Sveltos directly from a pinned upstream manifest and used
+a temporary registry for the portable OCI. Both runs used one workload cluster. A
+permanent package and a promotion wave across several clusters still need their own
+tests.
 
 ## Repeat and verify
 
@@ -52,4 +59,8 @@ explains the commands and results. The
 [source lock](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml),
 and
 [live receipt](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml)
-record the details behind this README.
+record the first result. The
+[OCI delivery summary](https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html)
+and
+[OCI delivery receipt](https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml)
+record the automated handoff.

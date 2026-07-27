@@ -1,0 +1,266 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "SveltosOciDeliveryProofReceipt"
+metadata:
+  name: "kyverno-staging-oci-delivery"
+spec:
+  recordedAt: "2026-07-27T03:34:39.342Z"
+  flow:
+    path: "source -> ConfigHub review -> local work -> OCI -> Argo CD -> Sveltos -> Kubernetes"
+    portableShape: "work -> OCI"
+    access:
+      configHubReview: "ConfigHub account and server required"
+      portablePackaging: "local command; no ConfigHub Server required"
+      portablePull: "anonymous; no ConfigHub account required"
+  source:
+    profile: "examples/sveltos/kyverno-fleet/clusterprofile.yaml"
+    sourceLock: "examples/sveltos/kyverno-fleet/source-lock.yaml"
+    rawSha256: "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
+    canonicalSha256: "4746344ddceec3dde79254e1646d18698058dd8b7557d227e58a9aa071e70fce"
+  prerequisite:
+    source: "https://raw.githubusercontent.com/projectsveltos/sveltos/v1.12.0/manifest/manifest.yaml"
+    version: "v1.12.0"
+    manifestSha256: "7ce065d86662c9cc431c07021d5b1cbe812b00f7ddde57dc465a44b03f5a7280"
+    objectCount: 84
+    crdCount: 29
+    appliedObjectCount: 82
+    omittedOptionalServiceMonitorCount: 2
+    deployments:
+      -
+        name: "access-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "addon-controller"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "classifier-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "event-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "hc-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "mcp-server"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "sc-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "shard-controller"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "sveltos-agent-manager"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+      -
+        name: "techsupport-controller"
+        desired: 1
+        updated: 1
+        ready: 1
+        available: 1
+        observedGenerationMatches: true
+    installationMethod: "pinned manifest applied as a management-cluster prerequisite"
+  configHubReview:
+    organization: "helm-catalog"
+    space: "hx-sveltos-20260727033439"
+    unit: "clusterprofile"
+    unitId: "4cc3c2c2-5e28-43e5-9b0c-f63299889adf"
+    contentHash: 1480839755
+    target:
+      ref: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
+      id: "7d32ab9b-6259-40e6-871d-e78f84761d2b"
+      provider: "OCI"
+    policy:
+      profile: "catalog-standard"
+      resourceClass: "system-configuration"
+      filter:
+        ref: "platform/helm-catalog-prod-gates"
+        id: "8784a447-0e4d-4471-b924-eae5377778a2"
+        hash: "53b704e063e156905f5b7f56e7a001cdacd8d300506981e9f6ce97167a0d0b5b"
+        triggerRefs:
+          - "platform/digest-pinned-images"
+          - "platform/lifecycle-route-evidence"
+          - "platform/probes-declared"
+          - "platform/require-approval"
+          - "platform/vet-placeholders"
+          - "platform/vet-schemas"
+        triggerIds:
+          - "04746183-327b-484e-b061-91d2c7753a76"
+          - "2651b7cc-31a2-4833-adde-11e018656dee"
+          - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+          - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+          - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+          - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+      approvalGate: "platform/require-approval/vet-approvedby"
+    beforeApproval:
+      result: "blocked"
+      gate: "platform/require-approval/vet-approvedby"
+      dryRun: true
+      exitCode: 1
+    approval:
+      revision: 2
+      recordedApprovals: 1
+      approverIdentityRecordedInReceipt: false
+      contentHashUnchanged: true
+    afterApproval:
+      result: "allowed"
+      dryRun: true
+      exitCode: 0
+    approvedDataMatchesSource: true
+    privateRelease:
+      space: "hx-sveltos-20260727033439"
+      reference: "oci://oci.hub.confighub.com:443/space/hx-sveltos-20260727033439:latest"
+      manifestDigest: "sha256:0fe432df7c1e6411056867b0b2ec23e4a500fab73c0d728850afe30a9dd8b9c6"
+      bundleDigest: "sha256:1f201463139dc1d181386f59bec000ba5eea79e64fa1c8618df3c42018dba204"
+      releaseId: "f4d5acff-e3a1-4cee-b2df-2151ccfc3c0a"
+    portableRelease:
+      reference: "oci://127.0.0.1:32798/sveltos-kyverno-staging:latest"
+      clusterReference: "oci://host.docker.internal:32798/sveltos-kyverno-staging"
+      manifestDigest: "sha256:f060ee2408a12d32c34e8cd3972b38049fa8cd1197f1d25636aa505b417e3e23"
+      objectCount: 1
+      approvedDataSha256: "ca70c9e7ac2932da11abb837c3ffe879e96c5c11b573f597f41f93e7ce167976"
+      pulledDataSha256: "ca70c9e7ac2932da11abb837c3ffe879e96c5c11b573f597f41f93e7ce167976"
+      objectsMatchApprovedData: true
+      anonymousPull: true
+      registryLifetime: "temporary"
+  management:
+    organization: "DP1-Sandbox"
+    cluster: "hx-sveltos-mgmt-20260727033439"
+    creationCommand: "cub cluster up"
+    registration:
+      method: "programmatic SveltosCluster registration"
+      namespace: "projectsveltos"
+      cluster: "hx-sveltos-work-20260727033439"
+      labels:
+        environment: "staging"
+        sveltos-agent: "present"
+      credential:
+        type: "short-lived Kubernetes service-account token"
+        duration: "2h"
+        storedInRepository: false
+        removedWithClusters: true
+      ready: true
+      kubernetesVersion: "v1.35.0"
+    delivery:
+      source: "approved ConfigHub Unit data"
+      applicationDelivery: "ConfigHub cluster Space release OCI"
+      workloadDelivery: "temporary portable OCI"
+      portablePackaging: "scripted from the approved Unit data"
+      application:
+        name: "sveltos-profile-20260727033439"
+        unit: "hx-sveltos-mgmt-20260727033439-cluster/sveltos-profile-application"
+        source: "oci://host.docker.internal:32798/sveltos-kyverno-staging"
+        approvedConfigHubSpace: "hx-sveltos-20260727033439"
+        destinationCluster: "management"
+        clusterRootReleaseDigest: "sha256:aaf1b0243b8375d1bac5313ff45d358facb909f360251c7c14add03af9c470ca"
+      argo:
+        result: "pass"
+        sync: "Synced"
+        health: "Healthy"
+        revision: "sha256:f060ee2408a12d32c34e8cd3972b38049fa8cd1197f1d25636aa505b417e3e23"
+        expectedRevision: "sha256:f060ee2408a12d32c34e8cd3972b38049fa8cd1197f1d25636aa505b417e3e23"
+        digestMatchesPortableOci: true
+      approvedFieldsMatchLive: true
+      liveAddedFieldPaths:
+        - "metadata.annotations"
+        - "metadata.finalizers"
+        - "spec.continueOnConflict"
+        - "spec.continueOnError"
+        - "spec.reloader"
+        - "spec.stopMatchingBehavior"
+        - "spec.tier"
+    reconciliation:
+      result: "pass"
+      selectedCluster: "hx-sveltos-work-20260727033439"
+      clusterSummary: "projectsveltos/kyverno-staging-sveltos-hx-sveltos-work-20260727033439"
+      helmFeatureStatus: "Provisioned"
+      helmRelease:
+        name: "kyverno"
+        namespace: "kyverno"
+        chart: "kyverno-3.8.1"
+        applicationVersion: "v1.18.1"
+        status: "deployed"
+      deployments:
+        -
+          name: "kyverno-admission-controller"
+          desired: 3
+          available: 3
+          observedGenerationMatches: true
+        -
+          name: "kyverno-background-controller"
+          desired: 1
+          available: 1
+          observedGenerationMatches: true
+        -
+          name: "kyverno-cleanup-controller"
+          desired: 1
+          available: 1
+          observedGenerationMatches: true
+        -
+          name: "kyverno-reports-controller"
+          desired: 1
+          available: 1
+          observedGenerationMatches: true
+  workload:
+    cluster: "hx-sveltos-work-20260727033439"
+    creationCommand: "kind create cluster"
+    drift:
+      result: "pass"
+      object: "apps/v1/Deployment/kyverno/kyverno-admission-controller"
+      reviewedReplicas: 3
+      changedReplicas: 1
+      restoredReplicas: 3
+      pollAttempts: 17
+      pollIntervalSeconds: 3
+  cleanup:
+    policySpace: "pass"
+    managementCluster: "pass"
+    managementSpace: "pass"
+    workloadCluster: "pass"
+    registry: "pass"
+    localFiles: "pass"
+  limits:
+    - "The pinned Sveltos controllers were installed directly as a prerequisite on the throwaway management cluster."
+    - "The reviewed ClusterProfile, not the Sveltos controller installation, was delivered through ConfigHub, OCI, and Argo CD."
+    - "The portable OCI used a temporary anonymous registry; this is not a permanent public package."
+    - "The proof used one staging workload cluster. It does not prove a multi-cluster promotion wave."
+    - "The proof covers this Kyverno ClusterProfile, not every Sveltos feature or add-on."
+status:
+  result: "pass"
+  claim: "ConfigHub stored and approved one Sveltos ClusterProfile, published its private release, and delivered a portable OCI containing the approved object through Argo CD. Every approved field kept its value after admission. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count."

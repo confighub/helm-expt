@@ -6,7 +6,7 @@ This is the status index for the source pathways and ConfigHub App demonstration
 
 ## OCI in, managed configuration, OCI out
 
-**Before ConfigHub:** The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
+**Public catalog and tools:** The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
 
 ### Work without an account
 
@@ -14,7 +14,7 @@ This is the status index for the source pathways and ConfigHub App demonstration
 
 **Anonymous:** The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
 
-**Composable:** The work can sit before OCI, after OCI, or between an input OCI and an output OCI.
+**Composable:** The work can sit before OCI, after OCI, or between an input OCI and an output OCI. A user can choose one shape or combine several; ConfigHub is not required until they want saved records and managed operations.
 
 | Path | What it does | Where it can fit |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ Here, `work` means rendering, inspecting, explaining, testing, scanning, compari
 | CI job | available | Run the same non-interactive commands in CI. The current GitHub Actions receipt proves anonymous public OCI pull, rendering, OCI creation, and pull-back comparison without ConfigHub credentials. |
 | Public hosted service | planned | Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals. |
 
-Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
+Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.
 
 **Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
 
@@ -44,7 +44,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 **After ConfigHub:** cub release publish creates an immutable Space release OCI from the reviewed ConfigHub Units. The same reviewed objects can also be packaged as a portable OCI for anonymous or external consumers. Argo CD, Flux, and direct apply can consume that artifact without rendering the source package again.
 
-The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.
+These public paths can run before ConfigHub, after a ConfigHub output, or without ConfigHub. A person or team brings a configuration into ConfigHub when they want saved records and managed operations. A release OCI is one handoff from ConfigHub to delivery.
 
 ## Source pathways
 

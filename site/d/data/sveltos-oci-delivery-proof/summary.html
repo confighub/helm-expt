@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sveltos Kyverno fleet · ConfigHub Helm Ops</title>
-  <meta name="description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">
-  <meta property="og:title" content="Sveltos Kyverno fleet · ConfigHub Helm Ops">
-  <meta property="og:description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>ConfigHub delivers a Sveltos fleet profile · ConfigHub Helm Ops</title>
+  <meta name="description" content="ConfigHub delivers a Sveltos fleet profile: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html">
+  <meta property="og:title" content="ConfigHub delivers a Sveltos fleet profile · ConfigHub Helm Ops">
+  <meta property="og:description" content="ConfigHub delivers a Sveltos fleet profile: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -423,28 +423,36 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../../../try.html">Get Started</a><a href="../../../../../charts/index.html">Helm Ops Catalog</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../testing.html">Testing</a><a href="../../../../../journey.html">Apps</a><a href="../../../../../docs.html">Docs/FAQ</a><a href="../../../../../private/">Upgrade</a></span></nav></div>
-    <h1>Sveltos Kyverno fleet</h1>
-    <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md">View source markdown</a>.</p>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>ConfigHub delivers a Sveltos fleet profile</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/sveltos-oci-delivery-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>ConfigHub stores and approves one Sveltos ClusterProfile. A portable OCI carries it through Argo CD to the management cluster, then Sveltos installs Kyverno on the matching workload cluster and repairs drift.</p>
-<p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
-<h2 id="why-this-example-exists">Why this example exists</h2>
-<p>A fleet tool can place and reconcile configuration, but teams still need a shared record of what each cluster group should run and how that record changed.</p>
-<p>This example separates the reviewed configuration in ConfigHub from the controller that enforces it on selected clusters.</p>
-<h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>The <code>ClusterProfile</code> selects clusters labeled <code>environment=staging</code> and installs Kyverno chart 3.8.1 with three admission-controller replicas.</li><li>ConfigHub stores the exact reviewed profile and its revision history.</li><li>A live runner proved the profile was blocked before approval, packaged from the approved ConfigHub data, pulled anonymously, and reconciled by Argo CD at the recorded OCI digest.</li><li>A live test proved that Sveltos installed Kyverno and restored the replica count after it was changed by hand.</li><li>This Space requires approval before apply because it changes cluster-wide admission policy.</li></ul>
-<h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ul><li>This README.</li><li>The <code>clusterprofile</code> Unit to inspect the source Sveltos will reconcile.</li><li>The OCI delivery receipt to see approval, package comparison, Argo CD, Sveltos, the workload, and cleanup.</li></ul>
-<h2 id="evidence-and-source">Evidence and source</h2>
-<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/docs/demo/sveltos/kyverno-fleet.md">Sveltos example guide</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml">ClusterProfile source</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml">First live receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md">OCI delivery summary</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml">OCI delivery receipt</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml">Pinned source versions</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/apply-policy-profiles/summary.md">Apply policy and live assignments</a></li></ul>
+<p>This run starts with one reviewed Sveltos <code>ClusterProfile</code>. It selects workload clusters labeled <code>environment=staging</code>, installs Kyverno 3.8.1, and asks for three admission-controller replicas.</p>
+<p>ConfigHub stored the exact profile under the system-configuration policy. Its dry-run apply was blocked until the exact revision was approved. ConfigHub then published its private release OCI.</p>
+<p>The proof also packaged the approved profile as a temporary portable OCI. Argo CD on the management cluster reconciled that exact digest. Sveltos selected the registered staging workload cluster, installed Kyverno, and reported the Helm feature as <code>Provisioned</code>.</p>
+<p>This run uses ConfigHub for the stored review and approval. Packaging the approved object as a portable OCI is a local <code>work -&gt; OCI</code> step, and pulling that temporary package needs no ConfigHub account. Those are composable choices: the public tools can also build or inspect OCI packages without putting ConfigHub in the flow.</p>
+<p>The test then changed the admission-controller deployment from three replicas to one. Sveltos restored it to three.</p>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>ConfigHub apply before approval</td><td>blocked</td></tr>
+<tr><td>ConfigHub apply after approval</td><td>allowed</td></tr>
+<tr><td>Private ConfigHub release</td><td><code>sha256:0fe432df7c1e6411056867b0b2ec23e4a500fab73c0d728850afe30a9dd8b9c6</code></td></tr>
+<tr><td>Portable OCI pulled back and compared</td><td>Pass</td></tr>
+<tr><td>Argo CD</td><td>Synced and Healthy; digest matched</td></tr>
+<tr><td>Approved fields in the live profile</td><td>Pass; 7 controller-added path(s) recorded</td></tr>
+<tr><td>Sveltos cluster selection</td><td><code>hx-sveltos-work-20260727033439</code></td></tr>
+<tr><td>Sveltos Helm result</td><td>Provisioned</td></tr>
+<tr><td>Kyverno deployments available</td><td>4/4</td></tr>
+<tr><td>Replica drift repaired</td><td>1 -&gt; 3</td></tr>
+<tr><td>Cleanup</td><td>Pass</td></tr></tbody></table>
+<h2 id="what-this-proves">What this proves</h2>
+<p>The reviewed fleet object can move from ConfigHub through OCI and Argo CD to a Sveltos management cluster without being copied with <code>kubectl</code>. Sveltos then owns cluster selection, Helm installation, and drift repair.</p>
 <h2 id="limits">Limits</h2>
-<ul><li>The portable OCI used a temporary registry, and Sveltos was installed directly as a pinned prerequisite.</li><li>The test used one workload cluster, not a multi-cluster promotion wave.</li><li>The receipt proves this Kyverno profile and drift test, not every Sveltos feature.</li></ul>
+<p>Sveltos itself was installed directly as a pinned prerequisite on the management cluster. The portable OCI used a temporary registry. This was one staging workload cluster, not a multi-cluster promotion wave, and it proves this Kyverno profile rather than every Sveltos feature.</p>
+<ul><li><a href="../../../../examples/sveltos/kyverno-fleet/clusterprofile.yaml">Reviewed ClusterProfile</a></li><li><a href="../../../../examples/sveltos/kyverno-fleet/source-lock.yaml">Pinned source versions</a></li><li><a href="../../../../runs/sveltos-oci-delivery-proof/receipt.yaml">Committed receipt</a></li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/sveltos-oci-delivery-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

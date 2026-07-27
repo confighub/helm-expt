@@ -436,18 +436,23 @@
 <p>The <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile.yaml">ClusterProfile</a> contains the decisions a reviewer needs to see:</p>
 <ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install <code>kyverno/kyverno</code> chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>use <code>ContinuousWithDriftDetection</code> so Sveltos restores the reviewed settings.</li></ul>
 <p>The <a href="../../../../../examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a> pins Sveltos v1.12.0, the upstream commits, downloaded manifest checksums, kind version, and Kubernetes versions used by the test.</p>
-<h2 id="what-the-live-run-proved">What the live run proved</h2>
+<h2 id="what-the-first-live-run-proved">What the first live run proved</h2>
 <p>The test created separate kind management and workload clusters. It installed Sveltos v1.12.0 on the management cluster and registered the workload cluster with the <code>environment=staging</code> label.</p>
 <p>The <code>ClusterProfile</code> was uploaded to the live <code>helm-catalog</code> ConfigHub organization as the <code>clusterprofile</code> Unit in Space <code>sveltos-kyverno-fleet-3-8-1-staging</code>. The standard catalog policy was attached to that Space. It requires approval even in staging because the profile changes cluster-wide admission policy. A human README in the same Space explains the example before someone opens the YAML.</p>
-<p>The exact object read back from ConfigHub was applied to the management cluster. Sveltos then:</p>
+<p>The exact object read back from ConfigHub was applied to the management cluster with <code>kubectl</code>. Sveltos then:</p>
 <ol><li>selected the staging workload cluster;</li><li>installed Kyverno 3.8.1;</li><li>reported the Helm feature as <code>Provisioned</code>;</li><li>brought all four Kyverno deployments to their requested replica counts.</li></ol>
 <p>The test changed the admission-controller deployment from three replicas to one. Sveltos restored it to three. The <a href="../../../../../examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> records the ConfigHub IDs and hashes, cluster result, deployment counts, and drift test.</p>
-<h2 id="what-remains-manual">What remains manual</h2>
-<p>ConfigHub did not deliver the <code>ClusterProfile</code> to the management cluster automatically in this run. The checked Unit was exported and applied with <code>kubectl</code>. Argo CD, Flux, or another ConfigHub delivery path could automate that step, but this receipt does not claim it.</p>
-<p>The test also used one workload cluster. It proves selection, installation, and drift recovery for this profile. It does not yet prove a promotion wave across several clusters.</p>
+<h2 id="what-the-oci-delivery-run-added">What the OCI delivery run added</h2>
+<p>The <a href="../../../../../runs/sveltos-oci-delivery-proof/receipt.yaml">OCI delivery receipt</a> records a second run that removed the manual copy:</p>
+<ol><li>ConfigHub stored the exact <code>ClusterProfile</code> under the catalog's system-configuration policy.</li><li>A dry-run apply was blocked until that revision was approved.</li><li>ConfigHub published its private Space release.</li><li>The runner packaged the approved Unit data as a portable OCI using a local, no-server step.</li><li>The package was pulled back without a ConfigHub account and compared with the approved data.</li><li>Argo CD reconciled that exact OCI digest on the Sveltos management cluster.</li><li>Sveltos selected the staging workload cluster, installed Kyverno, and repaired the deliberate replica change.</li></ol>
+<p>Kubernetes admission and Sveltos added seven controller-managed field paths to the live <code>ClusterProfile</code>. The receipt lists those paths and confirms that every field from the approved object kept its approved value.</p>
+<p>This run shows that the public work can sit at different points in the delivery flow. ConfigHub handled the stored review. Portable package creation was local and did not need ConfigHub Server. Pulling that package needed no ConfigHub account.</p>
+<h2 id="what-remains">What remains</h2>
+<p>The runner installed Sveltos itself directly from its pinned manifest as a management-cluster prerequisite. It used a temporary registry for the portable OCI and one staging workload cluster. A permanent public package and a promotion wave across several workload clusters still need their own evidence.</p>
 <h2 id="check-the-evidence">Check the evidence</h2>
 <p>Check the committed files without a live cluster:</p>
-<pre><code>npm run sveltos-example:verify</code></pre>
+<pre><code>npm run sveltos-example:verify
+npm run sveltos-oci-delivery:verify</code></pre>
 <p>While logged into the <code>helm-catalog</code> ConfigHub organization, also check that the live Space still contains the same profile and README under the recorded policy:</p>
 <pre><code>CUB_CONTEXT=&lt;your-helm-catalog-context&gt; npm run sveltos-example:hub-verify</code></pre>
     </article>

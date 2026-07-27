@@ -3,10 +3,12 @@
 The simplest architecture for this project is **OCI in, managed configuration, OCI
 out**.
 
-The website and catalog handle the work before configuration enters ConfigHub. They
-help people turn Helm charts, AICR recipes, installer packages, Kubara output, Sveltos
-objects, and existing YAML into literal configuration with recorded inputs, known
-prerequisites, lifecycle work, and evidence.
+The website, catalog, and public tools handle useful configuration work around OCI.
+They can prepare source before the first OCI is built, inspect an existing OCI, or
+produce a new OCI after checking or changing its contents. They help people work with
+Helm charts, AICR recipes, installer packages, Kubara output, Sveltos objects, and
+existing YAML as literal configuration with recorded inputs, known prerequisites,
+lifecycle work, and evidence.
 
 That public front door must remain useful without a ConfigHub account:
 
@@ -29,14 +31,20 @@ can be inserted into a delivery flow wherever they are useful:
 | `OCI -> work` | A person or CI job pulls a package to inspect, test, or extract its exact objects. |
 | `OCI -> work -> OCI` | A person or service pulls a package, checks or changes it, and serves a new package for Argo CD, Flux, or another consumer. |
 
+These are composable options, not three separate products or a required sequence. A
+team can use any one by itself or combine them in a longer delivery flow. ConfigHub
+enters when the team wants to save, share, transform, approve, promote, or fan out
+the configuration; none of the three public operations requires that step.
+
 The work may run as a local command or a CI job. We also intend to offer a public
 hosted path for open configuration: inspect, test, and serve a public package without
 signing in, then claim it later. That hosted path is not yet shipped. Anonymous use
 must not quietly create private history, saved edits, variants, or approvals.
 
-The boundary is **Claim this configuration in ConfigHub**. Before that point, a user
-can work anonymously with public packages. Claiming saves the objects and their
-history so a team can transform, approve, promote, and roll them out.
+The optional handoff is **Claim this configuration in ConfigHub**. A user can work
+anonymously with public packages before or after any OCI boundary. Claiming saves the
+objects and their history so a team can transform, approve, promote, and roll them
+out. It is not a required first step or a fixed position in every delivery flow.
 
 The [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
 checks that boundary. It starts from a public NGINX installer OCI, runs
@@ -201,9 +209,13 @@ Sveltos is one fleet placement and reconciliation path. ConfigHub stores the rev
 clusters and reconciles the declared add-ons. The
 [Kyverno fleet example](../demo/sveltos/kyverno-fleet.md) proves that split on one
 workload cluster: ConfigHub stored the exact profile, Sveltos installed Kyverno, and
-Sveltos restored a changed replica count. The handoff from ConfigHub to the Sveltos
-management cluster was manual, so automated delivery and a multi-cluster promotion
-wave remain separate work.
+Sveltos restored a changed replica count. A second live run removed the manual
+handoff: ConfigHub blocked the profile until approval, published its private release,
+and a local no-server step packaged the approved object as a portable OCI. Argo CD
+reconciled that digest on the management cluster before Sveltos acted. Pulling the
+portable OCI needed no ConfigHub account. The proof used a temporary registry and one
+workload cluster, so permanent publication and a multi-cluster promotion wave remain
+separate work.
 
 Argo CD and Flux remain important delivery paths for ConfigHub release OCI. The
 catalog must report their evidence separately because one controller succeeding does

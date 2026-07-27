@@ -2897,7 +2897,7 @@ function docsHtml(catalog) {
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
-    ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],
+    ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub checks and approves the ClusterProfile, a portable OCI and Argo CD deliver it, and Sveltos installs Kyverno and repairs drift on the matching workload cluster.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Get Started", "Try the no-account flow with Kubernetes: render, compare, apply, and see what stayed under your control.", "./try.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],

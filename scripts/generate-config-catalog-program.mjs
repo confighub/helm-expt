@@ -2149,7 +2149,7 @@ function renderArchitecture(architecture) {
   const consumerList = `${consumers.slice(0, -1).join(", ")}, and ${consumers.at(-1)}`;
   return `## ${architecture.name}
 
-**Before ConfigHub:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
+**Public catalog and tools:** ${architecture.frontDoor.result} The result is ${architecture.frontDoor.output.charAt(0).toLowerCase()}${architecture.frontDoor.output.slice(1)}
 
 ### Work without an account
 
@@ -2183,7 +2183,7 @@ ConfigHub can join an existing delivery flow without replacing it:
 
 **After ConfigHub:** ${architecture.delivery.result} ${consumerList} can consume that artifact without rendering the source package again.
 
-The website and catalog cover the work that happens before ConfigHub, including anonymous OCI inspection and packaging. ConfigHub begins when a person or team chooses to save the configuration and operate it over time. The release OCI is the handoff to delivery.`;
+These public paths can run before ConfigHub, after a ConfigHub output, or without ConfigHub. A person or team brings a configuration into ConfigHub when they want saved records and managed operations. A release OCI is one handoff from ConfigHub to delivery.`;
 }
 
 function renderDemoTable(demos) {

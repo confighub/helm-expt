@@ -25957,11 +25957,13 @@
             "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
             "data/oci-deploy-stage-rollout-proof/summary.md",
             "runs/redis-upgrade-app-proof/receipt.yaml",
-            "data/redis-upgrade-app-proof/summary.md"
+            "data/redis-upgrade-app-proof/summary.md",
+            "runs/sveltos-oci-delivery-proof/receipt.yaml",
+            "data/sveltos-oci-delivery-proof/summary.md"
           ],
           "id": "fleet-platform-app",
           "limits": [
-            "The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete."
+            "The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos now proves ConfigHub review, portable OCI and Argo CD delivery, one selected workload cluster, Helm installation, and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete."
           ],
           "name": "Fleet Platform App",
           "problem": "Platform teams need to assign different system configurations to cluster groups without losing a central source of record.",
@@ -26040,7 +26042,7 @@
         "frontDoor": {
           "accessModel": {
             "anonymous": "The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.",
-            "composable": "The work can sit before OCI, after OCI, or between an input OCI and an output OCI.",
+            "composable": "The work can sit before OCI, after OCI, or between an input OCI and an output OCI. A user can choose one shape or combine several; ConfigHub is not required until they want saved records and managed operations.",
             "serverless": "The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service."
           },
           "anonymousFlows": [
@@ -26062,7 +26064,7 @@
           ],
           "claimBoundary": {
             "action": "Claim this configuration in ConfigHub.",
-            "after": "ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.",
+            "after": "ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.",
             "before": "Anonymous users can build, inspect, test, pull, and serve public OCI packages."
           },
           "executionModes": [
@@ -26092,8 +26094,8 @@
             "Kubara, Sveltos, and existing Kubernetes YAML"
           ],
           "output": "A literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.",
-          "problem": "Helm charts, AICR recipes, installer packages, and existing YAML all need different work before they are safe, literal configuration.",
-          "result": "The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account."
+          "problem": "Helm charts, AICR recipes, installer packages, existing YAML, and existing OCI packages all need useful checks or changes before teams can rely on them.",
+          "result": "The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account."
         },
         "name": "OCI in, managed configuration, OCI out"
       },
@@ -26335,12 +26337,15 @@
           "evidence": [
             "examples/sveltos/kyverno-fleet/clusterprofile.yaml",
             "examples/sveltos/kyverno-fleet/source-lock.yaml",
-            "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+            "examples/sveltos/kyverno-fleet/live-receipt.yaml",
+            "runs/sveltos-oci-delivery-proof/receipt.yaml",
+            "data/sveltos-oci-delivery-proof/summary.md"
           ],
           "id": "sveltos",
           "limits": [
-            "ConfigHub stored the exact ClusterProfile, but this run exported it and applied it to the management cluster with kubectl.",
-            "The live test used one staging workload cluster. Automated ConfigHub delivery and a multi-cluster promotion wave have not run."
+            "The original live receipt records a manual export and kubectl apply. A newer receipt proves approval, private ConfigHub release, local portable OCI packaging, anonymous pull, and Argo CD delivery without copying the ClusterProfile with kubectl.",
+            "Sveltos itself was installed directly as a pinned management-cluster prerequisite, and the portable OCI used a temporary registry.",
+            "Both live tests used one staging workload cluster. A multi-cluster promotion wave has not run."
           ],
           "name": "ConfigHub desired state delivered through Sveltos",
           "problem": "Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.",
@@ -26650,7 +26655,7 @@
       "space": "sveltos-kyverno-fleet-3-8-1-staging",
       "kind": "fleet",
       "title": "Sveltos Kyverno fleet",
-      "summary": "ConfigHub stores one reviewed Sveltos ClusterProfile. Sveltos selects the matching cluster, installs Kyverno, and repairs drift.",
+      "summary": "ConfigHub stores and approves one Sveltos ClusterProfile. A portable OCI carries it through Argo CD to the management cluster, then Sveltos installs Kyverno on the matching workload cluster and repairs drift.",
       "source_path": "data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
     },

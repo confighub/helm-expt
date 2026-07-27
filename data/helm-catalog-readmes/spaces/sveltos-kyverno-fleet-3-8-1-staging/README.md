@@ -2,7 +2,7 @@
 
 # Sveltos Kyverno fleet
 
-ConfigHub stores one reviewed Sveltos ClusterProfile. Sveltos selects the matching cluster, installs Kyverno, and repairs drift.
+ConfigHub stores and approves one Sveltos ClusterProfile. A portable OCI carries it through Argo CD to the management cluster, then Sveltos installs Kyverno on the matching workload cluster and repairs drift.
 
 Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
@@ -16,6 +16,7 @@ This example separates the reviewed configuration in ConfigHub from the controll
 
 - The `ClusterProfile` selects clusters labeled `environment=staging` and installs Kyverno chart 3.8.1 with three admission-controller replicas.
 - ConfigHub stores the exact reviewed profile and its revision history.
+- A live runner proved the profile was blocked before approval, packaged from the approved ConfigHub data, pulled anonymously, and reconciled by Argo CD at the recorded OCI digest.
 - A live test proved that Sveltos installed Kyverno and restored the replica count after it was changed by hand.
 - This Space requires approval before apply because it changes cluster-wide admission policy.
 
@@ -23,18 +24,20 @@ This example separates the reviewed configuration in ConfigHub from the controll
 
 - This README.
 - The `clusterprofile` Unit to inspect the source Sveltos will reconcile.
-- The live receipt to see the management cluster, workload cluster, and drift test.
+- The OCI delivery receipt to see approval, package comparison, Argo CD, Sveltos, the workload, and cleanup.
 
 ## Evidence and source
 
 - [Sveltos example guide](https://github.com/confighub/helm-expt/blob/main/docs/demo/sveltos/kyverno-fleet.md)
 - [ClusterProfile source](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml)
-- [Live receipt](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml)
+- [First live receipt](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml)
+- [OCI delivery summary](https://github.com/confighub/helm-expt/blob/main/data/sveltos-oci-delivery-proof/summary.md)
+- [OCI delivery receipt](https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml)
 - [Pinned source versions](https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml)
 - [Apply policy and live assignments](https://github.com/confighub/helm-expt/blob/main/data/apply-policy-profiles/summary.md)
 
 ## Limits
 
-- ConfigHub-to-Sveltos delivery was manual in this run.
+- The portable OCI used a temporary registry, and Sveltos was installed directly as a pinned prerequisite.
 - The test used one workload cluster, not a multi-cluster promotion wave.
 - The receipt proves this Kyverno profile and drift test, not every Sveltos feature.

@@ -6,12 +6,12 @@ spec:
   architecture:
     name: OCI in, managed configuration, OCI out
     frontDoor:
-      problem: Helm charts, AICR recipes, installer packages, and existing YAML all need different work before they are safe, literal configuration.
-      result: The catalog helps people inspect, render, test, and package the exact configuration they want to manage without requiring a ConfigHub account.
+      problem: Helm charts, AICR recipes, installer packages, existing YAML, and existing OCI packages all need useful checks or changes before teams can rely on them.
+      result: The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account.
       accessModel:
         serverless: The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
         anonymous: The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
-        composable: The work can sit before OCI, after OCI, or between an input OCI and an output OCI.
+        composable: The work can sit before OCI, after OCI, or between an input OCI and an output OCI. A user can choose one shape or combine several; ConfigHub is not required until they want saved records and managed operations.
       inputs:
         - Helm charts and their values
         - AICR recipes and generated bundles
@@ -44,7 +44,7 @@ spec:
       claimBoundary:
         before: Anonymous users can build, inspect, test, pull, and serve public OCI packages.
         action: Claim this configuration in ConfigHub.
-        after: ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out.
+        after: ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.
     configHub:
       problem: A deployable OCI file is useful, but teams still need to share it, change it, review it, promote it, and understand where it is used.
       result: ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
@@ -273,9 +273,12 @@ spec:
         - examples/sveltos/kyverno-fleet/clusterprofile.yaml
         - examples/sveltos/kyverno-fleet/source-lock.yaml
         - examples/sveltos/kyverno-fleet/live-receipt.yaml
+        - runs/sveltos-oci-delivery-proof/receipt.yaml
+        - data/sveltos-oci-delivery-proof/summary.md
       limits:
-        - ConfigHub stored the exact ClusterProfile, but this run exported it and applied it to the management cluster with kubectl.
-        - The live test used one staging workload cluster. Automated ConfigHub delivery and a multi-cluster promotion wave have not run.
+        - The original live receipt records a manual export and kubectl apply. A newer receipt proves approval, private ConfigHub release, local portable OCI packaging, anonymous pull, and Argo CD delivery without copying the ClusterProfile with kubectl.
+        - Sveltos itself was installed directly as a pinned management-cluster prerequisite, and the portable OCI used a temporary registry.
+        - Both live tests used one staging workload cluster. A multi-cluster promotion wave has not run.
   apps:
     - id: upgrade-app
       name: Upgrade App
@@ -371,8 +374,10 @@ spec:
         - data/oci-deploy-stage-rollout-proof/summary.md
         - runs/redis-upgrade-app-proof/receipt.yaml
         - data/redis-upgrade-app-proof/summary.md
+        - runs/sveltos-oci-delivery-proof/receipt.yaml
+        - data/sveltos-oci-delivery-proof/summary.md
       limits:
-        - The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos proves one selected workload cluster and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete.
+        - The live NGINX fleet proves a Helm-derived base and four managed environments. The combined OCI receipt separately proves sequential promotion and one reviewed output on two Argo CD clusters, with exact-object and convergence receipts from cub-scout. Sveltos now proves ConfigHub review, portable OCI and Argo CD delivery, one selected workload cluster, Helm installation, and drift recovery. Kubara delivery and a multi-cluster Sveltos promotion wave are not yet complete.
     - id: ai-change-review-app
       name: AI Change Review App
       problem: An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.
