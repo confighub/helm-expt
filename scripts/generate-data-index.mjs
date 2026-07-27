@@ -89,6 +89,7 @@ function readme(rows) {
     ["I want the executable action plan for a chart's hooks/lifecycle: phase, action kind, facts, evidence, and whether it runs automatically.", "data/lifecycle-route-actions/summary.md; data/lifecycle-route-actions/actions.csv; data/lifecycle-route-actions/actions.json"],
     ["I want the compact ConfigHub-facing render config for each real Helm base variant, with the full proof chain still attached.", "data/helm-render-intents/summary.md; data/helm-render-intents/intents.csv; data/helm-render-intents/intents.json"],
     ["I want the installer package OCI ref users should pull for each chart/version.", "data/installer-oci-packages/summary.md; data/installer-oci-packages/packages.csv; data/installer-oci-packages/packages.json"],
+    ["I want to follow one configuration from its source digest through ConfigHub, output OCI, delivery, and live observation.", "data/oci-evidence-chains/summary.md; data/oci-evidence-chains/matrix.csv; data/oci-evidence-chains/chains.json"],
     ["I want to know why a two-cluster kind-parity row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/kind-parity-decisions/summary.md; data/kind-parity-decisions/decisions.csv; data/kind-parity-decisions/decisions.json"],
     ["I want to know why a GitOps/OCI or live Helm-vs-ConfigHub row is watch or blocked, who fixes it, and whether I can use the chart today.", "data/live-parity-decisions/summary.md; data/live-parity-decisions/decisions.csv; data/live-parity-decisions/decisions.json"],
     ["I want the next live commands grouped into small ordered run blocks, with a predicted residue family per row (derived, never a claim).", "data/live-run-blocks/summary.md; data/live-run-blocks/run-blocks.csv; data/live-run-blocks/run-blocks.json"],
@@ -115,6 +116,7 @@ function readme(rows) {
     ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
     ["data/confighub-example-guides/summary.md", "Plain-English guide set for how each public chart preset stores rendered YAML in ConfigHub: what was rendered, why it is the starting point, how to repeat it, and what prerequisites remain."],
     ["data/anonymous-oci-ci-proof/summary.md", "Anonymous OCI work in GitHub Actions: public package digest, rendered object set, OCI-layout digest, pull-back comparison, and explicit limits."],
+    ["data/oci-evidence-chains/summary.md", "Source-neutral OCI evidence chains for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration, with missing delivery or observation kept explicit."],
     ["data/redis-upgrade-app-proof/summary.md", "Live Redis Upgrade App proof: retain a post-render replica change across a chart upgrade, show the two-wave environment impact, promote in sequence, and check one OCI digest on two Argo CD clusters."],
     ["data/kubara-oci-delivery-proof/summary.md", "Live platform proof: approve a Kubara-generated base in ConfigHub, run its CRD, Secret, and Redis setup work, package the prepared objects as portable OCI, reconcile them with Argo CD, and bring up one selected Metrics Server Application."],
     ["data/sveltos-oci-delivery-proof/summary.md", "Live fleet-platform proof: approve a Sveltos ClusterProfile in ConfigHub, package the approved object as portable OCI, reconcile it with Argo CD, let Sveltos install Kyverno on the matching workload cluster, and repair drift."],
@@ -342,6 +344,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/helm-render-intents/")) return "user/front-door";
   if (path.startsWith("data/installer-oci-packages/")) return "user/front-door";
+  if (path.startsWith("data/oci-evidence-chains/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";
   if (path.startsWith("data/live-matrix-burndown/")) return "user/front-door";
@@ -432,6 +435,7 @@ function roleFor(path) {
   if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: workability, adoption bucket, strongest evidence, gap, next action, and queue source";
   if (path === "data/top100-readiness/next80-queues.csv") return "one row per next80 proof-grade chart: queue, rank, features, artifacts, and next action";
   if (path === "data/top50-completion/plan.csv") return "one row per agreed programme outcome: status, current evidence, verification commands, completion step, and linked issue";
+  if (path === "data/oci-evidence-chains/matrix.csv") return "one row per supported starting format: source, review, ConfigHub record, output OCI, delivery, observation, and current proof boundary";
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/useful-base-design-queue/queue.csv") return "one row per top-100 chart that needs a useful base: proposed base shape, user job, render choices, target inputs, and proof required";
@@ -542,6 +546,7 @@ function familyRole(family) {
     "lifecycle-route-actions": "hook/lifecycle routes projected into machine-readable action packets: phase, action kind, required facts, evidence required, and an explicit automatic flag",
     "helm-render-intents": "ConfigHub-facing render-intent objects generated only for real base variants, with the proof chain attached",
     "installer-oci-packages": "public installer package OCI refs and consumer setup commands for chart packages",
+    "oci-evidence-chains": "source-neutral records linking source digest, reviewed configuration, ConfigHub record, output OCI, delivery, and observation",
     "kind-parity-decisions": "product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action",
     "live-parity-decisions": "product-readable decisions for non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) rows: residue category, who owns the fix, usable-today answer, next action, and support artifact",
     "live-run-blocks": "read-only run-block plan for the ready-to-run todo rows: small ordered blocks (G/P before K, hard charts first) with a derived (never claimed) predicted residue family and target profile per row",
@@ -667,6 +672,7 @@ function commandMap() {
     "lifecycle-route-actions": { generate: "npm run lifecycle:route-actions", verify: "npm run lifecycle:route-actions:verify" },
     "helm-render-intents": { generate: "npm run helm-render-intents", verify: "npm run helm-render-intents:verify" },
     "installer-oci-packages": { generate: "npm run installer-oci:catalog", verify: "npm run installer-oci:catalog:verify" },
+    "oci-evidence-chains": { generate: "npm run oci-evidence:generate", verify: "npm run oci-evidence:verify" },
     "kind-parity-decisions": { generate: "npm run kind-parity:decisions", verify: "npm run kind-parity:decisions:verify" },
     "live-parity-decisions": { generate: "npm run live-parity:decisions", verify: "npm run live-parity:decisions:verify" },
     "live-run-blocks": { generate: "npm run live-run-blocks", verify: "npm run live-run-blocks:verify" },

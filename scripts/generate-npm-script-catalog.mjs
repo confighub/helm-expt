@@ -66,6 +66,7 @@ function categorize(name) {
   if (name.startsWith("rbac-review:live:")) return "confighub-proof";
   if (name.startsWith("aicr-oci-roundtrip:")) return "confighub-proof";
   if (name.startsWith("aicr-variant-promotion:")) return "derived-variants";
+  if (name.startsWith("oci-evidence:")) return "oci-evidence";
   if (name.startsWith("oci:inspect")) return "oci-inspection";
   if (name === "oci:transform" || name.startsWith("anonymous-oci-transform:")) return "oci-transformation";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
@@ -132,6 +133,7 @@ function why(category) {
     "live-parity-gitops": "Produces or verifies live Helm-vs-ConfigHub, two-cluster parity, or GitOps/OCI evidence.",
     "hook-lifecycle": "Tracks Helm hooks and hook-like controller behavior as lifecycle routes and receipts.",
     "derived-variants": "Checks post-render ConfigHub variant clone, link, target, and operation evidence.",
+    "oci-evidence": "Builds source-neutral records linking input, reviewed configuration, ConfigHub revision, output OCI, delivery, and live observation.",
     "oci-inspection": "Identifies supported OCI package roles and checks the readable Kubernetes configuration they contain or render.",
     "oci-transformation": "Changes reviewed Kubernetes objects in OCI, records the source and checks, and verifies a new OCI image by pulling it back.",
     "scale-proof": "Maintains adversarial and next80 proof corpus evidence.",
@@ -150,7 +152,7 @@ function how(name, category, mode, externalState) {
   if (mode === "verify") return "Run when the files owned by this script changed, or before trusting the matching generated surface.";
   if (mode === "self-test") return "Run with the matching verifier to prove tamper detection still fails closed.";
   if (externalState !== "none-for-verify") return "Run only when the required cluster, ConfigHub org, Helm repo, or user tutorial state is available.";
-  if (category === "catalog-data" || category === "evidence-workdown") return "Run the generate form to refresh files, then the verify form before committing.";
+  if (category === "catalog-data" || category === "evidence-workdown" || category === "oci-evidence") return "Run the generate form to refresh files, then the verify form before committing.";
   return "Use the scoped command that matches the chart, lane, or generated surface you changed.";
 }
 

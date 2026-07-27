@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 628
+scripts: 630
 ```
 
 ## By Category
@@ -36,14 +36,15 @@ scripts: 628
 | `oci-transformation` | 4 |
 | `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
+| `oci-evidence` | 2 |
 | `pilot-variant-model` | 2 |
 
 ## By Mode
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 294 |
-| `generate-or-run` | 254 |
+| `verify` | 295 |
+| `generate-or-run` | 255 |
 | `run` | 67 |
 | `summary` | 7 |
 | `self-test` | 5 |
@@ -53,7 +54,7 @@ scripts: 628
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 577 |
+| `none-for-verify` | 579 |
 | `confighub-or-live-cluster` | 19 |
 | `local-kubernetes` | 14 |
 | `network-or-helm-repo` | 9 |

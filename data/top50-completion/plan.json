@@ -415,15 +415,18 @@
         "area": "OCI output",
         "evidence": [
           "docs/user/chain-of-proof.md",
+          "data/oci-evidence-chains/summary.md",
+          "schemas/oci-evidence-chain.schema.json",
           "runs/aicr-oci-roundtrip-proof/receipt.yaml",
           "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
         ],
         "id": "T25",
         "name": "Preserve digest identity and provenance through the round trip",
-        "next": "Standardize the companion metadata and prove the chain for every supported source family.",
+        "next": "Deliver and observe the AICR path on a suitable GPU target; it is the one source family whose standardized chain still stops at the output OCI.",
         "outcome": "Input digest, ConfigHub revision, output digest, delivery result, and observation can be followed as one evidence chain.",
         "status": "partial",
         "verify": [
+          "npm run oci-evidence:verify",
           "npm run aicr-oci-roundtrip:verify",
           "npm run oci-deploy-stage-rollout:verify"
         ]

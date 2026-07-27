@@ -67,7 +67,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [enterprise-parity-contract.md](./reference/enterprise-parity-contract.md) | Reference contract for private enterprise estates that combine first-party Helm charts, values-only repositories, and Argo ApplicationSet fan-out. |
 | [verify-it-yourself.md](./user/verify-it-yourself.md) | Reader verification commands for corpus checks, rendered installs, parity receipts, and cub-scout receipts. |
 | [production-support-decisions.md](./user/production-support-decisions.md) | How a review-ready chart becomes production-supported for one target scope. |
-| [chain-of-proof.md](./user/chain-of-proof.md) | Which tool proves which boundary: render, ConfigHub desired state, delivery, and live observation. |
+| [chain-of-proof.md](./user/chain-of-proof.md) | Which tool proves each boundary, plus the generated source-to-observation record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration. |
 | [cub-deployment-path.md](./user/cub-deployment-path.md) | How deployment works on the cub path: cub installer → ConfigHub Units → OCI bundle → Argo/Flux/cub-direct, the single-OCI-transport rationale, and how delivery credentials (OCI pull creds, copied not printed) and app secrets are handled. |
 | [top100-readiness.md](./user/top100-readiness.md) | User-facing guide to the top-100 corpus buckets and generated readiness data. |
 | [top100-status.md](./user/top100-status.md) | Plain-English top-100 answers: what works today, what needs prerequisites or review, and how it differs from plain Helm. |
@@ -193,7 +193,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [verification.md](./user/verification.md) | User-facing landing page for proof commands, committed evidence, fresh live lanes, and render-record-route. |
 | [verify-it-yourself.md](./user/verify-it-yourself.md) | User-facing commands for independently checking repo, render, parity, and cub-scout receipt evidence. |
 | [production-support-decisions.md](./user/production-support-decisions.md) | User-facing path from production-review-ready to a target-scoped production support decision. |
-| [chain-of-proof.md](./user/chain-of-proof.md) | User-facing proof-boundary map across `helm-expt`, `cub installer`, ConfigHub, GitOps, and live observations. |
+| [chain-of-proof.md](./user/chain-of-proof.md) | User-facing proof-boundary map across `helm-expt`, `cub installer`, ConfigHub, GitOps, and live observations, linked to the generated OCI evidence-chain records. |
 | [top100-readiness.md](./user/top100-readiness.md) | User-facing guide to public catalog rows, promotion candidates, default-only rows, and limitation decisions in the top-100 corpus. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing map from promised outcomes to tests, CSVs, and commands. |
 | [../data/outcome-evidence-contract/summary.md](../data/outcome-evidence-contract/summary.md) | Generated product-facing contract for current outcomes, evidence, scopes, and next actions. |

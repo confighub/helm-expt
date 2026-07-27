@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/oci-evidence-chain.schema.json",
+  "title": "OCI Evidence Chain",
+  "description": "An experimental source-neutral record that connects source material, reviewed Kubernetes configuration, ConfigHub records, output OCI, delivery, and live observation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec",
+    "status"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "catalog.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "OciEvidenceChain"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "labels"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceType"
+          ],
+          "properties": {
+            "sourceType": {
+              "$ref": "#/definitions/sourceType"
+            }
+          }
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceType",
+        "example",
+        "boundaries",
+        "companionRecords"
+      ],
+      "properties": {
+        "sourceType": {
+          "$ref": "#/definitions/sourceType"
+        },
+        "example": {
+          "type": "string",
+          "minLength": 1
+        },
+        "boundaries": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source",
+            "reviewedConfiguration",
+            "configHubRecord",
+            "outputOci",
+            "delivery",
+            "observation"
+          ],
+          "properties": {
+            "source": {
+              "$ref": "#/definitions/boundary"
+            },
+            "reviewedConfiguration": {
+              "$ref": "#/definitions/boundary"
+            },
+            "configHubRecord": {
+              "$ref": "#/definitions/boundary"
+            },
+            "outputOci": {
+              "$ref": "#/definitions/boundary"
+            },
+            "delivery": {
+              "$ref": "#/definitions/boundary"
+            },
+            "observation": {
+              "$ref": "#/definitions/boundary"
+            }
+          }
+        },
+        "companionRecords": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceInputs",
+            "lifecycle",
+            "checks",
+            "receipts"
+          ],
+          "properties": {
+            "sourceInputs": {
+              "$ref": "#/definitions/pathList"
+            },
+            "lifecycle": {
+              "$ref": "#/definitions/pathList"
+            },
+            "checks": {
+              "$ref": "#/definitions/pathList"
+            },
+            "receipts": {
+              "$ref": "#/definitions/pathList"
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coverage",
+        "completeThrough",
+        "claim",
+        "limits"
+      ],
+      "properties": {
+        "coverage": {
+          "enum": [
+            "managed-and-observed",
+            "managed-to-oci",
+            "public-and-observed"
+          ]
+        },
+        "completeThrough": {
+          "enum": [
+            "source",
+            "reviewedConfiguration",
+            "configHubRecord",
+            "outputOci",
+            "delivery",
+            "observation"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sourceType": {
+      "enum": [
+        "helm",
+        "aicr",
+        "cub-installer",
+        "kubara",
+        "sveltos",
+        "rendered-config"
+      ]
+    },
+    "pathList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result",
+        "digest",
+        "reference",
+        "identifiers",
+        "evidence",
+        "detail",
+        "observedAt",
+        "expiresAt"
+      ],
+      "properties": {
+        "result": {
+          "enum": [
+            "pass",
+            "not-run",
+            "not-used"
+          ]
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^(|sha256:[a-f0-9]{64})$"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "$ref": "#/definitions/pathList"
+        },
+        "detail": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observedAt": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

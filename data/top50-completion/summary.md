@@ -90,7 +90,7 @@ The source status definitions are:
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
 | T24 | Publish reviewed ConfigHub Units as OCI | available | [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md)<br>[runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml) | Keep the release and portable OCI roles clearly distinguished in every guide and command. |
-| T25 | Preserve digest identity and provenance through the round trip | partial | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md)<br>[runs/aicr-oci-roundtrip-proof/receipt.yaml](../../runs/aicr-oci-roundtrip-proof/receipt.yaml)<br>[runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml) | Standardize the companion metadata and prove the chain for every supported source family. |
+| T25 | Preserve digest identity and provenance through the round trip | partial | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md)<br>[data/oci-evidence-chains/summary.md](../../data/oci-evidence-chains/summary.md)<br>[schemas/oci-evidence-chain.schema.json](../../schemas/oci-evidence-chain.schema.json)<br>[runs/aicr-oci-roundtrip-proof/receipt.yaml](../../runs/aicr-oci-roundtrip-proof/receipt.yaml)<br>[runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml) | Deliver and observe the AICR path on a suitable GPU target; it is the one source family whose standardized chain still stops at the output OCI. |
 
 ## Delivery
 

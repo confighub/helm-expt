@@ -23,6 +23,32 @@ claim only to the strongest unbroken proof boundary
 | Desired state to delivery handoff | ConfigHub OCI, GitOps, apply receipts, controller receipts | The approved desired object set was handed to the delivery mechanism. | Historical, with controller-specific evidence. | Workload convergence unless observed. |
 | Delivery to live state | cub-scout, controller status, CI checks, operator checks, observation receipts | The target cluster was observed at a time, by a named method, with a freshness boundary. | Perishable; check `observedAt` and `expiresAt`. | Future health after the receipt expires. |
 
+## Follow One Result From Source To Cluster
+
+The [OCI evidence-chain index](../../data/oci-evidence-chains/summary.md) puts the
+same six checkpoints in one record for Helm, AICR, cub installer, Kubara, Sveltos,
+and literal Kubernetes configuration:
+
+```text
+source
+-> reviewed configuration
+-> ConfigHub record
+-> output OCI
+-> delivery
+-> live observation
+```
+
+The input and output OCI digests will usually differ because they are different
+artifacts. A ConfigHub release can also add its `confighub.com/origin` annotation,
+and a reviewed variant can deliberately change fields. The record states what
+changed. The digest reported by Argo CD or Flux must then match the output OCI named
+for that delivery.
+
+Five current examples reach a recorded live result. The AICR example stops after
+ConfigHub republishes the reviewed Applications. Its delivery and GPU observation
+remain `not-run`, which prevents the repository from presenting an OCI round trip as
+a live AICR deployment.
+
 ## Tool Roles
 
 The tools are useful because they prove different boundaries. They are not
