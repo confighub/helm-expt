@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 21,
-      "partial": 27,
+      "available": 22,
+      "partial": 26,
       "planned": 2,
       "blocked": 0
     },
@@ -194,15 +194,18 @@
       {
         "area": "Bring your own config",
         "evidence": [
+          "docs/user/inspect-oci-package.md",
+          "data/oci-inspection/summary.md",
           "runs/aicr-oci-roundtrip-proof/receipt.yaml",
           "runs/serverless-oci-gitops-proof/receipt.yaml"
         ],
         "id": "T12",
         "name": "Inspect and test an existing OCI package",
-        "next": "Provide one source-neutral command and report for arbitrary supported OCI layouts.",
+        "next": "Add signature checks and consumer-specific validation without confusing them with the package inspection report.",
         "outcome": "A user can start with OCI, inspect its Kubernetes objects and companion records, and run checks without claiming it in ConfigHub.",
-        "status": "partial",
+        "status": "available",
         "verify": [
+          "npm run oci:inspect:verify",
           "npm run aicr-oci-roundtrip:verify",
           "npm run serverless-oci-gitops:proof:verify"
         ]

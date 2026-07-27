@@ -66,6 +66,7 @@ function categorize(name) {
   if (name.startsWith("rbac-review:live:")) return "confighub-proof";
   if (name.startsWith("aicr-oci-roundtrip:")) return "confighub-proof";
   if (name.startsWith("aicr-variant-promotion:")) return "derived-variants";
+  if (name.startsWith("oci:inspect")) return "oci-inspection";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
@@ -91,6 +92,8 @@ function classifyMode(name, command) {
 function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
+  if (name === "oci:inspect:verify-live") return "public-oci-registry";
+  if (name === "oci:inspect") return "user-supplied-oci";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "none-for-verify";
   if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "local-kubernetes";
   if (name.includes("local-e2e") || name.startsWith("kind-parity") || command.includes("kubectl") || command.includes("kind")) return "local-kubernetes";
@@ -124,6 +127,7 @@ function why(category) {
     "live-parity-gitops": "Produces or verifies live Helm-vs-ConfigHub, two-cluster parity, or GitOps/OCI evidence.",
     "hook-lifecycle": "Tracks Helm hooks and hook-like controller behavior as lifecycle routes and receipts.",
     "derived-variants": "Checks post-render ConfigHub variant clone, link, target, and operation evidence.",
+    "oci-inspection": "Identifies supported OCI package roles and checks the readable Kubernetes configuration they contain or render.",
     "scale-proof": "Maintains adversarial and next80 proof corpus evidence.",
     "evidence-workdown": "Maintains claims, pain points, blast radius, graph, and workdown surfaces.",
     "repo-integrity": "Checks command surfaces, docs, artifacts, receipts, schemas, and broad corpus consistency.",

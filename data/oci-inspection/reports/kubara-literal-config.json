@@ -1,0 +1,168 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "OciInspectionReport",
+  "source": {
+    "reference": "oci-layout:examples/kubara/local-platform/oci-layout:0.12.0-local",
+    "location": "local-layout",
+    "resolvedDigest": "sha256:b5cc98615a93c708870ecc80d92af488e7a7e517c8da8c8af0bc3b6ae5bfdf54",
+    "manifestMediaType": "application/vnd.oci.image.manifest.v1+json"
+  },
+  "package": {
+    "role": "literal-kubernetes-config",
+    "name": "literal Kubernetes configuration",
+    "artifactType": "application/vnd.confighub.kubernetes.config.v1",
+    "configMediaType": "application/vnd.oci.empty.v1+json",
+    "title": "Kubara local platform rendered configuration",
+    "version": "0.12.0"
+  },
+  "contents": {
+    "layers": [
+      {
+        "title": "release-objects.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:fa12bcd9947b46b9423f4876b39fc22c764613574319bcf8a532921ec716c541",
+        "size": 1947715
+      }
+    ],
+    "files": [
+      "release-objects.yaml"
+    ],
+    "companionRecords": [],
+    "kubernetesObjects": 77,
+    "kinds": [
+      {
+        "kind": "ApplicationSet",
+        "count": 17
+      },
+      {
+        "kind": "AppProject",
+        "count": 2
+      },
+      {
+        "kind": "ClusterExternalSecret",
+        "count": 1
+      },
+      {
+        "kind": "ClusterRole",
+        "count": 5
+      },
+      {
+        "kind": "ClusterRoleBinding",
+        "count": 2
+      },
+      {
+        "kind": "ConfigMap",
+        "count": 7
+      },
+      {
+        "kind": "CustomResourceDefinition",
+        "count": 3
+      },
+      {
+        "kind": "Deployment",
+        "count": 5
+      },
+      {
+        "kind": "Ingress",
+        "count": 1
+      },
+      {
+        "kind": "Job",
+        "count": 1
+      },
+      {
+        "kind": "Namespace",
+        "count": 1
+      },
+      {
+        "kind": "NetworkPolicy",
+        "count": 5
+      },
+      {
+        "kind": "Role",
+        "count": 6
+      },
+      {
+        "kind": "RoleBinding",
+        "count": 6
+      },
+      {
+        "kind": "Secret",
+        "count": 2
+      },
+      {
+        "kind": "Service",
+        "count": 6
+      },
+      {
+        "kind": "ServiceAccount",
+        "count": 6
+      },
+      {
+        "kind": "StatefulSet",
+        "count": 1
+      }
+    ],
+    "namespaces": [
+      "argocd"
+    ]
+  },
+  "lifecycle": {
+    "customResourceDefinitions": 3,
+    "helmHooks": 4,
+    "jobs": 1,
+    "secrets": 2
+  },
+  "installer": {
+    "packageFiles": [],
+    "configs": [],
+    "selectedConfig": "",
+    "externalRequirements": [],
+    "rendered": false
+  },
+  "checks": [
+    {
+      "name": "manifest-resolved",
+      "result": "pass",
+      "detail": "The OCI manifest resolved to a digest."
+    },
+    {
+      "name": "structured-files-parse",
+      "result": "pass",
+      "detail": "All YAML and JSON files parsed."
+    },
+    {
+      "name": "object-identities-unique",
+      "result": "pass",
+      "detail": "No duplicate Kubernetes object identities were found."
+    },
+    {
+      "name": "obvious-placeholders",
+      "result": "pass",
+      "detail": "No common unfinished-value markers were found."
+    },
+    {
+      "name": "layers-fetched",
+      "result": "pass",
+      "detail": "1 referenced layer(s) were fetched by ORAS."
+    },
+    {
+      "name": "kubernetes-objects",
+      "result": "pass",
+      "detail": "77 Kubernetes object(s) were parsed."
+    }
+  ],
+  "nextSteps": [
+    "Review the objects, lifecycle counts, companion records, and warnings before choosing a consumer.",
+    "Pass --work-dir DIR if you want to keep the pulled files."
+  ],
+  "limits": [
+    "These checks cover OCI integrity, readable Kubernetes object shape, duplicate identities, and obvious placeholders.",
+    "They do not prove cluster admission, controller reconciliation, runtime health, provenance signatures, or production safety."
+  ],
+  "status": {
+    "result": "pass",
+    "failures": [],
+    "warnings": []
+  }
+}

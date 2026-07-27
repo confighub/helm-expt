@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless mode · ConfigHub Helm Ops</title>
-  <meta name="description" content="Serverless mode: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html">
-  <meta property="og:title" content="Serverless mode · ConfigHub Helm Ops">
-  <meta property="og:description" content="Serverless mode: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Inspect existing OCI packages · ConfigHub Helm Ops</title>
+  <meta name="description" content="Inspect existing OCI packages: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/oci-inspection/summary.html">
+  <meta property="og:title" content="Inspect existing OCI packages · ConfigHub Helm Ops">
+  <meta property="og:description" content="Inspect existing OCI packages: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/oci-inspection/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,74 +424,29 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Serverless mode</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/serverless-mode.md">View source markdown</a>.</p>
+    <h1>Inspect existing OCI packages</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/oci-inspection/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
-<p>Serverless and anonymous are separate choices. <b>Serverless</b> means this work does not depend on ConfigHub Server. <b>Anonymous</b> means it uses no ConfigHub account. The example on this page is both: it runs locally, pulls a public package, and keeps the files and output under your control.</p>
-<p>You can use the public Helm Ops Catalog without creating a ConfigHub account. Pull a catalog package, choose a preset configuration, and write the Kubernetes objects to local files. You can stop there, apply the files yourself, or package the reviewed files as OCI for an existing GitOps controller.</p>
-<p>ConfigHub is not involved until you choose to save the configuration and use shared history, variants, approvals, promotions, releases, or fleet rollout.</p>
-<h2 id="where-this-work-can-fit">Where this work can fit</h2>
-<p>The no-account tools do not require one fixed workflow:</p>
-<table><thead><tr><th>Path</th><th>What you can do</th></tr></thead><tbody><tr><td><code>work -&gt; OCI</code></td><td>Start with a chart, recipe, installer package, or Kubernetes files. Inspect and test the result, then build an OCI package.</td></tr>
-<tr><td><code>OCI -&gt; work</code></td><td>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</td></tr>
-<tr><td><code>OCI -&gt; work -&gt; OCI</code></td><td>Pull a package, test or edit the exact objects, then publish a new package for Argo CD, Flux, or another consumer.</td></tr></tbody></table>
-<p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without sign-in is planned, but not yet shipped.</p>
-<h2 id="inspect-an-oci-package-you-already-have">Inspect an OCI package you already have</h2>
-<p>Use the <a href="inspect-oci-package.html">OCI inspection command</a> when the starting point is an OCI reference rather than a chart or local files:</p>
-<pre><code>npm run oci:inspect -- oci://REGISTRY/REPOSITORY:TAG</code></pre>
-<p>It resolves the digest, identifies whether the package is a Helm source, cub installer source, or literal Kubernetes configuration, and reports the objects and obvious lifecycle work it can read. It does not apply anything.</p>
-<h2 id="start-with-files">Start with files</h2>
-<p>This NGINX example needs no server, account, or cluster:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer setup \
-  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
-  --base http-clusterip \
-  --work-dir ./nginx \
-  --non-interactive \
-  --namespace nginx</code></pre>
-<p>The command writes six objects under <code>./nginx/out/manifests</code>: a Namespace, ServiceAccount, NetworkPolicy, PodDisruptionBudget, Service, and Deployment. Read or scan those files before deciding how to deliver them.</p>
-<p>The public package is an <b>installer OCI</b>. It contains the chart-specific preset configurations and the files <code>cub installer</code> needs. It is not yet the single configuration that Flux or Argo CD will apply.</p>
-<h2 id="apply-the-files-yourself">Apply the files yourself</h2>
-<p>For a quick development test:</p>
-<pre><code>kubectl apply -f ./nginx/out/manifests
-kubectl -n nginx rollout status deployment/nginx</code></pre>
-<p>The separate <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity proof</a> compares Helm and the no-account cub path on Redis. It checks both the rendered objects and a running workload.</p>
-<h2 id="package-the-reviewed-files-for-flux">Package the reviewed files for Flux</h2>
-<p>If Flux already owns delivery, package the rendered files instead of applying them with <code>kubectl</code>:</p>
-<pre><code>(cd ./nginx/out/manifests &amp;&amp; kustomize create --autodetect)
-
-flux push artifact oci://REGISTRY/reviewed-nginx:24.0.2 \
-  --path=./nginx/out/manifests \
-  --source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
-  --revision=catalog@sha1:SOURCE_REVISION \
-  --reproducible
-
-flux create source oci reviewed-nginx \
-  --url=oci://REGISTRY/reviewed-nginx \
-  --digest=sha256:OUTPUT_MANIFEST_DIGEST
-
-flux create kustomization reviewed-nginx \
-  --source=OCIRepository/reviewed-nginx \
-  --path=./ \
-  --prune=true</code></pre>
-<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">live public OCI to Flux proof</a> runs this pattern on a throwaway cluster. It uses an empty registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, pushes a second OCI, pulls those files back for comparison, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
-<p>The proof uses a temporary local registry for the output artifact. It proves the package and controller mechanics, not a permanently hosted public workbench.</p>
-<h2 id="keep-the-oci-roles-separate">Keep the OCI roles separate</h2>
-<table><thead><tr><th>OCI artifact</th><th>Contents</th><th>Consumer</th></tr></thead><tbody><tr><td>Installer package</td><td>Chart-specific preset configurations and rendering files</td><td><code>cub installer</code></td></tr>
-<tr><td>Literal configuration</td><td>Exact Kubernetes objects ready for ConfigHub upload</td><td><code>cub variant upload</code></td></tr>
-<tr><td>Portable deployment bundle</td><td>Reviewed Kubernetes objects in a controller-compatible layout</td><td>Flux, Argo CD, or another external consumer</td></tr>
-<tr><td>ConfigHub release</td><td>A reviewed ConfigHub Space release</td><td>ConfigHub delivery through Flux or Argo CD</td></tr></tbody></table>
-<p>An OCI reference is not enough by itself. Check what the artifact contains and which consumer its receipt covers.</p>
-<h2 id="limits">Limits</h2>
-<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li>A rendered Secret placed in a portable OCI will live in that registry. Use an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes an installer package. It does not turn rendered manifests into a Flux deployment artifact.</li></ul>
-<p>The longer-term no-account design is recorded in the <a href="../planning/serverless-verified-install-plan.html">serverless install plan</a>.</p>
+<p>Use one command to identify a supported OCI package, resolve its immutable digest, and report what is actually inside it:</p>
+<pre><code>npm run oci:inspect -- OCI_REFERENCE</code></pre>
+<p>The command distinguishes source packages from literal Kubernetes configuration. For a literal bundle it pulls the layers, parses the Kubernetes objects, counts CRDs, hooks, Jobs, and Secrets, checks duplicate identities, and flags common unfinished values. For a cub installer source package, add <code>--render</code> to select a preset config and inspect the objects without applying them.</p>
+<h2 id="checked-examples">Checked examples</h2>
+<table><thead><tr><th>Example</th><th>Package kind</th><th>Objects</th><th>Result</th><th>Report</th></tr></thead><tbody><tr><td>AICR literal Kubernetes configuration</td><td>literal Kubernetes configuration</td><td>17</td><td>pass</td><td><a href="../../../../data/oci-inspection/reports/aicr-literal-config.json">JSON</a></td></tr>
+<tr><td>Kubara literal Kubernetes configuration</td><td>literal Kubernetes configuration</td><td>77</td><td>pass</td><td><a href="../../../../data/oci-inspection/reports/kubara-literal-config.json">JSON</a></td></tr>
+<tr><td>AICR Helm source package</td><td>Helm chart source package</td><td>0</td><td>pass</td><td><a href="../../../../data/oci-inspection/reports/aicr-helm-source.json">JSON</a></td></tr>
+<tr><td>Public cub installer package rendered with its default config</td><td>cub installer source package</td><td>6</td><td>pass</td><td><a href="../../../../data/oci-inspection/reports/nginx-installer.json">JSON</a></td></tr></tbody></table>
+<p>The AICR and Kubara examples are committed local OCI image layouts and are re-read by <code>npm run oci:inspect:verify</code>. The NGINX report was produced from the public package at its immutable digest; the network-free verifier checks it against the publication receipt, package definition, and checked render. Use <code>npm run oci:inspect:verify-live</code> to pull and render that public package again.</p>
+<h2 id="keep-the-package-roles-separate">Keep the package roles separate</h2>
+<table><thead><tr><th>Package role</th><th>What the report can inspect</th></tr></thead><tbody><tr><td>Helm chart source</td><td>Chart metadata and layers. Render it before expecting Kubernetes objects.</td></tr>
+<tr><td>cub installer source package</td><td>Preset configs, package files, and requirements; use <code>--render</code> for the selected objects.</td></tr>
+<tr><td>Literal Kubernetes configuration</td><td>Exact objects, object kinds, obvious lifecycle work, companion records, and basic checks.</td></tr>
+<tr><td>Unknown OCI package</td><td>Manifest and layer metadata, plus any readable YAML or JSON objects found.</td></tr></tbody></table>
+<p>This report is deliberately narrower than a deployment proof. It does not claim that Kubernetes admitted the objects, a controller reconciled them, or the workload became healthy.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/serverless-mode.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/oci-inspection/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

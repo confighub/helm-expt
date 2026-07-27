@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 620
+scripts: 624
 ```
 
 ## By Category
@@ -32,6 +32,7 @@ scripts: 620
 | `local-live-evidence` | 8 |
 | `scale-proof` | 8 |
 | `user-install-verification` | 7 |
+| `oci-inspection` | 4 |
 | `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
 | `pilot-variant-model` | 2 |
@@ -40,9 +41,9 @@ scripts: 620
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 291 |
-| `generate-or-run` | 251 |
-| `run` | 65 |
+| `verify` | 293 |
+| `generate-or-run` | 252 |
+| `run` | 66 |
 | `summary` | 7 |
 | `self-test` | 5 |
 | `full-corpus-verify` | 1 |
@@ -51,11 +52,13 @@ scripts: 620
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 573 |
+| `none-for-verify` | 575 |
 | `confighub-or-live-cluster` | 19 |
 | `local-kubernetes` | 14 |
 | `network-or-helm-repo` | 9 |
 | `user-supplied-cluster-or-confighub` | 5 |
+| `public-oci-registry` | 1 |
+| `user-supplied-oci` | 1 |
 
 ## Regenerate
 

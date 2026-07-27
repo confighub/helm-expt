@@ -29,6 +29,19 @@ Here, work means inspect, explain, test, scan, compare, or edit. It can run as a
 local command or in CI today. A public hosted service that can do this work without
 sign-in is planned, but not yet shipped.
 
+## Inspect an OCI package you already have
+
+Use the [OCI inspection command](./inspect-oci-package.md) when the starting point is
+an OCI reference rather than a chart or local files:
+
+```sh
+npm run oci:inspect -- oci://REGISTRY/REPOSITORY:TAG
+```
+
+It resolves the digest, identifies whether the package is a Helm source, cub
+installer source, or literal Kubernetes configuration, and reports the objects and
+obvious lifecycle work it can read. It does not apply anything.
+
 ## Start with files
 
 This NGINX example needs no server, account, or cluster:

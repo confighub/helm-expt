@@ -162,15 +162,18 @@ spec:
     - id: T12
       area: Bring your own config
       name: Inspect and test an existing OCI package
-      status: partial
+      status: available
       outcome: A user can start with OCI, inspect its Kubernetes objects and companion records, and run checks without claiming it in ConfigHub.
       evidence:
+        - docs/user/inspect-oci-package.md
+        - data/oci-inspection/summary.md
         - runs/aicr-oci-roundtrip-proof/receipt.yaml
         - runs/serverless-oci-gitops-proof/receipt.yaml
       verify:
+        - npm run oci:inspect:verify
         - npm run aicr-oci-roundtrip:verify
         - npm run serverless-oci-gitops:proof:verify
-      next: Provide one source-neutral command and report for arbitrary supported OCI layouts.
+      next: Add signature checks and consumer-specific validation without confusing them with the package inspection report.
 
     - id: T13
       area: Bring your own config

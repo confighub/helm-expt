@@ -1,0 +1,212 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "OciInspectionReport",
+  "source": {
+    "reference": "oci-layout:examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-config:0.14.0",
+    "location": "local-layout",
+    "resolvedDigest": "sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010",
+    "manifestMediaType": "application/vnd.oci.image.manifest.v1+json"
+  },
+  "package": {
+    "role": "literal-kubernetes-config",
+    "name": "literal Kubernetes configuration",
+    "artifactType": "application/vnd.confighub.kubernetes.config.v1",
+    "configMediaType": "application/vnd.oci.empty.v1+json",
+    "title": "AICR rendered Argo CD Applications",
+    "version": "0.14.0"
+  },
+  "contents": {
+    "layers": [
+      {
+        "title": "templates/aicr-stack.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:65369be30c6bfa2caf1c396377c616313e6e8a4ea8e538496b221fc49762177c",
+        "size": 951
+      },
+      {
+        "title": "templates/aws-ebs-csi-driver.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:7c04731235653b04cb3623eb95294a2e61b7e2ef99915e98534ca8ef9662fda8",
+        "size": 2347
+      },
+      {
+        "title": "templates/aws-efa.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:a96eb43cd79df6f65540d65136b8591ba0511e5e4ae2a70d765b83b4116f2ca7",
+        "size": 1858
+      },
+      {
+        "title": "templates/cert-manager.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:9429064306e0efcca02e29edafa202330de0d3cbab8b8d47d52f69a2e56b6453",
+        "size": 1927
+      },
+      {
+        "title": "templates/gpu-operator.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:dae2ef7734ce85d20dc467fa47ff5a17af73d41cbdbefd6c89ceaf00670e499f",
+        "size": 8905
+      },
+      {
+        "title": "templates/k8s-ephemeral-storage-metrics.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:069c54ea067bee6e041f6356b6f72e1a00ce41294217fb5edaed085bbaeb1b2f",
+        "size": 1535
+      },
+      {
+        "title": "templates/kai-scheduler.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:740ea2245f37828f383b89ed876cbfbcd4ad30972447cdbf57c06922348e5fbc",
+        "size": 959
+      },
+      {
+        "title": "templates/kube-prometheus-stack.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:83f58c797a925802b31ea5874676ad7ee51b2c3439e9a86d06bbcf52a87a7656",
+        "size": 3338
+      },
+      {
+        "title": "templates/kubeflow-trainer-post.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:d100c7ac85ea2b80836c9a7d06c26de06e738075029598569e0d7a95c69a9399",
+        "size": 823
+      },
+      {
+        "title": "templates/kubeflow-trainer.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:b72efb7a95ee12f330e30d378d043bcf905e3cdd4e85968cb0255e4675ac9e94",
+        "size": 2252
+      },
+      {
+        "title": "templates/nfd.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:ef2cfedf5ff066f0255ed0d910daacec6f78225f117a3bf95f8c448d1e8b0df6",
+        "size": 1350
+      },
+      {
+        "title": "templates/nodewright-customizations.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:211def8bbc048ddbe091b50f493b74fee6148b4945198ec8073e1c51d4ac8690",
+        "size": 833
+      },
+      {
+        "title": "templates/nodewright-operator.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:6744faae5192714c044667e2bee37197261d39eafcdec06e86c4cb034fe0406d",
+        "size": 1363
+      },
+      {
+        "title": "templates/nvidia-dra-driver-gpu.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:8895e4401ed1765cd0af54eeaae86448a9458191397ad3d63c0e103e58ac62c9",
+        "size": 1621
+      },
+      {
+        "title": "templates/nvsentinel.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:ca8abb8902d7e389316444b5540b49ae71e09c7068cdee83e1652ffa63ea2881",
+        "size": 1317
+      },
+      {
+        "title": "templates/prometheus-adapter.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:1d6fab6e8f60c9b7eda6ed266d0b172159bada60a95396f44f63c22039afe509",
+        "size": 4816
+      },
+      {
+        "title": "templates/prometheus-operator-crds.yaml",
+        "mediaType": "application/yaml",
+        "digest": "sha256:0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292",
+        "size": 786
+      }
+    ],
+    "files": [
+      "templates/aicr-stack.yaml",
+      "templates/aws-ebs-csi-driver.yaml",
+      "templates/aws-efa.yaml",
+      "templates/cert-manager.yaml",
+      "templates/gpu-operator.yaml",
+      "templates/k8s-ephemeral-storage-metrics.yaml",
+      "templates/kai-scheduler.yaml",
+      "templates/kube-prometheus-stack.yaml",
+      "templates/kubeflow-trainer-post.yaml",
+      "templates/kubeflow-trainer.yaml",
+      "templates/nfd.yaml",
+      "templates/nodewright-customizations.yaml",
+      "templates/nodewright-operator.yaml",
+      "templates/nvidia-dra-driver-gpu.yaml",
+      "templates/nvsentinel.yaml",
+      "templates/prometheus-adapter.yaml",
+      "templates/prometheus-operator-crds.yaml"
+    ],
+    "companionRecords": [],
+    "kubernetesObjects": 17,
+    "kinds": [
+      {
+        "kind": "Application",
+        "count": 17
+      }
+    ],
+    "namespaces": [
+      "argocd"
+    ]
+  },
+  "lifecycle": {
+    "customResourceDefinitions": 0,
+    "helmHooks": 0,
+    "jobs": 0,
+    "secrets": 0
+  },
+  "installer": {
+    "packageFiles": [],
+    "configs": [],
+    "selectedConfig": "",
+    "externalRequirements": [],
+    "rendered": false
+  },
+  "checks": [
+    {
+      "name": "manifest-resolved",
+      "result": "pass",
+      "detail": "The OCI manifest resolved to a digest."
+    },
+    {
+      "name": "structured-files-parse",
+      "result": "pass",
+      "detail": "All YAML and JSON files parsed."
+    },
+    {
+      "name": "object-identities-unique",
+      "result": "pass",
+      "detail": "No duplicate Kubernetes object identities were found."
+    },
+    {
+      "name": "obvious-placeholders",
+      "result": "pass",
+      "detail": "No common unfinished-value markers were found."
+    },
+    {
+      "name": "layers-fetched",
+      "result": "pass",
+      "detail": "17 referenced layer(s) were fetched by ORAS."
+    },
+    {
+      "name": "kubernetes-objects",
+      "result": "pass",
+      "detail": "17 Kubernetes object(s) were parsed."
+    }
+  ],
+  "nextSteps": [
+    "Review the objects, lifecycle counts, companion records, and warnings before choosing a consumer.",
+    "Pass --work-dir DIR if you want to keep the pulled files."
+  ],
+  "limits": [
+    "These checks cover OCI integrity, readable Kubernetes object shape, duplicate identities, and obvious placeholders.",
+    "They do not prove cluster admission, controller reconciliation, runtime health, provenance signatures, or production safety."
+  ],
+  "status": {
+    "result": "pass",
+    "failures": [],
+    "warnings": []
+  }
+}
