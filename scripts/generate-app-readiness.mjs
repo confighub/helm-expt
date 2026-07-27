@@ -1,11 +1,6 @@
 #!/usr/bin/env node
-// Green-field app-readiness: a read-app built ON the held config-as-data, with
-// no cluster and no re-render. It analyses the RBAC in every committed default
-// render (already-rendered WET YAML) for broad/risky permissions - the same kind
-// of tool the "There should be an app for that" thesis builds on ConfigHub
-// (the RBAC Manager). It proves the held data is APP-ABLE (queryable), which is
-// the green-field stage of the user story; the write half is reverse-reconcile.
-// Deterministic --generate/--verify.
+// Catalog-wide RBAC review over committed default renders. This is deliberately
+// read-only and deterministic: it needs neither a cluster nor a fresh Helm render.
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -71,8 +66,9 @@ function summaryMd(rows) {
   const findingTotals = {};
   for (const r of rows) for (const f of r.findings) findingTotals[f] = (findingTotals[f] ?? 0) + 1;
   const o = [];
-  o.push("# Green-Field App-Readiness: an RBAC read-app on the held data", "");
-  o.push("This is a small **app built on the held config-as-data** - no cluster, no re-render. It reads the already-rendered WET YAML of every committed default render and analyses its RBAC for broad/risky permissions, the same shape of tool the *\"There should be an app for that\"* thesis builds on ConfigHub (the RBAC Manager). It exists to prove the **green-field** stage of the user story: the held data is *app-able* (queryable + analysable), so you can build tools on it instead of writing templates.", "");
+  o.push("# RBAC permissions in catalog charts", "");
+  o.push("This report checks the rendered default configuration for every catalog chart and lists RBAC rules that deserve review. It reads the committed Kubernetes objects, so it does not need access to a cluster and does not run Helm again.", "");
+  o.push("Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.", "");
   o.push(`Scanned **${charts}** default renders; **${withRbac}** ship RBAC; **${withRisk.length}** contain at least one broad/risky rule by these conservative heuristics.`, "");
   o.push("Findings across the catalog:", "");
   o.push("| Finding | Charts | Meaning |", "| --- | ---: | --- |");
@@ -84,20 +80,19 @@ function summaryMd(rows) {
   };
   for (const f of Object.keys(meanings)) o.push(`| \`${f}\` | ${findingTotals[f] ?? 0} | ${meanings[f]} |`);
   o.push("");
-  o.push("## Charts with the most broad/risky RBAC rules", "");
+  o.push("## Charts to review first", "");
   o.push("| Chart | ClusterRoles | Roles | Risky rules | Findings |", "| --- | ---: | ---: | ---: | --- |");
   for (const r of withRisk.slice(0, 25)) o.push(`| \`${r.chart}\` | ${r.clusterRoles} | ${r.roles} | ${r.riskyRules} | ${r.findings.map((f) => `\`${f}\``).join(", ")} |`);
   if (withRisk.length > 25) o.push(`| _… and ${withRisk.length - 25} more_ | | | | |`);
   o.push("");
-  o.push("## Why this matters (the green-field thesis)", "");
-  o.push("- It runs entirely on the **held render-once data** - no cluster lookup, no `helm template`, no re-render. The objects are already explicit, queryable WET YAML.");
-  o.push("- This is the **read** half of an app on the data. The **write** half (make a change, gated + reviewed) is the reverse-reconcile design (`docs/user/reverse-reconcile-design.md`).");
-  o.push("- You could not build this cleanly on Helm charts / kustomize / jsonnet source (you would have to render first, per chart, per cluster). That is the config-as-code gap the catalog closes.");
+  o.push("## What happens after a finding", "");
+  o.push("A finding is a reason to inspect the rendered Role or ClusterRole. If the permission is not needed, propose a precise object change, review the diff, run the normal policy checks, and require approval before delivery.", "");
+  o.push("The [live RBAC review example](../rbac-review-live-proof/summary.md) follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, and checks the result on an isolated Kubernetes cluster. The [walkthrough](../../docs/demo/apps/rbac-review.md) explains each step.", "");
   o.push("");
-  o.push("## Honest scope", "");
-  o.push("- These are **conservative heuristics over rendered RBAC**, not a full authorization analysis (no aggregationRule expansion, no binding-graph resolution of who-binds-what yet).");
-  o.push("- A risky finding is a **review prompt**, not a verdict: many infrastructure charts legitimately need broad RBAC. The point is that the data makes it *visible and queryable*.");
-  o.push("- The production app (e.g. the RBAC Manager) lives in ConfigHub; this proves the **substrate** that such an app needs.");
+  o.push("## Limits", "");
+  o.push("- The rules are conservative. A finding asks for review; it does not declare that a chart is wrong.");
+  o.push("- The report does not expand aggregated ClusterRoles or resolve the complete RoleBinding and ClusterRoleBinding graph.");
+  o.push("- The catalog-wide scan is read-only. The live example proves one reviewed correction with a manual handoff to `kubectl`; automated ConfigHub, Argo CD, or Flux delivery is separate work.");
   o.push("");
   o.push("## Regenerate", "", "~~~sh", "npm run app-readiness:generate", "npm run app-readiness:verify", "~~~");
   return o.join("\n") + "\n";
@@ -108,10 +103,10 @@ function html(rows) {
   const withRisk = rows.filter((r) => r.riskyRules > 0);
   const max = Math.max(1, ...rows.map((r) => r.riskyRules));
   const p = [];
-  p.push("<!doctype html><html><head><meta charset=\"utf-8\"><title>Green-Field App-Readiness (RBAC read-app)</title>");
+  p.push("<!doctype html><html><head><meta charset=\"utf-8\"><title>RBAC permissions in catalog charts</title>");
   p.push("<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:24px;color:#1b1f23}h1{font-size:20px}table{border-collapse:collapse;margin:10px 0;font-size:12.5px}th,td{border:1px solid #d0d7de;padding:5px 9px;text-align:left}th{background:#f6f8fa}td.n{text-align:right}.note{color:#57606a;font-size:13px;max-width:64em}</style></head><body>");
-  p.push("<h1>Green-Field App-Readiness — an RBAC read-app on the held data</h1>");
-  p.push("<p class=\"note\">A tool built on the held config-as-data (no cluster, no re-render): broad/risky RBAC across the catalog's committed default renders. Proves the data is app-able (the green-field thesis). Red intensity scales with risky-rule count.</p>");
+  p.push("<h1>RBAC permissions in catalog charts</h1>");
+  p.push("<p class=\"note\">This report checks committed default renders for broad RBAC rules. It needs no cluster and does not run Helm again. A finding asks for review; it does not declare that a chart is wrong. Red intensity scales with the number of rules found.</p>");
   p.push("<table><tr><th>Chart</th><th>ClusterRoles</th><th>Roles</th><th>Risky rules</th><th>Findings</th></tr>");
   for (const r of withRisk) {
     const t = Math.min(1, r.riskyRules / max);

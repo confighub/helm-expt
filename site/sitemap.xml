@@ -486,6 +486,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-inventory-audit/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-review-queue/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/quirk-work-queue/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/rbac-review-live-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/redis-upgrade-app-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/refresh-survival/kube-prometheus-stack-upgrade-seed.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/refresh-survival/summary.html</loc></url>
@@ -541,6 +542,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/corpus/kubara-customized-overlays.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/ai-change-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/cert-manager/confighub-proof-transcript.html</loc></url>

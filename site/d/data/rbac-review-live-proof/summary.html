@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · ConfigHub Helm Ops</title>
-  <meta name="description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/journey.html">
-  <meta property="og:title" content="Apps Guide · ConfigHub Helm Ops">
-  <meta property="og:description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
+  <title>Review and fix an RBAC permission · ConfigHub Helm Ops</title>
+  <meta name="description" content="Review and fix an RBAC permission: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/rbac-review-live-proof/summary.html">
+  <meta property="og:title" content="Review and fix an RBAC permission · ConfigHub Helm Ops">
+  <meta property="og:description" content="Review and fix an RBAC permission: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/journey.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/rbac-review-live-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -413,210 +413,39 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
-    .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
-    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
-    .app-step h3 { margin: 0 0 8px; }
-    .app-step p { margin: 0; font-size: .9rem; }
-    @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) { .app-flow { grid-template-columns: 1fr; } }
-
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
-    <h1>AI Apps</h1>
-    <p class="lead">The public catalog is the easiest way to try ConfigHub with standard Helm charts. This page is for the next step: using ConfigHub with applications your team owns.</p>
-    <p class="quiet-line">Between the two sits <a href="./demo-org.html">the demo org</a>: catalog charts already living in a ConfigHub organization, with the variant trees and promotions this page describes.</p>
-    <p>Real applications rarely fit inside one chart. They may include a Helm chart, an Argo or Flux app, YAML rendered by CI, objects already running in a namespace, and Kubernetes files written by your team.</p>
-    <p>ConfigHub starts by showing those files and objects before it changes delivery. From there you can name the application, see what belongs to it, and make versions for development, staging, production, regions, or customers.</p>
-    <p>AI can help suggest values or file edits, but it uses the same review path as any other change. If the suggestion changes what Helm renders, it becomes a new or updated base variant. If it changes an already-rendered object, it becomes a reviewed ConfigHub diff. When the application is upgraded, ConfigHub keeps the approved changes in the next version.</p>
+    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <h1>Review and fix an RBAC permission</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/rbac-review-live-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">What Counts As An Application?</h2>
-      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
-      <div class="card"><table>
-        <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>One public chart</td><td>A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated.</td></tr><tr><td>Several charts</td><td>A group of charts that must be released together, such as an application, database, cache, and monitoring.</td></tr><tr><td>Platform services</td><td>Shared services such as ingress, certificates, policy, monitoring, logging, or identity.</td></tr><tr><td>Your own Kubernetes files</td><td>Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team.</td></tr><tr><td>Something already running</td><td>An application that already exists in Argo, Flux, rendered YAML, a Helm release, or a live cluster.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="entry">
-      <h2 id="entry">Ways To Start</h2>
-      <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Catalog chart</td><td>Pick a chart page, choose a base variant, and render the files.</td><td>Trying a public chart first.</td></tr><tr><td>Existing Argo or Flux app</td><td>Read the source, target, rendered objects, and current status.</td><td>Teams that already use GitOps.</td></tr><tr><td>Rendered YAML</td><td>Import the files and show which objects ConfigHub would manage.</td><td>Applications already rendered by CI or Helm.</td></tr><tr><td>Live cluster</td><td>Inventory what is running before making any change.</td><td>Teams that need to understand an existing namespace.</td></tr><tr><td>Your own application</td><td>Bring your Deployments, Services, ConfigMaps, and policies beside catalog charts.</td><td>Private services and platform components.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="app-flow">
-      <h2 id="app-flow">The Normal Order</h2>
-      <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
-      <div class="app-flow">
-        <div class="app-step"><h3>Start with something real</h3><p>Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files.</p></div>
-        <div class="app-step"><h3>Show the objects first</h3><p>List the files and Kubernetes objects before ConfigHub changes how anything is delivered.</p></div>
-        <div class="app-step"><h3>Name what belongs together</h3><p>Group the objects that make up one application so a reviewer can see the whole thing.</p></div>
-        <div class="app-step"><h3>Make versions</h3><p>Create development, staging, production, region, or customer versions without copying values files by hand.</p></div>
-        <div class="app-step"><h3>Release and check it</h3><p>Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="existing">
-      <h2 id="existing">Can I Start From An Existing App?</h2>
-      <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First action</th><th>What you see</th></tr></thead>
-        <tbody><tr><td>Argo CD app</td><td>Read or import the Argo app.</td><td>Source repo, target cluster, namespace, rendered objects, and current sync status.</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>Read or import the Flux object.</td><td>Controller source, target namespace, rendered objects, and ownership.</td></tr><tr><td>Rendered YAML</td><td>Import or preview the files.</td><td>Objects, labels, namespaces, Secrets, CRDs, and likely review points.</td></tr><tr><td>Live cluster</td><td>Inventory the namespace or selected objects.</td><td>What is running now, who appears to own it, and what would need review before adoption.</td></tr><tr><td>Platform services</td><td>Group related charts and files.</td><td>Which shared services belong with the application and which are separate platform dependencies.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card">
-        <h3>Start read-only</h3>
-        <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub gitops discover --space my-space my-k8s-target
-cub gitops import --space my-space my-k8s-target my-render-target \
-  --where-resource "metadata.namespace = 'argocd'"
-kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
-cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You see the resources, namespace, target, and source. At this stage nothing has been moved to ConfigHub delivery.</p>
-      </div>
-      <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="d/docs/user/adopting-existing-apps.html">Adopting Existing Apps</a>.</p>
-    </section>
-
-    <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
-      <div class="card"><table>
-        <thead><tr><th>Example</th><th>What ConfigHub helps with</th></tr></thead>
-        <tbody><tr><td>Redis app</td><td>One public chart can be rendered from a base variant, checked, changed for each environment, and released again.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release.</td></tr><tr><td>Platform services</td><td>Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them.</td></tr><tr><td>Your service plus chart services</td><td>Your own service can sit beside a database, queue, cache, or monitoring chart.</td></tr><tr><td>Existing app</td><td>An application already in a cluster can be inventoried first, then brought under review when you are ready.</td></tr><tr><td>AI-suggested change</td><td>AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade proof</a> follows one complete run from chart 25.5.3 to 27.0.0. A two-replica edit stays in place, the candidate moves through development and staging, and the same reviewed OCI runs on two Argo CD clusters.</p>
-      <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, and confirms on an isolated cluster that Secret access is gone while ConfigMap access still works.</p>
-      <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
-    </section>
-
-    <section aria-labelledby="app-program">
-      <h2 id="app-program">Apps We Are Building</h2>
-      <p>These five Apps work from Kubernetes objects stored in ConfigHub, plus the records that explain their source, changes, checks, and observed cluster state. The status says how much of each example is backed by committed evidence today.</p>
-      <div class="card"><table>
-        <thead><tr><th>App</th><th>Status</th><th>What it should do</th></tr></thead>
-        <tbody><tr><td>Upgrade App</td><td>partial</td><td>Show fleet impact, test the candidate configuration, promote it in waves, and check the rollout.</td></tr><tr><td>Hooks and CRDs App</td><td>partial</td><td>Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.</td></tr><tr><td>RBAC Review App</td><td>partial</td><td>Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.</td></tr><tr><td>Fleet Platform App</td><td>partial</td><td>Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters and manage rollout waves from ConfigHub.</td></tr><tr><td>AI Change Review App</td><td>partial</td><td>Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="d/docs/user/config-catalog-demonstrations.html">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>The starting configuration gives the <code>report-reader</code> service account read access to ConfigMaps and Secrets in one namespace. It only needs the ConfigMaps.</p>
+<p>The review found that extra Secret access and proposed one change: remove <code>secrets</code> from the Role's resource list. No other Kubernetes field changed. ConfigHub stored the corrected revision and blocked its dry-run apply until that exact revision was approved.</p>
+<p>After approval, the proof applied the stored ConfigHub data to an isolated cluster. The service account can still list ConfigMaps and can no longer list Secrets.</p>
+<table><thead><tr><th>Check</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Secret-read finding</td><td>Found</td><td>Cleared</td></tr>
+<tr><td>List Secrets</td><td>Allowed</td><td>Denied</td></tr>
+<tr><td>List ConfigMaps</td><td>Allowed</td><td>Allowed</td></tr>
+<tr><td>ConfigHub apply check</td><td>Not attempted for the imported state</td><td>Blocked before approval, allowed after approval</td></tr>
+<tr><td>Live Role matches approved data</td><td>-</td><td>Yes</td></tr></tbody></table>
+<h2 id="what-changed">What changed</h2>
+<ul><li>Object: <code>rbac.authorization.k8s.io/v1|Role|rbac-review|report-reader</code></li><li>Field: <code>/rules/0/resources</code></li><li>Removed: <code>secrets</code></li><li>Retained: <code>configmaps</code></li><li>Imported revision: 2</li><li>Corrected revision: 4</li></ul>
+<h2 id="limits">Limits</h2>
+<p>This is a small namespaced fixture. The catalog-wide report uses conservative rules, so a finding asks for review rather than declaring that a chart is wrong. This run does not resolve binding graphs across a fleet or modify a production chart.</p>
+<p>The ConfigHub target was used for dry-run policy checks. After approval, the proof read the exact Unit data and handed it to <code>kubectl apply</code>. Automated ConfigHub, Argo CD, or Flux delivery was not tested. The temporary Space and cluster were removed.</p>
+<ul><li><a href="../../../../examples/apps/rbac-review/before.yaml">Starting configuration</a></li><li><a href="../../../../examples/apps/rbac-review/after.yaml">Reviewed correction</a></li><li><a href="../../docs/demo/apps/rbac-review.html">Human walkthrough</a></li><li><a href="../../../../runs/rbac-review-live-proof/receipt.yaml">Committed live receipt</a></li><li><a href="../app-readiness/summary.html">Catalog-wide RBAC report</a></li></ul>
+    </article>
   </main>
-  <footer>Generated from helm-expt proof data. This page explains applications; operations, verification, and commercial boundaries live on their own pages.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/rbac-review-live-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

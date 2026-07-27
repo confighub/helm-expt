@@ -216,7 +216,10 @@ Build the five Apps in this order:
 1. Upgrade App, because the repo already has promotion and blast-radius evidence.
 2. Hooks and CRDs App, because the route records and CRD-ordering receipts already
    exist.
-3. RBAC Review App, extending the current read-only scan into a reviewed correction.
+3. RBAC Review App. The catalog-wide scan now leads to one live reviewed correction:
+   ConfigHub stores the exact change, blocks it until approval, and the approved data
+   removes Secret access on an isolated cluster while preserving ConfigMap access.
+   Automated delivery and fleet-wide binding analysis remain open.
 4. Fleet Platform App, after Kubara or Sveltos has one complete live lane.
 5. AI Change Review App, after the diff, policy, approval, and unwind path can be shown
    in one run.

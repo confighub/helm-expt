@@ -63,6 +63,7 @@ function categorize(name) {
   if (name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("kind-parity")) return "live-parity-gitops";
   if (name.startsWith("helm-org:")) return "confighub-catalog-org";
   if (name.startsWith("ai-change-review:live:")) return "confighub-proof";
+  if (name.startsWith("rbac-review:live:")) return "confighub-proof";
   if (name.startsWith("aicr-oci-roundtrip:")) return "confighub-proof";
   if (name.startsWith("aicr-variant-promotion:")) return "derived-variants";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";

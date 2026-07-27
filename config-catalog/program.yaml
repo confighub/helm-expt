@@ -340,11 +340,15 @@ spec:
         - Propose a concrete object diff.
         - Apply the change only after policy and approval.
       entrypoints:
+        - docs/demo/apps/rbac-review.md
         - data/app-readiness/summary.md
       evidence:
         - data/app-readiness/summary.md
+        - data/rbac-review-live-proof/summary.md
+        - runs/rbac-review-live-proof/receipt.yaml
       limits:
-        - The committed lane is read-only analysis. It does not yet prove a reviewed correction delivered to a live cluster.
+        - The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet.
+        - The live example proves one exact namespaced correction, approval, and Kubernetes permission change. It hands approved ConfigHub Unit data to kubectl explicitly; automated ConfigHub, Argo CD, or Flux delivery remains separate work.
     - id: fleet-platform-app
       name: Fleet Platform App
       problem: Platform teams need to assign different system configurations to cluster groups without losing a central source of record.
