@@ -434,7 +434,7 @@
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
@@ -718,7 +718,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+
       <h4>controller-default-reviewed: needs 8 CRDs supplied first</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Prerequisite - supply the CRDs once (default base or your platform)</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>prerequisite - this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)</td></tr></tbody>

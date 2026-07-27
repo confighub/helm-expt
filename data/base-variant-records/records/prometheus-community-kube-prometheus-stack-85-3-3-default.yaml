@@ -261,6 +261,11 @@ spec:
     liveDualParity: "yes"
     twoClusterKind: "todo"
     variantPromotion: "proven"
+    lifecycleDirectFreshInstall: "yes"
+    lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/receipt.yaml"
+    lifecycleArgoCd: "not-run"
+    lifecycleFlux: "not-run"
+    lifecycleUpgrade: "not-run"
   operations:
     resourceClass: "not-yet-classified"
     ownerClass: "not-yet-classified"

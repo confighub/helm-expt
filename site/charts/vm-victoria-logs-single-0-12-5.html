@@ -434,7 +434,7 @@
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
@@ -660,7 +660,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="lifecycle">
       <h2 id="lifecycle">Hooks, CRDs, And Setup Work</h2>
       <p>Some Helm charts need work before, during, or after apply: CRDs, hooks, setup jobs, webhook certificates, migrations, generated Secrets, or checks. For each chart, the catalog should make the choice clear: include it in the base variant, split it into a separate base variant, run a setup step, use a GitOps action where evidence exists, require an existing target resource, or block it when there is no safe default.</p>
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+
       <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
     </section>
 

@@ -45,6 +45,11 @@ spec:
     liveDualParity: "yes"
     twoClusterKind: "todo"
     variantPromotion: "proven"
+    lifecycleDirectFreshInstall: "yes"
+    lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/receipt.yaml"
+    lifecycleArgoCd: "not-run"
+    lifecycleFlux: "not-run"
+    lifecycleUpgrade: "not-run"
   lifecycle:
     routeContract: "yes"
     routeCount: "7"

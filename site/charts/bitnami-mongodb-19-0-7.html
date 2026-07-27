@@ -434,7 +434,7 @@
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
         <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
-        <div class="card"><h3><a href="#lifecycle">The messy parts are proven, not hidden</a></h3><p>Each hook, CRD, and setup job is a named route with a receipt and an honest automatic marker.</p></div>
+        <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
@@ -695,7 +695,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. A named route is not the same as automatic execution.</p>
+      <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
+
       <div class="card"><table>
         <thead><tr><th>Modeled action area</th><th>Current status</th></tr></thead>
         <tbody><tr><td>Accepted action areas</td><td>extension slot provenance and scan policy; generated fact ownership; hook and lifecycle phase policy; scan/gate warning disposition; storage backup restore and rollback policy; target fact preflight</td></tr><tr><td>Lifecycle basis</td><td>recipe-hook-policy:no-hooks</td></tr><tr><td>Disposition receipts</td><td><a href="../../data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml">data/production-disposition/receipts/bitnami-mongodb/extension-slot-provenance-and-scan-policy.yaml</a><br><a href="../../data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml">data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml</a><br><a href="../../data/production-disposition/receipts/bitnami-mongodb/hook-and-lifecycle-phase-policy.yaml">data/production-disposition/receipts/bitnami-mongodb/hook-and-lifecycle-phase-policy.yaml</a><br><a href="../../data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml">data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml</a><br><a href="../../data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml">data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml</a><br><a href="../../data/production-disposition/receipts/bitnami-mongodb/target-fact-preflight.yaml">data/production-disposition/receipts/bitnami-mongodb/target-fact-preflight.yaml</a></td></tr></tbody>

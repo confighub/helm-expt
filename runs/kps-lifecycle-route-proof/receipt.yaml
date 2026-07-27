@@ -1,0 +1,164 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackLifecycleRouteReceipt"
+metadata:
+  name: "kube-prometheus-stack-85.3.3-default-direct-install"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  deliveryPath: "direct-apply"
+  recordedAt: "2026-07-27T06:25:44.605Z"
+  result: "pass"
+  source:
+    sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
+    chartPackageSha256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
+    chartPackageBytes: 874778
+    renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+  render:
+    totalObjectsWithHooks: 131
+    ordinaryObjects: 124
+    hookObjects: 7
+    crds: 10
+    exactCommittedOrdinaryObjects: true
+    committedObjectSetSha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+  execution:
+    clusterType: "kind"
+    clusterName: "hx-kps-route-20260727062544"
+    namespace: "monitoring"
+    crds:
+      names:
+        - "alertmanagerconfigs.monitoring.coreos.com"
+        - "alertmanagers.monitoring.coreos.com"
+        - "podmonitors.monitoring.coreos.com"
+        - "probes.monitoring.coreos.com"
+        - "prometheusagents.monitoring.coreos.com"
+        - "prometheuses.monitoring.coreos.com"
+        - "prometheusrules.monitoring.coreos.com"
+        - "scrapeconfigs.monitoring.coreos.com"
+        - "servicemonitors.monitoring.coreos.com"
+        - "thanosrulers.monitoring.coreos.com"
+      established: 10
+      result: "pass"
+    hookSupportObjects:
+      - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-stack-admission"
+      - "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-stack-admission"
+      - "rbac.authorization.k8s.io/v1|RoleBinding|monitoring|kube-prometheus-stack-admission"
+      - "rbac.authorization.k8s.io/v1|Role|monitoring|kube-prometheus-stack-admission"
+      - "v1|ServiceAccount|monitoring|kube-prometheus-stack-admission"
+    preInstallJob:
+      name: "kube-prometheus-stack-admission-create"
+      image: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3"
+      result: "pass"
+    admissionSecret:
+      name: "kube-prometheus-stack-admission"
+      namespace: "monitoring"
+      keys:
+        - "ca"
+        - "cert"
+        - "key"
+      result: "pass"
+    ordinaryApply:
+      objectCount: 124
+      result: "pass"
+    postInstallJob:
+      name: "kube-prometheus-stack-admission-patch"
+      image: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3"
+      result: "pass"
+    webhookObservation:
+      mutatingEntries: 1
+      validatingEntries: 2
+      caBundlesPresent: 3
+      caBundlesMatchSecret: true
+      readyEndpointAddresses: 1
+      serverDryRun: "pass"
+      result: "pass"
+    workloads:
+      -
+        kind: "daemonset"
+        name: "kube-prometheus-stack-prometheus-node-exporter"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-grafana"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-kube-state-metrics"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "deployment"
+        name: "kube-prometheus-stack-operator"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "alertmanager-kube-prometheus-stack-alertmanager"
+        namespace: "monitoring"
+        result: "pass"
+      -
+        kind: "statefulset"
+        name: "prometheus-kube-prometheus-stack-prometheus"
+        namespace: "monitoring"
+        result: "pass"
+    hookCleanup:
+      jobsDeleted:
+        - "kube-prometheus-stack-admission-create"
+        - "kube-prometheus-stack-admission-patch"
+      supportObjectsDeleted:
+        - "rbac.authorization.k8s.io/v1|ClusterRoleBinding||kube-prometheus-stack-admission"
+        - "rbac.authorization.k8s.io/v1|ClusterRole||kube-prometheus-stack-admission"
+        - "rbac.authorization.k8s.io/v1|RoleBinding|monitoring|kube-prometheus-stack-admission"
+        - "rbac.authorization.k8s.io/v1|Role|monitoring|kube-prometheus-stack-admission"
+        - "v1|ServiceAccount|monitoring|kube-prometheus-stack-admission"
+      result: "pass"
+  routes:
+    crds-first:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Applied ten CRDs and waited for Established before dependent objects."
+    preflight-or-presync:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Ran the chart's admission-create Job and observed the ca, cert, and key Secret."
+    target-facts-or-preflight:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Created the chart-required admission Secret through the recorded pre-install Job."
+    preserve-ordering:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Executed CRDs, certificate creation, ordinary objects, and webhook patching in order."
+    postsync-check-or-observation:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Ran the chart's admission-patch Job after the webhook objects existed."
+    webhook-readiness-observation:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Observed three matching CA bundles, a ready operator endpoint, and a successful server dry-run."
+    preserve-cleanup-policy:
+      result: "pass"
+      automatic: true
+      executor: "scripts/run-kps-lifecycle-route-proof.mjs"
+      observation: "Removed the successful hook Jobs and their temporary RBAC support objects."
+    upgrade-action-with-receipt:
+      result: "not-run"
+      automatic: false
+      reason: "This receipt covers a fresh install only; chart upgrade behavior remains unproved."
+  cleanup:
+    cluster: "pass"
+    localFiles: "pass"
+  limits:
+    - "This receipt covers one fresh direct-apply installation on one local kind cluster."
+    - "It does not prove the Argo CD or Flux implementation of these chart-specific routes."
+    - "It does not prove the 85.3.3 to 86.1.0 upgrade route."
+    - "The chart's own hook Jobs were rendered from the locked upstream chart and run explicitly; ConfigHub did not choose the route automatically."

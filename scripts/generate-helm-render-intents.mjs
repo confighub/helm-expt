@@ -83,6 +83,9 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
   const sourceLock = row.source_lock_path && existsSync(join(repoRoot, row.source_lock_path)) ? readYaml(join(repoRoot, row.source_lock_path)) : null;
   const chartName = sourceLock?.spec?.ref || (sourceLock?.spec?.repositoryName && sourceLock?.spec?.chart ? `${sourceLock.spec.repositoryName}/${sourceLock.spec.chart}` : row.chart);
   const name = intentSlug(row.chart, row.version, row.variant);
+  const isKpsDefault = row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "85.3.3"
+    && row.variant === "default";
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
@@ -186,6 +189,15 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
         liveDualParity: lane(row.lane_live_dual_parity),
         twoClusterKind: lane(row.lane_two_cluster_kind),
         variantPromotion: lane(row.variant_promotion_status || row.variant_promotion),
+        ...(isKpsDefault
+          ? {
+            lifecycleDirectFreshInstall: "yes",
+            lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/receipt.yaml",
+            lifecycleArgoCd: "not-run",
+            lifecycleFlux: "not-run",
+            lifecycleUpgrade: "not-run",
+          }
+          : {}),
       },
       lifecycle: {
         routeContract: row.lifecycle_route_contract || "n/a",

@@ -312,6 +312,7 @@ function buildReceipt(negativeTest) {
       spaces: spaceReceipts,
       negativeGateTest: negativeTest,
       evidence: [
+        "runs/kps-lifecycle-route-proof/receipt.yaml",
         "runs/crd-ordering-gap/receipt.yaml",
         "runs/hook-execution-proof/receipt.yaml",
         "runs/oci-hook-delivery-proof/receipt.yaml",
@@ -320,9 +321,10 @@ function buildReceipt(negativeTest) {
     },
     status: {
       result: "partial",
-      claim: "The live demo org stores the Kube Prometheus Stack route plan and the proven hook fixture under one policy. The policy blocked an unsupported automatic route from being applied.",
+      claim: "The live demo org stores the Kube Prometheus Stack route plan, seven passing direct fresh-install implementations, and the proven hook fixture under one policy. The policy blocked an unsupported automatic route from being applied.",
       limits: [
-        "The Kube Prometheus Stack route Units remain automatic: false.",
+        "The top-level Kube Prometheus Stack route Units remain automatic: false because the chart-specific Argo CD, Flux, and upgrade implementations have not run.",
+        "The seven passing Kube Prometheus Stack implementations apply only to the direct fresh-install script and its receipt.",
         "The automatic hook claim applies only to the recorded fixture and its three delivery receipts.",
         "The policy checks route records; it does not prove that every chart has a complete route plan.",
       ],
