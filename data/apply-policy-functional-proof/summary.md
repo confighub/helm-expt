@@ -1,6 +1,8 @@
-# What the live catalog policy blocks
+# How the live catalog checks behave
 
-**UNOFFICIAL/EXPERIMENTAL.** This page is generated from a committed live receipt. Rerun the isolated fixtures with `npm run config-catalog:policy:run`; check the committed result without contacting ConfigHub with `npm run config-catalog:policy:verify`.
+This page comes from a committed live receipt. Rerun the isolated fixtures with
+`npm run config-catalog:policy:run`, or check the committed result without contacting
+ConfigHub with `npm run config-catalog:policy:verify`.
 
 The test created temporary configuration records in the live `helm-catalog` organization. It then asked ConfigHub to perform dry-run applies. No fixture configuration was sent to Kubernetes.
 
@@ -10,9 +12,10 @@ The test created temporary configuration records in the live `helm-catalog` orga
 | A Deployment whose replica count was text instead of a number | Blocked it |
 | A Deployment with an unpinned image and no health probes | Reported both warnings and allowed the dry run |
 | System configuration with no approval | Blocked it |
+| The same system configuration after its exact revision was approved | Allowed the dry run |
 | A lifecycle route claiming automatic work without evidence | Blocked it in the separately recorded Hooks and CRDs test |
 
-The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. This confirms that approval is added where it is needed without turning ordinary warnings into blockers.
+The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. Its first dry run was blocked. After the test approved that exact revision, the second dry run was allowed. This confirms that approval is added where it is needed without turning ordinary warnings into blockers or leaving an approved revision permanently blocked.
 
 All temporary Spaces were deleted. The target was used only to exercise ConfigHub's apply boundary with `--dry-run`; this did not test a Kubernetes rollout or application health.
 
