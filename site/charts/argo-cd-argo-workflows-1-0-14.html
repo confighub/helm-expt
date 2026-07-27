@@ -593,13 +593,13 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base minimal-crds --work-dir ./argo-cd-argo-workflows-1-0-14-minimal-crds --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/argo-cd-argo-workflows-1-0-14/minimal-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/argo-cd-argo-workflows-1-0-14/minimal-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>1 source hook(s); observed; live: yes; route: todo</dd>
-          <dt>Who runs actions?</dt><dd>not-yet-executable:1; automatic false until route execution has evidence</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook(s); observed; live: yes; route: yes</dd>
+          <dt>Who runs actions?</dt><dd>target-owned:1; automatic false until route execution has evidence</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
           <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for minimal-crds">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill yes" title="Lifecycle: yes"><b>Y</b><em>yes</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/argo-cd/argo-workflows/1.0.14/CATALOG.html">catalog</a> · <a href="../../recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml">variant</a> · <a href="../../recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml">render intent</a> · <a href="../../data/base-variant-records/records/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml">base record</a> · <a href="../../packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds">package base</a> · <a href="../../runs/argo-workflows-minimal-crds-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://argoproj.github.io/argo-helm" rel="noopener">source repo</a></p>
       </article></div>
@@ -722,7 +722,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
       <h4>controller-default-reviewed: needs 8 CRDs supplied first</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Prerequisite - supply the CRDs once (default base or your platform)</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>prerequisite - this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)</td></tr></tbody>
+        <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Prerequisite - apply the CRDs before the workloads</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>prerequisite - this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -732,7 +732,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/candidates.csv">data/hook-route-candidates/candidates.csv</a><br><strong>Next:</strong> choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base</p>
 <h4>default: needs 8 CRDs supplied first</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Prerequisite - supply the CRDs once (default base or your platform)</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>prerequisite - this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)</td></tr></tbody>
+        <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Prerequisite - apply the CRDs before the workloads</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>prerequisite - this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -742,14 +742,14 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/candidates.csv">data/hook-route-candidates/candidates.csv</a><br><strong>Next:</strong> choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base</p>
 <h4>minimal-crds</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>crd-install (preflight-or-presync-crd-apply)</td><td>Handled - this base installs the CRDs</td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td><td>resolved - this base installs the required CRDs (observed live)</td></tr></tbody>
+        <tbody><tr><td>crd-install (self-contained-crd-base)</td><td>Your applier - must apply CRDs before dependent objects</td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td><td>resolved - this base installs the required CRDs (observed live)</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
         th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
-      </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/candidates.csv">data/hook-route-candidates/candidates.csv</a><br><strong>Next:</strong> choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base</p>
+      </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml">data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml</a><br><a href="../../data/hook-route-candidates/argo-cd-argo-workflows.yaml">data/hook-route-candidates/argo-cd-argo-workflows.yaml</a><br><a href="../../recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml">recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml</a><br><a href="../../recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml">recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml</a><br><a href="../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml">runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml</a><br><a href="../../runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml">runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml</a><br><a href="../../runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml">runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml</a><br><a href="../../runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml">runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml</a></p>
     </section>
 
     <section aria-labelledby="production">

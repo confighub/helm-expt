@@ -63,6 +63,7 @@ lifecycle-routes disposition (+ live status) → action disposition:
 | `target-class-preflight-and-upgrade-action` | `preflight` | `run-preflight` |
 | `preflight-or-presync-crd-apply` | `pre-apply` | `install-crd` |
 | `preserve-ordering` | `pre-apply` | `preserve-ordering` |
+| `self-contained-crd-base` | `pre-apply` | `preserve-ordering` |
 | `upgrade-action-with-receipt` | `pre-apply` | `run-job` |
 | `explicit-managed-action` | `post-apply` | `run-job` |
 | `argocd-or-flux-lifecycle-hook` | `post-apply` | `gitops-sync-hook` |

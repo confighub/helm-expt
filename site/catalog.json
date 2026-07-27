@@ -450,8 +450,8 @@
     {
       "section": "proof lanes",
       "metric": "explicit lifecycle observation rows",
-      "value": "12",
-      "total": "12",
+      "value": "13",
+      "total": "13",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
@@ -19913,6 +19913,10 @@
       "default_route": "preflight-or-presync-crd-apply",
       "alternatives": [
         {
+          "route": "self-contained-crd-base",
+          "requirement": "a preset config that renders the required CRDs as ordinary objects before the workloads"
+        },
+        {
           "route": "target-owned-crds",
           "requirement": "the cluster or an operator owns CRD install and upgrade out of band"
         },
@@ -19932,6 +19936,38 @@
       "live_status": "candidate-route-plan",
       "safe_as_automatic": false,
       "evidence_or_next_action": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base | data/hook-route-candidates/candidates.csv"
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "version": "1.0.14",
+      "base_or_variant": "minimal-crds",
+      "quirk_class": "crd-install",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "self-contained-crd-base",
+      "default_route": "self-contained-crd-base",
+      "alternatives": [
+        {
+          "route": "target-owned-crds",
+          "requirement": "the cluster or an operator owns CRD install and upgrade out of band"
+        },
+        {
+          "route": "refuse",
+          "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
+        }
+      ],
+      "route_requirements": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+      "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml;runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml;runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml;runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
     },
     {
       "chart": "bitnami/kafka",
@@ -20667,7 +20703,7 @@
     }
   ],
   "lifecycleRouteActionSummary": {
-    "total": 25,
+    "total": 26,
     "automatic": 0
   },
   "helmRenderIntents": [
@@ -21002,7 +21038,7 @@
       "live_dual_parity": "yes",
       "two_cluster_kind": "yes",
       "variant_promotion": "proven",
-      "lifecycle_route_contract": "todo",
+      "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "1",
       "gitops_route_count": "1",
       "declared_target_fact_count": "0",
@@ -29617,10 +29653,10 @@
               "execution_mode": "not-yet-executable",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
+              "whoRuns": "Prerequisite - apply the CRDs before the workloads",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)",
+              "reason": "this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform",
               "sourceVersion": "1.0.14",
               "evidence": "data/hook-route-candidates/candidates.csv",
               "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
@@ -29642,10 +29678,10 @@
               "execution_mode": "not-yet-executable",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Prerequisite - supply the CRDs once (default base or your platform)",
+              "whoRuns": "Prerequisite - apply the CRDs before the workloads",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - supply them before deploy (e.g. via the default base or your platform)",
+              "reason": "this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform",
               "sourceVersion": "1.0.14",
               "evidence": "data/hook-route-candidates/candidates.csv",
               "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
@@ -29660,21 +29696,21 @@
           "requiredCrdCount": 0,
           "routes": [
             {
-              "route_name": "preflight-or-presync-crd-apply",
+              "route_name": "self-contained-crd-base",
               "quirk_class": "crd-install",
               "lifecycle_phase": "pre-apply",
-              "action_kind": "install-crd",
-              "execution_mode": "not-yet-executable",
+              "action_kind": "preserve-ordering",
+              "execution_mode": "target-owned",
               "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Handled - this base installs the CRDs",
-              "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+              "whoRuns": "Your applier - must apply CRDs before dependent objects",
+              "command": "",
               "delta": "resolved",
               "reason": "this base installs the required CRDs (observed live)",
               "sourceVersion": "1.0.14",
-              "evidence": "data/hook-route-candidates/candidates.csv",
-              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
-              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "evidence": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml;runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml;runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml;runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
             }
           ]
@@ -30814,13 +30850,13 @@
           "recipeVersion": "1.0.14",
           "routes": [
             {
-              "route_name": "preflight-or-presync-crd-apply",
-              "action_kind": "install-crd",
+              "route_name": "self-contained-crd-base",
+              "action_kind": "preserve-ordering",
               "quirk_class": "crd-install",
-              "emit": true,
-              "argo": "PreSync · sync-wave -2 · ServerSideApply",
-              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
-              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+              "emit": false,
+              "argo": "no extra hook - keep CRDs before dependent objects",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
+              "snippet": ""
             }
           ]
         }
@@ -31053,7 +31089,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31113,7 +31149,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31179,7 +31215,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31248,7 +31284,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31317,7 +31353,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31386,7 +31422,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook - keep CRDs before dependent objects",
-              "flux": "no extra hook - use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook - make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -31413,10 +31449,10 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 961,
+    "pass": 962,
     "watch": 116,
     "blocked": 124,
-    "todo": 87,
+    "todo": 86,
     "na": 1484,
     "blank": 0,
     "total": 2772
@@ -39542,10 +39578,10 @@
       "hook_disposition": "observed",
       "hook_evidence_version": "",
       "hook_live_status": "yes",
-      "lifecycle_route_contract": "todo",
+      "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "1",
-      "lifecycle_route_dispositions": "todo:1",
-      "lifecycle_route_execution_modes": "not-yet-executable:1",
+      "lifecycle_route_dispositions": "observed:1",
+      "lifecycle_route_execution_modes": "target-owned:1",
       "lifecycle_route_safe_automatic": "0/1",
       "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
@@ -39553,7 +39589,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
-      "lane_lifecycle_observed": "todo",
+      "lane_lifecycle_observed": "yes",
       "lane_gitops_oci_live": "yes",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
@@ -39582,11 +39618,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-workflows/1.0.14",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds",
-      "completion_action": "run",
-      "completion_action_summary": "run:1",
-      "completion_action_families": "CCP-09:lifecycle-route",
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1"
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "source",

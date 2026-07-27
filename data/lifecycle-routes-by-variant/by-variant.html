@@ -41,8 +41,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip amber">Prerequisite — supply the CRDs once (default base or your platform)</span></td>
-          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)</div></td>
+          <td><span class="chip amber">Prerequisite — apply the CRDs before the workloads</span></td>
+          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform</div></td>
         </tr>
           </tbody>
         </table>
@@ -54,8 +54,8 @@
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip amber">Prerequisite — supply the CRDs once (default base or your platform)</span></td>
-          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)</div></td>
+          <td><span class="chip amber">Prerequisite — apply the CRDs before the workloads</span></td>
+          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform</div></td>
         </tr>
           </tbody>
         </table>
@@ -66,8 +66,8 @@
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
-          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip green">Handled — this base installs the CRDs</span></td>
+          <td>crd-install <span class="rt">self-contained-crd-base</span></td>
+          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
           <td><span class="chip green">resolved</span><div class="reason">this base installs the required CRDs (observed live)</div></td>
         </tr>
           </tbody>

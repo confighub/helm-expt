@@ -13,7 +13,7 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 690,
+  "nonGreenCellsCovered": 689,
   "familyCount": 20,
   "byActionType": {
     "run-promotion": 396,
@@ -21,10 +21,10 @@
     "refresh-image": 74,
     "stage-prereq": 60,
     "fix-model": 27,
-    "lifecycle-observe": 8
+    "lifecycle-observe": 7
   },
   "byOwnerLane": {
-    "Codex-live": 404,
+    "Codex-live": 403,
     "product-decision": 156,
     "Claude-non-live": 130
   },
@@ -89,7 +89,7 @@
       "action_id": "CCP-09",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
-      "affected_cell_count": 8,
+      "affected_cell_count": 7,
       "owner_lane": "Codex-live"
     },
     {
@@ -905,7 +905,7 @@
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 8,
+      "affected_cell_count": 7,
       "lanes": [
         "L",
         "lifecycle"
@@ -919,7 +919,6 @@
       "affected_rows": [
         "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [lifecycle]",
         "argo-cd/argo-workflows@1.0.14/default [lifecycle]",
-        "argo-cd/argo-workflows@1.0.14/minimal-crds [lifecycle]",
         "fluent/fluent-bit@0.57.6/default [lifecycle]",
         "kyverno/kyverno@3.8.1/default [lifecycle]",
         "kyverno/kyverno@3.8.1/no-crds [lifecycle]",

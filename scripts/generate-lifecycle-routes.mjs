@@ -12,6 +12,7 @@
 //   - data/hook-disposition/top100-hook-dispositions.csv  (authoritative dispositions)
 //   - data/hook-route-candidates/candidates.csv           (candidate route plans)
 //   - data/hook-lifecycle-review/top100-source-hook-route-review.csv (review context)
+//   - data/hook-route-candidates/selected-routes/*.yaml   (observed exact-base routes)
 //
 // and emits data/lifecycle-routes/{routes.csv,routes.json,summary.md,contract.md}.
 //
@@ -20,10 +21,10 @@
 // byte-compares, so it is stable across days. This script never executes a
 // hook, mutates ConfigHub, or edits runs/ receipts.
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -31,6 +32,7 @@ const SOURCES = {
   dispositions: "data/hook-disposition/top100-hook-dispositions.csv",
   candidates: "data/hook-route-candidates/candidates.csv",
   review: "data/hook-lifecycle-review/top100-source-hook-route-review.csv",
+  selectedRoutes: "data/hook-route-candidates/selected-routes",
 };
 
 const outDir = join(repoRoot, "data", "lifecycle-routes");
@@ -62,6 +64,7 @@ const SOURCE_DISPOSITION_MAP = {
   "recipe-needed": "todo",
   "candidate-route": "routed",
   "candidate-route-plan": "todo",
+  "selected-route-receipt": "observed",
 };
 
 // route_name -> quirk class.
@@ -80,6 +83,7 @@ const ROUTE_QUIRK_CLASS = {
   "preserve-ordering": "hook-weight-ordering",
   "preserve-cleanup-policy": "hook-delete-policy",
   "delete-cleanup-policy": "hook-delete-policy",
+  "self-contained-crd-base": "crd-install",
 };
 
 // route_name -> base execution mode (before todo/blocked overrides). Never
@@ -99,6 +103,7 @@ const ROUTE_EXECUTION_MODE = {
   "preserve-ordering": "target-owned",
   "preserve-cleanup-policy": "target-owned",
   "delete-cleanup-policy": "target-owned",
+  "self-contained-crd-base": "target-owned",
 };
 
 // quirk class -> named alternative routes (off-ramps) and what each needs.
@@ -111,6 +116,7 @@ const QUIRK_ALTERNATIVES = {
     { route: "refuse", requirement: "accept that the catalog will not run this automatically and do it manually" },
   ],
   "crd-install": [
+    { route: "self-contained-crd-base", requirement: "a preset config that renders the required CRDs as ordinary objects before the workloads" },
     { route: "target-owned-crds", requirement: "the cluster or an operator owns CRD install and upgrade out of band" },
     { route: "refuse", requirement: "use a no-crds base and install/upgrade the CRDs yourself" },
   ],
@@ -187,6 +193,32 @@ function readCsvObjects(relPath) {
   return rows.slice(1).map((cells) => Object.fromEntries(headers.map((h, idx) => [h, cells[idx] ?? ""])));
 }
 
+function readSelectedRouteReceipts() {
+  const relDir = SOURCES.selectedRoutes;
+  const absDir = join(repoRoot, relDir);
+  if (!existsSync(absDir)) return [];
+  return readdirSync(absDir)
+    .filter((name) => name.endsWith(".yaml"))
+    .sort()
+    .map((name) => {
+      const path = `${relDir}/${name}`;
+      const doc = readYaml(join(repoRoot, path));
+      const spec = doc.spec ?? {};
+      check(spec.chart, `${path} is missing spec.chart`);
+      check(spec.version, `${path} is missing spec.version`);
+      check(spec.base, `${path} is missing spec.base`);
+      check(spec.result === "observed", `${path} must be observed before it enters the lifecycle route contract`);
+      check(spec.execution?.runtimeObserved === true, `${path} must record runtimeObserved: true`);
+      const phases = spec.route?.phases ?? [];
+      check(phases.length > 0, `${path} has no selected route phase`);
+      const evidence = [path, ...(spec.evidence ?? []).map((entry) => entry.path).filter(Boolean)];
+      for (const evidencePath of evidence) {
+        check(evidencePath.startsWith("http") || existsSync(join(repoRoot, evidencePath)), `${path} references missing evidence ${evidencePath}`);
+      }
+      return { path, spec, phases, evidence };
+    });
+}
+
 function csvCell(value) {
   const text = value === undefined || value === null ? "" : String(value);
   if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
@@ -251,6 +283,7 @@ function buildRows() {
   const dispositions = readCsvObjects(SOURCES.dispositions);
   const candidates = readCsvObjects(SOURCES.candidates);
   const review = readCsvObjects(SOURCES.review);
+  const selectedRoutes = readSelectedRouteReceipts();
 
   const reviewByChart = new Map(review.map((r) => [r.chart, r]));
   const candidatesByChart = new Map(candidates.map((r) => [r.chart, r]));
@@ -302,15 +335,38 @@ function buildRows() {
     }));
   }
 
+  // 3) Selected, observed routes override the chart-level plan for one exact
+  // base. Other bases keep the chart-level candidate until they have their own
+  // selected receipt.
+  for (const selected of selectedRoutes) {
+    for (const phase of selected.phases) {
+      const routeName = String(phase.action ?? "").trim();
+      check(routeName, `${selected.path} has a route phase without an action`);
+      rows.push(makeRow({
+        chart: selected.spec.chart,
+        version: String(selected.spec.version),
+        baseOrVariant: selected.spec.base,
+        hookPhases: (phase.hookTypes ?? []).join(", "),
+        sourceDisposition: "selected-route-receipt",
+        disposition: "observed",
+        routeName,
+        qualifier: "",
+        liveStatus: "observed",
+        requirements: joinNonEmpty([selected.spec.route?.summary, phase.reason], " "),
+        evidenceOrNextAction: selected.evidence.join(";"),
+      }));
+    }
+  }
+
   rows.sort((a, b) =>
-    `${a.chart}|${a.version}|${a.quirk_class}|${a.route_name}`.localeCompare(
-      `${b.chart}|${b.version}|${b.quirk_class}|${b.route_name}`,
+    `${a.chart}|${a.version}|${a.base_or_variant}|${a.quirk_class}|${a.route_name}`.localeCompare(
+      `${b.chart}|${b.version}|${b.base_or_variant}|${b.quirk_class}|${b.route_name}`,
     ),
   );
   return rows;
 }
 
-function makeRow({ chart, version, hookPhases, sourceDisposition, disposition, routeName, qualifier, liveStatus, requirements, evidenceOrNextAction }) {
+function makeRow({ chart, version, baseOrVariant = "", hookPhases, sourceDisposition, disposition, routeName, qualifier, liveStatus, requirements, evidenceOrNextAction }) {
   const quirkClass = quirkClassFor(routeName);
   const executionMode = executionModeFor(routeName, disposition, liveStatus);
   const alternatives = alternativesFor(quirkClass, routeName);
@@ -319,7 +375,7 @@ function makeRow({ chart, version, hookPhases, sourceDisposition, disposition, r
   return {
     chart,
     version,
-    base_or_variant: "",
+    base_or_variant: baseOrVariant,
     quirk_class: quirkClass,
     hook_phases: (hookPhases ?? "").trim(),
     source_disposition: sourceDisposition,
@@ -450,10 +506,10 @@ function buildSummary(rows) {
   const charts = new Set(rows.map((r) => `${r.chart}@${r.version}`));
   const autoYes = rows.filter((r) => r.safe_as_automatic === "yes").length;
   const rowTable = [
-    "| Chart | Quirk | Route | Disposition | Execution | Auto |",
-    "| --- | --- | --- | --- | --- | --- |",
+    "| Chart | Base | Quirk | Route | Disposition | Execution | Auto |",
+    "| --- | --- | --- | --- | --- | --- | --- |",
     ...rows.map((r) =>
-      `| ${r.chart}@${r.version} | ${r.quirk_class} | \`${r.route_name}\` | ${r.disposition} | ${r.execution_mode} | ${r.safe_as_automatic} |`,
+      `| ${r.chart}@${r.version} | ${r.base_or_variant || "chart fallback"} | ${r.quirk_class} | \`${r.route_name}\` | ${r.disposition} | ${r.execution_mode} | ${r.safe_as_automatic} |`,
     ),
   ].join("\n");
 
@@ -486,6 +542,7 @@ joined from:
 - [${SOURCES.dispositions}](../hook-disposition/summary.md)
 - [${SOURCES.candidates}](../hook-route-candidates/summary.md)
 - [${SOURCES.review}](../hook-lifecycle-review/summary.md)
+- \`${SOURCES.selectedRoutes}/*.yaml\`
 
 It starts with hooks and existing routed hook candidates, and reaches the
 adjacent Tier-1 lifecycle quirks those rows already touch (\`crd-install\`,
@@ -537,7 +594,7 @@ ${rowTable}
 
 ## Boundaries
 
-- Static join of committed source CSVs only. No hook is executed, no cluster is
+- Static join of committed CSVs and selected-route YAML receipts. No hook is executed, no cluster is
   touched, no ConfigHub state is changed, no \`runs/\` receipt is edited.
 - A \`routed\` or \`todo\` row is a classification, not a proof. \`observed\` rows
   point at the committed receipt in \`evidence_or_next_action\`.
@@ -573,7 +630,7 @@ evidence or next action, and whether it is safe to show as automatic.
 | Column | Meaning |
 | --- | --- |
 | \`chart\` / \`version\` | Source chart and version. |
-| \`base_or_variant\` | Specific base if the route is base-scoped; empty means chart-level for this first contract. |
+| \`base_or_variant\` | Specific base when a selected receipt proves an exact route; empty means the chart-level route used by bases without an exact receipt. |
 | \`quirk_class\` | The behavior class, derived from \`route_name\` (see table). |
 | \`hook_phases\` | Helm hook phases recorded by the source scan. |
 | \`source_disposition\` | The raw disposition word from the source data, kept for traceability. |

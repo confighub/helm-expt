@@ -81,6 +81,7 @@ const ROUTE_PHASE = {
   "target-class-preflight-and-upgrade-action": "preflight",
   "preflight-or-presync-crd-apply": "pre-apply",
   "preserve-ordering": "pre-apply",
+  "self-contained-crd-base": "pre-apply",
   "upgrade-action-with-receipt": "pre-apply",
   "explicit-managed-action": "post-apply",
   "argocd-or-flux-lifecycle-hook": "post-apply",
@@ -98,6 +99,7 @@ const ROUTE_ACTION_KIND = {
   "target-class-preflight-and-upgrade-action": "run-preflight",
   "preflight-or-presync-crd-apply": "install-crd",
   "preserve-ordering": "preserve-ordering",
+  "self-contained-crd-base": "preserve-ordering",
   "upgrade-action-with-receipt": "run-job",
   "explicit-managed-action": "run-job",
   "argocd-or-flux-lifecycle-hook": "gitops-sync-hook",
@@ -283,8 +285,8 @@ function buildPackets() {
     };
   });
   packets.sort((a, b) =>
-    `${a.chart}|${a.version}|${a.quirk_class}|${a.route_name}`.localeCompare(
-      `${b.chart}|${b.version}|${b.quirk_class}|${b.route_name}`,
+    `${a.chart}|${a.version}|${a.base}|${a.quirk_class}|${a.route_name}`.localeCompare(
+      `${b.chart}|${b.version}|${b.base}|${b.quirk_class}|${b.route_name}`,
     ),
   );
   return packets;

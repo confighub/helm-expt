@@ -435,7 +435,7 @@
 <p>For every hook or hook-like lifecycle behavior, make machine-readable: the route, who executes it, the default, the named alternatives and their requirements, whether a human and an agent can pick an alternative, the evidence or next action, and whether it is safe to show as automatic.</p>
 <h2 id="columns">Columns</h2>
 <table><thead><tr><th>Column</th><th>Meaning</th></tr></thead><tbody><tr><td><code>chart</code> / <code>version</code></td><td>Source chart and version.</td></tr>
-<tr><td><code>base_or_variant</code></td><td>Specific base if the route is base-scoped; empty means chart-level for this first contract.</td></tr>
+<tr><td><code>base_or_variant</code></td><td>Specific base when a selected receipt proves an exact route; empty means the chart-level route used by bases without an exact receipt.</td></tr>
 <tr><td><code>quirk_class</code></td><td>The behavior class, derived from <code>route_name</code> (see table).</td></tr>
 <tr><td><code>hook_phases</code></td><td>Helm hook phases recorded by the source scan.</td></tr>
 <tr><td><code>source_disposition</code></td><td>The raw disposition word from the source data, kept for traceability.</td></tr>
@@ -460,7 +460,8 @@
 <tr><td><code>refused</code></td><td><code>refused</code></td></tr>
 <tr><td><code>recipe-needed</code></td><td><code>todo</code></td></tr>
 <tr><td><code>candidate-route</code></td><td><code>routed</code></td></tr>
-<tr><td><code>candidate-route-plan</code></td><td><code>todo</code></td></tr></tbody></table>
+<tr><td><code>candidate-route-plan</code></td><td><code>todo</code></td></tr>
+<tr><td><code>selected-route-receipt</code></td><td><code>observed</code></td></tr></tbody></table>
 <h2 id="route-quirk-class">Route → Quirk Class</h2>
 <table><thead><tr><th>route_name</th><th>quirk_class</th></tr></thead><tbody><tr><td><code>preflight-or-presync</code></td><td><code>hook-phase</code></td></tr>
 <tr><td><code>preflight-or-presync-crd-apply</code></td><td><code>crd-install</code></td></tr>
@@ -475,7 +476,8 @@
 <tr><td><code>target-facts-or-preflight</code></td><td><code>target-facts</code></td></tr>
 <tr><td><code>preserve-ordering</code></td><td><code>hook-weight-ordering</code></td></tr>
 <tr><td><code>preserve-cleanup-policy</code></td><td><code>hook-delete-policy</code></td></tr>
-<tr><td><code>delete-cleanup-policy</code></td><td><code>hook-delete-policy</code></td></tr></tbody></table>
+<tr><td><code>delete-cleanup-policy</code></td><td><code>hook-delete-policy</code></td></tr>
+<tr><td><code>self-contained-crd-base</code></td><td><code>crd-install</code></td></tr></tbody></table>
 <h2 id="route-execution-mode-base">Route → Execution Mode (base)</h2>
 <p>Before the <code>todo</code>/<code>refused</code> override, which forces <code>not-yet-executable</code>. No route maps to <code>product-executes</code>.</p>
 <table><thead><tr><th>route_name</th><th>execution_mode</th></tr></thead><tbody><tr><td><code>preflight-or-presync</code></td><td><code>user-executes</code></td></tr>
@@ -491,12 +493,14 @@
 <tr><td><code>target-facts-or-preflight</code></td><td><code>user-executes</code></td></tr>
 <tr><td><code>preserve-ordering</code></td><td><code>target-owned</code></td></tr>
 <tr><td><code>preserve-cleanup-policy</code></td><td><code>target-owned</code></td></tr>
-<tr><td><code>delete-cleanup-policy</code></td><td><code>target-owned</code></td></tr></tbody></table>
+<tr><td><code>delete-cleanup-policy</code></td><td><code>target-owned</code></td></tr>
+<tr><td><code>self-contained-crd-base</code></td><td><code>target-owned</code></td></tr></tbody></table>
 <h2 id="quirk-class-alternatives-off-ramps">Quirk Class → Alternatives (off-ramps)</h2>
 <p>The off-ramp routes a user or agent can choose instead of the default, and what each needs. Grounded in <a href="../../docs/user/hook-lifecycle-strategy.html">../../docs/user/hook-lifecycle-strategy.md</a> and <a href="../../docs/planning/where-does-my-hook-go.html">../../docs/planning/where-does-my-hook-go.md</a>.</p>
 <table><thead><tr><th>quirk_class</th><th>alternative route</th><th>requirement</th></tr></thead><tbody><tr><td><code>hook-phase</code></td><td><code>argocd-or-flux-lifecycle-hook</code></td><td>a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves</td></tr>
 <tr><td><code>hook-phase</code></td><td><code>target-facts-or-preflight</code></td><td>the prerequisite supplied as a target fact or preflight before apply</td></tr>
 <tr><td><code>hook-phase</code></td><td><code>refuse</code></td><td>accept that the catalog will not run this automatically and do it manually</td></tr>
+<tr><td><code>crd-install</code></td><td><code>self-contained-crd-base</code></td><td>a preset config that renders the required CRDs as ordinary objects before the workloads</td></tr>
 <tr><td><code>crd-install</code></td><td><code>target-owned-crds</code></td><td>the cluster or an operator owns CRD install and upgrade out of band</td></tr>
 <tr><td><code>crd-install</code></td><td><code>refuse</code></td><td>use a no-crds base and install/upgrade the CRDs yourself</td></tr>
 <tr><td><code>hook-delete-policy</code></td><td><code>delete-on-uninstall</code></td><td>accept deletion of the hook-managed object on uninstall</td></tr>

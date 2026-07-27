@@ -38,28 +38,35 @@ spec:
   routing:
     routes:
       -
-        routeName: "preflight-or-presync-crd-apply"
+        routeName: "self-contained-crd-base"
         quirkClass: "crd-install"
         lifecyclePhase: "pre-apply"
-        actionKind: "install-crd"
-        executionMode: "not-yet-executable"
+        actionKind: "preserve-ordering"
+        executionMode: "target-owned"
         automatic: false
-        whoRuns: "Handled — this base installs the CRDs"
-        command: "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified"
+        whoRuns: "Your applier — must apply CRDs before dependent objects"
+        command: ""
         disposition: "observed"
         delta: "resolved"
         reason: "this base installs the required CRDs (observed live)"
         routeSourceVersion: "1.0.14"
         evidence:
-          - "data/hook-route-candidates/candidates.csv"
-        nextAction: "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base"
-        evidenceRequired: "resolve the named prerequisite/blocker, then capture a live receipt"
+          - "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml"
+          - "data/hook-route-candidates/argo-cd-argo-workflows.yaml"
+          - "recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml"
+          - "recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml"
+          - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+          - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+          - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+          - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
         gitOps:
-          emitsControllerStep: true
-          argoCd: "PreSync · sync-wave -2 · ServerSideApply"
-          flux: "HelmRelease .spec.install.crds=Create (or apply CRDs first)"
-          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+          emitsControllerStep: false
+          argoCd: "no extra hook — keep CRDs before dependent objects"
+          flux: "no extra hook — make sure CRDs are applied before workloads"
+          argoCdSnippet: ""
     targetFacts:
       status: "none-declared-or-observed"
       declared:
@@ -86,7 +93,7 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "yes"
-    lifecycleObserved: "todo"
+    lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "yes"

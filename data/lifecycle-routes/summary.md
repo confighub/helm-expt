@@ -21,12 +21,13 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-25 route rows across 13 chart/version lifecycle behaviors,
+26 route rows across 13 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
 - [data/hook-route-candidates/candidates.csv](../hook-route-candidates/summary.md)
 - [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../hook-lifecycle-review/summary.md)
+- `data/hook-route-candidates/selected-routes/*.yaml`
 
 It starts with hooks and existing routed hook candidates, and reaches the
 adjacent Tier-1 lifecycle quirks those rows already touch (`crd-install`,
@@ -36,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 25 rows are safe to show as automatic.
+0 of 26 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -50,7 +51,7 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 15 |
+| `observed` | 16 |
 | `routed` | 5 |
 | `todo` | 4 |
 | `per-target` | 1 |
@@ -58,17 +59,17 @@ it.
 | Execution mode | Rows |
 | --- | ---: |
 | `user-executes` | 11 |
+| `target-owned` | 8 |
 | `not-yet-executable` | 7 |
-| `target-owned` | 7 |
 
 | Quirk class | Rows |
 | --- | ---: |
 | `hook-phase` | 12 |
 | `hook-delete-policy` | 4 |
+| `crd-install` | 2 |
 | `hook-test` | 2 |
 | `hook-weight-ordering` | 2 |
 | `target-facts` | 2 |
-| `crd-install` | 1 |
 | `per-target-hook` | 1 |
 | `webhook-readiness` | 1 |
 
@@ -92,37 +93,38 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 
 ## Rows
 
-| Chart | Quirk | Route | Disposition | Execution | Auto |
-| --- | --- | --- | --- | --- | --- |
-| airflow-helm/airflow@8.9.0 | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
-| apache-airflow/airflow@1.21.0 | hook-phase | `recipe-time-lifecycle-verification` | todo | not-yet-executable | no |
-| argo-cd/argo-workflows@1.0.14 | crd-install | `preflight-or-presync-crd-apply` | todo | not-yet-executable | no |
-| bitnami/kafka@32.4.3 | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
-| bitnami/minio@17.0.21 | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
-| bitnami/thanos@17.3.1 | hook-phase | `explicit-managed-action` | todo | not-yet-executable | no |
-| datadog/datadog@3.214.0 | per-target-hook | `target-class-preflight-and-upgrade-action` | per-target | user-executes | no |
-| fluent/fluent-bit@0.57.6 | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
-| fluent/fluent-bit@0.57.6 | hook-test | `explicit-test-check` | observed | user-executes | no |
-| gitlab/gitlab@10.0.0 | hook-phase | `argocd-or-flux-lifecycle-hook` | todo | not-yet-executable | no |
-| k8s-dashboard/kubernetes-dashboard@7.14.0 | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
-| kong/kong@3.2.0 | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
-| kyverno/kyverno@3.8.1 | hook-delete-policy | `delete-cleanup-policy` | observed | target-owned | no |
-| kyverno/kyverno@3.8.1 | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
-| kyverno/kyverno@3.8.1 | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
-| kyverno/kyverno@3.8.1 | hook-test | `explicit-test-check` | observed | user-executes | no |
-| kyverno/kyverno@3.8.1 | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
-| kyverno/kyverno@3.8.1 | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
+| Chart | Base | Quirk | Route | Disposition | Execution | Auto |
+| --- | --- | --- | --- | --- | --- | --- |
+| airflow-helm/airflow@8.9.0 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
+| apache-airflow/airflow@1.21.0 | chart fallback | hook-phase | `recipe-time-lifecycle-verification` | todo | not-yet-executable | no |
+| argo-cd/argo-workflows@1.0.14 | chart fallback | crd-install | `preflight-or-presync-crd-apply` | todo | not-yet-executable | no |
+| argo-cd/argo-workflows@1.0.14 | minimal-crds | crd-install | `self-contained-crd-base` | observed | target-owned | no |
+| bitnami/kafka@32.4.3 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
+| bitnami/minio@17.0.21 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
+| bitnami/thanos@17.3.1 | chart fallback | hook-phase | `explicit-managed-action` | todo | not-yet-executable | no |
+| datadog/datadog@3.214.0 | chart fallback | per-target-hook | `target-class-preflight-and-upgrade-action` | per-target | user-executes | no |
+| fluent/fluent-bit@0.57.6 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
+| fluent/fluent-bit@0.57.6 | chart fallback | hook-test | `explicit-test-check` | observed | user-executes | no |
+| gitlab/gitlab@10.0.0 | chart fallback | hook-phase | `argocd-or-flux-lifecycle-hook` | todo | not-yet-executable | no |
+| k8s-dashboard/kubernetes-dashboard@7.14.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
+| kong/kong@3.2.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
+| kyverno/kyverno@3.8.1 | chart fallback | hook-delete-policy | `delete-cleanup-policy` | observed | target-owned | no |
+| kyverno/kyverno@3.8.1 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
+| kyverno/kyverno@3.8.1 | chart fallback | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| kyverno/kyverno@3.8.1 | chart fallback | hook-test | `explicit-test-check` | observed | user-executes | no |
+| kyverno/kyverno@3.8.1 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
+| kyverno/kyverno@3.8.1 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
 
 ## Boundaries
 
-- Static join of committed source CSVs only. No hook is executed, no cluster is
+- Static join of committed CSVs and selected-route YAML receipts. No hook is executed, no cluster is
   touched, no ConfigHub state is changed, no `runs/` receipt is edited.
 - A `routed` or `todo` row is a classification, not a proof. `observed` rows
   point at the committed receipt in `evidence_or_next_action`.
