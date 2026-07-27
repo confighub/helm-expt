@@ -61,11 +61,11 @@ spec:
         actionKind: "install-crd"
         executionMode: "not-yet-executable"
         automatic: false
-        whoRuns: "Prerequisite — supply the CRDs once (default base or your platform)"
+        whoRuns: "Prerequisite — apply the CRDs before the workloads"
         command: "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified"
         disposition: "routed"
         delta: "prerequisite"
-        reason: "this base does not install the 8 CRDs — supply them before deploy (e.g. via the default base or your platform)"
+        reason: "this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform"
         routeSourceVersion: "1.0.14"
         evidence:
           - "data/hook-route-candidates/candidates.csv"

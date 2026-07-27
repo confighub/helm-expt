@@ -3,7 +3,7 @@ airflow-helm/airflow,,(chart-level),explicit-managed-action,run-job,yes,PostSync
 apache-airflow/airflow,,(chart-level),recipe-time-lifecycle-verification,verify-render,yes,PostSync,post-apply Job / follow-on Kustomization
 argo-cd/argo-workflows,1.0.14,controller-default-reviewed,preflight-or-presync-crd-apply,install-crd,yes,PreSync · sync-wave -2 · ServerSideApply,HelmRelease .spec.install.crds=Create (or apply CRDs first)
 argo-cd/argo-workflows,1.0.14,default,preflight-or-presync-crd-apply,install-crd,yes,PreSync · sync-wave -2 · ServerSideApply,HelmRelease .spec.install.crds=Create (or apply CRDs first)
-argo-cd/argo-workflows,1.0.14,minimal-crds,preflight-or-presync-crd-apply,install-crd,yes,PreSync · sync-wave -2 · ServerSideApply,HelmRelease .spec.install.crds=Create (or apply CRDs first)
+argo-cd/argo-workflows,1.0.14,minimal-crds,self-contained-crd-base,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 bitnami/kafka,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
 bitnami/minio,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
 bitnami/thanos,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
@@ -17,39 +17,39 @@ kyverno/kyverno,3.8.1,default,delete-cleanup-policy,accept-target-policy,no,none
 kyverno/kyverno,3.8.1,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 kyverno/kyverno,3.8.1,default,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 kyverno/kyverno,3.8.1,default,explicit-test-check,run-test,yes,PostSync test Job (Argo has no native helm test),HelmRelease .spec.test.enable=true
-kyverno/kyverno,3.8.1,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+kyverno/kyverno,3.8.1,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 kyverno/kyverno,3.8.1,default,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 kyverno/kyverno,3.8.1,no-crds,delete-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 kyverno/kyverno,3.8.1,no-crds,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 kyverno/kyverno,3.8.1,no-crds,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 kyverno/kyverno,3.8.1,no-crds,explicit-test-check,run-test,yes,PostSync test Job (Argo has no native helm test),HelmRelease .spec.test.enable=true
-kyverno/kyverno,3.8.1,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+kyverno/kyverno,3.8.1,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 kyverno/kyverno,3.8.1,no-crds,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 prometheus-community/kube-prometheus-stack,85.3.3,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 prometheus-community/kube-prometheus-stack,85.3.3,default,postsync-check-or-observation,run-check,yes,PostSync,post-apply Job / follow-on Kustomization
 prometheus-community/kube-prometheus-stack,85.3.3,default,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 prometheus-community/kube-prometheus-stack,85.3.3,default,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
-prometheus-community/kube-prometheus-stack,85.3.3,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+prometheus-community/kube-prometheus-stack,85.3.3,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 prometheus-community/kube-prometheus-stack,85.3.3,default,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 prometheus-community/kube-prometheus-stack,85.3.3,default,webhook-readiness-observation,observe-webhook,no,observe webhook and workload health after sync,use post-apply health checks; stage any declared certificate first
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,postsync-check-or-observation,run-check,yes,PostSync,post-apply Job / follow-on Kustomization
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
-prometheus-community/kube-prometheus-stack,85.3.3,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+prometheus-community/kube-prometheus-stack,85.3.3,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 prometheus-community/kube-prometheus-stack,85.3.3,no-crds,webhook-readiness-observation,observe-webhook,no,observe webhook and workload health after sync,use post-apply health checks; stage any declared certificate first
 prometheus-community/kube-prometheus-stack,86.1.0,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 prometheus-community/kube-prometheus-stack,86.1.0,default,postsync-check-or-observation,run-check,yes,PostSync,post-apply Job / follow-on Kustomization
 prometheus-community/kube-prometheus-stack,86.1.0,default,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 prometheus-community/kube-prometheus-stack,86.1.0,default,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
-prometheus-community/kube-prometheus-stack,86.1.0,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+prometheus-community/kube-prometheus-stack,86.1.0,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 prometheus-community/kube-prometheus-stack,86.1.0,default,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 prometheus-community/kube-prometheus-stack,86.1.0,default,webhook-readiness-observation,observe-webhook,no,observe webhook and workload health after sync,use post-apply health checks; stage any declared certificate first
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,postsync-check-or-observation,run-check,yes,PostSync,post-apply Job / follow-on Kustomization
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
-prometheus-community/kube-prometheus-stack,86.1.0,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy
+prometheus-community/kube-prometheus-stack,86.1.0,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
 prometheus-community/kube-prometheus-stack,86.1.0,no-crds,webhook-readiness-observation,observe-webhook,no,observe webhook and workload health after sync,use post-apply health checks; stage any declared certificate first

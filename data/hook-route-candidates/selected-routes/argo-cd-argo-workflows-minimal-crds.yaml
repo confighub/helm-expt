@@ -8,7 +8,7 @@ spec:
   base: minimal-crds
   result: observed
   selectedAt: "2026-06-13"
-  observedAt: "2026-06-12T16:51:15.443Z"
+  observedAt: "2026-06-13T15:54:46Z"
   route:
     summary: The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false.
     phases:
@@ -26,18 +26,31 @@ spec:
       claim: Local kind observation applied the rendered objects, established 8 CRDs, and converged the controller and server Deployments.
     - path: runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml
       claim: ConfigHub proof uploaded the minimal-CRDs base as visible Units and exercised the server-side variant clone path.
+    - path: runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+      claim: ConfigHub OCI delivery through Argo CD reached Synced and Healthy with the eight CRDs stored and applied as ordinary objects.
+    - path: runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+      claim: Separate vanilla kind clusters proved Helm and cub installer both converged, with no missing objects or semantic differences.
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: true
     observedRoute:
-      route: self-contained-minimal-crds-base
+      route: self-contained-crd-base
       result: pass
-      receipt: runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml
+      receipts:
+        - runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml
+        - runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+        - runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+      renderedCRDs: 8
+      convergedWorkloads: 2
+      argoSync: Synced
+      argoHealth: Healthy
+      semanticParity: pass
     notes:
       - This receipt applies only to the minimal-crds base.
       - The upstream full-CRD pre-install hook is not executed by Helm in this route.
+      - Argo CD and kubectl applied the rendered CRDs as ordinary objects before the dependent workloads; no replacement hook is needed for this base.
       - The default and controller-default-reviewed bases still require full CRDs as target prerequisites.
       - Minimal CRDs are not a proof of full CRD upgrade safety.
   remainingWork:
     - Prove a full-CRD target-prerequisite route if a user needs the upstream full OpenAPI CRD schemas.
-    - Add ConfigHub OCI/Argo live parity for this base before treating it as complete core-lane evidence.
+    - Refresh these receipts when the chart, preset config, package, or supported target changes.

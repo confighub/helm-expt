@@ -31,7 +31,7 @@ spec:
     argoCd: "no extra hook — keep CRDs before dependent objects"
     argoCdSnippet: ""
     emitsControllerStep: false
-    flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy"
+    flux: "no extra hook — make sure CRDs are applied before workloads"
   origin:
     type: "helm-render-intent"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"

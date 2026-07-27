@@ -440,7 +440,7 @@ spec:
         gitOps:
           emitsControllerStep: false
           argoCd: "no extra hook — keep CRDs before dependent objects"
-          flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy"
+          flux: "no extra hook — make sure CRDs are applied before workloads"
           argoCdSnippet: ""
       -
         routeName: "target-facts-or-preflight"

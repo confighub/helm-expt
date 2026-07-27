@@ -46,12 +46,12 @@ from a different chart version's disposition row.
 | Matrix rows | 396 |
 | F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 74 / 13 |
 | Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 961 / 116 / 124 / 87 / 1484 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 962 / 116 / 124 / 86 / 1484 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 25 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 1 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 1 / 2 / 197 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 7 / 0 / 3 / 386 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 8 / 0 / 2 / 386 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 83 |
 | Cells with deferred accepted disposition | 125 |
@@ -156,7 +156,7 @@ when you want the user/product view with those columns visible.
 | `argo-cd/argo-workflows@1.0.14` | F1 | source | (source) | next80 | - | 1 candidate-route ⬜ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 |  | F2b | base | controller-default-reviewed | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
-|  | F2b | base | minimal-crds | next80 | - | 1 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
+|  | F2b | base | minimal-crds | next80 | - | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

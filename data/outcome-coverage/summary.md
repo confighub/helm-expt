@@ -18,7 +18,7 @@ GitOps/OCI live pass rows:           135/199
 GitOps/OCI non-pass receipts:        63
 live Helm-vs-ConfigHub pass rows:    135/199
 live Helm-vs-ConfigHub non-pass receipts: 63
-lifecycle observation rows:          12/12
+lifecycle observation rows:          13/13
 selected live parity receipts:       135 pass, 53 watch, 10 blocked
 two-cluster kind parity receipts:    121 pass, 10 watch, 47 blocked
 derived intended-state pass rows:    10
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      12/12
+related lifecycle observations:      13/13
 ```
 
 ## Outcome Promises And Proving Tests
@@ -41,7 +41,7 @@ related lifecycle observations:      12/12
 | A base variant renders the same object set as Helm under recorded inputs. | `render_parity` in [base-outcomes.csv](./base-outcomes.csv) | `npm run outcomes:verify` |
 | The rendered objects can be uploaded and operated in ConfigHub. | `confighub_upload_variant_scan_safe_ops` lane | `npm run top20:verify-confighub-proof` |
 | The rendered objects work in Kubernetes for tested rows. | `local_kind_kubectl_apply` lane | `npm run top20:verify-local-e2e` |
-| A chart with CRDs, webhooks, or controller-owned fields works after explicit lifecycle prerequisites are staged. | `lifecycle_observation` in [base-outcomes.csv](./base-outcomes.csv) | `npm run lifecycle:cert-manager-eso:verify` |
+| A chart with CRDs, webhooks, or controller-owned fields works after its recorded lifecycle route or prerequisites are applied. | `lifecycle_observation` in [base-outcomes.csv](./base-outcomes.csv) | `npm run lifecycle:cert-manager-eso:verify`; `npm run lifecycle:boundary:verify` |
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | `confighub_oci_argo_live` lane | `npm run runtime-gitops:wave:verify` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | `live_helm_vs_confighub_dual_compare`, two-cluster parity receipts | `npm run live-parity:verify && npm run kind-parity:verify` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | derived variant execution and target-bound receipts | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |

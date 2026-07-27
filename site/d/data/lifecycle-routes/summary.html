@@ -436,59 +436,60 @@
 <p>Render parity proves the desired non-hook objects. This contract is the separate fact about the lifecycle behavior: its route, who runs it, and whether the product runs it automatically (today, nothing does - see below).</p>
 <p>The full field definitions and the deterministic mapping tables are in <a href="contract.html">contract.md</a>. The two data forms are <a href="../../../../data/lifecycle-routes/routes.csv">routes.csv</a> (spreadsheet) and <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a> (stable interface for agents).</p>
 <h2 id="what-this-covers">What This Covers</h2>
-<p>25 route rows across 13 chart/version lifecycle behaviors, joined from:</p>
-<ul><li><a href="../hook-disposition/summary.html">data/hook-disposition/top100-hook-dispositions.csv</a></li><li><a href="../hook-route-candidates/summary.html">data/hook-route-candidates/candidates.csv</a></li><li><a href="../hook-lifecycle-review/summary.html">data/hook-lifecycle-review/top100-source-hook-route-review.csv</a></li></ul>
+<p>26 route rows across 13 chart/version lifecycle behaviors, joined from:</p>
+<ul><li><a href="../hook-disposition/summary.html">data/hook-disposition/top100-hook-dispositions.csv</a></li><li><a href="../hook-route-candidates/summary.html">data/hook-route-candidates/candidates.csv</a></li><li><a href="../hook-lifecycle-review/summary.html">data/hook-lifecycle-review/top100-source-hook-route-review.csv</a></li><li><code>data/hook-route-candidates/selected-routes/*.yaml</code></li></ul>
 <p>It starts with hooks and existing routed hook candidates, and reaches the adjacent Tier-1 lifecycle quirks those rows already touch (<code>crd-install</code>, <code>target-facts</code>, <code>webhook-readiness</code>). Quirk classes with no per-chart route data yet (for example generated-facts, lookup) are deliberately out of scope until that data exists - a small correct contract, not a broad guess.</p>
 <h2 id="the-honest-headline">The Honest Headline</h2>
-<p>0 of 25 rows are safe to show as automatic.</p>
+<p>0 of 26 rows are safe to show as automatic.</p>
 <p>Nothing the catalog renders today is auto-executed by the cub installer. Every route is <code>user-executes</code>, <code>target-owned</code> (a controller or GitOps engine runs it), or <code>not-yet-executable</code>. That is the entire point of the contract: a <code>routed</code> disposition means the route and its executor are named and an off-ramp exists - <b>not</b> that the product silently runs it. <code>safe_as_automatic</code> only becomes <code>yes</code> when <code>execution_mode</code> is <code>product-executes</code> and evidence proves it.</p>
 <h2 id="distribution">Distribution</h2>
-<table><thead><tr><th>Disposition</th><th>Rows</th></tr></thead><tbody><tr><td><code>observed</code></td><td>15</td></tr>
+<table><thead><tr><th>Disposition</th><th>Rows</th></tr></thead><tbody><tr><td><code>observed</code></td><td>16</td></tr>
 <tr><td><code>routed</code></td><td>5</td></tr>
 <tr><td><code>todo</code></td><td>4</td></tr>
 <tr><td><code>per-target</code></td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>Execution mode</th><th>Rows</th></tr></thead><tbody><tr><td><code>user-executes</code></td><td>11</td></tr>
-<tr><td><code>not-yet-executable</code></td><td>7</td></tr>
-<tr><td><code>target-owned</code></td><td>7</td></tr></tbody></table>
+<tr><td><code>target-owned</code></td><td>8</td></tr>
+<tr><td><code>not-yet-executable</code></td><td>7</td></tr></tbody></table>
 <table><thead><tr><th>Quirk class</th><th>Rows</th></tr></thead><tbody><tr><td><code>hook-phase</code></td><td>12</td></tr>
 <tr><td><code>hook-delete-policy</code></td><td>4</td></tr>
+<tr><td><code>crd-install</code></td><td>2</td></tr>
 <tr><td><code>hook-test</code></td><td>2</td></tr>
 <tr><td><code>hook-weight-ordering</code></td><td>2</td></tr>
 <tr><td><code>target-facts</code></td><td>2</td></tr>
-<tr><td><code>crd-install</code></td><td>1</td></tr>
 <tr><td><code>per-target-hook</code></td><td>1</td></tr>
 <tr><td><code>webhook-readiness</code></td><td>1</td></tr></tbody></table>
 <h2 id="how-to-read-one-row">How To Read One Row</h2>
 <p>Take <code>route_name = preflight-or-presync</code>, <code>disposition = routed</code>, <code>execution_mode = user-executes</code>:</p>
 <ul><li><b>quirk_class</b> - the kind of behavior (here a pre-install/upgrade hook phase).</li><li><b>disposition</b> - <code>routed</code>: the route is named but not yet proven live.</li><li><b>route_name / default_route</b> - where the behavior goes by default.</li><li><b>alternatives</b> - the named off-ramps for this quirk class.</li><li><b>execution_mode</b> - <code>user-executes</code>: you run it; the product does not.</li><li><b>human_offramp / agent_offramp</b> - how each picks a non-default route. A human selects a different recipe base/values; an agent enumerates and selects from <a href="../../../../data/lifecycle-routes/routes.json">routes.json</a>.</li><li><b>route_requirements</b> - what the route needs (target facts, conditions).</li><li><b>live_status / safe_as_automatic</b> - proven-ness, and the strict automatic flag (<code>no</code> until the product executes it with evidence).</li><li><b>evidence_or_next_action</b> - the receipt path if observed, else the next step.</li></ul>
 <h2 id="rows">Rows</h2>
-<table><thead><tr><th>Chart</th><th>Quirk</th><th>Route</th><th>Disposition</th><th>Execution</th><th>Auto</th></tr></thead><tbody><tr><td>airflow-helm/airflow@8.9.0</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>apache-airflow/airflow@1.21.0</td><td>hook-phase</td><td><code>recipe-time-lifecycle-verification</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>argo-cd/argo-workflows@1.0.14</td><td>crd-install</td><td><code>preflight-or-presync-crd-apply</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>bitnami/kafka@32.4.3</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>bitnami/minio@17.0.21</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>bitnami/thanos@17.3.1</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>datadog/datadog@3.214.0</td><td>per-target-hook</td><td><code>target-class-preflight-and-upgrade-action</code></td><td>per-target</td><td>user-executes</td><td>no</td></tr>
-<tr><td>fluent/fluent-bit@0.57.6</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>fluent/fluent-bit@0.57.6</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>gitlab/gitlab@10.0.0</td><td>hook-phase</td><td><code>argocd-or-flux-lifecycle-hook</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
-<tr><td>k8s-dashboard/kubernetes-dashboard@7.14.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>kong/kong@3.2.0</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td><code>delete-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>kyverno/kyverno@3.8.1</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>target-owned</td><td>no</td></tr></tbody></table>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Quirk</th><th>Route</th><th>Disposition</th><th>Execution</th><th>Auto</th></tr></thead><tbody><tr><td>airflow-helm/airflow@8.9.0</td><td>chart fallback</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>apache-airflow/airflow@1.21.0</td><td>chart fallback</td><td>hook-phase</td><td><code>recipe-time-lifecycle-verification</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>argo-cd/argo-workflows@1.0.14</td><td>chart fallback</td><td>crd-install</td><td><code>preflight-or-presync-crd-apply</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>argo-cd/argo-workflows@1.0.14</td><td>minimal-crds</td><td>crd-install</td><td><code>self-contained-crd-base</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>bitnami/kafka@32.4.3</td><td>chart fallback</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>bitnami/minio@17.0.21</td><td>chart fallback</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>routed</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>bitnami/thanos@17.3.1</td><td>chart fallback</td><td>hook-phase</td><td><code>explicit-managed-action</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>datadog/datadog@3.214.0</td><td>chart fallback</td><td>per-target-hook</td><td><code>target-class-preflight-and-upgrade-action</code></td><td>per-target</td><td>user-executes</td><td>no</td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>chart fallback</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>fluent/fluent-bit@0.57.6</td><td>chart fallback</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>gitlab/gitlab@10.0.0</td><td>chart fallback</td><td>hook-phase</td><td><code>argocd-or-flux-lifecycle-hook</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>k8s-dashboard/kubernetes-dashboard@7.14.0</td><td>chart fallback</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kong/kong@3.2.0</td><td>chart fallback</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>routed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>hook-delete-policy</td><td><code>delete-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>hook-test</td><td><code>explicit-test-check</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>kyverno/kyverno@3.8.1</td><td>chart fallback</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>target-owned</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>chart fallback</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>target-owned</td><td>no</td></tr></tbody></table>
 <h2 id="boundaries">Boundaries</h2>
-<ul><li>Static join of committed source CSVs only. No hook is executed, no cluster is touched, no ConfigHub state is changed, no <code>runs/</code> receipt is edited.</li><li>A <code>routed</code> or <code>todo</code> row is a classification, not a proof. <code>observed</code> rows point at the committed receipt in <code>evidence_or_next_action</code>.</li><li>The master matrix value <code>candidate-route</code> maps to <code>routed</code> here; the <code>source_disposition</code> column keeps the original value for traceability.</li></ul>
+<ul><li>Static join of committed CSVs and selected-route YAML receipts. No hook is executed, no cluster is touched, no ConfigHub state is changed, no <code>runs/</code> receipt is edited.</li><li>A <code>routed</code> or <code>todo</code> row is a classification, not a proof. <code>observed</code> rows point at the committed receipt in <code>evidence_or_next_action</code>.</li><li>The master matrix value <code>candidate-route</code> maps to <code>routed</code> here; the <code>source_disposition</code> column keeps the original value for traceability.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/lifecycle-routes/summary.md</code>. The source file is the authoritative version.</p></footer>

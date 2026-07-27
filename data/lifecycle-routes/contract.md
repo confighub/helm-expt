@@ -17,7 +17,7 @@ evidence or next action, and whether it is safe to show as automatic.
 | Column | Meaning |
 | --- | --- |
 | `chart` / `version` | Source chart and version. |
-| `base_or_variant` | Specific base if the route is base-scoped; empty means chart-level for this first contract. |
+| `base_or_variant` | Specific base when a selected receipt proves an exact route; empty means the chart-level route used by bases without an exact receipt. |
 | `quirk_class` | The behavior class, derived from `route_name` (see table). |
 | `hook_phases` | Helm hook phases recorded by the source scan. |
 | `source_disposition` | The raw disposition word from the source data, kept for traceability. |
@@ -61,6 +61,7 @@ The source data uses more than one vocabulary. This is the published join.
 | `recipe-needed` | `todo` |
 | `candidate-route` | `routed` |
 | `candidate-route-plan` | `todo` |
+| `selected-route-receipt` | `observed` |
 
 ## Route → Quirk Class
 
@@ -80,6 +81,7 @@ The source data uses more than one vocabulary. This is the published join.
 | `preserve-ordering` | `hook-weight-ordering` |
 | `preserve-cleanup-policy` | `hook-delete-policy` |
 | `delete-cleanup-policy` | `hook-delete-policy` |
+| `self-contained-crd-base` | `crd-install` |
 
 ## Route → Execution Mode (base)
 
@@ -102,6 +104,7 @@ No route maps to `product-executes`.
 | `preserve-ordering` | `target-owned` |
 | `preserve-cleanup-policy` | `target-owned` |
 | `delete-cleanup-policy` | `target-owned` |
+| `self-contained-crd-base` | `target-owned` |
 
 ## Quirk Class → Alternatives (off-ramps)
 
@@ -115,6 +118,7 @@ and [../../docs/planning/where-does-my-hook-go.md](../../docs/planning/where-doe
 | `hook-phase` | `argocd-or-flux-lifecycle-hook` | a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves |
 | `hook-phase` | `target-facts-or-preflight` | the prerequisite supplied as a target fact or preflight before apply |
 | `hook-phase` | `refuse` | accept that the catalog will not run this automatically and do it manually |
+| `crd-install` | `self-contained-crd-base` | a preset config that renders the required CRDs as ordinary objects before the workloads |
 | `crd-install` | `target-owned-crds` | the cluster or an operator owns CRD install and upgrade out of band |
 | `crd-install` | `refuse` | use a no-crds base and install/upgrade the CRDs yourself |
 | `hook-delete-policy` | `delete-on-uninstall` | accept deletion of the hook-managed object on uninstall |

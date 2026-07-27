@@ -18,13 +18,13 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-690 non-green cells:
+689 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 454 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 133 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 55 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
@@ -33,7 +33,7 @@ columns). It changes no status and runs nothing.
 | `G` | 64 |
 | `P` | 64 |
 | `K` | 59 |
-| `lifecycle` | 56 |
+| `lifecycle` | 55 |
 | `L` | 51 |
 
 | State | Cells |
@@ -43,11 +43,11 @@ columns). It changes no status and runs nothing.
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
 | `not-applicable-candidate` | 74 |
-| `todo` | 56 |
+| `todo` | 55 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (56)
+## needs-run (55)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -55,7 +55,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| argo-cd/argo-workflows@1.0.14 | minimal-crds | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |

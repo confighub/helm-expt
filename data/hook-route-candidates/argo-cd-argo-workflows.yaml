@@ -38,11 +38,12 @@ spec:
           apply semantics.
     supportedRouteOptions:
       - name: self-contained-minimal-crds-base
-        status: recommended-catalog-base-candidate
+        status: observed-catalog-base
         valuesBoundary: crds.full=false so minimal CRDs render as ordinary
           templates.
         tradeoff: Minimal CRDs use preserve-unknown-fields rather than full
           OpenAPI schemas; this needs to be stated on the base.
+        selectedRouteReceipt: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml
       - name: target-prerequisite-full-crds
         status: lifecycle-action-candidate
         valuesBoundary: crds.full=true remains the source chart default.
@@ -61,13 +62,19 @@ spec:
     - path: recipes/argo-cd/argo-workflows/1.0.14/helm-pain-report.yaml
       claim: The chart is already marked as containing hook lifecycle behavior
         that must be handled separately before production.
+    - path: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml
+      claim: The minimal-CRDs option is selected and observed; this candidate now covers only the unresolved full-CRD route.
+    - path: runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+      claim: The minimal-CRDs option reached Synced and Healthy through ConfigHub OCI and Argo CD.
+    - path: runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml
+      claim: Helm and cub installer converged on separate kind clusters with semantic object parity.
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: false
-  promotionNextStep: Create a maintained route receipt for the chosen route.
-    Prefer a self-contained crds.full=false base first; otherwise declare the
-    full CRDs as target facts and prove a pre-sync/server-side-apply action
-    before counting the base as live-ready.
+  promotionNextStep: For the default and controller-default-reviewed bases,
+    declare the full CRDs as target facts and prove a pre-sync/server-side-apply
+    action before counting either base as live-ready. The minimal-crds base has
+    its own observed route receipt.
   notClaimed:
     - production readiness
     - hook execution

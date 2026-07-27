@@ -434,30 +434,29 @@
 <p>One row per <b>non-green / not-yet-run</b> cell of the <a href="../master-catalog-matrix/summary.html">master catalog matrix</a>. For each cell it records the lane, the state, a product-readable reason, the next action, the support artifact, and a <b>completion class</b> that separates <i>needs a run</i> from <i>needs a model/support fix</i> from <i>already has a named product decision</i> - so the matrix can be finished in the right order.</p>
 <p>It is a read-only projection over the committed decision/queue surfaces (disposition-frontier, the live/kind decisions, the burn-down, run-blocks, base-outcomes, lifecycle-route-actions, and the matrix's own promotion/lifecycle columns). It changes no status and runs nothing.</p>
 <h2 id="completion-classes">Completion classes</h2>
-<p>690 non-green cells:</p>
+<p>689 non-green cells:</p>
 <table><thead><tr><th>Class</th><th>Cells</th><th>Meaning</th></tr></thead><tbody><tr><td><code>needs-target-or-prereq-fix</code></td><td>454</td><td>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</td></tr>
 <tr><td><code>already-decided</code></td><td>133</td><td>A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.</td></tr>
-<tr><td><code>needs-run</code></td><td>56</td><td>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</td></tr>
+<tr><td><code>needs-run</code></td><td>55</td><td>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</td></tr>
 <tr><td><code>needs-modeling</code></td><td>47</td><td>The catalog/model has to change before this can pass.</td></tr></tbody></table>
 <table><thead><tr><th>Lane</th><th>Cells</th></tr></thead><tbody><tr><td><code>promotion</code></td><td>396</td></tr>
 <tr><td><code>G</code></td><td>64</td></tr>
 <tr><td><code>P</code></td><td>64</td></tr>
 <tr><td><code>K</code></td><td>59</td></tr>
-<tr><td><code>lifecycle</code></td><td>56</td></tr>
+<tr><td><code>lifecycle</code></td><td>55</td></tr>
 <tr><td><code>L</code></td><td>51</td></tr></tbody></table>
 <table><thead><tr><th>State</th><th>Cells</th></tr></thead><tbody><tr><td><code>proven</code></td><td>179</td></tr>
 <tr><td><code>watch</code></td><td>133</td></tr>
 <tr><td><code>not-applicable-source</code></td><td>110</td></tr>
 <tr><td><code>blocked</code></td><td>107</td></tr>
 <tr><td><code>not-applicable-candidate</code></td><td>74</td></tr>
-<tr><td><code>todo</code></td><td>56</td></tr>
+<tr><td><code>todo</code></td><td>55</td></tr>
 <tr><td><code>fail</code></td><td>18</td></tr>
 <tr><td><code>not-applicable-derived-variant</code></td><td>13</td></tr></tbody></table>
-<h2 id="needs-run-56">needs-run (56)</h2>
+<h2 id="needs-run-55">needs-run (55)</h2>
 <p>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</p>
 <table><thead><tr><th>Chart</th><th>Variant</th><th>Lane</th><th>State</th><th>Reason</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-workflows@1.0.14</td><td>controller-default-reviewed</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (todo:1) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>argo-cd/argo-workflows@1.0.14</td><td>default</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (todo:1) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
-<tr><td>argo-cd/argo-workflows@1.0.14</td><td>minimal-crds</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (todo:1) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>argo-cd/argocd-image-updater@1.2.2</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>

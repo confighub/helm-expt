@@ -443,7 +443,7 @@ GitOps/OCI live pass rows:           135/199
 GitOps/OCI non-pass receipts:        63
 live Helm-vs-ConfigHub pass rows:    135/199
 live Helm-vs-ConfigHub non-pass receipts: 63
-lifecycle observation rows:          12/12
+lifecycle observation rows:          13/13
 selected live parity receipts:       135 pass, 53 watch, 10 blocked
 two-cluster kind parity receipts:    121 pass, 10 watch, 47 blocked
 derived intended-state pass rows:    10
@@ -455,13 +455,13 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      12/12</code></pre>
+related lifecycle observations:      13/13</code></pre>
 <h2 id="outcome-promises-and-proving-tests">Outcome Promises And Proving Tests</h2>
 <table><thead><tr><th>Outcome users care about</th><th>Test / evidence</th><th>Command</th></tr></thead><tbody><tr><td>The chart model is understandable and honestly scoped.</td><td>model-completeness report, chart facts, pain reports, weirdness notes</td><td><code>npm run completeness:verify</code></td></tr>
 <tr><td>A base variant renders the same object set as Helm under recorded inputs.</td><td><code>render_parity</code> in <a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a></td><td><code>npm run outcomes:verify</code></td></tr>
 <tr><td>The rendered objects can be uploaded and operated in ConfigHub.</td><td><code>confighub_upload_variant_scan_safe_ops</code> lane</td><td><code>npm run top20:verify-confighub-proof</code></td></tr>
 <tr><td>The rendered objects work in Kubernetes for tested rows.</td><td><code>local_kind_kubectl_apply</code> lane</td><td><code>npm run top20:verify-local-e2e</code></td></tr>
-<tr><td>A chart with CRDs, webhooks, or controller-owned fields works after explicit lifecycle prerequisites are staged.</td><td><code>lifecycle_observation</code> in <a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a></td><td><code>npm run lifecycle:cert-manager-eso:verify</code></td></tr>
+<tr><td>A chart with CRDs, webhooks, or controller-owned fields works after its recorded lifecycle route or prerequisites are applied.</td><td><code>lifecycle_observation</code> in <a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a></td><td><code>npm run lifecycle:cert-manager-eso:verify</code>; <code>npm run lifecycle:boundary:verify</code></td></tr>
 <tr><td>ConfigHub OCI can be reconciled by GitOps for tested rows.</td><td><code>confighub_oci_argo_live</code> lane</td><td><code>npm run runtime-gitops:wave:verify</code></td></tr>
 <tr><td>Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows.</td><td><code>live_helm_vs_confighub_dual_compare</code>, two-cluster parity receipts</td><td><code>npm run live-parity:verify &amp;&amp; npm run kind-parity:verify</code></td></tr>
 <tr><td>Derived ConfigHub variants preserve reviewed bases and expose post-render changes.</td><td>derived variant execution and target-bound receipts</td><td><code>npm run derived-variants:verify &amp;&amp; npm run derived-variants:target-bound:verify</code></td></tr>

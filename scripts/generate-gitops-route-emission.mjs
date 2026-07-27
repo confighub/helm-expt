@@ -43,7 +43,7 @@ function emissionFor(route) {
     return {
       emit: false,
       argo: "no extra hook — keep CRDs before dependent objects",
-      flux: "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+      flux: "no extra hook — make sure CRDs are applied before workloads",
       snippet: "",
     };
   }

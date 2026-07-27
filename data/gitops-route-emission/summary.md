@@ -10,7 +10,7 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | --- | --- | --- | --- |
 | controller-default-reviewed@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | PreSync · sync-wave -2 · ServerSideApply | HelmRelease .spec.install.crds=Create (or apply CRDs first) |
 | default@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | PreSync · sync-wave -2 · ServerSideApply | HelmRelease .spec.install.crds=Create (or apply CRDs first) |
-| minimal-crds@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | PreSync · sync-wave -2 · ServerSideApply | HelmRelease .spec.install.crds=Create (or apply CRDs first) |
+| minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 
 ## kyverno/kyverno
 
@@ -20,13 +20,13 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | default@3.8.1 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | default@3.8.1 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
 | default@3.8.1 | hook-test → `explicit-test-check` | PostSync test Job (Argo has no native helm test) | HelmRelease .spec.test.enable=true |
-| default@3.8.1 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| default@3.8.1 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | default@3.8.1 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 | no-crds@3.8.1 | hook-delete-policy → `delete-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | no-crds@3.8.1 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | no-crds@3.8.1 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
 | no-crds@3.8.1 | hook-test → `explicit-test-check` | PostSync test Job (Argo has no native helm test) | HelmRelease .spec.test.enable=true |
-| no-crds@3.8.1 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| no-crds@3.8.1 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | no-crds@3.8.1 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 
 ## prometheus-community/kube-prometheus-stack
@@ -37,28 +37,28 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | default@85.3.3 | hook-phase → `postsync-check-or-observation` | PostSync | post-apply Job / follow-on Kustomization |
 | default@85.3.3 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
 | default@85.3.3 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
-| default@85.3.3 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| default@85.3.3 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | default@85.3.3 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 | default@85.3.3 | webhook-readiness → `webhook-readiness-observation` | observe webhook and workload health after sync | use post-apply health checks; stage any declared certificate first |
 | no-crds@85.3.3 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | no-crds@85.3.3 | hook-phase → `postsync-check-or-observation` | PostSync | post-apply Job / follow-on Kustomization |
 | no-crds@85.3.3 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
 | no-crds@85.3.3 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
-| no-crds@85.3.3 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| no-crds@85.3.3 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | no-crds@85.3.3 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 | no-crds@85.3.3 | webhook-readiness → `webhook-readiness-observation` | observe webhook and workload health after sync | use post-apply health checks; stage any declared certificate first |
 | default@86.1.0 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | default@86.1.0 | hook-phase → `postsync-check-or-observation` | PostSync | post-apply Job / follow-on Kustomization |
 | default@86.1.0 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
 | default@86.1.0 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
-| default@86.1.0 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| default@86.1.0 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | default@86.1.0 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 | default@86.1.0 | webhook-readiness → `webhook-readiness-observation` | observe webhook and workload health after sync | use post-apply health checks; stage any declared certificate first |
 | no-crds@86.1.0 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | no-crds@86.1.0 | hook-phase → `postsync-check-or-observation` | PostSync | post-apply Job / follow-on Kustomization |
 | no-crds@86.1.0 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
 | no-crds@86.1.0 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
-| no-crds@86.1.0 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy |
+| no-crds@86.1.0 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 | no-crds@86.1.0 | target-facts → `target-facts-or-preflight` | none — supply the inputs before sync | none — supply the inputs before sync |
 | no-crds@86.1.0 | webhook-readiness → `webhook-readiness-observation` | observe webhook and workload health after sync | use post-apply health checks; stage any declared certificate first |
 

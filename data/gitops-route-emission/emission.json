@@ -81,13 +81,13 @@
           "recipeVersion": "1.0.14",
           "routes": [
             {
-              "route_name": "preflight-or-presync-crd-apply",
-              "action_kind": "install-crd",
+              "route_name": "self-contained-crd-base",
+              "action_kind": "preserve-ordering",
               "quirk_class": "crd-install",
-              "emit": true,
-              "argo": "PreSync · sync-wave -2 · ServerSideApply",
-              "flux": "HelmRelease .spec.install.crds=Create (or apply CRDs first)",
-              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+              "emit": false,
+              "argo": "no extra hook — keep CRDs before dependent objects",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
+              "snippet": ""
             }
           ]
         }
@@ -320,7 +320,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -380,7 +380,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -446,7 +446,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -515,7 +515,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -584,7 +584,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {
@@ -653,7 +653,7 @@
               "quirk_class": "hook-weight-ordering",
               "emit": false,
               "argo": "no extra hook — keep CRDs before dependent objects",
-              "flux": "no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy",
+              "flux": "no extra hook — make sure CRDs are applied before workloads",
               "snippet": ""
             },
             {

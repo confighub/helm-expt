@@ -13,11 +13,11 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 690,
+  "cellCount": 689,
   "byCompletionClass": {
     "needs-target-or-prereq-fix": 454,
     "already-decided": 133,
-    "needs-run": 56,
+    "needs-run": 55,
     "needs-modeling": 47
   },
   "byLane": {
@@ -25,7 +25,7 @@
     "G": 64,
     "P": 64,
     "K": 59,
-    "lifecycle": 56,
+    "lifecycle": 55,
     "L": 51
   },
   "cells": [
@@ -377,20 +377,6 @@
       "support_artifact": "runs/argo-workflows-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "argo-cd/argo-workflows",
-      "version": "1.0.14",
-      "variant": "minimal-crds",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "lifecycle route(s) defined (todo:1) but not yet observed live",
-      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
-      "support_artifact": "data/lifecycle-routes/summary.md",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {

@@ -42,6 +42,7 @@ function buildReport() {
   const hookReceiptRows = parseCsvFile("data/hook-lifecycle/receipt-index.csv");
   const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const webhookCertLifecycleRows = parseCsvFile("data/webhook-cert-lifecycle/evidence.csv");
+  const selectedRouteRows = parseCsvFile("data/lifecycle-boundary/selected-routes.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = parseCsvFile("data/live-kind-parity/summary.csv");
   const laneRows = applyExactLiveLanes(rawLaneRows, liveParityRows);
@@ -52,7 +53,7 @@ function buildReport() {
   const hookReceiptByChart = new Map(hookReceiptRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
   const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
-  const lifecycleRows = normalizedLifecycleRows(lifecycleObservationRows, webhookCertLifecycleRows);
+  const lifecycleRows = normalizedLifecycleRows(lifecycleObservationRows, webhookCertLifecycleRows, selectedRouteRows);
   const lifecycleByBase = new Map(lifecycleRows.map((row) => [`${row.chart}|${row.base}`, row]));
 
   const chartRows = modelRows
@@ -390,7 +391,7 @@ related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass
 | A base variant renders the same object set as Helm under recorded inputs. | \`render_parity\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run outcomes:verify\` |
 | The rendered objects can be uploaded and operated in ConfigHub. | \`confighub_upload_variant_scan_safe_ops\` lane | \`npm run top20:verify-confighub-proof\` |
 | The rendered objects work in Kubernetes for tested rows. | \`local_kind_kubectl_apply\` lane | \`npm run top20:verify-local-e2e\` |
-| A chart with CRDs, webhooks, or controller-owned fields works after explicit lifecycle prerequisites are staged. | \`lifecycle_observation\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run lifecycle:cert-manager-eso:verify\` |
+| A chart with CRDs, webhooks, or controller-owned fields works after its recorded lifecycle route or prerequisites are applied. | \`lifecycle_observation\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run lifecycle:cert-manager-eso:verify\`; \`npm run lifecycle:boundary:verify\` |
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | \`confighub_oci_argo_live\` lane | \`npm run runtime-gitops:wave:verify\` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | \`live_helm_vs_confighub_dual_compare\`, two-cluster parity receipts | \`npm run live-parity:verify && npm run kind-parity:verify\` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | derived variant execution and target-bound receipts | \`npm run derived-variants:verify && npm run derived-variants:target-bound:verify\` |
@@ -443,7 +444,7 @@ function outcomeLevel(row, lifecycle, kindParity) {
   return found?.[0] ?? "not-proven";
 }
 
-function normalizedLifecycleRows(controllerRows, webhookRows) {
+function normalizedLifecycleRows(controllerRows, webhookRows, selectedRouteRows) {
   return [
     ...controllerRows.map((row) => ({
       chart: `${row.chart}@${row.version}`,
@@ -460,6 +461,14 @@ function normalizedLifecycleRows(controllerRows, webhookRows) {
       receipt: row.staging_receipt,
       policy: `${row.route};staged-crds=${row.staged_crd_count || "0"}`,
       source: "webhook-cert-lifecycle",
+    })),
+    ...selectedRouteRows.map((row) => ({
+      chart: `${row.chart}@${row.version}`,
+      base: row.base,
+      result: row.status === "lifecycle-observed" ? "pass" : row.status === "blocked" ? "blocked" : "watch",
+      receipt: String(row.evidence ?? "").split(";")[0],
+      policy: row.route_or_policy,
+      source: "selected-hook-route",
     })),
   ].sort((a, b) => `${a.chart}|${a.base}|${a.source}`.localeCompare(`${b.chart}|${b.base}|${b.source}`));
 }

@@ -143,6 +143,7 @@
       "required_target_facts": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
       "human_command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
       "alternatives": [
+        "self-contained-crd-base",
         "target-owned-crds",
         "refuse"
       ],
@@ -150,6 +151,7 @@
         "route_name": "preflight-or-presync-crd-apply",
         "default_route": "preflight-or-presync-crd-apply",
         "alternatives": [
+          "self-contained-crd-base",
           "target-owned-crds",
           "refuse"
         ],
@@ -161,6 +163,41 @@
       "evidence_required": "resolve the named prerequisite/blocker, then capture a live receipt",
       "source_drift": "",
       "evidence_or_next_action": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base | data/hook-route-candidates/candidates.csv"
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "version": "1.0.14",
+      "base": "minimal-crds",
+      "quirk_class": "crd-install",
+      "route_name": "self-contained-crd-base",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "preserve-ordering",
+      "execution_mode": "target-owned",
+      "automatic": false,
+      "required_target_facts": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+      "human_command": "",
+      "alternatives": [
+        "target-owned-crds",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "self-contained-crd-base",
+        "default_route": "self-contained-crd-base",
+        "alternatives": [
+          "target-owned-crds",
+          "refuse"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "preserve-ordering",
+        "required_target_facts": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml;runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml;runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml;runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
     },
     {
       "chart": "bitnami/kafka",

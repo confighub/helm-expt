@@ -29,7 +29,7 @@
 
       <h4>minimal-crds@1.0.14</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
-        <tr><td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td><td><span class="chip ok">PreSync · sync-wave -2 · ServerSideApply</span></td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td></tr>
+        <tr><td>crd-install <span class="rt">self-contained-crd-base</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
       </tbody></table>
     </section>
     <section><h2>kyverno/kyverno</h2>
@@ -39,7 +39,7 @@
         <tr><td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td><td><span class="chip muted">none — your cluster handles it</span></td><td>none — your cluster handles it</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-test <span class="rt">explicit-test-check</span></td><td><span class="chip ok">PostSync test Job (Argo has no native helm test)</span></td><td>HelmRelease .spec.test.enable=true</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
       </tbody></table>
 
@@ -49,7 +49,7 @@
         <tr><td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td><td><span class="chip muted">none — your cluster handles it</span></td><td>none — your cluster handles it</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-test <span class="rt">explicit-test-check</span></td><td><span class="chip ok">PostSync test Job (Argo has no native helm test)</span></td><td>HelmRelease .spec.test.enable=true</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
       </tbody></table>
     </section>
@@ -60,7 +60,7 @@
         <tr><td>hook-phase <span class="rt">postsync-check-or-observation</span></td><td><span class="chip ok">PostSync</span></td><td>post-apply Job / follow-on Kustomization</td></tr>
         <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
         <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
       </tbody></table>
@@ -71,7 +71,7 @@
         <tr><td>hook-phase <span class="rt">postsync-check-or-observation</span></td><td><span class="chip ok">PostSync</span></td><td>post-apply Job / follow-on Kustomization</td></tr>
         <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
         <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
       </tbody></table>
@@ -82,7 +82,7 @@
         <tr><td>hook-phase <span class="rt">postsync-check-or-observation</span></td><td><span class="chip ok">PostSync</span></td><td>post-apply Job / follow-on Kustomization</td></tr>
         <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
         <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
       </tbody></table>
@@ -93,7 +93,7 @@
         <tr><td>hook-phase <span class="rt">postsync-check-or-observation</span></td><td><span class="chip ok">PostSync</span></td><td>post-apply Job / follow-on Kustomization</td></tr>
         <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
-        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — use an earlier CRD Kustomization or HelmRelease CRD policy</td></tr>
+        <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
         <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
       </tbody></table>
