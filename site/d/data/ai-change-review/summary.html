@@ -432,20 +432,21 @@
     <article class="doc-body">
 <p>This example starts with the AICR PyTorch training runtime already committed in the catalog. The request is to increase the runtime to eight H100 nodes and update its image.</p>
 <p>The unchecked proposal does three concrete things: asks for more nodes than the recorded target has, replaces a digest-pinned image with <code>latest</code>, and leaves the API key as <code>confighubplaceholder</code>. The proposal is rejected before apply.</p>
-<p>The reviewed candidate stays within the four-node target limit, keeps the pinned image, and reads the API key from the existing <code>training-provider-credentials</code> Secret. It is ready for human review; it has not been approved or applied.</p>
+<p>The reviewed candidate stays within the four-node target limit, keeps the pinned image, and reads the API key from the existing <code>training-provider-credentials</code> Secret. This local receipt stops before ConfigHub. A separate live proof stores this same reviewed object and exercises the approval boundary.</p>
 <p>This is a deterministic example of an agent-produced change. It is not a transcript from a named model.</p>
 <h2 id="what-changed">What changed</h2>
 <table><thead><tr><th>Check</th><th>Unchecked proposal</th><th>Reviewed candidate</th></tr></thead><tbody><tr><td>Requested training nodes</td><td>8; target limit is 4</td><td>4; target limit is 4</td></tr>
 <tr><td>Image</td><td>mutable tag; warning</td><td>digest pinned; pass</td></tr>
 <tr><td>API key</td><td>unresolved placeholder; block</td><td>existing Secret reference; pass</td></tr>
-<tr><td>ConfigHub schema function</td><td>not run</td><td>not run</td></tr>
-<tr><td>Production approval</td><td>not reached</td><td>required, not run</td></tr>
-<tr><td>Apply and observation</td><td>not run</td><td>not run</td></tr></tbody></table>
+<tr><td>ConfigHub checks</td><td>not run in this local receipt</td><td>see the live proof</td></tr>
+<tr><td>Production approval</td><td>not reached</td><td>see the live proof</td></tr>
+<tr><td>Kubernetes apply and observation</td><td>not run</td><td>not run</td></tr></tbody></table>
 <h2 id="open-the-evidence">Open the evidence</h2>
-<ul><li><a href="../../../../data/ai-change-review/proposal.yaml">Unchecked proposal</a></li><li><a href="../../../../data/ai-change-review/reviewed.yaml">Reviewed candidate</a></li><li><a href="../../../../data/ai-change-review/receipt.yaml">Receipt</a></li><li><a href="../../../../config-catalog/demonstrations/ai-change-review.yaml">Maintained scenario</a></li><li><a href="../../../../examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/013-kubeflow-trainer-post/templates/torch-distributed-cluster-training-runtime.yaml">AICR source object</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Standard apply policy</a></li></ul>
+<ul><li><a href="../../../../data/ai-change-review/proposal.yaml">Unchecked proposal</a></li><li><a href="../../../../data/ai-change-review/reviewed.yaml">Reviewed candidate</a></li><li><a href="../../../../data/ai-change-review/receipt.yaml">Receipt</a></li><li><a href="../ai-change-review-live-proof/summary.html">Live ConfigHub approval proof</a></li><li><a href="../../../../config-catalog/demonstrations/ai-change-review.yaml">Maintained scenario</a></li><li><a href="../../../../examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/013-kubeflow-trainer-post/templates/torch-distributed-cluster-training-runtime.yaml">AICR source object</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Standard apply policy</a></li></ul>
 <p>Run:</p>
 <pre><code>npm run ai-change-review:verify
-npm run ai-change-review:self-test</code></pre>
+npm run ai-change-review:self-test
+npm run ai-change-review:live:verify</code></pre>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/ai-change-review/summary.md</code>. The source file is the authoritative version.</p></footer>

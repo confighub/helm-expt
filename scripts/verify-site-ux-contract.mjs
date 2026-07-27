@@ -20,7 +20,7 @@ const checks = [
   },
   {
     file: "site/serverless.html",
-    terms: ["Serverless mode", "Install without an account", "Same chart, same running result", "redis → redis", "The chart carries its own password"],
+    terms: ["Serverless mode", "Run it without ConfigHub Server", "both serverless and anonymous", "Same chart, same running result", "redis → redis", "The chart carries its own password"],
   },
   {
     file: "site/charts/index.html",

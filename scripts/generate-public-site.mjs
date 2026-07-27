@@ -171,7 +171,7 @@ const PAGE_DESCRIPTIONS = {
   "index.html": "Use cub installer to make Helm rendering transparent, flexible, and manageable while keeping your Helm charts.",
   "offering.html": "Public Helm charts in visible and verifiable stages: keep the chart as the source and make the rendered config reviewable and safer to operate.",
   "try.html": "Install a chart with Helm and cub side by side on a throwaway cluster, read the rendered objects first, then change a setting and keep it through upgrades.",
-  "serverless.html": "Serverless mode is the no-account path: install a catalog chart and inspect the rendered objects, Secrets, and prerequisites before you apply them.",
+  "serverless.html": "Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.",
   "how-it-works.html": "The recipe is your source of truth: how render, record, and route stages keep a Helm chart reviewable through changes and upgrades.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
   "custom-apps.html": "Bring the applications your team owns alongside public charts so a release can move as one reviewed set.",
@@ -1598,7 +1598,7 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
-    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. Without an account, you can go from source files to OCI, pull an OCI package to inspect or test it, or check and change an OCI package before serving the result. This work can run locally or in CI; the <a href="./d/data/anonymous-oci-ci-proof/summary.html">CI test</a> records a complete no-account run. Claim the configuration in ConfigHub when you want to save its history, make variants, require approval, promote changes, or roll it out to a fleet.</p>
+    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. The public tools support three paths: <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code>. Here, work means inspect, explain, test, scan, compare, or edit. <strong>Serverless</strong> means the work does not use ConfigHub Server; <strong>anonymous</strong> means it does not use a ConfigHub account. A local command or CI job can be both. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">CI test</a> records a complete no-account run. Claim the configuration in ConfigHub when you want to save its history, make variants, require approval, promote changes, or roll it out to a fleet.</p>
     <p>ConfigHub can sit inside an existing <code>Git -&gt; CI -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code> flow. It can first publish the same specs and user-supplied metadata, then make specific variants later. The ConfigHub release has its own OCI digest and adds <code>confighub.com/origin</code> for provenance. The <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">live OCI, promotion, and two-cluster test</a> records that first unchanged pass-through, a reviewed promotion, and fingerprinted live observations on both clusters. <code>cub release publish</code> creates a ConfigHub Space release OCI; the same reviewed objects can also be packaged for anonymous or external consumers.</p>
   </div>
 </header>
@@ -2783,8 +2783,8 @@ function serverlessHtml(catalog) {
     <div class="install-hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Serverless mode</p>
-        <h1>Install without an account</h1>
-        <p class="lead">Serverless mode is the no-account proof path. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
+        <h1>Run it without ConfigHub Server</h1>
+        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no ConfigHub account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
@@ -2847,7 +2847,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless mode is the no-account path. A ${signupLink("serverless", "ConfigHub account")} is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless means this path does not depend on ConfigHub Server; anonymous means it uses no ConfigHub account. This example is both. Claim the configuration in ${signupLink("serverless", "ConfigHub")} when it needs saved history, shared variants, approvals, promotions, or fleet rollout.</p></footer>
 </body>
 </html>
 `;
@@ -2880,6 +2880,7 @@ function docsHtml(catalog) {
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
     ["Redis upgrade, promotion, and rollout", "A live chart upgrade keeps a post-render replica change, shows the development and staging waves, and checks the same OCI digest on two Argo CD clusters.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform; ConfigHub imports its 17 exact Argo CD Applications as one checked base variant. The guide shows the recipe, OCI artifacts, target requirements, live upload receipt, and remaining limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
+    ["AI change review proof", "A reviewed AICR training object is stored without field changes, blocked until its exact revision is approved, then dry-run again against an OCI target. The result also names the current AICR policy-check gap.", "../data/ai-change-review-live-proof/summary.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
@@ -4505,6 +4506,14 @@ function aiHtml(catalog) {
       <p>The reviewed config remains the source of truth. AI explains and proposes; ConfigHub records and verifies.</p>
     </section>
 
+    <section aria-labelledby="live-review">
+      <h2 id="live-review">A Change We Checked In ConfigHub</h2>
+      <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
+      <p>In the live run, ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes.</p>
+      <p>The run also found a real policy gap. The generic image and probe checks do not understand the deeper container path in this AICR custom resource. Those warnings do not tell us whether this object is safe. We need checks that understand AICR, or we need to limit the generic checks to ordinary Kubernetes workloads.</p>
+      <p><a href="../data/ai-change-review-live-proof/summary.md">Read the result and its limits</a>.</p>
+    </section>
+
     <section aria-labelledby="tasks">
       <h2 id="tasks">Good AI Tasks</h2>
       ${markdownLikeTable([
@@ -4525,6 +4534,7 @@ function aiHtml(catalog) {
         <div class="card"><h3>How it works</h3><p>The core model renders the chart, records the evidence, routes the extras, then delivers and observes.</p><p><a href="./how-it-works.html">Open page</a></p></div>
         <div class="card"><h3>Verification</h3><p>Npm commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
+        <div class="card"><h3>Live change review</h3><p>A reviewed AICR object is stored in ConfigHub, blocked until approval, and dry-run again after approval.</p><p><a href="../data/ai-change-review-live-proof/summary.md">Open result</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
         <div class="card"><h3>RBAC Manager for Agents</h3><p>A domain-specific custom app pattern built from a CLI plugin plus skills over ConfigHub data.</p><p><a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">Open example</a></p></div>
         <div class="card"><h3>Blast radius</h3><p>How value-source maps and scored receipts show which objects a change is expected to affect.</p><p><a href="../data/blast-radius-accuracy/summary.md">Open evidence</a></p></div>

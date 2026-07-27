@@ -1,0 +1,102 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AIChangeReviewLiveProofReceipt"
+metadata:
+  name: "aicr-training-runtime-reviewed-approval"
+spec:
+  recordedAt: "2026-07-27T00:55:17.581Z"
+  context:
+    name: "river-bear"
+    organization: "helm-catalog"
+    purpose: "temporary live AI change review proof"
+  source:
+    type: "aicr"
+    reviewedObject: "data/ai-change-review/reviewed.yaml"
+    localReviewReceipt: "data/ai-change-review/receipt.yaml"
+    sha256: "8f7394b1e54170f9f3721cc6ac7f19f1c788d967780a630fea891f11ffed7adf"
+    identity:
+      apiVersion: "trainer.kubeflow.org/v1alpha1"
+      kind: "ClusterTrainingRuntime"
+      name: "torch-distributed"
+  storedConfiguration:
+    space: "hx-ai-review-20260727t005507955z"
+    unit: "reviewed-training-runtime"
+    unitId: "20a5a713-6e4f-4b90-95b9-38298dc77017"
+    sourceSha256: "8f7394b1e54170f9f3721cc6ac7f19f1c788d967780a630fea891f11ffed7adf"
+    storedSha256: "2282cd0c0afd4f9194ed49ee83fc073b565c1425077fb623eae3e0ca70ae5e5b"
+    byteForByteMatch: false
+    semanticMatch: true
+    contentHashBeforeApproval: 1816530773
+    contentHashAfterApproval: 1816530773
+  policy:
+    profile: "catalog-standard"
+    resourceClass: "system-configuration"
+    filter:
+      ref: "platform/helm-catalog-prod-gates"
+      id: "8784a447-0e4d-4471-b924-eae5377778a2"
+      hash: "53b704e063e156905f5b7f56e7a001cdacd8d300506981e9f6ce97167a0d0b5b"
+      triggerRefs:
+        - "platform/digest-pinned-images"
+        - "platform/lifecycle-route-evidence"
+        - "platform/probes-declared"
+        - "platform/require-approval"
+        - "platform/vet-placeholders"
+        - "platform/vet-schemas"
+      triggerIds:
+        - "04746183-327b-484e-b061-91d2c7753a76"
+        - "2651b7cc-31a2-4833-adde-11e018656dee"
+        - "3f5dd412-1cf2-4583-a73a-12817f899c87"
+        - "4d7664a3-9ac0-4160-868f-95eaa0b59f8f"
+        - "5ce74cb1-7129-43c8-a48c-a0ba4322de3d"
+        - "9d281daf-79f4-4244-84cc-fbde411e3c11"
+    approvalGate: "platform/require-approval/vet-approvedby"
+    validationKeysBeforeApproval:
+      - "platform/digest-pinned-images/vet-cel"
+      - "platform/probes-declared/vet-cel"
+      - "platform/require-approval/vet-approvedby"
+    applyGatesBeforeApproval:
+      - "platform/require-approval/vet-approvedby"
+    applyGatesAfterApproval:
+      []
+    genericWorkloadAdvisories:
+      validationKeys:
+        - "platform/digest-pinned-images/vet-cel"
+        - "platform/probes-declared/vet-cel"
+      blocking: false
+      authoritativeForThisObject: false
+      reason: "The current generic checks inspect ordinary workload-controller fields. This AICR custom resource stores its container deeper in the object."
+  target:
+    ref: "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target"
+    id: "7d32ab9b-6259-40e6-871d-e78f84761d2b"
+    provider: "OCI"
+    toolchain: "Any"
+    dryRunOnly: true
+  beforeApproval:
+    result: "blocked"
+    exitCode: 1
+    gate: "platform/require-approval/vet-approvedby"
+    dryRun: true
+  approval:
+    revisionSelector: "HeadRevisionNum"
+    headRevisionBefore: 2
+    headRevisionAfter: 2
+    recordedApprovals: 1
+    approverIdentityRecordedInReceipt: false
+    gateCleared: true
+  afterApproval:
+    result: "allowed"
+    exitCode: 0
+    dryRun: true
+    queuedOperationId: "70ebc41a-7df8-4168-9bc1-797ccc7cb825"
+  cleanup:
+    space: "pass"
+  limits:
+    - "The proposal is a deterministic fixture, not a transcript from a named AI model."
+    - "The catalog-standard ConfigHub checks and approval ran. The four-node target-capacity check remains a repository check, not a ConfigHub Function."
+    - "The generic image and probe checks emitted warnings because this AICR custom resource does not use the ordinary workload-controller field shape. Those warnings do not tell us whether this candidate is safe."
+    - "Both apply attempts used --dry-run against an OCI target. Nothing was applied to Kubernetes and no release artifact was published."
+    - "The referenced training-provider-credentials Secret was not read or tested."
+    - "This run did not test promotion, rollback, GPU workload health, or live observation."
+    - "The temporary ConfigHub Space was deleted after the receipt was recorded."
+status:
+  result: "pass"
+  claim: "ConfigHub stored the reviewed AICR object without changing its Kubernetes fields, blocked its dry run until the exact head revision was approved, and then allowed the same dry run against the recorded OCI target."
