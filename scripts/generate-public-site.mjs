@@ -1756,7 +1756,7 @@ em{font-style:italic;color:var(--ink);}
   <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has 28 Spaces on the five common checks and seven Spaces on those checks plus approval: four production Spaces and three system-configuration Spaces. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
-  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan, or the <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> for one exact permission correction that is checked, approved, and tested on Kubernetes. Partial and planned examples stay labeled as such.</p>
+  <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan, or the <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> for one exact permission correction that is checked, approved, published as OCI, and delivered by Argo CD. Partial and planned examples stay labeled as such.</p>
 
   <h2>6 · What's yours to decide</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
@@ -2894,7 +2894,7 @@ function docsHtml(catalog) {
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform; ConfigHub imports its 17 exact Argo CD Applications as one checked base variant. The guide shows the recipe, OCI artifacts, target requirements, live upload receipt, and remaining limits.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
     ["AICR OCI round trip", "A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.", "../data/aicr-oci-roundtrip-proof/summary.md"],
     ["AI change review proof", "A reviewed AICR training object is stored without field changes, blocked until its exact revision is approved, then dry-run again against an OCI target. The result also names the current AICR policy-check gap.", "../data/ai-change-review-live-proof/summary.md"],
-    ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, and check the approved result on an isolated cluster.", "../docs/demo/apps/rbac-review.md"],
+    ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A live one-cluster result: ConfigHub stores the reviewed ClusterProfile, Sveltos installs Kyverno on the matching workload cluster, and Sveltos repairs drift.", "../docs/demo/sveltos/kyverno-fleet.md"],
@@ -3601,7 +3601,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "What can we build once the objects are data?",
           answer:
-            "The RBAC report checks every committed default chart render without needing a cluster or running Helm again. A separate live example removes unnecessary Secret access, requires approval for the exact correction, and confirms the changed permission on Kubernetes.",
+            "The RBAC report checks every committed default chart render without needing a cluster or running Helm again. A separate live example removes unnecessary Secret access, requires approval for the exact correction, publishes the reviewed objects as OCI, and confirms the Argo-delivered permission on Kubernetes.",
           links: [["RBAC report", "../data/app-readiness/summary.md"], ["Live correction", "../data/rbac-review-live-proof/summary.md"]],
         },
         {
@@ -4213,7 +4213,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
       ])}
       <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade proof</a> follows one complete run from chart 25.5.3 to 27.0.0. A two-replica edit stays in place, the candidate moves through development and staging, and the same reviewed OCI runs on two Argo CD clusters.</p>
-      <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, and confirms on an isolated cluster that Secret access is gone while ConfigMap access still works.</p>
+      <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
     </section>
 
@@ -4361,7 +4361,7 @@ function customAppsHtml(catalog) {
   const proofRows = [
     ["ExternalDNS overlay", "Managed overlay golden for wrapper chart plus customer values.", "../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md"],
     ["RBAC permissions report", "Broad permission checks over committed chart renders, with no cluster or fresh Helm run.", "../data/app-readiness/summary.md"],
-    ["Live RBAC correction", "One exact permission change stored in ConfigHub, blocked until approval, then checked on an isolated cluster.", "../data/rbac-review-live-proof/summary.md"],
+    ["Live RBAC correction", "One exact permission change stored in ConfigHub, blocked until approval, then published as OCI and delivered by Argo CD to an isolated cluster.", "../data/rbac-review-live-proof/summary.md"],
     ["RBAC Manager for Agents", "Example CLI/plugin plus agent skills for Kubernetes RBAC inventory, who-can queries, findings, and guardrailed edits.", "https://github.com/confighub/examples/tree/main/rbac-manager-for-agents"],
     ["Custom overlays guide", "Plain user guide for base plus overlay cases.", "../docs/user/custom-overlays.md"],
     ["Private paths", "Commercial and operational boundary for private catalogs.", "./private/"],

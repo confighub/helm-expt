@@ -338,7 +338,7 @@ spec:
         - Read Role, ClusterRole, and binding Units across selected Spaces.
         - Report broad verbs, resources, and subjects.
         - Propose a concrete object diff.
-        - Apply the change only after policy and approval.
+        - Publish the approved objects as OCI and let Argo CD deliver the correction.
       entrypoints:
         - docs/demo/apps/rbac-review.md
         - data/app-readiness/summary.md
@@ -348,7 +348,8 @@ spec:
         - runs/rbac-review-live-proof/receipt.yaml
       limits:
         - The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet.
-        - The live example proves one exact namespaced correction, approval, and Kubernetes permission change. It hands approved ConfigHub Unit data to kubectl explicitly; automated ConfigHub, Argo CD, or Flux delivery remains separate work.
+        - The live example proves one exact namespaced correction, approval, private ConfigHub release, portable OCI output, Argo CD reconciliation, and Kubernetes permission change.
+        - The portable OCI used a temporary anonymous registry. A permanent public package, Flux delivery, and fleet rollout remain separate work.
     - id: fleet-platform-app
       name: Fleet Platform App
       problem: Platform teams need to assign different system configurations to cluster groups without losing a central source of record.

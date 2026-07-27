@@ -50,6 +50,14 @@ NGINX package, renders and checks six objects, creates an OCI image layout, and 
 that layout back to compare the object set. The layout is retained as a workflow
 artifact, not published as a public registry package.
 
+Anonymous work can also happen after ConfigHub. The
+[RBAC correction proof](../../data/rbac-review-live-proof/summary.md) stores and
+approves a correction in ConfigHub, publishes the private ConfigHub release, then
+packages the same approved objects as a temporary portable OCI. Argo CD in a
+different organization reads that portable package without borrowing the first
+organization's OCI credential. That is `ConfigHub -> work -> OCI -> Argo CD`. The
+temporary registry proves the shape, not a permanent hosted service.
+
 ConfigHub is the middle. It stores the exact objects, creates base and derived
 variants, shows diffs, runs checks, records approvals, promotes changes, and keeps
 release and observation history. `cub release publish` then creates an immutable

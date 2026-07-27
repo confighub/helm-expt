@@ -432,17 +432,20 @@
     <article class="doc-body">
 <p>The starting configuration gives the <code>report-reader</code> service account read access to ConfigMaps and Secrets in one namespace. It only needs the ConfigMaps.</p>
 <p>The review found that extra Secret access and proposed one change: remove <code>secrets</code> from the Role's resource list. No other Kubernetes field changed. ConfigHub stored the corrected revision and blocked its dry-run apply until that exact revision was approved.</p>
-<p>After approval, the proof applied the stored ConfigHub data to an isolated cluster. The service account can still list ConfigMaps and can no longer list Secrets.</p>
+<p>After approval, ConfigHub published its release OCI. The same approved objects were also packaged as a portable OCI that the throwaway cluster could read without borrowing another cluster's credentials. Argo CD reconciled the portable digest on an isolated cluster. The service account can still list ConfigMaps and can no longer list Secrets.</p>
 <table><thead><tr><th>Check</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>Secret-read finding</td><td>Found</td><td>Cleared</td></tr>
 <tr><td>List Secrets</td><td>Allowed</td><td>Denied</td></tr>
 <tr><td>List ConfigMaps</td><td>Allowed</td><td>Allowed</td></tr>
 <tr><td>ConfigHub apply check</td><td>Not attempted for the imported state</td><td>Blocked before approval, allowed after approval</td></tr>
+<tr><td>ConfigHub release OCI</td><td>-</td><td><code>sha256:9a1c9b52efaf39493d783fe3d9674102bef18ab1c2ccee7a95f951c276144ebf</code></td></tr>
+<tr><td>Portable OCI</td><td>-</td><td><code>sha256:92c3fa146b7b510d047a459ad9402177ae696405137fcca4d7fd234120c448d8</code>; pulled back and matched</td></tr>
+<tr><td>Argo CD</td><td>-</td><td>Synced and Healthy; portable digest matched</td></tr>
 <tr><td>Live Role matches approved data</td><td>-</td><td>Yes</td></tr></tbody></table>
 <h2 id="what-changed">What changed</h2>
 <ul><li>Object: <code>rbac.authorization.k8s.io/v1|Role|rbac-review|report-reader</code></li><li>Field: <code>/rules/0/resources</code></li><li>Removed: <code>secrets</code></li><li>Retained: <code>configmaps</code></li><li>Imported revision: 2</li><li>Corrected revision: 4</li></ul>
 <h2 id="limits">Limits</h2>
 <p>This is a small namespaced fixture. The catalog-wide report uses conservative rules, so a finding asks for review rather than declaring that a chart is wrong. This run does not resolve binding graphs across a fleet or modify a production chart.</p>
-<p>The ConfigHub target was used for dry-run policy checks. After approval, the proof read the exact Unit data and handed it to <code>kubectl apply</code>. Automated ConfigHub, Argo CD, or Flux delivery was not tested. The temporary Space and cluster were removed.</p>
+<p>The existing catalog OCI target was used for the policy checks and release publication. <code>kubectl</code> created the deliberately unsafe starting state. It did not deliver the correction. After approval, ConfigHub published its private release OCI. The proof also built a temporary portable OCI from the same approved data, pulled it back to compare the objects, and let Argo CD apply it without copying a target-scoped credential between organizations. This proves one correction on one throwaway cluster; it does not prove a permanent public registry, Flux delivery, or a fleet rollout. The temporary registry, Spaces, and cluster were removed.</p>
 <ul><li><a href="../../../../examples/apps/rbac-review/before.yaml">Starting configuration</a></li><li><a href="../../../../examples/apps/rbac-review/after.yaml">Reviewed correction</a></li><li><a href="../../docs/demo/apps/rbac-review.html">Human walkthrough</a></li><li><a href="../../../../runs/rbac-review-live-proof/receipt.yaml">Committed live receipt</a></li><li><a href="../app-readiness/summary.html">Catalog-wide RBAC report</a></li></ul>
     </article>
   </main>

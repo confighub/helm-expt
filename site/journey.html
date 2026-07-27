@@ -597,7 +597,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         th { color: var(--muted); font-weight: 600; }
       </style>
       <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade proof</a> follows one complete run from chart 25.5.3 to 27.0.0. A two-replica edit stays in place, the candidate moves through development and staging, and the same reviewed OCI runs on two Argo CD clusters.</p>
-      <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, and confirms on an isolated cluster that Secret access is gone while ConfigMap access still works.</p>
+      <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
     </section>
 

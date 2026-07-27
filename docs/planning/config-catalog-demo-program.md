@@ -38,6 +38,12 @@ claim the result in ConfigHub. Until that service exists, the site must call it
 planned and must not imply that anonymous users already have hosted storage or saved
 edits.
 
+The [RBAC correction proof](../../data/rbac-review-live-proof/summary.md) also places
+anonymous work after ConfigHub. ConfigHub stores and approves the correction and
+publishes its private release. A script packages the same approved objects as a
+temporary portable OCI for Argo CD in another organization. This demonstrates
+`ConfigHub -> work -> OCI -> Argo CD` without copying a target-scoped credential.
+
 These paths remain useful without ConfigHub. The handoff is **Claim this
 configuration in ConfigHub**. Claiming saves the objects and their history so a
 team can make variants, require approvals, promote changes, and roll them out.
@@ -217,9 +223,11 @@ Build the five Apps in this order:
 2. Hooks and CRDs App, because the route records and CRD-ordering receipts already
    exist.
 3. RBAC Review App. The catalog-wide scan now leads to one live reviewed correction:
-   ConfigHub stores the exact change, blocks it until approval, and the approved data
-   removes Secret access on an isolated cluster while preserving ConfigMap access.
-   Automated delivery and fleet-wide binding analysis remain open.
+   ConfigHub stores the exact change, blocks it until approval, and publishes a
+   private release OCI. The same approved objects are packaged as a portable OCI,
+   reconciled by Argo CD, and remove Secret access on an isolated cluster while
+   preserving ConfigMap access. A permanent public package, Flux delivery, and
+   fleet-wide binding analysis remain open.
 4. Fleet Platform App, after Kubara or Sveltos has one complete live lane.
 5. AI Change Review App, after the diff, policy, approval, and unwind path can be shown
    in one run.

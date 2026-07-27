@@ -263,13 +263,13 @@ Query the imported Kubernetes objects, find broad access, and propose exact corr
 1. Read Role, ClusterRole, and binding Units across selected Spaces.
 2. Report broad verbs, resources, and subjects.
 3. Propose a concrete object diff.
-4. Apply the change only after policy and approval.
+4. Publish the approved objects as OCI and let Argo CD deliver the correction.
 
 Start with [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) or [data/app-readiness/summary.md](../../data/app-readiness/summary.md).
 
 Evidence: [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [data/rbac-review-live-proof/summary.md](../../data/rbac-review-live-proof/summary.md), [runs/rbac-review-live-proof/receipt.yaml](../../runs/rbac-review-live-proof/receipt.yaml).
 
-Current limit: The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet. The live example proves one exact namespaced correction, approval, and Kubernetes permission change. It hands approved ConfigHub Unit data to kubectl explicitly; automated ConfigHub, Argo CD, or Flux delivery remains separate work.
+Current limit: The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet. The live example proves one exact namespaced correction, approval, private ConfigHub release, portable OCI output, Argo CD reconciliation, and Kubernetes permission change. The portable OCI used a temporary anonymous registry. A permanent public package, Flux delivery, and fleet rollout remain separate work.
 
 ### Fleet Platform App
 

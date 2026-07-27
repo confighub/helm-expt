@@ -25931,7 +25931,8 @@
           "id": "rbac-review-app",
           "limits": [
             "The catalog-wide scan reads committed default renders; it does not yet query binding graphs across a live fleet.",
-            "The live example proves one exact namespaced correction, approval, and Kubernetes permission change. It hands approved ConfigHub Unit data to kubectl explicitly; automated ConfigHub, Argo CD, or Flux delivery remains separate work."
+            "The live example proves one exact namespaced correction, approval, private ConfigHub release, portable OCI output, Argo CD reconciliation, and Kubernetes permission change.",
+            "The portable OCI used a temporary anonymous registry. A permanent public package, Flux delivery, and fleet rollout remain separate work."
           ],
           "name": "RBAC Review App",
           "problem": "Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.",
@@ -25941,7 +25942,7 @@
             "Read Role, ClusterRole, and binding Units across selected Spaces.",
             "Report broad verbs, resources, and subjects.",
             "Propose a concrete object diff.",
-            "Apply the change only after policy and approval."
+            "Publish the approved objects as OCI and let Argo CD deliver the correction."
           ]
         },
         {

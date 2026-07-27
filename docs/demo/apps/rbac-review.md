@@ -10,7 +10,9 @@ The RBAC Review App follows a short path:
 2. Report that the `report-reader` Role can read Secrets.
 3. Propose one change: remove `secrets` from that Role.
 4. Let a person review and approve the exact ConfigHub revision.
-5. Apply the approved data to an isolated cluster and check the real permission.
+5. Publish the approved Space as a private ConfigHub release OCI.
+6. Package the same approved objects as a portable OCI for the throwaway cluster.
+7. Let Argo CD apply that OCI and check the real permission.
 
 The [starting configuration](../../../examples/apps/rbac-review/before.yaml) contains:
 
@@ -35,13 +37,19 @@ resources:
 
 The live proof stores both revisions in ConfigHub. The corrected revision cannot pass
 the ConfigHub dry-run apply check until that exact revision is approved. After
-approval, the proof applies the stored ConfigHub data to a throwaway cluster. The
-service account can still read ConfigMaps and can no longer list Secrets.
+approval, ConfigHub publishes its private release OCI.
 
-This first proof deliberately uses a manual handoff from the approved ConfigHub Unit
-to `kubectl`. It proves the review, approval, stored data, and Kubernetes permission
-change. It does not yet prove automated ConfigHub delivery, a fleet-wide binding
-analysis, or a correction to a production chart.
+The throwaway cluster belongs to a different organization, so the proof does not
+copy a private OCI credential into it. Instead, the script packages the same approved
+objects as a temporary portable OCI, pulls that package back, and compares all five
+objects with the approved ConfigHub data. Argo CD then reconciles that portable
+digest. The service account can still read ConfigMaps and can no longer list
+Secrets.
+
+`kubectl` creates only the deliberately unsafe starting state. It does not deliver
+the correction. This example proves one namespaced review and correction on one
+throwaway cluster. It does not yet prove a permanent public package, Flux delivery,
+fleet-wide binding analysis, or a correction to a production chart.
 
 Evidence:
 
