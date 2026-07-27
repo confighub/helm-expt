@@ -20,6 +20,11 @@ contains the decisions a reviewer needs to see:
 - run three admission-controller replicas;
 - use `ContinuousWithDriftDetection` so Sveltos restores the reviewed settings.
 
+The
+[pilot profile](../../../examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml)
+adds one selector, `rollout=pilot`. The two-wave test begins with that file and
+then removes only the rollout selector to add the second staging cluster.
+
 The [source lock](../../../examples/sveltos/kyverno-fleet/source-lock.yaml) pins
 Sveltos v1.12.0, the upstream commits, downloaded manifest checksums, kind version,
 and Kubernetes versions used by the test.
@@ -50,26 +55,33 @@ Sveltos restored it to three. The
 [live receipt](../../../examples/sveltos/kyverno-fleet/live-receipt.yaml) records
 the ConfigHub IDs and hashes, cluster result, deployment counts, and drift test.
 
-## What the OCI delivery run added
+## What the OCI delivery run proved
 
 The [OCI delivery receipt](../../../runs/sveltos-oci-delivery-proof/receipt.yaml)
-records a second run that removed the manual copy:
+records a separate run with one management cluster and two workload clusters:
 
-1. ConfigHub stored the exact `ClusterProfile` under the catalog's
+1. ConfigHub stored the exact pilot `ClusterProfile` under the catalog's
    system-configuration policy.
-2. A dry-run apply was blocked until that revision was approved.
-3. ConfigHub published its private Space release.
+2. A dry-run apply was blocked until the pilot revision was approved.
+3. ConfigHub published the approved revision as a private release.
 4. The runner packaged the approved Unit data as a portable OCI using a local,
    no-server step.
 5. The package was pulled back without a ConfigHub account and compared with the
    approved data.
 6. Argo CD reconciled that exact OCI digest on the Sveltos management cluster.
-7. Sveltos selected the staging workload cluster, installed Kyverno, and repaired
-   the deliberate replica change.
+7. Sveltos selected the pilot cluster, installed Kyverno, and left the second
+   cluster unchanged.
+8. The next ConfigHub revision removed only
+   `spec.clusterSelector.matchLabels.rollout`.
+9. ConfigHub blocked that revision until approval and published it at a different
+   OCI digest.
+10. Argo CD reconciled the new digest. Sveltos kept the pilot healthy and
+    installed Kyverno on the second staging cluster.
+11. Sveltos repaired a deliberate replica change on both clusters.
 
-Kubernetes admission and Sveltos added seven controller-managed field paths to the
-live `ClusterProfile`. The receipt lists those paths and confirms that every field
-from the approved object kept its approved value.
+The receipt lists the controller-managed fields added to each live
+`ClusterProfile` revision and confirms that every approved field kept its value.
+It also records the OCI digest and Kyverno result for each workload cluster.
 
 This run shows that the public work can sit at different points in the delivery
 flow. ConfigHub handled the stored review. Portable package creation was local and
@@ -79,8 +91,8 @@ did not need ConfigHub Server. Pulling that package needed no ConfigHub account.
 
 The runner installed Sveltos itself directly from its pinned manifest as a
 management-cluster prerequisite. It used a temporary registry for the portable OCI
-and one staging workload cluster. A permanent public package and a promotion wave
-across several workload clusters still need their own evidence.
+and two local kind workload clusters. A permanent public package, a larger fleet,
+and a rollout that pauses after a failed target still need their own evidence.
 
 ## Check the evidence
 

@@ -168,7 +168,7 @@ const claims = [
       "docs/user/chain-of-proof.md",
     ],
     verify: "npm run runtime-gitops:wave:verify; npm run kubara-oci-delivery:verify; npm run sveltos-oci-delivery:verify",
-    limit: "Each receipt covers its named package, controller, target, and workload only. The Kubara receipt uses one selected service and a temporary registry; it is not a full fleet claim.",
+    limit: "Each receipt covers its named package, controller, target, and workload only. Kubara uses one selected service. Sveltos uses two local clusters. Both use temporary registries, so neither is a large production fleet claim.",
   },
   {
     id: "public-fast-paths",

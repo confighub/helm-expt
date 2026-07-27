@@ -710,9 +710,12 @@ function buildKubaraRecord() {
 function buildSveltosRecord() {
   const root = "examples/sveltos/kyverno-fleet";
   const objectPath = `${root}/clusterprofile.yaml`;
+  const pilotProfilePath = `${root}/clusterprofile-pilot.yaml`;
   const sourceLockPath = `${root}/source-lock.yaml`;
   const receiptPath = `${root}/live-receipt.yaml`;
   const receipt = readYaml(join(repoRoot, receiptPath));
+  const ociReceiptPath = "runs/sveltos-oci-delivery-proof/receipt.yaml";
+  const ociReceipt = readYaml(join(repoRoot, ociReceiptPath));
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "BaseVariantRecord",
@@ -771,23 +774,23 @@ function buildSveltosRecord() {
         routes: [
           {
             id: "confighub-to-management-cluster",
-            status: "manual-pass",
-            note: "The checked ConfigHub Unit was exported and applied to the management cluster with kubectl. Automated ConfigHub delivery did not run.",
+            status: "live-pass",
+            note: "The current receipt records two approved ConfigHub revisions, two portable OCI digests, and Argo CD reconciliation on the management cluster.",
           },
           {
             id: "sveltos-cluster-selection",
             status: "live-pass",
-            note: "Sveltos selected the registered workload cluster labeled environment=staging.",
+            note: "Sveltos selected the rollout=pilot cluster first. Removing that one selector in the second approved revision selected both staging clusters.",
           },
           {
             id: "sveltos-helm-reconciliation",
             status: "live-pass",
-            note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned.",
+            note: "Sveltos installed Kyverno 3.8.1 and reported the Helm feature as Provisioned on both targets.",
           },
           {
             id: "sveltos-drift-recovery",
             status: "live-pass",
-            note: "After the admission-controller replica count was changed from three to one, Sveltos restored it to three.",
+            note: "After the admission-controller replica count was changed from three to one on each target, Sveltos restored both to three.",
           },
         ],
         targetFacts: {
@@ -801,12 +804,16 @@ function buildSveltosRecord() {
       },
       delivery: {
         literalConfigOci: {
-          status: "not-used-direct-unit-upload",
+          status: "temporary-pass",
+          pilotDigest: ociReceipt.spec.configHubReview.pilot.portableRelease.manifestDigest,
+          fleetDigest: ociReceipt.spec.configHubReview.fleet.portableRelease.manifestDigest,
         },
         configHubReleaseOci: {
-          status: "not-run",
+          status: "private-pass",
+          pilotDigest: ociReceipt.spec.configHubReview.pilot.privateRelease.manifestDigest,
+          fleetDigest: ociReceipt.spec.configHubReview.fleet.privateRelease.manifestDigest,
         },
-        argoCd: "not-used-in-this-run",
+        argoCd: "live-pass-two-revisions",
         flux: "not-used-in-this-run",
       },
       policy: {
@@ -820,6 +827,9 @@ function buildSveltosRecord() {
         readmeUnit: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml",
         sourceLock: sourceLockPath,
         liveReceipt: receiptPath,
+        pilotProfile: pilotProfilePath,
+        ociDeliveryReceipt: ociReceiptPath,
+        ociDeliverySummary: "data/sveltos-oci-delivery-proof/summary.md",
         configHubSpace: receipt.spec.configHub.space.slug,
         configHubUnit: receipt.spec.configHub.unit.slug,
         clusterSummary: receipt.spec.management.selectedClusterSummary,
@@ -832,10 +842,11 @@ function buildSveltosRecord() {
     },
     status: {
       level: "partial",
-      claim: "ConfigHub stored the reviewed ClusterProfile under the catalog policy. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count.",
+      claim: "ConfigHub approved a pilot Sveltos ClusterProfile and a second selector revision at different OCI digests. Sveltos installed Kyverno 3.8.1 on the pilot first, then on both staging clusters, and restored replica drift on each target.",
       limits: [
-        "ConfigHub did not deliver the ClusterProfile automatically; the checked Unit was exported and applied with kubectl.",
-        "The live test used one staging workload cluster, not a multi-cluster promotion wave.",
+        "Sveltos itself was installed directly as a pinned management-cluster prerequisite.",
+        "The portable OCI artifacts used a temporary local registry.",
+        "The live test used two local kind clusters; it did not test a large production fleet or a rollout that pauses after a failed target.",
         "The receipt proves this profile and drift test, not every Sveltos feature.",
       ],
     },
@@ -1980,7 +1991,7 @@ A base-variant record connects the literal configuration to the source that prod
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.
 - [Kubara local platform](${kubara ? `records/${kubara.metadata.name}.yaml` : ""}) connects Kubara's generated platform source, 77 rendered bootstrap objects, and the recorded CRD, hook, Secret, and External Secrets work.
-- [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records a live one-cluster result: ConfigHub stored the reviewed profile, Sveltos installed Kyverno, and Sveltos repaired a changed replica count.
+- [Sveltos Kyverno fleet](${sveltos ? `records/${sveltos.metadata.name}.yaml` : ""}) records a two-wave result: ConfigHub approved a pilot and one selector expansion at different OCI digests, then Sveltos installed Kyverno and repaired drift on both staging clusters.
 
 ## Files
 

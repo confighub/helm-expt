@@ -50,7 +50,7 @@ const configHubOciHost = "oci.hub.confighub.com:443";
 const artifactType = "application/vnd.confighub.kubernetes.config.v1";
 const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
 const sourceRoot = join(repoRoot, "examples", "sveltos", "kyverno-fleet");
-const profilePath = join(sourceRoot, "clusterprofile.yaml");
+const profilePath = join(sourceRoot, "clusterprofile-pilot.yaml");
 const sourceLockPath = join(sourceRoot, "source-lock.yaml");
 const receiptPath = join(
   repoRoot,
@@ -187,23 +187,28 @@ function run() {
   const policySpace = `hx-sveltos-${runId}`;
   const managementName = `hx-sveltos-mgmt-${runId}`;
   const managementSpace = `${managementName}-cluster`;
-  const workloadName = `hx-sveltos-work-${runId}`;
+  const pilotName = `hx-sveltos-pilot-${runId}`;
+  const secondName = `hx-sveltos-next-${runId}`;
   const applicationName = `sveltos-profile-${runId}`;
   const applicationUnit = "sveltos-profile-application";
   const registryName = `hx-sveltos-registry-${runId}`;
   const workRoot = mkdtempSync(join(tmpdir(), "helm-expt-sveltos-oci-"));
-  const workloadKubeconfig = join(workRoot, "workload.kubeconfig");
+  const pilotKubeconfig = join(workRoot, "pilot.kubeconfig");
+  const secondKubeconfig = join(workRoot, "next.kubeconfig");
+  const fleetProfilePath = join(workRoot, "clusterprofile-fleet.yaml");
   const cleanup = {
     policySpace: "not-created",
     managementCluster: "not-created",
     managementSpace: "not-created",
-    workloadCluster: "not-created",
+    pilotCluster: "not-created",
+    secondCluster: "not-created",
     registry: "not-created",
     localFiles: "pending",
   };
   let policySpaceCreated = false;
   let managementStarted = false;
-  let workloadStarted = false;
+  let pilotStarted = false;
+  let secondStarted = false;
   let registryStarted = false;
   let receipt;
 
@@ -218,7 +223,9 @@ function run() {
       `refusing to reuse ${managementSpace}`,
     );
     check(
-      !clusterPresent(managementName) && !clusterPresent(workloadName),
+      !clusterPresent(managementName)
+        && !clusterPresent(pilotName)
+        && !clusterPresent(secondName),
       "refusing to reuse an existing kind cluster",
     );
     check(
@@ -237,10 +244,13 @@ function run() {
     cleanup.managementSpace = "pending";
     phase("management cluster ready");
 
-    createWorkloadCluster(workloadName, workloadKubeconfig);
-    workloadStarted = true;
-    cleanup.workloadCluster = "pending";
-    phase("workload cluster ready");
+    createWorkloadCluster(pilotName, pilotKubeconfig);
+    pilotStarted = true;
+    cleanup.pilotCluster = "pending";
+    createWorkloadCluster(secondName, secondKubeconfig);
+    secondStarted = true;
+    cleanup.secondCluster = "pending";
+    phase("two workload clusters ready");
 
     const sveltosInstall = installSveltos({
       managementName,
@@ -248,13 +258,21 @@ function run() {
       expectedManifestSha,
     });
     phase("Sveltos controllers converged");
-    const registration = registerWorkload({
+    const pilotRegistration = registerWorkload({
       managementName,
-      workloadName,
-      workloadKubeconfig,
+      workloadName: pilotName,
+      workloadKubeconfig: pilotKubeconfig,
       workRoot,
+      rollout: "pilot",
     });
-    phase("workload cluster registered");
+    const secondRegistration = registerWorkload({
+      managementName,
+      workloadName: secondName,
+      workloadKubeconfig: secondKubeconfig,
+      workRoot,
+      rollout: "next",
+    });
+    phase("two workload clusters registered");
 
     createPolicySpace(policyContext, policySpace);
     policySpaceCreated = true;
@@ -282,83 +300,83 @@ function run() {
       "Store the reviewed Sveltos ClusterProfile",
       "--quiet",
     ]);
-    const stored = waitForPolicy(
+    const pilotStored = waitForPolicy(
       policyContext,
       policySpace,
       policyUnit,
       true,
     );
     check(
-      canonicalDocs(parseDocs(storedData(stored)))
+      canonicalDocs(parseDocs(storedData(pilotStored)))
         === canonicalDocs(sourceDocs),
       "ConfigHub stored a different ClusterProfile",
     );
-    const blocked = blockedDryRun(
+    const pilotBlocked = blockedDryRun(
       policyContext,
       policySpace,
       policyUnit,
     );
-    cub(policyContext, [
-      "unit",
-      "approve",
-      "--space",
+    approveHeadRevision(
+      policyContext,
       policySpace,
       policyUnit,
-      "--revision",
-      "HeadRevisionNum",
-      "--wait",
-      "--quiet",
-    ]);
-    const approved = waitForPolicy(
+      "pilot",
+      pilotStored.HeadRevisionNum,
+    );
+    const pilotApproved = waitForPolicy(
       policyContext,
       policySpace,
       policyUnit,
       false,
     );
     check(
-      approved.ContentHash === stored.ContentHash,
+      pilotApproved.ContentHash === pilotStored.ContentHash,
       "approval changed the ClusterProfile content",
     );
-    const approvalCountValue = approvalCount(approved.ApprovedBy);
-    check(approvalCountValue >= 1, "the ClusterProfile has no approval");
-    const allowed = allowedDryRun(
+    const pilotApprovalCount = approvalCount(pilotApproved.ApprovedBy);
+    check(pilotApprovalCount >= 1, "the pilot ClusterProfile has no approval");
+    const pilotAllowed = allowedDryRun(
       policyContext,
       policySpace,
       policyUnit,
     );
-    const privateRelease = publishRelease(policyContext, policySpace);
-    phase("ConfigHub review, approval, and private release passed");
-    const approvedText = storedData(approved);
-    const portableRelease = publishPortableOci({
+    const pilotPrivateRelease = publishRelease(policyContext, policySpace);
+    phase("pilot review, approval, and private release passed");
+    const pilotApprovedText = storedData(pilotApproved);
+    const pilotPortableRelease = publishPortableOci({
       workRoot,
-      approvedText,
+      approvedText: pilotApprovedText,
       registryHost: registry.host,
       clusterRegistryHost: registry.clusterHost,
+      tag: "pilot",
     });
-    phase("portable OCI pushed, pulled, and compared");
+    phase("pilot OCI pushed, pulled, and compared");
 
-    const application = addApplication({
+    const pilotApplication = addApplication({
       context: clusterContext,
       managementName,
       managementSpace,
       applicationName,
       applicationUnit,
       policySpace,
-      sourceReference: portableRelease.clusterReference,
+      sourceReference: pilotPortableRelease.clusterReference,
+      sourceRevision: pilotPortableRelease.targetRevision,
       anonymousOciHost: registry.clusterHost,
       workRoot,
     });
-    const argo = waitForApplication({
+    const pilotArgo = waitForApplication({
       managementName,
       applicationName,
-      expectedRevision: portableRelease.manifestDigest,
+      expectedRevision: pilotPortableRelease.manifestDigest,
     });
     check(
-      argo.result === "pass",
-      `${applicationName} did not reconcile: ${argo.reason ?? "unknown"}`,
+      pilotArgo.result === "pass",
+      `${applicationName} did not reconcile the pilot: ${
+        pilotArgo.reason ?? "unknown"
+      }`,
     );
-    phase("Argo CD reconciled the portable OCI digest");
-    const liveProfile = JSON.parse(
+    phase("Argo CD reconciled the pilot OCI digest");
+    const pilotLiveProfile = JSON.parse(
       managementCommand(managementName, [
         "get",
         "clusterprofile",
@@ -367,32 +385,208 @@ function run() {
         "json",
       ]).output,
     );
-    const approvedFieldsMatchLive = sourceFieldsMatchLive(
+    const pilotApprovedFieldsMatchLive = sourceFieldsMatchLive(
       sourceDocs[0],
-      liveProfile,
+      pilotLiveProfile,
     );
-    const liveAddedFieldPaths = addedFieldPaths(
+    const pilotLiveAddedFieldPaths = addedFieldPaths(
       sourceDocs[0],
-      liveProfile,
+      pilotLiveProfile,
     );
     check(
-      approvedFieldsMatchLive,
-      "a field from the approved ClusterProfile changed in the live object",
+      pilotApprovedFieldsMatchLive,
+      "a field from the approved pilot ClusterProfile changed in the live object",
     );
 
-    const reconciliation = waitForKyverno({
+    const pilotReconciliation = waitForKyverno({
       managementName,
-      workloadName,
-      workloadKubeconfig,
+      workloadName: pilotName,
+      workloadKubeconfig: pilotKubeconfig,
     });
     check(
-      reconciliation.result === "pass",
-      `Sveltos did not install Kyverno: ${reconciliation.reason ?? "unknown"}`,
+      pilotReconciliation.result === "pass",
+      `Sveltos did not install Kyverno on the pilot: ${
+        pilotReconciliation.reason ?? "unknown"
+      }`,
     );
-    phase("Sveltos installed Kyverno on the selected workload cluster");
-    const drift = runDriftTest(workloadKubeconfig);
-    check(drift.result === "pass", "Sveltos did not repair the replica drift");
-    phase("Sveltos repaired the replica drift");
+    const secondBeforeExpansion = observeNoKyverno({
+      managementName,
+      workloadName: secondName,
+      workloadKubeconfig: secondKubeconfig,
+    });
+    check(
+      secondBeforeExpansion.result === "pass",
+      `the second cluster was selected during the pilot: ${
+        secondBeforeExpansion.reason ?? "unknown"
+      }`,
+    );
+    phase("pilot selected one cluster and left the second cluster unchanged");
+
+    const fleetDoc = structuredClone(sourceDocs[0]);
+    check(
+      fleetDoc.spec?.clusterSelector?.matchLabels?.rollout === "pilot",
+      "the committed profile no longer declares rollout=pilot",
+    );
+    delete fleetDoc.spec.clusterSelector.matchLabels.rollout;
+    writeDocuments(fleetProfilePath, [fleetDoc]);
+    const fleetUpdate = cubTry(policyContext, [
+      "unit",
+      "update",
+      "--space",
+      policySpace,
+      policyUnit,
+      fleetProfilePath,
+      "--change-desc",
+      "Expand the approved Kyverno profile from pilot to all staging clusters",
+      "-o",
+      "json",
+    ]);
+    if (!fleetUpdate.ok) {
+      const current = cubJson(policyContext, [
+        "unit",
+        "get",
+        "--space",
+        policySpace,
+        policyUnit,
+        "-o",
+        "json",
+      ]).Unit;
+      check(
+        canonicalDocs(parseDocs(storedData(current)))
+          === canonicalDocs([fleetDoc]),
+        `ConfigHub rejected the fleet update before storing it: ${
+          fleetUpdate.error
+        }`,
+      );
+      phase("fleet update stored; waiting for delayed trigger completion");
+    }
+    const fleetStored = waitForPolicy(
+      policyContext,
+      policySpace,
+      policyUnit,
+      true,
+    );
+    check(
+      canonicalDocs(parseDocs(storedData(fleetStored)))
+        === canonicalDocs([fleetDoc]),
+      "ConfigHub stored a different fleet ClusterProfile",
+    );
+    check(
+      Number(fleetStored.HeadRevisionNum) > Number(pilotApproved.HeadRevisionNum),
+      "the fleet change did not create a new revision",
+    );
+    const fleetBlocked = blockedDryRun(
+      policyContext,
+      policySpace,
+      policyUnit,
+    );
+    approveHeadRevision(
+      policyContext,
+      policySpace,
+      policyUnit,
+      "fleet",
+      fleetStored.HeadRevisionNum,
+    );
+    const fleetApproved = waitForPolicy(
+      policyContext,
+      policySpace,
+      policyUnit,
+      false,
+    );
+    check(
+      fleetApproved.ContentHash === fleetStored.ContentHash,
+      "approval changed the fleet ClusterProfile content",
+    );
+    const fleetApprovalCount = approvalCount(fleetApproved.ApprovedBy);
+    check(fleetApprovalCount >= 1, "the fleet ClusterProfile has no approval");
+    const fleetAllowed = allowedDryRun(
+      policyContext,
+      policySpace,
+      policyUnit,
+    );
+    const fleetPrivateRelease = publishRelease(policyContext, policySpace);
+    const fleetApprovedText = storedData(fleetApproved);
+    const fleetPortableRelease = publishPortableOci({
+      workRoot,
+      approvedText: fleetApprovedText,
+      registryHost: registry.host,
+      clusterRegistryHost: registry.clusterHost,
+      tag: "fleet",
+    });
+    check(
+      pilotPortableRelease.manifestDigest
+        !== fleetPortableRelease.manifestDigest,
+      "the selector change did not produce a new OCI digest",
+    );
+    phase("fleet expansion approved and published at a new OCI digest");
+
+    const fleetApplication = updateApplication({
+      context: clusterContext,
+      managementName,
+      managementSpace,
+      applicationName,
+      applicationUnit,
+      policySpace,
+      sourceReference: fleetPortableRelease.clusterReference,
+      sourceRevision: fleetPortableRelease.targetRevision,
+      workRoot,
+    });
+    const fleetArgo = waitForApplication({
+      managementName,
+      applicationName,
+      expectedRevision: fleetPortableRelease.manifestDigest,
+    });
+    check(
+      fleetArgo.result === "pass",
+      `${applicationName} did not reconcile the fleet revision: ${
+        fleetArgo.reason ?? "unknown"
+      }`,
+    );
+    const fleetLiveProfile = JSON.parse(
+      managementCommand(managementName, [
+        "get",
+        "clusterprofile",
+        profileName,
+        "-o",
+        "json",
+      ]).output,
+    );
+    const fleetApprovedFieldsMatchLive = sourceFieldsMatchLive(
+      fleetDoc,
+      fleetLiveProfile,
+    );
+    const fleetLiveAddedFieldPaths = addedFieldPaths(
+      fleetDoc,
+      fleetLiveProfile,
+    );
+    check(
+      fleetApprovedFieldsMatchLive,
+      "a field from the approved fleet ClusterProfile changed in the live object",
+    );
+    const pilotAfterExpansion = waitForKyverno({
+      managementName,
+      workloadName: pilotName,
+      workloadKubeconfig: pilotKubeconfig,
+    });
+    const secondAfterExpansion = waitForKyverno({
+      managementName,
+      workloadName: secondName,
+      workloadKubeconfig: secondKubeconfig,
+    });
+    check(
+      pilotAfterExpansion.result === "pass"
+        && secondAfterExpansion.result === "pass",
+      "Sveltos did not reconcile Kyverno on both staging clusters",
+    );
+    phase("fleet revision selected both staging clusters");
+
+    const pilotDrift = runDriftTest(pilotKubeconfig);
+    const secondDrift = runDriftTest(secondKubeconfig);
+    check(
+      pilotDrift.result === "pass" && secondDrift.result === "pass",
+      "Sveltos did not repair replica drift on both clusters",
+    );
+    phase("Sveltos repaired replica drift on both clusters");
 
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
@@ -422,8 +616,7 @@ function run() {
           organization: expectedPolicyOrg,
           space: policySpace,
           unit: policyUnit,
-          unitId: stored.UnitID,
-          contentHash: stored.ContentHash,
+          unitId: pilotStored.UnitID,
           target: {
             ref: catalogOciTargetRef,
             id: catalogTarget.TargetID,
@@ -435,52 +628,129 @@ function run() {
             filter: topology,
             approvalGate,
           },
-          beforeApproval: blocked,
-          approval: {
-            revision: approved.HeadRevisionNum,
-            recordedApprovals: approvalCountValue,
-            approverIdentityRecordedInReceipt: false,
-            contentHashUnchanged: true,
+          pilot: {
+            selector: {
+              environment: "staging",
+              rollout: "pilot",
+            },
+            contentHash: pilotStored.ContentHash,
+            beforeApproval: pilotBlocked,
+            approval: {
+              revision: pilotApproved.HeadRevisionNum,
+              recordedApprovals: pilotApprovalCount,
+              approverIdentityRecordedInReceipt: false,
+              contentHashUnchanged: true,
+            },
+            afterApproval: pilotAllowed,
+            approvedDataMatchesSource: true,
+            privateRelease: pilotPrivateRelease,
+            portableRelease: pilotPortableRelease,
           },
-          afterApproval: allowed,
-          approvedDataMatchesSource: true,
-          privateRelease,
-          portableRelease,
+          fleet: {
+            selector: {
+              environment: "staging",
+            },
+            change: {
+              path: "spec.clusterSelector.matchLabels.rollout",
+              before: "pilot",
+              after: "removed",
+              otherSourceFieldsChanged: false,
+            },
+            contentHash: fleetStored.ContentHash,
+            beforeApproval: fleetBlocked,
+            approval: {
+              revision: fleetApproved.HeadRevisionNum,
+              recordedApprovals: fleetApprovalCount,
+              approverIdentityRecordedInReceipt: false,
+              contentHashUnchanged: true,
+            },
+            afterApproval: fleetAllowed,
+            approvedDataMatchesCandidate: true,
+            privateRelease: fleetPrivateRelease,
+            portableRelease: fleetPortableRelease,
+          },
         },
         management: {
           organization: clusterContextInfo.metadata.organizationName,
           cluster: managementName,
           creationCommand: "cub cluster up",
-          registration,
-          delivery: {
-            source: "approved ConfigHub Unit data",
-            applicationDelivery: "ConfigHub cluster Space release OCI",
-            workloadDelivery: "temporary portable OCI",
-            portablePackaging: "scripted from the approved Unit data",
-            application,
-            argo,
-            approvedFieldsMatchLive,
-            liveAddedFieldPaths,
+          registrations: [
+            pilotRegistration,
+            secondRegistration,
+          ],
+          waves: {
+            pilot: {
+              source: "approved ConfigHub Unit data",
+              applicationDelivery: "ConfigHub cluster Space release OCI",
+              workloadDelivery: "temporary portable OCI",
+              portablePackaging: "scripted from the approved Unit data",
+              application: pilotApplication,
+              argo: pilotArgo,
+              approvedFieldsMatchLive: pilotApprovedFieldsMatchLive,
+              liveAddedFieldPaths: pilotLiveAddedFieldPaths,
+              targets: [
+                {
+                  cluster: pilotName,
+                  selected: true,
+                  reconciliation: pilotReconciliation,
+                },
+                {
+                  cluster: secondName,
+                  selected: false,
+                  observation: secondBeforeExpansion,
+                },
+              ],
+            },
+            fleet: {
+              source: "approved ConfigHub Unit data",
+              applicationDelivery: "ConfigHub cluster Space release OCI",
+              workloadDelivery: "temporary portable OCI",
+              portablePackaging: "scripted from the approved Unit data",
+              application: fleetApplication,
+              argo: fleetArgo,
+              approvedFieldsMatchLive: fleetApprovedFieldsMatchLive,
+              liveAddedFieldPaths: fleetLiveAddedFieldPaths,
+              targets: [
+                {
+                  cluster: pilotName,
+                  selected: true,
+                  reconciliation: pilotAfterExpansion,
+                },
+                {
+                  cluster: secondName,
+                  selected: true,
+                  reconciliation: secondAfterExpansion,
+                },
+              ],
+            },
           },
-          reconciliation,
         },
-        workload: {
-          cluster: workloadName,
-          creationCommand: "kind create cluster",
-          drift,
-        },
+        workloads: [
+          {
+            cluster: pilotName,
+            role: "pilot",
+            creationCommand: "kind create cluster",
+            drift: pilotDrift,
+          },
+          {
+            cluster: secondName,
+            role: "second-wave",
+            creationCommand: "kind create cluster",
+            drift: secondDrift,
+          },
+        ],
         cleanup,
         limits: [
           "The pinned Sveltos controllers were installed directly as a prerequisite on the throwaway management cluster.",
           "The reviewed ClusterProfile, not the Sveltos controller installation, was delivered through ConfigHub, OCI, and Argo CD.",
           "The portable OCI used a temporary anonymous registry; this is not a permanent public package.",
-          "The proof used one staging workload cluster. It does not prove a multi-cluster promotion wave.",
+          "The proof used two local kind workload clusters. It does not prove a large production fleet or a failure-and-pause rollout.",
           "The proof covers this Kyverno ClusterProfile, not every Sveltos feature or add-on.",
         ],
       },
       status: {
         result: "pass",
-        claim: "ConfigHub stored and approved one Sveltos ClusterProfile, published its private release, and delivered a portable OCI containing the approved object through Argo CD. Every approved field kept its value after admission. Sveltos selected one staging workload cluster, installed Kyverno 3.8.1, and restored a changed replica count.",
+        claim: "ConfigHub stored and approved a pilot Sveltos ClusterProfile, then approved one selector change that added a second staging cluster. Each revision was published at a different OCI digest and reconciled through Argo CD. Sveltos installed Kyverno 3.8.1 on the pilot first, then on both clusters, and repaired replica drift on each target.",
       },
     };
   } finally {
@@ -503,12 +773,19 @@ function run() {
       ? "fail"
       : "pass";
 
-    if (workloadStarted || clusterPresent(workloadName)) {
-      tryCommand("kind", ["delete", "cluster", "--name", workloadName], {
+    if (pilotStarted || clusterPresent(pilotName)) {
+      tryCommand("kind", ["delete", "cluster", "--name", pilotName], {
         timeout: 180_000,
       });
     }
-    cleanup.workloadCluster = clusterPresent(workloadName) ? "fail" : "pass";
+    cleanup.pilotCluster = clusterPresent(pilotName) ? "fail" : "pass";
+
+    if (secondStarted || clusterPresent(secondName)) {
+      tryCommand("kind", ["delete", "cluster", "--name", secondName], {
+        timeout: 180_000,
+      });
+    }
+    cleanup.secondCluster = clusterPresent(secondName) ? "fail" : "pass";
 
     if (policySpaceCreated || spacePresent(policyContext, policySpace)) {
       cubTry(policyContext, [
@@ -694,8 +971,16 @@ function registerWorkload({
   workloadName,
   workloadKubeconfig,
   workRoot,
+  rollout,
 }) {
-  const serviceAccountPath = join(workRoot, "sveltos-workload-access.yaml");
+  check(
+    rollout === "pilot" || rollout === "next",
+    `unsupported rollout label ${rollout}`,
+  );
+  const serviceAccountPath = join(
+    workRoot,
+    `${workloadName}-sveltos-workload-access.yaml`,
+  );
   writeFileSync(serviceAccountPath, `apiVersion: v1
 kind: Namespace
 metadata:
@@ -762,7 +1047,10 @@ contexts:
       user: sveltos-manager
 current-context: workload
 `;
-  const registrationPath = join(workRoot, "sveltos-registration.yaml");
+  const registrationPath = join(
+    workRoot,
+    `${workloadName}-sveltos-registration.yaml`,
+  );
   writeFileSync(registrationPath, `apiVersion: v1
 kind: Secret
 metadata:
@@ -779,6 +1067,7 @@ metadata:
   namespace: ${registrationNamespace}
   labels:
     environment: staging
+    rollout: ${rollout}
     sveltos-agent: present
 spec: {}
 `, { mode: 0o600 });
@@ -794,6 +1083,7 @@ spec: {}
     cluster: workloadName,
     labels: {
       environment: "staging",
+      rollout,
       "sveltos-agent": "present",
     },
     credential: {
@@ -956,6 +1246,62 @@ function waitForKyverno({
   };
 }
 
+function observeNoKyverno({
+  managementName,
+  workloadName,
+  workloadKubeconfig,
+}) {
+  const releases = JSON.parse(
+    helmCommand(workloadKubeconfig, [
+      "list",
+      "-A",
+      "-o",
+      "json",
+    ]).output,
+  );
+  const kyvernoRelease = releases.find((release) => release.name === "kyverno");
+  const namespace = workloadTry(
+    workloadKubeconfig,
+    ["get", "namespace", "kyverno", "-o", "json"],
+  );
+  const summaries = managementTry(managementName, [
+    "get",
+    "clustersummaries",
+    "-A",
+    "-o",
+    "json",
+  ]);
+  const clusterSummary = summaries.ok
+    ? (JSON.parse(summaries.output).items ?? []).find(
+      (item) =>
+        item.spec?.clusterName === workloadName
+        && item.spec?.clusterNamespace === registrationNamespace
+        && item.spec?.clusterType === "Sveltos"
+        && (
+          item.metadata?.labels?.["projectsveltos.io/cluster-profile-name"]
+            === profileName
+          || (item.metadata?.ownerReferences ?? []).some(
+            (owner) =>
+              owner.kind === "ClusterProfile" && owner.name === profileName,
+          )
+        ),
+    )
+    : null;
+  const absent = !kyvernoRelease && !namespace.ok && !clusterSummary;
+  return {
+    result: absent ? "pass" : "fail",
+    selected: false,
+    helmReleasePresent: Boolean(kyvernoRelease),
+    namespacePresent: namespace.ok,
+    clusterSummaryPresent: Boolean(clusterSummary),
+    ...(absent
+      ? {}
+      : {
+        reason: "Kyverno or its Sveltos ClusterSummary was present before the fleet expansion",
+      }),
+  };
+}
+
 function runDriftTest(workloadKubeconfig) {
   const deployment = "kyverno-admission-controller";
   workloadCommand(workloadKubeconfig, [
@@ -1101,6 +1447,39 @@ function waitForPolicy(context, space, unit, approvalExpected) {
   );
 }
 
+function approveHeadRevision(
+  context,
+  space,
+  unit,
+  phaseName,
+  expectedRevision,
+) {
+  const result = cubTry(context, [
+    "unit",
+    "approve",
+    "--space",
+    space,
+    unit,
+    "--revision",
+    "HeadRevisionNum",
+    "--wait",
+    "--quiet",
+  ]);
+  if (result.ok) return;
+  const current = cubJson(
+    context,
+    ["unit", "get", unit, "--space", space, "-o", "json"],
+  ).Unit;
+  check(
+    Number(current.HeadRevisionNum) === Number(expectedRevision)
+      && approvalCount(current.ApprovedBy) >= 1,
+    `ConfigHub rejected the ${phaseName} approval before recording it: ${
+      result.error
+    }`,
+  );
+  phase(`${phaseName} approval recorded; waiting for delayed trigger completion`);
+}
+
 function blockedDryRun(context, space, unit) {
   const result = cubTry(context, [
     "unit",
@@ -1209,9 +1588,11 @@ function publishPortableOci({
   approvedText,
   registryHost,
   clusterRegistryHost,
+  tag,
 }) {
-  const outputRoot = join(workRoot, "portable-output");
-  const pullRoot = join(workRoot, "portable-output-pulled");
+  check(tag === "pilot" || tag === "fleet", `unsupported OCI tag ${tag}`);
+  const outputRoot = join(workRoot, `portable-output-${tag}`);
+  const pullRoot = join(workRoot, `portable-output-${tag}-pulled`);
   const outputFile = join(outputRoot, "clusterprofile.yaml");
   const bundleFile = join(outputRoot, "bundle.tar.gz");
   mkdirSync(outputRoot, { recursive: true });
@@ -1222,7 +1603,7 @@ function publishPortableOci({
     "clusterprofile.yaml",
   ], { cwd: outputRoot });
   const repository = "sveltos-kyverno-staging";
-  const localReference = `${registryHost}/${repository}:latest`;
+  const localReference = `${registryHost}/${repository}:${tag}`;
   command("oras", [
     "push",
     "--plain-http",
@@ -1263,6 +1644,7 @@ function publishPortableOci({
   return {
     reference: `oci://${localReference}`,
     clusterReference: `oci://${clusterRegistryHost}/${repository}`,
+    targetRevision: tag,
     manifestDigest,
     objectCount: 1,
     approvedDataSha256: sha256(approvedText),
@@ -1281,6 +1663,7 @@ function addApplication({
   applicationUnit,
   policySpace,
   sourceReference,
+  sourceRevision,
   anonymousOciHost,
   workRoot,
 }) {
@@ -1296,27 +1679,12 @@ function addApplication({
   ]).Target;
   check(target?.ProviderType === "OCI", `${targetRef} is not an OCI target`);
   const applicationPath = join(workRoot, `${applicationName}.yaml`);
-  writeFileSync(applicationPath, `apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: ${applicationName}
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: ${sourceReference}
-    targetRevision: latest
-    path: .
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - ServerSideApply=true
-`, { mode: 0o600 });
+  writeApplication(
+    applicationPath,
+    applicationName,
+    sourceReference,
+    sourceRevision,
+  );
   configureAnonymousOci(managementName, anonymousOciHost, workRoot);
   cub(context, [
     "unit",
@@ -1345,10 +1713,97 @@ spec:
     name: applicationName,
     unit: `${managementSpace}/${applicationUnit}`,
     source: sourceReference,
+    sourceRevision,
     approvedConfigHubSpace: policySpace,
     destinationCluster: "management",
     clusterRootReleaseDigest: rootRelease.manifestDigest,
   };
+}
+
+function updateApplication({
+  context,
+  managementName,
+  managementSpace,
+  applicationName,
+  applicationUnit,
+  policySpace,
+  sourceReference,
+  sourceRevision,
+  workRoot,
+}) {
+  const applicationPath = join(
+    workRoot,
+    `${applicationName}-${sourceRevision}.yaml`,
+  );
+  writeApplication(
+    applicationPath,
+    applicationName,
+    sourceReference,
+    sourceRevision,
+  );
+  cub(context, [
+    "unit",
+    "update",
+    "--space",
+    managementSpace,
+    applicationUnit,
+    applicationPath,
+    "--change-desc",
+    `Deliver the approved ${sourceRevision} ClusterProfile from ${policySpace}`,
+    "--quiet",
+  ], { timeout: 180_000 });
+  const rootRelease = publishRelease(context, managementSpace);
+  managementCommand(managementName, [
+    "annotate",
+    "application",
+    managementSpace,
+    "-n",
+    "argocd",
+    "argocd.argoproj.io/refresh=hard",
+    "--overwrite",
+  ]);
+  return {
+    name: applicationName,
+    unit: `${managementSpace}/${applicationUnit}`,
+    source: sourceReference,
+    sourceRevision,
+    approvedConfigHubSpace: policySpace,
+    destinationCluster: "management",
+    clusterRootReleaseDigest: rootRelease.manifestDigest,
+  };
+}
+
+function writeApplication(
+  path,
+  applicationName,
+  sourceReference,
+  sourceRevision,
+) {
+  check(
+    sourceRevision === "pilot" || sourceRevision === "fleet",
+    `unsupported application source revision ${sourceRevision}`,
+  );
+  writeFileSync(path, `apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ${applicationName}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: ${sourceReference}
+    targetRevision: ${sourceRevision}
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+`, { mode: 0o600 });
 }
 
 function configureAnonymousOci(managementName, registryHost, workRoot) {
@@ -1784,6 +2239,11 @@ function verifyReceipt(receipt) {
       === sha256(canonicalDocs(sourceDocs)),
     "Sveltos source record changed",
   );
+  check(
+    sourceDocs[0]?.spec?.clusterSelector?.matchLabels?.environment === "staging"
+      && sourceDocs[0]?.spec?.clusterSelector?.matchLabels?.rollout === "pilot",
+    "Sveltos pilot selector changed",
+  );
   const prerequisite = receipt.spec?.prerequisite;
   const sourceLock = readYaml(sourceLockPath);
   check(
@@ -1811,74 +2271,105 @@ function verifyReceipt(receipt) {
       && sameSet(review.policy.filter?.triggerRefs ?? [], expectedTriggers),
     "Sveltos policy record changed",
   );
+  const pilot = review?.pilot;
+  const fleet = review?.fleet;
+  for (const [name, phaseReview] of [
+    ["pilot", pilot],
+    ["fleet", fleet],
+  ]) {
+    check(
+      phaseReview?.beforeApproval?.result === "blocked"
+        && phaseReview.beforeApproval.gate === approvalGate
+        && phaseReview.afterApproval?.result === "allowed"
+        && phaseReview.approval?.recordedApprovals >= 1
+        && phaseReview.approval.approverIdentityRecordedInReceipt === false
+        && phaseReview.approval.contentHashUnchanged === true,
+      `Sveltos ${name} approval record changed`,
+    );
+    check(
+      normalizeDigest(phaseReview.privateRelease?.manifestDigest)
+        === phaseReview.privateRelease.manifestDigest
+        && phaseReview.portableRelease?.objectsMatchApprovedData === true
+        && phaseReview.portableRelease.objectCount === 1
+        && phaseReview.portableRelease.anonymousPull === true
+        && phaseReview.portableRelease.registryLifetime === "temporary"
+        && phaseReview.portableRelease.targetRevision === name
+        && phaseReview.portableRelease.approvedDataSha256
+        === phaseReview.portableRelease.pulledDataSha256,
+      `Sveltos ${name} OCI records changed`,
+    );
+  }
   check(
-    review?.beforeApproval?.result === "blocked"
-      && review.beforeApproval.gate === approvalGate
-      && review.afterApproval?.result === "allowed"
-      && review.approval?.recordedApprovals >= 1
-      && review.approval.approverIdentityRecordedInReceipt === false
-      && review.approval.contentHashUnchanged === true
-      && review.approvedDataMatchesSource === true,
-    "Sveltos approval record changed",
-  );
-  check(
-    normalizeDigest(review.privateRelease?.manifestDigest)
-      === review.privateRelease.manifestDigest
-      && review.portableRelease?.objectsMatchApprovedData === true
-      && review.portableRelease.objectCount === 1
-      && review.portableRelease.anonymousPull === true
-      && review.portableRelease.registryLifetime === "temporary"
-      && review.portableRelease.approvedDataSha256
-      === review.portableRelease.pulledDataSha256,
-    "Sveltos OCI records changed",
+    pilot?.selector?.environment === "staging"
+      && pilot.selector.rollout === "pilot"
+      && pilot.approvedDataMatchesSource === true
+      && fleet?.selector?.environment === "staging"
+      && Object.keys(fleet.selector).length === 1
+      && fleet.change?.path === "spec.clusterSelector.matchLabels.rollout"
+      && fleet.change.before === "pilot"
+      && fleet.change.after === "removed"
+      && fleet.change.otherSourceFieldsChanged === false
+      && fleet.approvedDataMatchesCandidate === true
+      && Number(fleet.approval.revision) > Number(pilot.approval.revision)
+      && fleet.portableRelease.manifestDigest
+      !== pilot.portableRelease.manifestDigest,
+    "Sveltos fleet selector change record changed",
   );
   const management = receipt.spec?.management;
   check(
     management?.creationCommand === "cub cluster up"
-      && management.registration?.method
-      === "programmatic SveltosCluster registration"
-      && management.registration.ready === true
-      && management.registration.labels?.environment === "staging"
-      && management.registration.credential?.storedInRepository === false,
+      && management.registrations?.length === 2
+      && management.registrations.every(
+        (registration) =>
+          registration.method === "programmatic SveltosCluster registration"
+          && registration.ready === true
+          && registration.labels?.environment === "staging"
+          && ["pilot", "next"].includes(registration.labels?.rollout)
+          && registration.credential?.storedInRepository === false,
+      )
+      && new Set(
+        management.registrations.map(
+          (registration) => registration.labels.rollout,
+        ),
+      ).size === 2,
     "Sveltos cluster registration record changed",
   );
-  const delivery = management?.delivery;
+  const pilotWave = management?.waves?.pilot;
+  const fleetWave = management?.waves?.fleet;
+  verifyWaveDelivery(pilotWave, pilot, "pilot");
+  verifyWaveDelivery(fleetWave, fleet, "fleet");
   check(
-    delivery?.source === "approved ConfigHub Unit data"
-      && delivery.applicationDelivery
-      === "ConfigHub cluster Space release OCI"
-      && delivery.workloadDelivery === "temporary portable OCI"
-      && delivery.application?.source
-      === review.portableRelease.clusterReference
-      && delivery.argo?.result === "pass"
-      && delivery.argo.sync === "Synced"
-      && delivery.argo.health === "Healthy"
-      && delivery.argo.revision === review.portableRelease.manifestDigest
-      && delivery.approvedFieldsMatchLive === true
-      && Array.isArray(delivery.liveAddedFieldPaths),
-    "Sveltos Argo delivery record changed",
+    pilotWave.targets?.length === 2
+      && pilotWave.targets[0].selected === true
+      && reconciliationPassed(pilotWave.targets[0].reconciliation)
+      && pilotWave.targets[1].selected === false
+      && pilotWave.targets[1].observation?.result === "pass"
+      && pilotWave.targets[1].observation.helmReleasePresent === false
+      && pilotWave.targets[1].observation.namespacePresent === false
+      && pilotWave.targets[1].observation.clusterSummaryPresent === false,
+    "Sveltos pilot target record changed",
   );
-  const reconciliation = management?.reconciliation;
   check(
-    reconciliation?.result === "pass"
-      && reconciliation.selectedCluster
-      === receipt.spec?.workload?.cluster
-      && reconciliation.helmFeatureStatus === "Provisioned"
-      && reconciliation.helmRelease?.name === "kyverno"
-      && reconciliation.helmRelease?.chart === "kyverno-3.8.1"
-      && reconciliation.deployments?.length === 4
-      && reconciliation.deployments.every(
-        (deployment) =>
-          deployment.desired === deployment.available
-          && deployment.observedGenerationMatches === true,
+    fleetWave.targets?.length === 2
+      && fleetWave.targets.every(
+        (target) =>
+          target.selected === true
+          && reconciliationPassed(target.reconciliation),
+      )
+      && new Set(fleetWave.targets.map((target) => target.cluster)).size === 2,
+    "Sveltos fleet target record changed",
+  );
+  check(
+    receipt.spec?.workloads?.length === 2
+      && new Set(receipt.spec.workloads.map((workload) => workload.role)).size
+      === 2
+      && receipt.spec.workloads.every(
+        (workload) =>
+          workload.creationCommand === "kind create cluster"
+          && workload.drift?.result === "pass"
+          && workload.drift.changedReplicas === 1
+          && workload.drift.restoredReplicas === 3,
       ),
-    "Sveltos reconciliation record changed",
-  );
-  check(
-    receipt.spec?.workload?.creationCommand === "kind create cluster"
-      && receipt.spec.workload.drift?.result === "pass"
-      && receipt.spec.workload.drift.changedReplicas === 1
-      && receipt.spec.workload.drift.restoredReplicas === 3,
     "Sveltos drift record changed",
   );
   check(
@@ -1900,62 +2391,98 @@ function verifyReceipt(receipt) {
   );
 }
 
+function verifyWaveDelivery(wave, review, expectedRevision) {
+  check(
+    wave?.source === "approved ConfigHub Unit data"
+      && wave.applicationDelivery === "ConfigHub cluster Space release OCI"
+      && wave.workloadDelivery === "temporary portable OCI"
+      && wave.application?.source
+      === review.portableRelease.clusterReference
+      && wave.application.sourceRevision === expectedRevision
+      && wave.argo?.result === "pass"
+      && wave.argo.sync === "Synced"
+      && wave.argo.health === "Healthy"
+      && wave.argo.revision === review.portableRelease.manifestDigest
+      && wave.approvedFieldsMatchLive === true
+      && Array.isArray(wave.liveAddedFieldPaths),
+    `Sveltos ${expectedRevision} Argo delivery record changed`,
+  );
+}
+
+function reconciliationPassed(reconciliation) {
+  return reconciliation?.result === "pass"
+    && reconciliation.helmFeatureStatus === "Provisioned"
+    && reconciliation.helmRelease?.name === "kyverno"
+    && reconciliation.helmRelease?.chart === "kyverno-3.8.1"
+    && reconciliation.deployments?.length === 4
+    && reconciliation.deployments.every(
+      (deployment) =>
+        deployment.desired === deployment.available
+        && deployment.observedGenerationMatches === true,
+    );
+}
+
 function renderSummary(receipt) {
   const review = receipt.spec.configHubReview;
   const management = receipt.spec.management;
-  const workload = receipt.spec.workload;
-  const reconciliation = management.reconciliation;
-  return `# ConfigHub delivers a Sveltos fleet profile
+  const pilotWave = management.waves.pilot;
+  const fleetWave = management.waves.fleet;
+  const pilotTarget = pilotWave.targets.find((target) => target.selected);
+  const secondPilotTarget = pilotWave.targets.find((target) => !target.selected);
+  return `# ConfigHub rolls out a Sveltos profile in two waves
 
-This run starts with one reviewed Sveltos \`ClusterProfile\`. It selects workload
-clusters labeled \`environment=staging\`, installs Kyverno 3.8.1, and asks for three
-admission-controller replicas.
+This run starts with two staging clusters. The reviewed Sveltos
+\`ClusterProfile\` selects only the cluster labeled \`rollout=pilot\`. It installs
+Kyverno 3.8.1 with three admission-controller replicas.
 
-ConfigHub stored the exact profile under the system-configuration policy. Its
-dry-run apply was blocked until the exact revision was approved. ConfigHub then
-published its private release OCI.
+ConfigHub blocked that profile until its exact revision was approved. The approved
+pilot profile was published as a private ConfigHub release and as a temporary
+portable OCI. Argo CD reconciled the portable OCI digest on the management cluster.
+Sveltos installed Kyverno on \`${pilotTarget.cluster}\` and left
+\`${secondPilotTarget.cluster}\` unchanged.
 
-The proof also packaged the approved profile as a temporary portable OCI. Argo CD
-on the management cluster reconciled that exact digest. Sveltos selected the
-registered staging workload cluster, installed Kyverno, and reported the Helm
-feature as \`Provisioned\`.
+The second revision removed one selector label:
+\`spec.clusterSelector.matchLabels.rollout\`. No chart setting or other profile
+field changed. ConfigHub blocked the new revision until it was approved, then
+published it at a different OCI digest. Sveltos kept the pilot healthy and installed
+Kyverno on the second staging cluster.
 
-This run uses ConfigHub for the stored review and approval. Packaging the approved
-object as a portable OCI is a local \`work -> OCI\` step, and pulling that temporary
-package needs no ConfigHub account. Those are composable choices: the public tools
-can also build or inspect OCI packages without putting ConfigHub in the flow.
+The test finally changed the admission-controller deployment from three replicas to
+one on each cluster. Sveltos restored both deployments to three.
 
-The test then changed the admission-controller deployment from three replicas to
-one. Sveltos restored it to three.
+The temporary portable packages can be pulled without a ConfigHub account.
+ConfigHub was used here because the two revisions needed stored history, policy,
+approval, and named release records.
 
 | Check | Result |
 | --- | --- |
-| ConfigHub apply before approval | ${review.beforeApproval.result} |
-| ConfigHub apply after approval | ${review.afterApproval.result} |
-| Private ConfigHub release | \`${review.privateRelease.manifestDigest}\` |
-| Portable OCI pulled back and compared | ${review.portableRelease.objectsMatchApprovedData ? "Pass" : "Fail"} |
-| Argo CD | ${management.delivery.argo.sync} and ${management.delivery.argo.health}; digest matched |
-| Approved fields in the live profile | ${management.delivery.approvedFieldsMatchLive ? "Pass" : "Fail"}; ${management.delivery.liveAddedFieldPaths.length} controller-added path(s) recorded |
-| Sveltos cluster selection | \`${reconciliation.selectedCluster}\` |
-| Sveltos Helm result | ${reconciliation.helmFeatureStatus} |
-| Kyverno deployments available | ${reconciliation.deployments.length}/4 |
-| Replica drift repaired | ${workload.drift.changedReplicas} -> ${workload.drift.restoredReplicas} |
+| Pilot blocked before approval | ${review.pilot.beforeApproval.result} |
+| Pilot OCI | \`${review.pilot.portableRelease.manifestDigest}\` |
+| Pilot selected | \`${pilotTarget.cluster}\` |
+| Second cluster before expansion | No Kyverno release, namespace, or ClusterSummary |
+| Fleet revision blocked before approval | ${review.fleet.beforeApproval.result} |
+| Fleet selector change | Removed \`${review.fleet.change.path}\` |
+| Fleet OCI | \`${review.fleet.portableRelease.manifestDigest}\` |
+| Argo CD after fleet revision | ${fleetWave.argo.sync} and ${fleetWave.argo.health}; digest matched |
+| Healthy Sveltos targets after expansion | ${fleetWave.targets.filter((target) => reconciliationPassed(target.reconciliation)).length}/2 |
+| Replica drift repaired | ${receipt.spec.workloads.filter((workload) => workload.drift.result === "pass").length}/2 |
 | Cleanup | ${Object.values(receipt.spec.cleanup).every((value) => value === "pass") ? "Pass" : "Fail"} |
 
 ## What this proves
 
-The reviewed fleet object can move from ConfigHub through OCI and Argo CD to a
-Sveltos management cluster without being copied with \`kubectl\`. Sveltos then owns
-cluster selection, Helm installation, and drift repair.
+One reviewed platform record can start with a pilot, then add a second cluster by
+changing one declared selector. Both revisions moved from ConfigHub through OCI and
+Argo CD to the Sveltos management cluster. The receipt records the OCI digest and
+the result for each workload cluster.
 
 ## Limits
 
 Sveltos itself was installed directly as a pinned prerequisite on the management
-cluster. The portable OCI used a temporary registry. This was one staging workload
-cluster, not a multi-cluster promotion wave, and it proves this Kyverno profile
-rather than every Sveltos feature.
+cluster. The portable OCI used a temporary registry. This was a two-cluster local
+wave, not a large production fleet or a failure-and-pause test. It proves this
+Kyverno profile rather than every Sveltos feature.
 
-- [Reviewed ClusterProfile](../../examples/sveltos/kyverno-fleet/clusterprofile.yaml)
+- [Reviewed pilot ClusterProfile](../../examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml)
 - [Pinned source versions](../../examples/sveltos/kyverno-fleet/source-lock.yaml)
 - [Committed receipt](../../runs/sveltos-oci-delivery-proof/receipt.yaml)
 `;
