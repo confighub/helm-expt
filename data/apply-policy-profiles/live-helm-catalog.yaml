@@ -5,7 +5,7 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-27T19:40:31.504Z"
+  verifiedAt: "2026-07-27T20:59:49.957Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
@@ -214,6 +214,53 @@ spec:
         - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging"
         - "kubara-local-platform-v0-12-0"
         - "sveltos-kyverno-fleet-3-8-1-staging"
+    sourceTypes:
+      helm:
+        - "byo-nginx-ai-values-24-0-2-development"
+        - "byo-nginx-ai-values-24-0-2-reviewed"
+        - "byo-nginx-ai-values-24-0-2-staging"
+      aicr:
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd"
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development"
+        - "aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging"
+      cub-installer:
+        - "argo-cd-argo-cd-9-5-15-default"
+        - "argo-cd-argo-cd-9-5-15-no-crds"
+        - "bitnami-mysql-14-0-3-existing-secret"
+        - "bitnami-mysql-14-0-3-static-passwords"
+        - "bitnami-nginx-24-0-2-existing-tls-ingress"
+        - "bitnami-nginx-24-0-2-http-clusterip"
+        - "bitnami-nginx-fleet-dev"
+        - "bitnami-nginx-fleet-prod-eu"
+        - "bitnami-nginx-fleet-prod-us"
+        - "bitnami-nginx-fleet-staging"
+        - "bitnami-rabbitmq-16-0-14-existing-secret"
+        - "bitnami-rabbitmq-16-0-14-static-passwords"
+        - "bitnami-redis-25-5-3-default"
+        - "bitnami-redis-25-5-3-reuse-existing-secret"
+        - "bitnami-redis-prod"
+        - "grafana-grafana-10-5-15-existing-secret-ingress"
+        - "grafana-grafana-10-5-15-static-passwords"
+        - "hashicorp-vault-0-32-0-default"
+        - "hashicorp-vault-0-32-0-dev-mode"
+        - "hashicorp-vault-0-32-0-ha-raft-ui"
+        - "hashicorp-vault-demo-base"
+        - "hashicorp-vault-env-dev"
+        - "hashicorp-vault-env-prod"
+        - "hashicorp-vault-env-staging"
+        - "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
+        - "ingress-nginx-ingress-nginx-4-15-1-default"
+        - "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
+        - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+        - "prometheus-community-prometheus-29-8-0-default"
+        - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
+      kubara:
+        - "kubara-local-platform-v0-12-0"
+      sveltos:
+        - "sveltos-kyverno-fleet-3-8-1-staging"
+      rendered-config:
+        - "hook-probe-base"
+        - "route-sketch-kube-prometheus-stack"
     excluded:
       - "bitnami-redis-27-0-0-default-pilot-live-20260705"
       - "bitnami-redis-base"

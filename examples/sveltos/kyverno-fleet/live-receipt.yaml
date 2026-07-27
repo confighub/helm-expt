@@ -14,14 +14,16 @@ spec:
         - "platform/vet-schemas"
         - "platform/vet-placeholders"
         - "platform/lifecycle-route-evidence"
+        - "platform/aicr-training-secret-refs"
+        - "platform/aicr-training-images-pinned"
         - "platform/digest-pinned-images"
         - "platform/probes-declared"
         - "platform/require-approval"
     readme:
       slug: "readme"
       id: "e95a1f66-dca3-44d7-a9a7-74454a5cec03"
-      dataHash: "d7499288c82c3a8b8355b0fffae51f3ac4823a96e6f9c09568026942fba3b34e"
-      headRevision: 4
+      dataHash: "eac965b2455f88893c03e7298eccb078d68dd7ee6bab88b8b9d685b0caa2193c"
+      headRevision: 10
       source: "data/helm-catalog-readmes/units/sveltos-kyverno-fleet-3-8-1-staging/readme.yaml"
     space:
       id: "91e44027-14da-4725-9717-3a0d0b5b4a20"
@@ -31,6 +33,7 @@ spec:
         Layer: "Platform"
         Owner: "Platform"
         ResourceClass: "system-configuration"
+        SourceType: "sveltos"
         Variant: "3-8-1-staging"
       slug: "sveltos-kyverno-fleet-3-8-1-staging"
     unit:
@@ -60,7 +63,7 @@ spec:
     rawSha256: "1fba789198af3d5cba564ba9777b86ec8e5db8aaf07f4f25e8bc2766c0317396"
     serverSideDryRun: "pass"
     sourceLock: "examples/sveltos/kyverno-fleet/source-lock.yaml"
-  verifiedAt: "2026-07-26T15:57:38.504Z"
+  verifiedAt: "2026-07-27T21:00:14.961Z"
   workload:
     cluster: "helm-expt-sveltos-workload"
     deployments:

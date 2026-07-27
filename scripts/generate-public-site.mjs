@@ -1563,11 +1563,27 @@ function applyPolicyFacts() {
     productionSpaces: receipt.spec.spaces.approvalReasons.production.length,
     systemConfigurationSpaces:
       receipt.spec.spaces.approvalReasons.systemConfiguration.length,
+    sourceTypes: receipt.spec.spaces.sourceTypes ?? {},
   };
+}
+
+function policySourceCoverage(policyFacts) {
+  const labels = {
+    helm: "Helm",
+    aicr: "AICR",
+    "cub-installer": "cub installer",
+    kubara: "Kubara",
+    sveltos: "Sveltos",
+    "rendered-config": "rendered Kubernetes config",
+  };
+  return Object.entries(policyFacts.sourceTypes)
+    .map(([sourceType, spaces]) => `${labels[sourceType] ?? sourceType} ${spaces.length}`)
+    .join(", ");
 }
 
 function howItWorksHtml(catalog) {
   const policyFacts = applyPolicyFacts();
+  const sourceCoverage = policySourceCoverage(policyFacts);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -1768,7 +1784,7 @@ em{font-style:italic;color:var(--ink);}
 
   <h3>Checks before apply</h3>
   <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration keep those ${policyFacts.baselineChecks} checks and add one required approval.</p>
-  <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has ${policyFacts.baselineSpaces} Spaces on the ${policyFacts.baselineChecks} common checks and ${policyFacts.approvalSpaces} Spaces on those checks plus approval: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has ${policyFacts.baselineSpaces} Spaces on the ${policyFacts.baselineChecks} common checks and ${policyFacts.approvalSpaces} Spaces on those checks plus approval: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. The receipt includes every maintained starting format: ${sourceCoverage}. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
 
   <h3>Worked paths and Apps</h3>
   <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan, or the <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> for one exact permission correction that is checked, approved, published as OCI, and delivered by Argo CD. Partial and planned examples stay labeled as such.</p>
@@ -3990,6 +4006,7 @@ function privateHtml(catalog) {
 
 function demoOrgHtml(catalog) {
   const policyFacts = applyPolicyFacts();
+  const sourceCoverage = policySourceCoverage(policyFacts);
   const keepRows = [
     ["bitnami/redis", "default, reuse-existing-secret", "The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved."],
     ["argo-cd/argo-cd", "default, no-crds", "The CRD split: the same chart with CRDs bundled or separated, side by side."],
@@ -4106,7 +4123,7 @@ function demoOrgHtml(catalog) {
     <section aria-labelledby="checks">
       <h2 id="checks">The checks are live, and honest</h2>
       <p>Every policy-covered Space has ${policyFacts.baselineChecks} common checks. Schema, placeholder, and lifecycle-route checks can stop incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration also require approval before apply. The source format does not decide the policy: the same rule works after Helm, AICR, Kubara, Sveltos, or ordinary YAML has become ConfigHub data.</p>
-      <p>The live org currently has ${policyFacts.baselineSpaces} Spaces on the common checks and ${policyFacts.approvalSpaces} on the approval-required policy: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. Each covered Space records its policy profile and proof labels. <code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with the committed catalog and policy receipts.</p>
+      <p>The live org currently has ${policyFacts.baselineSpaces} Spaces on the common checks and ${policyFacts.approvalSpaces} on the approval-required policy: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. Those Spaces include ${sourceCoverage}. Each covered Space records its policy profile and starting format. <code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with the committed catalog and policy receipts.</p>
       <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>; the org is regenerable and drift-checkable like every other catalog surface. The org is named <code>helm-catalog</code> and is member-visible today; non-members should use the committed receipts, these pages, and the walkthroughs as the public record of it.</p>
     </section>
 

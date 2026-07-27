@@ -240,6 +240,7 @@ function verify() {
   const facts = JSON.parse(readFileSync(factsPath, "utf8"));
   const receipt = readYaml(receiptPath);
   const uploadReceipt = readYaml(uploadReceiptPath);
+  const policy = readYaml(policyPath);
   check(objects.length === receipt.spec?.outputs?.objectCount, "Kubara receipt object count changed");
   check(objects.length === inventory.objectCount, "Kubara inventory object count changed");
   check(objects.length === facts.objectCount, "Kubara generated facts object count changed");
@@ -367,12 +368,20 @@ function verify() {
     "Kubara Space resource class changed",
   );
   check(
+    uploadReceipt.spec?.space?.labels?.SourceType === "kubara",
+    "Kubara Space source type changed",
+  );
+  check(
     uploadReceipt.spec?.policy?.reason === "system-configuration",
     "Kubara approval reason changed",
   );
+  const expectedPolicyChecks = policy.spec.approvalRequired.checks
+    .map((item) => item.trigger)
+    .sort();
+  const recordedPolicyChecks = [...(uploadReceipt.spec?.policy?.checks ?? [])].sort();
   check(
-    uploadReceipt.spec?.policy?.checks?.length === 6,
-    "Kubara upload must record five common checks plus approval",
+    JSON.stringify(recordedPolicyChecks) === JSON.stringify(expectedPolicyChecks),
+    "Kubara upload policy no longer matches the current approval-required checks",
   );
   check(
     uploadReceipt.spec.policy.checks.includes("platform/require-approval"),
@@ -414,6 +423,10 @@ function recordLive() {
   check(
     space.Labels?.ResourceClass === "system-configuration",
     "refusing to record Kubara without ResourceClass=system-configuration",
+  );
+  check(
+    space.Labels?.SourceType === "kubara",
+    "refusing to record Kubara without SourceType=kubara",
   );
   receipt.spec.verifiedAt = new Date().toISOString();
   receipt.spec.space.labels = space.Labels;

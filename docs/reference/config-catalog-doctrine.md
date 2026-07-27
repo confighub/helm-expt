@@ -313,6 +313,12 @@ four production Spaces and five system-configuration Spaces. Run
 `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 
+Each covered Space also records how its configuration entered ConfigHub. The same
+receipt currently includes three Helm Spaces, three AICR Spaces, thirty `cub
+installer` Spaces, one Kubara Space, one Sveltos Space, and two rendered-config
+Spaces. The verifier fails if a covered Space has no source type or if any maintained
+source type has no live example.
+
 The topology receipt says which checks are connected. The
 [functional policy proof](../../data/apply-policy-functional-proof/summary.md)
 shows what they did with temporary records. ConfigHub blocked an unresolved

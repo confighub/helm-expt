@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 24,
-      "partial": 24,
+      "available": 25,
+      "partial": 23,
       "planned": 2,
       "blocked": 0
     },
@@ -359,15 +359,23 @@
         "area": "Policy and approval",
         "evidence": [
           "config-catalog/policies/catalog-standard.yaml",
-          "runs/config-catalog-policy-functional-proof/receipt.yaml"
+          "data/apply-policy-profiles/live-helm-catalog.yaml",
+          "runs/config-catalog-policy-functional-proof/receipt.yaml",
+          "runs/ai-change-review-live-proof/receipt.yaml",
+          "examples/kubara/local-platform/confighub-upload-receipt.yaml",
+          "examples/sveltos/kyverno-fleet/live-receipt.yaml"
         ],
         "id": "T22",
-        "name": "Apply blocking checks everywhere and approvals only in production",
-        "next": "Repeat the live policy proof for source types beyond Helm-derived Kubernetes objects.",
-        "outcome": "Schema and placeholder checks block unsafe config broadly, while human approval is required only for production scopes.",
-        "status": "partial",
+        "name": "Block unsafe configuration and require approval at high-risk boundaries",
+        "next": "Add resource-aware field checks for more custom-resource APIs without weakening the common policy or making ordinary warnings blocking.",
+        "outcome": "Every policy-covered Space receives the seven common checks. Production releases and system configuration also require approval, while ordinary development and staging workloads do not.",
+        "status": "available",
         "verify": [
-          "npm run config-catalog:policy:verify"
+          "npm run config-catalog:policy:verify",
+          "npm run helm-org:policy:receipt:verify",
+          "npm run ai-change-review:live:verify",
+          "npm run kubara-example:verify",
+          "npm run sveltos-example:verify"
         ]
       },
       {

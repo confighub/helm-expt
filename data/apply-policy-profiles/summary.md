@@ -4,6 +4,17 @@ Generated from [config-catalog/policies/catalog-standard.yaml](../../config-cata
 
 The `catalog-standard` profile applies to helm, aicr, cub-installer, kubara, sveltos, rendered-config after their configuration has become ConfigHub data.
 
+The live receipt records at least one policy-covered Space for every maintained starting format:
+
+| Starting format | Live Spaces |
+| --- | ---: |
+| `helm` | 3 |
+| `aicr` | 3 |
+| `cub-installer` | 30 |
+| `kubara` | 1 |
+| `sveltos` | 1 |
+| `rendered-config` | 2 |
+
 ## Common checks
 
 Filter: `platform/helm-catalog-checks`
@@ -54,6 +65,7 @@ The source format does not decide the risk. A Helm chart, AICR package, or ordin
 ## Scope rules
 
 - Every supported configuration source type is named by this profile.
+- Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type.
 - Every Trigger is defined here with its function, arguments, effect, and description.
 - The baseline filter selects exactly the seven baseline triggers and never selects require-approval.
 - The approval-required filter selects the same seven baseline triggers plus require-approval.
