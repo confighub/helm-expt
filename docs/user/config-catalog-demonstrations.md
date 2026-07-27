@@ -306,9 +306,9 @@ Turn the suggestion into exact objects and diffs, run checks, require the right 
 
 Start with [docs/demo/apps/ai-change-review.md](../../docs/demo/apps/ai-change-review.md) or [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) or [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
 
-Evidence: [data/ai-change-review/receipt.yaml](../../data/ai-change-review/receipt.yaml), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md), [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [data/claims-register/summary.md](../../data/claims-register/summary.md).
+Evidence: [data/ai-change-review/receipt.yaml](../../data/ai-change-review/receipt.yaml), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md), [runs/ai-change-review-live-proof/receipt.yaml](../../runs/ai-change-review-live-proof/receipt.yaml), [data/ai-change-review-live-proof/summary.md](../../data/ai-change-review-live-proof/summary.md), [data/app-readiness/summary.md](../../data/app-readiness/summary.md), [data/claims-register/summary.md](../../data/claims-register/summary.md).
 
-Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. ConfigHub Functions, approval, apply, and live observation have not run for that candidate.
+Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. A live ConfigHub run stored the reviewed object without changing its Kubernetes fields, blocked an OCI-target dry run until the exact head revision was approved, and allowed the same dry run after approval. The four-node capacity rule remains a repository check rather than a ConfigHub Function. The generic image and probe checks reported advisories because this AICR custom resource uses a deeper container path. Those warnings do not tell us whether this object is safe; the policy needs AICR-aware checks or narrower generic checks. Kubernetes apply, promotion, rollback, GPU workload health, and live observation have not run for this candidate.
 
 ## The common policy
 

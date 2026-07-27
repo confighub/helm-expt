@@ -14,13 +14,24 @@ a warning. The requested node count fails the target-capacity check. Nothing is
 sent to a cluster.
 
 The reviewed candidate uses four nodes, keeps the pinned image, and reads the
-API key from an existing Secret. It still needs human approval before a
-production apply.
+API key from an existing Secret.
 
 Open the [generated review summary](../../../data/ai-change-review/summary.md)
 for the two complete YAML objects and the receipt. The receipt says which
-checks ran locally and which ConfigHub or live steps have not run.
+checks ran locally.
+
+A separate [live ConfigHub receipt](../../../data/ai-change-review-live-proof/summary.md)
+uploads the reviewed object to a temporary Space. ConfigHub stores the same
+Kubernetes fields, blocks a dry run until the exact head revision is approved,
+then allows the same dry run against an OCI target. Nothing is applied to
+Kubernetes.
+
+The live run also found a policy limitation. The generic image and probe
+checks look at ordinary workload-controller fields. This AICR custom resource
+stores its container deeper in the object, so those two warnings do not tell us
+whether this candidate is safe. The policy needs AICR-aware checks or narrower
+generic checks.
 
 This is a deterministic example of an agent-produced change. It is not a
 transcript from a named model, and it does not claim that the candidate was
-deployed.
+deployed, promoted, rolled back, or observed on a GPU cluster.

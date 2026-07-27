@@ -305,6 +305,15 @@ partial because the current promotion dry-run prints no mutation preview, the po
 OCI used a temporary registry, and the workflow is still a guarded script rather than
 a finished App interface.
 
+The [AI Change Review proof](../../data/ai-change-review-live-proof/summary.md)
+starts with a corrected AICR training object. ConfigHub stores the same Kubernetes
+fields, blocks a dry run until the exact head revision is approved, and allows the
+same dry run to an OCI target after approval. It also exposes an important policy
+limit: generic workload checks do not understand every custom-resource field shape.
+The image and probe warnings in that run do not tell us whether the AICR object is safe.
+Source-specific checks must be added where a generic check cannot read the source
+format correctly.
+
 ## AI use
 
 AI can help maintain a large catalog, explain a chart, propose a preset

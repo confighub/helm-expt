@@ -360,8 +360,9 @@ the API key as \`confighubplaceholder\`. The proposal is rejected before apply.
 
 The reviewed candidate stays within the four-node target limit, keeps the pinned
 image, and reads the API key from the existing
-\`${scenario.spec.targetFacts.credentialSecret}\` Secret. It is ready for human
-review; it has not been approved or applied.
+\`${scenario.spec.targetFacts.credentialSecret}\` Secret. This local receipt stops
+before ConfigHub. A separate live proof stores this same reviewed object and exercises
+the approval boundary.
 
 This is a deterministic example of an agent-produced change. It is not a
 transcript from a named model.
@@ -373,15 +374,16 @@ transcript from a named model.
 | Requested training nodes | ${proposal.checks.targetCapacity.requestedNodes}; target limit is ${proposal.checks.targetCapacity.maxTrainingNodes} | ${reviewed.checks.targetCapacity.requestedNodes}; target limit is ${reviewed.checks.targetCapacity.maxTrainingNodes} |
 | Image | mutable tag; warning | digest pinned; pass |
 | API key | unresolved placeholder; block | existing Secret reference; pass |
-| ConfigHub schema function | not run | not run |
-| Production approval | not reached | required, not run |
-| Apply and observation | not run | not run |
+| ConfigHub checks | not run in this local receipt | see the live proof |
+| Production approval | not reached | see the live proof |
+| Kubernetes apply and observation | not run | not run |
 
 ## Open the evidence
 
 - [Unchecked proposal](./proposal.yaml)
 - [Reviewed candidate](./reviewed.yaml)
 - [Receipt](./receipt.yaml)
+- [Live ConfigHub approval proof](../ai-change-review-live-proof/summary.md)
 - [Maintained scenario](../../config-catalog/demonstrations/ai-change-review.yaml)
 - [AICR source object](../../${scenario.spec.source.object})
 - [Standard apply policy](../../config-catalog/policies/catalog-standard.yaml)
@@ -391,6 +393,7 @@ Run:
 \`\`\`bash
 npm run ai-change-review:verify
 npm run ai-change-review:self-test
+npm run ai-change-review:live:verify
 \`\`\`
 `;
 }

@@ -433,9 +433,11 @@
 <p>This example shows what an AI change review should look like in ConfigHub. It starts with a real AICR PyTorch training runtime from this repository.</p>
 <p>The request sounds simple: increase the runtime to eight H100 nodes and update its image. The unchecked proposal is not safe to apply. It asks for twice the recorded target capacity, replaces a digest-pinned image with <code>latest</code>, and leaves the API key as an unfinished placeholder.</p>
 <p>ConfigHub should show those exact changes and run the checks attached to the configuration. The placeholder is a blocking error. The mutable image produces a warning. The requested node count fails the target-capacity check. Nothing is sent to a cluster.</p>
-<p>The reviewed candidate uses four nodes, keeps the pinned image, and reads the API key from an existing Secret. It still needs human approval before a production apply.</p>
-<p>Open the <a href="../../../data/ai-change-review/summary.html">generated review summary</a> for the two complete YAML objects and the receipt. The receipt says which checks ran locally and which ConfigHub or live steps have not run.</p>
-<p>This is a deterministic example of an agent-produced change. It is not a transcript from a named model, and it does not claim that the candidate was deployed.</p>
+<p>The reviewed candidate uses four nodes, keeps the pinned image, and reads the API key from an existing Secret.</p>
+<p>Open the <a href="../../../data/ai-change-review/summary.html">generated review summary</a> for the two complete YAML objects and the receipt. The receipt says which checks ran locally.</p>
+<p>A separate <a href="../../../data/ai-change-review-live-proof/summary.html">live ConfigHub receipt</a> uploads the reviewed object to a temporary Space. ConfigHub stores the same Kubernetes fields, blocks a dry run until the exact head revision is approved, then allows the same dry run against an OCI target. Nothing is applied to Kubernetes.</p>
+<p>The live run also found a policy limitation. The generic image and probe checks look at ordinary workload-controller fields. This AICR custom resource stores its container deeper in the object, so those two warnings do not tell us whether this candidate is safe. The policy needs AICR-aware checks or narrower generic checks.</p>
+<p>This is a deterministic example of an agent-produced change. It is not a transcript from a named model, and it does not claim that the candidate was deployed, promoted, rolled back, or observed on a GPU cluster.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/demo/apps/ai-change-review.md</code>. The source file is the authoritative version.</p></footer>

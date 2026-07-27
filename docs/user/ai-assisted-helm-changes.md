@@ -1,25 +1,25 @@
 # AI-Assisted Helm Changes
 
-**UNOFFICIAL/EXPERIMENTAL.** AI is useful here because Helm customization can be
-large, repetitive, and easy to misread. The safe path is to let AI propose
-changes against explicit desired state, then make ConfigHub show, check, and
-gate those changes before they reach a cluster.
+AI can change Helm values or Kubernetes YAML faster than most teams can review
+the result. ConfigHub records the proposed objects, shows the exact diff, runs
+the checks attached to that configuration, and keeps the approval with the
+revision that was reviewed.
 
-## Safe Shape
+## What should happen
 
 ```text
 AI proposes a change
 ConfigHub shows the exact object diff
-checks and gates run
-a human or policy approves
+the configured checks run
+the required person approves that revision
 delivery publishes the reviewed desired state
 live observation records what happened
 ```
 
-AI should not silently rewrite live state, bypass target prerequisites, or hide
-where a value came from.
+AI can explain or propose the change. It must not silently rewrite live state,
+skip target requirements, or hide where a value came from.
 
-## Good AI Tasks
+## Useful AI tasks
 
 | Task | Why it fits |
 | --- | --- |
@@ -30,7 +30,7 @@ where a value came from.
 | Suggest a bulk patch, then preview affected Units | ConfigHub can show the planned mutation. |
 | Triage a broken chart | The failure can be routed to render, target, lifecycle, image, runtime, or model gap. |
 
-## Bad AI Tasks
+## Work that still needs control
 
 | Task | Why it is unsafe |
 | --- | --- |
@@ -40,7 +40,7 @@ where a value came from.
 | Hide a hook, CRD install, or Secret lifecycle inside a script | The model depends on visible routes. |
 | Force server-side apply conflicts without review | Manual live changes need an explicit reconcile decision. |
 
-## User Story
+## Example
 
 ```text
 I want prod Redis to use an existing Secret and different resource requests.
@@ -58,6 +58,16 @@ Approve.
 Observe live result.
 ```
 
-The important point is not that AI writes YAML. The point is that ConfigHub keeps
-AI-assisted changes visible, reviewable, and bounded.
+The repository also contains a complete AICR training example. The unchecked
+proposal asks for eight H100 nodes on a four-node target, changes a pinned image
+to `latest`, and leaves an API key placeholder. The corrected object stays
+within the target limit, keeps the pinned image, and refers to an existing
+Secret.
 
+The [live ConfigHub result](../../data/ai-change-review-live-proof/summary.md)
+shows that corrected object being stored, blocked until its exact revision is
+approved, and dry-run again after approval. It also records the current policy
+gap for custom AICR objects. Nothing was applied to Kubernetes.
+
+The YAML, diff, check results, approval, and receipt remain available for review
+whether the original suggestion came from a person, a script, or an AI agent.

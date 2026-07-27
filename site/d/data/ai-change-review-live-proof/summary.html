@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI-Assisted Helm Changes · ConfigHub Helm Ops</title>
-  <meta name="description" content="AI-Assisted Helm Changes: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/ai-assisted-helm-changes.html">
-  <meta property="og:title" content="AI-Assisted Helm Changes · ConfigHub Helm Ops">
-  <meta property="og:description" content="AI-Assisted Helm Changes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Review an AI change before it is released · ConfigHub Helm Ops</title>
+  <meta name="description" content="Review an AI change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
+  <meta property="og:title" content="Review an AI change before it is released · ConfigHub Helm Ops">
+  <meta property="og:description" content="Review an AI change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/ai-assisted-helm-changes.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,49 +424,28 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>AI-Assisted Helm Changes</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/ai-assisted-helm-changes.md">View source markdown</a>.</p>
+    <h1>Review an AI change before it is released</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/ai-change-review-live-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>AI can change Helm values or Kubernetes YAML faster than most teams can review the result. ConfigHub records the proposed objects, shows the exact diff, runs the checks attached to that configuration, and keeps the approval with the revision that was reviewed.</p>
-<h2 id="what-should-happen">What should happen</h2>
-<pre><code>AI proposes a change
-ConfigHub shows the exact object diff
-the configured checks run
-the required person approves that revision
-delivery publishes the reviewed desired state
-live observation records what happened</code></pre>
-<p>AI can explain or propose the change. It must not silently rewrite live state, skip target requirements, or hide where a value came from.</p>
-<h2 id="useful-ai-tasks">Useful AI tasks</h2>
-<table><thead><tr><th>Task</th><th>Why it fits</th></tr></thead><tbody><tr><td>Explain the diff between a base and a variant</td><td>The objects are explicit and versioned.</td></tr>
-<tr><td>Suggest a derived variant for dev, staging, prod, region, or customer</td><td>The variant can be reviewed before delivery.</td></tr>
-<tr><td>Propose a base variant when a values file changes rendered objects</td><td>The route goes back through recipe/package proof.</td></tr>
-<tr><td>Summarize watch and blocked rows for one chart</td><td>The matrix already names the reason and evidence.</td></tr>
-<tr><td>Suggest a bulk patch, then preview affected Units</td><td>ConfigHub can show the planned mutation.</td></tr>
-<tr><td>Triage a broken chart</td><td>The failure can be routed to render, target, lifecycle, image, runtime, or model gap.</td></tr></tbody></table>
-<h2 id="work-that-still-needs-control">Work that still needs control</h2>
-<table><thead><tr><th>Task</th><th>Why it is unsafe</th></tr></thead><tbody><tr><td>Patch the live cluster without updating desired state</td><td>The live fix may be overwritten or unaudited.</td></tr>
-<tr><td>Invent a supported values path without a recipe receipt</td><td>The render claim becomes unproved.</td></tr>
-<tr><td>Treat a green GitOps sync as workload health</td><td>Sync is not convergence.</td></tr>
-<tr><td>Hide a hook, CRD install, or Secret lifecycle inside a script</td><td>The model depends on visible routes.</td></tr>
-<tr><td>Force server-side apply conflicts without review</td><td>Manual live changes need an explicit reconcile decision.</td></tr></tbody></table>
-<h2 id="example">Example</h2>
-<pre><code>I want prod Redis to use an existing Secret and different resource requests.</code></pre>
-<p>The AI should answer:</p>
-<pre><code>Secret mode changes rendered objects, so use or create a base variant.
-Resource requests may be a declared input, base edit, or derived ConfigHub
-variant depending on whether the recipe exposes them.
-Preview the object diff before delivery.
-Run checks.
-Approve.
-Observe live result.</code></pre>
-<p>The repository also contains a complete AICR training example. The unchecked proposal asks for eight H100 nodes on a four-node target, changes a pinned image to <code>latest</code>, and leaves an API key placeholder. The corrected object stays within the target limit, keeps the pinned image, and refers to an existing Secret.</p>
-<p>The <a href="../../data/ai-change-review-live-proof/summary.html">live ConfigHub result</a> shows that corrected object being stored, blocked until its exact revision is approved, and dry-run again after approval. It also records the current policy gap for custom AICR objects. Nothing was applied to Kubernetes.</p>
-<p>The YAML, diff, check results, approval, and receipt remain available for review whether the original suggestion came from a person, a script, or an AI agent.</p>
+<p>The example begins with a proposed change to an AICR PyTorch training runtime. The unchecked proposal asks for eight H100 nodes when the recorded target limit is four, replaces a digest-pinned image with <code>latest</code>, and leaves an API key as a placeholder. The reviewed file uses four nodes, keeps the pinned image, and refers to an existing Secret.</p>
+<p>This live run uploaded that reviewed YAML to a temporary Space in the <code>helm-catalog</code> ConfigHub organization. ConfigHub stored the same Kubernetes object fields. Because the object is cluster-wide system configuration, ConfigHub blocked the first dry-run apply until its exact head revision was approved. After approval, the same dry run against the recorded OCI target was allowed.</p>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Reviewed object stored without field changes</td><td>Pass</td></tr>
+<tr><td>Content hash changed during approval</td><td>No</td></tr>
+<tr><td>Dry run before approval</td><td>Blocked</td></tr>
+<tr><td>Revision selector</td><td><code>HeadRevisionNum</code></td></tr>
+<tr><td>Recorded approvals</td><td>1</td></tr>
+<tr><td>Dry run after approval</td><td>Allowed</td></tr>
+<tr><td>Generic image and probe warnings</td><td>Reported, but not useful for this custom resource</td></tr>
+<tr><td>Kubernetes apply</td><td>Not run</td></tr>
+<tr><td>Temporary Space removed</td><td>Yes</td></tr></tbody></table>
+<p>The standard ConfigHub checks and approval ran. The four-node capacity rule was checked by the repository example; it is not yet a ConfigHub Function. The two generic workload checks also reported image and probe warnings. They inspect the ordinary workload-controller field shape and do not understand the deeper container path in this AICR custom resource. Those warnings do not tell us whether this object is safe. The policy needs AICR-aware checks or narrower generic checks.</p>
+<p>Both apply attempts used <code>--dry-run</code> against an OCI target. This run did not publish a release, read the referenced Secret, start a GPU workload, promote the change, roll it back, or observe a cluster.</p>
+<ul><li><a href="../../../../data/ai-change-review/reviewed.yaml">Reviewed AICR object</a></li><li><a href="../ai-change-review/summary.html">Unchecked proposal and local checks</a></li><li><a href="../../../../runs/ai-change-review-live-proof/receipt.yaml">Committed live receipt</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Catalog policy</a></li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/ai-assisted-helm-changes.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/ai-change-review-live-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
