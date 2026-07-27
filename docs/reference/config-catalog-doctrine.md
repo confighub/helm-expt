@@ -298,6 +298,24 @@ source was Helm, AICR, `cub installer`, Kubara, Sveltos, or ordinary YAML. Indiv
 checks still need to understand the object they inspect. A Deployment check must not
 guess where a custom resource stores its containers.
 
+The catalog keeps one checked example for each class:
+
+- A Bitnami NGINX configuration is a `user-workload`, owned by an application
+  team and promoted from development to staging before it reaches production
+  targets.
+- Kube Prometheus Stack is a `system-service`, owned by the platform service
+  team. Its fresh-install route runs first on one non-production cluster;
+  production adds approval.
+- A Kubara platform configuration is `system-configuration`, owned by the
+  platform team. It requires approval in every environment and starts on one
+  test cluster before any fleet expansion.
+
+The [operational class examples](../../data/operational-class-examples/summary.md)
+record the target, checks, rollout order, current result, and receipt for each
+case. The generator attaches the same information to the three base-variant
+records. Other records remain `not-yet-classified` until those decisions have
+been made; the catalog does not infer ownership or risk from a chart name.
+
 The lifecycle-route check applies only when a `LifecycleRoute` is stored. It checks
 whether that record is complete and honest. It does not infer that a chart needs no
 route when none has been written. Chart-specific preset work and evidence still

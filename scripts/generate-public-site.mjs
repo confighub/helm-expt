@@ -1786,6 +1786,7 @@ em{font-style:italic;color:var(--ink);}
   <h3>Checks before apply</h3>
   <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration keep those ${policyFacts.baselineChecks} checks and add one required approval.</p>
   <p>The source format does not decide the risk. A user workload, shared system service, and cluster-wide system configuration can all begin as Helm or YAML. The live demo has ${policyFacts.baselineSpaces} Spaces on the ${policyFacts.baselineChecks} common checks and ${policyFacts.approvalSpaces} Spaces on those checks plus approval: ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. The receipt includes every maintained starting format: ${sourceCoverage}. Read the <a href="../data/apply-policy-profiles/summary.md">policy profile and live receipt</a>, or run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The <a href="../data/operational-class-examples/summary.md">three worked examples</a> show the difference in practice: an NGINX application is owned and promoted by an application team, Kube Prometheus Stack is introduced as a shared service, and Kubara is approved as cluster-wide platform configuration. Each example names the target, checks, rollout order, current result, and receipt.</p>
 
   <h3>Worked paths and Apps</h3>
   <p>The <a href="../docs/user/config-catalog-demonstrations.md">demonstration programme</a> tracks the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths. It also states what exists today for the Upgrade, Hooks and CRDs, RBAC Review, Fleet Platform, and AI Change Review Apps. Read the <a href="../docs/demo/hooks-crds/kube-prometheus-stack.md">Kube Prometheus Stack Hooks and CRDs example</a> for one complete chart-specific route plan, or the <a href="../docs/demo/apps/rbac-review.md">RBAC review example</a> for one exact permission correction that is checked, approved, published as OCI, and delivered by Argo CD. Partial and planned examples stay labeled as such.</p>
@@ -2994,6 +2995,7 @@ function docsHtml(catalog) {
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
     ["Helm render intents", "One generated render-intent object per real base variant.", "../data/helm-render-intents/summary.md"],
     ["Base variant records", "Source-neutral records joining literal objects, source inputs, routes, policy, evidence, and OCI handoffs.", "../data/base-variant-records/summary.md"],
+    ["Operational class examples", "Worked examples showing who owns a user workload, shared service, or system configuration, where it runs, which checks apply, and how it rolls out.", "../data/operational-class-examples/summary.md"],
     ["Apply policy profile", "The common checks, approval rules for production and system configuration, scope assertions, and self-test.", "../data/apply-policy-profiles/summary.md"],
     ["Hooks and CRDs App", "The Kube Prometheus Stack route plan, the proven hook fixture, and the live ApplyGate rejection receipt.", "../data/hooks-crds-app/summary.md"],
     ["Demonstration status", "Current status and evidence for the source pathways and five ConfigHub App examples.", "../data/demo-program/summary.md"],
@@ -4996,6 +4998,7 @@ function operationsHtml(catalog) {
           <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
         </tbody>
       </table>
+      <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for the exact owner, target, checks, rollout order, and current evidence for an NGINX application, Kube Prometheus Stack, and a Kubara platform configuration.</p>
       <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 

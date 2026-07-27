@@ -65,6 +65,7 @@ spec:
     profile: "catalog-standard"
     productionAdds:
       - "human-approval"
+    normalSet: "baseline"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -75,9 +76,27 @@ spec:
     twoClusterKind: "todo"
     variantPromotion: "proven"
   operations:
-    resourceClass: "not-yet-classified"
-    ownerClass: "not-yet-classified"
-    changeCadence: "not-yet-classified"
+    changeCadence: "application-release"
+    ownerClass: "application-team"
+    resourceClass: "user-workload"
+    classificationSource: "config-catalog/operational-class-examples.yaml"
+    classificationReason: "One application team owns this release and can change it often without changing shared cluster services."
+    liveSpace: "bitnami-nginx-24-0-2-http-clusterip"
+    target:
+      ownerClass: "application-team"
+      scope: "application-namespace"
+      selection: "Start in a development namespace, promote to staging, then release to the selected production clusters."
+    gates:
+      normalSet: "baseline"
+      productionSet: "approvalRequired"
+    rollout:
+      limit: "The receipt covers two staging clusters; it is not a large production rollout."
+      method: "environment-promotion-then-fleet"
+      sequence:
+        - "development"
+        - "staging"
+        - "production targets"
+      status: "observed"
 status:
   level: "available"
   claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."

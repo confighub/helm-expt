@@ -473,6 +473,7 @@ spec:
     profile: "catalog-standard"
     productionAdds:
       - "human-approval"
+    normalSet: "baseline"
   evidence:
     renderParity: "yes"
     confighubScanOps: "yes"
@@ -483,9 +484,26 @@ spec:
     twoClusterKind: "todo"
     variantPromotion: "proven"
   operations:
-    resourceClass: "not-yet-classified"
-    ownerClass: "not-yet-classified"
-    changeCadence: "not-yet-classified"
+    changeCadence: "planned-service-release"
+    ownerClass: "platform-service-team"
+    resourceClass: "system-service"
+    classificationSource: "config-catalog/operational-class-examples.yaml"
+    classificationReason: "Monitoring is shared by many workloads, so a platform service team owns it and introduces changes more deliberately."
+    liveSpace: "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
+    target:
+      ownerClass: "platform-service-team"
+      scope: "shared-service-namespace"
+      selection: "Install on one non-production cluster first, then move the reviewed service release to the remaining clusters."
+    gates:
+      normalSet: "baseline"
+      productionSet: "approvalRequired"
+    rollout:
+      limit: "Fresh install passed on one kind cluster; the chart upgrade and multi-cluster wave have not run."
+      method: "pilot-cluster-then-service-wave"
+      sequence:
+        - "non-production pilot"
+        - "production service wave"
+      status: "fresh-install-observed"
 status:
   level: "available"
   claim: "The Helm source record, committed rendered objects, revision digest, routes, target facts, and proof-lane statuses are indexed here."

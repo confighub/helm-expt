@@ -1,0 +1,91 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: OperationalClassExamples
+metadata:
+  name: catalog-operational-classes
+spec:
+  examples:
+    - id: nginx-user-workload
+      name: NGINX application
+      why: One application team owns this release and can change it often without changing shared cluster services.
+      record: bitnami-nginx-24-0-2-http-clusterip
+      liveSpace: bitnami-nginx-24-0-2-http-clusterip
+      sourceType: helm
+      operations:
+        resourceClass: user-workload
+        ownerClass: application-team
+        changeCadence: application-release
+      target:
+        scope: application-namespace
+        ownerClass: application-team
+        selection: Start in a development namespace, promote to staging, then release to the selected production clusters.
+      gates:
+        normalSet: baseline
+        productionSet: approvalRequired
+      rollout:
+        method: environment-promotion-then-fleet
+        sequence:
+          - development
+          - staging
+          - production targets
+        status: observed
+        limit: The receipt covers two staging clusters; it is not a large production rollout.
+      evidence:
+        - data/oci-deploy-stage-rollout-proof/summary.md
+        - runs/oci-deploy-stage-rollout-proof/receipt.yaml
+
+    - id: prometheus-system-service
+      name: Kube Prometheus Stack monitoring service
+      why: Monitoring is shared by many workloads, so a platform service team owns it and introduces changes more deliberately.
+      record: prometheus-community-kube-prometheus-stack-85-3-3-no-crds
+      liveSpace: prometheus-community-kube-prometheus-stack-85-3-3-no-crds
+      sourceType: helm
+      operations:
+        resourceClass: system-service
+        ownerClass: platform-service-team
+        changeCadence: planned-service-release
+      target:
+        scope: shared-service-namespace
+        ownerClass: platform-service-team
+        selection: Install on one non-production cluster first, then move the reviewed service release to the remaining clusters.
+      gates:
+        normalSet: baseline
+        productionSet: approvalRequired
+      rollout:
+        method: pilot-cluster-then-service-wave
+        sequence:
+          - non-production pilot
+          - production service wave
+        status: fresh-install-observed
+        limit: Fresh install passed on one kind cluster; the chart upgrade and multi-cluster wave have not run.
+      evidence:
+        - data/kps-lifecycle-route-proof/summary.md
+        - runs/kps-lifecycle-route-proof/receipt.yaml
+
+    - id: kubara-system-configuration
+      name: Kubara platform configuration
+      why: This configuration changes cluster-wide platform behavior, so every environment requires approval and rollout starts with one test cluster.
+      record: kubara-local-platform-v0-12-0-base
+      liveSpace: kubara-local-platform-v0-12-0
+      sourceType: kubara
+      operations:
+        resourceClass: system-configuration
+        ownerClass: platform-team
+        changeCadence: planned-platform-release
+      target:
+        scope: cluster
+        ownerClass: platform-team
+        selection: Select one test cluster first; expand only after the platform configuration and its dependent service are healthy.
+      gates:
+        normalSet: approvalRequired
+        productionSet: approvalRequired
+      rollout:
+        method: pilot-cluster-then-platform-wave
+        sequence:
+          - test cluster
+          - selected fleet wave
+        status: single-cluster-observed
+        limit: One kind cluster and one downstream service passed; a multi-cluster wave has not run.
+      evidence:
+        - docs/demo/kubara/local-platform.md
+        - data/kubara-oci-delivery-proof/summary.md
+        - runs/kubara-oci-delivery-proof/receipt.yaml

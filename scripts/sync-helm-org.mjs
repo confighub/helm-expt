@@ -32,10 +32,16 @@ const cubContext = process.env.CUB_CONTEXT ?? "";
 const top100 = JSON.parse(readFileSync(join(repoRoot, "data", "top100-catalog-analysis", "raw.json"), "utf8"));
 const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "matrix.csv"), "utf8");
 const applyPolicy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
+const operationalClassExamples = readYaml(
+  join(repoRoot, "config-catalog", "operational-class-examples.yaml"),
+).spec.examples;
 const baselineApplyFilter = applyPolicy.spec.baseline.filter;
 const approvalRequiredApplyFilter = applyPolicy.spec.approvalRequired.filter;
 const supportedSourceTypes = applyPolicy.spec.sourceTypes ?? [];
 const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
+const operationalExampleBySpace = new Map(
+  operationalClassExamples.map((example) => [example.liveSpace, example]),
+);
 
 function slugify(value) {
   return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -169,6 +175,17 @@ function secretRouteFor(entry, variant) {
   return "stage-external";
 }
 
+function operationalLabelsForSpace(space) {
+  const example = operationalExampleBySpace.get(space);
+  if (!example) return {};
+  return {
+    ResourceClass: example.operations.resourceClass,
+    OwnerClass: example.operations.ownerClass,
+    ChangeCadence: example.operations.changeCadence,
+    OperationalClassExample: example.id,
+  };
+}
+
 // The curated showroom set: ten charts chosen for variant diversity and quirk
 // richness within the org's ~1,000-Link budget (depth over breadth; see
 // data/helm-org/summary.md). Value "all" keeps every base variant; an array
@@ -206,6 +223,7 @@ function buildPlan() {
         ApplyPolicyProfile: applyPolicy.metadata.name,
         SourceType: "cub-installer",
         SecretRoute: secretRouteFor(entry, variant),
+        ...operationalLabelsForSpace(`${stem}-${labelSafe(variant)}`),
         ...routeLabelsFor(row, chartVariants),
       };
       plan.push({
@@ -479,6 +497,33 @@ function collectLivePolicyState() {
       findings.push(`the live policy has no ${sourceType} Space`);
     }
   }
+  const operationalExamples = {};
+  for (const example of operationalClassExamples) {
+    const space = spaces.find((candidate) => candidate.Slug === example.liveSpace);
+    const labels = operationalLabelsForSpace(example.liveSpace);
+    if (!space) {
+      findings.push(`operational example Space ${example.liveSpace} is missing`);
+      continue;
+    }
+    if (!matchesLabels(space, labels)) {
+      findings.push(`${example.liveSpace} does not carry its operational class labels`);
+    }
+    const policySet = space.TriggerFilterID === approvalRequired.id
+      ? "approvalRequired"
+      : space.TriggerFilterID === baseline.id
+        ? "baseline"
+        : "unassigned";
+    if (policySet !== example.gates.normalSet) {
+      findings.push(
+        `${example.liveSpace} uses ${policySet}, expected ${example.gates.normalSet}`,
+      );
+    }
+    operationalExamples[example.id] = {
+      space: example.liveSpace,
+      labels,
+      policySet,
+    };
+  }
   const verifiedAt = new Date().toISOString();
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -512,6 +557,7 @@ function collectLivePolicyState() {
           systemConfiguration: systemConfigurationSlugs,
         },
         sourceTypes,
+        operationalExamples,
         excluded: excludedSlugs,
       },
     },
@@ -626,6 +672,21 @@ function verifyPolicyReceipt(receipt) {
     if (!classifiedSourceSpaces.has(space)) {
       failures.push(`${space} has no recorded source type`);
     }
+  }
+  const operationalExamples = receipt?.spec?.spaces?.operationalExamples ?? {};
+  for (const example of operationalClassExamples) {
+    const recorded = operationalExamples[example.id];
+    const expected = {
+      space: example.liveSpace,
+      labels: operationalLabelsForSpace(example.liveSpace),
+      policySet: example.gates.normalSet,
+    };
+    if (!sameJson(recorded, expected)) {
+      failures.push(`${example.id} operational example labels or policy set drifted`);
+    }
+  }
+  if (!sameJson(Object.keys(operationalExamples).sort(), operationalClassExamples.map((item) => item.id).sort())) {
+    failures.push("receipt operational examples do not match the maintained source");
   }
   if (applyPolicy.status.liveReverified !== true) failures.push("policy status does not mark the live result as reverified");
   if (!String(receipt?.spec?.verifiedAt ?? "").startsWith(applyPolicy.status.lastRecorded)) {
@@ -836,14 +897,25 @@ if (mode === "--plan") {
 
 if (mode === "--relabel") {
   assertOrg();
-  let stamped = 0;
+  const stampedSpaces = new Set();
   for (const item of plan) {
     if (!spaceExists(item.space)) continue;
     const labelArgs = Object.entries(item.labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]);
     cub(["space", "update", item.space, ...labelArgs]);
-    stamped += 1;
+    stampedSpaces.add(item.space);
   }
-  console.log(`re-stamped labels on ${stamped} space(s)`);
+  for (const example of operationalClassExamples) {
+    if (stampedSpaces.has(example.liveSpace) || !spaceExists(example.liveSpace)) continue;
+    const labels = operationalLabelsForSpace(example.liveSpace);
+    cub([
+      "space",
+      "update",
+      example.liveSpace,
+      ...Object.entries(labels).flatMap(([key, value]) => ["--label", `${key}=${value}`]),
+    ]);
+    stampedSpaces.add(example.liveSpace);
+  }
+  console.log(`re-stamped labels on ${stampedSpaces.size} space(s)`);
   process.exit(0);
 }
 
