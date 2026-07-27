@@ -487,11 +487,11 @@
 <pre><code>Day 0: install from a known recipe and inspect the exact objects.
 Day 1: create variants deliberately and compare the rendered results.
 Day 2: scan, promote, observe, upgrade, and audit with receipts.</code></pre>
-<p>The first experience should not require full product signup. The target shape is:</p>
-<pre><code>public chart
--&gt; public signed package / OCI artifact
--&gt; user's cluster or GitOps controller
--&gt; local verification receipt</code></pre>
+<p>The first experience should not require full product signup. Public tools can be inserted at any useful OCI boundary:</p>
+<pre><code>work -&gt; OCI
+OCI -&gt; work
+OCI -&gt; work -&gt; OCI</code></pre>
+<p>Here, <code>work</code> means render, inspect, explain, test, scan, compare, or edit the configuration. <b>Serverless</b> means that work does not depend on ConfigHub Server. <b>Anonymous</b> means it uses no ConfigHub account. A local command or CI job can be both. ConfigHub becomes useful when a team wants to save the objects and their history, create variants, approve changes, promote them, or roll them out to a fleet.</p>
 <p>The public catalog packages are published to Google Artifact Registry with anonymous read access on the <code>helm-expt</code> repository. Full signup becomes useful when the user wants private charts, private overlays, derived ConfigHub variants, production approvals, managed receipts, or fleet operations.</p>
 <p>In practice: browse the catalog anonymously; pull public package artifacts without a Google registry login; verify receipts locally; create a full ConfigHub account only when you want ConfigHub to manage private or production state.</p>
 <h2 id="why">Why</h2>

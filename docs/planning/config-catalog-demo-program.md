@@ -206,7 +206,11 @@ Complete when:
 ## Phase 5: fleet paths
 
 Add a real Kubara-generated Kubernetes configuration and upload it as a platform base
-variant. Use ConfigHub variants for cluster classes and rollout waves.
+variant. The first live delivery now proves the next bounded step: approval, private
+release, CRDs and hook work in order, portable OCI delivery through Argo CD, Kubara
+Argo CD readiness, and one healthy Metrics Server Application. It used one kind
+cluster and a temporary registry. Use ConfigHub variants for cluster classes and
+rollout waves next.
 
 Keep the Sveltos `ClusterProfile` example as a placement contract. The first live run
 proved selection, Helm installation, and drift repair after a manual handoff. The
@@ -216,7 +220,8 @@ then Sveltos reconciliation on the selected workload cluster.
 
 Complete when:
 
-- Kubara generation and upload have a reproducible receipt;
+- Kubara generation, upload, approval, route work, and one-service OCI delivery have
+  reproducible receipts;
 - blast-radius output names the affected clusters before promotion;
 - a multi-cluster Sveltos wave records selection, deployed add-ons, and target
   results for every cluster;

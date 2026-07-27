@@ -210,14 +210,21 @@ Day 1: create variants deliberately and compare the rendered results.
 Day 2: scan, promote, observe, upgrade, and audit with receipts.
 ```
 
-The first experience should not require full product signup. The target shape is:
+The first experience should not require full product signup. Public tools can be
+inserted at any useful OCI boundary:
 
 ```text
-public chart
--> public signed package / OCI artifact
--> user's cluster or GitOps controller
--> local verification receipt
+work -> OCI
+OCI -> work
+OCI -> work -> OCI
 ```
+
+Here, `work` means render, inspect, explain, test, scan, compare, or edit the
+configuration. **Serverless** means that work does not depend on ConfigHub Server.
+**Anonymous** means it uses no ConfigHub account. A local command or CI job can be
+both. ConfigHub becomes useful when a team wants to save the objects and their
+history, create variants, approve changes, promote them, or roll them out to a
+fleet.
 
 The public catalog packages are published to Google Artifact Registry with
 anonymous read access on the `helm-expt` repository. Full signup becomes useful

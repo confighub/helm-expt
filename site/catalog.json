@@ -26308,13 +26308,17 @@
             "examples/kubara/local-platform/route-intent.yaml",
             "examples/kubara/local-platform/rendered/object-inventory.json",
             "examples/kubara/local-platform/local-config-oci-manifest.json",
+            "runs/kubara-oci-delivery-proof/receipt.yaml",
+            "data/kubara-oci-delivery-proof/summary.md",
             "docs/corpus/kubara-customized-overlays.md"
           ],
           "id": "kubara",
           "limits": [
             "The repo now has a reproducible Kubara v0.12.0 generation, Argo CD render, route record, and local OCI layout.",
-            "ConfigHub pulled the local OCI and recorded the 75 non-Secret objects in one policy-covered Unit.",
-            "Public OCI publication, route execution, Argo CD reconciliation, and downstream platform health have not run."
+            "ConfigHub pulled the local OCI, recorded the 75 non-Secret objects in one policy-covered Unit, required approval, and published a private release.",
+            "A live route handled the three Argo CD CRDs, two target-owned Secrets, and Redis initializer before delivery. It deferred the ClusterExternalSecret and gRPC Ingress because their target prerequisites were absent.",
+            "A temporary portable OCI delivered 69 prepared objects through bootstrap Argo CD. Kubara Argo CD became ready and its one selected Metrics Server Application became Synced and Healthy.",
+            "The live receipt covers one kind cluster and one downstream service. It does not prove permanent public publication, the full seven-service profile, or a multi-cluster promotion wave."
           ],
           "name": "Kubara platform configuration to a cluster fleet",
           "problem": "A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.",
@@ -26325,6 +26329,8 @@
             "Separate infrastructure creation from Kubernetes configuration.",
             "Render the generated Argo CD bootstrap and record CRDs, hooks, Secrets, and target prerequisites beside it.",
             "Upload the Kubernetes configuration as a base variant with its source record.",
+            "Run the required CRDs, target Secrets, and hook work before delivering the prepared configuration OCI.",
+            "Let the delivered Kubara Argo CD assign the selected platform services.",
             "Assign derived variants to cluster groups and rollout waves."
           ]
         },

@@ -201,8 +201,19 @@ objects, and a literal OCI layout. Its route record names three CRDs, four Helm-
 resources, two rendered Secrets, and the External Secrets prerequisite. ConfigHub
 pulled the local OCI and stored the 75 non-Secret objects under the catalog's
 approval-required policy because this is cluster-wide system configuration.
-Public publication, route execution, and live platform health remain separate
-checks.
+
+The [Kubara OCI delivery receipt](../../data/kubara-oci-delivery-proof/summary.md)
+continues from that base. It records the approval, installs the CRDs first, supplies
+the target-owned Secrets, runs the Redis initializer, and packages 69 prepared
+objects as a portable OCI. Bootstrap Argo CD reconciles the exact digest. Kubara Argo
+CD becomes ready and creates one healthy Metrics Server Application. The portable
+pull is anonymous and the route work does not use ConfigHub Server; the approval and
+private release record do.
+
+That receipt does not turn one test into a fleet claim. It used one kind cluster, one
+selected service, and a temporary OCI registry. External Secrets and the gRPC Ingress
+were deferred because the target did not provide their prerequisites. The full
+seven-service profile and a multi-cluster promotion wave remain separate work.
 
 Sveltos is one fleet placement and reconciliation path. ConfigHub stores the reviewed
 `ClusterProfile`, its history, and its policy results. Sveltos selects matching
