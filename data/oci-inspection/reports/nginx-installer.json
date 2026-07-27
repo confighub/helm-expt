@@ -1,0 +1,149 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "OciInspectionReport",
+  "source": {
+    "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx@sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1",
+    "location": "registry",
+    "resolvedDigest": "sha256:08947210de607a6b9b8e7b8423b024e3fe89a0fc2b09581f80e2401008e445a1",
+    "manifestMediaType": "application/vnd.oci.image.manifest.v1+json"
+  },
+  "package": {
+    "role": "cub-installer-package",
+    "name": "cub installer source package",
+    "artifactType": "application/vnd.confighub.installer.package.v1+json",
+    "configMediaType": "application/vnd.confighub.installer.package.config.v1+json",
+    "title": "bitnami-nginx",
+    "version": ""
+  },
+  "contents": {
+    "layers": [
+      {
+        "title": "package.tgz",
+        "mediaType": "application/vnd.confighub.installer.package.tar+gzip",
+        "digest": "sha256:2ad752b92ec7fe256da54a2b86fc0afde30d1f9afe38819587fb47c9cb9ecb8d",
+        "size": 3392
+      }
+    ],
+    "files": [
+      "deployment-nginx-nginx.yaml",
+      "namespace-nginx.yaml",
+      "networkpolicy-nginx-nginx.yaml",
+      "poddisruptionbudget-nginx-nginx.yaml",
+      "service-nginx-nginx.yaml",
+      "serviceaccount-nginx-nginx.yaml"
+    ],
+    "companionRecords": [
+      "package/README.md",
+      "package/installer.yaml"
+    ],
+    "kubernetesObjects": 6,
+    "kinds": [
+      {
+        "kind": "Deployment",
+        "count": 1
+      },
+      {
+        "kind": "Namespace",
+        "count": 1
+      },
+      {
+        "kind": "NetworkPolicy",
+        "count": 1
+      },
+      {
+        "kind": "PodDisruptionBudget",
+        "count": 1
+      },
+      {
+        "kind": "Service",
+        "count": 1
+      },
+      {
+        "kind": "ServiceAccount",
+        "count": 1
+      }
+    ],
+    "namespaces": [
+      "nginx"
+    ]
+  },
+  "lifecycle": {
+    "customResourceDefinitions": 0,
+    "helmHooks": 0,
+    "jobs": 0,
+    "secrets": 0
+  },
+  "installer": {
+    "packageFiles": [
+      "README.md",
+      "bases/existing-tls-ingress/kustomization.yaml",
+      "bases/existing-tls-ingress/upstream.yaml",
+      "bases/http-clusterip/kustomization.yaml",
+      "bases/http-clusterip/upstream.yaml",
+      "collector/target-facts.sh",
+      "installer.yaml"
+    ],
+    "configs": [
+      {
+        "name": "http-clusterip",
+        "default": true,
+        "description": "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.2",
+        "externalRequirements": 0
+      },
+      {
+        "name": "existing-tls-ingress",
+        "default": false,
+        "description": "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.2",
+        "externalRequirements": 2
+      }
+    ],
+    "selectedConfig": "http-clusterip",
+    "externalRequirements": [],
+    "rendered": true
+  },
+  "checks": [
+    {
+      "name": "manifest-resolved",
+      "result": "pass",
+      "detail": "The OCI manifest resolved to a digest."
+    },
+    {
+      "name": "installer-metadata",
+      "result": "pass",
+      "detail": "2 preset config(s) are named in installer.yaml."
+    },
+    {
+      "name": "structured-files-parse",
+      "result": "pass",
+      "detail": "All YAML and JSON files parsed."
+    },
+    {
+      "name": "object-identities-unique",
+      "result": "pass",
+      "detail": "No duplicate Kubernetes object identities were found."
+    },
+    {
+      "name": "obvious-placeholders",
+      "result": "pass",
+      "detail": "No common unfinished-value markers were found."
+    },
+    {
+      "name": "installer-render",
+      "result": "pass",
+      "detail": "http-clusterip rendered 6 Kubernetes object(s) without applying them."
+    }
+  ],
+  "nextSteps": [
+    "Read the rendered files and the listed requirements before applying anything.",
+    "Pass --work-dir DIR if you want to keep the rendered files."
+  ],
+  "limits": [
+    "These checks cover OCI integrity, readable Kubernetes object shape, duplicate identities, and obvious placeholders.",
+    "They do not prove cluster admission, controller reconciliation, runtime health, provenance signatures, or production safety."
+  ],
+  "status": {
+    "result": "pass",
+    "failures": [],
+    "warnings": []
+  }
+}

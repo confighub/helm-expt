@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 21
-partial:   27
+available: 22
+partial:   26
 planned:   2
 blocked:   0
 total:     50
@@ -57,7 +57,7 @@ The source status definitions are:
 | T09 | Review a chart and values supplied by the user | available | [data/byo-helm-values-review/summary.md](../../data/byo-helm-values-review/summary.md)<br>[runs/byo-helm-values-proof/receipt.yaml](../../runs/byo-helm-values-proof/receipt.yaml) | Add private-chart and dependency-auth examples without weakening source-lock requirements. |
 | T10 | Review values proposed by AI | available | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md)<br>[data/byo-helm-values-review/review.yaml](../../data/byo-helm-values-review/review.yaml)<br>[runs/ai-change-review-live-proof/receipt.yaml](../../runs/ai-change-review-live-proof/receipt.yaml) | Add more chart classes and target-aware checks rather than treating one NGINX example as universal. |
 | T11 | Build deployable OCI from reviewed source | available | [runs/byo-helm-values-proof/public-oci-receipt.yaml](../../runs/byo-helm-values-proof/public-oci-receipt.yaml)<br>[data/byo-helm-values-review/public-and-confighub.md](../../data/byo-helm-values-review/public-and-confighub.md) | Generalize the build entry point across Helm, AICR, installer packages, and plain Kubernetes YAML. |
-| T12 | Inspect and test an existing OCI package | partial | [runs/aicr-oci-roundtrip-proof/receipt.yaml](../../runs/aicr-oci-roundtrip-proof/receipt.yaml)<br>[runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml) | Provide one source-neutral command and report for arbitrary supported OCI layouts. |
+| T12 | Inspect and test an existing OCI package | available | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md)<br>[data/oci-inspection/summary.md](../../data/oci-inspection/summary.md)<br>[runs/aicr-oci-roundtrip-proof/receipt.yaml](../../runs/aicr-oci-roundtrip-proof/receipt.yaml)<br>[runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml) | Add signature checks and consumer-specific validation without confusing them with the package inspection report. |
 | T13 | Transform OCI to OCI without requiring ConfigHub | partial | [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md)<br>[runs/aicr-oci-roundtrip-proof/receipt.yaml](../../runs/aicr-oci-roundtrip-proof/receipt.yaml) | Prove a public anonymous OCI-to-OCI edit with policy results and pull-back comparison. |
 
 ## Source pathways

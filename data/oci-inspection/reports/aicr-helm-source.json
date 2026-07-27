@@ -1,0 +1,71 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "OciInspectionReport",
+  "source": {
+    "reference": "oci-layout:examples/aicr/eks-h100-training-kubeflow/oci-layouts/argocd-source:0.14.0",
+    "location": "local-layout",
+    "resolvedDigest": "sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e",
+    "manifestMediaType": "application/vnd.oci.image.manifest.v1+json"
+  },
+  "package": {
+    "role": "helm-chart-source",
+    "name": "Helm chart source package",
+    "artifactType": "",
+    "configMediaType": "application/vnd.cncf.helm.config.v1+json",
+    "title": "aicr-eks-h100-training-kubeflow-argocd",
+    "version": "0.14.0"
+  },
+  "contents": {
+    "layers": [
+      {
+        "title": "aicr-eks-h100-training-kubeflow-argocd-0.14.0.tgz",
+        "mediaType": "application/vnd.cncf.helm.chart.content.v1.tar+gzip",
+        "digest": "sha256:8627dd11b68c08654714e5e04bab9cb118e9f129ce52e3ef4eb8c6bfd642b9e0",
+        "size": 16000
+      }
+    ],
+    "files": [],
+    "companionRecords": [],
+    "kubernetesObjects": 0,
+    "kinds": [],
+    "namespaces": []
+  },
+  "lifecycle": {
+    "customResourceDefinitions": 0,
+    "helmHooks": 0,
+    "jobs": 0,
+    "secrets": 0
+  },
+  "installer": {
+    "packageFiles": [],
+    "configs": [],
+    "selectedConfig": "",
+    "externalRequirements": [],
+    "rendered": false
+  },
+  "checks": [
+    {
+      "name": "manifest-resolved",
+      "result": "pass",
+      "detail": "The OCI manifest resolved to a digest."
+    },
+    {
+      "name": "kubernetes-objects",
+      "result": "not-applicable",
+      "detail": "This is a Helm chart source package. Render it with its values and target assumptions before inspecting Kubernetes objects."
+    }
+  ],
+  "nextSteps": [
+    "Render the chart with the intended values, release name, namespace, and Kubernetes capabilities.",
+    "Inspect the rendered objects and any hooks or CRDs before publishing a literal configuration OCI."
+  ],
+  "limits": [
+    "These checks cover OCI integrity, readable Kubernetes object shape, duplicate identities, and obvious placeholders.",
+    "They do not prove cluster admission, controller reconciliation, runtime health, provenance signatures, or production safety."
+  ],
+  "status": {
+    "result": "pass",
+    "failures": [],
+    "warnings": []
+  }
+}
