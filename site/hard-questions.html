@@ -591,7 +591,7 @@
           <h3>How do upgrades and rollback work?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>An upgrade re-renders to a new recipe, is diffed against desired and live before it applies (the rehearsal), lands through the OCI bundle as the diff you reviewed, and is confirmed live by receipts. Units are versioned, so rollback is a config revert, with irreversible migration steps flagged as explicit routes, never run silently.</p>
+        <p>ConfigHub compares the candidate with the Kubernetes objects you already reviewed, then publishes the approved result as OCI. Every Unit keeps its revision history. The Redis live test restored the exact pre-upgrade revisions, published a rollback OCI, and checked both clusters again. That restores configuration, not database data; irreversible migrations still need a chart-specific recovery plan.</p>
         <p class="faq-links"><a href="d/docs/user/day2-upgrade-rollback.html">Day-2: upgrade &amp; rollback</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why synced is not working</a></p>
       </article>
         <article class="faq-card answered">
