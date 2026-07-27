@@ -178,14 +178,15 @@ spec:
     - id: T13
       area: Bring your own config
       name: Transform OCI to OCI without requiring ConfigHub
-      status: partial
+      status: available
       outcome: An existing OCI can be checked or changed and emitted as a new immutable OCI while preserving source records.
       evidence:
-        - docs/reference/config-catalog-doctrine.md
-        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+        - docs/user/transform-oci-package.md
+        - data/anonymous-oci-transform-proof/summary.md
+        - runs/anonymous-oci-transform-proof/receipt.yaml
       verify:
-        - npm run aicr-oci-roundtrip:verify
-      next: Prove a public anonymous OCI-to-OCI edit with policy results and pull-back comparison.
+        - npm run anonymous-oci-transform:verify
+      next: Add patch-file input, signature checks, and a deliberate authenticated registry-publish step.
 
     - id: T14
       area: Source pathways

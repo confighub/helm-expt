@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "input": {
+    "reference": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683",
+    "resolvedDigest": "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683",
+    "artifactType": "application/vnd.confighub.kubernetes.config.v1",
+    "title": "Reviewed NGINX configuration from supplied Helm values",
+    "annotations": {
+      "org.opencontainers.image.created": "1970-01-01T00:00:00Z",
+      "org.opencontainers.image.source": "https://github.com/confighub/helm-expt",
+      "org.opencontainers.image.title": "Reviewed NGINX configuration from supplied Helm values"
+    },
+    "objectCount": 5,
+    "objectSetSha256": "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+  },
+  "context": {
+    "chart": "bitnami/nginx",
+    "chartVersion": "24.0.2",
+    "review": "data/byo-helm-values-review/review.yaml",
+    "values": "examples/byo-helm-values/reviewed-values.yaml"
+  },
+  "preservedCompanionFiles": []
+}

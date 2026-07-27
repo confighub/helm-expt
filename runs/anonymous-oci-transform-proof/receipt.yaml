@@ -1,0 +1,89 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AnonymousOciTransformProofReceipt"
+metadata:
+  name: "byo-nginx-ai-values-replicas-4"
+spec:
+  observedAt: "2026-07-27T19:07:28.962Z"
+  pathway: "OCI -> work -> OCI"
+  sourceContext:
+    chart: "bitnami/nginx"
+    chartVersion: "24.0.2"
+    values: "examples/byo-helm-values/reviewed-values.yaml"
+    review: "data/byo-helm-values-review/review.yaml"
+  input:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    manifestDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    objectCount: 5
+    objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    anonymousPull: "pass"
+    registryCredentials: "empty auth map"
+    publicationReceipt: "runs/byo-helm-values-proof/public-oci-receipt.yaml"
+  change:
+    object: "Deployment/nginx"
+    namespace: "nginx"
+    field: "spec.replicas"
+    before: 3
+    after: 4
+  checks:
+    decision: "allow-with-warnings"
+    results:
+      -
+        id: "kubernetes-object-shape"
+        result: "pass"
+        detail: "5 object(s) have apiVersion, kind, and metadata.name."
+      -
+        id: "unique-object-identities"
+        result: "pass"
+        detail: "Object identities are unique."
+      -
+        id: "no-obvious-placeholders"
+        result: "pass"
+        detail: "No common unfinished-value markers were found."
+      -
+        id: "digest-pinned-images"
+        result: "pass"
+        detail: "2 container image(s) are pinned by digest."
+      -
+        id: "workload-probes"
+        result: "pass"
+        detail: "Every workload container declares liveness and readiness probes."
+      -
+        id: "external-secret-references"
+        result: "warn"
+        detail: "Create or otherwise supply these Secrets before deployment: nginx/ai-provider-credentials."
+      -
+        id: "lifecycle-work"
+        result: "pass"
+        detail: "No CRDs, Jobs, or Helm hook annotations were found."
+      -
+        id: "exact-change-scope"
+        result: "pass"
+        detail: "Only Deployment/nginx spec.replicas changed."
+  output:
+    kind: "local OCI image layout"
+    tag: "replicas-4"
+    committedLayout: "examples/anonymous-oci-transform/output-layout"
+    reviewedFiles: "examples/anonymous-oci-transform/reviewed-output"
+    manifestDigest: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    objectCount: 5
+    objectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+    pullBack: "pass"
+    sourceRecord: "records/source.json"
+    changeRecord: "records/change.json"
+    checkRecord: "records/checks.json"
+  ConfigHub:
+    used: false
+    account: false
+    server: false
+    Space: false
+    Unit: false
+    variant: false
+  limits:
+    - "The output is a local OCI image layout. Publishing it to a registry is a separate authenticated action."
+    - "The checks do not prove cluster admission, controller reconciliation, workload health, or provenance signatures."
+    - "No ConfigHub command, account, server, Space, Unit, variant, approval, or release is used."
+status:
+  result: "pass-with-warnings"
+  claim: "With no ConfigHub account or server, the public five-object NGINX OCI was pulled at its recorded digest, changed only from three to four replicas, checked, rebuilt as a new OCI image layout, and pulled back to the reviewed object set."

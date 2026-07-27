@@ -67,6 +67,7 @@ function categorize(name) {
   if (name.startsWith("aicr-oci-roundtrip:")) return "confighub-proof";
   if (name.startsWith("aicr-variant-promotion:")) return "derived-variants";
   if (name.startsWith("oci:inspect")) return "oci-inspection";
+  if (name === "oci:transform" || name.startsWith("anonymous-oci-transform:")) return "oci-transformation";
   if (name.startsWith("hooks:") || name.startsWith("lifecycle:")) return "hook-lifecycle";
   if (name.startsWith("derived-variants") || name.startsWith("variant-goldens") || name.startsWith("variant-paths")) return "derived-variants";
   if (name.startsWith("next80:") || name.startsWith("adversarial10:")) return "scale-proof";
@@ -94,6 +95,8 @@ function classifyExternalState(name, command, mode) {
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
   if (name === "oci:inspect:verify-live") return "public-oci-registry";
   if (name === "oci:inspect") return "user-supplied-oci";
+  if (name === "oci:transform") return "user-supplied-oci";
+  if (name === "anonymous-oci-transform:proof") return "public-oci-registry";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "none-for-verify";
   if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "local-kubernetes";
   if (name.includes("local-e2e") || name.startsWith("kind-parity") || command.includes("kubectl") || command.includes("kind")) return "local-kubernetes";
@@ -105,6 +108,8 @@ function classifyExternalState(name, command, mode) {
 
 function classifyWritesFiles(name, command, mode) {
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "no";
+  if (name === "oci:transform") return "local-oci-layout";
+  if (name === "anonymous-oci-transform:proof") return "proof-artifacts";
   if (name.includes("verify-install") || name.startsWith("verify-bulk-ops:")) return ".tmp-receipts";
   if (mode === "summary") return "generated-summary";
   if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "receipts-or-runs";
@@ -128,6 +133,7 @@ function why(category) {
     "hook-lifecycle": "Tracks Helm hooks and hook-like controller behavior as lifecycle routes and receipts.",
     "derived-variants": "Checks post-render ConfigHub variant clone, link, target, and operation evidence.",
     "oci-inspection": "Identifies supported OCI package roles and checks the readable Kubernetes configuration they contain or render.",
+    "oci-transformation": "Changes reviewed Kubernetes objects in OCI, records the source and checks, and verifies a new OCI image by pulling it back.",
     "scale-proof": "Maintains adversarial and next80 proof corpus evidence.",
     "evidence-workdown": "Maintains claims, pain points, blast radius, graph, and workdown surfaces.",
     "repo-integrity": "Checks command surfaces, docs, artifacts, receipts, schemas, and broad corpus consistency.",
@@ -139,6 +145,8 @@ function why(category) {
 
 function how(name, category, mode, externalState) {
   if (name === "verify") return "Run after scoped checks pass, before broad public review or a broad merge.";
+  if (name === "oci:transform") return "Run with a literal Kubernetes OCI reference; no cluster or ConfigHub account is required.";
+  if (name === "anonymous-oci-transform:proof") return "Run when the public registry is reachable to repeat the credential-free OCI pull, change, checks, and pull-back.";
   if (mode === "verify") return "Run when the files owned by this script changed, or before trusting the matching generated surface.";
   if (mode === "self-test") return "Run with the matching verifier to prove tamper detection still fails closed.";
   if (externalState !== "none-for-verify") return "Run only when the required cluster, ConfigHub org, Helm repo, or user tutorial state is available.";

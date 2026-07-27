@@ -625,6 +625,10 @@
     "oci:inspect:generate": "node scripts/inspect-config-oci.mjs --generate",
     "oci:inspect:verify": "node scripts/inspect-config-oci.mjs --verify",
     "oci:inspect:verify-live": "node scripts/inspect-config-oci.mjs --verify-live",
+    "oci:transform": "node scripts/transform-config-oci.mjs",
+    "anonymous-oci-transform:proof": "node scripts/run-anonymous-oci-transform-proof.mjs --run",
+    "anonymous-oci-transform:generate": "node scripts/run-anonymous-oci-transform-proof.mjs --generate",
+    "anonymous-oci-transform:verify": "node scripts/run-anonymous-oci-transform-proof.mjs --verify",
     "top50:completion": "node scripts/generate-top50-completion.mjs --generate",
     "top50:completion:verify": "node scripts/generate-top50-completion.mjs --verify"
   }

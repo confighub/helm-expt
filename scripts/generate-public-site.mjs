@@ -2817,9 +2817,24 @@ function serverlessHtml(catalog) {
       <div class="step-grid">
         <div class="card"><h3><code>work -&gt; OCI</code></h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files, then build an OCI package.</p></div>
         <div class="card"><h3><code>OCI -&gt; work</code></h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
-        <div class="card"><h3><code>OCI -&gt; work -&gt; OCI</code></h3><p>Pull a package, test or edit the exact objects, then publish a new package for Argo CD, Flux, or another consumer.</p></div>
+        <div class="card"><h3><code>OCI -&gt; work -&gt; OCI</code></h3><p>Pull a package, test or edit the exact objects, and build a new package. Registry publication is a separate authenticated step.</p></div>
       </div>
       <p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without signing in is planned, but not yet shipped.</p>
+    </section>
+
+    <section class="narrow-section" aria-labelledby="change-oci">
+      <h2 id="change-oci">Change an existing OCI without signing in</h2>
+      <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
+      <div class="terminal-card">
+        <div class="terminal-title">public OCI → checked local OCI</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> npm run oci:transform -- \\
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values@sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683 \\
+  --object Deployment/nginx --namespace nginx \\
+  --field spec.replicas --value 4 \\
+  --output oci-layout:./nginx-replicas-4:reviewed</code></pre>
+      </div>
+      <p>The output contains the complete Kubernetes YAML, the input digest, the exact field change, and the check results. The command pulls the output back and compares it before reporting success. Existing source and change records are kept when the output is changed again.</p>
+      <p><a href="./d/docs/user/transform-oci-package.html">Read the command guide</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">See the public NGINX proof</a></p>
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
@@ -2889,6 +2904,7 @@ function docsHtml(catalog) {
     ["Config catalog demonstrations", "The maintained paths for Helm, AICR, cub installer, public OCI work, Kubara, and Sveltos, followed by variants, promotions, policy, and five ConfigHub Apps.", "../docs/user/config-catalog-demonstrations.md"],
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
+    ["Anonymous OCI change", "Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.", "../data/anonymous-oci-transform-proof/summary.md"],
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
     ["Redis upgrade, promotion, and rollout", "A live chart upgrade keeps a post-render replica change, shows the development and staging waves, and checks the same OCI digest on two Argo CD clusters.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],
@@ -2906,6 +2922,7 @@ function docsHtml(catalog) {
     ["Demo org examples", "The README pages for live Hub demo Spaces. Each one says why the Space exists, what problem it shows, and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Inspect an OCI package", "One command that identifies the package role, resolves its digest, and reports the exact Kubernetes objects and obvious lifecycle work it contains.", "../docs/user/inspect-oci-package.md"],
+    ["Change an OCI package", "Change one field in a literal Kubernetes OCI, run checks, keep its source records, and build a new local OCI without a ConfigHub account.", "../docs/user/transform-oci-package.md"],
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
     ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
@@ -4630,7 +4647,7 @@ function catalogPathfinderHtml(root) {
         ["Helm chart and values", `Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="${href("charts/index.html#charts")}">Browse public charts</a> · <a href="${href("testing.html#bring-your-own")}">Review your own values</a>`],
         ["AICR recipe or bundle", `Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="${href("testing.html#aicr-platform")}">Open the AICR example</a>`],
         ["cub installer package", `Pull a public package, write its Kubernetes files locally, and inspect them without an account.<br><a href="${href("try.html")}">Run a package</a>`],
-        ["Existing OCI package", `Pull an OCI package, inspect or test its objects, and decide whether to publish a checked replacement.<br><a href="${href("d/docs/user/inspect-oci-package.html")}">Inspect an OCI package</a>`],
+        ["Existing OCI package", `Pull an OCI package, inspect or test its objects, and decide whether to build a checked replacement.<br><a href="${href("d/docs/user/inspect-oci-package.html")}">Inspect an OCI package</a> · <a href="${href("d/docs/user/transform-oci-package.html")}">Change a literal configuration OCI</a>`],
         ["Kubernetes YAML", `Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="${href("existing-apps.html#start")}">Start from existing YAML</a>`],
       ], { rawSecondColumn: true })}
       <h3 id="catalog-next-jobs">What do you want to do next?</h3>
@@ -4639,7 +4656,7 @@ function catalogPathfinderHtml(root) {
         ["Inspect and verify", `<a href="${href("testing.html")}">Inspect exact objects and inputs</a> · <a href="${href("verification.html")}">Check the evidence</a>`],
         ["Install", `<a href="${href("try.html")}">Render and install one package</a>`],
         ["Upload and save", `<a href="${href("variants.html#flow")}">Upload the reviewed objects to ConfigHub</a>`],
-        ["Customize", `<a href="${href("variants.html#choose")}">Choose a base or derived variant</a>`],
+        ["Customize", `<a href="${href("d/docs/user/transform-oci-package.html")}">Change one field in an OCI without signing in</a> · <a href="${href("variants.html#choose")}">Choose a ConfigHub base or derived variant</a>`],
         ["Promote", `<a href="${href("variants.html#journey")}">Move a reviewed change through environments</a>`],
         ["Deliver", `<a href="${href("operations.html#ops")}">Publish OCI for Argo CD, Flux, or direct apply</a>`],
         ["Operate", `<a href="${href("operations.html#fleet-record")}">Track changes and live results across a fleet</a>`],
@@ -4700,12 +4717,25 @@ function pillarsHtml(catalog) {
       <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
     </section>
 
+    <section aria-labelledby="existing-oci-change">
+      <h2 id="existing-oci-change">Start with an existing OCI package</h2>
+      <p>Inspect the OCI first so you know whether it contains a source chart, a cub installer package, or exact Kubernetes objects. A source package must be rendered before it can become a deployable configuration. A literal configuration can be changed directly.</p>
+      <pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST \
+  --object Deployment/example \
+  --namespace example \
+  --field spec.replicas \
+  --value 4 \
+  --output oci-layout:./changed-example:reviewed</code></pre>
+      <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
+      <p>The <a href="../data/anonymous-oci-transform-proof/summary.md">public NGINX proof</a> pulls five objects without credentials, changes only the replica count, names the required external Secret, and verifies the output digest and object set. The output is local until someone deliberately publishes, uploads, or deploys it.</p>
+    </section>
+
     <section aria-labelledby="source-to-oci">
       <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
       <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package, renders one base, checks it, builds a literal configuration OCI, pulls that OCI back, and compares its objects with the reviewed files. It runs without ConfigHub credentials.</p>
       <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="../data/byo-helm-values-review/public-and-confighub.md">Open its OCI and ConfigHub record</a>.</p>
       <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
-      <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a> and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
+      <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a>, <a href="../data/anonymous-oci-transform-proof/summary.md">the anonymous OCI-to-OCI change proof</a>, and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
       <p>For an arbitrary private chart, the same building blocks exist, but there is not yet one polished public service that performs the whole analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
     </section>
 

@@ -42,6 +42,29 @@ It resolves the digest, identifies whether the package is a Helm source, cub
 installer source, or literal Kubernetes configuration, and reports the objects and
 obvious lifecycle work it can read. It does not apply anything.
 
+## Change a literal configuration OCI
+
+Use the [OCI transformation command](./transform-oci-package.md) when the
+package already contains exact Kubernetes objects and you want a checked
+replacement:
+
+```sh
+npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST \
+  --object Deployment/example \
+  --namespace example \
+  --field spec.replicas \
+  --value 4 \
+  --output oci-layout:./changed-example:reviewed
+```
+
+The command records the input digest, exact field change, and check results in
+the output OCI, then pulls it back for comparison. Existing companion records
+are retained. The output remains local until someone deliberately publishes or
+uploads it.
+
+The [public NGINX proof](../../data/anonymous-oci-transform-proof/summary.md)
+does this with an empty registry credential file and no ConfigHub account.
+
 ## Start with files
 
 This NGINX example needs no server, account, or cluster:

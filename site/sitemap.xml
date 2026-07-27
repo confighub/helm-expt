@@ -114,6 +114,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-oci-roundtrip-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-variant-promotion-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-transform-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/apiservice-coverage/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/apiservice-coverage/work-orders.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/app-readiness/summary.html</loc></url>
@@ -774,6 +775,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/target-prerequisites.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-readiness.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/top100-status.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/transform-oci-package.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/try-now.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/tutorial-sequence.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/ux-proposal-bulk-scan-patch-tutorial.html</loc></url>
