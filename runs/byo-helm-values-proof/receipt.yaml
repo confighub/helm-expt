@@ -1,0 +1,111 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "BringYourOwnHelmValuesProofReceipt"
+metadata:
+  name: "bitnami-nginx-ai-values"
+spec:
+  recordedAt: "2026-07-27T07:16:26.385Z"
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    chartPackageSha256: "de4124245234c508f16f074351f66e701e101177439f38ddee89e5a038dae3a3"
+    chartPackageBytes: 60997
+    sourceLock: "recipes/bitnami/nginx/24.0.2/source-lock.yaml"
+    releaseName: "nginx"
+    namespace: "nginx"
+    kubeVersion: "1.30.0"
+  baseline:
+    values: "recipes/bitnami/nginx/24.0.2/effective-values.yaml"
+    valuesSha256: "d0a062815551555f16c2d5dcb8fa1c18a39426e01947aaf32d17ac8be1223e67"
+    committedObjects: "recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    freshRenderMatchedCatalog: true
+    objectCount: 5
+  proposal:
+    values: "examples/byo-helm-values/ai-values.yaml"
+    valuesSha256: "3c90254e13652843b1d1cfb8a02ba4ddee551ed05262ef3755440d9150849670"
+    renderedObjects: "data/byo-helm-values-review/proposed-render.yaml"
+    renderedObjectsSha256: "94a3794be45f4132a1966cd36ecc0407dda1696bdfd6136d879bfddf2648a582"
+    objectSetSha256: "3fb02d7935c9cdc271e84ea85628a36adce6ca10f0acc8d0e1164ea5c4f41562"
+    findings:
+      -
+        id: "embedded-ai-api-key"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.containers[name=nginx].env[name=AI_API_KEY].value"
+        value: "sk-prod-old-key-rotate-me"
+        action: "Use an existing Secret reference instead of a literal key."
+      -
+        id: "mutable-container-image"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].image"
+        value:
+          - "registry-1.docker.io/bitnami/nginx:latest"
+        action: "Restore the reviewed image digest."
+      -
+        id: "non-root-disabled"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.runAsNonRoot"
+        value: false
+        action: "Require the container to run as a non-root user."
+      -
+        id: "privilege-escalation-enabled"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.allowPrivilegeEscalation"
+        value: true
+        action: "Disable privilege escalation."
+      -
+        id: "public-load-balancer"
+        object: "Service/nginx"
+        path: "spec.type"
+        value: "LoadBalancer"
+        action: "Keep ClusterIP unless external exposure is an explicit target decision."
+      -
+        id: "writable-root-filesystem"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.readOnlyRootFilesystem"
+        value: false
+        action: "Restore the read-only root filesystem."
+    decision: "rejected"
+  reviewed:
+    values: "examples/byo-helm-values/reviewed-values.yaml"
+    valuesSha256: "76ae29404f608188051a59bb182a994bf082d9c7f9a9d526c8eb53ae5ceb59c0"
+    renderedObjects: "data/byo-helm-values-review/reviewed-render.yaml"
+    renderedObjectsSha256: "1db6d602a24260cf1b5d0711f692e802dc5406227879905ed21f4c8032dd4c4a"
+    objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    changesKept:
+      -
+        id: "replicas-set-to-three"
+        object: "Deployment/nginx"
+        path: "spec.replicas"
+        value: 3
+      -
+        id: "ai-api-key-moved-to-existing-secret"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.containers[name=nginx].envFrom[].secretRef.name"
+        value: "ai-provider-credentials"
+    requiredTargetResources:
+      -
+        key: "AI_API_KEY"
+        kind: "Secret"
+        name: "ai-provider-credentials"
+        namespace: "nginx"
+    decision: "ready-for-upload"
+  output:
+    type: "literal Kubernetes configuration OCI"
+    localReference: "byo-nginx-ai-values:24.0.2-r001"
+    publicReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    manifestDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    pullBack: "pass"
+    pulledObjectsSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    objectsMatched: true
+    publicPush: "not-run"
+    configHubUpload: "not-run"
+  cleanup:
+    localFiles: "pass"
+  limits:
+    - "The proposed values are a deterministic fixture, not a transcript from a named AI model."
+    - "The API key is deliberately fake. The check proves that a literal value reached a rendered Deployment."
+    - "The reviewed package references an existing Secret that this proof does not create or read."
+    - "The local OCI round trip passed. Public registry publication and ConfigHub upload are separate follow-on checks."
+    - "No Kubernetes apply, workload health check, promotion, or controller delivery ran."
+status:
+  result: "pass"
+  claim: "A supplied Helm values file was rendered before apply, compared with the checked catalog baseline, rejected for six concrete findings, corrected without losing the requested scale, and packaged as an OCI containing the same five reviewed Kubernetes objects."

@@ -316,6 +316,14 @@
         },
         {
           "evidence": [
+            "examples/byo-helm-values/ai-values.yaml",
+            "examples/byo-helm-values/reviewed-values.yaml",
+            "data/byo-helm-values-review/summary.md",
+            "data/byo-helm-values-review/review.yaml",
+            "data/byo-helm-values-review/public-and-confighub.md",
+            "runs/byo-helm-values-proof/receipt.yaml",
+            "runs/byo-helm-values-proof/public-oci-receipt.yaml",
+            "runs/byo-helm-values-proof/confighub-upload-receipt.yaml",
             "docs/user/choosing-commands.md",
             "docs/reference/direct-cub-helm-model.md",
             "docs/user/ai-assisted-helm-changes.md",
@@ -324,7 +332,8 @@
           "id": "bring-your-own-configuration",
           "level": "basics",
           "limits": [
-            "The current evidence covers selected charts and changes. It is not a universal safety decision for arbitrary generated values."
+            "The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically.",
+            "The reviewed Deployment requires an existing Secret. Kubernetes apply, workload health, promotion, and controller delivery have not run for this example."
           ],
           "name": "Bring your own chart and values",
           "problem": "You have a chart and values written by your team or an AI, and you do not want to apply plausible configuration without seeing what it creates.",

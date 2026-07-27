@@ -4636,20 +4636,22 @@ function pillarsHtml(catalog) {
   <main>
     <section aria-labelledby="bring-your-own">
       <h2 id="bring-your-own">Bring your own chart and values</h2>
-      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. Render them to files without applying them:</p>
+      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
       <pre><code>helm template &lt;release&gt; &lt;chart&gt; \
   --version &lt;version&gt; \
   --namespace &lt;namespace&gt; \
   --values &lt;values.yaml&gt; \
   &gt; rendered.yaml</code></pre>
       <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
-      <p>This is also the path for values written by an AI. The generated values are only an input. The rendered objects and their diff are what you review.</p>
-      <p>The current project proves this process for selected charts and recorded changes. It does not yet provide one hosted action that judges every private chart or arbitrary values file. Use the <a href="./charts/index.html">catalog</a> for known comparisons and the <a href="./verification.html">verification guide</a> for repeatable checks.</p>
+      <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas, but also embeds an API key, changes to an unpinned image, exposes a public LoadBalancer, and weakens three container security settings. The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. Open the <a href="../data/byo-helm-values-review/summary.md">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
+      <p>The proof freshly renders the locked chart, checks that the baseline matches the catalog, finds the six intended problems, and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="../data/byo-helm-values-review/public-and-confighub.md">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
+      <p>The reviewed Deployment still needs the <code>nginx/ai-provider-credentials</code> Secret. This example has not applied the objects to Kubernetes, checked workload health, promoted them, or delivered them through Argo CD or Flux. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
     </section>
 
     <section aria-labelledby="source-to-oci">
       <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
       <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package, renders one base, checks it, builds a literal configuration OCI, pulls that OCI back, and compares its objects with the reviewed files. It runs without ConfigHub credentials.</p>
+      <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="../data/byo-helm-values-review/public-and-confighub.md">Open its OCI and ConfigHub record</a>.</p>
       <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a> and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
       <p>For an arbitrary private chart, the same building blocks exist, but there is not yet one polished public service that performs the whole analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
     </section>
@@ -5147,7 +5149,7 @@ function chartIndexHtml(catalog) {
       <h3>A public Helm chart</h3>
       <p>Use the <a href="#charts">chart directory</a>. Pick one ready-made base variant, inspect its Kubernetes objects, inputs, hooks, CRDs, and test results, then run its script when it fits your target.</p>
       <h3>Your own chart and values</h3>
-      <p>Render them without applying them. Compare the result with the chart defaults and any matching catalog configurations, then review the Secrets, privileges, CRDs, hooks, and other unusual changes. The <a href="../testing.html#bring-your-own">bring-your-own guide</a> explains the current path and its limits.</p>
+      <p>Render them without applying them. Compare the result with the chart defaults and any matching catalog configurations, then review the Secrets, privileges, CRDs, hooks, and other unusual changes. The <a href="../testing.html#bring-your-own">bring-your-own guide</a> includes a worked NGINX example with supplied values, six exact findings, reviewed objects, a public OCI, and a ConfigHub import.</p>
       <h3>An installer package, OCI package, AICR bundle, or Kubernetes YAML</h3>
       <p>Keep that source format. Inspect or package it without an account, then upload the literal Kubernetes configuration when you want saved history, variants, approvals, promotions, or rollout records. The <a href="../d/docs/user/config-catalog-demonstrations.html">configuration catalog examples</a> show the available and partial paths.</p>
     </section>
@@ -5983,6 +5985,22 @@ function compareMatrixRows(left, right) {
 }
 
 function chartTeachingHtml(entry) {
+  if (entry.chart === "bitnami/nginx" && entry.version === "24.0.2") {
+    return `<section aria-labelledby="nginx-byo-teaching">
+      <h2 id="nginx-byo-teaching">Bring Your Own Values</h2>
+      <p>This worked example starts with a NGINX values file supplied by a person or coding agent. The requested change is three replicas. The same file also embeds an API key, removes the checked image digest, exposes a public LoadBalancer, and weakens three container security settings.</p>
+      <p>The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. The proof freshly renders the locked chart, matches the catalog baseline, reports the six intended findings, packages the five reviewed objects as OCI, pulls them anonymously, and imports the same object set into ConfigHub.</p>
+      ${markdownLikeTable([
+        ["Question", "Answer in this example"],
+        ["What do I start with?", `<a href="../../examples/byo-helm-values/ai-values.yaml">The supplied values file</a> and the locked NGINX 24.0.2 chart.`],
+        ["What changed?", `<a href="../../data/byo-helm-values-review/summary.md">The plain-English review</a> and <a href="../../data/byo-helm-values-review/review.yaml">structured findings</a>.`],
+        ["What would Kubernetes receive?", `<a href="../../data/byo-helm-values-review/reviewed-render.yaml">Five reviewed objects</a>.`],
+        ["Can I use OCI?", `<a href="../../data/byo-helm-values-review/public-and-confighub.md">The public digest, anonymous pull, and ConfigHub import record</a>.`],
+        ["What remains?", "The existing Secret, Kubernetes apply, workload health, promotion, and controller delivery have not run for this example."],
+      ], { rawSecondColumn: true })}
+      <p>Repeat the local proof with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>.</p>
+    </section>`;
+  }
   if (entry.chart === "bitnami/redis" && entry.version === "25.5.3") {
     return `<section aria-labelledby="redis-teaching">
       <h2 id="redis-teaching">Redis Proof Slice</h2>

@@ -1,0 +1,30 @@
+# Example input from a person or coding agent. The API key is deliberately fake.
+image:
+  digest: ""
+  tag: latest
+
+replicaCount: 3
+
+service:
+  type: LoadBalancer
+
+tls:
+  enabled: false
+
+extraEnvVars:
+  - name: AI_API_KEY
+    value: sk-prod-old-key-rotate-me
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+  runAsGroup: 1001
+  runAsNonRoot: false
+  privileged: false
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault

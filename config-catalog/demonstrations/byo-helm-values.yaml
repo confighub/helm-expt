@@ -1,0 +1,36 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: HelmValuesReviewScenario
+metadata:
+  name: bitnami-nginx-ai-values
+spec:
+  chart: bitnami/nginx
+  version: 24.0.2
+  releaseName: nginx
+  namespace: nginx
+  kubeVersion: 1.30.0
+  sourceLock: recipes/bitnami/nginx/24.0.2/source-lock.yaml
+  baselineValues: recipes/bitnami/nginx/24.0.2/effective-values.yaml
+  baselineObjects: recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml
+  proposedValues: examples/byo-helm-values/ai-values.yaml
+  reviewedValues: examples/byo-helm-values/reviewed-values.yaml
+  requestedChange: Run three NGINX replicas and supply the AI provider key used by the application.
+  expectedProposalFindings:
+    - embedded-ai-api-key
+    - mutable-container-image
+    - public-load-balancer
+    - privilege-escalation-enabled
+    - non-root-disabled
+    - writable-root-filesystem
+  expectedReviewedChanges:
+    - replicas-set-to-three
+    - ai-api-key-moved-to-existing-secret
+  requiredTargetResources:
+    - kind: Secret
+      namespace: nginx
+      name: ai-provider-credentials
+      key: AI_API_KEY
+  publicConfigurationOci: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001
+status:
+  proposal: rejected
+  reviewed: ready-for-upload
+  kubernetesApply: not-run

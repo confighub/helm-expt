@@ -1,0 +1,90 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubUploadReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-reviewed"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-07-27T13:14:07.875Z"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "byo-nginx-ai-values"
+    - "--variant"
+    - "reviewed"
+    - "--space"
+    - "byo-nginx-ai-values-24-0-2-reviewed"
+    - "--granularity"
+    - "minimal"
+    - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+  source:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    digest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    reviewedValues: "examples/byo-helm-values/reviewed-values.yaml"
+    review: "data/byo-helm-values-review/review.yaml"
+    localProof: "runs/byo-helm-values-proof/receipt.yaml"
+    publicReceipt: "runs/byo-helm-values-proof/public-oci-receipt.yaml"
+  space:
+    slug: "byo-nginx-ai-values-24-0-2-reviewed"
+    id: "b1683638-ee08-42e4-8669-cbf806e1abbb"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "byo-nginx-ai-values"
+      Layer: "Application"
+      Owner: "Application"
+      ResourceClass: "user-workload"
+      SourceType: "helm"
+      Variant: "reviewed"
+    externalSource: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    externalSourceDigest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+  units:
+    -
+      slug: "byo-nginx-ai-values"
+      id: "63f66d73-7c57-4316-b8ef-2d79dedbf4cf"
+      dataHash: "3f424da50c106d818ebba3f8d70d56140dcc45671bff8f548de15eafb55eccc1"
+      headRevision: 1
+      objectIdentities:
+        - "v1|ServiceAccount|nginx|nginx"
+        - "apps/v1|Deployment|nginx|nginx"
+        - "v1|Service|nginx|nginx"
+        - "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+        - "policy/v1|PodDisruptionBudget|nginx|nginx"
+  readme:
+    slug: "readme"
+    id: "6e2fbb86-779c-48f1-865c-2e85dc5d60b8"
+    dataHash: "87e6798d3f8ab56943b010c6781992c11810536e4b6b4e6d8cd96deb0945d42a"
+    headRevision: 8
+    source: "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
+  objectCount: 5
+  objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+  sourceObjectsMatched: true
+  requiredTargetResources:
+    -
+      key: "AI_API_KEY"
+      kind: "Secret"
+      name: "ai-provider-credentials"
+      namespace: "nginx"
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-checks"
+    filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+    filterHash: "9b0b1e87ba4ecd24b20b1c1bc47733dc5ce7cf627afee97394850329eb1817b0"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    checks:
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "vet-placeholders"
+      - "vet-schemas"
+status:
+  result: "pass"
+  claim: "ConfigHub imported the five exact reviewed NGINX objects from the public OCI into one configuration Unit and attached the catalog checks."
+  apply: "not-run"
+  promotion: "not-run"
+  delivery: "not-run"
+  limits:
+    - "The required ai-provider-credentials Secret was not created or read."
+    - "No target was assigned and no Kubernetes apply, workload check, promotion, or controller delivery ran."
+    - "The catalog checks are attached, but this receipt does not claim that every policy is sufficient for every private chart."

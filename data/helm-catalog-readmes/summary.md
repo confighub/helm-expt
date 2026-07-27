@@ -13,11 +13,11 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | org | 2 |
 | preset | 21 |
 | environment | 7 |
-| source | 2 |
+| source | 3 |
 | fleet | 5 |
 | pilot | 3 |
 | route | 2 |
-| total | 42 |
+| total | 43 |
 
 ## Files
 
@@ -60,6 +60,7 @@ The README is for someone who starts inside [hub.confighub.com](https://hub.conf
 | `hashicorp-vault-env-prod` | environment | [README](spaces/hashicorp-vault-env-prod/README.md) | [readme.yaml](units/hashicorp-vault-env-prod/readme.yaml) |
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
+| `byo-nginx-ai-values-24-0-2-reviewed` | source | [README](spaces/byo-nginx-ai-values-24-0-2-reviewed/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml) |
 | `kubara-local-platform-v0-12-0` | source | [README](spaces/kubara-local-platform-v0-12-0/README.md) | [readme.yaml](units/kubara-local-platform-v0-12-0/readme.yaml) |
 | `bitnami-nginx-fleet-dev` | fleet | [README](spaces/bitnami-nginx-fleet-dev/README.md) | [readme.yaml](units/bitnami-nginx-fleet-dev/readme.yaml) |
 | `bitnami-nginx-fleet-prod-eu` | fleet | [README](spaces/bitnami-nginx-fleet-prod-eu/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-eu/readme.yaml) |

@@ -506,6 +506,23 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
 
+    <section aria-labelledby="nginx-byo-teaching">
+      <h2 id="nginx-byo-teaching">Bring Your Own Values</h2>
+      <p>This worked example starts with a NGINX values file supplied by a person or coding agent. The requested change is three replicas. The same file also embeds an API key, removes the checked image digest, exposes a public LoadBalancer, and weakens three container security settings.</p>
+      <p>The review keeps the three replicas, restores the checked settings, and changes the Deployment to use an existing Secret. The proof freshly renders the locked chart, matches the catalog baseline, reports the six intended findings, packages the five reviewed objects as OCI, pulls them anonymously, and imports the same object set into ConfigHub.</p>
+      <div class="card"><table>
+        <thead><tr><th>Question</th><th>Answer in this example</th></tr></thead>
+        <tbody><tr><td>What do I start with?</td><td><a href="../../examples/byo-helm-values/ai-values.yaml">The supplied values file</a> and the locked NGINX 24.0.2 chart.</td></tr><tr><td>What changed?</td><td><a href="../d/data/byo-helm-values-review/summary.html">The plain-English review</a> and <a href="../../data/byo-helm-values-review/review.yaml">structured findings</a>.</td></tr><tr><td>What would Kubernetes receive?</td><td><a href="../../data/byo-helm-values-review/reviewed-render.yaml">Five reviewed objects</a>.</td></tr><tr><td>Can I use OCI?</td><td><a href="../d/data/byo-helm-values-review/public-and-confighub.html">The public digest, anonymous pull, and ConfigHub import record</a>.</td></tr><tr><td>What remains?</td><td>The existing Secret, Kubernetes apply, workload health, promotion, and controller delivery have not run for this example.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>Repeat the local proof with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>.</p>
+    </section>
+
 
     <section aria-labelledby="matrix-options">
       <h2 id="matrix-options">Base Variants And Options</h2>
