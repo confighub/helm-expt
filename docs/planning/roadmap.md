@@ -5,7 +5,7 @@
 It explains the current product direction, the active workstreams, and which
 planning files are authoritative for each kind of question.
 
-Updated: 2026-06-23.
+Updated: 2026-07-27.
 
 ## How To Read The Roadmap
 
@@ -14,6 +14,7 @@ Use this file for priority, ownership, and product shape.
 
 | Question | Source |
 | --- | --- |
+| How much of the agreed Top 50 is complete? | [Top 50 Completion Plan](../../data/top50-completion/summary.md). |
 | What should we work on next? | This roadmap, [Next Execution Plan](./next-execution-plan.md), and GitHub issues. |
 | What is the state of one chart, version, and variant? | [Master Catalog Matrix](../../data/master-catalog-matrix/matrix.html). |
 | Which claims are backed, partial, planned, or refused? | [Claims Register](../../data/claims-register/summary.md). |
@@ -25,25 +26,24 @@ Do not copy live counts into roadmap prose. Counts belong in generated data.
 
 ## Current Product Goal
 
-`helm-expt` should make Helm operations easier to understand and safer to
-change:
+`helm-expt` should help a person turn configuration they already use into a
+reviewed, deployable OCI package, then show why ConfigHub is useful after that:
 
 ```text
-Use public Helm charts as the source.
-Convert selected install paths into cub installer recipes.
-Use parity checks as migration assurance, not as the main product promise.
-Record the render inputs that matter: chart source, version, namespace, values, flags, capabilities, and generated facts.
-Use ConfigHub to manage visible variants, safer reviews, delivery, observations, upgrades, and operations.
-Keep gaps visible instead of turning them into silent claims.
+Start with Helm first, then support AICR, cub installer packages, existing OCI, and Kubernetes YAML.
+Let people inspect, test, and produce public OCI without a ConfigHub account.
+Record source inputs, exact objects, prerequisites, hooks, CRDs, checks, and receipts.
+Let a team claim the reviewed result in ConfigHub when it needs shared history, variants, approvals, promotions, or fleet rollout.
+Publish exact reviewed objects as OCI for Argo CD, Flux, or direct apply.
+Keep unsupported cases and missing evidence visible.
 ```
 
-The product story should be chart-first and user-first:
+Helm remains the first and deepest path. The wider boundary is:
 
 ```text
-See how it works.
-Pick a Helm chart.
-Manage Helm variants.
-Build and operate live apps.
+source -> inspect and test -> OCI
+OCI -> inspect or change -> OCI
+OCI -> ConfigHub -> reviewed variants and operations -> OCI -> delivery
 ```
 
 The proof machinery supports that story. It should not be the first thing a new
@@ -84,7 +84,7 @@ The active planning corpus has three tiers.
 
 | Tier | Files | Role |
 | --- | --- | --- |
-| Canonical | This file, [Issue Backlog](./issue-backlog.md), [Next Execution Plan](./next-execution-plan.md). | Current roadmap, issue groups, and launch workstreams. |
+| Canonical | This file, [Top 50 Completion Plan](../../data/top50-completion/summary.md), [Issue Backlog](./issue-backlog.md), [Next Execution Plan](./next-execution-plan.md). | Current roadmap, evidence-linked completion status, issue groups, and launch workstreams. The Top 50 source is `config-catalog/top50.yaml`. |
 | Lane-specific | [Dedicated Website Plan](./dedicated-website-plan.md), [Robust Sceptic Plan](./robust-sceptic-plan.md), [Fuzz Corpus Tests Roadmap](./fuzz-corpus-tests-roadmap.md), [Hook Route Execution Plan](./hook-route-execution-plan.md), [Maintenance Strategy](./maintenance-strategy.md), [Verified Install Commercial Model](./verified-install-commercial-model.md). | Active product or test lanes. These should link back here when priorities change. |
 | Snapshot or review input | Handover docs, dated persona audits, dated claim audits, independent review briefs, older execution plans. | Evidence, review history, or context. These are not authoritative for current counts. |
 
