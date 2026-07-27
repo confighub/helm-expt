@@ -9,15 +9,21 @@
       {
         "entrypoints": [
           "docs/user/day2-upgrade-rollback.md",
-          "data/blast-radius-fleet/summary.md"
+          "data/blast-radius-fleet/summary.md",
+          "data/redis-upgrade-app-proof/summary.md"
         ],
         "evidence": [
           "data/blast-radius-accuracy/summary.md",
-          "data/blast-radius-fleet/summary.md"
+          "data/blast-radius-fleet/summary.md",
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/redis-upgrade-app-proof/summary.md"
         ],
         "id": "upgrade-app",
         "limits": [
-          "The repo proves parts of the workflow. It does not yet contain one complete Upgrade App product receipt."
+          "One continuous Redis proof now imports chart 25.5.3, records a post-render replica change, reconciles chart 27.0.0 without losing that change, promotes through development and staging, and checks the same OCI digest on two Argo CD clusters.",
+          "The proof is a guarded script and receipt, not a finished ConfigHub App interface.",
+          "cub variant promote --dry-run -o mutations returned no text. The dry runs changed no stored data, but the current CLI does not yet give a useful human mutation preview.",
+          "The portable OCI used a temporary local registry, and the live observations were recorded locally rather than submitted to ConfigHub observation storage."
         ],
         "name": "Upgrade App",
         "problem": "A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.",
@@ -96,7 +102,9 @@
           "data/environment-matrix/summary.md",
           "data/fleet-promotion/live-nginx-registry-migration.yaml",
           "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
-          "data/oci-deploy-stage-rollout-proof/summary.md"
+          "data/oci-deploy-stage-rollout-proof/summary.md",
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/redis-upgrade-app-proof/summary.md"
         ],
         "id": "fleet-platform-app",
         "limits": [
@@ -403,12 +411,15 @@
           "runs/redis-default-confighub-proof/latest/variant-promotion-receipt.yaml",
           "data/fleet-promotion/live-nginx-registry-migration.yaml",
           "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
-          "data/oci-deploy-stage-rollout-proof/summary.md"
+          "data/oci-deploy-stage-rollout-proof/summary.md",
+          "runs/redis-upgrade-app-proof/receipt.yaml",
+          "data/redis-upgrade-app-proof/summary.md"
         ],
         "id": "promotions",
         "limits": [
           "The older NGINX fleet receipt proves four stored environment records and policy assignment but not cluster delivery.",
-          "The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage."
+          "The combined NGINX receipt proves base-to-development-to-staging promotion, a two-cluster Argo rollout, exact live-object agreement, and workload convergence. The observation receipts were recorded locally and were not submitted to ConfigHub observation storage.",
+          "The Redis receipt proves a chart-version upgrade that keeps a post-render replica change, promotes in two waves, and reaches two Argo CD clusters. The current mutation-preview command returned no text, so the human preview remains a product gap."
         ],
         "name": "Test, development, staging, and production promotions",
         "problem": "Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.",

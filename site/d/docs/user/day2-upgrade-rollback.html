@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Day-2: how upgrade and rollback work · ConfigHub Helm Ops</title>
-  <meta name="description" content="Day-2: how upgrade and rollback work: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Upgrade and rollback · ConfigHub Helm Ops</title>
+  <meta name="description" content="Upgrade and rollback: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html">
-  <meta property="og:title" content="Day-2: how upgrade and rollback work · ConfigHub Helm Ops">
-  <meta property="og:description" content="Day-2: how upgrade and rollback work: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Upgrade and rollback · ConfigHub Helm Ops">
+  <meta property="og:description" content="Upgrade and rollback: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html">
   <style>
@@ -424,22 +424,29 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Day-2: how upgrade and rollback work</h1>
+    <h1>Upgrade and rollback</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/day2-upgrade-rollback.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> What happens when you change a running app - and how to undo it. The contrast is an opaque <code>helm upgrade</code> versus a <b>staged, reviewed, rehearsed, observed</b> change.</p>
-<h2 id="the-helm-baseline-what-were-improving-on">The Helm baseline (what we're improving on)</h2>
-<p><code>helm upgrade</code> re-renders and applies in one opaque step; you see the result <i>after</i> it lands. If a hook or a bad value breaks it, you find out live. See <a href="helm-pain-points.html">helm-pain-points</a> and a real failure in <a href="helm-upgrade-crash-example.html">helm-upgrade-crash-example</a>.</p>
-<h2 id="the-cub-path-four-checkpoints">The cub path - four checkpoints</h2>
-<ol><li><b>Re-render the new base</b> → a new recipe (new Unit revisions). Same render parity as a fresh install.</li><li><b>Diff before applying.</b> Compare desired-vs-desired <i>and</i> desired-vs-live, field-level, with no controller in the loop (<code>cub-scout compare three-way --dry-from</code>). This is the <b>rehearsal</b> - you see exactly what changes. (<a href="cub-scout-diff-design.html">cub-scout-diff-design</a>)</li><li><b>Apply through the OCI bundle.</b> Argo / Flux / kubectl pull the new bundle. What lands is <i>the diff you reviewed</i>, not a surprise. (<a href="cub-deployment-path.html">cub-deployment-path</a>)</li><li><b>Observe.</b> Receipts confirm the new state is actually live and healthy - not just &quot;synced.&quot; (<a href="why-synced-is-not-working.html">why-synced-is-not-working</a>)</li></ol>
+<p>A Helm upgrade renders the whole release again from the new chart and values. That can replace changes made to the Kubernetes objects after the first install. It can also change many objects at once, which makes it hard to see which environments and clusters will be affected.</p>
+<p>ConfigHub keeps the rendered objects as records. A chart update can be compared with those records, so a deliberate change to an object does not have to be put back into the chart templates before every upgrade.</p>
+<h2 id="a-complete-redis-upgrade">A complete Redis upgrade</h2>
+<p>The <a href="../../data/redis-upgrade-app-proof/summary.html">Redis Upgrade App proof</a> ran this sequence from beginning to end:</p>
+<ol><li>Pull the public <code>bitnami/redis:25.5.3</code> installer package and select the <code>reuse-existing-secret</code> configuration.</li><li>Upload its 14 Kubernetes objects to ConfigHub.</li><li>Change <code>StatefulSet/redis-replicas spec.replicas</code> from the chart default of three to two.</li><li>Create development and staging versions from that base.</li><li>Prepare <code>bitnami/redis:27.0.0</code> and inspect the candidate plan.</li><li>Update the base. Redis changes from 8.6.3 to 8.8.0, while the replica count stays at two.</li><li>Promote the update to development, then staging.</li><li>Publish the reviewed staging configuration as OCI.</li><li>Reconcile the same OCI digest with Argo CD on two clusters.</li><li>Check both clusters. Each reached one ready master, two ready replicas, and returned <code>PONG</code>.</li></ol>
+<p>Development reported 14 pending Units after the base changed. Staging was not pending yet because its direct parent was development. Once development accepted the update, staging reported its own 14 pending Units. This is the rollout order shown by the ConfigHub variant chain.</p>
+<h2 id="the-secret-remains-separate">The Secret remains separate</h2>
+<p>The selected Redis configuration expects <code>redis/redis-existing-secret</code>, key <code>redis-password</code>. The workload package does not contain that password. The live test created a different temporary Secret on each cluster and did not write either credential to the repository, OCI package, or receipt.</p>
+<h2 id="what-to-check-before-promotion">What to check before promotion</h2>
+<p>Check the candidate chart and application versions, the exact object changes, any recorded edits that must remain, and any hooks, CRDs, setup jobs, or Secrets needed by the target.</p>
+<p>The Redis candidate plan reported 13 changed objects, no additions, and no deletions. It did not propose a change to <code>spec.replicas</code>.</p>
+<p>The current <code>cub variant promote --dry-run -o mutations</code> command returned no text in this run. It changed no stored data, but an empty response is not a useful human preview. The receipt records that gap plainly.</p>
 <h2 id="rollback">Rollback</h2>
-<p>Units are <b>versioned</b>. Rollback = re-publish the previous Unit revision to the OCI bundle; the controller reconciles back to it. Because the previous desired state is kept as <b>config</b> (not an opaque Helm release blob), a rollback is a config revert - reviewable like any other change, with the same diff + receipt path.</p>
-<h2 id="honest-disposition">Honest disposition</h2>
-<ul><li>A preview is a <i>preview</i>, not a guarantee the apply will converge.</li><li>Some upgrades carry <b>irreversible</b> steps (a data/schema migration hook). Those are <b>routed and flagged</b> - surfaced as an explicit action, never silently run - so an un-clean rollback is a known chart property, not a hidden trap. (<a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a>)</li></ul>
-<p>→ deeper: <a href="how-it-works.html">how-it-works</a> · <a href="helm-upgrade-crash-example.html">helm-upgrade-crash-example</a> · <a href="cub-scout-diff-design.html">cub-scout-diff-design</a> · <a href="why-synced-is-not-working.html">why-synced-is-not-working</a></p>
+<p>ConfigHub keeps Unit revisions and the installer update creates a named ChangeSet with a restore path. A team can review and republish an earlier desired revision.</p>
+<p>The Redis proof did not execute a rollback, so it does not claim that every chart can be rolled back safely. Database migrations, CRD schema changes, and some hooks may be irreversible even when the Kubernetes objects can be restored. Those cases need a chart-specific route and recovery plan.</p>
+<p>Read <a href="chart-hooks-what-happens.html">How chart hooks are handled</a> and <a href="why-synced-is-not-working.html">Why synced is not the same as working</a> for those two parts of the release check.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/day2-upgrade-rollback.md</code>. The source file is the authoritative version.</p></footer>
