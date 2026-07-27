@@ -50,6 +50,13 @@ For the CI execution mode, use
 rendering, object inspection, local OCI-layout creation, and pull-back comparison in
 GitHub Actions. The output is a workflow artifact, not a public registry package.
 
+For the first continuous upgrade path, use
+`runs/redis-upgrade-app-proof/receipt.yaml`. It proves one Redis package upgrade,
+one retained post-render replica change, two sequential environment promotions, and
+the same portable OCI digest on two Argo CD clusters. Keep its three product limits:
+the promotion dry-run printed no mutations, the portable registry was temporary, and
+the observations were not submitted to ConfigHub observation storage.
+
 ## What Not To Touch In This Pass
 
 Do not edit these unless the user explicitly asks for catalog work:

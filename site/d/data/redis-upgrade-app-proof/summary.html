@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Catalog Read-Only Guide For Agents · ConfigHub Helm Ops</title>
-  <meta name="description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
-  <meta property="og:title" content="Catalog Read-Only Guide For Agents · ConfigHub Helm Ops">
-  <meta property="og:description" content="Catalog Read-Only Guide For Agents: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Redis upgrade: keep a change, promote it, and check the rollout · ConfigHub Helm Ops</title>
+  <meta name="description" content="Redis upgrade: keep a change, promote it, and check the rollout: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/redis-upgrade-app-proof/summary.html">
+  <meta property="og:title" content="Redis upgrade: keep a change, promote it, and check the rollout · ConfigHub Helm Ops">
+  <meta property="og:description" content="Redis upgrade: keep a change, promote it, and check the rollout: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/agent/catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/redis-upgrade-app-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,53 +424,41 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Catalog Read-Only Guide For Agents</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/agent/catalog.md">View source markdown</a>.</p>
+    <h1>Redis upgrade: keep a change, promote it, and check the rollout</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/redis-upgrade-app-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>This guide does not redesign the catalog. Treat the catalog and chart pages as evidence to read, not as pages to rewrite.</p>
-<h2 id="product-boundary">Product Boundary</h2>
-<p>The public front door supports <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code> without requiring a ConfigHub account. ConfigHub begins when a user claims the configuration so it can be saved, changed, approved, promoted, or rolled out.</p>
-<p>Treat <code>work</code> as a reusable operation, not a product or a mandatory first step. It may mean render, inspect, explain, test, scan, compare, or edit. The operation may sit before an OCI is built, after one is pulled, or between an input OCI and an output OCI. Local and GitHub Actions use are proven. A hosted anonymous service is planned and must not be described as available.</p>
-<p>Inside an existing delivery flow, distinguish ConfigHub's three roles:</p>
-<ul><li>congruent pass-through: keep the specs and user-supplied metadata, add only the recorded <code>confighub.com/origin</code> provenance annotation, and publish a new OCI artifact;</li><li>transformation: create a reviewed variant and publish the changed objects;</li><li>fan-out: publish specific outputs or deliver one reviewed release to several targets.</li></ul>
-<p>Require input and output digests and a field comparison for each pass-through claim. Do not infer congruent output from a successful import, or fleet rollout from one controller becoming healthy.</p>
-<p>Do not treat every OCI artifact as interchangeable. Check whether a link is a source or installer package, a literal bundle for <code>cub variant upload</code>, a portable deployment bundle, or a ConfigHub release. The consumer and receipt must match the artifact.</p>
-<p>For source-neutral examples, start with <code>config-catalog/program.yaml</code> and <code>docs/reference/config-catalog-doctrine.md</code>. The AICR example keeps separate receipts for generation, OCI packaging, ConfigHub upload, required-approval behavior, and promotion. Do not use one of those receipts to claim a later stage.</p>
-<p>For the no-account boundary, use <code>runs/serverless-oci-gitops-proof/receipt.yaml</code>. It proves one public installer OCI input, isolated local rendering, one temporary output OCI, and Flux reconciliation. It does not prove hosted output or ConfigHub operations.</p>
-<p>For the CI execution mode, use <code>runs/anonymous-oci-ci-proof/receipt.yaml</code>. It proves anonymous public OCI pull, rendering, object inspection, local OCI-layout creation, and pull-back comparison in GitHub Actions. The output is a workflow artifact, not a public registry package.</p>
-<p>For the first continuous upgrade path, use <code>runs/redis-upgrade-app-proof/receipt.yaml</code>. It proves one Redis package upgrade, one retained post-render replica change, two sequential environment promotions, and the same portable OCI digest on two Argo CD clusters. Keep its three product limits: the promotion dry-run printed no mutations, the portable registry was temporary, and the observations were not submitted to ConfigHub observation storage.</p>
-<h2 id="what-not-to-touch-in-this-pass">What Not To Touch In This Pass</h2>
-<p>Do not edit these unless the user explicitly asks for catalog work:</p>
-<ul><li><code>site/charts/*.html</code></li><li><code>site/charts/index.html</code></li><li><code>data/master-catalog-matrix/*</code></li><li><code>recipes/*/*/*/CATALOG.md</code></li><li><code>packages/*/*/*/README.md</code></li><li>generated chart evidence under <code>data/</code></li></ul>
-<p>If a catalog output is wrong, fix the source generator or source data in a separate catalog task.</p>
-<h2 id="fast-read-only-routes">Fast Read-Only Routes</h2>
-<table><thead><tr><th>Question</th><th>Start with</th></tr></thead><tbody><tr><td>Can I use this chart today?</td><td><code>data/chart-use-guide/summary.md</code></td></tr>
-<tr><td>Where are this chart's evidence files?</td><td><code>data/chart-evidence-router/summary.md</code> and <code>data/chart-evidence-router/router.csv</code></td></tr>
-<tr><td>What is the broad row status?</td><td><code>data/master-catalog-matrix/matrix.html</code> or <code>data/master-catalog-matrix/matrix.csv</code></td></tr>
-<tr><td>What render-intent file exists for a real base?</td><td><code>data/helm-render-intents/summary.md</code> and <code>data/helm-render-intents/intents.csv</code></td></tr>
-<tr><td>Which claims are backed or refused?</td><td><code>data/claims-register/summary.md</code></td></tr>
-<tr><td>What known gaps affect the row?</td><td><code>data/model-gap-workdown/summary.md</code>, <code>data/target-prerequisite-workdown/summary.md</code>, and <code>data/live-parity-decisions/summary.md</code></td></tr></tbody></table>
-<h2 id="inspect-one-chart-from-the-terminal">Inspect One Chart From The Terminal</h2>
-<p>Use <code>rg</code> before opening large files:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/chart-use-guide data/chart-evidence-router data/helm-render-intents</code></pre>
-<p>Then open the smallest matching source:</p>
-<ul><li>chart-use row for the short recommendation;</li><li>evidence-router row for paths to receipts and decisions;</li><li>render-intent row for the base config;</li><li>matrix row for lane status.</li></ul>
-<h2 id="read-a-render-intent">Read A Render Intent</h2>
-<p>Start with:</p>
-<pre><code>rg -n &quot;bitnami/redis|redis&quot; data/helm-render-intents/intents.csv</code></pre>
-<p>Then open the matching YAML under <code>data/helm-render-intents/intents/</code>.</p>
-<p>A render intent records the chart version, base, values profile, namespace, release name, capability profile, source lock, lifecycle routes, target prerequisites, and evidence links for a real base row. It is not a production promise.</p>
-<h2 id="how-to-report-catalog-findings">How To Report Catalog Findings</h2>
-<p>When summarizing a chart, include:</p>
-<ul><li>chart and version;</li><li>recommended or inspected base;</li><li>current route: use now, review, improve base, blocked, or refused;</li><li>strongest evidence lane;</li><li>known target prerequisites or lifecycle routes;</li><li>next action and source file.</li></ul>
-<p>Do not claim more than the source row claims.</p>
+<p>This live test starts from the public Redis <code>25.5.3</code> installer package. It records a change from three replicas to two, prepares Redis <code>27.0.0</code>, and checks that the upgrade does not put the replica count back to the chart default. ConfigHub then promotes the candidate through development and staging. The reviewed staging configuration is packaged once and reconciled by Argo CD on two throwaway clusters.</p>
+<h2 id="result">Result</h2>
+<p><b>pass.</b> A Redis chart upgrade from 25.5.3 to 27.0.0 kept a recorded post-render replica change, exposed two affected environment variants, promoted the candidate through development and staging, and reconciled the same reviewed OCI digest on two Argo CD clusters. Both clusters reached one ready master and two ready replicas, returned PONG, and passed exact-object and workload-convergence checks.</p>
+<table><thead><tr><th>Step</th><th>Result</th><th>What was checked</th></tr></thead><tbody><tr><td>Resolve the public packages</td><td>pass</td><td><code>25.5.3</code> is <code>sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33</code>; <code>27.0.0</code> is <code>sha256:f7abbebaa196753028c1ece5c24a32a0f40ac08aeda7ad3a5ec225e019a90780</code>.</td></tr>
+<tr><td>Import the current package</td><td>pass</td><td>14 Kubernetes objects, Redis 8.6.3, chart 25.5.3.</td></tr>
+<tr><td>Record the user change</td><td>pass</td><td><code>StatefulSet/redis-replicas spec.replicas</code> changed from 3 to 2.</td></tr>
+<tr><td>Check the candidate plan</td><td>pass</td><td>0 add, 13 change, 0 delete; no replica reset proposed.</td></tr>
+<tr><td>Reconcile the base</td><td>pass</td><td>Chart 25.5.3 became 27.0.0; Redis 8.6.3 became 8.8.0; replicas stayed 2.</td></tr>
+<tr><td>Show downstream impact</td><td>pass</td><td>2 environment Spaces are in the path: development was pending first, and staging became pending after the development wave.</td></tr>
+<tr><td>Promote development</td><td>pass</td><td>Chart 27.0.0; replicas 2; dry run left stored data unchanged.</td></tr>
+<tr><td>Promote staging</td><td>pass</td><td>Chart 27.0.0; replicas 2; dry run left stored data unchanged.</td></tr>
+<tr><td>Publish the ConfigHub release</td><td>pass</td><td><code>sha256:07f1e5cd3bef7472e955149bfe32e548e491f86ff926d6f84bf1212b5452315b</code>.</td></tr>
+<tr><td>Build and pull the portable OCI</td><td>pass</td><td>14 objects at <code>sha256:8e129cd6a55b438b7c90731afed414ed929525fe9a05ba80beb1114dbe8ab663</code>; pulled files matched the reviewed staging files.</td></tr>
+<tr><td>Roll out to two clusters</td><td>pass</td><td>Both Argo CD applications reported the same OCI digest and both Redis installations became ready.</td></tr></tbody></table>
+<h2 id="live-results">Live results</h2>
+<table><thead><tr><th>Cluster</th><th>Argo sync</th><th>Argo health</th><th>Master</th><th>Replicas</th><th>Redis check</th><th>Exact objects</th><th>Current workloads</th></tr></thead><tbody><tr><td><code>hx-redis-upgrade-20260726-15p2-a</code></td><td>Synced</td><td>Healthy</td><td>1/1</td><td>2/2</td><td>PONG</td><td><a href="../../../../runs/redis-upgrade-app-proof/observations/target-a-object-set.json">objects</a></td><td><a href="../../../../runs/redis-upgrade-app-proof/observations/target-a-workloads.json">workloads</a></td></tr>
+<tr><td><code>hx-redis-upgrade-20260726-15p2-b</code></td><td>Synced</td><td>Healthy</td><td>1/1</td><td>2/2</td><td>PONG</td><td><a href="../../../../runs/redis-upgrade-app-proof/observations/target-b-object-set.json">objects</a></td><td><a href="../../../../runs/redis-upgrade-app-proof/observations/target-b-workloads.json">workloads</a></td></tr></tbody></table>
+<h2 id="the-secret-is-separate">The Secret is separate</h2>
+<p>The selected <code>reuse-existing-secret</code> configuration refers to <code>redis/redis-existing-secret</code>, key <code>redis-password</code>. The package and portable workload OCI do not contain that password. This test created a different temporary Secret on each target through standard input. No credential bytes were written to the repository or receipt.</p>
+<h2 id="one-current-cli-gap">One current CLI gap</h2>
+<p><code>cub variant promote --dry-run -o mutations</code> returned no text for both promotions. The command changed no stored data, and the real promotions completed, but the empty preview is not useful to a person reviewing the upgrade. This receipt records that as a known presentation gap rather than describing the preview as complete.</p>
+<h2 id="what-this-proves">What this proves</h2>
+<ul><li>A public installer package can become a recorded ConfigHub base.</li><li>A change to the rendered Kubernetes objects can remain in place when a newer chart package is reconciled.</li><li>ConfigHub can show which environment variants are waiting for the candidate and promote them in order.</li><li>The reviewed result can leave ConfigHub as OCI and reconcile at the same digest on two Argo CD clusters.</li><li>Both live clusters matched the reviewed object set, reached one ready Redis master and two ready replicas, and returned <code>PONG</code>.</li></ul>
+<h2 id="limits">Limits</h2>
+<ul><li>The required Redis Secret was created separately on each throwaway cluster. The workload OCI does not contain the password.</li><li>cub variant promote --dry-run -o mutations returned no text in this run. The proof checked that the dry run changed no stored data, but it does not claim that the current CLI shows a useful mutation preview.</li><li>The portable output OCI used a temporary local registry. Public registry publication is a separate receipt.</li><li>The OCI keeps the reviewed ConfigHub objects. The cub-scout input removes only explicit null fields that the Kubernetes API omits before comparison.</li><li>This proves one Redis base, one post-render field change, two environment promotions, and two throwaway clusters. It does not prove every chart upgrade or production scale.</li><li>The cub-scout observations were recorded locally and were not submitted to ConfigHub observation storage.</li></ul>
+<p>Receipt: <a href="../../../../runs/redis-upgrade-app-proof/receipt.yaml"><code>runs/redis-upgrade-app-proof/receipt.yaml</code></a>.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/agent/catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/redis-upgrade-app-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

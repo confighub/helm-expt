@@ -294,6 +294,15 @@ Each App must have a complete example and receipt before the project describes i
 available. The generated demonstration programme states what is available, partial,
 example-only, or planned.
 
+The [Redis Upgrade App proof](../../data/redis-upgrade-app-proof/summary.md) is the
+first continuous execution of the upgrade path. It starts from the public
+`bitnami/redis:25.5.3` installer package, records a two-replica change, reconciles
+`27.0.0` without losing that change, promotes through development and staging, and
+checks the same OCI digest on two Argo CD clusters. The mechanics pass. The App remains
+partial because the current promotion dry-run prints no mutation preview, the portable
+OCI used a temporary registry, and the workflow is still a guarded script rather than
+a finished App interface.
+
 ## AI use
 
 AI can help maintain a large catalog, explain a chart, propose a preset
