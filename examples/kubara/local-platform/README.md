@@ -32,6 +32,9 @@ platform configuration, even when the target is not production.
 - `generation-receipt.yaml` states what ran and what has not run.
 - `confighub-upload-receipt.yaml` records the live Space, Unit, source digest,
   omitted Secrets, and approval required for cluster-wide system configuration.
+- `../../../runs/kubara-oci-delivery-proof/receipt.yaml` records approval, ordered
+  route work, portable OCI delivery, Argo CD reconciliation, Metrics Server health,
+  and cleanup.
 
 The temporary `.env` used by Kubara is not committed. It contained only local
 evaluation placeholders, but it is still treated as a credential file.
@@ -68,11 +71,19 @@ OCI layout. It also renders the downstream Homer chart with both values files
 to prove that the override replaces Kubara's generated placeholder. It removes
 the temporary directory when it finishes.
 
-## Current limit
+## Live delivery result
 
 Generation, Helm rendering, route analysis, local OCI packaging, and ConfigHub
-upload have run. The demo org stores all 75 non-Secret objects in one Unit
-because it had reached its Link quota; the two rendered Secrets were omitted as
-the command promises. Public registry publication, ordered route execution, and
-live Argo CD reconciliation are reported separately. No live platform result is
-implied by the upload.
+upload have run. The demo org stores all 75 non-Secret objects in one Unit because
+it had reached its Link quota; the two rendered Secrets were omitted as the command
+promises. ConfigHub required approval and published a private release.
+
+The live delivery proof installed the Argo CD CRDs first, supplied the target-owned
+Secrets, ran the Redis initializer, and packaged 69 prepared objects as a portable
+OCI. Bootstrap Argo CD reconciled that exact digest. Kubara Argo CD became ready and
+created one Metrics Server Application, which became Synced and Healthy.
+
+The test used one kind cluster, one selected service, and a temporary OCI registry.
+The `ClusterExternalSecret` and gRPC Ingress were deferred because their controllers
+and target data were not present. The full seven-service profile and a multi-cluster
+promotion wave have not run.

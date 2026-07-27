@@ -35,17 +35,19 @@ upgrade on every cluster.
 The [example README](../../../examples/kubara/local-platform/README.md) explains
 how to regenerate and verify every committed file.
 
-## Three different artifacts
+## Four different artifacts
 
 | Artifact | Contents | Use |
 | --- | --- | --- |
 | Kubara source | Platform config, generated Helm charts, and cluster values | Regenerate or change the platform |
 | Literal configuration OCI | The 77 rendered Kubernetes objects | Create a ConfigHub base variant |
-| ConfigHub release OCI | A later approved revision | Deliver through Argo CD, Flux, or another controller |
+| ConfigHub release OCI | An approved revision of the stored Units | Keep a private release record or deliver through a configured controller |
+| Portable configuration OCI | The prepared objects after target work | Deliver to an external Argo CD or Flux without sharing a ConfigHub target credential |
 
-The current example has the first two forms. ConfigHub pulled the local literal
-OCI and recorded the 75 non-Secret objects in one Unit. It does not claim that a
-ConfigHub release OCI or a live cluster rollout has run.
+This example now has all four forms. ConfigHub pulled the local literal OCI and
+recorded the 75 non-Secret objects in one Unit. Approval was required before apply,
+and ConfigHub published a private release. A separate portable OCI was then delivered
+through Argo CD to a throwaway cluster.
 
 ## The work around the render
 
@@ -59,9 +61,16 @@ remote image-pull key. Two ordinary Secret objects are present, but
 `cub variant upload` deliberately does not upload rendered Secrets. The route
 record names each case and the action an implementation must take.
 
-This is the part ConfigHub can make manageable: keep the special steps with the
-base variant, check the target facts, execute the required work in order, and
-record what happened.
+The live route installed the three Argo CD CRDs first, supplied the two target-owned
+Secrets without recording their data, and ran the Redis initializer Job. It did not
+apply the `ClusterExternalSecret`, because the test cluster had no External Secrets
+controller, `ClusterSecretStore`, or remote key. It also left out the Argo CD gRPC
+Ingress because the test cluster had no ingress controller.
+
+The target package added the public source repository to the AppProject, disabled Dex
+because no Dex login was configured, and gave Metrics Server the kind-only TLS option
+needed by the throwaway cluster. These changes are listed in the receipt instead of
+being hidden in a shell command.
 
 ## What has been checked
 
@@ -69,7 +78,12 @@ record what happened.
 file, Helm dependency lock, all 77 rendered objects, the three CRDs, four hook
 resources, two Secrets, repository paths, route record, and literal OCI layout.
 
-The ConfigHub upload passed. The Space requires approval because it contains
-cluster-wide system configuration. Public registry publication, route execution,
-Argo CD sync, and platform health remain separate checks. Until those receipts
-exist, this example remains partial.
+The [OCI delivery proof](../../../data/kubara-oci-delivery-proof/summary.md) checks the
+next stage. ConfigHub held the exact 75-object non-Secret base and required approval.
+The route work ran, 69 prepared objects were packaged as a portable OCI, bootstrap
+Argo CD reconciled its exact digest, Kubara Argo CD became ready, and Kubara created
+one Metrics Server Application. That Application became Synced and Healthy.
+
+This remains a bounded example. It used one kind cluster, one selected downstream
+service, and a temporary OCI registry. It did not run the complete seven-service
+profile or a multi-cluster promotion wave.

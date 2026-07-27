@@ -255,6 +255,7 @@ const DEMO_SPACES = [
       "The recorded render contains 77 Kubernetes objects. ConfigHub stores the 75 non-Secret objects; the two Secrets remain named requirements instead of being hidden.",
       "The route record lists three CRDs, four Helm-hook resources, the two Secrets, and the External Secrets prerequisite.",
       "This Space requires approval before apply because it changes cluster-wide platform configuration.",
+      "A live test ran the required CRD, Secret, and Redis setup work, delivered a portable OCI through Argo CD, and brought up one selected Metrics Server Application.",
     ],
     open: [
       "This README.",
@@ -270,12 +271,13 @@ const DEMO_SPACES = [
       ["Generation receipt", "examples/kubara/local-platform/generation-receipt.yaml"],
       ["ConfigHub upload receipt", "examples/kubara/local-platform/confighub-upload-receipt.yaml"],
       ["CRD, hook, Secret, and prerequisite record", "examples/kubara/local-platform/route-intent.yaml"],
+      ["OCI delivery and live result", "data/kubara-oci-delivery-proof/summary.md"],
       ["Apply policy and live assignments", "data/apply-policy-profiles/summary.md"],
     ],
     limits: [
-      "The public OCI copy has not been published.",
-      "The CRD, hook, Secret, and External Secrets work is recorded but has not been executed for this example.",
-      "No Argo CD reconciliation or live platform-health result is claimed.",
+      "The portable OCI used a temporary registry; no permanent public Kubara package is claimed.",
+      "The live test selected Metrics Server only. It deferred the ClusterExternalSecret and gRPC Ingress because their target prerequisites were absent.",
+      "The full seven-service profile and a multi-cluster promotion wave have not run.",
     ],
   },
   {

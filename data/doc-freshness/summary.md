@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-07-27 (commit `58ce319f9`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-07-27 (commit `38dafeb0e`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 231 |
-| Fresh (no linked source newer than the doc) | 31 |
+| Fresh (no linked source newer than the doc) | 32 |
 | **Review-due** | 59 |
-| No linked evidence sources (cannot auto-trigger) | 141 |
+| No linked evidence sources (cannot auto-trigger) | 140 |
 
 ## Review queue
 
@@ -115,7 +115,6 @@ into this freshness model.
 - [docs/demo/grafana/confighub-proof.md](../../docs/demo/grafana/confighub-proof.md)
 - [docs/demo/ingress-nginx/confighub-proof-transcript.md](../../docs/demo/ingress-nginx/confighub-proof-transcript.md)
 - [docs/demo/ingress-nginx/confighub-proof.md](../../docs/demo/ingress-nginx/confighub-proof.md)
-- [docs/demo/kubara/local-platform.md](../../docs/demo/kubara/local-platform.md)
 - [docs/demo/kube-prometheus-stack/confighub-proof-transcript.md](../../docs/demo/kube-prometheus-stack/confighub-proof-transcript.md)
 - [docs/demo/kube-prometheus-stack/confighub-proof.md](../../docs/demo/kube-prometheus-stack/confighub-proof.md)
 - [docs/demo/loki/confighub-proof-transcript.md](../../docs/demo/loki/confighub-proof-transcript.md)
