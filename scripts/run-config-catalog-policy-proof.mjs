@@ -176,6 +176,17 @@ function run() {
     const schemaApply = blockedDryRun(context, spaces.baseline, "schema-fixture", gates.schema);
     const warningApply = allowedDryRun(context, spaces.baseline, "warning-fixture");
     const approvalApply = blockedDryRun(context, spaces.approval, "approval-fixture", gates.approval);
+    const approvalAfterReview = approveAndAllowDryRun(
+      context,
+      spaces.approval,
+      "approval-fixture",
+    );
+    const approvalRecord = checkRecord(approval, approvalApply, {
+      effect: "block",
+      gate: gates.approval,
+      finding: "system configuration has no recorded approval",
+    });
+    approvalRecord.afterApproval = approvalAfterReview;
 
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
@@ -224,11 +235,7 @@ function run() {
             applyGates: Object.keys(warning.unit.ApplyGates ?? {}).sort(),
             dryRunApply: warningApply,
           },
-          approval: checkRecord(approval, approvalApply, {
-            effect: "block",
-            gate: gates.approval,
-            finding: "system configuration has no recorded approval",
-          }),
+          approval: approvalRecord,
           lifecycleRoute: {
             effect: "block",
             finding: "automatic lifecycle route has no observed evidence",
@@ -248,7 +255,7 @@ function run() {
       },
       status: {
         result: "pass",
-        claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route.",
+        claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; allowed the same system configuration after its exact revision was approved; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route.",
       },
     };
   } finally {
@@ -524,6 +531,59 @@ function allowedDryRun(context, space, slug) {
   };
 }
 
+function approveAndAllowDryRun(context, space, slug) {
+  const before = cubJson(
+    context,
+    ["unit", "get", slug, "--space", space, "-o", "json"],
+  ).Unit;
+  const revision = before.HeadRevisionNum;
+  check(
+    Number.isInteger(revision) && revision > 0,
+    `${space}/${slug} has no revision to approve`,
+  );
+  cub(context, [
+    "unit",
+    "approve",
+    "--space",
+    space,
+    slug,
+    "--revision",
+    "HeadRevisionNum",
+    "--wait",
+    "--quiet",
+  ]);
+  const approved = waitForGateToClear(context, {
+    space,
+    slug,
+    gate: gates.approval,
+  });
+  return {
+    result: "allowed",
+    revisionSelector: "HeadRevisionNum",
+    headRevisionBefore: revision,
+    headRevisionAfter: approved.HeadRevisionNum,
+    recordedApprovals: approvalCount(approved.ApprovedBy),
+    gateCleared: approved.ApplyGates?.[gates.approval] !== true,
+    dryRunApply: allowedDryRun(context, space, slug),
+  };
+}
+
+function approvalCount(value) {
+  if (Array.isArray(value)) return value.length;
+  if (value && typeof value === "object") return Object.keys(value).length;
+  return value ? 1 : 0;
+}
+
+function waitForGateToClear(context, { space, slug, gate }) {
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    const unit = cubJson(context, ["unit", "get", slug, "--space", space, "-o", "json"]).Unit;
+    const waiting = unit.ApplyGates?.["awaiting/triggers"] === true;
+    if (unit.ApplyGates?.[gate] !== true && !waiting) return unit;
+    execFileSync("sleep", ["1"]);
+  }
+  throw new Error(`${space}/${slug} still had ${gate} after approval`);
+}
+
 function checkRecord(fixture, dryRunApply, { effect, gate, finding }) {
   return {
     effect,
@@ -621,6 +681,22 @@ function verifyReceipt(receipt) {
     );
   }
 
+  const approvalAfterReview = receipt.spec?.checks?.approval?.afterApproval;
+  check(
+    approvalAfterReview?.result === "allowed"
+      && approvalAfterReview.revisionSelector === "HeadRevisionNum"
+      && Number.isInteger(approvalAfterReview.headRevisionBefore)
+      && approvalAfterReview.headRevisionBefore > 0
+      && Number.isInteger(approvalAfterReview.headRevisionAfter)
+      && approvalAfterReview.headRevisionAfter >= approvalAfterReview.headRevisionBefore
+      && approvalAfterReview.recordedApprovals >= 1
+      && approvalAfterReview.gateCleared === true
+      && approvalAfterReview.dryRunApply?.result === "allowed"
+      && approvalAfterReview.dryRunApply?.dryRun === true
+      && approvalAfterReview.dryRunApply?.exitCode === 0,
+    "approved system-configuration dry run did not pass",
+  );
+
   const warning = receipt.spec?.checks?.warnings;
   check(warning?.effect === "warn", "workload findings are no longer advisory");
   check(sameSet(warning?.triggers ?? [], warnings), "warning Trigger set changed");
@@ -654,9 +730,11 @@ function verifyReceipt(receipt) {
 
 function renderSummary(receipt) {
   const checks = receipt.spec.checks;
-  return `# What the live catalog policy blocks
+  return `# How the live catalog checks behave
 
-**UNOFFICIAL/EXPERIMENTAL.** This page is generated from a committed live receipt. Rerun the isolated fixtures with \`npm run config-catalog:policy:run\`; check the committed result without contacting ConfigHub with \`npm run config-catalog:policy:verify\`.
+This page comes from a committed live receipt. Rerun the isolated fixtures with
+\`npm run config-catalog:policy:run\`, or check the committed result without contacting
+ConfigHub with \`npm run config-catalog:policy:verify\`.
 
 The test created temporary configuration records in the live \`helm-catalog\` organization. It then asked ConfigHub to perform dry-run applies. No fixture configuration was sent to Kubernetes.
 
@@ -666,9 +744,10 @@ The test created temporary configuration records in the live \`helm-catalog\` or
 | A Deployment whose replica count was text instead of a number | Blocked it |
 | A Deployment with an unpinned image and no health probes | Reported both warnings and allowed the dry run |
 | System configuration with no approval | Blocked it |
+| The same system configuration after its exact revision was approved | Allowed the dry run |
 | A lifecycle route claiming automatic work without evidence | Blocked it in the separately recorded Hooks and CRDs test |
 
-The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. This confirms that approval is added where it is needed without turning ordinary warnings into blockers.
+The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. Its first dry run was blocked. After the test approved that exact revision, the second dry run was allowed. This confirms that approval is added where it is needed without turning ordinary warnings into blockers or leaving an approved revision permanently blocked.
 
 All temporary Spaces were deleted. The target was used only to exercise ConfigHub's apply boundary with \`--dry-run\`; this did not test a Kubernetes rollout or application health.
 

@@ -273,7 +273,9 @@ The topology receipt says which checks are connected. The
 shows what they did with temporary records. ConfigHub blocked an unresolved
 placeholder, invalid Kubernetes data, and unapproved system configuration. It
 reported an unpinned image and missing health probes as warnings and still allowed
-the dry-run apply. No fixture configuration was applied to Kubernetes.
+the dry-run apply. The system-configuration fixture was then approved at its exact
+head revision, the approval gate cleared, and the same dry run was allowed. No
+fixture configuration was applied to Kubernetes.
 
 ## ConfigHub Apps
 

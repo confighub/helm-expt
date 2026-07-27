@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What the live catalog policy blocks · ConfigHub Helm Ops</title>
-  <meta name="description" content="What the live catalog policy blocks: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How the live catalog checks behave · ConfigHub Helm Ops</title>
+  <meta name="description" content="How the live catalog checks behave: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/apply-policy-functional-proof/summary.html">
-  <meta property="og:title" content="What the live catalog policy blocks · ConfigHub Helm Ops">
-  <meta property="og:description" content="What the live catalog policy blocks: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="How the live catalog checks behave · ConfigHub Helm Ops">
+  <meta property="og:description" content="How the live catalog checks behave: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/apply-policy-functional-proof/summary.html">
   <style>
@@ -424,20 +424,21 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>What the live catalog policy blocks</h1>
+    <h1>How the live catalog checks behave</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/apply-policy-functional-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from a committed live receipt. Rerun the isolated fixtures with <code>npm run config-catalog:policy:run</code>; check the committed result without contacting ConfigHub with <code>npm run config-catalog:policy:verify</code>.</p>
+<p>This page comes from a committed live receipt. Rerun the isolated fixtures with <code>npm run config-catalog:policy:run</code>, or check the committed result without contacting ConfigHub with <code>npm run config-catalog:policy:verify</code>.</p>
 <p>The test created temporary configuration records in the live <code>helm-catalog</code> organization. It then asked ConfigHub to perform dry-run applies. No fixture configuration was sent to Kubernetes.</p>
 <table><thead><tr><th>Configuration tested</th><th>What ConfigHub did</th></tr></thead><tbody><tr><td>A ConfigMap containing an unresolved placeholder</td><td>Blocked it</td></tr>
 <tr><td>A Deployment whose replica count was text instead of a number</td><td>Blocked it</td></tr>
 <tr><td>A Deployment with an unpinned image and no health probes</td><td>Reported both warnings and allowed the dry run</td></tr>
 <tr><td>System configuration with no approval</td><td>Blocked it</td></tr>
+<tr><td>The same system configuration after its exact revision was approved</td><td>Allowed the dry run</td></tr>
 <tr><td>A lifecycle route claiming automatic work without evidence</td><td>Blocked it in the separately recorded Hooks and CRDs test</td></tr></tbody></table>
-<p>The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. This confirms that approval is added where it is needed without turning ordinary warnings into blockers.</p>
+<p>The first three fixtures used the five common checks. The system-configuration fixture used those checks plus required approval. Its first dry run was blocked. After the test approved that exact revision, the second dry run was allowed. This confirms that approval is added where it is needed without turning ordinary warnings into blockers or leaving an approved revision permanently blocked.</p>
 <p>All temporary Spaces were deleted. The target was used only to exercise ConfigHub's apply boundary with <code>--dry-run</code>; this did not test a Kubernetes rollout or application health.</p>
 <ul><li><a href="../../../../runs/config-catalog-policy-functional-proof/receipt.yaml">Committed functional receipt</a></li><li><a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">Live filter and Space assignments</a></li><li><a href="../../../../data/hooks-crds-app/live-receipt.yaml">Hooks and CRDs policy receipt</a></li><li><a href="../../../../config-catalog/policies/catalog-standard.yaml">Maintained policy definition</a></li></ul>
     </article>

@@ -3,7 +3,7 @@ kind: "ConfigCatalogApplyPolicyFunctionalProofReceipt"
 metadata:
   name: "catalog-standard-live-functional"
 spec:
-  recordedAt: "2026-07-26T18:29:26.288Z"
+  recordedAt: "2026-07-27T00:28:46.245Z"
   context:
     name: "river-bear"
     organization: "helm-catalog"
@@ -52,9 +52,9 @@ spec:
       effect: "block"
       finding: "unresolved ConfigHub placeholder"
       gate: "platform/vet-placeholders/vet-placeholders"
-      space: "hx-policy-baseline-20260726182907"
+      space: "hx-policy-baseline-20260727002820"
       unit: "placeholder-fixture"
-      unitId: "95ddb92f-13c9-40f5-b3af-649e5ff6afbd"
+      unitId: "5851ce1d-7acf-473e-9404-a5d1120ca3e3"
       validationKeys:
         - "platform/vet-placeholders/vet-placeholders"
       applyGates:
@@ -68,9 +68,9 @@ spec:
       effect: "block"
       finding: "invalid Kubernetes field type"
       gate: "platform/vet-schemas/vet-schemas"
-      space: "hx-policy-baseline-20260726182907"
+      space: "hx-policy-baseline-20260727002820"
       unit: "schema-fixture"
-      unitId: "9a3d0e74-b6c2-4c34-a111-24fd959da3df"
+      unitId: "ec4cdc2c-0a0c-403f-b68d-dc3e8d4bfa65"
       validationKeys:
         - "platform/vet-schemas/vet-schemas"
       applyGates:
@@ -88,9 +88,9 @@ spec:
       triggers:
         - "platform/digest-pinned-images/vet-cel"
         - "platform/probes-declared/vet-cel"
-      space: "hx-policy-baseline-20260726182907"
+      space: "hx-policy-baseline-20260727002820"
       unit: "warning-fixture"
-      unitId: "ff2f0f7b-6f4d-4e4e-b22f-653edafb296a"
+      unitId: "eabdc3ed-cb14-492e-a62b-4c9016ce6b35"
       validationKeys:
         - "platform/digest-pinned-images/vet-cel"
         - "platform/probes-declared/vet-cel"
@@ -100,14 +100,14 @@ spec:
         result: "allowed"
         exitCode: 0
         dryRun: true
-        queuedOperationId: "7b393f4d-971f-4df5-a0b1-b602dee69186"
+        queuedOperationId: "a77ef561-ca35-4477-8f56-21fd731e2573"
     approval:
       effect: "block"
       finding: "system configuration has no recorded approval"
       gate: "platform/require-approval/vet-approvedby"
-      space: "hx-policy-approval-20260726182907"
+      space: "hx-policy-approval-20260727002820"
       unit: "approval-fixture"
-      unitId: "8950ce36-73cc-4a78-a8af-87acfed49eb7"
+      unitId: "95b794db-0bbb-4f1e-b2be-d0c7346b124c"
       validationKeys:
         - "platform/require-approval/vet-approvedby"
       applyGates:
@@ -117,6 +117,18 @@ spec:
         exitCode: 1
         gate: "platform/require-approval/vet-approvedby"
         dryRun: true
+      afterApproval:
+        result: "allowed"
+        revisionSelector: "HeadRevisionNum"
+        headRevisionBefore: 1
+        headRevisionAfter: 1
+        recordedApprovals: 1
+        gateCleared: true
+        dryRunApply:
+          result: "allowed"
+          exitCode: 0
+          dryRun: true
+          queuedOperationId: "18741913-65c5-41f5-a98b-14f264d041bb"
     lifecycleRoute:
       effect: "block"
       finding: "automatic lifecycle route has no observed evidence"
@@ -134,4 +146,4 @@ spec:
     - "The lifecycle-route result comes from the separately recorded Hooks and CRDs App fixture."
 status:
   result: "pass"
-  claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route."
+  claim: "The live catalog policy blocked a placeholder, invalid Kubernetes data, and unapproved system configuration; allowed the same system configuration after its exact revision was approved; reported two advisory workload findings without blocking a dry run; and separately blocked an unsupported automatic lifecycle route."
