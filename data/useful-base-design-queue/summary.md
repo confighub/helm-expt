@@ -18,9 +18,9 @@ What must be proven before that base becomes a catalog offer?
 ## Summary
 
 ~~~text
-charts needing useful bases: 35
+charts needing useful bases: 33
 families: 7
-proposal statuses: proposal-not-built=35
+proposal statuses: proposal-not-built=33
 ~~~
 
 ## Design Families
@@ -31,7 +31,7 @@ proposal statuses: proposal-not-built=35
 | storage-platform | 8 | storage-default-reviewed | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18; bitnami/memcached@8.5.5; minio-operator/operator@7.1.1; aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1; rook-release/rook-ceph@v1.19.5; jetstack/cert-manager-csi-driver@v0.14.0 |
 | logging-telemetry-agent | 7 | node-or-cluster-collector | fluent/fluent-bit@0.57.6; falcosecurity/falco@9.0.0; jaegertracing/jaeger@4.8.0; fluent/fluentd@0.5.3; elastic/metricbeat@8.5.1; falcosecurity/falcosidekick@0.13.1 |
 | monitoring-metrics | 5 | cluster-metrics-readonly | fairwinds-stable/goldilocks@10.3.0; descheduler/descheduler@0.36.0; prometheus-community/prometheus-operator-crds@29.0.0; prometheus-community/prometheus-pushgateway@3.6.0; opencost/opencost@2.5.21 |
-| web-admin-ui | 5 | web-ui-existing-secret | runix/pgadmin4@1.62.0; elastic/kibana@8.5.1; dex/dex@0.24.0; bitnami/phpmyadmin@20.0.0; bitnami/apache@11.4.29 |
+| web-admin-ui | 3 | web-ui-existing-secret | runix/pgadmin4@1.62.0; elastic/kibana@8.5.1; dex/dex@0.24.0 |
 | application-or-addon | 1 | default-reviewed | vm/victoria-logs-single@0.12.5 |
 | ci-runner | 1 | runner-existing-secret | gitlab/gitlab-runner@0.89.0 |
 
@@ -51,7 +51,6 @@ proposal statuses: proposal-not-built=35
 | 37 | jaegertracing/jaeger@4.8.0 | node-or-cluster-collector | proposal-not-built | run an observability collector or security agent with explicit output destinations | Secret reference; target facts | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
 | 37 | prometheus-community/prometheus-operator-crds@29.0.0 | cluster-metrics-readonly | proposal-not-built | collect or expose cluster metrics without changing application workloads | Secret reference; CRD ownership choice; target facts | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; CRD lifecycle route; Secret/target-fact policy |
 | 40 | dex/dex@0.24.0 | web-ui-existing-secret | proposal-not-built | deploy a reviewable web UI using existing credentials or external identity | Secret reference | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
-| 50 | bitnami/phpmyadmin@20.0.0 | web-ui-existing-secret | proposal-not-built | deploy a reviewable web UI using existing credentials or external identity | Secret reference; StorageClass or persistence choice; target facts; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy; storage and rollback note |
 | 51 | prometheus-community/prometheus-pushgateway@3.6.0 | cluster-metrics-readonly | proposal-not-built | collect or expose cluster metrics without changing application workloads | StorageClass or persistence choice; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy; storage and rollback note |
 | 52 | fluent/fluentd@0.5.3 | node-or-cluster-collector | proposal-not-built | run an observability collector or security agent with explicit output destinations | StorageClass or persistence choice | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; storage and rollback note |
 | 53 | coredns/coredns@1.45.2 | controller-default-reviewed | proposal-not-built | install a cluster controller with explicit CRD, RBAC, and lifecycle boundaries | Secret reference; target facts; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; Secret/target-fact policy |
@@ -59,6 +58,7 @@ proposal statuses: proposal-not-built=35
 | 54 | minio-operator/operator@7.1.1 | storage-default-reviewed | proposal-not-built | install storage or cache infrastructure with explicit storage and lifecycle choices | CRD ownership choice | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; CRD lifecycle route |
 | 56 | opencost/opencost@2.5.21 | cluster-metrics-readonly | proposal-not-built | collect or expose cluster metrics without changing application workloads | StorageClass or persistence choice; required chart values | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; storage and rollback note |
 | 60 | elastic/metricbeat@8.5.1 | node-or-cluster-collector | proposal-not-built | run an observability collector or security agent with explicit output destinations | StorageClass or persistence choice | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; storage and rollback note |
+| 64 | argo-cd/argocd-image-updater@1.2.2 | controller-default-reviewed | proposal-not-built | install a cluster controller with explicit CRD, RBAC, and lifecycle boundaries | Secret reference; CRD ownership choice | recipe/package base; render parity; helm pain report update; scan or gate receipt; production disposition; CRD lifecycle route; Secret/target-fact policy |
 
 ## Reading Rule
 

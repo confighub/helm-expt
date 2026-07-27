@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-base="${INSTALLER_BASE:-default}"
+base="${INSTALLER_BASE:-reuse-existing-secret}"
 secret_namespace="${REDIS_EXISTING_SECRET_NAMESPACE:-redis}"
 secret_name="${REDIS_EXISTING_SECRET_NAME:-redis-existing-secret}"
 secret_key="${REDIS_EXISTING_SECRET_KEY:-redis-password}"

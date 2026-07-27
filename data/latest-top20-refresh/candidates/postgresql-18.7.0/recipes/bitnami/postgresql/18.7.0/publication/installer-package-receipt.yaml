@@ -34,15 +34,15 @@ spec:
         bytes: 9707
       -
         path: "collector/target-facts.sh"
-        sha256: "5e247486f380881979a316e4c590605ed327c2720bfba9f898e7e80fcde94b83"
-        bytes: 1753
+        sha256: "154093ae2c65e87bdf74a19ae4636ddfd1896782df705f6384a53b57a13cd070"
+        bytes: 2310
       -
         path: "installer.yaml"
-        sha256: "f823e09d5c22e7c95afebaa4373e7b621f73f45502ecf5ba42fc2b30655ad942"
-        bytes: 1264
+        sha256: "d902b683d9bc0bf14d06f75cd89d0b17ff11e066fb16d1aaa0dbfbeb582a8fc4"
+        bytes: 1258
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0 -o <tmp>/postgresql-18.7.0.tgz"
-    sha256: "53e9f9f0577f35826ea06d1919db4b7f9227b7688858ec625e121c20853e1cc1"
+    sha256: "357982e942525f224c36c70b77ea24990e24bec536557afe874843d30219390a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

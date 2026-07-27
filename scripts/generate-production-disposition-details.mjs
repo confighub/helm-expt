@@ -104,14 +104,18 @@ function buildReport() {
   const extensionSlots = extensionSlotIndex();
   const lifecycleObservations = lifecycleObservationIndex();
   const dispositionReceipts = productionDispositionReceiptIndex();
+  const supportDecisions = productionSupportDecisionIndex();
   const queueContext = new Map();
   const charts = rows.map((row) => {
     const required = [...requiredDispositions(row.controlPoints, row.variants, extensionSlots.has(`${row.chart}@${row.version}`))].sort();
     const source = sourceFeatures.get(row.chart) ?? {};
     const observations = lifecycleObservations.get(row.chart) ?? [];
     const readinessRows = baseReadiness.get(`${row.chart}@${row.version}`) ?? [];
+    const existingDecision = supportDecisions.get(`${row.chart}@${row.version}`);
     queueContext.set(`${row.chart}@${row.version}`, {
-      recommendedBase: recommendedBaseFromRows(readinessRows),
+      recommendedBase:
+        baseFromRows(readinessRows, existingDecision?.supportedBase) ??
+        recommendedBaseFromRows(readinessRows),
       baseReadinessSummary: baseReadinessSummary(readinessRows),
       imageDigest: compactImageDigest(imageDigest.get(`${row.chart}@${row.version}`)),
     });
@@ -715,6 +719,35 @@ function recommendedBaseFromRows(rows) {
     live_rerun_next_step: row.live_rerun_next_step,
     live_rerun_command: row.live_rerun_command,
   };
+}
+
+function baseFromRows(rows, baseName) {
+  if (!baseName) return null;
+  const row = rows.find((item) => item.base === baseName);
+  if (!row) return null;
+  return {
+    base: row.base,
+    user_readiness: row.user_readiness,
+    complete_core_lane_set: row.complete_core_lane_set,
+    live_rerun_readiness: row.live_rerun_readiness,
+    live_rerun_next_step: row.live_rerun_next_step,
+    live_rerun_command: row.live_rerun_command,
+  };
+}
+
+function productionSupportDecisionIndex() {
+  const result = new Map();
+  const root = join(repoRoot, "data", "production-support-decisions");
+  if (!existsSync(root)) return result;
+  for (const path of listFiles(root).filter((file) => file.endsWith("/support-decision.yaml"))) {
+    const decision = readYaml(path);
+    const chart = decision.spec?.chart;
+    const version = decision.spec?.version;
+    const supportedBase = decision.spec?.supportedBase;
+    if (!chart || !version || !supportedBase) continue;
+    result.set(`${chart}@${version}`, { supportedBase });
+  }
+  return result;
 }
 
 function baseReadinessSummary(rows) {

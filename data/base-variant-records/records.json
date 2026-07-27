@@ -4244,7 +4244,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "todo",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -4921,7 +4921,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -6617,7 +6617,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "todo",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -7084,7 +7084,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "operations": {
           "resourceClass": "not-yet-classified",
@@ -13468,7 +13468,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "operations": {
           "resourceClass": "not-yet-classified",

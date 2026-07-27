@@ -71,11 +71,11 @@ spec:
       []
     note: "The default base includes a Redis Secret in Helm output and separates it during cub installer handling. A request to use redis-existing-secret must start from the reuse-existing-secret base or go back through cub installer."
   proof:
-    contractDigest: "sha256:470313c4441067634b2d605b962b70dceb4c2e83ec1a6a53539e1415e39ac49f"
+    contractDigest: "sha256:fb4f96222fbaef08ee1f8fa2d6abae559cb107bbc86b4f68007f35b47899aacb"
     sourceFiles:
       recipe: "recipes/bitnami/redis/25.5.3/recipe.yaml"
       package: "packages/bitnami/redis/25.5.3"
       variant: "recipes/bitnami/redis/25.5.3/variants/default/variant.yaml"
       variantRevision: "recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml"
       renderedObjectSetSHA256: "175caf404c4a005708398d2facd696a8500ef4280c47c682b7bae6273a91272e"
-      confighubProofSHA256: "a32b7d9931a6f4fed2ad7037dee37957a5a281506ebe45d3e670662956cc7dac"
+      confighubProofSHA256: "7caba7b6469785a797df79f35a23b92af76d13b6b5e0ca2307381c37c30e3b97"

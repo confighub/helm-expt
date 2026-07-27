@@ -22,8 +22,8 @@ columns). It changes no status and runs nothing.
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 459 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 128 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-target-or-prereq-fix` | 454 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `already-decided` | 133 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 56 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
@@ -38,8 +38,8 @@ columns). It changes no status and runs nothing.
 
 | State | Cells |
 | --- | ---: |
-| `proven` | 184 |
-| `watch` | 128 |
+| `proven` | 179 |
+| `watch` | 133 |
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
 | `not-applicable-candidate` | 74 |
@@ -99,7 +99,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -110,7 +110,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (459)
+## needs-target-or-prereq-fix (454)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -176,13 +176,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/memcached@8.5.5 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | bitnami/mongodb@19.0.7 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mongodb@19.0.7 | existing-secret-replicaset | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| bitnami/mongodb@19.0.7 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/mongodb@19.0.9 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mongodb@19.0.9 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/mongodb@19.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mysql@14.0.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/mysql@14.0.3 | existing-secret | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| bitnami/mysql@14.0.3 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/nginx@24.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/nginx@24.0.2 | customer-acme-prod | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | bitnami/nginx@24.0.2 | existing-tls-ingress | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -205,11 +203,9 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/postgresql@18.6.10 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/postgresql@18.6.7 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/postgresql@18.6.7 | existing-secret | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| bitnami/postgresql@18.6.7 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/postgresql@18.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/rabbitmq@16.0.14 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/rabbitmq@16.0.14 | existing-secret | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| bitnami/rabbitmq@16.0.14 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/redis@25.5.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/redis@25.5.3 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/redis@25.5.3 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
@@ -323,7 +319,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/grafana@10.5.15 | customer-acme-prod | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | grafana/grafana@10.5.15 | existing-secret-ingress | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/grafana@10.5.15 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
-| grafana/grafana@10.5.15 | static-passwords | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/loki@7.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/loki@7.0.0 | simple-scalable-minio | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/loki@7.0.0 | single-binary-filesystem | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -630,7 +625,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (128)
+## already-decided (133)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -655,6 +650,7 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/elasticsearch@22.1.6 | ha | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/elasticsearch@22.1.6 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/elasticsearch@22.1.6 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/mongodb@19.0.7 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | G | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | P | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/mongodb@19.0.9 | existing-secret-replicaset | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
@@ -662,6 +658,7 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | P | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/mongodb@19.1.0 | existing-secret-replicaset | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/mongodb@19.1.0 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/mysql@14.0.3 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | bitnami/nginx@24.0.4 | existing-tls-ingress | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
@@ -681,8 +678,10 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/phpmyadmin@20.0.0 | legacy | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/phpmyadmin@20.0.0 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/postgresql@18.6.10 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/postgresql@18.6.7 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.7.0 | existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/postgresql@18.7.0 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| bitnami/rabbitmq@16.0.14 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/redis@27.0.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/redis@27.0.0 | reuse-existing-secret | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | bitnami/spark@10.0.3 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
@@ -714,6 +713,7 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | gitlab/gitlab-runner@0.89.0 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | K | watch | helm-runtime: upstream not ready (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| grafana/grafana@10.5.15 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | grafana/pyroscope@2.0.2 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | default | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | ha | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |

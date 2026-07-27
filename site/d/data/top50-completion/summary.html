@@ -433,10 +433,10 @@
 <p>This is the maintained completion tracker for the public configuration catalog and its path into ConfigHub. It replaces conversational task counts with fifty stable task IDs, current evidence, verification commands, and a concrete completion step.</p>
 <p>Generated from <a href="../../../../config-catalog/top50.yaml">config-catalog/top50.yaml</a>. Edit that source and run <code>npm run top50:completion</code>.</p>
 <h2 id="current-state">Current State</h2>
-<pre><code>available: 19
+<pre><code>available: 20
 partial:   28
 planned:   2
-blocked:   1
+blocked:   0
 total:     50</code></pre>
 <p><code>available</code> means the named scope has a usable, verified path. It does not claim that every chart, input format, target, or controller is complete. <code>partial</code> means a representative path works but a material part remains. <code>planned</code> has no complete end-to-end proof yet. <code>blocked</code> names the defect that prevents its completion check from passing.</p>
 <h2 id="programme-boundary">Programme Boundary</h2>
@@ -505,7 +505,7 @@ total:     50</code></pre>
 <tr><td>T47</td><td>Join chart pages to packages scripts README and proof</td><td>available</td><td><a href="../../../charts/bitnami-redis-25-5-3.html">site/charts/bitnami-redis-25-5-3.html</a>&lt;br&gt;<a href="../../../sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh">site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh</a></td><td>Keep generated links valid and preserve plain-English summaries as the catalog gains more source formats.</td></tr>
 <tr><td>T48</td><td>Make hooks CRDs and setup work manageable per chart</td><td>partial</td><td><a href="../../docs/user/chart-hooks-what-happens.html">docs/user/chart-hooks-what-happens.md</a>&lt;br&gt;<a href="../hook-route-candidates/work-orders.html">data/hook-route-candidates/work-orders.md</a>&lt;br&gt;<a href="../lifecycle-routes/summary.html">data/lifecycle-routes/summary.md</a></td><td>Execute the highest-value route work orders under Argo CD, Flux, and direct apply where each route applies.</td></tr></tbody></table>
 <h2 id="release-quality">Release quality</h2>
-<table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T49</td><td>Keep the complete repository verification gate green</td><td>blocked</td><td><a href="../../tests/npm-scripts.html">tests/npm-scripts.md</a>&lt;br&gt;<a href="../../docs/user/verification.html">docs/user/verification.md</a></td><td>Repair the stale Redis top-20 local E2E evidence digest tracked in issue 1152, then rerun the broad gate. <a href="https://github.com/confighub/helm-expt/issues/1152">Issue</a></td></tr></tbody></table>
+<table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T49</td><td>Keep the complete repository verification gate green</td><td>available</td><td><a href="../../tests/npm-scripts.html">tests/npm-scripts.md</a>&lt;br&gt;<a href="../../docs/user/verification.html">docs/user/verification.md</a></td><td>Rerun the complete gate whenever packages, receipts, generated data, docs, or public claims change.</td></tr></tbody></table>
 <h2 id="adoption">Adoption</h2>
 <table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T50</td><td>Measure whether new users understand and complete the journey</td><td>planned</td><td><a href="../../docs/planning/outside-user-test.html">docs/planning/outside-user-test.md</a>&lt;br&gt;<a href="../../docs/planning/persona-ux-audit-2026-06-22.html">docs/planning/persona-ux-audit-2026-06-22.md</a></td><td>Run fresh outside-user tests, choose the analytics boundary in issue 1060, and turn observed failures into tracked fixes. <a href="https://github.com/confighub/helm-expt/issues/1060">Issue</a></td></tr></tbody></table>
 <h2 id="verification">Verification</h2>

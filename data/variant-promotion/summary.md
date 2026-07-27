@@ -24,8 +24,8 @@ Status values:
 | --- | ---: |
 | blocked | 2 |
 | missing-confighub-proof | 1 |
-| proven | 184 |
-| proven-with-watch | 12 |
+| proven | 179 |
+| proven-with-watch | 17 |
 
 Matrix values:
 
@@ -33,8 +33,8 @@ Matrix values:
 | --- | ---: |
 | no | 2 |
 | todo | 1 |
-| watch | 12 |
-| yes | 184 |
+| watch | 17 |
+| yes | 179 |
 
 ## Watch Rows
 
@@ -45,20 +45,20 @@ show the changeset-bound path passing.
 
 | Rows | Reason | Tracking |
 | ---: | --- | --- |
-| 12 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
+| 17 | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | [#682 fixed; rerun required](https://github.com/confighub/helm-expt/issues/682) |
 
 | Row | Evidence | Next action |
 | --- | --- | --- |
+| `bitnami/mongodb@19.0.7/static-passwords` | runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.0.9/existing-secret-replicaset` | runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.1.0/existing-secret-replicaset` | runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/mongodb@19.1.0/static-passwords` | runs/cl-mongodb-19-1-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| `bitnami/mysql@14.0.3/static-passwords` | runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/nginx@24.0.4/existing-tls-ingress` | runs/cl-nginx-24-0-4-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/nginx@24.0.4/http-clusterip` | runs/cl-nginx-24-0-4-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/nginx@25.0.0/existing-tls-ingress` | runs/cl-nginx-25-0-0-existing-tls-ingress-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/nginx@25.0.0/http-clusterip` | runs/cl-nginx-25-0-0-http-clusterip-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | `bitnami/postgresql@18.6.10/existing-secret` | runs/cl-postgresql-18-6-10-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `bitnami/postgresql@18.7.0/existing-secret` | runs/cl-postgresql-18-7-0-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
-| `bitnami/postgresql@18.7.0/static-passwords` | runs/cl-postgresql-18-7-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 
 ## First TODO Rows
 

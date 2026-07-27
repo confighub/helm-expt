@@ -52,7 +52,7 @@ spec:
       verdict: "PASS"
       exitCode: 0
       evidencePath: "cub-scout.object-set.receipt.json"
-      evidenceSHA256: "49aa45d94dbd3f9a02bafc5d204443c5e4f1b5650a9242fb10d719ef27542fe0"
+      evidenceSHA256: "618c72abc11906252431f8766e478badede502e251adad1623f9f3dbed0cc7d1"
       stderrPath: "cub-scout.object-set.stderr.txt"
       stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     - name: "cub-scout-closed-world-object-set"
@@ -60,7 +60,7 @@ spec:
       verdict: "PASS"
       exitCode: 0
       evidencePath: "cub-scout.closed-world.receipt.json"
-      evidenceSHA256: "7014269dd7ae55c0553a9c9a84da9b9f1c8f2d739d7eec98354d6eac21fcb0e6"
+      evidenceSHA256: "37f5a3b734f7d39dce64d895ff80a3c628995d77d7abcd7a4f81b9a85bf58d33"
       stderrPath: "cub-scout.closed-world.stderr.txt"
       stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     - name: "cub-scout-workloads-converged"
@@ -68,7 +68,7 @@ spec:
       verdict: "PASS"
       exitCode: 0
       evidencePath: "cub-scout.workloads.receipt.json"
-      evidenceSHA256: "f70654128e8d36f90ebec911d04bbbdede1f1fe810c4c152d7ff08c069b665e9"
+      evidenceSHA256: "be3c9083fc4801d24218728b5fb83802aa24cbe2c58f09c8d8bd8fd86dfc5ebe"
       stderrPath: "cub-scout.workloads.stderr.txt"
       stderrSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 

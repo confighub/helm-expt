@@ -7,16 +7,16 @@ spec:
   bases:
     - name: default
       path: bases/default
-      default: true
-      description: "Redis default variant rendered from bitnami/redis@27.0.0"
+      description: "Redis static password demo variant rendered from bitnami/redis@27.0.0"
     - name: reuse-existing-secret
       path: bases/reuse-existing-secret
-      description: "Redis variant that uses an existing Secret target fact"
+      default: true
+      description: "Redis existing Secret default variant rendered from bitnami/redis@27.0.0"
       externalRequires:
         - kind: ClusterFeature
           name: "Secret redis/redis-existing-secret key redis-password"
           namespace: redis
-          suggestedSource: "kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password=<value>"
+          suggestedSource: 'kubectl -n redis create secret generic redis-existing-secret --from-literal=redis-password="$(openssl rand -base64 32)"'
   collector:
     command: /bin/sh
     args:

@@ -13,8 +13,8 @@ spec:
     version: 27.0.0
     sourceFiles:
       - path: README.md
-        sha256: da825abf741736ea829c8436bce20b127cd4d7fc2b39e5036aef6a7e3697d821
-        bytes: 1402
+        sha256: 9aa4e0d31f4ce8f5861837af3be02d2f9db15a60a539f51b827ca991d879fd9d
+        bytes: 1468
       - path: bases/default/kustomization.yaml
         sha256: 2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05
         bytes: 93
@@ -28,14 +28,14 @@ spec:
         sha256: ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4
         bytes: 23936
       - path: collector/target-facts.sh
-        sha256: 1dd15871b20468bde11a67b1576d6a242ffc23999f479119e8b01e251fa08e73
-        bytes: 1654
+        sha256: 0b5c346c61570c102c38ee47047d15497489ae3656c91e46b068a8871c73d2a2
+        bytes: 1668
       - path: installer.yaml
-        sha256: 716e5f0f6e12e6f273cc501a5d4fdfc3baf5b0b1bc45c8bb37aef1e2ec64c610
-        bytes: 882
+        sha256: fcb230658343d1d5242f9d684efe4c77ece3fd51b79e23ee9a14ff945b438310
+        bytes: 934
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0 -o <tmp>/bitnami-redis-27.0.0.tgz"
-    sha256: 1bc966d9a327ef39c4a194dc17ba7a2c13e9609ee878d25e55d2e9d1a1e7c350
+    sha256: acfbcf75e4651695c1f8e9f800a26a2b8d72a98e5051e3cfa3fdce0a1ac3a386
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     - variant: default

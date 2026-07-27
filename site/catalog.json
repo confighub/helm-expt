@@ -288,7 +288,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposal rows",
-      "value": "45",
+      "value": "43",
       "total": "",
       "status": "partial",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -298,7 +298,7 @@
       "section": "top100",
       "metric": "useful-base realized rows",
       "value": "10",
-      "total": "45",
+      "total": "43",
       "status": "partial",
       "source": "data/useful-base-realization-wave/wave.csv",
       "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
@@ -315,8 +315,8 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "35",
-      "total": "45",
+      "value": "33",
+      "total": "43",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
       "note": "Remaining design-queue rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
@@ -15208,7 +15208,7 @@
       "version": "19.0.7",
       "bucket": "ready-to-try",
       "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
-      "recommended_first_base": "static-passwords",
+      "recommended_first_base": "existing-secret-replicaset",
       "quirks": "generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage",
       "user_must_provide": "a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
@@ -15221,7 +15221,7 @@
       "version": "14.0.3",
       "bucket": "ready-to-try",
       "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
-      "recommended_first_base": "static-passwords",
+      "recommended_first_base": "existing-secret",
       "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
       "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
@@ -15247,7 +15247,7 @@
       "version": "18.6.7",
       "bucket": "ready-to-try",
       "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
-      "recommended_first_base": "static-passwords",
+      "recommended_first_base": "existing-secret",
       "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
       "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
@@ -15260,7 +15260,7 @@
       "version": "16.0.14",
       "bucket": "ready-to-try",
       "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
-      "recommended_first_base": "static-passwords",
+      "recommended_first_base": "existing-secret",
       "quirks": "generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
       "user_must_provide": "an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
@@ -15273,7 +15273,7 @@
       "version": "25.5.3",
       "bucket": "ready-to-try",
       "current_proof": "catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)",
-      "recommended_first_base": "default",
+      "recommended_first_base": "reuse-existing-secret",
       "quirks": "generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage",
       "user_must_provide": "a StorageClass / storage decision; target facts at variant time; mandatory chart inputs",
       "confighub_absorbs": "exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts",
@@ -18653,7 +18653,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/argo-cd/argo-cd/9.5.15",
       "package_path": "packages/argo-cd/argo-cd/9.5.15",
-      "confighub_proof_receipt": "runs/latest-top20-refresh/argo-cd-9.5.17/confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/argo-cd-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json;runs/next80-local-kind/argo-cd-argo-cd-9.5.17-default/observation-receipt.yaml;runs/next80-local-kind/argo-cd-argo-cd-9.5.17-no-crds/observation-receipt.yaml;runs/top20-local-kind/argo-cd-default/observation-receipt.json"
     },
     {
@@ -18674,7 +18674,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/bitnami/mongodb/19.0.7",
       "package_path": "packages/bitnami/mongodb/19.0.7",
-      "confighub_proof_receipt": "runs/mongodb-static-passwords-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/mongodb-existing-secret-replicaset-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json;runs/latest-top20-refresh/mongodb-19.1.0/local-kind/observation-receipt.json;runs/next80-local-kind/bitnami-mongodb-19.0.7-existing-secret-replicaset/observation-receipt.yaml;runs/next80-local-kind/bitnami-mongodb-19.0.9-existing-secret-replicaset/observation-receipt.yaml;runs/next80-local-kind/bitnami-mongodb-19.0.9-static-passwords/observation-receipt.yaml;runs/next80-local-kind/bitnami-mongodb-19.1.0-existing-secret-replicaset/observation-receipt.yaml;runs/next80-local-kind/bitnami-mongodb-19.1.0-static-passwords/observation-receipt.yaml;runs/top20-local-kind/mongodb-static-passwords/observation-receipt.json"
     },
     {
@@ -18695,7 +18695,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/bitnami/mysql/14.0.3",
       "package_path": "packages/bitnami/mysql/14.0.3",
-      "confighub_proof_receipt": "runs/mysql-static-passwords-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/mysql-existing-secret-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/bitnami-mysql-14.0.3-existing-secret/observation-receipt.yaml;runs/top20-local-kind/mysql-static-passwords/observation-receipt.json"
     },
     {
@@ -18716,7 +18716,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/bitnami/nginx/24.0.2",
       "package_path": "packages/bitnami/nginx/24.0.2",
-      "confighub_proof_receipt": "runs/nginx-http-clusterip-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/nginx-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json;runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json;runs/next80-local-kind/bitnami-nginx-24.0.2-existing-tls-ingress/observation-receipt.yaml;runs/next80-local-kind/bitnami-nginx-24.0.4-existing-tls-ingress/observation-receipt.yaml;runs/next80-local-kind/bitnami-nginx-24.0.4-http-clusterip/observation-receipt.yaml;runs/next80-local-kind/bitnami-nginx-25.0.0-existing-tls-ingress/observation-receipt.yaml;runs/next80-local-kind/bitnami-nginx-25.0.0-http-clusterip/observation-receipt.yaml;runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
     },
     {
@@ -18737,7 +18737,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/bitnami/postgresql/18.6.7",
       "package_path": "packages/bitnami/postgresql/18.6.7",
-      "confighub_proof_receipt": "runs/postgresql-static-passwords-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/postgresql-existing-secret-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json;runs/latest-top20-refresh/postgresql-18.7.0/local-kind/observation-receipt.json;runs/next80-local-kind/bitnami-postgresql-18.6.10-existing-secret/observation-receipt.yaml;runs/next80-local-kind/bitnami-postgresql-18.6.10-static-passwords/observation-receipt.yaml;runs/next80-local-kind/bitnami-postgresql-18.6.7-existing-secret/observation-receipt.yaml;runs/next80-local-kind/bitnami-postgresql-18.7.0-existing-secret/observation-receipt.yaml;runs/next80-local-kind/bitnami-postgresql-18.7.0-static-passwords/observation-receipt.yaml;runs/top20-local-kind/postgresql-static-passwords/observation-receipt.json"
     },
     {
@@ -18758,7 +18758,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/bitnami/rabbitmq/16.0.14",
       "package_path": "packages/bitnami/rabbitmq/16.0.14",
-      "confighub_proof_receipt": "runs/rabbitmq-static-passwords-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/rabbitmq-existing-secret-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/bitnami-rabbitmq-16.0.14-existing-secret/observation-receipt.yaml;runs/top20-local-kind/rabbitmq-static-passwords/observation-receipt.json"
     },
     {
@@ -18800,7 +18800,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0",
       "package_path": "packages/external-secrets/external-secrets/2.5.0",
-      "confighub_proof_receipt": "runs/external-secrets-no-crds-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/external-secrets-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/external-secrets-external-secrets-2.5.0-no-crds/observation-receipt.yaml;runs/top20-local-kind/external-secrets-default/observation-receipt.json"
     },
     {
@@ -18821,7 +18821,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/grafana/grafana/10.5.15",
       "package_path": "packages/grafana/grafana/10.5.15",
-      "confighub_proof_receipt": "runs/grafana-static-passwords-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/grafana-existing-secret-ingress-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/grafana-grafana-10.5.15-existing-secret-ingress/observation-receipt.yaml;runs/top20-local-kind/grafana-static-passwords/observation-receipt.json"
     },
     {
@@ -18842,7 +18842,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/grafana/loki/7.0.0",
       "package_path": "packages/grafana/loki/7.0.0",
-      "confighub_proof_receipt": "runs/loki-single-binary-filesystem-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/loki-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/grafana-loki-7.0.0-simple-scalable-minio/observation-receipt.yaml;runs/top20-local-kind/loki-single-binary-filesystem/observation-receipt.json"
     },
     {
@@ -18863,7 +18863,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/grafana/tempo/1.24.4",
       "package_path": "packages/grafana/tempo/1.24.4",
-      "confighub_proof_receipt": "runs/tempo-s3-query-observability-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/tempo-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/top20-local-kind/tempo-local-persistent/observation-receipt.json"
     },
     {
@@ -18884,7 +18884,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/hashicorp/consul/2.0.0",
       "package_path": "packages/hashicorp/consul/2.0.0",
-      "confighub_proof_receipt": "runs/consul-secure-mesh-existing-secrets-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/consul-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/top20-local-kind/consul-default-control-plane/observation-receipt.json"
     },
     {
@@ -18905,7 +18905,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/hashicorp/vault/0.32.0",
       "package_path": "packages/hashicorp/vault/0.32.0",
-      "confighub_proof_receipt": "runs/vault-ha-raft-ui-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/vault-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/top20-local-kind/vault-default/observation-receipt.json;runs/top20-local-kind/vault-dev-mode/observation-receipt.json"
     },
     {
@@ -18926,7 +18926,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/ingress-nginx/ingress-nginx/4.15.1",
       "package_path": "packages/ingress-nginx/ingress-nginx/4.15.1",
-      "confighub_proof_receipt": "runs/ingress-nginx-internal-clusterip-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/ingress-nginx-default-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/ingress-nginx-ingress-nginx-4.15.1-default/observation-receipt.yaml;runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json;runs/top20-local-kind/ingress-nginx-internal-clusterip/observation-receipt.json"
     },
     {
@@ -18968,7 +18968,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/longhorn/longhorn/1.11.2",
       "package_path": "packages/longhorn/longhorn/1.11.2",
-      "confighub_proof_receipt": "runs/longhorn-ui-ingress-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/longhorn-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/longhorn-longhorn-1.11.2-ui-ingress/observation-receipt.yaml;runs/top20-local-kind/longhorn-default/observation-receipt.json"
     },
     {
@@ -18989,7 +18989,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/metrics-server/metrics-server/3.13.0",
       "package_path": "packages/metrics-server/metrics-server/3.13.0",
-      "confighub_proof_receipt": "runs/metrics-server-external-tls-ca-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/metrics-server-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/metrics-server-metrics-server-3.13.0-external-tls-ca/observation-receipt.yaml;runs/top20-local-kind/metrics-server-default/observation-receipt.json"
     },
     {
@@ -19010,7 +19010,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3",
       "package_path": "packages/prometheus-community/kube-prometheus-stack/85.3.3",
-      "confighub_proof_receipt": "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/kube-prometheus-stack-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json;runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml;runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-default/observation-receipt.yaml;runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
     },
     {
@@ -19031,7 +19031,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/prometheus-community/prometheus/29.8.0",
       "package_path": "packages/prometheus-community/prometheus/29.8.0",
-      "confighub_proof_receipt": "runs/prometheus-server-only-ephemeral-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/prometheus-default-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json;runs/next80-local-kind/prometheus-community-prometheus-29.8.0-default/observation-receipt.yaml;runs/next80-local-kind/prometheus-community-prometheus-29.9.0-default/observation-receipt.yaml;runs/next80-local-kind/prometheus-community-prometheus-29.9.0-server-only-ephemeral/observation-receipt.yaml;runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
     },
     {
@@ -19052,7 +19052,7 @@
       "next_action": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
       "recipe_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
       "package_path": "packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0",
-      "confighub_proof_receipt": "runs/secrets-store-csi-driver-sync-secret-rotation-confighub-proof/latest/confighub-proof-receipt.yaml",
+      "confighub_proof_receipt": "runs/secrets-store-csi-driver-confighub-proof/latest/confighub-proof-receipt.yaml",
       "live_e2e_receipts": "runs/next80-local-kind/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/observation-receipt.yaml;runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json"
     }
   ],
@@ -21443,7 +21443,7 @@
       "gitops_oci_live": "yes",
       "live_dual_parity": "yes",
       "two_cluster_kind": "todo",
-      "variant_promotion": "proven",
+      "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
       "gitops_route_count": "0",
@@ -21599,7 +21599,7 @@
       "gitops_oci_live": "yes",
       "live_dual_parity": "yes",
       "two_cluster_kind": "yes",
-      "variant_promotion": "proven",
+      "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
       "gitops_route_count": "0",
@@ -21989,7 +21989,7 @@
       "gitops_oci_live": "yes",
       "live_dual_parity": "yes",
       "two_cluster_kind": "todo",
-      "variant_promotion": "proven",
+      "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
       "gitops_route_count": "0",
@@ -22093,7 +22093,7 @@
       "gitops_oci_live": "yes",
       "live_dual_parity": "yes",
       "two_cluster_kind": "yes",
-      "variant_promotion": "proven",
+      "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
       "gitops_route_count": "0",
@@ -23237,7 +23237,7 @@
       "gitops_oci_live": "yes",
       "live_dual_parity": "yes",
       "two_cluster_kind": "yes",
-      "variant_promotion": "proven",
+      "variant_promotion": "proven-with-watch",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "0",
       "gitops_route_count": "0",
@@ -41707,11 +41707,11 @@
       "outcome_level": "live-parity",
       "production_decision": "yes",
       "production_target_scope": "cub-lk-kind-vanilla; namespace=mongodb; delivery=confighub-oci; controller=argo",
-      "variant_promotion": "yes",
-      "variant_promotion_status": "proven",
-      "variant_promotion_evidence": "runs/mongodb-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
-      "variant_promotion_reason": "server-side promotion receipt passed",
-      "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
+      "variant_promotion": "watch",
+      "variant_promotion_status": "proven-with-watch",
+      "variant_promotion_evidence": "runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml",
+      "variant_promotion_reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback",
+      "variant_promotion_next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "active_proof_next_step": "",
       "active_proof_readiness": "",
       "active_proof_reason": "",
@@ -41728,11 +41728,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/static-passwords",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "source",
@@ -41929,11 +41929,11 @@
       "outcome_level": "live-parity",
       "production_decision": "yes",
       "production_target_scope": "cub-lk-kind-vanilla; namespace=mysql; delivery=confighub-oci; controller=argo",
-      "variant_promotion": "yes",
-      "variant_promotion_status": "proven",
-      "variant_promotion_evidence": "runs/mysql-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
-      "variant_promotion_reason": "server-side promotion receipt passed",
-      "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
+      "variant_promotion": "watch",
+      "variant_promotion_status": "proven-with-watch",
+      "variant_promotion_evidence": "runs/mysql-confighub-proof/latest/variant-promotion-receipt.yaml",
+      "variant_promotion_reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback",
+      "variant_promotion_next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "active_proof_next_step": "",
       "active_proof_readiness": "",
       "active_proof_reason": "",
@@ -41950,11 +41950,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mysql/14.0.3",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/static-passwords",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "source",
@@ -43113,11 +43113,11 @@
       "outcome_level": "live-parity",
       "production_decision": "yes",
       "production_target_scope": "cub-lk-kind-vanilla; namespace=postgresql; delivery=confighub-oci; controller=argo",
-      "variant_promotion": "yes",
-      "variant_promotion_status": "proven",
-      "variant_promotion_evidence": "runs/postgresql-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
-      "variant_promotion_reason": "server-side promotion receipt passed",
-      "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
+      "variant_promotion": "watch",
+      "variant_promotion_status": "proven-with-watch",
+      "variant_promotion_evidence": "runs/postgresql-confighub-proof/latest/variant-promotion-receipt.yaml",
+      "variant_promotion_reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback",
+      "variant_promotion_next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "active_proof_next_step": "",
       "active_proof_readiness": "",
       "active_proof_reason": "",
@@ -43134,11 +43134,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.7",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/postgresql/18.6.7/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/static-passwords",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "source",
@@ -43335,11 +43335,11 @@
       "outcome_level": "live-parity",
       "production_decision": "yes",
       "production_target_scope": "cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo",
-      "variant_promotion": "yes",
-      "variant_promotion_status": "proven",
-      "variant_promotion_evidence": "runs/rabbitmq-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
-      "variant_promotion_reason": "server-side promotion receipt passed",
-      "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
+      "variant_promotion": "watch",
+      "variant_promotion_status": "proven-with-watch",
+      "variant_promotion_evidence": "runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml",
+      "variant_promotion_reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback",
+      "variant_promotion_next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "active_proof_next_step": "",
       "active_proof_readiness": "",
       "active_proof_reason": "",
@@ -43356,11 +43356,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/rabbitmq/16.0.14",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/bitnami/rabbitmq/16.0.14/bases/static-passwords",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "source",
@@ -50291,11 +50291,11 @@
       "outcome_level": "live-parity",
       "production_decision": "todo",
       "production_target_scope": "",
-      "variant_promotion": "yes",
-      "variant_promotion_status": "proven",
-      "variant_promotion_evidence": "runs/grafana-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml",
-      "variant_promotion_reason": "server-side promotion receipt passed",
-      "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
+      "variant_promotion": "watch",
+      "variant_promotion_status": "proven-with-watch",
+      "variant_promotion_evidence": "runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml",
+      "variant_promotion_reason": "server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback",
+      "variant_promotion_next_action": "ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass",
       "active_proof_next_step": "",
       "active_proof_readiness": "",
       "active_proof_reason": "",
@@ -50312,11 +50312,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/grafana/grafana/10.5.15",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/static-passwords",
-      "completion_action": "-",
-      "completion_action_summary": "",
-      "completion_action_families": "",
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-01:promotion-rerun-after-server-fix",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": ""
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "derived",

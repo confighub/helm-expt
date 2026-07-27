@@ -11,10 +11,10 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 19
+available: 20
 partial:   28
 planned:   2
-blocked:   1
+blocked:   0
 total:     50
 ```
 
@@ -139,7 +139,7 @@ The source status definitions are:
 
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
-| T49 | Keep the complete repository verification gate green | blocked | [tests/npm-scripts.md](../../tests/npm-scripts.md)<br>[docs/user/verification.md](../../docs/user/verification.md) | Repair the stale Redis top-20 local E2E evidence digest tracked in issue 1152, then rerun the broad gate. [Issue](https://github.com/confighub/helm-expt/issues/1152) |
+| T49 | Keep the complete repository verification gate green | available | [tests/npm-scripts.md](../../tests/npm-scripts.md)<br>[docs/user/verification.md](../../docs/user/verification.md) | Rerun the complete gate whenever packages, receipts, generated data, docs, or public claims change. |
 
 ## Adoption
 

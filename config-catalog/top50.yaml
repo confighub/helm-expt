@@ -634,15 +634,14 @@ spec:
     - id: T49
       area: Release quality
       name: Keep the complete repository verification gate green
-      status: blocked
+      status: available
       outcome: Focused and broad verification agree that generated data, docs, packages, receipts, and public claims are current.
       evidence:
         - tests/npm-scripts.md
         - docs/user/verification.md
       verify:
         - npm run verify
-      next: Repair the stale Redis top-20 local E2E evidence digest tracked in issue 1152, then rerun the broad gate.
-      issue: https://github.com/confighub/helm-expt/issues/1152
+      next: Rerun the complete gate whenever packages, receipts, generated data, docs, or public claims change.
 
     - id: T50
       area: Adoption
