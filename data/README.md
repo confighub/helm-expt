@@ -17,6 +17,7 @@ smallest generated surface that answers it.
 
 | Question | Start with |
 | --- | --- |
+| I want the current status of the agreed Top 50. | [top50-completion/summary.md](./top50-completion/summary.md)<br>[top50-completion/plan.csv](./top50-completion/plan.csv) |
 | I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
 | I want the broad chart/version/base status in one browser sheet. | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html)<br>[master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md)<br>[master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
@@ -74,6 +75,7 @@ smallest generated surface that answers it.
 
 | File | Use it for |
 | --- | --- |
+| [top50-completion/summary.md](./top50-completion/summary.md) | The agreed fifty-task programme: current status, evidence, verification command, and completion step for every outcome. |
 | [catalog-index/summary.md](./catalog-index/summary.md) | Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence. |
 | [master-catalog-matrix/matrix.html](./master-catalog-matrix/matrix.html) | Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action. |
 | [master-catalog-matrix/matrix.csv](./master-catalog-matrix/matrix.csv) | Machine/spreadsheet form of the master catalog matrix. Same row set as matrix.html, without relying on color. |
@@ -333,6 +335,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `top100-readiness` | [top100-readiness/summary.md](./top100-readiness/summary.md) | front-door top-100 user readiness and evidence summary |
 | `top100-user-readiness` | [top100-user-readiness/summary.md](./top100-user-readiness/summary.md) | front-door top-100 user-language readiness, prerequisites, first base, and next action |
 | `top20-base-readiness` | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | top-20 base-variant readiness and first-path guidance |
+| `top50-completion` | [top50-completion/summary.md](./top50-completion/summary.md) | front-door fifty-task programme status, evidence, and completion queue |
 | `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
 | `torture-suite` | [torture-suite/summary.md](./torture-suite/summary.md) | supporting generated evidence |
 | `useful-base-design-queue` | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md) | front-door proposed useful-base queue for default-shaped top-100 charts |
@@ -353,7 +356,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 168 CSV files. Each row records the path, audience,
+It includes 169 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

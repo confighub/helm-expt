@@ -1,0 +1,658 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: CompletionPlan
+metadata:
+  name: helm-expt-top-50
+spec:
+  purpose: >-
+    Track the fifty outcomes required to turn the public configuration catalog
+    into a useful path from Helm, AICR, cub installer, OCI, or Kubernetes YAML
+    through ConfigHub and back to deployable OCI.
+  statusDefinitions:
+    available: >-
+      The named scope has a usable path, committed evidence, and a verifier.
+      This does not imply support for every chart, source, or target.
+    partial: >-
+      A representative path works, but an important delivery target, source
+      type, catalog segment, lifecycle case, or product surface remains open.
+    planned: >-
+      The outcome is agreed but does not yet have an end-to-end proof.
+    blocked: >-
+      A named defect or external decision currently prevents the completion
+      check from passing.
+  tasks:
+    - id: T01
+      area: Public front door
+      name: Pull one ready-made OCI package without an account
+      status: available
+      outcome: A new user can pull a public catalog package by immutable digest without ConfigHub or registry credentials.
+      evidence:
+        - data/installer-oci-packages/summary.md
+        - docs/user/installer-oci-packages.md
+      verify:
+        - npm run installer-oci:catalog:verify
+      next: Keep every published package reference current when recipes or package contents change.
+
+    - id: T02
+      area: Public front door
+      name: Explain the package source and provenance
+      status: available
+      outcome: A user can identify the chart, version, preset config, source lock, and package digest before deployment.
+      evidence:
+        - data/helm-render-intents/summary.md
+        - data/installer-oci-packages/packages.csv
+      verify:
+        - npm run helm-render-intents:verify
+        - npm run installer-oci:catalog:verify
+      next: Keep the source record beside every additional format added to the catalog.
+
+    - id: T03
+      area: Public front door
+      name: Inspect recorded Helm inputs and rendered objects
+      status: available
+      outcome: A user can read the values, namespace, release name, capabilities, source lock, and exact Kubernetes objects.
+      evidence:
+        - docs/user/helm-render-intents.md
+        - data/helm-render-intents/summary.md
+      verify:
+        - npm run helm-render-intents:verify
+      next: Extend the same readable input record to every non-Helm source format.
+
+    - id: T04
+      area: Public front door
+      name: Verify Helm-equivalent output
+      status: available
+      outcome: The recorded chart, inputs, and target capabilities reproduce the same semantic Kubernetes objects as Helm.
+      evidence:
+        - data/outcome-coverage/summary.md
+        - data/live-kind-parity/summary.md
+      verify:
+        - npm run outcomes:verify
+        - npm run kind-parity:verify
+      next: Rerun parity whenever a chart version, preset config, renderer, or target capability profile changes.
+
+    - id: T05
+      area: Public front door
+      name: Show prerequisites and lifecycle work before deployment
+      status: partial
+      outcome: Secrets, CRDs, hooks, setup jobs, target facts, and their execution route are visible beside the rendered objects.
+      evidence:
+        - data/lifecycle-routes/summary.md
+        - data/hook-lifecycle/summary.md
+        - docs/user/target-prerequisites.md
+      verify:
+        - npm run lifecycle:routes:verify
+        - npm run hooks:lifecycle:verify
+      next: Turn more candidate routes into chart-specific receipts and keep unsupported routes as named blockers.
+
+    - id: T06
+      area: Public front door
+      name: Run the public path locally without ConfigHub
+      status: available
+      outcome: A user can render and inspect a package locally with no ConfigHub server, account, or Kubernetes cluster.
+      evidence:
+        - docs/user/serverless-mode.md
+        - runs/serverless-oci-gitops-proof/receipt.yaml
+      verify:
+        - npm run serverless-oci-gitops:proof:verify
+      next: Keep the command surface aligned with released cub installer behavior.
+
+    - id: T07
+      area: Public front door
+      name: Run the anonymous path in CI
+      status: available
+      outcome: CI can pull, render, package, and compare public configuration without ConfigHub credentials.
+      evidence:
+        - runs/anonymous-oci-ci-proof/receipt.yaml
+        - data/demo-program/summary.md
+      verify:
+        - npm run anonymous-oci-ci:verify
+        - npm run config-catalog:verify
+      next: Publish a copyable CI workflow for each supported input family.
+
+    - id: T08
+      area: Public front door
+      name: Offer a hosted anonymous inspection service
+      status: planned
+      outcome: A user can submit or select public source material, inspect the result, and obtain OCI without signing in.
+      evidence:
+        - config-catalog/program.yaml
+        - docs/reference/config-catalog-doctrine.md
+      verify:
+        - npm run config-catalog:verify
+      next: Choose the hosting and abuse-control model, then prove one public request from source to immutable OCI.
+
+    - id: T09
+      area: Bring your own config
+      name: Review a chart and values supplied by the user
+      status: available
+      outcome: A user can render a chart and values from their team, inspect exact objects, and compare the result with defaults.
+      evidence:
+        - data/byo-helm-values-review/summary.md
+        - runs/byo-helm-values-proof/receipt.yaml
+      verify:
+        - npm run byo-helm-values:verify
+      next: Add private-chart and dependency-auth examples without weakening source-lock requirements.
+
+    - id: T10
+      area: Bring your own config
+      name: Review values proposed by AI
+      status: available
+      outcome: An AI-proposed values file becomes an exact object diff with checks and a corrected reviewed result.
+      evidence:
+        - docs/user/ai-assisted-helm-changes.md
+        - data/byo-helm-values-review/review.yaml
+        - runs/ai-change-review-live-proof/receipt.yaml
+      verify:
+        - npm run byo-helm-values:verify
+        - npm run ai-change-review:live:verify
+      next: Add more chart classes and target-aware checks rather than treating one NGINX example as universal.
+
+    - id: T11
+      area: Bring your own config
+      name: Build deployable OCI from reviewed source
+      status: available
+      outcome: Reviewed source configuration can be packaged as literal OCI and pulled back to the same object set.
+      evidence:
+        - runs/byo-helm-values-proof/public-oci-receipt.yaml
+        - data/byo-helm-values-review/public-and-confighub.md
+      verify:
+        - npm run byo-helm-values:verify
+      next: Generalize the build entry point across Helm, AICR, installer packages, and plain Kubernetes YAML.
+
+    - id: T12
+      area: Bring your own config
+      name: Inspect and test an existing OCI package
+      status: partial
+      outcome: A user can start with OCI, inspect its Kubernetes objects and companion records, and run checks without claiming it in ConfigHub.
+      evidence:
+        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+        - runs/serverless-oci-gitops-proof/receipt.yaml
+      verify:
+        - npm run aicr-oci-roundtrip:verify
+        - npm run serverless-oci-gitops:proof:verify
+      next: Provide one source-neutral command and report for arbitrary supported OCI layouts.
+
+    - id: T13
+      area: Bring your own config
+      name: Transform OCI to OCI without requiring ConfigHub
+      status: partial
+      outcome: An existing OCI can be checked or changed and emitted as a new immutable OCI while preserving source records.
+      evidence:
+        - docs/reference/config-catalog-doctrine.md
+        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+      verify:
+        - npm run aicr-oci-roundtrip:verify
+      next: Prove a public anonymous OCI-to-OCI edit with policy results and pull-back comparison.
+
+    - id: T14
+      area: Source pathways
+      name: Turn AICR input into managed configuration
+      status: partial
+      outcome: One AICR bundle is generated, reviewed, published as OCI, uploaded as a base variant, and promoted to development and staging.
+      evidence:
+        - examples/aicr/eks-h100-training-kubeflow/recipe.yaml
+        - data/aicr-oci-roundtrip-proof/summary.md
+        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+        - runs/aicr-variant-promotion-proof/receipt.yaml
+      verify:
+        - npm run aicr-example:verify
+        - npm run aicr-oci-roundtrip:verify
+        - npm run aicr-variant-promotion:verify
+      next: Deliver the promoted configuration through Argo CD and Flux and record live GPU-target evidence.
+
+    - id: T15
+      area: Source pathways
+      name: Turn a cub installer package into OCI
+      status: available
+      outcome: A multi-preset installer package can be selected, rendered, verified, and published as a public OCI artifact.
+      evidence:
+        - data/installer-oci-packages/summary.md
+        - docs/user/installer-oci-packages.md
+      verify:
+        - npm run installer-oci:catalog:verify
+      next: Keep package generation and public registry references synchronized for every maintained recipe.
+
+    - id: T16
+      area: Source pathways
+      name: Upload literal Kubernetes YAML without rerendering
+      status: available
+      outcome: Existing Kubernetes YAML can become ConfigHub Units while preserving the reviewed object set.
+      evidence:
+        - docs/user/adopting-existing-apps.md
+        - docs/user/app-to-live-walkthrough.md
+      verify:
+        - npm run docs:verify
+      next: Add a small executable receipt that isolates literal YAML upload from the wider App walkthrough.
+
+    - id: T17
+      area: ConfigHub records
+      name: Claim reviewed OCI as a ConfigHub base variant
+      status: available
+      outcome: A reviewed OCI can become a named ConfigHub Space and base variant with exact Units and source context.
+      evidence:
+        - data/base-variant-records/summary.md
+        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+      verify:
+        - npm run config-catalog:verify
+        - npm run aicr-oci-roundtrip:verify
+      next: Use one upload contract for all supported source-neutral OCI inputs.
+
+    - id: T18
+      area: ConfigHub records
+      name: Attach render context and route intent to every base variant
+      status: partial
+      outcome: Each base records source inputs, render context, produced objects, prerequisites, and lifecycle routes.
+      evidence:
+        - data/helm-render-intents/summary.md
+        - data/lifecycle-routes/summary.md
+        - docs/user/helm-render-intents.md
+      verify:
+        - npm run helm-render-intents:verify
+        - npm run lifecycle:routes:verify
+      next: Close issue 1037 by attaching route and target-fact records across the full render-intent matrix.
+      issue: https://github.com/confighub/helm-expt/issues/1037
+
+    - id: T19
+      area: ConfigHub records
+      name: Create derived variants by editing exact objects
+      status: available
+      outcome: A team can clone a reviewed base, change exact Kubernetes fields without rerendering Helm, and inspect the resulting diff.
+      evidence:
+        - data/variant-goldens/derived-expansion-wave/README.md
+        - runs/derived-variant-execution
+      verify:
+        - npm run derived-variants:verify
+      next: Keep derived changes linked to their base and add target-bound receipts where delivery is claimed.
+
+    - id: T20
+      area: ConfigHub records
+      name: Keep approved object edits through source upgrades
+      status: partial
+      outcome: A source upgrade can rebuild the base while reapplying reviewed post-render changes and surfacing conflicts.
+      evidence:
+        - data/redis-upgrade-app-proof/summary.md
+        - runs/redis-upgrade-app-proof/receipt.yaml
+      verify:
+        - npm run redis-upgrade-app:verify
+      next: Repeat the upgrade proof on another chart and add a useful mutation preview for promotion dry runs.
+
+    - id: T21
+      area: ConfigHub records
+      name: Promote through development staging and production
+      status: partial
+      outcome: A reviewed revision can move through named environments in order with exact diffs and environment-specific policy.
+      evidence:
+        - data/byo-helm-values-promotion-proof/summary.md
+        - runs/aicr-variant-promotion-proof/receipt.yaml
+      verify:
+        - npm run byo-helm-values:promotion-verify
+        - npm run aicr-variant-promotion:verify
+      next: Add production delivery, rollback, and readable dry-run output to the representative promotion paths.
+
+    - id: T22
+      area: Policy and approval
+      name: Apply blocking checks everywhere and approvals only in production
+      status: partial
+      outcome: Schema and placeholder checks block unsafe config broadly, while human approval is required only for production scopes.
+      evidence:
+        - config-catalog/policies/catalog-standard.yaml
+        - runs/config-catalog-policy-functional-proof/receipt.yaml
+      verify:
+        - npm run config-catalog:policy:verify
+      next: Repeat the live policy proof for source types beyond Helm-derived Kubernetes objects.
+
+    - id: T23
+      area: Policy and approval
+      name: Make policy checks source-neutral
+      status: partial
+      outcome: The same policy model can check Helm, AICR, installer, Kubara, Sveltos, and literal Kubernetes configurations appropriately.
+      evidence:
+        - config-catalog/policies/catalog-standard.yaml
+        - data/ai-change-review-live-proof/summary.md
+      verify:
+        - npm run config-catalog:policy:verify
+        - npm run ai-change-review:live:verify
+      next: Add AICR-aware and custom-resource-aware checks instead of relying on generic nested-field guesses.
+
+    - id: T24
+      area: OCI output
+      name: Publish reviewed ConfigHub Units as OCI
+      status: available
+      outcome: ConfigHub can publish the exact reviewed Units as immutable OCI for an external delivery controller.
+      evidence:
+        - data/catalog-oci-delivery-proof/summary.md
+        - runs/oci-deploy-stage-rollout-proof/receipt.yaml
+      verify:
+        - npm run catalog-oci:proof:verify
+        - npm run oci-deploy-stage-rollout:verify
+      next: Keep the release and portable OCI roles clearly distinguished in every guide and command.
+
+    - id: T25
+      area: OCI output
+      name: Preserve digest identity and provenance through the round trip
+      status: partial
+      outcome: Input digest, ConfigHub revision, output digest, delivery result, and observation can be followed as one evidence chain.
+      evidence:
+        - docs/user/chain-of-proof.md
+        - runs/aicr-oci-roundtrip-proof/receipt.yaml
+        - runs/oci-deploy-stage-rollout-proof/receipt.yaml
+      verify:
+        - npm run aicr-oci-roundtrip:verify
+        - npm run oci-deploy-stage-rollout:verify
+      next: Standardize the companion metadata and prove the chain for every supported source family.
+
+    - id: T26
+      area: Delivery
+      name: Deliver reviewed OCI through Argo CD
+      status: available
+      outcome: Selected reviewed ConfigHub configurations are pulled by Argo CD and converge to the expected Kubernetes objects.
+      evidence:
+        - data/runtime-gitops/summary.md
+        - runs/oci-deploy-stage-rollout-proof/receipt.yaml
+      verify:
+        - npm run runtime-gitops:wave:verify
+        - npm run oci-deploy-stage-rollout:verify
+      next: Maintain fresh controller and workload receipts for every path that claims Argo CD delivery.
+
+    - id: T27
+      area: Delivery
+      name: Deliver reviewed OCI through Flux
+      status: partial
+      outcome: Flux can consume the reviewed literal OCI without rerendering the source and produce observed workload evidence.
+      evidence:
+        - runs/serverless-oci-gitops-proof/receipt.yaml
+        - docs/user/gitops-adopter-guide.md
+      verify:
+        - npm run serverless-oci-gitops:proof:verify
+      next: Add ConfigHub-output Flux receipts for representative Helm, AICR, and lifecycle-route examples.
+
+    - id: T28
+      area: Delivery
+      name: Deliver reviewed objects by direct apply
+      status: available
+      outcome: A user can inspect generated files and apply the same reviewed object set directly to Kubernetes.
+      evidence:
+        - docs/user/serverless-mode.md
+        - data/live-kind-parity/summary.md
+      verify:
+        - npm run kind-parity:verify
+      next: Keep direct apply as a simple option while making interruptions and lifecycle ordering explicit.
+
+    - id: T29
+      area: Delivery
+      name: Record live convergence and observation freshness
+      status: partial
+      outcome: Delivery claims include controller status, object equality, workload health, observer identity, and observation time.
+      evidence:
+        - data/live-e2e/summary.md
+        - docs/reference/observation-freshness-slo.md
+      verify:
+        - npm run top20:verify-local-e2e
+        - npm run live-parity:verify
+      next: Store more live observations in ConfigHub and refresh receipts when target state or packages change.
+
+    - id: T30
+      area: Delivery
+      name: Roll back or unwind a reviewed change
+      status: partial
+      outcome: A team can identify the prior revision, restore reversible fields, and retain an operation record without hiding irreversible migrations.
+      evidence:
+        - docs/user/day2-upgrade-rollback.md
+        - docs/reference/upgrade-rollback-receipts.md
+      verify:
+        - npm run docs:verify
+      next: Execute rollback in a live representative promotion lane and record the resulting workload observation.
+
+    - id: T31
+      area: Fleet operations
+      name: Preview fleet blast radius before rollout
+      status: partial
+      outcome: A candidate change names the variants, targets, objects, and fields expected to change before promotion.
+      evidence:
+        - data/blast-radius-fleet/summary.md
+        - data/blast-radius-accuracy/summary.md
+      verify:
+        - npm run blast-radius-fleet:verify
+        - npm run blast-radius:accuracy:verify
+      next: Increase measured cases and report misses and false predictions for every supported inheritance pattern.
+
+    - id: T32
+      area: Fleet operations
+      name: Roll out one revision in bounded waves
+      status: partial
+      outcome: One reviewed OCI digest can move from a pilot target to a larger target set with per-wave checks and observations.
+      evidence:
+        - data/oci-deploy-stage-rollout-proof/summary.md
+        - data/sveltos-oci-delivery-proof/summary.md
+      verify:
+        - npm run oci-deploy-stage-rollout:verify
+        - npm run sveltos-oci-delivery:verify
+      next: Prove the same bounded rollout using a mixed-source platform fleet and production approval.
+
+    - id: T33
+      area: Fleet operations
+      name: Manage a Sveltos fleet from reviewed OCI
+      status: partial
+      outcome: ConfigHub approves two OCI revisions and Sveltos expands Kyverno from a pilot cluster to a second cluster with drift recovery.
+      evidence:
+        - docs/demo/sveltos/kyverno-fleet.md
+        - runs/sveltos-oci-delivery-proof/receipt.yaml
+      verify:
+        - npm run sveltos-oci-delivery:verify
+      next: Add rollback, larger selectors, and a source update that exercises ConfigHub variant propagation.
+
+    - id: T34
+      area: Fleet operations
+      name: Manage a Kubara platform configuration
+      status: partial
+      outcome: One reviewed Kubara platform configuration is packaged, routed, delivered through Argo CD, and observed on a downstream application.
+      evidence:
+        - docs/demo/kubara/local-platform.md
+        - runs/kubara-oci-delivery-proof/receipt.yaml
+      verify:
+        - npm run kubara-oci-delivery:verify
+      next: Add a multi-cluster Kubara rollout and show which fleet CRD fields are intended to vary.
+
+    - id: T35
+      area: Fleet operations
+      name: Distinguish workloads services and system configuration
+      status: partial
+      outcome: Delivery policy and ownership can differ for user workloads, shared services, and cluster system configuration.
+      evidence:
+        - config-catalog/program.yaml
+        - docs/reference/config-catalog-doctrine.md
+      verify:
+        - npm run config-catalog:verify
+      next: Encode the classification in executable example metadata and apply it to target, gate, and rollout choices.
+
+    - id: T36
+      area: ConfigHub Apps
+      name: Complete the Upgrade App
+      status: partial
+      outcome: The App previews impact, tests a candidate, preserves approved edits, promotes it, and checks the rollout.
+      evidence:
+        - data/redis-upgrade-app-proof/summary.md
+        - runs/redis-upgrade-app-proof/receipt.yaml
+      verify:
+        - npm run redis-upgrade-app:verify
+      next: Add the product App interface, readable promotion preview, persistent registry, and stored live observations.
+
+    - id: T37
+      area: ConfigHub Apps
+      name: Complete the Hooks and CRDs App
+      status: partial
+      outcome: The App checks prerequisites, runs chart-specific setup in the recorded order, and stores receipts for each delivery method.
+      evidence:
+        - docs/demo/hooks-crds/kube-prometheus-stack.md
+        - data/hooks-crds-app/summary.md
+      verify:
+        - npm run hooks-crds-app:verify
+        - npm run kps:lifecycle-route:verify
+      next: Run the upgrade route and the chart-specific Argo CD and Flux implementations before marking them automatic.
+
+    - id: T38
+      area: ConfigHub Apps
+      name: Complete the RBAC Review App
+      status: partial
+      outcome: The App finds broad permissions, proposes an exact correction, requires approval, publishes OCI, and checks the live result.
+      evidence:
+        - docs/demo/apps/rbac-review.md
+        - runs/rbac-review-live-proof/receipt.yaml
+      verify:
+        - npm run rbac-review:live:verify
+      next: Query a real fleet binding graph and prove Flux delivery, rollback, and rollout of an approved correction.
+
+    - id: T39
+      area: ConfigHub Apps
+      name: Complete the Fleet Platform App
+      status: partial
+      outcome: The App assigns Helm, AICR, Kubara, or Sveltos-derived platform configuration to cluster groups and manages rollout waves.
+      evidence:
+        - data/demo-program/summary.md
+        - data/blast-radius-fleet/summary.md
+      verify:
+        - npm run config-catalog:verify
+        - npm run blast-radius-fleet:verify
+      next: Run one mixed-source fleet wave through a shared interface with target-level observations.
+
+    - id: T40
+      area: ConfigHub Apps
+      name: Complete the AI Change Review App
+      status: partial
+      outcome: The App turns an agent proposal into exact objects, diffs, checks, approval, delivery, observation, and unwind.
+      evidence:
+        - docs/demo/apps/ai-change-review.md
+        - runs/ai-change-review-live-proof/receipt.yaml
+      verify:
+        - npm run ai-change-review:live:verify
+      next: Add AICR-aware policy, Kubernetes delivery, promotion, rollback, and live workload evidence.
+
+    - id: T41
+      area: Catalog
+      name: Maintain public packages for the top 100 Helm charts
+      status: available
+      outcome: One hundred chart entries have recipe and package proof artifacts plus public OCI references.
+      evidence:
+        - data/top100-readiness/summary.md
+        - data/installer-oci-packages/summary.md
+      verify:
+        - npm run top100:readiness:verify
+        - npm run installer-oci:catalog:verify
+      next: Keep all packages reproducible and remove any public reference that no longer passes its package verifier.
+
+    - id: T42
+      area: Catalog
+      name: Complete production-scoped support decisions for the top 20
+      status: partial
+      outcome: Each top-20 chart states its supported target scope, required prerequisites, scans, lifecycle work, live evidence, and remaining limits.
+      evidence:
+        - data/production-support-decisions/summary.md
+        - data/production-disposition/summary.md
+      verify:
+        - npm run production:support-decisions:verify
+        - npm run production:disposition:verify
+      next: Close the remaining support decision and keep every decision tied to fresh target and image evidence.
+
+    - id: T43
+      area: Catalog
+      name: Promote the next 80 from proof-grade to useful catalog configs
+      status: partial
+      outcome: More charts gain reviewed starting presets, useful variants, target guidance, and selected live evidence rather than default-only proof.
+      evidence:
+        - data/top100-coverage/summary.md
+        - data/useful-base-realization-wave/summary.md
+      verify:
+        - npm run top100:coverage:verify
+        - npm run top100:useful-base-realization:verify
+      next: Build the remaining useful-base proposals and review promotion candidates in evidence order.
+
+    - id: T44
+      area: Catalog
+      name: Expand the catalog beyond Helm
+      status: partial
+      outcome: The catalog explains and proves AICR, cub installer, literal OCI, Kubara, Sveltos, and Kubernetes YAML alongside Helm.
+      evidence:
+        - docs/user/config-catalog-demonstrations.md
+        - data/demo-program/summary.md
+      verify:
+        - npm run config-catalog:verify
+      next: Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations.
+
+    - id: T45
+      area: Catalog
+      name: Let users browse by starting point and next job
+      status: partial
+      outcome: A user can enter by Helm, AICR, installer, OCI, or YAML and then choose inspect, install, upload, customize, promote, deliver, operate, or build an App.
+      evidence:
+        - config-catalog/program.yaml
+        - docs/user/config-catalog-demonstrations.md
+        - site/testing.html
+      verify:
+        - npm run config-catalog:verify
+        - npm run site:verify
+      next: Apply the two-axis navigation consistently to the catalog index and source-family pages.
+
+    - id: T46
+      area: Catalog
+      name: Put one plain-English README in every live demo Space
+      status: available
+      outcome: A visitor opening a helm-catalog Space can understand why it exists, what it contains, how it was made, and where to find deeper evidence.
+      evidence:
+        - data/helm-catalog-readmes/summary.md
+        - data/helm-catalog-readmes/spaces
+      verify:
+        - npm run helm-catalog-readmes:verify
+      next: Keep README Units synchronized whenever a Space, preset config, route, or linked chart page changes.
+
+    - id: T47
+      area: Catalog
+      name: Join chart pages to packages scripts README and proof
+      status: available
+      outcome: Every runnable preset card links to its public OCI, scripts, Hub README material, render record, rendered YAML, and relevant evidence.
+      evidence:
+        - site/charts/bitnami-redis-25-5-3.html
+        - site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh
+      verify:
+        - npm run site:verify
+        - npm run site:ux:verify
+      next: Keep generated links valid and preserve plain-English summaries as the catalog gains more source formats.
+
+    - id: T48
+      area: Catalog
+      name: Make hooks CRDs and setup work manageable per chart
+      status: partial
+      outcome: Most real chart lifecycle cases use maintained chart-specific presets and routes, with tests and receipts rather than a universal replacement claim.
+      evidence:
+        - docs/user/chart-hooks-what-happens.md
+        - data/hook-route-candidates/work-orders.md
+        - data/lifecycle-routes/summary.md
+      verify:
+        - npm run hooks:route-work-orders:verify
+        - npm run lifecycle:routes:verify
+      next: Execute the highest-value route work orders under Argo CD, Flux, and direct apply where each route applies.
+
+    - id: T49
+      area: Release quality
+      name: Keep the complete repository verification gate green
+      status: blocked
+      outcome: Focused and broad verification agree that generated data, docs, packages, receipts, and public claims are current.
+      evidence:
+        - tests/npm-scripts.md
+        - docs/user/verification.md
+      verify:
+        - npm run verify
+      next: Repair the stale Redis top-20 local E2E evidence digest tracked in issue 1152, then rerun the broad gate.
+      issue: https://github.com/confighub/helm-expt/issues/1152
+
+    - id: T50
+      area: Adoption
+      name: Measure whether new users understand and complete the journey
+      status: planned
+      outcome: Outside users can find a starting point, inspect or bring configuration, produce one deployable result, and understand why they would claim it in ConfigHub.
+      evidence:
+        - docs/planning/outside-user-test.md
+        - docs/planning/persona-ux-audit-2026-06-22.md
+      verify:
+        - npm run docs:verify
+      next: Run fresh outside-user tests, choose the analytics boundary in issue 1060, and turn observed failures into tracked fixes.
+      issue: https://github.com/confighub/helm-expt/issues/1060

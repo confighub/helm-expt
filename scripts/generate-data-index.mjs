@@ -51,6 +51,7 @@ function buildReport() {
 
 function readme(rows) {
   const quickRoutes = [
+    ["I want the current status of the agreed Top 50.", "data/top50-completion/summary.md; data/top50-completion/plan.csv"],
     ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
     ["I want the broad chart/version/base status in one browser sheet.", "data/master-catalog-matrix/matrix.html; data/master-catalog-matrix/summary.md; data/master-catalog-matrix/matrix.csv"],
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
@@ -105,6 +106,7 @@ function readme(rows) {
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
+    ["data/top50-completion/summary.md", "The agreed fifty-task programme: current status, evidence, verification command, and completion step for every outcome."],
     ["data/catalog-index/summary.md", "Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence."],
     ["data/master-catalog-matrix/matrix.html", "Human/product browser view: one row per chart/version/base with user route, strongest evidence, core lanes, production scope, hooks, quirks, hard gaps, and next action."],
     ["data/master-catalog-matrix/matrix.csv", "Machine/spreadsheet form of the master catalog matrix. Same row set as matrix.html, without relying on color."],
@@ -363,6 +365,7 @@ function audienceFor(path) {
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
   if (path.startsWith("data/top100-user-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
+  if (path.startsWith("data/top50-completion/")) return "user/front-door";
   if (path.startsWith("data/top100-coverage/")) return "user/front-door";
   if (path.startsWith("data/useful-base-design-queue/")) return "user/front-door";
   if (path.startsWith("data/useful-base-realization-wave/")) return "user/front-door";
@@ -428,6 +431,7 @@ function roleFor(path) {
   if (path === "data/top100-user-readiness/readiness.csv") return "one row per top-100 chart in user language: bucket, current proof, first base, prerequisites, absorbed responsibilities, and next action";
   if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: workability, adoption bucket, strongest evidence, gap, next action, and queue source";
   if (path === "data/top100-readiness/next80-queues.csv") return "one row per next80 proof-grade chart: queue, rank, features, artifacts, and next action";
+  if (path === "data/top50-completion/plan.csv") return "one row per agreed programme outcome: status, current evidence, verification commands, completion step, and linked issue";
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/useful-base-design-queue/queue.csv") return "one row per top-100 chart that needs a useful base: proposed base shape, user job, render choices, target inputs, and proof required";
@@ -517,6 +521,7 @@ function familyRole(family) {
     "pain-point-coverage": "front-door Helm pain point coverage map",
     "top100-user-readiness": "front-door top-100 user-language readiness, prerequisites, first base, and next action",
     "top100-readiness": "front-door top-100 user readiness and evidence summary",
+    "top50-completion": "front-door fifty-task programme status, evidence, and completion queue",
     "top100-coverage": "front-door top-100 coverage contract and work queue",
     "useful-base-design-queue": "front-door proposed useful-base queue for default-shaped top-100 charts",
     "useful-base-realization-wave": "front-door useful-base proposals made real as candidate recipe/package bases",
@@ -641,6 +646,7 @@ function commandMap() {
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
     "top100-user-readiness": { generate: "npm run top100:user-readiness", verify: "npm run top100:user-readiness:verify" },
     "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
+    "top50-completion": { generate: "npm run top50:completion", verify: "npm run top50:completion:verify" },
     "top100-coverage": { generate: "npm run top100:coverage", verify: "npm run top100:coverage:verify" },
     "useful-base-design-queue": { generate: "npm run top100:useful-base-queue", verify: "npm run top100:useful-base-queue:verify" },
     "useful-base-realization-wave": { generate: "npm run top100:useful-base-realization", verify: "npm run top100:useful-base-realization:verify" },

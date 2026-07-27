@@ -431,10 +431,11 @@
     <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This is the canonical roadmap index for <code>helm-expt</code>. It does not replace generated status surfaces or GitHub issues. It explains the current product direction, the active workstreams, and which planning files are authoritative for each kind of question.</p>
-<p>Updated: 2026-06-23.</p>
+<p>Updated: 2026-07-27.</p>
 <h2 id="how-to-read-the-roadmap">How To Read The Roadmap</h2>
 <p>Use generated data for moving status and use GitHub issues for execution. Use this file for priority, ownership, and product shape.</p>
-<table><thead><tr><th>Question</th><th>Source</th></tr></thead><tbody><tr><td>What should we work on next?</td><td>This roadmap, <a href="next-execution-plan.html">Next Execution Plan</a>, and GitHub issues.</td></tr>
+<table><thead><tr><th>Question</th><th>Source</th></tr></thead><tbody><tr><td>How much of the agreed Top 50 is complete?</td><td><a href="../../data/top50-completion/summary.html">Top 50 Completion Plan</a>.</td></tr>
+<tr><td>What should we work on next?</td><td>This roadmap, <a href="next-execution-plan.html">Next Execution Plan</a>, and GitHub issues.</td></tr>
 <tr><td>What is the state of one chart, version, and variant?</td><td><a href="../../../../data/master-catalog-matrix/matrix.html">Master Catalog Matrix</a>.</td></tr>
 <tr><td>Which claims are backed, partial, planned, or refused?</td><td><a href="../../data/claims-register/summary.html">Claims Register</a>.</td></tr>
 <tr><td>Which outcome is promised and how is it tested?</td><td><a href="../../data/outcome-evidence-contract/summary.html">Outcome Evidence Contract</a>.</td></tr>
@@ -442,19 +443,18 @@
 <tr><td>Which historical notes explain how we got here?</td><td>Planning files marked as handovers, dated audits, or archive material.</td></tr></tbody></table>
 <p>Do not copy live counts into roadmap prose. Counts belong in generated data.</p>
 <h2 id="current-product-goal">Current Product Goal</h2>
-<p><code>helm-expt</code> should make Helm operations easier to understand and safer to change:</p>
+<p><code>helm-expt</code> should help a person turn configuration they already use into a reviewed, deployable OCI package, then show why ConfigHub is useful after that:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>Use public Helm charts as the source.
-Convert selected install paths into cub installer recipes.
-Use parity checks as migration assurance, not as the main product promise.
-Record the render inputs that matter: chart source, version, namespace, values, flags, capabilities, and generated facts.
-Use ConfigHub to manage visible variants, safer reviews, delivery, observations, upgrades, and operations.
-Keep gaps visible instead of turning them into silent claims.</code></pre>
-<p>The product story should be chart-first and user-first:</p>
-<pre><code>See how it works.
-Pick a Helm chart.
-Manage Helm variants.
-Build and operate live apps.</code></pre>
+  <pre><code>Start with Helm first, then support AICR, cub installer packages, existing OCI, and Kubernetes YAML.
+Let people inspect, test, and produce public OCI without a ConfigHub account.
+Record source inputs, exact objects, prerequisites, hooks, CRDs, checks, and receipts.
+Let a team claim the reviewed result in ConfigHub when it needs shared history, variants, approvals, promotions, or fleet rollout.
+Publish exact reviewed objects as OCI for Argo CD, Flux, or direct apply.
+Keep unsupported cases and missing evidence visible.</code></pre>
+<p>Helm remains the first and deepest path. The wider boundary is:</p>
+<pre><code>source -&gt; inspect and test -&gt; OCI
+OCI -&gt; inspect or change -&gt; OCI
+OCI -&gt; ConfigHub -&gt; reviewed variants and operations -&gt; OCI -&gt; delivery</code></pre>
 <p>The proof machinery supports that story. It should not be the first thing a new visitor has to understand.</p>
 <h2 id="active-workstreams">Active Workstreams</h2>
 <table><thead><tr><th>Workstream</th><th>Current objective</th><th>Primary surfaces</th><th>Main trackers</th></tr></thead><tbody><tr><td>Public website and guides</td><td>Make the site clear enough for a new Helm user, with short guide pages and deeper docs one click away.</td><td><code>site/*.html</code>, <a href="dedicated-website-plan.html">Dedicated Website Plan</a>, <a href="persona-ux-audit-2026-06-22.html">persona UX audits</a>.</td><td><a href="https://github.com/confighub/helm-expt/issues/679">#679</a>, <a href="https://github.com/confighub/helm-expt/issues/753">#753</a>.</td></tr>
@@ -475,7 +475,7 @@ Build and operate live apps.</code></pre>
 <p>Run scoped checks while editing. Use <code>npm run verify</code> as the broad release gate after focused checks pass. A passing verifier means committed evidence is self-consistent; it does not replace a fresh live run.</p>
 <h2 id="planning-file-roles">Planning File Roles</h2>
 <p>The active planning corpus has three tiers.</p>
-<table><thead><tr><th>Tier</th><th>Files</th><th>Role</th></tr></thead><tbody><tr><td>Canonical</td><td>This file, <a href="issue-backlog.html">Issue Backlog</a>, <a href="next-execution-plan.html">Next Execution Plan</a>.</td><td>Current roadmap, issue groups, and launch workstreams.</td></tr>
+<table><thead><tr><th>Tier</th><th>Files</th><th>Role</th></tr></thead><tbody><tr><td>Canonical</td><td>This file, <a href="../../data/top50-completion/summary.html">Top 50 Completion Plan</a>, <a href="issue-backlog.html">Issue Backlog</a>, <a href="next-execution-plan.html">Next Execution Plan</a>.</td><td>Current roadmap, evidence-linked completion status, issue groups, and launch workstreams. The Top 50 source is <code>config-catalog/top50.yaml</code>.</td></tr>
 <tr><td>Lane-specific</td><td><a href="dedicated-website-plan.html">Dedicated Website Plan</a>, <a href="robust-sceptic-plan.html">Robust Sceptic Plan</a>, <a href="fuzz-corpus-tests-roadmap.html">Fuzz Corpus Tests Roadmap</a>, <a href="hook-route-execution-plan.html">Hook Route Execution Plan</a>, <a href="maintenance-strategy.html">Maintenance Strategy</a>, <a href="verified-install-commercial-model.html">Verified Install Commercial Model</a>.</td><td>Active product or test lanes. These should link back here when priorities change.</td></tr>
 <tr><td>Snapshot or review input</td><td>Handover docs, dated persona audits, dated claim audits, independent review briefs, older execution plans.</td><td>Evidence, review history, or context. These are not authoritative for current counts.</td></tr></tbody></table>
 <p>When adding a new planning file, add its role to <a href="../README.html">Documentation Map</a> and decide whether it is canonical, lane-specific, or a snapshot.</p>

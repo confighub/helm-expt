@@ -313,6 +313,7 @@ Generated proof data for this section lives in:
 | [hook-route-execution-plan.md](./planning/hook-route-execution-plan.md) | Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand. |
 | [top20-full-proof-target.md](./planning/top20-full-proof-target.md) | Definition and status of the top-20 full proof milestone. |
 | [top100-full-proof-target.md](./planning/top100-full-proof-target.md) | Definition and status of the top-100 proof surface. |
+| [../data/top50-completion/summary.md](../data/top50-completion/summary.md) | Generated fifty-task completion plan: current status, evidence, verification command, and the next step for every agreed programme outcome. |
 | [top500-matrix-refresh-review.md](./planning/top500-matrix-refresh-review.md) | How the top-500 analysis should be regenerated and interpreted. |
 | [latest-top20-refresh-plan.md](./planning/latest-top20-refresh-plan.md) | Latest-version refresh plan for the supported top-20 charts. |
 | [upgrade-story-plan.md](./planning/upgrade-story-plan.md) | Upgrade proof lane: old/new rendered sets, lifecycle review, live before/after observation, and scoped support decision. |
@@ -384,6 +385,7 @@ not the primary user path.
 | File | Role |
 | --- | --- |
 | [roadmap.md](./planning/roadmap.md) | Canonical roadmap index: active workstreams, release guardrails, issue trackers, and which planning files are authoritative versus historical. |
+| [../data/top50-completion/summary.md](../data/top50-completion/summary.md) | Canonical generated completion view for the agreed Top 50. Source: `config-catalog/top50.yaml`; verifier: `npm run top50:completion:verify`. |
 | [agreed-execution-plan.md](./planning/agreed-execution-plan.md) | Consolidated doctrine and historical execution record. Use current handover, status dashboard, and next-task docs for current counts. |
 | [current-handover.md](./planning/current-handover.md) | Current pickup snapshot, including the base-variant versus derived ConfigHub variant vocabulary. |
 | [large-machine-handover.md](./planning/large-machine-handover.md) | Strict handover for a Codex instance that can run live Kubernetes and GitOps proof lanes. |
