@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-07-27 (commit `d62f5290b`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-07-27 (commit `cd9b752f5`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 233 |
-| Fresh (no linked source newer than the doc) | 30 |
-| **Review-due** | 63 |
+| Fresh (no linked source newer than the doc) | 29 |
+| **Review-due** | 64 |
 | No linked evidence sources (cannot auto-trigger) | 140 |
 
 ## Review queue
@@ -84,13 +84,14 @@ most recently changed triggers.
 | [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 6 | `data/webhook-cert-lifecycle/summary.md (2026-06-17)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 4 | `tests/README.md (2026-07-26)`<br>`tests/doctrine.md (2026-07-26)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [README.md](../../README.md) | root | 2026-07-27 | 1 | `data/status-dashboard/summary.md (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-27)` |
+| [README.md](../../README.md) | root | 2026-07-27 | 1 | `data/apply-policy-profiles/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-27)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-07-27 | 1 | `data/top50-completion/summary.md (2026-07-27)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-26 | 1 | `data/outcome-coverage/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 1 | `data/top50-completion/summary.md (2026-07-27)`<br>`data/master-catalog-matrix/matrix.html (2026-07-27)`<br>`data/outcome-evidence-contract/summary.md (2026-07-27)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-07-26 | 1 | `data/app-readiness/summary.md (2026-07-27)` |
+| [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-07-27 | 1 | `data/lifecycle-route-actions/summary.md (2026-07-27)`<br>`data/lifecycle-routes/summary.md (2026-07-27)` |
-| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-07-27 | 1 | `data/lifecycle-routes/summary.md (2026-07-27)`<br>`data/outcome-coverage/summary.md (2026-07-27)`<br>`data/variant-promotion/summary.md (2026-07-27)` |
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-27 | 1 | `data/master-catalog-matrix/matrix.html (2026-07-27)`<br>`data/outcome-coverage/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-07-26 | 1 | `tests/doctrine.md (2026-07-26)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 1 | `data/claims-register/summary.md (2026-07-27)` |

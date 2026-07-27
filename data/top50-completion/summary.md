@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 24
-partial:   24
+available: 25
+partial:   23
 planned:   2
 blocked:   0
 total:     50
@@ -82,7 +82,7 @@ The source status definitions are:
 
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
-| T22 | Apply blocking checks everywhere and approvals only in production | partial | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[runs/config-catalog-policy-functional-proof/receipt.yaml](../../runs/config-catalog-policy-functional-proof/receipt.yaml) | Repeat the live policy proof for source types beyond Helm-derived Kubernetes objects. |
+| T22 | Block unsafe configuration and require approval at high-risk boundaries | available | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml)<br>[runs/config-catalog-policy-functional-proof/receipt.yaml](../../runs/config-catalog-policy-functional-proof/receipt.yaml)<br>[runs/ai-change-review-live-proof/receipt.yaml](../../runs/ai-change-review-live-proof/receipt.yaml)<br>[examples/kubara/local-platform/confighub-upload-receipt.yaml](../../examples/kubara/local-platform/confighub-upload-receipt.yaml)<br>[examples/sveltos/kyverno-fleet/live-receipt.yaml](../../examples/sveltos/kyverno-fleet/live-receipt.yaml) | Add resource-aware field checks for more custom-resource APIs without weakening the common policy or making ordinary warnings blocking. |
 | T23 | Make policy checks source-neutral | available | [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml)<br>[data/ai-change-review-live-proof/summary.md](../../data/ai-change-review-live-proof/summary.md)<br>[runs/ai-change-review-live-proof/receipt.yaml](../../runs/ai-change-review-live-proof/receipt.yaml) | Add checks for more custom-resource versions and teach target-specific checks to read recorded target facts instead of hard-coding one cluster's limits. |
 
 ## OCI output

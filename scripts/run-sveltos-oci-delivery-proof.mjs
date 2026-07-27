@@ -38,14 +38,25 @@ const approvalFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
 const catalogOciTargetRef =
   "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target";
-const expectedTriggers = [
+const policyPath = join(
+  repoRoot,
+  "config-catalog",
+  "policies",
+  "catalog-standard.yaml",
+);
+const expectedTriggers = readYaml(policyPath).spec.approvalRequired.checks
+  .map((item) => item.trigger)
+  .sort();
+// This run predates the two AICR-only checks. Preserve the trigger set it
+// actually used while requiring those checks to remain in the current profile.
+const historicalTriggers = [
   "platform/digest-pinned-images",
   "platform/lifecycle-route-evidence",
   "platform/probes-declared",
   "platform/require-approval",
   "platform/vet-placeholders",
   "platform/vet-schemas",
-];
+].sort();
 const configHubOciHost = "oci.hub.confighub.com:443";
 const artifactType = "application/vnd.confighub.kubernetes.config.v1";
 const deployableLayerType = "application/vnd.oci.image.layer.v1.tar+gzip";
@@ -2263,13 +2274,21 @@ function verifyReceipt(receipt) {
     "Sveltos prerequisite record changed",
   );
   const review = receipt.spec?.configHubReview;
+  const recordedTriggers = review?.policy?.filter?.triggerRefs ?? [];
   check(
     review?.organization === expectedPolicyOrg
       && review.policy?.profile === "catalog-standard"
       && review.policy?.resourceClass === "system-configuration"
       && review.policy?.approvalGate === approvalGate
-      && sameSet(review.policy.filter?.triggerRefs ?? [], expectedTriggers),
+      && (
+        sameSet(recordedTriggers, expectedTriggers)
+        || sameSet(recordedTriggers, historicalTriggers)
+      ),
     "Sveltos policy record changed",
+  );
+  check(
+    historicalTriggers.every((trigger) => expectedTriggers.includes(trigger)),
+    "the current approval policy dropped a check used by the historical Sveltos run",
   );
   const pilot = review?.pilot;
   const fleet = review?.fleet;

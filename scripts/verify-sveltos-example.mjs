@@ -47,6 +47,7 @@ const policyPath = join(repoRoot, "config-catalog", "policies", "catalog-standar
 const profile = readYaml(profilePath);
 const pilotProfile = readYaml(pilotProfilePath);
 const sourceLock = readYaml(sourceLockPath);
+const policy = readYaml(policyPath);
 let receipt = readYaml(receiptPath);
 if (mode === "--hub-record") receipt = recordHubPolicy(receipt);
 const ociReceipt = readYaml(ociReceiptPath);
@@ -113,12 +114,20 @@ check(
   "Sveltos Space resource class changed",
 );
 check(
+  receipt.spec?.configHub?.space?.labels?.SourceType === "sveltos",
+  "Sveltos Space source type changed",
+);
+check(
   receipt.spec?.configHub?.policy?.reason === "system-configuration",
   "Sveltos approval reason changed",
 );
+const expectedPolicyChecks = policy.spec.approvalRequired.checks
+  .map((item) => item.trigger)
+  .sort();
+const recordedPolicyChecks = [...(receipt.spec?.configHub?.policy?.checks ?? [])].sort();
 check(
-  receipt.spec?.configHub?.policy?.checks?.length === 6,
-  "Sveltos policy must record five common checks plus approval",
+  JSON.stringify(recordedPolicyChecks) === JSON.stringify(expectedPolicyChecks),
+  "Sveltos policy no longer matches the current approval-required checks",
 );
 check(
   receipt.spec.configHub.policy.checks.includes("platform/require-approval"),
@@ -237,6 +246,7 @@ function verifyHub() {
     space.Labels?.ResourceClass === "system-configuration",
     "live Sveltos Space resource class changed",
   );
+  check(space.Labels?.SourceType === "sveltos", "live Sveltos source type changed");
 
   const unit = JSON.parse(
     runHub(["unit", "get", receipt.spec.configHub.unit.slug, "--space", spaceSlug, "-o", "json"]),
@@ -276,7 +286,10 @@ function recordHubPolicy(currentReceipt) {
     space.Labels?.ResourceClass === "system-configuration",
     "refusing to record Sveltos without ResourceClass=system-configuration",
   );
-  const policy = readYaml(policyPath);
+  check(
+    space.Labels?.SourceType === "sveltos",
+    "refusing to record Sveltos without SourceType=sveltos",
+  );
   const readme = JSON.parse(
     runHub(["unit", "get", "readme", "--space", spaceSlug, "-o", "json"]),
   ).Unit;

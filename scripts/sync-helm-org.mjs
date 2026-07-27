@@ -34,6 +34,7 @@ const matrixCsv = readFileSync(join(repoRoot, "data", "master-catalog-matrix", "
 const applyPolicy = readYaml(join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml"));
 const baselineApplyFilter = applyPolicy.spec.baseline.filter;
 const approvalRequiredApplyFilter = applyPolicy.spec.approvalRequired.filter;
+const supportedSourceTypes = applyPolicy.spec.sourceTypes ?? [];
 const policyReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
 
 function slugify(value) {
@@ -203,6 +204,7 @@ function buildPlan() {
         Variant: labelSafe(variant),
         ChartVersion: labelSafe(entry.version),
         ApplyPolicyProfile: applyPolicy.metadata.name,
+        SourceType: "cub-installer",
         SecretRoute: secretRouteFor(entry, variant),
         ...routeLabelsFor(row, chartVariants),
       };
@@ -369,6 +371,29 @@ function requiresApproval(space) {
     || space.Labels?.ResourceClass === "system-configuration";
 }
 
+function sourceTypeForSpace(space) {
+  const explicit = space.Labels?.SourceType;
+  if (supportedSourceTypes.includes(explicit)) return explicit;
+  if (plan.some((item) => item.space === space.Slug)) return "cub-installer";
+  if (
+    /^(bitnami-redis-(base|staging|prod)|bitnami-nginx-fleet-|hashicorp-vault-(demo-base|env-))/.test(
+      space.Slug,
+    )
+  ) {
+    return "cub-installer";
+  }
+  if (
+    space.Slug === "hook-probe-base"
+    || space.Slug === "route-sketch-kube-prometheus-stack"
+  ) {
+    return "rendered-config";
+  }
+  if (space.Slug.startsWith("aicr-")) return "aicr";
+  if (space.Slug.startsWith("kubara-")) return "kubara";
+  if (space.Slug.startsWith("sveltos-")) return "sveltos";
+  return "";
+}
+
 function matchesSpaceSelector(space, selector) {
   if (selector?.labels) return matchesLabels(space, selector.labels);
   if (selector?.anyOf) {
@@ -418,6 +443,14 @@ function collectLivePolicyState() {
     if (space.TriggerFilterID !== expectedID) {
       findings.push(`${space.Slug} claims ${applyPolicy.metadata.name} but uses the wrong filter`);
     }
+    const expectedSourceType = sourceTypeForSpace(space);
+    if (!expectedSourceType) {
+      findings.push(`${space.Slug} has no supported SourceType`);
+    } else if (space.Labels?.SourceType !== expectedSourceType) {
+      findings.push(
+        `${space.Slug} should record SourceType=${expectedSourceType}`,
+      );
+    }
   }
 
   const baselineSlugs = baselineSpaces.map((space) => space.Slug).sort();
@@ -432,6 +465,20 @@ function collectLivePolicyState() {
     .filter((space) => space.Labels?.ResourceClass === "system-configuration")
     .map((space) => space.Slug)
     .sort();
+  const sourceTypes = Object.fromEntries(
+    supportedSourceTypes.map((sourceType) => [
+      sourceType,
+      profileSpaces
+        .filter((space) => space.Labels?.SourceType === sourceType)
+        .map((space) => space.Slug)
+        .sort(),
+    ]),
+  );
+  for (const [sourceType, sourceSpaces] of Object.entries(sourceTypes)) {
+    if (!sourceSpaces.length) {
+      findings.push(`the live policy has no ${sourceType} Space`);
+    }
+  }
   const verifiedAt = new Date().toISOString();
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -464,6 +511,7 @@ function collectLivePolicyState() {
           production: productionSlugs,
           systemConfiguration: systemConfigurationSlugs,
         },
+        sourceTypes,
         excluded: excludedSlugs,
       },
     },
@@ -554,6 +602,31 @@ function verifyPolicyReceipt(receipt) {
       failures.push(`${space} has an approval reason but not the approval-required filter`);
     }
   }
+  const sourceTypes = receipt?.spec?.spaces?.sourceTypes ?? {};
+  const recordedSourceTypes = Object.keys(sourceTypes).sort();
+  if (!sameJson(recordedSourceTypes, [...supportedSourceTypes].sort())) {
+    failures.push("receipt source types do not match the maintained policy");
+  }
+  const selectedSpaces = new Set([...baselineSpaces, ...approvalRequiredSpaces]);
+  const classifiedSourceSpaces = new Set();
+  for (const sourceType of supportedSourceTypes) {
+    const sourceSpaces = sourceTypes[sourceType] ?? [];
+    if (!sourceSpaces.length) failures.push(`receipt has no ${sourceType} Spaces`);
+    for (const space of sourceSpaces) {
+      if (!selectedSpaces.has(space)) {
+        failures.push(`${space} has a source type but no policy filter`);
+      }
+      if (classifiedSourceSpaces.has(space)) {
+        failures.push(`${space} appears under more than one source type`);
+      }
+      classifiedSourceSpaces.add(space);
+    }
+  }
+  for (const space of selectedSpaces) {
+    if (!classifiedSourceSpaces.has(space)) {
+      failures.push(`${space} has no recorded source type`);
+    }
+  }
   if (applyPolicy.status.liveReverified !== true) failures.push("policy status does not mark the live result as reverified");
   if (!String(receipt?.spec?.verifiedAt ?? "").startsWith(applyPolicy.status.lastRecorded)) {
     failures.push("policy lastRecorded date does not match the receipt");
@@ -574,6 +647,11 @@ function printPolicyResult(receipt) {
   );
   console.log(
     `  reasons: ${(receipt.spec.spaces.approvalReasons.production ?? []).length} production, ${(receipt.spec.spaces.approvalReasons.systemConfiguration ?? []).length} system configuration`,
+  );
+  console.log(
+    `  sources: ${Object.entries(receipt.spec.spaces.sourceTypes ?? {})
+      .map(([sourceType, spaces]) => `${sourceType}=${spaces.length}`)
+      .join(", ")}`,
   );
 }
 
@@ -681,9 +759,14 @@ if (mode === "--policy-sync") {
     const filterRef = requiresApproval(space)
       ? approvalRequiredApplyFilter
       : baselineApplyFilter;
+    const sourceType = sourceTypeForSpace(space);
+    if (!sourceType) {
+      throw new Error(`cannot assign a source type to policy Space ${space.Slug}`);
+    }
     cub([
       "space", "update", space.Slug,
       "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
+      "--label", `SourceType=${sourceType}`,
       "--trigger-filter", filterRef,
       "--where-trigger", "-",
       "--quiet",
@@ -879,7 +962,13 @@ if (mode === "--exhibits") {
         write(join(stage, file), readFileSync(join(repoRoot, "tests/fixtures/hook-replacement-probe", file), "utf8"));
       }
       cub(["variant", "upload", "--component", "hook-probe", "--variant", "base", "--space", "hook-probe-base", "--granularity", "per-resource", stage]);
-      label("hook-probe-base", { Exhibit: "hooks-argo", HookRoute: "argo-hook-annotations", ProofReceipt: "hook-execution-proof", DeliveryReceipt: "oci-hook-delivery-proof" });
+      label("hook-probe-base", {
+        Exhibit: "hooks-argo",
+        SourceType: "rendered-config",
+        HookRoute: "argo-hook-annotations",
+        ProofReceipt: "hook-execution-proof",
+        DeliveryReceipt: "oci-hook-delivery-proof",
+      });
       results.push(["hooks-argo", "created", "hook-probe-base from tests/fixtures/hook-replacement-probe"]);
     } finally {
       rmSync(stage, { recursive: true, force: true });
@@ -988,6 +1077,8 @@ if (mode === "--exhibits") {
   } else {
     cub(["space", "create", "route-sketch-kube-prometheus-stack",
       "--label", "Component=prometheus-community-kube-prometheus-stack",
+      "--label", `ApplyPolicyProfile=${applyPolicy.metadata.name}`,
+      "--label", "SourceType=rendered-config",
       "--label", "Exhibit=route-sketch", "--label", "Sketch=unbuilt-entity",
       "--label", "ProofReceipt=hook-lifecycle"]);
     const routeRows = parseCsvQuoted(readFileSync(join(repoRoot, "data", "lifecycle-routes", "routes.csv"), "utf8"))

@@ -245,6 +245,7 @@ spec:
       reason: Cluster-wide platform choices have broad impact, so approval is required in every environment.
   scopeAssertions:
     - Every supported configuration source type is named by this profile.
+    - Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type.
     - Every Trigger is defined here with its function, arguments, effect, and description.
     - The baseline filter selects exactly the seven baseline triggers and never selects require-approval.
     - The approval-required filter selects the same seven baseline triggers plus require-approval.

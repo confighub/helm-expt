@@ -1247,6 +1247,29 @@ function validatePolicy(policy) {
       ),
       "live policy receipt records an approval reason for a Space without approval",
     );
+    const sourceTypeSpaces = receipt.spec?.spaces?.sourceTypes ?? {};
+    check(
+      sameSet(Object.keys(sourceTypeSpaces), policy.spec.sourceTypes),
+      "live policy receipt source types do not match the policy",
+    );
+    const selectedSpaces = new Set([...baselineSpaces, ...approvalRequiredSpaces]);
+    const classifiedSourceSpaces = new Set();
+    for (const sourceType of policy.spec.sourceTypes) {
+      const sourceSpaces = sourceTypeSpaces[sourceType] ?? [];
+      check(sourceSpaces.length > 0, `live policy receipt has no ${sourceType} Space`);
+      for (const space of sourceSpaces) {
+        check(selectedSpaces.has(space), `${space} has a source type but no policy filter`);
+        check(
+          !classifiedSourceSpaces.has(space),
+          `${space} appears under more than one source type`,
+        );
+        classifiedSourceSpaces.add(space);
+      }
+    }
+    check(
+      [...selectedSpaces].every((space) => classifiedSourceSpaces.has(space)),
+      "live policy receipt has a Space without a source type",
+    );
   }
 }
 
@@ -2260,11 +2283,30 @@ function renderPolicySummary(policy) {
   const baseline = policy.spec.baseline;
   const approvalRequired = policy.spec.approvalRequired;
   const baselineCheckCount = baseline.checks.length;
+  const liveReceiptPath = join(
+    repoRoot,
+    "data",
+    "apply-policy-profiles",
+    "live-helm-catalog.yaml",
+  );
+  const liveReceipt = existsSync(liveReceiptPath)
+    ? readYaml(liveReceiptPath)
+    : null;
+  const sourceTypeSpaces = liveReceipt?.spec?.spaces?.sourceTypes ?? {};
+  const sourceCoverage = policy.spec.sourceTypes
+    .map((sourceType) => `| \`${sourceType}\` | ${(sourceTypeSpaces[sourceType] ?? []).length} |`)
+    .join("\n");
   return `# Apply policy profiles
 
 Generated from [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
 
 The \`${policy.metadata.name}\` profile applies to ${policy.spec.sourceTypes.join(", ")} after their configuration has become ConfigHub data.
+
+The live receipt records at least one policy-covered Space for every maintained starting format:
+
+| Starting format | Live Spaces |
+| --- | ---: |
+${sourceCoverage}
 
 ## Common checks
 
@@ -2385,10 +2427,14 @@ Current limit: ${demo.limits.join(" ")}`).join("\n\n");
   const productionCount = liveReceipt?.spec?.spaces?.approvalReasons?.production?.length;
   const systemConfigurationCount
     = liveReceipt?.spec?.spaces?.approvalReasons?.systemConfiguration?.length;
+  const sourceTypeSpaces = liveReceipt?.spec?.spaces?.sourceTypes ?? {};
   const baselineCheckCount = policy.spec.baseline.checks.length;
   const liveCounts = Number.isInteger(baselineCount) && Number.isInteger(approvalCount)
     ? `On ${policy.status.lastRecorded}, the live \`helm-catalog\` org had ${baselineCount} Spaces on the ${baselineCheckCount} common checks and ${approvalCount} Spaces on those checks plus approval (${productionCount} production and ${systemConfigurationCount} system configuration).`
     : `The live receipt records which Spaces use the common checks and which also require approval.`;
+  const sourceCoverage = policy.spec.sourceTypes
+    .map((sourceType) => `${sourceType} ${(sourceTypeSpaces[sourceType] ?? []).length}`)
+    .join(", ");
 
   return `# Config catalog demonstrations
 
@@ -2410,7 +2456,7 @@ ${rendered}
 
 Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval.
 
-This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts}
+This choice is based on what the configuration controls, not whether it started as Helm, AICR, \`cub installer\`, Kubara, Sveltos, or YAML. ${liveCounts} The receipt includes every maintained starting format: ${sourceCoverage}.
 
 The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, and missing approval are blocked; the same system configuration is allowed after its exact head revision is approved; and an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun \`npm run helm-org:policy:verify\` while logged into the org to compare the current topology with its receipt.
 `;

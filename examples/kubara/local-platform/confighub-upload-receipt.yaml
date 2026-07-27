@@ -32,6 +32,8 @@ spec:
       - "platform/vet-schemas"
       - "platform/vet-placeholders"
       - "platform/lifecycle-route-evidence"
+      - "platform/aicr-training-secret-refs"
+      - "platform/aicr-training-images-pinned"
       - "platform/digest-pinned-images"
       - "platform/probes-declared"
       - "platform/require-approval"
@@ -39,8 +41,8 @@ spec:
   readme:
     slug: "readme"
     id: "172817a9-f139-4d2f-9a22-19ccd51b348a"
-    dataHash: "9ed73d70ebd357d10b4ba00259351970f8515bd1d80fa5323e2aead89bb8119a"
-    headRevision: 4
+    dataHash: "8b850ce7161ff3006c22f6afe94723c513f58b1f91060c17f47961cccdf58f8b"
+    headRevision: 8
     source: "data/helm-catalog-readmes/units/kubara-local-platform-v0-12-0/readme.yaml"
   secretsNotUploaded:
     - "argocd/argocd-secret"
@@ -59,6 +61,7 @@ spec:
       Layer: "Platform"
       Owner: "Platform"
       ResourceClass: "system-configuration"
+      SourceType: "kubara"
       Variant: "v0-12-0-local"
     slug: "kubara-local-platform-v0-12-0"
   unit:
@@ -70,7 +73,7 @@ spec:
     slug: "release-objects"
     sourceIdentitiesMatched: true
     uploadedObjectCount: 75
-  verifiedAt: "2026-07-26T16:00:37.772Z"
+  verifiedAt: "2026-07-27T20:59:56.411Z"
 status:
   apply: "not-run"
   approvalRequiredPolicyAssigned: "pass"
