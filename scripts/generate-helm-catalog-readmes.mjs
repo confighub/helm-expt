@@ -211,6 +211,42 @@ const DEMO_SPACES = [
       : ["The environment is a demo lane, not a production recommendation for Vault."],
   })),
   {
+    space: "byo-nginx-ai-values-24-0-2-reviewed",
+    title: "Bring your own Helm values",
+    kind: "source",
+    summary: "A supplied NGINX values file is rendered and reviewed before it becomes a ConfigHub base variant.",
+    shows: [
+      "The proposed values asked for three replicas but also embedded an old API key, exposed a LoadBalancer, removed the image digest, and weakened three container security settings.",
+      "The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.",
+      "The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.",
+      "The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.",
+    ],
+    open: [
+      "This README.",
+      "The configuration Unit to see all five reviewed Kubernetes objects together.",
+      "The Space annotations to see the public OCI source and digest.",
+    ],
+    why: [
+      "A values file from a person or coding agent can look reasonable while producing changes that are hard to spot in templates.",
+      "This example renders first, compares the result with the checked catalog configuration, fixes the concrete problems, and keeps the requested change.",
+    ],
+    evidence: [
+      ["Bring-your-own review", "data/byo-helm-values-review/summary.md"],
+      ["Proposed values", "examples/byo-helm-values/ai-values.yaml"],
+      ["Reviewed values", "examples/byo-helm-values/reviewed-values.yaml"],
+      ["Reviewed Kubernetes objects", "data/byo-helm-values-review/reviewed-render.yaml"],
+      ["Local OCI round-trip receipt", "runs/byo-helm-values-proof/receipt.yaml"],
+      ["Public OCI receipt", "runs/byo-helm-values-proof/public-oci-receipt.yaml"],
+      ["ConfigHub import receipt", "runs/byo-helm-values-proof/confighub-upload-receipt.yaml"],
+      ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
+    ],
+    limits: [
+      "The API key in the proposed values is deliberately fake.",
+      "The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. This example does not create or read it.",
+      "No Kubernetes apply, workload check, promotion, or controller delivery has run for this reviewed configuration.",
+    ],
+  },
+  {
     space: "aicr-eks-h100-training-kubeflow-v0-14-0-argocd",
     title: "AICR GPU platform configuration",
     kind: "source",
@@ -420,7 +456,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 42, `expected 42 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 43, `expected 43 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {

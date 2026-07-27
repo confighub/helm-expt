@@ -116,9 +116,9 @@ Render the chart into exact Kubernetes objects, compare it with chart defaults a
 4. Review the object diff, placeholders, Secrets, CRDs, hooks, dependencies, and checks.
 5. Deploy the reviewed files or claim them in ConfigHub.
 
-Evidence: [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md), [docs/reference/direct-cub-helm-model.md](../../docs/reference/direct-cub-helm-model.md), [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md).
+Evidence: [examples/byo-helm-values/ai-values.yaml](../../examples/byo-helm-values/ai-values.yaml), [examples/byo-helm-values/reviewed-values.yaml](../../examples/byo-helm-values/reviewed-values.yaml), [data/byo-helm-values-review/summary.md](../../data/byo-helm-values-review/summary.md), [data/byo-helm-values-review/review.yaml](../../data/byo-helm-values-review/review.yaml), [data/byo-helm-values-review/public-and-confighub.md](../../data/byo-helm-values-review/public-and-confighub.md), [runs/byo-helm-values-proof/receipt.yaml](../../runs/byo-helm-values-proof/receipt.yaml), [runs/byo-helm-values-proof/public-oci-receipt.yaml](../../runs/byo-helm-values-proof/public-oci-receipt.yaml), [runs/byo-helm-values-proof/confighub-upload-receipt.yaml](../../runs/byo-helm-values-proof/confighub-upload-receipt.yaml), [docs/user/choosing-commands.md](../../docs/user/choosing-commands.md), [docs/reference/direct-cub-helm-model.md](../../docs/reference/direct-cub-helm-model.md), [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md), [data/ai-change-review/summary.md](../../data/ai-change-review/summary.md).
 
-Current limit: The current evidence covers selected charts and changes. It is not a universal safety decision for arbitrary generated values.
+Current limit: The worked NGINX example checks one deterministic values proposal. It does not claim that every private chart or generated values file can be judged automatically. The reviewed Deployment requires an existing Secret. Kubernetes apply, workload health, promotion, and controller delivery have not run for this example.
 
 ### 3. Save the reviewed result and change it
 

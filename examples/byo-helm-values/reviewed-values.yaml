@@ -1,0 +1,27 @@
+# The requested scale remains. The risky settings are corrected before upload.
+image:
+  digest: sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f
+
+replicaCount: 3
+
+service:
+  type: ClusterIP
+
+tls:
+  enabled: false
+
+extraEnvVarsSecret: ai-provider-credentials
+
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+  runAsGroup: 1001
+  runAsNonRoot: true
+  privileged: false
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault

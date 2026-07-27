@@ -1,0 +1,76 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "HelmValuesReview"
+metadata:
+  name: "bitnami-nginx-ai-values"
+spec:
+  request: "Run three NGINX replicas and supply the AI provider key used by the application."
+  source:
+    chart: "bitnami/nginx"
+    version: "24.0.2"
+    releaseName: "nginx"
+    namespace: "nginx"
+    kubeVersion: "1.30.0"
+    sourceLock: "recipes/bitnami/nginx/24.0.2/source-lock.yaml"
+  proposal:
+    values: "examples/byo-helm-values/ai-values.yaml"
+    renderedObjects: "data/byo-helm-values-review/proposed-render.yaml"
+    findings:
+      -
+        id: "embedded-ai-api-key"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.containers[name=nginx].env[name=AI_API_KEY].value"
+        value: "sk-prod-old-key-rotate-me"
+        action: "Use an existing Secret reference instead of a literal key."
+      -
+        id: "mutable-container-image"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].image"
+        value:
+          - "registry-1.docker.io/bitnami/nginx:latest"
+        action: "Restore the reviewed image digest."
+      -
+        id: "non-root-disabled"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.runAsNonRoot"
+        value: false
+        action: "Require the container to run as a non-root user."
+      -
+        id: "privilege-escalation-enabled"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.allowPrivilegeEscalation"
+        value: true
+        action: "Disable privilege escalation."
+      -
+        id: "public-load-balancer"
+        object: "Service/nginx"
+        path: "spec.type"
+        value: "LoadBalancer"
+        action: "Keep ClusterIP unless external exposure is an explicit target decision."
+      -
+        id: "writable-root-filesystem"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.*Containers[].securityContext.readOnlyRootFilesystem"
+        value: false
+        action: "Restore the read-only root filesystem."
+    decision: "rejected"
+  reviewed:
+    values: "examples/byo-helm-values/reviewed-values.yaml"
+    renderedObjects: "data/byo-helm-values-review/reviewed-render.yaml"
+    changesKept:
+      -
+        id: "replicas-set-to-three"
+        object: "Deployment/nginx"
+        path: "spec.replicas"
+        value: 3
+      -
+        id: "ai-api-key-moved-to-existing-secret"
+        object: "Deployment/nginx"
+        path: "spec.template.spec.containers[name=nginx].envFrom[].secretRef.name"
+        value: "ai-provider-credentials"
+    requiredTargetResources:
+      -
+        key: "AI_API_KEY"
+        kind: "Secret"
+        name: "ai-provider-credentials"
+        namespace: "nginx"
+    decision: "ready-for-upload"

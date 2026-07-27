@@ -1,0 +1,24 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "PublicOciReceipt"
+metadata:
+  name: "byo-nginx-ai-values-24-0-2-reviewed"
+spec:
+  verifiedAt: "2026-07-27T07:25:54.295Z"
+  registry: "Google Artifact Registry"
+  project: "nth-fort-499605-q5"
+  location: "europe-west1"
+  repository: "helm-expt"
+  artifact:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/byo-nginx-ai-values:24.0.2-r001"
+    digest: "sha256:34af6a50b952d1a168a5cad614ef47f652cf44b11806a93bf6cc7a79c6e9c683"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    objectCount: 5
+    objectSetSha256: "ded2b7c2624c74ae1dce2a947ad9d99a32a62f5114361970af61c9ca51449345"
+    authenticatedPush: "pass"
+    anonymousPull: "pass"
+status:
+  result: "pass"
+  claim: "The five reviewed NGINX objects are publicly pullable as one literal configuration OCI at the recorded digest."
+  limits:
+    - "Public pullability does not prove ConfigHub upload, Kubernetes apply, workload health, promotion, or controller delivery."
+    - "The OCI contains the reviewed Kubernetes objects. The chart, supplied values, review, and receipt remain linked repository records."
