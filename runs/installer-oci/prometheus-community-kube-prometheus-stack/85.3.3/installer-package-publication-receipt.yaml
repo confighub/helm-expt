@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3
   package:
     path: packages/prometheus-community/kube-prometheus-stack/85.3.3
-    sha256: fc562ac14395aaa444839da57e8518561785cd423cabf2f3861bbcd69514d685
+    sha256: c88229904a660f414d35ce4a7707fc930a3f88470b21aab314706ec665ba007b
   commands:
     package: "cub installer package packages/prometheus-community/kube-prometheus-stack/85.3.3 -o <tmp>/prometheus-community-kube-prometheus-stack-85.3.3.tgz"
     push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-85.3.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled kube-prometheus-stack-kube-prometheus-stack@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-wWTSd3/prometheus-community-kube-prometheus-stack-85.3.3.tgz
-        files:  7
-        size:   543452 bytes
-        digest: sha256:fc562ac14395aaa444839da57e8518561785cd423cabf2f3861bbcd69514d685
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-8nSo3l/prometheus-community-kube-prometheus-stack-85.3.3.tgz
+        files:  8
+        size:   961068 bytes
+        digest: sha256:c88229904a660f414d35ce4a7707fc930a3f88470b21aab314706ec665ba007b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3
-        manifest: sha256:52fc05b69c3a0058d84df0b39cb521d9c82ee98da0689df743ddb6f0016b5593
-        layer:    sha256:fc562ac14395aaa444839da57e8518561785cd423cabf2f3861bbcd69514d685 (543452 bytes, 7 files)
-    inspectJSONSHA256: e832dbb3a73e1ead806efac13ba4f17ad096632f368bb1c6360f4c21d43d1996
+        manifest: sha256:ec9412f9fef75018210f90aea1946342fc3da773e19e0e6a10f3d9ac82ff8705
+        layer:    sha256:c88229904a660f414d35ce4a7707fc930a3f88470b21aab314706ec665ba007b (961068 bytes, 8 files)
+    inspectJSONSHA256: d5cfe5670f7ef2655a9c14136626032ee774d60275dc938f46ab08719a5c5e47

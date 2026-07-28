@@ -5452,6 +5452,33 @@ function isRunnableRequirementCommand(value) {
   return /^(kubectl|helm|bash|sh|cub|flux|argocd|curl)\b/.test(command);
 }
 
+function packagedRequirementPath(value) {
+  const match = /^package:\/\/([a-zA-Z0-9._/-]+)$/.exec(String(value ?? "").trim());
+  if (!match || match[1].split("/").includes("..")) return "";
+  return match[1];
+}
+
+function packagedRequirementDescription(requirement) {
+  const path = packagedRequirementPath(requirement.suggestedSource);
+  if (!path) return "";
+  return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves existing CRDs under their current owner, installs missing ones, and waits for them before the workload.`;
+}
+
+function requirementSourceHtml(requirement) {
+  return packagedRequirementDescription(requirement) ||
+    (requirement.suggestedSource
+      ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
+      : "Create or confirm this before apply.");
+}
+
+function requirementSourcePlain(requirement) {
+  const path = packagedRequirementPath(requirement.suggestedSource);
+  if (path) return `included in the package as ${path}`;
+  return requirement.suggestedSource
+    ? `suggested: ${String(requirement.suggestedSource).replace(/\s+/g, " ")}`
+    : "";
+}
+
 function presetScriptPreamble(entry, row, purposeLines) {
   const pageUrl = `${SITE_BASE_URL}charts/${chartPageFileName(entry)}`;
   return [
@@ -5490,6 +5517,9 @@ function presetTryScript(entry, row) {
   const remainingRequirements = requirements.filter(
     (requirement) => !(String(requirement.name ?? "").startsWith("Namespace ") && requirement.namespace),
   );
+  const packagedRequirements = remainingRequirements.filter((requirement) =>
+    Boolean(packagedRequirementPath(requirement.suggestedSource)),
+  );
   const lines = presetScriptPreamble(entry, row, [
     "Path: pull the package, render this base variant locally, read the objects,",
     "then apply them with kubectl. No ConfigHub account is needed.",
@@ -5515,9 +5545,51 @@ function presetTryScript(entry, row) {
     );
   }
   const runnable = remainingRequirements.filter((requirement) =>
+    !packagedRequirements.includes(requirement) &&
     isRunnableRequirementCommand(requirement.suggestedSource),
   );
-  const manual = remainingRequirements.filter((requirement) => !runnable.includes(requirement));
+  const manual = remainingRequirements.filter(
+    (requirement) =>
+      !packagedRequirements.includes(requirement) &&
+      !runnable.includes(requirement),
+  );
+  const packagedByPath = new Map();
+  for (const requirement of packagedRequirements) {
+    const path = packagedRequirementPath(requirement.suggestedSource);
+    const group = packagedByPath.get(path) ?? [];
+    group.push(requirement);
+    packagedByPath.set(path, group);
+  }
+  for (const [path, groupedRequirements] of packagedByPath.entries()) {
+    const crdNames = groupedRequirements
+      .map((requirement) => /^CRD\s+(.+)$/.exec(String(requirement.name ?? ""))?.[1])
+      .filter(Boolean);
+    const label = crdNames.length === 1
+      ? `Check the ${crdNames[0]} CRD included with this package`
+      : `Check ${crdNames.length} CRDs included with this package`;
+    lines.push(
+      "",
+      `say "${shellStepText(label)}"`,
+      "missing_crds=0",
+    );
+    for (const crdName of crdNames) {
+      lines.push(
+        `if ! kubectl get crd/${crdName} >/dev/null 2>&1; then`,
+        "  missing_crds=1",
+        "fi",
+      );
+    }
+    lines.push(
+      'if [ "$missing_crds" -eq 1 ]; then',
+      `  kubectl apply --server-side -f ${workDir}/package/${path}`,
+      "else",
+      '  say "The required CRDs already exist; leave them under their current owner"',
+      "fi",
+    );
+    for (const crdName of crdNames) {
+      lines.push(`kubectl wait --for=condition=Established --timeout=120s crd/${crdName}`);
+    }
+  }
   for (const requirement of runnable) {
     const label = shellStepText(requirement.name || requirement.kind || "required target input");
     lines.push(
@@ -5608,7 +5680,10 @@ function presetConfigHubScript(entry, row) {
     lines.push(
       "",
       "# Before applying this base variant from ConfigHub to a cluster, it still needs:",
-      ...requirements.map((requirement) => `#   - ${String(requirement.name || requirement.kind || "required target input").replace(/\s+/g, " ")}${requirement.suggestedSource ? ` (suggested: ${String(requirement.suggestedSource).replace(/\s+/g, " ")})` : ""}`),
+      ...requirements.map((requirement) => {
+        const source = requirementSourcePlain(requirement);
+        return `#   - ${String(requirement.name || requirement.kind || "required target input").replace(/\s+/g, " ")}${source ? ` (${source})` : ""}`;
+      }),
     );
   }
   lines.push("");
@@ -5777,9 +5852,7 @@ function chartPageHtml(catalog, entry) {
   const packageRequirements = packageRequirementsForEntry(entry);
   const packageRequirementRows = packageRequirements.map((requirement) => [
     requirement.name || requirement.kind || "required target input",
-    requirement.suggestedSource
-      ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
-      : "Create or confirm this before apply.",
+    requirementSourceHtml(requirement),
   ]);
   const packageRequirementTableRows = packageRequirementRows.length
     ? packageRequirementRows
@@ -5789,9 +5862,7 @@ function chartPageHtml(catalog, entry) {
     .flatMap((row) => packageRequirementsForBase(entry, row.variant).map((requirement) => [
       row.variant,
       requirement.name || requirement.kind || "required target input",
-      requirement.suggestedSource
-        ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
-        : "Create or confirm this before apply.",
+      requirementSourceHtml(requirement),
       `<a href="../../data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}">full render intent</a>`,
     ]));
   const artifactRows = [

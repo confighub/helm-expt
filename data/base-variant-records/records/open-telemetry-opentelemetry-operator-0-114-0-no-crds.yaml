@@ -48,6 +48,8 @@ spec:
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "issuers.cert-manager.io"
         type: "requiredCRDs"
@@ -63,6 +65,8 @@ spec:
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "instrumentations.opentelemetry.io"
         type: "requiredCRDs"
@@ -78,6 +82,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "opampbridges.opentelemetry.io"
         type: "requiredCRDs"
@@ -93,6 +99,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "opentelemetrycollectors.opentelemetry.io"
         type: "requiredCRDs"
@@ -108,6 +116,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "targetallocators.opentelemetry.io"
         type: "requiredCRDs"
@@ -123,6 +133,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "opentelemetry-operator-controller-manager-service-cert"
         type: "requiredSecrets"
@@ -159,6 +171,8 @@ spec:
             sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
             suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -170,6 +184,8 @@ spec:
             sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
             suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -181,6 +197,8 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -192,6 +210,8 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -203,6 +223,8 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -214,6 +236,8 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         requiredSecrets:
           -
             deliveryLanes:
@@ -238,7 +262,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
-          check: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -249,6 +275,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "issuers.cert-manager.io"
@@ -258,7 +285,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
-          check: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -269,6 +298,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "instrumentations.opentelemetry.io"
@@ -278,7 +308,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -289,6 +321,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "opampbridges.opentelemetry.io"
@@ -298,7 +331,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -309,6 +344,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "opentelemetrycollectors.opentelemetry.io"
@@ -318,7 +354,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -329,6 +367,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "targetallocators.opentelemetry.io"
@@ -338,7 +377,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -349,6 +390,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+            - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "secret"
           name: "default/opentelemetry-operator-controller-manager-service-cert"

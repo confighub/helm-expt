@@ -47,5 +47,5 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key (suggested: Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator)
-#   - CRD certificates.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD issuers.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD certificates.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD issuers.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)

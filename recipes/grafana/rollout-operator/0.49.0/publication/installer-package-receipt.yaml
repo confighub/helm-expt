@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
-    sha256: "8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362"
+    sha256: "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
   package:
     name: "grafana-rollout-operator"
     path: "packages/grafana/rollout-operator/0.49.0"
@@ -41,8 +41,12 @@ spec:
         bytes: 2926
       -
         path: "installer.yaml"
-        sha256: "ba240ba01e644dcfd3e591ac07d9aaf3461b6605ba9e24fd1d6d2fb667761a9c"
-        bytes: 1079
+        sha256: "2afdbab9b73e501230cc685c8fc4d33d19ae7bacdf6007bb4b67bd04fe1e132f"
+        bytes: 1097
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "62142ff2b76378977e9369a07cc0746da5596e57804dce00610d7f3f2810f3a4"
+        bytes: 3985
     version: "0.49.0"
   setupChecks:
     -
@@ -54,9 +58,9 @@ spec:
       helmReleaseObjectCount: 15
       semanticObjectMatches: "15/15"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +70,6 @@ spec:
       helmReleaseObjectCount: 13
       semanticObjectMatches: "13/13"
       separatedSecretCount: 0
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"

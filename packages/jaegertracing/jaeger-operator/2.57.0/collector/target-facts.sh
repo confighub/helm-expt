@@ -89,7 +89,7 @@ targetFacts:
     - runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml
     name: certificates.cert-manager.io
     purpose: The chart renders a cert-manager Certificate for the Jaeger admission webhook.
-    sourcePath: ../../target-prerequisite-plan.yaml
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
     suggestedSource: kubectl apply -f <cert-manager-install-manifest.yaml>
   - deliveryLanes:
     - regularHelm
@@ -101,7 +101,7 @@ targetFacts:
     - runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml
     name: issuers.cert-manager.io
     purpose: The chart renders a cert-manager Issuer for the Jaeger admission webhook.
-    sourcePath: ../../target-prerequisite-plan.yaml
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
     suggestedSource: kubectl apply -f <cert-manager-install-manifest.yaml>
 
   requiredValues: []
@@ -139,7 +139,7 @@ targetFacts:
     - recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml
     name: jaegers.jaegertracing.io
     purpose: Jaeger CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <jaeger-crd.yaml>
   - deliveryLanes:
@@ -152,7 +152,7 @@ targetFacts:
     name: certificates.cert-manager.io
     purpose: The no-crds preset still renders a cert-manager Certificate for the Jaeger
       admission webhook.
-    sourcePath: ../../target-prerequisite-plan.yaml
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
     suggestedSource: kubectl apply -f <cert-manager-install-manifest.yaml>
   - deliveryLanes:
     - regularHelm
@@ -164,7 +164,7 @@ targetFacts:
     name: issuers.cert-manager.io
     purpose: The no-crds preset still renders a cert-manager Issuer for the Jaeger admission
       webhook.
-    sourcePath: ../../target-prerequisite-plan.yaml
+    sourcePath: ../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml
     suggestedSource: kubectl apply -f <cert-manager-install-manifest.yaml>
 
   requiredValues: []

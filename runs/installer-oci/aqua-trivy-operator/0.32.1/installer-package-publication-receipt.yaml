@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1
   package:
     path: packages/aqua/trivy-operator/0.32.1
-    sha256: ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae
+    sha256: 355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3
   commands:
     package: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
     push: "cub installer push <tmp>/aqua-trivy-operator-0.32.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled aqua-trivy-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-6RLj4Z/aqua-trivy-operator-0.32.1.tgz
-        files:  7
-        size:   30965 bytes
-        digest: sha256:ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-oZljQB/aqua-trivy-operator-0.32.1.tgz
+        files:  8
+        size:   38232 bytes
+        digest: sha256:355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1
-        manifest: sha256:92a2e504ffb757439a06dde328368ca4bd44d715b4af1c814dc915904c8d978b
-        layer:    sha256:ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae (30965 bytes, 7 files)
-    inspectJSONSHA256: 51a49b3f925277c1767661ea75ea7af38bedf4e3108f8cc3219c7601ca59142b
+        manifest: sha256:df97b8e3f79f987652528c261ddd3cb5a5dc297f2a57cf22fcad90c592a1f094
+        layer:    sha256:355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3 (38232 bytes, 8 files)
+    inspectJSONSHA256: be80d433cf5dd1afe9a949e60d356c2ba78751af5c6463ffc91719189f59e5d9

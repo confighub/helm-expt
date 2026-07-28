@@ -74,6 +74,8 @@ spec:
           name: "backups.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -83,6 +85,8 @@ spec:
           name: "clusterimagecatalogs.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -92,6 +96,8 @@ spec:
           name: "clusters.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -101,6 +107,8 @@ spec:
           name: "databases.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -110,6 +118,8 @@ spec:
           name: "failoverquorums.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -119,6 +129,8 @@ spec:
           name: "imagecatalogs.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -128,6 +140,8 @@ spec:
           name: "poolers.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -137,6 +151,8 @@ spec:
           name: "publications.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -146,6 +162,8 @@ spec:
           name: "scheduledbackups.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -155,6 +173,8 @@ spec:
           name: "subscriptions.postgresql.cnpg.io"
           purpose: "CloudNativePG CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       requiredSecrets:
         -
           deliveryLanes:
@@ -177,7 +197,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -188,6 +210,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "clusterimagecatalogs.postgresql.cnpg.io"
@@ -197,7 +220,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -208,6 +233,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "clusters.postgresql.cnpg.io"
@@ -217,7 +243,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -228,6 +256,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "databases.postgresql.cnpg.io"
@@ -237,7 +266,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -248,6 +279,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "failoverquorums.postgresql.cnpg.io"
@@ -257,7 +289,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -268,6 +302,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "imagecatalogs.postgresql.cnpg.io"
@@ -277,7 +312,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -288,6 +325,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "poolers.postgresql.cnpg.io"
@@ -297,7 +335,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -308,6 +348,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "publications.postgresql.cnpg.io"
@@ -317,7 +358,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -328,6 +371,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "scheduledbackups.postgresql.cnpg.io"
@@ -337,7 +381,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -348,6 +394,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "subscriptions.postgresql.cnpg.io"
@@ -357,7 +404,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "CloudNativePG CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -368,6 +417,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/variants/no-crds/variant.yaml"
+          - "packages/cloudnative-pg/cloudnative-pg/0.28.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "secret"
         name: "default/cnpg-webhook-cert"

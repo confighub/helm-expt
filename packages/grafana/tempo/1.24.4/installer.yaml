@@ -21,7 +21,7 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "S3-compatible object store tempo/tempo-object-store"

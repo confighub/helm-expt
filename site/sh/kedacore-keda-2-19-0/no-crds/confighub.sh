@@ -46,9 +46,9 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD cloudeventsources.eventing.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
-#   - CRD clustercloudeventsources.eventing.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
-#   - CRD clustertriggerauthentications.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
-#   - CRD scaledjobs.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
-#   - CRD scaledobjects.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
-#   - CRD triggerauthentications.keda.sh (suggested: kubectl apply -f <keda-crds.yaml>)
+#   - CRD cloudeventsources.eventing.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD clustercloudeventsources.eventing.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD clustertriggerauthentications.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD scaledjobs.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD scaledobjects.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD triggerauthentications.keda.sh (included in the package as prerequisites/target-facts/no-crds-crds.yaml)

@@ -27,11 +27,11 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD verticalpodautoscalers.autoscaling.k8s.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
       name: "no-crds"
       path: "bases/no-crds"
   collector:

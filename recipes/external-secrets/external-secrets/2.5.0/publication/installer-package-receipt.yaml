@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
-    sha256: "22daa6ffce0022a52f1ef7394f9a5f807b644805f7280d04dbccfae813771e60"
+    sha256: "1f4e5b986a37206d61120c82456eaff8b6c5b1ae0f1ef810aa5dbed89c56ea91"
   package:
     name: "external-secrets-external-secrets"
     path: "packages/external-secrets/external-secrets/2.5.0"
@@ -41,8 +41,12 @@ spec:
         bytes: 10975
       -
         path: "installer.yaml"
-        sha256: "89f7ea835837464f45095329759d410a27dd5fc60a2817cdb43b9f9c1188d28f"
-        bytes: 7216
+        sha256: "d9434aeb8c1fefa26f666f43e628980260ecedb33e0fc431b1564b7df8aba968"
+        bytes: 7630
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "91ba5cd199501e9aa2d62a66aba9e4e89899817074d61e984c0ede79f8f23c9e"
+        bytes: 1666879
     version: "2.5.0"
   setupChecks:
     -

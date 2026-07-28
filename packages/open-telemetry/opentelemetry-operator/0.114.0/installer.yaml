@@ -17,11 +17,11 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
     -
@@ -35,27 +35,27 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD instrumentations.opentelemetry.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD opampbridges.opentelemetry.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD opentelemetrycollectors.opentelemetry.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD targetallocators.opentelemetry.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
       name: "no-crds"
       path: "bases/no-crds"
   collector:

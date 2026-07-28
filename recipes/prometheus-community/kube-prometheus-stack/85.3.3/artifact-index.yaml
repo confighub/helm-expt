@@ -67,7 +67,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
     installer: "packages/prometheus-community/kube-prometheus-stack/85.3.3/installer.yaml"
     receipt: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fc562ac14395aaa444839da57e8518561785cd423cabf2f3861bbcd69514d685"
+    deterministicBundleSHA256: "c88229904a660f414d35ce4a7707fc930a3f88470b21aab314706ec665ba007b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

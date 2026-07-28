@@ -38,36 +38,53 @@ ls ./strimzi-strimzi-kafka-operator-1-0-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD kafkas.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkaconnects.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD strimzipodsets.core.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkatopics.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkausers.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkanodepools.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkabridges.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkaconnectors.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkamirrormaker2s.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-  - CRD kafkarebalances.kafka.strimzi.io
-    kubectl apply -f <strimzi-crds.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 10 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/kafkas.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/kafkaconnects.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/strimzipodsets.core.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkatopics.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkausers.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkanodepools.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkabridges.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkaconnectors.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkamirrormaker2s.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/kafkarebalances.kafka.strimzi.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./strimzi-strimzi-kafka-operator-1-0-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/kafkas.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkaconnects.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/strimzipodsets.core.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkatopics.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkausers.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkanodepools.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkabridges.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkaconnectors.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkamirrormaker2s.kafka.strimzi.io
+kubectl wait --for=condition=Established --timeout=120s crd/kafkarebalances.kafka.strimzi.io
 
 if [ -d ./strimzi-strimzi-kafka-operator-1-0-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

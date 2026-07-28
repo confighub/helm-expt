@@ -12,11 +12,11 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
     -
@@ -25,15 +25,15 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD jaegers.jaegertracing.io"
-          suggestedSource: "kubectl apply -f <jaeger-crd.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
       name: "no-crds"
       path: "bases/no-crds"
   collector:

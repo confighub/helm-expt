@@ -15,7 +15,7 @@ spec:
       -
         name: "jaegers.jaegertracing.io"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "Jaeger CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <jaeger-crd.yaml>"
         deliveryLanes:
@@ -29,7 +29,7 @@ spec:
         name: "certificates.cert-manager.io"
         purpose: "The no-crds preset still renders a cert-manager Certificate for the Jaeger admission webhook."
         suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
-        sourcePath: "../../target-prerequisite-plan.yaml"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
         deliveryLanes:
           - "regularHelm"
           - "cubInstallerApply"
@@ -41,7 +41,7 @@ spec:
         name: "issuers.cert-manager.io"
         purpose: "The no-crds preset still renders a cert-manager Issuer for the Jaeger admission webhook."
         suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
-        sourcePath: "../../target-prerequisite-plan.yaml"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
         deliveryLanes:
           - "regularHelm"
           - "cubInstallerApply"

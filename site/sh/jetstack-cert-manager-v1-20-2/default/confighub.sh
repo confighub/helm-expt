@@ -46,9 +46,9 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD challenges.acme.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD orders.acme.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD certificaterequests.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD certificates.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD clusterissuers.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD issuers.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD challenges.acme.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD orders.acme.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD certificaterequests.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD certificates.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD clusterissuers.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD issuers.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)

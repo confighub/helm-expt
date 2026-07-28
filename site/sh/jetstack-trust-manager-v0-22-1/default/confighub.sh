@@ -47,6 +47,6 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret default/trust-manager-tls keys tls.crt,tls.key (suggested: kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>)
-#   - CRD certificates.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD issuers.cert-manager.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD certificates.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD issuers.cert-manager.io (included in the package as prerequisites/target-facts/default-crds.yaml)
 #   - Namespace cert-manager (suggested: kubectl create namespace cert-manager)

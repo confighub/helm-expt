@@ -12,27 +12,27 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD challenges.acme.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD orders.acme.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD certificaterequests.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD clusterissuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
     -

@@ -67,7 +67,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362"
+    deterministicBundleSHA256: "57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

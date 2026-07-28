@@ -74,6 +74,8 @@ spec:
           name: "bundles.trust.cert-manager.io"
           purpose: "trust-manager CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -84,6 +86,8 @@ spec:
           purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
           sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -94,6 +98,8 @@ spec:
           purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
           sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
       requiredNamespaces:
         -
           deliveryLanes:
@@ -126,7 +132,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "trust-manager CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -137,6 +145,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+          - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "certificates.cert-manager.io"
@@ -146,7 +155,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
         sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -157,6 +168,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+          - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "issuers.cert-manager.io"
@@ -166,7 +178,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
         sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -177,6 +191,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/jetstack/trust-manager/v0.22.1/variants/no-crds/variant.yaml"
+          - "packages/jetstack/trust-manager/v0.22.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "namespace"
         name: "cert-manager"

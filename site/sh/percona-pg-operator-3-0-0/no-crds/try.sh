@@ -38,32 +38,45 @@ ls ./percona-pg-operator-3-0-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD crunchybridgeclusters.upstream.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD perconapgbackups.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD perconapgclusters.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD perconapgrestores.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD perconapgupgrades.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD pgadmins.upstream.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD pgupgrades.upstream.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-  - CRD postgresclusters.upstream.pgv2.percona.com
-    kubectl apply -f <pg-operator-crds.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 8 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/crunchybridgeclusters.upstream.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/perconapgbackups.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/perconapgclusters.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/perconapgrestores.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/perconapgupgrades.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/pgadmins.upstream.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/pgupgrades.upstream.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/postgresclusters.upstream.pgv2.percona.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./percona-pg-operator-3-0-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/crunchybridgeclusters.upstream.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/perconapgbackups.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/perconapgclusters.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/perconapgrestores.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/perconapgupgrades.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/pgadmins.upstream.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/pgupgrades.upstream.pgv2.percona.com
+kubectl wait --for=condition=Established --timeout=120s crd/postgresclusters.upstream.pgv2.percona.com
 
 if [ -d ./percona-pg-operator-3-0-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

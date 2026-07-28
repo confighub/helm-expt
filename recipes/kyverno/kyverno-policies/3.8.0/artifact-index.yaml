@@ -64,7 +64,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0"
     installer: "packages/kyverno/kyverno-policies/3.8.0/installer.yaml"
     receipt: "recipes/kyverno/kyverno-policies/3.8.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7cb83a112a030aa3d8d50f86980314308818bcd12fbe0ed0b30f965a729c2b0d"
+    deterministicBundleSHA256: "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
   package:
     path: packages/open-telemetry/opentelemetry-operator/0.114.0
-    sha256: 321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a
+    sha256: af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d
   commands:
     package: "cub installer package packages/open-telemetry/opentelemetry-operator/0.114.0 -o <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz"
     push: "cub installer push <tmp>/open-telemetry-opentelemetry-operator-0.114.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled open-telemetry-opentelemetry-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-VgcNK0/open-telemetry-opentelemetry-operator-0.114.0.tgz
-        files:  7
-        size:   42298 bytes
-        digest: sha256:321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-pt1jkX/open-telemetry-opentelemetry-operator-0.114.0.tgz
+        files:  9
+        size:   146867 bytes
+        digest: sha256:af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0
-        manifest: sha256:e3df29f2b2e18333ba4bffbffd44cd3157778129a8a5756298f6107d6b1960c0
-        layer:    sha256:321d25af9bb17316a1a23536ffbda7e12f96dc3044132e59adc1d6755893a25a (42298 bytes, 7 files)
-    inspectJSONSHA256: 1202a8d9b932b5b023534c029821d5b3129ab7231da1c0d01db2154c9113bf9e
+        manifest: sha256:dacf369ea222ff6e4b2538c39c5743867a140991f1b724e0d7e59667d1892a5a
+        layer:    sha256:af21a8076fa31c389155ca8a82a3092cb011ca4002a0ea7fec33089f2e28130d (146867 bytes, 9 files)
+    inspectJSONSHA256: 52b5763e36d91d125fbe7ad2884fb15e9930fd78357df6116e7dbaf12a48f6c5

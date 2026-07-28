@@ -15,7 +15,7 @@ spec:
       -
         name: "cloudeventsources.eventing.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:
@@ -26,7 +26,7 @@ spec:
       -
         name: "clustercloudeventsources.eventing.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:
@@ -37,7 +37,7 @@ spec:
       -
         name: "clustertriggerauthentications.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:
@@ -48,7 +48,7 @@ spec:
       -
         name: "scaledjobs.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:
@@ -59,7 +59,7 @@ spec:
       -
         name: "scaledobjects.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:
@@ -70,7 +70,7 @@ spec:
       -
         name: "triggerauthentications.keda.sh"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "KEDA CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <keda-crds.yaml>"
         deliveryLanes:

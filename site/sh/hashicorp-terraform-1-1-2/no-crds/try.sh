@@ -38,6 +38,18 @@ ls ./hashicorp-terraform-1-1-2-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check the workspaces.app.terraform.io CRD included with this package"
+missing_crds=0
+if ! kubectl get crd/workspaces.app.terraform.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./hashicorp-terraform-1-1-2-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/workspaces.app.terraform.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
@@ -45,8 +57,6 @@ This base variant needs resources you must create with your own values first:
     kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>
   - Secret default/workspacesecrets
     kubectl -n default apply -f <workspacesecrets-manifest.yaml>
-  - CRD workspaces.app.terraform.io
-    kubectl apply -f <terraform-workspace-crd.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

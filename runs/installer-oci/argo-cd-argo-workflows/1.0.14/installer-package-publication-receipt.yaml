@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14
   package:
     path: packages/argo-cd/argo-workflows/1.0.14
-    sha256: d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2
+    sha256: a65331c51df10e7b478b63568c896320be0a0dc7e2306416e8821b699b0b3cef
   commands:
     package: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
     push: "cub installer push <tmp>/argo-cd-argo-workflows-1.0.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled argo-cd-argo-workflows@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-UFMFUb/argo-cd-argo-workflows-1.0.14.tgz
-        files:  9
-        size:   55284 bytes
-        digest: sha256:d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-liT2HR/argo-cd-argo-workflows-1.0.14.tgz
+        files:  11
+        size:   150536 bytes
+        digest: sha256:a65331c51df10e7b478b63568c896320be0a0dc7e2306416e8821b699b0b3cef
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14
-        manifest: sha256:e619d545894a25364b2f0c167d7c32944b5a3d773e94b6376404f120c0aebf5d
-        layer:    sha256:d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2 (55284 bytes, 9 files)
-    inspectJSONSHA256: f2a1a32c3212c5dd4993252bad265599a9b69a0185471313a6b0b7d957c9a679
+        manifest: sha256:ae8ed046c2e6b20b44a06e089b77df69aa834f904b045a675c499f72c2499ece
+        layer:    sha256:a65331c51df10e7b478b63568c896320be0a0dc7e2306416e8821b699b0b3cef (150536 bytes, 11 files)
+    inspectJSONSHA256: 3ec72384cf22fd61f0187ddab7d7d58499f2143e9be34b47a11ab3cb46e17d70

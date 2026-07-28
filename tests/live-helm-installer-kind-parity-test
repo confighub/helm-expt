@@ -680,7 +680,13 @@ def target_fact_applies(item: dict, lane: str) -> bool:
     return any(item in accepted for item in delivery_lanes)
 
 
-def target_fact_crd_docs(variant: dict, recipe_path: Path, run_root: Path, lane: str) -> tuple[list[dict], list[dict]]:
+def target_fact_crd_docs(
+    variant: dict,
+    recipe_path: Path,
+    run_root: Path,
+    lane: str,
+    package_path: Path | None = None,
+) -> tuple[list[dict], list[dict]]:
     required = [
         crd
         for crd in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredCRDs") or [])
@@ -688,23 +694,41 @@ def target_fact_crd_docs(variant: dict, recipe_path: Path, run_root: Path, lane:
     ]
     docs = []
     staged = []
+    packaged_source = None
+    if required and lane == "cubInstallerApply" and package_path is not None:
+        base = str((variant.get("metadata") or {}).get("name") or "default")
+        slug = re.sub(r"[^a-z0-9]+", "-", base.lower()).strip("-")
+        candidate = package_path / "prerequisites" / "target-facts" / f"{slug}-crds.yaml"
+        if candidate.exists():
+            packaged_source = candidate
     for crd in required:
         name = crd.get("name")
         if not name:
             raise RuntimeError(f"invalid required CRD target fact: {crd}")
         source_variant = crd.get("sourceVariant") or "default"
         source_path = crd.get("sourcePath")
-        if source_path:
+        if packaged_source is not None:
+            source = packaged_source
+            source_kind = "installer-package"
+        elif source_path:
             source = (recipe_path / source_path).resolve() if not Path(source_path).is_absolute() else Path(source_path)
+            source_kind = "recorded-source-path"
         else:
             source = recipe_path / "revisions" / source_variant / "r001" / "rendered" / "release-objects.yaml"
+            source_kind = "recorded-source-variant"
         if not source.exists():
             raise RuntimeError(f"required CRD source not found for {name}: {source}")
         matches = [doc for doc in yaml_docs(source.read_text()) if doc.get("kind") == "CustomResourceDefinition" and (doc.get("metadata") or {}).get("name") == name]
         if not matches:
             raise RuntimeError(f"required CRD {name} not found in {source}")
         docs.append(matches[0])
-        staged.append({"name": name, "sourceVariant": source_variant, "lane": lane})
+        staged.append({
+            "name": name,
+            "sourceVariant": source_variant,
+            "sourceKind": source_kind,
+            "sourcePath": str(source),
+            "lane": lane,
+        })
     return docs, staged
 
 
@@ -805,13 +829,29 @@ def minio_object_store_docs(store: dict, fallback_namespace: str) -> list[dict]:
     return docs
 
 
-def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, context: str, fallback_namespace: str, run_root: Path, label: str, lane: str) -> dict:
+def stage_target_facts(
+    variant: dict,
+    recipe_path: Path,
+    kubeconfig: Path,
+    context: str,
+    fallback_namespace: str,
+    run_root: Path,
+    label: str,
+    lane: str,
+    package_path: Path | None = None,
+) -> dict:
     required_secrets = [
         secret
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
         if target_fact_applies(secret, lane)
     ]
-    crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, run_root, lane)
+    crd_docs, staged_crds = target_fact_crd_docs(
+        variant,
+        recipe_path,
+        run_root,
+        lane,
+        package_path,
+    )
     required_object_stores = target_fact_object_stores(variant, lane)
     required_namespaces = target_fact_namespaces(variant, lane)
     if not required_secrets and not crd_docs and not required_object_stores and not required_namespaces:
@@ -1708,7 +1748,17 @@ def main() -> int:
             check_item(f"kind-create-{label}", "pass", detail)
 
         helm_target_facts = stage_target_facts(variant, recipe_path, helm_kubeconfig, helm_context, args.namespace, run_root, "helm", "regularHelm")
-        installer_target_facts = stage_target_facts(variant, recipe_path, installer_kubeconfig, installer_context, args.namespace, run_root, "installer", "cubInstallerApply")
+        installer_target_facts = stage_target_facts(
+            variant,
+            recipe_path,
+            installer_kubeconfig,
+            installer_context,
+            args.namespace,
+            run_root,
+            "installer",
+            "cubInstallerApply",
+            package_path,
+        )
         receipt["spec"]["targetFacts"] = {
             "regularHelm": helm_target_facts,
             "cubInstallerApply": installer_target_facts,

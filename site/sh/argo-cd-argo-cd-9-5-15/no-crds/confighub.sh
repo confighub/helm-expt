@@ -47,6 +47,6 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret argocd/argocd-redis key auth (suggested: kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>)
-#   - CRD applications.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD applicationsets.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD appprojects.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD applications.argoproj.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD applicationsets.argoproj.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD appprojects.argoproj.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)

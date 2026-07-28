@@ -46,9 +46,9 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD cephblockpools.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD cephclusters.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD cephfilesystems.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD cephfilesystemsubvolumegroups.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD cephobjectstores.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD cephblockpools.ceph.rook.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD cephclusters.ceph.rook.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD cephfilesystems.ceph.rook.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD cephfilesystemsubvolumegroups.ceph.rook.io (included in the package as prerequisites/target-facts/default-crds.yaml)
+#   - CRD cephobjectstores.ceph.rook.io (included in the package as prerequisites/target-facts/default-crds.yaml)
 #   - Namespace rook-ceph (suggested: kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -)

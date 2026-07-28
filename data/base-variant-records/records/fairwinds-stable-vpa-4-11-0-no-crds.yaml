@@ -46,6 +46,8 @@ spec:
           name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
           purpose: "VPA CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "verticalpodautoscalers.autoscaling.k8s.io"
         type: "requiredCRDs"
@@ -59,6 +61,8 @@ spec:
           name: "verticalpodautoscalers.autoscaling.k8s.io"
           purpose: "VPA CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "vpa-tls-secret"
         type: "requiredSecrets"
@@ -92,6 +96,8 @@ spec:
             name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
             purpose: "VPA CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -101,6 +107,8 @@ spec:
             name: "verticalpodautoscalers.autoscaling.k8s.io"
             purpose: "VPA CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
         requiredSecrets:
           -
             deliveryLanes:
@@ -124,7 +132,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "VPA CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -135,6 +145,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
+            - "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "verticalpodautoscalers.autoscaling.k8s.io"
@@ -144,7 +155,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "VPA CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -155,6 +168,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
+            - "packages/fairwinds-stable/vpa/4.11.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "secret"
           name: "default/vpa-tls-secret"

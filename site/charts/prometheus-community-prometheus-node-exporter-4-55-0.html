@@ -691,7 +691,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Required resource</th><th>How to provide it</th><th>Full record</th></tr></thead>
-        <tbody><tr><td>cluster-metrics-readonly</td><td>CRD servicemonitors.monitoring.coreos.com</td><td><code>kubectl apply -f &lt;crd-manifest.yaml&gt;</code></td><td><a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml">full render intent</a></td></tr></tbody>
+        <tbody><tr><td>cluster-metrics-readonly</td><td>CRD servicemonitors.monitoring.coreos.com</td><td>Included in the OCI package as <code>prerequisites/target-facts/cluster-metrics-readonly-crds.yaml</code>. The generated try script leaves existing CRDs under their current owner, installs missing ones, and waits for them before the workload.</td><td><a href="../../data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml">full render intent</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

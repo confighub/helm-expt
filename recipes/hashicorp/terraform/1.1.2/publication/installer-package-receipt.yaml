@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
-    sha256: "21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e"
+    sha256: "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e"
   package:
     name: "hashicorp-terraform"
     path: "packages/hashicorp/terraform/1.1.2"
@@ -37,12 +37,16 @@ spec:
         bytes: 4400
       -
         path: "collector/target-facts.sh"
-        sha256: "ccd07dbb13a1c1668e27e08fab3cacc6c6ffb29dddf6289fdbaeda064a4a1e02"
-        bytes: 5505
+        sha256: "bda816a8ae4a5e77ddfd8b6cde26c164d682dffb4088ed82076397dc0e3c9897"
+        bytes: 5499
       -
         path: "installer.yaml"
-        sha256: "cb430bc0d92099a04c3caba04b5ee450a6bf5afebdc5b33dc7056a51ea801d7f"
-        bytes: 1832
+        sha256: "fc7099928b10c94d6fe0c852d9e4c112d181a153a1acfb86c9ccc7cd06fa6d61"
+        bytes: 1839
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "fdce26684eb016c59e648ef8a1f8f7e41804320d4bc58090901e5bd334e8be64"
+        bytes: 13956
     version: "1.1.2"
   setupChecks:
     -

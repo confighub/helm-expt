@@ -69,7 +69,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2"
     installer: "packages/cloudnative-pg/cloudnative-pg/0.28.2/installer.yaml"
     receipt: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c47b2fef36ba4a4335808a7cfb0d9144d10aaa3274a276797a0497276dbbca29"
+    deterministicBundleSHA256: "8d1dc7fe14fde6c76b955531ccd58279150a7b3a74bde1ac8b7e30df09409013"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

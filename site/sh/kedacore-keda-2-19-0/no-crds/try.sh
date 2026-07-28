@@ -38,28 +38,37 @@ ls ./kedacore-keda-2-19-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD cloudeventsources.eventing.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-  - CRD clustercloudeventsources.eventing.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-  - CRD clustertriggerauthentications.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-  - CRD scaledjobs.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-  - CRD scaledobjects.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-  - CRD triggerauthentications.keda.sh
-    kubectl apply -f <keda-crds.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 6 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/cloudeventsources.eventing.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/clustercloudeventsources.eventing.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clustertriggerauthentications.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/scaledjobs.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/scaledobjects.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/triggerauthentications.keda.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./kedacore-keda-2-19-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/cloudeventsources.eventing.keda.sh
+kubectl wait --for=condition=Established --timeout=120s crd/clustercloudeventsources.eventing.keda.sh
+kubectl wait --for=condition=Established --timeout=120s crd/clustertriggerauthentications.keda.sh
+kubectl wait --for=condition=Established --timeout=120s crd/scaledjobs.keda.sh
+kubectl wait --for=condition=Established --timeout=120s crd/scaledobjects.keda.sh
+kubectl wait --for=condition=Established --timeout=120s crd/triggerauthentications.keda.sh
 
 if [ -d ./kedacore-keda-2-19-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

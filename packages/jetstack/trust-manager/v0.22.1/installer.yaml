@@ -17,11 +17,11 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "Namespace cert-manager"
@@ -40,15 +40,15 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD bundles.trust.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD certificates.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD issuers.cert-manager.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "Namespace cert-manager"

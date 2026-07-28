@@ -47,6 +47,8 @@ spec:
           purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "perconaxtradbclusterrestores.pxc.percona.com"
         type: "requiredCRDs"
@@ -61,6 +63,8 @@ spec:
           purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "perconaxtradbclusters.pxc.percona.com"
         type: "requiredCRDs"
@@ -75,6 +79,8 @@ spec:
           purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -93,6 +99,8 @@ spec:
             purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -103,6 +111,8 @@ spec:
             purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -113,6 +123,8 @@ spec:
             purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -123,7 +135,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <pxc-operator-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -134,6 +148,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "perconaxtradbclusterrestores.pxc.percona.com"
@@ -143,7 +158,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <pxc-operator-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -154,6 +171,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "perconaxtradbclusters.pxc.percona.com"
@@ -163,7 +181,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <pxc-operator-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -174,6 +194,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+            - "packages/percona/pxc-operator/1.19.1/prerequisites/target-facts/no-crds-crds.yaml"
       actions:
         []
       coverage:

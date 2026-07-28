@@ -43,6 +43,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterconfigauditreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -53,6 +55,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterinfraassessmentreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -63,6 +67,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterrbacassessmentreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -73,6 +79,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clustersbomreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -83,6 +91,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clustervulnerabilityreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -93,6 +103,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "configauditreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -103,6 +115,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "exposedsecretreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -113,6 +127,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "infraassessmentreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -123,6 +139,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "rbacassessmentreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -133,6 +151,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "sbomreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -143,6 +163,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "vulnerabilityreports.aquasecurity.github.io"
         type: "requiredCRDs"
@@ -153,6 +175,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -167,72 +191,96 @@ spec:
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "clusterconfigauditreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "clusterinfraassessmentreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "clusterrbacassessmentreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "clustersbomreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "clustervulnerabilityreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "configauditreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "exposedsecretreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "infraassessmentreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "rbacassessmentreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "sbomreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             name: "vulnerabilityreports.aquasecurity.github.io"
             purpose: "Trivy Operator CRD managed outside this no-crds base"
             sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -243,7 +291,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -251,6 +301,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterconfigauditreports.aquasecurity.github.io"
@@ -260,7 +311,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -268,6 +321,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterinfraassessmentreports.aquasecurity.github.io"
@@ -277,7 +331,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -285,6 +341,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterrbacassessmentreports.aquasecurity.github.io"
@@ -294,7 +351,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -302,6 +361,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clustersbomreports.aquasecurity.github.io"
@@ -311,7 +371,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -319,6 +381,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clustervulnerabilityreports.aquasecurity.github.io"
@@ -328,7 +391,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -336,6 +401,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "configauditreports.aquasecurity.github.io"
@@ -345,7 +411,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -353,6 +421,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "exposedsecretreports.aquasecurity.github.io"
@@ -362,7 +431,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -370,6 +441,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "infraassessmentreports.aquasecurity.github.io"
@@ -379,7 +451,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -387,6 +461,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "rbacassessmentreports.aquasecurity.github.io"
@@ -396,7 +471,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -404,6 +481,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "sbomreports.aquasecurity.github.io"
@@ -413,7 +491,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -421,6 +501,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "vulnerabilityreports.aquasecurity.github.io"
@@ -430,7 +511,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Trivy Operator CRD managed outside this no-crds base"
-          check: "Apply the default base CRDs or install Trivy Operator CRDs before applying this base"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -438,6 +521,7 @@ spec:
             []
           evidence:
             - "recipes/aqua/trivy-operator/0.32.1/variants/no-crds/variant.yaml"
+            - "packages/aqua/trivy-operator/0.32.1/prerequisites/target-facts/no-crds-crds.yaml"
       actions:
         []
       coverage:

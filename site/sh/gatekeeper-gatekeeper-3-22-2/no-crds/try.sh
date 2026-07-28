@@ -38,50 +38,81 @@ ls ./gatekeeper-gatekeeper-3-22-2-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD assign.mutations.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD assignimage.mutations.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD assignmetadata.mutations.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD configs.config.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD configpodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD connections.connection.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD connectionpodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD constraintpodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD constrainttemplates.templates.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD constrainttemplatepodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD expansiontemplate.expansion.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD expansiontemplatepodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD modifyset.mutations.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD mutatorpodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD providers.externaldata.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD providerpodstatuses.status.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD syncsets.syncset.gatekeeper.sh
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 17 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/assign.mutations.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/assignimage.mutations.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/assignmetadata.mutations.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/configs.config.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/configpodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/connections.connection.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/connectionpodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/constraintpodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/constrainttemplates.templates.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/constrainttemplatepodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/expansiontemplate.expansion.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/expansiontemplatepodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/modifyset.mutations.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/mutatorpodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/providers.externaldata.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/providerpodstatuses.status.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/syncsets.syncset.gatekeeper.sh >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./gatekeeper-gatekeeper-3-22-2-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/assign.mutations.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/assignimage.mutations.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/assignmetadata.mutations.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/configs.config.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/configpodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/connections.connection.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/connectionpodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/constraintpodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/constrainttemplates.templates.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/constrainttemplatepodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/expansiontemplate.expansion.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/expansiontemplatepodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/modifyset.mutations.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/mutatorpodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/providers.externaldata.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/providerpodstatuses.status.gatekeeper.sh
+kubectl wait --for=condition=Established --timeout=120s crd/syncsets.syncset.gatekeeper.sh
 
 if [ -d ./gatekeeper-gatekeeper-3-22-2-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

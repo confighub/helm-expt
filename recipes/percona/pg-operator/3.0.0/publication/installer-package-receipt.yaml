@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
-    sha256: "736510f98d3bc78458e478d728e4294b549d2b238801ce2627a6626936e1df76"
+    sha256: "30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5"
   package:
     name: "percona-pg-operator"
     path: "packages/percona/pg-operator/3.0.0"
@@ -41,8 +41,12 @@ spec:
         bytes: 5109
       -
         path: "installer.yaml"
-        sha256: "1f01f3f3b855583afc939c99ed42d2c0ecdb0a9265ab5d99ac7010cc4964298b"
-        bytes: 2048
+        sha256: "c7fa05d4ad9a7ba616bda58730a38b053b2db67d5748b5020918b77514f4ef67"
+        bytes: 2160
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "08c6417496a6b5281f1ad200d0751b01b6ce1819eb75d5a97c6d5fbf920cec18"
+        bytes: 1574243
     version: "3.0.0"
   setupChecks:
     -
@@ -54,9 +58,9 @@ spec:
       helmReleaseObjectCount: 12
       semanticObjectMatches: "12/12"
       separatedSecretCount: 0
-      variant: "default"
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "default"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -66,6 +70,6 @@ spec:
       helmReleaseObjectCount: 4
       semanticObjectMatches: "4/4"
       separatedSecretCount: 0
-      variant: "no-crds"
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "no-crds"

@@ -12,21 +12,21 @@ spec:
       path: "bases/default"
     -
       description: "percona/pxc-operator no-crds variant rendered from percona/pxc-operator@1.19.1"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "CRD perconaxtradbclusterbackups.pxc.percona.com"
-          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD perconaxtradbclusterrestores.pxc.percona.com"
-          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD perconaxtradbclusters.pxc.percona.com"
-          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

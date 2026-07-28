@@ -76,6 +76,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -87,6 +89,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -98,6 +102,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -109,6 +115,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -120,6 +128,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -131,6 +141,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -142,6 +154,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -153,6 +167,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -164,6 +180,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -175,6 +193,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -186,6 +206,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -197,6 +219,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -208,6 +232,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -219,6 +245,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -230,6 +258,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -241,6 +271,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -252,6 +284,8 @@ spec:
           sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -262,7 +296,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -273,6 +309,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "assignimage.mutations.gatekeeper.sh"
@@ -282,7 +319,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -293,6 +332,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "assignmetadata.mutations.gatekeeper.sh"
@@ -302,7 +342,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -313,6 +355,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "configs.config.gatekeeper.sh"
@@ -322,7 +365,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -333,6 +378,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "configpodstatuses.status.gatekeeper.sh"
@@ -342,7 +388,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -353,6 +401,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "connections.connection.gatekeeper.sh"
@@ -362,7 +411,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -373,6 +424,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "connectionpodstatuses.status.gatekeeper.sh"
@@ -382,7 +434,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -393,6 +447,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "constraintpodstatuses.status.gatekeeper.sh"
@@ -402,7 +457,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -413,6 +470,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "constrainttemplates.templates.gatekeeper.sh"
@@ -422,7 +480,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -433,6 +493,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "constrainttemplatepodstatuses.status.gatekeeper.sh"
@@ -442,7 +503,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -453,6 +516,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "expansiontemplate.expansion.gatekeeper.sh"
@@ -462,7 +526,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -473,6 +539,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "expansiontemplatepodstatuses.status.gatekeeper.sh"
@@ -482,7 +549,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -493,6 +562,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "modifyset.mutations.gatekeeper.sh"
@@ -502,7 +572,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -513,6 +585,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "mutatorpodstatuses.status.gatekeeper.sh"
@@ -522,7 +595,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -533,6 +608,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "providers.externaldata.gatekeeper.sh"
@@ -542,7 +618,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -553,6 +631,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "providerpodstatuses.status.gatekeeper.sh"
@@ -562,7 +641,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -573,6 +654,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "syncsets.syncset.gatekeeper.sh"
@@ -582,7 +664,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Gatekeeper CRD managed outside this no-crds base"
-        check: "Apply the default base CRDs or install Gatekeeper CRDs before applying this base"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
@@ -593,6 +677,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/gatekeeper/gatekeeper/3.22.2/variants/no-crds/variant.yaml"
+          - "packages/gatekeeper/gatekeeper/3.22.2/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
     coverage:

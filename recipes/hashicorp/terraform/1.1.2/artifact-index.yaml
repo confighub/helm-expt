@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e"
+    deterministicBundleSHA256: "a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -194,7 +194,7 @@ spec:
               - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
             name: "workspaces.app.terraform.io"
             purpose: "Terraform Workspace CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
         requiredSecrets:

@@ -94,12 +94,14 @@ A render intent records:
 The target-prerequisite section has two parts:
 
 - `targetFacts.declared` is the original declaration copied from the base
-  variant.
+  variant. When the installer package carries the exact CRDs, each CRD also
+  gets a `packageSource` and repository `packagePath`.
 - `targetFacts.requirements` turns that declaration into a consistent list of
   Secrets, CRDs, namespaces, values, storage, DNS names, or topology. Each item
   says whether it must be checked before render or before apply. The default
   freshness rule is one render or one apply, so a previous check is not reused
-  for the next operation.
+  for the next operation. Its `check` field uses the packaged CRD file instead
+  of a placeholder command when that file exists.
 - `targetFacts.actions` contains follow-up work derived from an observed failed
   or blocked run. A base can have declared facts even when no failure has
   produced an action record.

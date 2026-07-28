@@ -38,28 +38,37 @@ ls ./jetstack-cert-manager-v1-20-2-default/out/manifests
 say "Ensure the cert-manager namespace exists"
 kubectl create namespace cert-manager --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD challenges.acme.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD orders.acme.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD certificaterequests.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD certificates.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterissuers.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD issuers.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 6 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/challenges.acme.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/orders.acme.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/certificaterequests.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/certificates.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterissuers.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/issuers.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./jetstack-cert-manager-v1-20-2-default/package/prerequisites/target-facts/default-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/challenges.acme.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/orders.acme.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/certificaterequests.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/certificates.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterissuers.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/issuers.cert-manager.io
 
 if [ -d ./jetstack-cert-manager-v1-20-2-default/out/secrets ]; then
   say "Apply rendered Secrets first"

@@ -69,7 +69,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1"
     installer: "packages/jetstack/trust-manager/v0.22.1/installer.yaml"
     receipt: "recipes/jetstack/trust-manager/v0.22.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62"
+    deterministicBundleSHA256: "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

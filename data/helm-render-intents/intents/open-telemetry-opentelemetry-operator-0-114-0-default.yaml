@@ -76,6 +76,8 @@ spec:
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           suggestedSource: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -87,6 +89,8 @@ spec:
           sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
           suggestedSource: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
       requiredSecrets:
         -
           deliveryLanes:
@@ -111,7 +115,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
-        check: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
         sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -122,6 +128,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+          - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "issuers.cert-manager.io"
@@ -131,7 +138,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
-        check: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
         sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
         sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -142,6 +151,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+          - "packages/open-telemetry/opentelemetry-operator/0.114.0/prerequisites/target-facts/default-crds.yaml"
       -
         category: "secret"
         name: "default/opentelemetry-operator-controller-manager-service-cert"

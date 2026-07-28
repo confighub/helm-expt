@@ -69,7 +69,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2"
     installer: "packages/gatekeeper/gatekeeper/3.22.2/installer.yaml"
     receipt: "recipes/gatekeeper/gatekeeper/3.22.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e"
+    deterministicBundleSHA256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

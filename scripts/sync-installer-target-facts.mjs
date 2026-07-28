@@ -1,9 +1,10 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import {
   check,
   listFiles,
+  parseDocs,
   readYaml,
   relativeRepo,
   repoRoot,
@@ -16,6 +17,7 @@ const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
 const recipeSelectors = parseRecipeSelectors(args.slice(1));
 const targetCharts = selectTargetCharts(targetFactCharts(), recipeSelectors);
+const crdSourceDocCache = new Map();
 verifySuggestedSourceMerge();
 
 if (mode === "--generate") {
@@ -80,7 +82,9 @@ function syncChart(chart) {
   check(existsSync(installerPath), `${relativeRepo(chart.recipeRoot)} missing package installer`);
   check(existsSync(chart.receiptPath), `${relativeRepo(chart.recipeRoot)} missing installer package receipt`);
   const installer = readYaml(installerPath);
+  const installerBefore = semanticJson(installer);
   const factsByVariant = new Map(chart.variants.map((variant) => [variant.name, variant.targetFacts]));
+  writeCrdBundles(chart, packageRoot);
 
   installer.spec.collector = {
     command: "/bin/sh",
@@ -91,7 +95,7 @@ function syncChart(chart) {
     const targetFacts = factsByVariant.get(base.name);
     const currentGenerated = (base.externalRequires ?? []).filter((item) => isGeneratedTargetFactRequire(item));
     const generated = targetFacts
-      ? externalRequiresFor(targetFacts).map((requirement) =>
+      ? externalRequiresFor(targetFacts, base.name).map((requirement) =>
           preserveConcreteSuggestedSource(requirement, currentGenerated),
         )
       : [];
@@ -101,10 +105,11 @@ function syncChart(chart) {
     else delete next.externalRequires;
     return next;
   });
-  writeYaml(installerPath, installer);
+  if (semanticJson(installer) !== installerBefore) writeYaml(installerPath, installer);
   write(join(packageRoot, "collector", "target-facts.sh"), collectorScript(installer.spec.bases ?? [], factsByVariant));
 
   const receipt = readYaml(chart.receiptPath);
+  const receiptBefore = semanticJson(receipt);
   receipt.spec.package.sourceFiles = packageSourceFiles(packageRoot);
   const bundle = deterministicBundle(packageRoot, receipt.spec.package.path);
   receipt.spec.deterministicBundle.sha256 = bundle.sha256;
@@ -114,7 +119,18 @@ function syncChart(chart) {
     targetFactMode: factsByVariant.has(item.variant) ? "collector-facts" : "not-required",
     targetFactsBound: factsByVariant.has(item.variant),
   }));
-  writeYaml(chart.receiptPath, receipt);
+  if (semanticJson(receipt) !== receiptBefore) writeYaml(chart.receiptPath, receipt);
+}
+
+function semanticJson(value) {
+  if (Array.isArray(value)) return `[${value.map((item) => semanticJson(item)).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${semanticJson(value[key])}`)
+      .join(",")}}`;
+  }
+  return JSON.stringify(value);
 }
 
 function verifyChart(chart) {
@@ -134,13 +150,21 @@ function verifyChart(chart) {
   for (const [variantName, targetFacts] of factsByVariant.entries()) {
     const base = bases.find((item) => item.name === variantName);
     check(Boolean(base), `${relativeRepo(packageRoot)} missing target-fact base ${variantName}`);
-    const expected = externalRequiresFor(targetFacts);
+    const expected = externalRequiresFor(targetFacts, variantName);
     for (const requirement of expected) {
+      const actualRequirement = (base.externalRequires ?? []).find((item) => sameRequire(item, requirement));
       check(
-        (base.externalRequires ?? []).some((item) => sameRequire(item, requirement)),
+        Boolean(actualRequirement),
         `${relativeRepo(packageRoot)} base ${variantName} missing requirement ${requirement.name}`,
       );
+      if (requirement.suggestedSource?.startsWith("package://")) {
+        check(
+          actualRequirement.suggestedSource === requirement.suggestedSource,
+          `${relativeRepo(packageRoot)} base ${variantName} must point ${requirement.name} at its packaged CRD bundle`,
+        );
+      }
     }
+    verifyCrdBundle(chart, packageRoot, variantName, targetFacts);
     const setupCheck = (receipt.spec?.setupChecks ?? []).find((item) => item.variant === variantName);
     check(Boolean(setupCheck), `${relativeRepo(chart.receiptPath)} missing setup check for ${variantName}`);
     check(setupCheck.targetFactMode === "collector-facts", `${variantName} receipt targetFactMode mismatch`);
@@ -222,7 +246,7 @@ function packageRootFor(chart) {
   return join(repoRoot, packagePath);
 }
 
-function externalRequiresFor(targetFacts) {
+function externalRequiresFor(targetFacts, variantName) {
   const requirements = (targetFacts.requiredSecrets ?? []).map((secret) => ({
     kind: "ClusterFeature",
     name: secretRequirementName(secret),
@@ -239,7 +263,7 @@ function externalRequiresFor(targetFacts) {
     ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
       kind: "ClusterFeature",
       name: crdRequirementName(crd),
-      suggestedSource: crd.suggestedSource ?? "kubectl apply -f <crd-manifest.yaml>",
+      suggestedSource: `package://${crdBundleRelativePath(variantName)}`,
     })),
   );
   requirements.push(
@@ -268,6 +292,109 @@ function externalRequiresFor(targetFacts) {
     });
   }
   return requirements;
+}
+
+function writeCrdBundles(chart, packageRoot) {
+  const generatedRoot = join(packageRoot, "prerequisites", "target-facts");
+  rmSync(generatedRoot, { recursive: true, force: true });
+  for (const variant of chart.variants) {
+    const requiredCRDs = variant.targetFacts.requiredCRDs ?? [];
+    if (requiredCRDs.length === 0) continue;
+    const docs = requiredCrdDocs(chart, variant.name, requiredCRDs);
+    write(
+      join(packageRoot, crdBundleRelativePath(variant.name)),
+      crdBundleYaml(chart, variant, docs),
+    );
+  }
+}
+
+function verifyCrdBundle(chart, packageRoot, variantName, targetFacts) {
+  const requiredCRDs = targetFacts.requiredCRDs ?? [];
+  if (requiredCRDs.length === 0) return;
+  const bundlePath = join(packageRoot, crdBundleRelativePath(variantName));
+  check(existsSync(bundlePath), `${relativeRepo(packageRoot)} base ${variantName} missing packaged CRD bundle`);
+  const docs = parseDocs(readFileSync(bundlePath, "utf8"));
+  const actualNames = docs
+    .filter((doc) => doc.kind === "CustomResourceDefinition")
+    .map((doc) => doc.metadata?.name)
+    .filter(Boolean)
+    .sort();
+  const expectedNames = requiredCRDs.map((crd) => crd.name).sort();
+  check(
+    JSON.stringify(actualNames) === JSON.stringify(expectedNames),
+    `${relativeRepo(bundlePath)} must contain exactly the CRDs declared by ${variantName}`,
+  );
+  requiredCrdDocs(chart, variantName, requiredCRDs);
+}
+
+function requiredCrdDocs(chart, variantName, requiredCRDs) {
+  const seen = new Set();
+  return requiredCRDs.map((crd) => {
+    check(crd.name, `${relativeRepo(chart.recipeRoot)} base ${variantName} has a CRD without a name`);
+    check(!seen.has(crd.name), `${relativeRepo(chart.recipeRoot)} base ${variantName} repeats CRD ${crd.name}`);
+    seen.add(crd.name);
+    const sourcePath = crd.sourcePath
+      ? resolve(chart.recipeRoot, crd.sourcePath)
+      : join(
+          chart.recipeRoot,
+          "revisions",
+          crd.sourceVariant ?? "default",
+          "r001",
+          "rendered",
+          "release-objects.yaml",
+        );
+    check(
+      existsSync(sourcePath),
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} CRD ${crd.name} source does not exist: ${relativeRepo(sourcePath)}`,
+    );
+    if (!crdSourceDocCache.has(sourcePath)) {
+      crdSourceDocCache.set(sourcePath, parseDocs(readFileSync(sourcePath, "utf8")));
+    }
+    const matches = crdSourceDocCache
+      .get(sourcePath)
+      .filter(
+        (doc) =>
+          doc.kind === "CustomResourceDefinition" &&
+          doc.metadata?.name === crd.name,
+      );
+    check(
+      matches.length === 1,
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} must resolve CRD ${crd.name} exactly once in ${relativeRepo(sourcePath)}`,
+    );
+    return matches[0];
+  });
+}
+
+function crdBundleRelativePath(variantName) {
+  const slug = String(variantName)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  check(Boolean(slug), `cannot create a CRD bundle path for base ${variantName}`);
+  return `prerequisites/target-facts/${slug}-crds.yaml`;
+}
+
+function crdBundleYaml(chart, variant, docs) {
+  const body = execFileSync(
+    "python3",
+    [
+      "-c",
+      `import json,sys,yaml
+docs=json.loads(sys.stdin.read())
+print(yaml.safe_dump_all(docs, explicit_start=True, sort_keys=False, width=100000).rstrip())
+`,
+    ],
+    {
+      input: JSON.stringify(docs),
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 200,
+    },
+  );
+  return `# Generated from ${relativeRepo(variant.path)}.
+# These are the exact CRDs named by this base variant's recorded target facts.
+# Apply them before the rendered workload objects; do not edit this generated copy.
+${body.trimEnd()}
+`;
 }
 
 function preserveConcreteSuggestedSource(requirement, currentRequirements) {

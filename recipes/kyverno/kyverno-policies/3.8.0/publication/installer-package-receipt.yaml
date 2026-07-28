@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kyverno/kyverno-policies/3.8.0 -o <tmp>/kyverno-kyverno-policies-3-8-0.tgz"
-    sha256: "7cb83a112a030aa3d8d50f86980314308818bcd12fbe0ed0b30f965a729c2b0d"
+    sha256: "f893d8b6e3b80b313da43e3fd2f16df8fddd51b980bfd2ae1134187d3bd2a977"
   package:
     name: "kyverno-kyverno-policies"
     path: "packages/kyverno/kyverno-policies/3.8.0"
@@ -33,8 +33,12 @@ spec:
         bytes: 2539
       -
         path: "installer.yaml"
-        sha256: "93f561b2732eed2064aa28fd1315d372ceb4b7e317ee2a476352d239ff34e235"
-        bytes: 686
+        sha256: "a074a9d2e86b4ba02ac72b5b9a7bf1f9b7a2e524eea1512418270ffbec3c3671"
+        bytes: 704
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "4bea192a024076d90d0e77c1c649bf01e977ffe5ea3d88264caa97a6ae8ee8d5"
+        bytes: 1271584
     version: "3.8.0"
   setupChecks:
     -

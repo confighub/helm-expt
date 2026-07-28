@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "ee161ef2453c1a6911ae195742f6978669525631c17c3361275ead961a9096c3"
+    sha256: "0deb28ce79d22bc3b79b1f91d9fe825ce733cd6ab54e7fe54f64c9068d97f93f"
   package:
     name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
@@ -41,8 +41,12 @@ spec:
         bytes: 3942
       -
         path: "installer.yaml"
-        sha256: "6dbdf17f68dcef03e20ffbde817be5e69b361f986ee79b892f5d9db4431caa58"
-        bytes: 1440
+        sha256: "cdcee05461a548f020d8799eb99c548dcb287094d23443fd0dca6b8558632e2c"
+        bytes: 1473
+      -
+        path: "prerequisites/target-facts/s3-query-observability-crds.yaml"
+        sha256: "408410b6fa758eaf995207467c9906ce178fad7310e11c9a53a18dae0ce4b191"
+        bytes: 69333
     version: "1.24.4"
   setupChecks:
     -

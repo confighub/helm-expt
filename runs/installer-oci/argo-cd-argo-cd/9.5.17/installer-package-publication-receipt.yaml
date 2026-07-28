@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17
   package:
     path: packages/argo-cd/argo-cd/9.5.17
-    sha256: 59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42
+    sha256: a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac
   commands:
     package: "cub installer package packages/argo-cd/argo-cd/9.5.17 -o <tmp>/argo-cd-argo-cd-9.5.17.tgz"
     push: "cub installer push <tmp>/argo-cd-argo-cd-9.5.17.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled argo-cd-argo-cd@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-B93Dft/argo-cd-argo-cd-9.5.17.tgz
-        files:  7
-        size:   112534 bytes
-        digest: sha256:59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-AljSpT/argo-cd-argo-cd-9.5.17.tgz
+        files:  8
+        size:   195105 bytes
+        digest: sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17
-        manifest: sha256:7a1265d5d0da055ac4036bb6d26b6506c5f396f96ffb93c271ad1e502ef0188d
-        layer:    sha256:59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42 (112534 bytes, 7 files)
-    inspectJSONSHA256: a7c43ef1e1b7bef81ce07a35e9548e0a550804dded13aecf8390c33d5731b919
+        manifest: sha256:69ffe2b8a2231e813729f2401e6a3acb1f8752260425f04c708ac0c35e308116
+        layer:    sha256:a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac (195105 bytes, 8 files)
+    inspectJSONSHA256: 125495c2a357a85385ccf6f98ed28c372511dea542c89a5c44ac027dba5462b8

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
-    sha256: "4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f"
+    sha256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
   package:
     name: "kedacore-keda"
     path: "packages/kedacore/keda/2.19.0"
@@ -37,12 +37,16 @@ spec:
         bytes: 28773
       -
         path: "collector/target-facts.sh"
-        sha256: "d1e8356271987af905fcbf0026b49e516aed9c3721f399df1d870b94ca2fde4e"
-        bytes: 4621
+        sha256: "c45e94383b7eb54f79d7dc22309f73e8eea2037c81625330fe219b41cad318ce"
+        bytes: 4585
       -
         path: "installer.yaml"
-        sha256: "70537909949bb112a1b48dc05b0ea95ea2d844d430ca2dbccac21fd9211bcba8"
-        bytes: 1594
+        sha256: "b0ddc9d39eaf75ac6ae41fb663867304564fd80f65f6c4c9a6da00c6eca2518a"
+        bytes: 1720
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "08adf90416ec3b7b6ce5c8f805ada41c36e7b57c8d37bc0321a5d897e3fcdf6a"
+        bytes: 686811
     version: "2.19.0"
   setupChecks:
     -

@@ -38,23 +38,43 @@ ls ./open-telemetry-opentelemetry-operator-0-114-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 6 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/certificates.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/issuers.cert-manager.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/instrumentations.opentelemetry.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/opampbridges.opentelemetry.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/opentelemetrycollectors.opentelemetry.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/targetallocators.opentelemetry.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./open-telemetry-opentelemetry-operator-0-114-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/certificates.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/issuers.cert-manager.io
+kubectl wait --for=condition=Established --timeout=120s crd/instrumentations.opentelemetry.io
+kubectl wait --for=condition=Established --timeout=120s crd/opampbridges.opentelemetry.io
+kubectl wait --for=condition=Established --timeout=120s crd/opentelemetrycollectors.opentelemetry.io
+kubectl wait --for=condition=Established --timeout=120s crd/targetallocators.opentelemetry.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key
     Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator
-  - CRD certificates.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD issuers.cert-manager.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD instrumentations.opentelemetry.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD opampbridges.opentelemetry.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD opentelemetrycollectors.opentelemetry.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD targetallocators.opentelemetry.io
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

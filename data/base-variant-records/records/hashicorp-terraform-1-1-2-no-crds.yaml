@@ -47,9 +47,11 @@ spec:
             - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
           name: "workspaces.app.terraform.io"
           purpose: "Terraform Workspace CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "terraformrc"
         type: "requiredSecrets"
@@ -106,9 +108,11 @@ spec:
               - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
             name: "workspaces.app.terraform.io"
             purpose: "Terraform Workspace CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
         requiredSecrets:
           -
             deliveryLanes:
@@ -150,10 +154,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Terraform Workspace CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <terraform-workspace-crd.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -161,6 +167,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml"
+            - "packages/hashicorp/terraform/1.1.2/prerequisites/target-facts/no-crds-crds.yaml"
             - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
         -
           category: "secret"

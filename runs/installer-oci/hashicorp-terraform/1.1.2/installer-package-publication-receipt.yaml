@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2
   package:
     path: packages/hashicorp/terraform/1.1.2
-    sha256: 21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e
+    sha256: a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e
   commands:
     package: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
     push: "cub installer push <tmp>/hashicorp-terraform-1.1.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled hashicorp-terraform@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-3GaAel/hashicorp-terraform-1.1.2.tgz
-        files:  7
-        size:   5874 bytes
-        digest: sha256:21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-2S6bnT/hashicorp-terraform-1.1.2.tgz
+        files:  8
+        size:   8472 bytes
+        digest: sha256:a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2
-        manifest: sha256:2da87cdde9e88fccaa6fc6e465f4525a68cb4890037036721173958e1e7fee91
-        layer:    sha256:21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e (5874 bytes, 7 files)
-    inspectJSONSHA256: 9fcc3cea68b747104cc12e60fd8e9db9e42a281eeeee6b1811dc0ee001933bd7
+        manifest: sha256:dc1abc1c3ee4780fa98c7d02bd7ab44e915fe9537f953cfa3eff8c2a7decfd02
+        layer:    sha256:a656ca6d20114f92209e9416d9795f0f5e90935d91e3c1906523224be94ef88e (8472 bytes, 8 files)
+    inspectJSONSHA256: 7ed3eabc7e5ed4c6480c36ca0a0847bb1e702a8b1eb19c83083c6856becc0831

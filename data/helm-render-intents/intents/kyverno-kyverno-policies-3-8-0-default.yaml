@@ -75,6 +75,8 @@ spec:
           purpose: "Kyverno ClusterPolicy CRD required before kyverno-policies ClusterPolicy objects can be applied"
           sourcePath: "../../kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "kyverno/kyverno@3.8.1/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/kyverno/kyverno-policies/3.8.0/prerequisites/target-facts/default-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -85,7 +87,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Kyverno ClusterPolicy CRD required before kyverno-policies ClusterPolicy objects can be applied"
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/kyverno/kyverno-policies/3.8.0/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml"
         sourceVariant: "kyverno/kyverno@3.8.1/default"
         sourcePath: "../../kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
@@ -96,6 +100,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml"
+          - "packages/kyverno/kyverno-policies/3.8.0/prerequisites/target-facts/default-crds.yaml"
     actions:
       []
     coverage:

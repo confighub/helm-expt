@@ -66,7 +66,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0"
     installer: "packages/jaegertracing/jaeger-operator/2.57.0/installer.yaml"
     receipt: "recipes/jaegertracing/jaeger-operator/2.57.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123"
+    deterministicBundleSHA256: "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -104,7 +104,7 @@ spec:
               - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
             name: "certificates.cert-manager.io"
             purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
           -
             deliveryLanes:
@@ -117,7 +117,7 @@ spec:
               - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
             name: "issuers.cert-manager.io"
             purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
       targetFactSummary: "required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:
@@ -191,7 +191,7 @@ spec:
               - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
             name: "jaegers.jaegertracing.io"
             purpose: "Jaeger CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <jaeger-crd.yaml>"
           -
@@ -204,7 +204,7 @@ spec:
               - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
             name: "certificates.cert-manager.io"
             purpose: "The no-crds preset still renders a cert-manager Certificate for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
           -
             deliveryLanes:
@@ -216,7 +216,7 @@ spec:
               - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
             name: "issuers.cert-manager.io"
             purpose: "The no-crds preset still renders a cert-manager Issuer for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
       targetFactSummary: "required CRD jaegers.jaegertracing.io; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
       packageBase:

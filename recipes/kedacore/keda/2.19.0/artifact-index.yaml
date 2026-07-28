@@ -70,7 +70,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"
     receipt: "recipes/kedacore/keda/2.19.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f"
+    deterministicBundleSHA256: "5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -167,7 +167,7 @@ spec:
               - "configHubOciArgo"
             name: "cloudeventsources.eventing.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
           -
@@ -178,7 +178,7 @@ spec:
               - "configHubOciArgo"
             name: "clustercloudeventsources.eventing.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
           -
@@ -189,7 +189,7 @@ spec:
               - "configHubOciArgo"
             name: "clustertriggerauthentications.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
           -
@@ -200,7 +200,7 @@ spec:
               - "configHubOciArgo"
             name: "scaledjobs.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
           -
@@ -211,7 +211,7 @@ spec:
               - "configHubOciArgo"
             name: "scaledobjects.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
           -
@@ -222,7 +222,7 @@ spec:
               - "configHubOciArgo"
             name: "triggerauthentications.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
       targetFactSummary: "required CRD cloudeventsources.eventing.keda.sh; required CRD clustercloudeventsources.eventing.keda.sh; required CRD clustertriggerauthentications.keda.sh; required CRD scaledjobs.keda.sh; required CRD scaledobjects.keda.sh; required CRD triggerauthentications.keda.sh"

@@ -46,11 +46,11 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD clusterworkflowtemplates.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD cronworkflows.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workflowartifactgctasks.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workfloweventbindings.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workflows.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workflowtaskresults.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workflowtasksets.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD workflowtemplates.argoproj.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD clusterworkflowtemplates.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD cronworkflows.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workflowartifactgctasks.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workfloweventbindings.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workflows.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workflowtaskresults.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workflowtasksets.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)
+#   - CRD workflowtemplates.argoproj.io (included in the package as prerequisites/target-facts/controller-default-reviewed-crds.yaml)

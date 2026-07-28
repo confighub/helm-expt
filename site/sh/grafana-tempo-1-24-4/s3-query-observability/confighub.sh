@@ -47,5 +47,5 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret tempo/tempo-s3-credentials keys access_key,secret_key (suggested: kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>)
-#   - CRD servicemonitors.monitoring.coreos.com (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD servicemonitors.monitoring.coreos.com (included in the package as prerequisites/target-facts/s3-query-observability-crds.yaml)
 #   - S3-compatible object store tempo/tempo-object-store (suggested: create or bind an S3-compatible endpoint, bucket, and credentials before apply)

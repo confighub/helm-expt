@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/gatekeeper/gatekeeper/3.22.2 -o <tmp>/gatekeeper-gatekeeper-3.22.2.tgz"
-    sha256: "fe50e229de9d1f6a0fabd807c2c54d3bd393e13d9e0a95f35be62f199834c74e"
+    sha256: "93f4fd6fd457c859f1d391321e420ae938693dd2711e4baf5fa49454d6832f40"
   package:
     name: "gatekeeper-gatekeeper"
     path: "packages/gatekeeper/gatekeeper/3.22.2"
@@ -41,8 +41,12 @@ spec:
         bytes: 10408
       -
         path: "installer.yaml"
-        sha256: "6040b4b62386038924a8fe71ffadd6b07bc8735354fce1f34bff559f3bbc1823"
-        bytes: 3573
+        sha256: "1ae6badf6492c4ff4fabcbe925178df3dfa854933b0ba1459e008057aca67132"
+        bytes: 3879
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "2c516b0b70d8347e91224ba54ccc7c19c34353e3331b7f2d98c4823d8674313c"
+        bytes: 239234
     version: "3.22.2"
   setupChecks:
     -
