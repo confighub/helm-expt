@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/fairwinds-stable/vpa/4.11.0 -o <tmp>/fairwinds-stable-vpa-4.11.0.tgz"
-    sha256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
+    sha256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
   package:
     name: "fairwinds-stable-vpa"
     path: "packages/fairwinds-stable/vpa/4.11.0"
@@ -41,8 +41,12 @@ spec:
         bytes: 3989
       -
         path: "installer.yaml"
-        sha256: "3d9bbc1e7be27be37c56389697fdaacc1233ef2de09eb064aa6b88d9c1b122bb"
-        bytes: 1664
+        sha256: "40e146e2987090d8ecdd09c6f6cb8b6128d2ddae5b0ef2acd821723c7164e515"
+        bytes: 1700
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "922439d6d615b2fa72531f60bffd5fccfbd3335905f791cd9d8b3dabca14331f"
+        bytes: 40996
     version: "4.11.0"
   setupChecks:
     -

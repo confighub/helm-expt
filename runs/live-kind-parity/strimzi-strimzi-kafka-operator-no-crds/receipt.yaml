@@ -7,7 +7,7 @@ spec:
   version: 1.0.0
   base: no-crds
   result: pass
-  observedAt: '2026-07-28T10:33:53Z'
+  observedAt: '2026-07-28T12:56:30Z'
   package:
     path: packages/strimzi/strimzi-kafka-operator/1.0.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-strimz-421c3-q56v-helm
-    installerCluster: hx-strimz-421c3-q56v-installer
+    helmCluster: hx-crdpkg-strim-helm
+    installerCluster: hx-crdpkg-strim-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-strimz-421c3-q56v-helm
+      - cluster: hx-crdpkg-strim-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-strimz-421c3-q56v-helm" ...
+        detail: 'Deleting cluster "hx-crdpkg-strim-helm" ...
 
-          Deleted nodes: ["hx-strimz-421c3-q56v-helm-control-plane"]'
-      - cluster: hx-strimz-421c3-q56v-installer
+          Deleted nodes: ["hx-crdpkg-strim-helm-control-plane"]'
+      - cluster: hx-crdpkg-strim-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-strimz-421c3-q56v-installer" ...
+        detail: 'Deleting cluster "hx-crdpkg-strim-installer" ...
 
-          Deleted nodes: ["hx-strimz-421c3-q56v-installer-control-plane"]'
+          Deleted nodes: ["hx-crdpkg-strim-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -55,10 +55,10 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     60s'
         pods: '# default
 
-          strimzi-cluster-operator-57856f5f9b-hbkth   1/1   Running   0     61s'
+          strimzi-cluster-operator-57856f5f9b-s7znc   1/1   Running   0     60s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -69,7 +69,7 @@ spec:
     cubInstallerApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-strimz-421c3-q56v-strimzi-kafka-operator
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-crdpkg-strim-strimzi-kafka-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -85,10 +85,10 @@ spec:
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+          deployment.apps/strimzi-cluster-operator   1/1   1     1     71s'
         pods: '# default
 
-          strimzi-cluster-operator-57856f5f9b-kwxtc   1/1   Running   0     62s'
+          strimzi-cluster-operator-57856f5f9b-5jmsr   1/1   Running   0     71s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -103,20 +103,23 @@ spec:
       helmObjectCount: 17
       installerObjectCount: 17
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
       extraInInstaller: []
       semanticDiffs: []
       semanticNormalizations: []
-      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+      comparisonSHA256: d2a6d3b2b8eabfea6c09a58367f357294ef366ff3dee5981c06afc83cb9ea31a
+    helmManagedCRDsOmittedFromGetManifest: []
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 17
       installerObjectCount: 18
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||default
       semanticDiffs: []
       semanticNormalizations: []
-      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+      comparisonSHA256: a28e3a0a28888d3ab4f4c4abd6dd4c294bb503b0d7e93c64138acce64f9e0ea5
   checks:
   - name: kind-create-helm
     result: pass
@@ -133,6 +136,9 @@ spec:
   - name: regular-helm-operating-policy
     result: pass
     detail: none
+  - name: regular-helm-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: regular-helm-render-live-parity
     result: pass
     detail: missing=0 extra=[] diffs=0
@@ -142,7 +148,7 @@ spec:
 
       NAME: strimzi-kafka-operator
 
-      LAST DEPLOYED: Tue Jul 28 11:34:55 2026
+      LAST DEPLOYED: Tue Jul 28 13:57:33 2026
 
       NAMESPACE: default
 
@@ -166,11 +172,14 @@ spec:
   - name: cub-installer-operating-policy
     result: pass
     detail: none
+  - name: cub-installer-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: cub-installer-apply-live
     result: pass
     detail: '# default
 
-      deployment.apps/strimzi-cluster-operator   1/1   1     1     61s'
+      deployment.apps/strimzi-cluster-operator   1/1   1     1     71s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
@@ -181,33 +190,53 @@ spec:
       stagedCRDs:
       - name: kafkas.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkaconnects.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: strimzipodsets.core.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkatopics.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkausers.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkanodepools.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkabridges.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkaconnectors.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkamirrormaker2s.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: kafkarebalances.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
@@ -218,33 +247,53 @@ spec:
       stagedCRDs:
       - name: kafkas.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkaconnects.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: strimzipodsets.core.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkatopics.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkausers.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkanodepools.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkabridges.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkaconnectors.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkamirrormaker2s.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: kafkarebalances.kafka.strimzi.io
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
@@ -257,3 +306,10 @@ spec:
     cubInstallerApply:
       result: pass
       operation: none
+  crdObservations:
+    regularHelm:
+      result: pass
+      items: []
+    cubInstallerApply:
+      result: pass
+      items: []

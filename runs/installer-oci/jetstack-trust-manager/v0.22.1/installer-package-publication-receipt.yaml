@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1
   package:
     path: packages/jetstack/trust-manager/v0.22.1
-    sha256: b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62
+    sha256: 59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b
   commands:
     package: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
     push: "cub installer push <tmp>/jetstack-trust-manager-v0.22.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled jetstack-trust-manager@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-q0qXC5/jetstack-trust-manager-v0.22.1.tgz
-        files:  7
-        size:   8148 bytes
-        digest: sha256:b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-4Muw7K/jetstack-trust-manager-v0.22.1.tgz
+        files:  9
+        size:   78787 bytes
+        digest: sha256:59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1
-        manifest: sha256:6931573d8d04cead3916aa97807787344cfef02c7a97e5f2033a122e488d411f
-        layer:    sha256:b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62 (8148 bytes, 7 files)
-    inspectJSONSHA256: 735ad5df69c8ee547a53d7c2dfb8a36316b4fe6e91ad2343c3880e1cc2c290c6
+        manifest: sha256:54579ff6a737f6c92315482874f839a2984702078b6957abec99c930b336e2c5
+        layer:    sha256:59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b (78787 bytes, 9 files)
+    inspectJSONSHA256: 732746eb22f003dc54e91a2b3abe5309b3831f5f33c4fc027e495c29d95ed7c0

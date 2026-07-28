@@ -47,5 +47,5 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret default/vpa-tls-secret keys ca,cert,key (suggested: kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>)
-#   - CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io (suggested: kubectl apply -f <crd-manifest.yaml>)
-#   - CRD verticalpodautoscalers.autoscaling.k8s.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD verticalpodautoscalers.autoscaling.k8s.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)

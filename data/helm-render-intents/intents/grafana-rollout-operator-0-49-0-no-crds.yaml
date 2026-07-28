@@ -75,6 +75,8 @@ spec:
           purpose: "ReplicaTemplate CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -85,6 +87,8 @@ spec:
           purpose: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -95,7 +99,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "ReplicaTemplate CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <rollout-operator-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -106,6 +112,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
+          - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
@@ -115,7 +122,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <rollout-operator-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -126,6 +135,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
+          - "packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
     coverage:

@@ -46,7 +46,7 @@ spec:
       -
         name: "workspaces.app.terraform.io"
         sourceVariant: "default"
-        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
         purpose: "Terraform Workspace CRD managed outside this no-crds preset"
         suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
         deliveryLanes:

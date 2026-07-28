@@ -41,26 +41,33 @@ kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 say "Ensure the rook-ceph namespace exists"
 kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD cephblockpools.ceph.rook.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cephclusters.ceph.rook.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cephfilesystems.ceph.rook.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cephfilesystemsubvolumegroups.ceph.rook.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cephobjectstores.ceph.rook.io
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 5 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/cephblockpools.ceph.rook.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/cephclusters.ceph.rook.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/cephfilesystems.ceph.rook.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/cephfilesystemsubvolumegroups.ceph.rook.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/cephobjectstores.ceph.rook.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./rook-release-rook-ceph-cluster-v1-19-5-default/package/prerequisites/target-facts/default-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/cephblockpools.ceph.rook.io
+kubectl wait --for=condition=Established --timeout=120s crd/cephclusters.ceph.rook.io
+kubectl wait --for=condition=Established --timeout=120s crd/cephfilesystems.ceph.rook.io
+kubectl wait --for=condition=Established --timeout=120s crd/cephfilesystemsubvolumegroups.ceph.rook.io
+kubectl wait --for=condition=Established --timeout=120s crd/cephobjectstores.ceph.rook.io
 
 if [ -d ./rook-release-rook-ceph-cluster-v1-19-5-default/out/secrets ]; then
   say "Apply rendered Secrets first"

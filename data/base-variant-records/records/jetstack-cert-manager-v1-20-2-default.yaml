@@ -43,6 +43,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       -
         name: "orders.acme.cert-manager.io"
         type: "requiredCRDs"
@@ -53,6 +55,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       -
         name: "certificaterequests.cert-manager.io"
         type: "requiredCRDs"
@@ -63,6 +67,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       -
         name: "certificates.cert-manager.io"
         type: "requiredCRDs"
@@ -73,6 +79,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       -
         name: "clusterissuers.cert-manager.io"
         type: "requiredCRDs"
@@ -83,6 +91,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       -
         name: "issuers.cert-manager.io"
         type: "requiredCRDs"
@@ -93,6 +103,8 @@ spec:
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
           sourceVariant: "crds-enabled"
           suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -107,36 +119,48 @@ spec:
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           -
             name: "orders.acme.cert-manager.io"
             purpose: "cert-manager CRD managed outside this default base"
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           -
             name: "certificaterequests.cert-manager.io"
             purpose: "cert-manager CRD managed outside this default base"
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           -
             name: "certificates.cert-manager.io"
             purpose: "cert-manager CRD managed outside this default base"
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           -
             name: "clusterissuers.cert-manager.io"
             purpose: "cert-manager CRD managed outside this default base"
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           -
             name: "issuers.cert-manager.io"
             purpose: "cert-manager CRD managed outside this default base"
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -147,7 +171,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -155,6 +181,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "orders.acme.cert-manager.io"
@@ -164,7 +191,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -172,6 +201,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "certificaterequests.cert-manager.io"
@@ -181,7 +211,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -189,6 +221,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "certificates.cert-manager.io"
@@ -198,7 +231,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -206,6 +241,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "clusterissuers.cert-manager.io"
@@ -215,7 +251,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -223,6 +261,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "issuers.cert-manager.io"
@@ -232,7 +271,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "cert-manager CRD managed outside this default base"
-          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
           sourceVariant: "crds-enabled"
           sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
@@ -240,6 +281,7 @@ spec:
             []
           evidence:
             - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+            - "packages/jetstack/cert-manager/v1.20.2/prerequisites/target-facts/default-crds.yaml"
       actions:
         []
       coverage:

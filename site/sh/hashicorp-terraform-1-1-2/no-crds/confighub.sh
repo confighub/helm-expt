@@ -48,4 +48,4 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
 #   - Secret default/terraformrc key credentials (suggested: kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>)
 #   - Secret default/workspacesecrets (suggested: kubectl -n default apply -f <workspacesecrets-manifest.yaml>)
-#   - CRD workspaces.app.terraform.io (suggested: kubectl apply -f <terraform-workspace-crd.yaml>)
+#   - CRD workspaces.app.terraform.io (included in the package as prerequisites/target-facts/no-crds-crds.yaml)

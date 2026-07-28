@@ -38,60 +38,101 @@ ls ./kyverno-kyverno-3-8-1-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD cleanuppolicies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clustercleanuppolicies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterpolicies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD globalcontextentries.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD policyexceptions.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD updaterequests.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterephemeralreports.reports.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD ephemeralreports.reports.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterpolicyreports.wgpolicyk8s.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD policyreports.wgpolicyk8s.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD deletingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD generatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD imagevalidatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD mutatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD namespaceddeletingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD namespacedgeneratingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD namespacedimagevalidatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD namespacedmutatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD namespacedvalidatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD policyexceptions.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD validatingpolicies.policies.kyverno.io
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 22 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/cleanuppolicies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/clustercleanuppolicies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterpolicies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/globalcontextentries.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/policyexceptions.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/updaterequests.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterephemeralreports.reports.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/ephemeralreports.reports.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterpolicyreports.wgpolicyk8s.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/policyreports.wgpolicyk8s.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/deletingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/generatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/imagevalidatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/mutatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/namespaceddeletingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/namespacedgeneratingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/namespacedimagevalidatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/namespacedmutatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/namespacedvalidatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/policyexceptions.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/validatingpolicies.policies.kyverno.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./kyverno-kyverno-3-8-1-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/cleanuppolicies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/clustercleanuppolicies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterpolicies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/globalcontextentries.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/policyexceptions.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/updaterequests.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterephemeralreports.reports.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/ephemeralreports.reports.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterpolicyreports.wgpolicyk8s.io
+kubectl wait --for=condition=Established --timeout=120s crd/policyreports.wgpolicyk8s.io
+kubectl wait --for=condition=Established --timeout=120s crd/deletingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/generatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/imagevalidatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/mutatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/namespaceddeletingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/namespacedgeneratingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/namespacedimagevalidatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/namespacedmutatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/namespacedvalidatingpolicies.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/policyexceptions.policies.kyverno.io
+kubectl wait --for=condition=Established --timeout=120s crd/validatingpolicies.policies.kyverno.io
 
 if [ -d ./kyverno-kyverno-3-8-1-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

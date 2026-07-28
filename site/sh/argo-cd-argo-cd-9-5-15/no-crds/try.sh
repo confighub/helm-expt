@@ -38,17 +38,31 @@ ls ./argo-cd-argo-cd-9-5-15-no-crds/out/manifests
 say "Ensure the argocd namespace exists"
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 3 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/applications.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/applicationsets.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/appprojects.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./argo-cd-argo-cd-9-5-15-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/applications.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/applicationsets.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/appprojects.argoproj.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret argocd/argocd-redis key auth
     kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>
-  - CRD applications.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD applicationsets.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD appprojects.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

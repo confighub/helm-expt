@@ -38,40 +38,61 @@ ls ./aqua-trivy-operator-0-32-1-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD clustercompliancereports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterconfigauditreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterinfraassessmentreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterrbacassessmentreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clustersbomreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clustervulnerabilityreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD configauditreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD exposedsecretreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD infraassessmentreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD rbacassessmentreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD sbomreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD vulnerabilityreports.aquasecurity.github.io
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 12 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/clustercompliancereports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/clusterconfigauditreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterinfraassessmentreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterrbacassessmentreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clustersbomreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clustervulnerabilityreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/configauditreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/exposedsecretreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/infraassessmentreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/rbacassessmentreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/sbomreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/vulnerabilityreports.aquasecurity.github.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./aqua-trivy-operator-0-32-1-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/clustercompliancereports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterconfigauditreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterinfraassessmentreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterrbacassessmentreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/clustersbomreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/clustervulnerabilityreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/configauditreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/exposedsecretreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/infraassessmentreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/rbacassessmentreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/sbomreports.aquasecurity.github.io
+kubectl wait --for=condition=Established --timeout=120s crd/vulnerabilityreports.aquasecurity.github.io
 
 if [ -d ./aqua-trivy-operator-0-32-1-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

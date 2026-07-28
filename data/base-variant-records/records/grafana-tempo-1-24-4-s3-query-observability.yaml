@@ -47,6 +47,8 @@ spec:
           purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
           sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+          packageSource: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
+          packagePath: "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
       -
         name: "tempo-object-store"
         type: "requiredObjectStores"
@@ -125,6 +127,8 @@ spec:
             purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
             sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+            packageSource: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
+            packagePath: "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
         requiredObjectStores:
           -
             bucket: "tempo-traces"
@@ -178,7 +182,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
-          check: ""
+          check: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/s3-query-observability-crds.yaml"
+          packagePath: "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
           declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
           sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
           sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
@@ -189,6 +195,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+            - "packages/grafana/tempo/1.24.4/prerequisites/target-facts/s3-query-observability-crds.yaml"
         -
           category: "object-store"
           name: "tempo-object-store"

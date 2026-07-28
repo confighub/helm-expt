@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
   package:
     path: packages/percona/pxc-operator/1.19.1
-    sha256: 124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8
+    sha256: 715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb
   commands:
     package: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
     push: "cub installer push <tmp>/percona-pxc-operator-1.19.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled percona-pxc-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-0DWTsR/percona-pxc-operator-1.19.1.tgz
-        files:  7
-        size:   30684 bytes
-        digest: sha256:124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-QTE8BO/percona-pxc-operator-1.19.1.tgz
+        files:  8
+        size:   58333 bytes
+        digest: sha256:715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1
-        manifest: sha256:86a09ee021f1bcbc7d4ea76437d85f2e6f64c39648255d26e5eba52895d70568
-        layer:    sha256:124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8 (30684 bytes, 7 files)
-    inspectJSONSHA256: 1450904749e0a3f4df2728226f98db0ae053253f58ad0afcb9ddc303d19f4824
+        manifest: sha256:dfd45f6ec4cefd0615535ad7f43273ddb3176f0d1d5fa6edd96a5835d66c0e27
+        layer:    sha256:715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb (58333 bytes, 8 files)
+    inspectJSONSHA256: 8add68eaef9d2d30ce2ea086d1249194e0de253cd01c59c49da6f85da45df6d1

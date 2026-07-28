@@ -354,6 +354,8 @@ spec:
           name: "alertmanagerconfigs.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -363,6 +365,8 @@ spec:
           name: "alertmanagers.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -372,6 +376,8 @@ spec:
           name: "podmonitors.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -381,6 +387,8 @@ spec:
           name: "probes.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -390,6 +398,8 @@ spec:
           name: "prometheusagents.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -399,6 +409,8 @@ spec:
           name: "prometheuses.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -408,6 +420,8 @@ spec:
           name: "prometheusrules.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -417,6 +431,8 @@ spec:
           name: "scrapeconfigs.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -426,6 +442,8 @@ spec:
           name: "servicemonitors.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -435,6 +453,8 @@ spec:
           name: "thanosrulers.monitoring.coreos.com"
           purpose: "Prometheus Operator CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       requiredSecrets:
         -
           deliveryLanes:
@@ -457,7 +477,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -468,6 +490,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "alertmanagers.monitoring.coreos.com"
@@ -477,7 +500,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -488,6 +513,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "podmonitors.monitoring.coreos.com"
@@ -497,7 +523,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -508,6 +536,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "probes.monitoring.coreos.com"
@@ -517,7 +546,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -528,6 +559,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "prometheusagents.monitoring.coreos.com"
@@ -537,7 +569,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -548,6 +582,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "prometheuses.monitoring.coreos.com"
@@ -557,7 +592,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -568,6 +605,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "prometheusrules.monitoring.coreos.com"
@@ -577,7 +615,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -588,6 +628,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "scrapeconfigs.monitoring.coreos.com"
@@ -597,7 +638,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -608,6 +651,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "servicemonitors.monitoring.coreos.com"
@@ -617,7 +661,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -628,6 +674,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "thanosrulers.monitoring.coreos.com"
@@ -637,7 +684,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD managed outside this no-crds base"
-        check: ""
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -648,6 +697,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/no-crds/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "secret"
         name: "monitoring/kube-prometheus-stack-admission"

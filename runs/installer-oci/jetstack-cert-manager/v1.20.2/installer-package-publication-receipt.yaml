@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2
   package:
     path: packages/jetstack/cert-manager/v1.20.2
-    sha256: 326411dcaef701800272480b88e4456fe21b5256714db346dc5c60bf5cb96275
+    sha256: 700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1
   commands:
     package: "cub installer package packages/jetstack/cert-manager/v1.20.2 -o <tmp>/jetstack-cert-manager-v1.20.2.tgz"
     push: "cub installer push <tmp>/jetstack-cert-manager-v1.20.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled jetstack-cert-manager@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-n1Qn6T/jetstack-cert-manager-v1.20.2.tgz
-        files:  7
-        size:   98465 bytes
-        digest: sha256:326411dcaef701800272480b88e4456fe21b5256714db346dc5c60bf5cb96275
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-ORisHY/jetstack-cert-manager-v1.20.2.tgz
+        files:  8
+        size:   182713 bytes
+        digest: sha256:700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2
-        manifest: sha256:a1f8ecf58ae2a2bb39c723acfa0ac36e8f30e76607f0e6fa2d220f0eaaf07649
-        layer:    sha256:326411dcaef701800272480b88e4456fe21b5256714db346dc5c60bf5cb96275 (98465 bytes, 7 files)
-    inspectJSONSHA256: 32ddc38892fa5058c776c1df692e838c19948da46130000cb5c931ccdde94619
+        manifest: sha256:455d6b52af442da5814a54e40a1a44abc592cc3fd366f3f14b75cb4adca17d98
+        layer:    sha256:700616cd51a787ea632299f76384c287a041279a8558e02c27cd31bc8b22f2a1 (182713 bytes, 8 files)
+    inspectJSONSHA256: b1f2997e936b636d1dd91e4531f83d9c806d279f0ccf53737f422c23b5975904

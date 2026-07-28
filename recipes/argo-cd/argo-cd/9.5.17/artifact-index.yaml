@@ -68,7 +68,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17"
     installer: "packages/argo-cd/argo-cd/9.5.17/installer.yaml"
     receipt: "recipes/argo-cd/argo-cd/9.5.17/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "59de914fd6dfe254740dc8e0d726b30c0202909fd44d26af444fe68c21ab7e42"
+    deterministicBundleSHA256: "a66af33631072ce965cb5d9ff90e375576f3456b2735d4ef8ee1744af0fa01ac"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5
   package:
     path: packages/rook-release/rook-ceph-cluster/v1.19.5
-    sha256: bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e
+    sha256: 74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d
   commands:
     package: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1.19.5.tgz"
     push: "cub installer push <tmp>/rook-release-rook-ceph-cluster-v1.19.5.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled rook-release-rook-ceph-cluster@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-lJEh8d/rook-release-rook-ceph-cluster-v1.19.5.tgz
-        files:  5
-        size:   4906 bytes
-        digest: sha256:bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-BkC8aE/rook-release-rook-ceph-cluster-v1.19.5.tgz
+        files:  6
+        size:   61030 bytes
+        digest: sha256:74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5
-        manifest: sha256:c76d1fb0c180e9b3630ca22e659e8269af9e82d72f1b8a82a6a9c1a8930a0f55
-        layer:    sha256:bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e (4906 bytes, 5 files)
-    inspectJSONSHA256: bd0076b21019b7f15110832b113645214d3ba63e38fbdabe88b254e7233f3549
+        manifest: sha256:4aef8ca4f19cf6da7cee52e77cce27a6c66ecb6c0718e37590109c27170c399e
+        layer:    sha256:74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d (61030 bytes, 6 files)
+    inspectJSONSHA256: 4c17811a35beb63756731e8eb22e2753eedd1682d6df7416816c1764b3d685d4

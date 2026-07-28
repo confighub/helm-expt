@@ -75,6 +75,8 @@ spec:
           purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
           sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+          packageSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
+          packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -85,7 +87,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
-        check: ""
+        check: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
+        packagePath: "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
         declarationPath: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
         sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
         sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
@@ -96,6 +100,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
+          - "packages/prometheus-community/prometheus-node-exporter/4.55.0/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
     actions:
       []
     coverage:

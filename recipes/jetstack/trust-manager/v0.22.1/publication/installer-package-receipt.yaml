@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jetstack/trust-manager/v0.22.1 -o <tmp>/jetstack-trust-manager-v0.22.1.tgz"
-    sha256: "b793a60429f82725191f6ebfd33451ed4ea89dba17b6e1d7271f4a8a967eaa62"
+    sha256: "59a0beec6b457b90851a9780d065f414c68eabf195c21f821e94d02e8f1c987b"
   package:
     name: "jetstack-trust-manager"
     path: "packages/jetstack/trust-manager/v0.22.1"
@@ -41,8 +41,16 @@ spec:
         bytes: 6419
       -
         path: "installer.yaml"
-        sha256: "ec7cbdc70fdbdb44ff10f350c6a23de3134f4505548c79b5b252c1735326354a"
-        bytes: 2468
+        sha256: "0f42c18ff5ecf5756934f421bbec475325a6de94af0143aec909d04337a71794"
+        bytes: 2558
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "b38bc637c28c0b3d897dd9a2ae7411c246a9ba153cadd78da146e628e4cf18a0"
+        bytes: 333110
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "fb012cfb792d9e19e54031cb2282f9fd1a53d651d806c51ba45691191f76300b"
+        bytes: 359752
     version: "v0.22.1"
   setupChecks:
     -

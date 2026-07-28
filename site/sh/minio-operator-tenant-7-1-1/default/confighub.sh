@@ -46,4 +46,4 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD tenants.minio.min.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD tenants.minio.min.io (included in the package as prerequisites/target-facts/default-crds.yaml)

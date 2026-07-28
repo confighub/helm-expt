@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0
   package:
     path: packages/percona/pg-operator/3.0.0
-    sha256: 736510f98d3bc78458e478d728e4294b549d2b238801ce2627a6626936e1df76
+    sha256: 30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5
   commands:
     package: "cub installer package packages/percona/pg-operator/3.0.0 -o <tmp>/percona-pg-operator-3.0.0.tgz"
     push: "cub installer push <tmp>/percona-pg-operator-3.0.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled percona-pg-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-9E7naJ/percona-pg-operator-3.0.0.tgz
-        files:  7
-        size:   77430 bytes
-        digest: sha256:736510f98d3bc78458e478d728e4294b549d2b238801ce2627a6626936e1df76
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-YVJT9l/percona-pg-operator-3.0.0.tgz
+        files:  8
+        size:   151218 bytes
+        digest: sha256:30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0
-        manifest: sha256:3c746c5c622487dc09b37cf70909d12d9fa5fdb711d59e52ac312b78068a4d37
-        layer:    sha256:736510f98d3bc78458e478d728e4294b549d2b238801ce2627a6626936e1df76 (77430 bytes, 7 files)
-    inspectJSONSHA256: 5f3a17f1976668603a838bd0683dc7b4e954e8b54009e96af668d1eef8725d99
+        manifest: sha256:b6de0f29a966df639cd9dc5c42b995b548d353d7e430d8ad25633438291e38b7
+        layer:    sha256:30a5c2b38d1917ab533103bf36f4022d5ed6c6b85c6a8e6489c77c6ccbc2a4f5 (151218 bytes, 8 files)
+    inspectJSONSHA256: c4a31afdbadfbe12528bd0a41787ed56ab122a4197e0008714dae0439afb46b0

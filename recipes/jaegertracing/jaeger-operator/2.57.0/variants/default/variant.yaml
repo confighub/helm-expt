@@ -17,7 +17,7 @@ spec:
         name: "certificates.cert-manager.io"
         purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
         suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
-        sourcePath: "../../target-prerequisite-plan.yaml"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
         deliveryLanes:
           - "regularHelm"
           - "cubInstallerApply"
@@ -30,7 +30,7 @@ spec:
         name: "issuers.cert-manager.io"
         purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
         suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
-        sourcePath: "../../target-prerequisite-plan.yaml"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
         deliveryLanes:
           - "regularHelm"
           - "cubInstallerApply"

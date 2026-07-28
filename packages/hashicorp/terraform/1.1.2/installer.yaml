@@ -37,7 +37,7 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD workspaces.app.terraform.io"
-          suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
       name: "no-crds"
       path: "bases/no-crds"
   collector:

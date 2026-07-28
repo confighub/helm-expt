@@ -17,7 +17,7 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD servicemonitors.monitoring.coreos.com"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
       name: "cluster-metrics-readonly"
       path: "bases/cluster-metrics-readonly"
   collector:

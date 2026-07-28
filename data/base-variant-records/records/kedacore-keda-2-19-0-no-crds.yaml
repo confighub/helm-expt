@@ -45,9 +45,11 @@ spec:
             - "configHubOciArgo"
           name: "cloudeventsources.eventing.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clustercloudeventsources.eventing.keda.sh"
         type: "requiredCRDs"
@@ -60,9 +62,11 @@ spec:
             - "configHubOciArgo"
           name: "clustercloudeventsources.eventing.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clustertriggerauthentications.keda.sh"
         type: "requiredCRDs"
@@ -75,9 +79,11 @@ spec:
             - "configHubOciArgo"
           name: "clustertriggerauthentications.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "scaledjobs.keda.sh"
         type: "requiredCRDs"
@@ -90,9 +96,11 @@ spec:
             - "configHubOciArgo"
           name: "scaledjobs.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "scaledobjects.keda.sh"
         type: "requiredCRDs"
@@ -105,9 +113,11 @@ spec:
             - "configHubOciArgo"
           name: "scaledobjects.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "triggerauthentications.keda.sh"
         type: "requiredCRDs"
@@ -120,9 +130,11 @@ spec:
             - "configHubOciArgo"
           name: "triggerauthentications.keda.sh"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -139,9 +151,11 @@ spec:
               - "configHubOciArgo"
             name: "cloudeventsources.eventing.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -150,9 +164,11 @@ spec:
               - "configHubOciArgo"
             name: "clustercloudeventsources.eventing.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -161,9 +177,11 @@ spec:
               - "configHubOciArgo"
             name: "clustertriggerauthentications.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -172,9 +190,11 @@ spec:
               - "configHubOciArgo"
             name: "scaledjobs.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -183,9 +203,11 @@ spec:
               - "configHubOciArgo"
             name: "scaledobjects.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -194,9 +216,11 @@ spec:
               - "configHubOciArgo"
             name: "triggerauthentications.keda.sh"
             purpose: "KEDA CRD managed outside this no-crds preset"
-            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "default"
             suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -207,10 +231,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -218,6 +244,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clustercloudeventsources.eventing.keda.sh"
@@ -227,10 +254,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -238,6 +267,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clustertriggerauthentications.keda.sh"
@@ -247,10 +277,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -258,6 +290,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "scaledjobs.keda.sh"
@@ -267,10 +300,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -278,6 +313,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "scaledobjects.keda.sh"
@@ -287,10 +323,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -298,6 +336,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "triggerauthentications.keda.sh"
@@ -307,10 +346,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "KEDA CRD managed outside this no-crds preset"
-          check: "kubectl apply -f <keda-crds.yaml>"
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
           sourceVariant: "default"
-          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -318,6 +359,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+            - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       actions:
         -
           lane: "K"

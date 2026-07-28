@@ -171,7 +171,10 @@ function buildIntent(
     },
     evidence: [fact.source_receipt, fact.support_artifact].filter(Boolean),
   }));
-  const declaredTargetFacts = variantSpec.targetFacts ?? {};
+  const declaredTargetFacts = withPackagedCrdSources(
+    variantSpec.targetFacts ?? {},
+    row,
+  );
   const declaredTargetFactsPresent = Object.hasOwn(variantSpec, "targetFacts");
   const targetRequirements = normalizeTargetRequirements(
     declaredTargetFacts,
@@ -312,6 +315,33 @@ function readVariantSpec(path) {
   return readYaml(absolute).spec ?? {};
 }
 
+function withPackagedCrdSources(targetFacts, row) {
+  const cloned = JSON.parse(JSON.stringify(targetFacts ?? {}));
+  if (!Array.isArray(cloned.requiredCRDs) || cloned.requiredCRDs.length === 0) return cloned;
+  const packagePath = packagedCrdRepoPath(row);
+  if (!packagePath) return cloned;
+  const packageRoot = String(row.package_base_path ?? "").split("/bases/")[0];
+  const relativePath = packagePath.slice(packageRoot.length + 1);
+  for (const crd of cloned.requiredCRDs) {
+    crd.packageSource = `package://${relativePath}`;
+    crd.packagePath = packagePath;
+  }
+  return cloned;
+}
+
+function packagedCrdRepoPath(row) {
+  const packageBasePath = String(row.package_base_path ?? "");
+  const packageRoot = packageBasePath.split("/bases/")[0];
+  if (!packageRoot || packageRoot === packageBasePath) return "";
+  const slug = String(row.variant ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  if (!slug) return "";
+  const path = `${packageRoot}/prerequisites/target-facts/${slug}-crds.yaml`;
+  return existsSync(join(repoRoot, path)) ? path : "";
+}
+
 function targetFactCount(targetFacts) {
   return Object.values(targetFacts ?? {}).reduce((count, value) => {
     if (Array.isArray(value)) return count + value.length;
@@ -347,13 +377,20 @@ function normalizeTargetRequirements(targetFacts, variantPath) {
             : "one-apply")),
         },
         purpose: String(item.purpose ?? ""),
-        check: String(item.suggestedSource ?? ""),
+        check: String(item.packageSource ?? item.suggestedSource ?? ""),
+        ...(item.packageSource
+          ? {
+            packageSource: String(item.packageSource),
+            packagePath: String(item.packagePath ?? ""),
+          }
+          : {}),
         declarationPath: variantPath,
         sourceVariant: String(item.sourceVariant ?? ""),
         sourcePath: String(item.sourcePath ?? ""),
         deliveryLanes: asStringList(item.deliveryLanes),
         evidence: uniqueStrings([
           variantPath,
+          ...(item.packagePath ? [item.packagePath] : []),
           ...asStringList(item.evidence ?? item.receipts),
         ]),
       };

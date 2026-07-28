@@ -12,35 +12,35 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD clusterworkflowtemplates.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD cronworkflows.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowartifactgctasks.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workfloweventbindings.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflows.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtaskresults.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtasksets.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtemplates.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
       name: "default"
       path: "bases/default"
     -
@@ -50,35 +50,35 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD clusterworkflowtemplates.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD cronworkflows.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowartifactgctasks.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workfloweventbindings.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflows.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtaskresults.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtasksets.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtemplates.argoproj.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       name: "controller-default-reviewed"
       path: "bases/controller-default-reviewed"
     -
@@ -86,7 +86,7 @@ spec:
       name: "minimal-crds"
       path: "bases/minimal-crds"
   collector:
+    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

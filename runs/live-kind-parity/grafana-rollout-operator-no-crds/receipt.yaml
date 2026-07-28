@@ -7,7 +7,7 @@ spec:
   version: 0.49.0
   base: no-crds
   result: pass
-  observedAt: '2026-07-28T10:27:31Z'
+  observedAt: '2026-07-28T12:54:22Z'
   package:
     path: packages/grafana/rollout-operator/0.49.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-rollou-c758b-hz0g-helm
-    installerCluster: hx-rollou-c758b-hz0g-installer
+    helmCluster: hx-crdpkg-graf-helm
+    installerCluster: hx-crdpkg-graf-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-rollou-c758b-hz0g-helm
+      - cluster: hx-crdpkg-graf-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-rollou-c758b-hz0g-helm" ...
+        detail: 'Deleting cluster "hx-crdpkg-graf-helm" ...
 
-          Deleted nodes: ["hx-rollou-c758b-hz0g-helm-control-plane"]'
-      - cluster: hx-rollou-c758b-hz0g-installer
+          Deleted nodes: ["hx-crdpkg-graf-helm-control-plane"]'
+      - cluster: hx-crdpkg-graf-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-rollou-c758b-hz0g-installer" ...
+        detail: 'Deleting cluster "hx-crdpkg-graf-installer" ...
 
-          Deleted nodes: ["hx-rollou-c758b-hz0g-installer-control-plane"]'
+          Deleted nodes: ["hx-crdpkg-graf-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -57,7 +57,7 @@ spec:
           deployment.apps/rollout-operator   1/1   1     1     30s'
         pods: '# default
 
-          rollout-operator-5f688cdb68-7d46j   1/1   Running   0     30s'
+          rollout-operator-5f688cdb68-fxphc   1/1   Running   0     30s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -68,7 +68,7 @@ spec:
     cubInstallerApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-rollou-c758b-hz0g-rollout-operator
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-crdpkg-graf-rollout-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -87,7 +87,7 @@ spec:
           deployment.apps/rollout-operator   1/1   1     0     21s'
         pods: '# default
 
-          rollout-operator-5f688cdb68-7cp67   1/1   Running   0     21s'
+          rollout-operator-5f688cdb68-dmqfr   1/1   Running   0     21s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -102,20 +102,23 @@ spec:
       helmObjectCount: 13
       installerObjectCount: 13
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
       extraInInstaller: []
       semanticDiffs: []
       semanticNormalizations: []
-      comparisonSHA256: 5a179d811502f142c06cc2ec178c333ea8c63aa377943c46cb96e672bfce9b9b
+      comparisonSHA256: d2a6d3b2b8eabfea6c09a58367f357294ef366ff3dee5981c06afc83cb9ea31a
+    helmManagedCRDsOmittedFromGetManifest: []
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 13
       installerObjectCount: 14
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||default
       semanticDiffs: []
       semanticNormalizations: []
-      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+      comparisonSHA256: a28e3a0a28888d3ab4f4c4abd6dd4c294bb503b0d7e93c64138acce64f9e0ea5
   checks:
   - name: kind-create-helm
     result: pass
@@ -132,6 +135,9 @@ spec:
   - name: regular-helm-operating-policy
     result: pass
     detail: none
+  - name: regular-helm-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: regular-helm-render-live-parity
     result: pass
     detail: missing=0 extra=[] diffs=0
@@ -141,7 +147,7 @@ spec:
 
       NAME: rollout-operator
 
-      LAST DEPLOYED: Tue Jul 28 11:28:22 2026
+      LAST DEPLOYED: Tue Jul 28 13:55:13 2026
 
       NAMESPACE: default
 
@@ -177,6 +183,9 @@ spec:
   - name: cub-installer-operating-policy
     result: pass
     detail: none
+  - name: cub-installer-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: cub-installer-apply-live
     result: pass
     detail: '# default
@@ -192,9 +201,13 @@ spec:
       stagedCRDs:
       - name: replicatemplates.rollout-operator.grafana.com
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
         sourceVariant: default
+        sourceKind: recorded-source-variant
+        sourcePath: /Users/alexis/code/helm-expt/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
@@ -205,9 +218,13 @@ spec:
       stagedCRDs:
       - name: replicatemplates.rollout-operator.grafana.com
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
         sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0/prerequisites/target-facts/no-crds-crds.yaml
         lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
@@ -220,3 +237,10 @@ spec:
     cubInstallerApply:
       result: pass
       operation: none
+  crdObservations:
+    regularHelm:
+      result: pass
+      items: []
+    cubInstallerApply:
+      result: pass
+      items: []

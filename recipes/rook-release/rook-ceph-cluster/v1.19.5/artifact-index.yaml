@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e"
+    deterministicBundleSHA256: "74b5c4c66365d352ddc3b9d3eb702e6c99438c29c12a75704f864c0bbc62314d"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

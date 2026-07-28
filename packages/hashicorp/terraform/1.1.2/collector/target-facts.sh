@@ -171,7 +171,7 @@ targetFacts:
     - recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml
     name: workspaces.app.terraform.io
     purpose: Terraform Workspace CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <terraform-workspace-crd.yaml>
 

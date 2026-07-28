@@ -38,20 +38,21 @@ ls ./grafana-rollout-operator-0-49-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD replicatemplates.rollout-operator.grafana.com
-    kubectl apply -f <rollout-operator-crds.yaml>
-  - CRD zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
-    kubectl apply -f <rollout-operator-crds.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 2 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/replicatemplates.rollout-operator.grafana.com >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/zoneawarepoddisruptionbudgets.rollout-operator.grafana.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./grafana-rollout-operator-0-49-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/replicatemplates.rollout-operator.grafana.com
+kubectl wait --for=condition=Established --timeout=120s crd/zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
 
 if [ -d ./grafana-rollout-operator-0-49-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
   package:
     path: packages/grafana/rollout-operator/0.49.0
-    sha256: 8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362
+    sha256: 57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad
   commands:
     package: "cub installer package packages/grafana/rollout-operator/0.49.0 -o <tmp>/grafana-rollout-operator-0.49.0.tgz"
     push: "cub installer push <tmp>/grafana-rollout-operator-0.49.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled grafana-rollout-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-iy0jzY/grafana-rollout-operator-0.49.0.tgz
-        files:  7
-        size:   4072 bytes
-        digest: sha256:8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-HTBzbu/grafana-rollout-operator-0.49.0.tgz
+        files:  8
+        size:   4676 bytes
+        digest: sha256:57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0
-        manifest: sha256:fc6bdcaf4dceda516d078fab4a243bfbbba8eb166770221921195e791231528d
-        layer:    sha256:8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362 (4072 bytes, 7 files)
-    inspectJSONSHA256: 34555a01e9e5814f74f9cf937b32db16bbd5f3e17808be761e411f590d6657e9
+        manifest: sha256:abeba25a66ca518bd63ac15fde7d5caf85cacd9a3061e7b62b523b50bdef7b2c
+        layer:    sha256:57599fdeb46eab55d6a0036f708372cb403e7ffea86e73e28d76e37051f466ad (4676 bytes, 8 files)
+    inspectJSONSHA256: f4ead6bbc9e9bf90b9b138b2ca20b1fc1cc8eeab2a8853f238685dfa6a220fec

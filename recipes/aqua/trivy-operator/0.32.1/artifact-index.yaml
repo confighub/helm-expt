@@ -69,7 +69,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1"
     installer: "packages/aqua/trivy-operator/0.32.1/installer.yaml"
     receipt: "recipes/aqua/trivy-operator/0.32.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
+    deterministicBundleSHA256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

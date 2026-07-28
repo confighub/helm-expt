@@ -16,91 +16,91 @@ spec:
         -
           kind: "ClusterFeature"
           name: "CRD cleanuppolicies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD clustercleanuppolicies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD clusterpolicies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD globalcontextentries.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD policyexceptions.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD updaterequests.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD clusterephemeralreports.reports.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD ephemeralreports.reports.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD clusterpolicyreports.wgpolicyk8s.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD policyreports.wgpolicyk8s.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD deletingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD generatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD imagevalidatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD mutatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD namespaceddeletingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD namespacedgeneratingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD namespacedimagevalidatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD namespacedmutatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD namespacedvalidatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD policyexceptions.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD validatingpolicies.policies.kyverno.io"
-          suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
       name: "no-crds"
       path: "bases/no-crds"
   collector:

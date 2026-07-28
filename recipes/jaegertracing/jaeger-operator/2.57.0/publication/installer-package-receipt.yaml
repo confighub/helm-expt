@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz"
-    sha256: "a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123"
+    sha256: "f7cdd7f04e556cc0c8eadd3536ca664e7b2932f562a457b2515aa757e96da0f3"
   package:
     name: "jaegertracing-jaeger-operator"
     path: "packages/jaegertracing/jaeger-operator/2.57.0"
@@ -37,12 +37,20 @@ spec:
         bytes: 9435
       -
         path: "collector/target-facts.sh"
-        sha256: "ea93c717a8c36329bcf9ff125c5ecfc4cf4f8abc6bd748af6a8aed4d187c099b"
-        bytes: 5239
+        sha256: "a1886953ddd763ced0e1a64c85f5cde95d56d7e5e9985bb54e1778e47f7abee4"
+        bytes: 5477
       -
         path: "installer.yaml"
-        sha256: "7a6b632811455906269d92c623a4a681a10549d2111b142297259236df349521"
-        bytes: 1595
+        sha256: "5d406a88ab91ae8407f35156d03da8f96dde7a5cc0075c3471c0d08eed4b0321"
+        bytes: 1619
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "975c32b2da4755a8112d4862a523fbe21822d5272528e3d8a672c10179d6c5e2"
+        bytes: 333116
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "5fcafe2af5c103f80977ebfa3819644946b69211f1d8c0296dd75b7f21ff72e4"
+        bytes: 1016317
     version: "2.57.0"
   setupChecks:
     -

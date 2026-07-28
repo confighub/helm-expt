@@ -12,49 +12,49 @@ spec:
       path: "bases/default"
     -
       description: "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
-      name: "no-crds"
-      path: "bases/no-crds"
       externalRequires:
         -
           kind: "ClusterFeature"
           name: "CRD kafkas.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkaconnects.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD strimzipodsets.core.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkatopics.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkausers.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkanodepools.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkabridges.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkaconnectors.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkamirrormaker2s.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD kafkarebalances.kafka.strimzi.io"
-          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          suggestedSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+      name: "no-crds"
+      path: "bases/no-crds"
   collector:
     command: "/bin/sh"
     args:

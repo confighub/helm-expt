@@ -90,7 +90,7 @@ targetFacts:
     - configHubOciArgo
     name: cloudeventsources.eventing.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
   - deliveryLanes:
@@ -100,7 +100,7 @@ targetFacts:
     - configHubOciArgo
     name: clustercloudeventsources.eventing.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
   - deliveryLanes:
@@ -110,7 +110,7 @@ targetFacts:
     - configHubOciArgo
     name: clustertriggerauthentications.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
   - deliveryLanes:
@@ -120,7 +120,7 @@ targetFacts:
     - configHubOciArgo
     name: scaledjobs.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
   - deliveryLanes:
@@ -130,7 +130,7 @@ targetFacts:
     - configHubOciArgo
     name: scaledobjects.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
   - deliveryLanes:
@@ -140,7 +140,7 @@ targetFacts:
     - configHubOciArgo
     name: triggerauthentications.keda.sh
     purpose: KEDA CRD managed outside this no-crds preset
-    sourcePath: ../../revisions/default/r001/rendered/release-objects.yaml
+    sourcePath: revisions/default/r001/rendered/release-objects.yaml
     sourceVariant: default
     suggestedSource: kubectl apply -f <keda-crds.yaml>
 

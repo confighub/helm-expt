@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/prometheus-node-exporter/4.55.0 -o <tmp>/prometheus-community-prometheus-node-exporter-4-55-0.tgz"
-    sha256: "f833c703c0bae8f7c426211f8216662c049e2d8e664cb25bf48f89533bd006e0"
+    sha256: "54c53d16d7f36a2002896fb1a2849560aafaf0c90032fc821a65d61a28e1426b"
   package:
     name: "prometheus-community-prometheus-node-exporter"
     path: "packages/prometheus-community/prometheus-node-exporter/4.55.0"
@@ -41,8 +41,12 @@ spec:
         bytes: 2674
       -
         path: "installer.yaml"
-        sha256: "f31075cb9b97b799ef5b07183b0d92161f2033057fb008eb96886a032087363e"
-        bytes: 1017
+        sha256: "064ad239c5859791092ea5c36e7e5d3ac42ec481dafdb6756861cf100f31a4d7"
+        bytes: 1052
+      -
+        path: "prerequisites/target-facts/cluster-metrics-readonly-crds.yaml"
+        sha256: "f2dc42b3173977eea3068082b5b29cbfc1e955f2dd310fda842a9e5ac8d6abdc"
+        bytes: 69367
     version: "4.55.0"
   setupChecks:
     -

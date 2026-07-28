@@ -38,31 +38,59 @@ ls ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out/manifests
 say "Ensure the monitoring namespace exists"
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 10 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/alertmanagerconfigs.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/alertmanagers.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/podmonitors.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/probes.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/prometheusagents.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/prometheuses.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/prometheusrules.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/scrapeconfigs.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/servicemonitors.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/thanosrulers.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/alertmanagerconfigs.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/alertmanagers.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/podmonitors.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/probes.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/prometheusagents.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/prometheuses.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/prometheusrules.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/scrapeconfigs.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/servicemonitors.monitoring.coreos.com
+kubectl wait --for=condition=Established --timeout=120s crd/thanosrulers.monitoring.coreos.com
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret monitoring/kube-prometheus-stack-admission keys cert,key
     kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>
-  - CRD alertmanagerconfigs.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD alertmanagers.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD podmonitors.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD probes.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD prometheusagents.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD prometheuses.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD prometheusrules.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD scrapeconfigs.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD servicemonitors.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD thanosrulers.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

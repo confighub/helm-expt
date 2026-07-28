@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
   package:
     path: packages/prometheus-community/kube-prometheus-stack/86.1.0
-    sha256: 172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb
+    sha256: 3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a
   commands:
     package: "cub installer package packages/prometheus-community/kube-prometheus-stack/86.1.0 -o <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled kube-prometheus-stack-kube-prometheus-stack@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-3JCQtP/prometheus-community-kube-prometheus-stack-86.1.0.tgz
-        files:  7
-        size:   546715 bytes
-        digest: sha256:172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-M9mBBg/prometheus-community-kube-prometheus-stack-86.1.0.tgz
+        files:  8
+        size:   967378 bytes
+        digest: sha256:3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
-        manifest: sha256:ef046b85acd21028f67256312f766176ed49ba59061e0eaf9e06a5b947ca45c2
-        layer:    sha256:172a151008ca9378818a12914277aa0fee82276cdb64056ab5f2b408b64826fb (546715 bytes, 7 files)
-    inspectJSONSHA256: 3a29e83423cc379c34fb528815ad6ccced33fbe37f480e9d1231aa76736eec4a
+        manifest: sha256:523ed502fd1ed10dca65dc802ee349fef9760378a17a8e814dfbc67a8b14e3be
+        layer:    sha256:3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a (967378 bytes, 8 files)
+    inspectJSONSHA256: 40e8120cd30d5d8679ec19d6b1ad9115f1881159698cae3fbee8b476bcbe5e98

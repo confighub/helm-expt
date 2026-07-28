@@ -38,13 +38,23 @@ ls ./grafana-tempo-1-24-4-s3-query-observability/out/manifests
 say "Ensure the tempo namespace exists"
 kubectl create namespace tempo --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check the servicemonitors.monitoring.coreos.com CRD included with this package"
+missing_crds=0
+if ! kubectl get crd/servicemonitors.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./grafana-tempo-1-24-4-s3-query-observability/package/prerequisites/target-facts/s3-query-observability-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/servicemonitors.monitoring.coreos.com
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret tempo/tempo-s3-credentials keys access_key,secret_key
     kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>
-  - CRD servicemonitors.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
   - S3-compatible object store tempo/tempo-object-store
     create or bind an S3-compatible endpoint, bucket, and credentials before apply
 Complete these prerequisites before applying the rendered objects.

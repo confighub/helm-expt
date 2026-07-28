@@ -38,57 +38,111 @@ ls ./external-secrets-external-secrets-2-5-0-no-crds/out/manifests
 say "Ensure the external-secrets namespace exists"
 kubectl create namespace external-secrets --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 23 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/acraccesstokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/cloudsmithaccesstokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterexternalsecrets.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clustergenerators.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterpushsecrets.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clustersecretstores.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/ecrauthorizationtokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/externalsecrets.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/fakes.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/gcraccesstokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/generatorstates.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/githubaccesstokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/grafanas.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/mfas.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/passwords.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/pushsecrets.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/quayaccesstokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/secretstores.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/sshkeys.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/stssessiontokens.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/uuids.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/vaultdynamicsecrets.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/webhooks.generators.external-secrets.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./external-secrets-external-secrets-2-5-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/acraccesstokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/cloudsmithaccesstokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterexternalsecrets.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/clustergenerators.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterpushsecrets.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/clustersecretstores.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/ecrauthorizationtokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/externalsecrets.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/fakes.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/gcraccesstokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/generatorstates.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/githubaccesstokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/grafanas.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/mfas.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/passwords.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/pushsecrets.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/quayaccesstokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/secretstores.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/sshkeys.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/stssessiontokens.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/uuids.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/vaultdynamicsecrets.generators.external-secrets.io
+kubectl wait --for=condition=Established --timeout=120s crd/webhooks.generators.external-secrets.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret external-secrets/external-secrets-webhook
     kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
-  - CRD acraccesstokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cloudsmithaccesstokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterexternalsecrets.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clustergenerators.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterpushsecrets.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clustersecretstores.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD ecrauthorizationtokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD externalsecrets.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD fakes.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD gcraccesstokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD generatorstates.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD githubaccesstokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD grafanas.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD mfas.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD passwords.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD pushsecrets.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD quayaccesstokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD secretstores.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD sshkeys.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD stssessiontokens.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD uuids.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD vaultdynamicsecrets.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD webhooks.generators.external-secrets.io
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

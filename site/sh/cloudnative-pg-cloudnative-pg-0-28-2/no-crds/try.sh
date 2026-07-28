@@ -38,31 +38,59 @@ ls ./cloudnative-pg-cloudnative-pg-0-28-2-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 10 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/backups.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusterimagecatalogs.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/clusters.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/databases.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/failoverquorums.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/imagecatalogs.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/poolers.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/publications.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/scheduledbackups.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/subscriptions.postgresql.cnpg.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./cloudnative-pg-cloudnative-pg-0-28-2-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/backups.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusterimagecatalogs.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/clusters.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/databases.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/failoverquorums.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/imagecatalogs.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/poolers.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/publications.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/scheduledbackups.postgresql.cnpg.io
+kubectl wait --for=condition=Established --timeout=120s crd/subscriptions.postgresql.cnpg.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret default/cnpg-webhook-cert keys tls.crt,tls.key
     kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value>
-  - CRD backups.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusterimagecatalogs.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD clusters.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD databases.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD failoverquorums.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD imagecatalogs.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD poolers.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD publications.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD scheduledbackups.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD subscriptions.postgresql.cnpg.io
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

@@ -75,6 +75,8 @@ spec:
           purpose: "Kafka CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -85,6 +87,8 @@ spec:
           purpose: "KafkaConnect CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -95,6 +99,8 @@ spec:
           purpose: "StrimziPodSet CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -105,6 +111,8 @@ spec:
           purpose: "KafkaTopic CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -115,6 +123,8 @@ spec:
           purpose: "KafkaUser CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -125,6 +135,8 @@ spec:
           purpose: "KafkaNodePool CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -135,6 +147,8 @@ spec:
           purpose: "KafkaBridge CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -145,6 +159,8 @@ spec:
           purpose: "KafkaConnector CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -155,6 +171,8 @@ spec:
           purpose: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         -
           deliveryLanes:
             - "regularHelm"
@@ -165,6 +183,8 @@ spec:
           purpose: "KafkaRebalance CRD managed outside this no-crds preset"
           sourceVariant: "default"
           suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -175,7 +195,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "Kafka CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -186,6 +208,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkaconnects.kafka.strimzi.io"
@@ -195,7 +218,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaConnect CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -206,6 +231,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "strimzipodsets.core.strimzi.io"
@@ -215,7 +241,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "StrimziPodSet CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -226,6 +254,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkatopics.kafka.strimzi.io"
@@ -235,7 +264,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaTopic CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -246,6 +277,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkausers.kafka.strimzi.io"
@@ -255,7 +287,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaUser CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -266,6 +300,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkanodepools.kafka.strimzi.io"
@@ -275,7 +310,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaNodePool CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -286,6 +323,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkabridges.kafka.strimzi.io"
@@ -295,7 +333,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaBridge CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -306,6 +346,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkaconnectors.kafka.strimzi.io"
@@ -315,7 +356,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaConnector CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -326,6 +369,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkamirrormaker2s.kafka.strimzi.io"
@@ -335,7 +379,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -346,6 +392,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
       -
         category: "crd"
         name: "kafkarebalances.kafka.strimzi.io"
@@ -355,7 +402,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "KafkaRebalance CRD managed outside this no-crds preset"
-        check: "kubectl apply -f <strimzi-crds.yaml>"
+        check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+        packagePath: "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
         declarationPath: "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -366,6 +415,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+          - "packages/strimzi/strimzi-kafka-operator/1.0.0/prerequisites/target-facts/no-crds-crds.yaml"
     actions:
       []
     coverage:

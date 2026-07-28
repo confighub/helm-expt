@@ -46,11 +46,11 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD crunchybridgeclusters.upstream.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD perconapgbackups.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD perconapgclusters.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD perconapgrestores.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD perconapgupgrades.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD pgadmins.upstream.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD pgupgrades.upstream.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
-#   - CRD postgresclusters.upstream.pgv2.percona.com (suggested: kubectl apply -f <pg-operator-crds.yaml>)
+#   - CRD crunchybridgeclusters.upstream.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD perconapgbackups.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD perconapgclusters.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD perconapgrestores.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD perconapgupgrades.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD pgadmins.upstream.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD pgupgrades.upstream.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)
+#   - CRD postgresclusters.upstream.pgv2.percona.com (included in the package as prerequisites/target-facts/no-crds-crds.yaml)

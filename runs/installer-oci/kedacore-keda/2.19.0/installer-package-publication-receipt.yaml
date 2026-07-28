@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0
   package:
     path: packages/kedacore/keda/2.19.0
-    sha256: 4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f
+    sha256: 5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b
   commands:
     package: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
     push: "cub installer push <tmp>/kedacore-keda-2.19.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled kedacore-keda@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-zbTom0/kedacore-keda-2.19.0.tgz
-        files:  7
-        size:   87306 bytes
-        digest: sha256:4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-lsYUaL/kedacore-keda-2.19.0.tgz
+        files:  8
+        size:   166104 bytes
+        digest: sha256:5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0
-        manifest: sha256:7f9abae93a9ef2ab34071b56d49e139c2206d52386ad663539106d4d01603ec8
-        layer:    sha256:4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f (87306 bytes, 7 files)
-    inspectJSONSHA256: 6087fd293b4313aa1d067753e6b2ce84ce3f4468c58b3dc4876392991c1e1e26
+        manifest: sha256:490fb1b2e7d8703408b05a319b8b63ac66436d061070cf694686fa14bcc4a525
+        layer:    sha256:5c1160c99b28e7655f9d5fbe35f6b295097bc0ba9477d687ea387675af30768b (166104 bytes, 8 files)
+    inspectJSONSHA256: 455486259c2d582d2ec39a31bb8cf44bc69805ffb67afd6b4624494e7f40f73a

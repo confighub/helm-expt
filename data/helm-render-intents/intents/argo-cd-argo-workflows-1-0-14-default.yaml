@@ -107,27 +107,43 @@ spec:
         -
           name: "clusterworkflowtemplates.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "cronworkflows.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workflowartifactgctasks.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workfloweventbindings.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workflows.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workflowtaskresults.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workflowtasksets.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         -
           name: "workflowtemplates.argoproj.io"
           sourceVariant: "minimal-crds"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -138,7 +154,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -146,6 +164,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "cronworkflows.argoproj.io"
@@ -155,7 +174,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -163,6 +184,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workflowartifactgctasks.argoproj.io"
@@ -172,7 +194,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -180,6 +204,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workfloweventbindings.argoproj.io"
@@ -189,7 +214,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -197,6 +224,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workflows.argoproj.io"
@@ -206,7 +234,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -214,6 +244,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workflowtaskresults.argoproj.io"
@@ -223,7 +254,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -231,6 +264,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workflowtasksets.argoproj.io"
@@ -240,7 +274,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -248,6 +284,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
       -
         category: "crd"
         name: "workflowtemplates.argoproj.io"
@@ -257,7 +294,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: ""
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
         sourceVariant: "minimal-crds"
         sourcePath: ""
@@ -265,6 +304,7 @@ spec:
           []
         evidence:
           - "recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml"
+          - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml"
     actions:
       []
     coverage:

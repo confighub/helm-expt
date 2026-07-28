@@ -69,7 +69,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
     receipt: "recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c411917b35d86c3df3725986517a94884e6dee9d7761cf6fb5ba62d3d25027e6"
+    deterministicBundleSHA256: "eeac04c6aef9e85d0bc8d789a78a641267ce88f6f7d6129b5621fa76c55ee6d3"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

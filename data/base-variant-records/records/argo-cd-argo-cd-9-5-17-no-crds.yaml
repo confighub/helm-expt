@@ -46,6 +46,8 @@ spec:
           name: "applications.argoproj.io"
           purpose: "Argo CD CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "applicationsets.argoproj.io"
         type: "requiredCRDs"
@@ -59,6 +61,8 @@ spec:
           name: "applicationsets.argoproj.io"
           purpose: "Argo CD CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "appprojects.argoproj.io"
         type: "requiredCRDs"
@@ -72,6 +76,8 @@ spec:
           name: "appprojects.argoproj.io"
           purpose: "Argo CD CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "argocd-redis"
         type: "requiredSecrets"
@@ -103,6 +109,8 @@ spec:
             name: "applications.argoproj.io"
             purpose: "Argo CD CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -112,6 +120,8 @@ spec:
             name: "applicationsets.argoproj.io"
             purpose: "Argo CD CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -121,6 +131,8 @@ spec:
             name: "appprojects.argoproj.io"
             purpose: "Argo CD CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
         requiredSecrets:
           -
             deliveryLanes:
@@ -142,7 +154,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Argo CD CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -153,6 +167,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
+            - "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "applicationsets.argoproj.io"
@@ -162,7 +177,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Argo CD CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -173,6 +190,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
+            - "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "appprojects.argoproj.io"
@@ -182,7 +200,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Argo CD CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -193,6 +213,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/argo-cd/argo-cd/9.5.17/variants/no-crds/variant.yaml"
+            - "packages/argo-cd/argo-cd/9.5.17/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "secret"
           name: "argocd/argocd-redis"

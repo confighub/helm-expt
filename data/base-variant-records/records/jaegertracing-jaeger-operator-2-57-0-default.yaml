@@ -48,8 +48,10 @@ spec:
             - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
           name: "certificates.cert-manager.io"
           purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
-          sourcePath: "../../target-prerequisite-plan.yaml"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
       -
         name: "issuers.cert-manager.io"
         type: "requiredCRDs"
@@ -65,8 +67,10 @@ spec:
             - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
           name: "issuers.cert-manager.io"
           purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
-          sourcePath: "../../target-prerequisite-plan.yaml"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -86,8 +90,10 @@ spec:
               - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
             name: "certificates.cert-manager.io"
             purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -99,8 +105,10 @@ spec:
               - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
             name: "issuers.cert-manager.io"
             purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
-            sourcePath: "../../target-prerequisite-plan.yaml"
+            sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
             suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -111,10 +119,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
-          check: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml"
           sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -122,6 +132,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml"
+            - "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
             - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
             - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
         -
@@ -133,10 +144,12 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
-          check: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml"
           sourceVariant: ""
-          sourcePath: "../../target-prerequisite-plan.yaml"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
           deliveryLanes:
             - "regularHelm"
             - "cubInstallerApply"
@@ -144,6 +157,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml"
+            - "packages/jaegertracing/jaeger-operator/2.57.0/prerequisites/target-facts/default-crds.yaml"
             - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
             - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
       actions:

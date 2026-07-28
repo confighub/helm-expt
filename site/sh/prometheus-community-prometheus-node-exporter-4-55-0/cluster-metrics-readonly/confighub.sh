@@ -46,4 +46,4 @@ say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
 
 # Before applying this base variant from ConfigHub to a cluster, it still needs:
-#   - CRD servicemonitors.monitoring.coreos.com (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - CRD servicemonitors.monitoring.coreos.com (included in the package as prerequisites/target-facts/cluster-metrics-readonly-crds.yaml)

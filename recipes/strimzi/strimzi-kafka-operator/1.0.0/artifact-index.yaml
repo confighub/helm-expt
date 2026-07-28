@@ -68,7 +68,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0"
     installer: "packages/strimzi/strimzi-kafka-operator/1.0.0/installer.yaml"
     receipt: "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2ea2e60221010c49bee0c5039f1f91b9f46c2b00fe7ae67c19d837c68973d2e2"
+    deterministicBundleSHA256: "1291b02a4171936df01efb14a63c0ed60f70970a025f2ddbff9e77abe3e70b3b"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

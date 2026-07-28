@@ -38,15 +38,27 @@ ls ./fairwinds-stable-vpa-4-11-0-no-crds/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 2 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/verticalpodautoscalercheckpoints.autoscaling.k8s.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/verticalpodautoscalers.autoscaling.k8s.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./fairwinds-stable-vpa-4-11-0-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/verticalpodautoscalercheckpoints.autoscaling.k8s.io
+kubectl wait --for=condition=Established --timeout=120s crd/verticalpodautoscalers.autoscaling.k8s.io
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
   - Secret default/vpa-tls-secret keys ca,cert,key
     kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value>
-  - CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD verticalpodautoscalers.autoscaling.k8s.io
-    kubectl apply -f <crd-manifest.yaml>
 Complete these prerequisites before applying the rendered objects.
 Replace any <...> placeholders with values or files for your environment.
 When the resources exist, re-run with:

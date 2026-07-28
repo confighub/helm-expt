@@ -75,6 +75,8 @@ spec:
           purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
           sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "minio-operator/operator@7.1.1/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
     requirements:
       -
         category: "crd"
@@ -85,7 +87,9 @@ spec:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
         purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
-        check: ""
+        check: "package://prerequisites/target-facts/default-crds.yaml"
+        packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+        packagePath: "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
         declarationPath: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
         sourceVariant: "minio-operator/operator@7.1.1/default"
         sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
@@ -96,6 +100,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+          - "packages/minio-operator/tenant/7.1.1/prerequisites/target-facts/default-crds.yaml"
     actions:
       []
     coverage:

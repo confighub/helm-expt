@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/aqua/trivy-operator/0.32.1 -o <tmp>/aqua-trivy-operator-0.32.1.tgz"
-    sha256: "ecb78214d9a7e0656a973bc25f78854f5baf4a4c877eb6eb126e30a1f3c762ae"
+    sha256: "355fbd3de30de328d9910173e8c75ba864b91c265d63335d8020dd9ab41934a3"
   package:
     name: "aqua-trivy-operator"
     path: "packages/aqua/trivy-operator/0.32.1"
@@ -41,8 +41,12 @@ spec:
         bytes: 6873
       -
         path: "installer.yaml"
-        sha256: "b50344d1ef09131887647c2e7f0e020321e8fd0ea8d0acffcaebc74f48635afa"
-        bytes: 2792
+        sha256: "d164a17537decccdf1e35dea77e8b30894a2227e4a61b03ade518727b933ef54"
+        bytes: 3008
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "0d81e90d47b2462b9b54657d5a4a1ff244c13557b890c25b1d7f11cc980fcb7f"
+        bytes: 109037
     version: "0.32.1"
   setupChecks:
     -

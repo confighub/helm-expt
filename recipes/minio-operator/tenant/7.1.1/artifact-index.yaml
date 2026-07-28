@@ -64,7 +64,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1"
     installer: "packages/minio-operator/tenant/7.1.1/installer.yaml"
     receipt: "recipes/minio-operator/tenant/7.1.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "410cec2d3fbf3cacdb86836b22019522cd7d23b24b9cc8da2b08be2c9080c019"
+    deterministicBundleSHA256: "441c430b1e51b07ded0df36d4d23b065629aff376eff417542d6869d354fe129"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

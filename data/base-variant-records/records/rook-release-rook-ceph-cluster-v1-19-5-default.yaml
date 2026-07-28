@@ -47,6 +47,8 @@ spec:
           purpose: "Rook Ceph cluster base creates CephBlockPool resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
       -
         name: "cephclusters.ceph.rook.io"
         type: "requiredCRDs"
@@ -61,6 +63,8 @@ spec:
           purpose: "Rook Ceph cluster base creates CephCluster resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
       -
         name: "cephfilesystems.ceph.rook.io"
         type: "requiredCRDs"
@@ -75,6 +79,8 @@ spec:
           purpose: "Rook Ceph cluster base creates CephFilesystem resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
       -
         name: "cephfilesystemsubvolumegroups.ceph.rook.io"
         type: "requiredCRDs"
@@ -89,6 +95,8 @@ spec:
           purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
       -
         name: "cephobjectstores.ceph.rook.io"
         type: "requiredCRDs"
@@ -103,6 +111,8 @@ spec:
           purpose: "Rook Ceph cluster base creates CephObjectStore resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
       -
         name: "rook-ceph"
         type: "requiredNamespaces"
@@ -138,6 +148,8 @@ spec:
             purpose: "Rook Ceph cluster base creates CephBlockPool resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -148,6 +160,8 @@ spec:
             purpose: "Rook Ceph cluster base creates CephCluster resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -158,6 +172,8 @@ spec:
             purpose: "Rook Ceph cluster base creates CephFilesystem resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -168,6 +184,8 @@ spec:
             purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -178,6 +196,8 @@ spec:
             purpose: "Rook Ceph cluster base creates CephObjectStore resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+            packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+            packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         requiredNamespaces:
           -
             deliveryLanes:
@@ -202,7 +222,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Rook Ceph cluster base creates CephBlockPool resources"
-          check: ""
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
@@ -213,6 +235,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "cephclusters.ceph.rook.io"
@@ -222,7 +245,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Rook Ceph cluster base creates CephCluster resources"
-          check: ""
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
@@ -233,6 +258,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "cephfilesystems.ceph.rook.io"
@@ -242,7 +268,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Rook Ceph cluster base creates CephFilesystem resources"
-          check: ""
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
@@ -253,6 +281,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "cephfilesystemsubvolumegroups.ceph.rook.io"
@@ -262,7 +291,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Rook Ceph cluster base creates CephFilesystemSubVolumeGroup resources"
-          check: ""
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
@@ -273,6 +304,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         -
           category: "crd"
           name: "cephobjectstores.ceph.rook.io"
@@ -282,7 +314,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Rook Ceph cluster base creates CephObjectStore resources"
-          check: ""
+          check: "package://prerequisites/target-facts/default-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/default-crds.yaml"
+          packagePath: "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
           declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
@@ -293,6 +327,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+            - "packages/rook-release/rook-ceph-cluster/v1.19.5/prerequisites/target-facts/default-crds.yaml"
         -
           category: "namespace"
           name: "rook-ceph"

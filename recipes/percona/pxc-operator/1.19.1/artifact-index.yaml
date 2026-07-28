@@ -66,7 +66,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
     installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
     receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8"
+    deterministicBundleSHA256: "715d9c357864dc0be990a091d6525eb3670a1fe613a03e4107ba4c6563f27aeb"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

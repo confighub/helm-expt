@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
-    sha256: "d4be6eb1155ddf0fffb1c277570bea1860d6418689e1a524c59a896a101b9ce2"
+    sha256: "a65331c51df10e7b478b63568c896320be0a0dc7e2306416e8821b699b0b3cef"
   package:
     name: "argo-cd-argo-workflows"
     path: "packages/argo-cd/argo-workflows/1.0.14"
@@ -49,8 +49,16 @@ spec:
         bytes: 4498
       -
         path: "installer.yaml"
-        sha256: "54ce72c7d8c6e65760d0853d06506d5845b2cfea9c4f9a602dfca4f1d808c4fd"
-        bytes: 3569
+        sha256: "8b5f14ae1fbfd437f382c7197f0e1758f33d104514e675d1d77b2e1d3f233e64"
+        bytes: 4017
+      -
+        path: "prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+        sha256: "26ffc0619679a04c337729a4a847800ce6340a71e15c3134f2e8d5e7187f1b5e"
+        bytes: 828155
+      -
+        path: "prerequisites/target-facts/default-crds.yaml"
+        sha256: "5e99b1283d74824bef9ad016a92d4293d8f57175960bc0e35e47526f6d93e264"
+        bytes: 828135
     version: "1.0.14"
   setupChecks:
     -

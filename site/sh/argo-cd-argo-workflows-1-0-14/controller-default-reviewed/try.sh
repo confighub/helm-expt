@@ -38,32 +38,45 @@ ls ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD clusterworkflowtemplates.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD cronworkflows.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workflowartifactgctasks.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workfloweventbindings.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workflows.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workflowtaskresults.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workflowtasksets.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-  - CRD workflowtemplates.argoproj.io
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check 8 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/clusterworkflowtemplates.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if ! kubectl get crd/cronworkflows.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workflowartifactgctasks.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workfloweventbindings.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workflows.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workflowtaskresults.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workflowtasksets.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/workflowtemplates.argoproj.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/package/prerequisites/target-facts/controller-default-reviewed-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/clusterworkflowtemplates.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/cronworkflows.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workflowartifactgctasks.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workfloweventbindings.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workflows.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workflowtaskresults.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workflowtasksets.argoproj.io
+kubectl wait --for=condition=Established --timeout=120s crd/workflowtemplates.argoproj.io
 
 if [ -d ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/out/secrets ]; then
   say "Apply rendered Secrets first"

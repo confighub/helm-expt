@@ -398,6 +398,14 @@
                   "name": {
                     "type": "string"
                   },
+                  "packageSource": {
+                    "type": "string",
+                    "description": "Package-relative source for an exact prerequisite file, when the installer package carries one."
+                  },
+                  "packagePath": {
+                    "type": "string",
+                    "description": "Repository path to the generated prerequisite file."
+                  },
                   "requiredBefore": {
                     "enum": [
                       "render",

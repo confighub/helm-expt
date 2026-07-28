@@ -46,6 +46,8 @@ spec:
           name: "cleanuppolicies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clustercleanuppolicies.kyverno.io"
         type: "requiredCRDs"
@@ -59,6 +61,8 @@ spec:
           name: "clustercleanuppolicies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterpolicies.kyverno.io"
         type: "requiredCRDs"
@@ -72,6 +76,8 @@ spec:
           name: "clusterpolicies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "globalcontextentries.kyverno.io"
         type: "requiredCRDs"
@@ -85,6 +91,8 @@ spec:
           name: "globalcontextentries.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "policies.kyverno.io"
         type: "requiredCRDs"
@@ -98,6 +106,8 @@ spec:
           name: "policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "policyexceptions.kyverno.io"
         type: "requiredCRDs"
@@ -111,6 +121,8 @@ spec:
           name: "policyexceptions.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "updaterequests.kyverno.io"
         type: "requiredCRDs"
@@ -124,6 +136,8 @@ spec:
           name: "updaterequests.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterephemeralreports.reports.kyverno.io"
         type: "requiredCRDs"
@@ -137,6 +151,8 @@ spec:
           name: "clusterephemeralreports.reports.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "ephemeralreports.reports.kyverno.io"
         type: "requiredCRDs"
@@ -150,6 +166,8 @@ spec:
           name: "ephemeralreports.reports.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "clusterpolicyreports.wgpolicyk8s.io"
         type: "requiredCRDs"
@@ -163,6 +181,8 @@ spec:
           name: "clusterpolicyreports.wgpolicyk8s.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "policyreports.wgpolicyk8s.io"
         type: "requiredCRDs"
@@ -176,6 +196,8 @@ spec:
           name: "policyreports.wgpolicyk8s.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "deletingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -189,6 +211,8 @@ spec:
           name: "deletingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "generatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -202,6 +226,8 @@ spec:
           name: "generatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "imagevalidatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -215,6 +241,8 @@ spec:
           name: "imagevalidatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "mutatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -228,6 +256,8 @@ spec:
           name: "mutatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "namespaceddeletingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -241,6 +271,8 @@ spec:
           name: "namespaceddeletingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "namespacedgeneratingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -254,6 +286,8 @@ spec:
           name: "namespacedgeneratingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -267,6 +301,8 @@ spec:
           name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "namespacedmutatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -280,6 +316,8 @@ spec:
           name: "namespacedmutatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "namespacedvalidatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -293,6 +331,8 @@ spec:
           name: "namespacedvalidatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "policyexceptions.policies.kyverno.io"
         type: "requiredCRDs"
@@ -306,6 +346,8 @@ spec:
           name: "policyexceptions.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       -
         name: "validatingpolicies.policies.kyverno.io"
         type: "requiredCRDs"
@@ -319,6 +361,8 @@ spec:
           name: "validatingpolicies.policies.kyverno.io"
           purpose: "Kyverno CRD managed outside this no-crds base"
           sourceVariant: "default"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
     installTimeStatus: "partly-declared"
   routing:
     routes:
@@ -575,6 +619,8 @@ spec:
             name: "cleanuppolicies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -584,6 +630,8 @@ spec:
             name: "clustercleanuppolicies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -593,6 +641,8 @@ spec:
             name: "clusterpolicies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -602,6 +652,8 @@ spec:
             name: "globalcontextentries.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -611,6 +663,8 @@ spec:
             name: "policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -620,6 +674,8 @@ spec:
             name: "policyexceptions.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -629,6 +685,8 @@ spec:
             name: "updaterequests.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -638,6 +696,8 @@ spec:
             name: "clusterephemeralreports.reports.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -647,6 +707,8 @@ spec:
             name: "ephemeralreports.reports.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -656,6 +718,8 @@ spec:
             name: "clusterpolicyreports.wgpolicyk8s.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -665,6 +729,8 @@ spec:
             name: "policyreports.wgpolicyk8s.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -674,6 +740,8 @@ spec:
             name: "deletingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -683,6 +751,8 @@ spec:
             name: "generatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -692,6 +762,8 @@ spec:
             name: "imagevalidatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -701,6 +773,8 @@ spec:
             name: "mutatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -710,6 +784,8 @@ spec:
             name: "namespaceddeletingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -719,6 +795,8 @@ spec:
             name: "namespacedgeneratingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -728,6 +806,8 @@ spec:
             name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -737,6 +817,8 @@ spec:
             name: "namespacedmutatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -746,6 +828,8 @@ spec:
             name: "namespacedvalidatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -755,6 +839,8 @@ spec:
             name: "policyexceptions.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           -
             deliveryLanes:
               - "regularHelm"
@@ -764,6 +850,8 @@ spec:
             name: "validatingpolicies.policies.kyverno.io"
             purpose: "Kyverno CRD managed outside this no-crds base"
             sourceVariant: "default"
+            packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+            packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       requirements:
         -
           category: "crd"
@@ -774,7 +862,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -785,6 +875,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clustercleanuppolicies.kyverno.io"
@@ -794,7 +885,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -805,6 +898,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterpolicies.kyverno.io"
@@ -814,7 +908,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -825,6 +921,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "globalcontextentries.kyverno.io"
@@ -834,7 +931,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -845,6 +944,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "policies.kyverno.io"
@@ -854,7 +954,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -865,6 +967,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "policyexceptions.kyverno.io"
@@ -874,7 +977,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -885,6 +990,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "updaterequests.kyverno.io"
@@ -894,7 +1000,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -905,6 +1013,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterephemeralreports.reports.kyverno.io"
@@ -914,7 +1023,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -925,6 +1036,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "ephemeralreports.reports.kyverno.io"
@@ -934,7 +1046,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -945,6 +1059,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "clusterpolicyreports.wgpolicyk8s.io"
@@ -954,7 +1069,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -965,6 +1082,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "policyreports.wgpolicyk8s.io"
@@ -974,7 +1092,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -985,6 +1105,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "deletingpolicies.policies.kyverno.io"
@@ -994,7 +1115,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1005,6 +1128,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "generatingpolicies.policies.kyverno.io"
@@ -1014,7 +1138,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1025,6 +1151,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "imagevalidatingpolicies.policies.kyverno.io"
@@ -1034,7 +1161,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1045,6 +1174,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "mutatingpolicies.policies.kyverno.io"
@@ -1054,7 +1184,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1065,6 +1197,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "namespaceddeletingpolicies.policies.kyverno.io"
@@ -1074,7 +1207,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1085,6 +1220,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "namespacedgeneratingpolicies.policies.kyverno.io"
@@ -1094,7 +1230,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1105,6 +1243,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "namespacedimagevalidatingpolicies.policies.kyverno.io"
@@ -1114,7 +1253,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1125,6 +1266,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "namespacedmutatingpolicies.policies.kyverno.io"
@@ -1134,7 +1276,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1145,6 +1289,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "namespacedvalidatingpolicies.policies.kyverno.io"
@@ -1154,7 +1299,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1165,6 +1312,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "policyexceptions.policies.kyverno.io"
@@ -1174,7 +1322,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1185,6 +1335,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
         -
           category: "crd"
           name: "validatingpolicies.policies.kyverno.io"
@@ -1194,7 +1345,9 @@ spec:
             policy: "recheck-before-apply"
             maxAge: "one-apply"
           purpose: "Kyverno CRD managed outside this no-crds base"
-          check: ""
+          check: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packageSource: "package://prerequisites/target-facts/no-crds-crds.yaml"
+          packagePath: "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
           declarationPath: "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
           sourceVariant: "default"
           sourcePath: ""
@@ -1205,6 +1358,7 @@ spec:
             - "configHubOciArgo"
           evidence:
             - "recipes/kyverno/kyverno/3.8.1/variants/no-crds/variant.yaml"
+            - "packages/kyverno/kyverno/3.8.1/prerequisites/target-facts/no-crds-crds.yaml"
       actions:
         []
       coverage:

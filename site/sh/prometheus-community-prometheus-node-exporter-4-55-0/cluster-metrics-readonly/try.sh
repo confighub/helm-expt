@@ -38,18 +38,17 @@ ls ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readon
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - CRD servicemonitors.monitoring.coreos.com
-    kubectl apply -f <crd-manifest.yaml>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check the servicemonitors.monitoring.coreos.com CRD included with this package"
+missing_crds=0
+if ! kubectl get crd/servicemonitors.monitoring.coreos.com >/dev/null 2>&1; then
+  missing_crds=1
 fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -f ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/package/prerequisites/target-facts/cluster-metrics-readonly-crds.yaml
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+kubectl wait --for=condition=Established --timeout=120s crd/servicemonitors.monitoring.coreos.com
 
 if [ -d ./prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/out/secrets ]; then
   say "Apply rendered Secrets first"
