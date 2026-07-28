@@ -10,16 +10,16 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 110
+rows: 109
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 57
+blocked: 56
 watch: 53
-configHub-oci-live-comparison: 61
+configHub-oci-live-comparison: 60
 two-cluster-kind-parity: 49
 semantic-parity-defects: 16
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 16
+prerequisite-or-lifecycle-rows: 15
 runtime-or-watch-rows: 38
 ```
 
@@ -85,7 +85,6 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `traefik/traefik@40.2.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `istio/istiod@1.30.0` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
-| `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
 | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | The base rendered a Kubernetes API version that the target no longer serves. Choose a capability-specific base or refresh the render profile before rerunning. | Use the maintained capability-profile base for the target Kubernetes API set, then rerun live parity. |
 | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | The base rendered a Kubernetes API version that the target no longer serves. Choose a capability-specific base or refresh the render profile before rerunning. | Use the maintained capability-profile base for the target Kubernetes API set, then rerun live parity. |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | Inspect receipt before rerun. | Open a dedicated parity issue only if the semantic object comparison fails. |
@@ -146,7 +145,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 61 | 0 | 51 | 10 | 0 |
+| configHub-oci-live-comparison | 60 | 0 | 51 | 9 | 0 |
 | two-cluster-kind-parity | 49 | 0 | 2 | 47 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -181,7 +180,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
 | render-input-model | 3 | Model the required Helm values as a real base before rerunning. |
 | runtime-review | 24 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 15 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| stage-prerequisite | 14 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -199,7 +198,7 @@ reasonable live rerun candidates.
 | --- | ---: | --- |
 | inspect-diff-first | 16 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
-| model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 53 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
@@ -291,7 +290,6 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml`](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `istio/istiod@1.30.0` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml`](../../recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/istio/istiod/1.30.0 --base default` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default` |
-| 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | [`recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml`](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds` |
 | 40 | model-or-stage-first | capability-profile-base | configHub-oci-live-comparison | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | [`recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md`](../../recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-adapter/5.3.0 --base cluster-metrics-readonly` |
 | 40 | model-or-stage-first | capability-profile-base | configHub-oci-live-comparison | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | [`recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md`](../../recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus-adapter/5.3.0 --base default` |
 | 40 | model-or-stage-first | stage-prerequisite | configHub-oci-live-comparison | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | target-prerequisite: namespace missing (parity passed) | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml`](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |

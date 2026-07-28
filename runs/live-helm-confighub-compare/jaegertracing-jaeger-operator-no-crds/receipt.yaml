@@ -6,22 +6,41 @@ spec:
   chart: jaegertracing/jaeger-operator
   version: 2.57.0
   base: no-crds
-  result: blocked
-  observedAt: '2026-06-16T01:59:40Z'
+  result: pass
+  observedAt: '2026-07-28T21:07:41Z'
   package:
     path: packages/jaegertracing/jaeger-operator/2.57.0
   recipe:
     path: recipes/jaegertracing/jaeger-operator/2.57.0
   variantRevision: recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-cert-manager
     result: pass
-    resources: []
+    source:
+      package: packages/jetstack/cert-manager/v1.20.2
+      base: crds-enabled
+    manifestSHA256: 736687fcace8e44296134bad01af24fc98dedecf939736d872b1f118e30b5271
+    resources:
+    - namespace/cert-manager
+    - customresourcedefinition/certificaterequests.cert-manager.io
+    - customresourcedefinition/certificates.cert-manager.io
+    - customresourcedefinition/challenges.acme.cert-manager.io
+    - customresourcedefinition/clusterissuers.cert-manager.io
+    - customresourcedefinition/issuers.cert-manager.io
+    - customresourcedefinition/orders.acme.cert-manager.io
+    - deployment/cert-manager
+    - deployment/cert-manager-cainjector
+    - deployment/cert-manager-webhook
+    observedBehavior: The verified cert-manager catalog package installed its six
+      CRDs and three controllers before the chart under test. Certificate and Issuer
+      objects can now be reconciled instead of remaining permanently Progressing.
   gitOpsCanonicalizationProfile:
     name: none
+    result: pass
+    changes: []
   run:
-    rig: helm-expt-parity-jaegeroperator-mqfzv370-1msv
-    kubeContext: kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv
+    rig: helm-expt-parity-jaegeroperator-ms55d7i2-1grx
+    kubeContext: kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx
     namespace: default
     namespaceMode: isolated-leg-namespaces
     legNamespaces:
@@ -30,108 +49,1042 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-jaegeroperator-mqfzv370-1msv --force
+      command: cub cluster down --name helm-expt-parity-jaegeroperator-ms55d7i2-1grx
+        --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-jaegeroperator-mqfzv370-1msv"...
+      detail: 'Deleting kind cluster "helm-expt-parity-jaegeroperator-ms55d7i2-1grx"...
 
-        Deleting cluster "helm-expt-parity-jaegeroperator-mqfzv370-1msv" ...
+        Deleting cluster "helm-expt-parity-jaegeroperator-ms55d7i2-1grx" ...
 
-        Deleted nodes: ["helm-expt-parity-jaegeroperator-mqfzv370-1msv-control-plane"]
+        Deleted nodes: ["helm-expt-parity-jaegeroperator-ms55d7i2-1grx-control-plane"]
 
-        Deleting Space "helm-expt-parity-jaegeroperator-mqfzv370-1msv-cluster" (recursive:
+        Clearing release target on Space "helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster"...
+
+        Deleting Space "helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
         Done.'
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
-        --version 2.57.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+        --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975
       objectCount: 10
-      liveHelmManifestSHA256: ''
-      liveHelmManifestObjectCount: 0
+      liveHelmManifestSHA256: 86dc1ac73d888c47c329f9c14103d0e44824610664968d270846de35dc0387b3
+      liveHelmManifestObjectCount: 10
       namespace: default-helm
       runtime:
-        result: watch
-        workloads: ''
-        pods: ''
+        result: pass
+        workloads: deployment.apps/jaeger-operator   1/1   1     1     16s
+        pods: jaeger-operator-b44465548-jsqh5   1/1   Running   0     16s
         notReady: []
         ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: b6cfd7f0e7fd12cca7a3e3f275788246b008ad8be98fd16fdffc374422ab0d1b
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/jaeger-operator   1/1   1     1     10s'
+        pods: '# default
+
+          jaeger-operator-b44465548-2k8vc   1/1   Running   0     10s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
         namespaces:
+        - default-apply
+        retainedNamespaces: &id002
         - default
+        clusterScopedResources:
+          result: pass
+          objectCount: 2
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'mutatingwebhookconfiguration.admissionregistration.k8s.io "jaeger-operator-mutating-webhook-configuration"
+            deleted
+
+            validatingwebhookconfiguration.admissionregistration.k8s.io "jaeger-operator-validating-webhook-configuration"
+            deleted'
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 8
+          preservedPreExistingObjects: []
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'certificate.cert-manager.io "jaeger-operator-service-cert" deleted
+            from default namespace
+
+            deployment.apps "jaeger-operator" deleted from default namespace
+
+            issuer.cert-manager.io "selfsigned-issuer" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "jaeger-operator" deleted from default
+            namespace
+
+            rolebinding.rbac.authorization.k8s.io "jaeger-operator" deleted from default
+            namespace
+
+            service "jaeger-operator-metrics" deleted from default namespace
+
+            service "jaeger-operator-webhook-service" deleted from default namespace
+
+            serviceaccount "jaeger-operator" deleted from default namespace'
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+      controller: Argo CD OCI
+      app: jaeger-operator-parity
+      manifestSHA256: 6cb28c3948fd7e8fed0b52e98e8f2d6fbbb98224f0aea33d82e4cd215e9e910b
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id003
+      - default
+      ociRevision: sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+              targetRevision: latest
+          revision: sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3
+          status: Synced
+        health:
+          lastTransitionTime: '2026-07-28T21:11:40Z'
+          status: Healthy
+        summary:
+          images:
+          - jaegertracing/jaeger-operator:1.61.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-07-28T21:11:36Z'
+          finishedAt: '2026-07-28T21:11:38Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3
+          deployedAt: '2026-07-28T21:11:38Z'
+          deployStartedAt: '2026-07-28T21:11:36Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: jaeger-operator-metrics
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: Service
+          namespace: default
+          name: jaeger-operator-webhook-service
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: jaeger-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: MutatingWebhookConfiguration
+          namespace: ''
+          name: jaeger-operator-mutating-webhook-configuration
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: admissionregistration.k8s.io
+          kind: ValidatingWebhookConfiguration
+          namespace: ''
+          name: jaeger-operator-validating-webhook-configuration
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: jaeger-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: cert-manager.io
+          kind: Certificate
+          namespace: default
+          name: jaeger-operator-service-cert
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: cert-manager.io
+          kind: Issuer
+          namespace: default
+          name: selfsigned-issuer
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: Role
+          namespace: default
+          name: jaeger-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: jaeger-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
         diagnostics:
-          result: recorded
-          namespaces:
-          - default
-          namespaceArtifacts:
-          - namespace: default
-            kind: events
+          healthResidue: []
+          describe:
             result: pass
-            path: runtime-diagnostics/regular-helm/default/events.txt
-            sha256: 1b35f607da43b4e6b811c9af2f3e884146d56e5a2d8bc8d730f35b282161203d
-            bytes: 1651
-          - namespace: default
-            kind: workload-describe
+            output: "Name:         jaeger-operator-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster:argoproj.io/Application:argocd/jaeger-operator-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              7ce96cf3-52fc-4e90-8515-9015443cb8ad\",\"spaceSlug\":\"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\"unitId\":\"2cb570af-5...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T21:11:28Z\n\
+              \  Generation:          8\n  Resource Version:    1543\n  UID:     \
+              \            e5c8f3f2-4f55-494e-8ae4-1ef429ae3383\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-28T21:11:40Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-07-28T21:11:36Z\n    Deployed At:        2026-07-28T21:11:38Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-28T21:11:38Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-07-28T21:11:36Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/jaeger-operator serverside-applied\n        Name:\
+              \        jaeger-operator\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/jaeger-operator\
+              \ serverside-applied\n        Name:        jaeger-operator\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/jaeger-operator\
+              \ serverside-applied\n        Name:        jaeger-operator\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       \n        Hook\
+              \ Phase:  Running\n        Kind:        Service\n        Message:  \
+              \   service/jaeger-operator-webhook-service serverside-applied\n   \
+              \     Name:        jaeger-operator-webhook-service\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/jaeger-operator-metrics\
+              \ serverside-applied\n        Name:        jaeger-operator-metrics\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          jaegertracing/jaeger-operator:1.61.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/jaeger-operator\
+              \ serverside-applied\n        Name:        jaeger-operator\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       admissionregistration.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        MutatingWebhookConfiguration\n\
+              \        Message:     mutatingwebhookconfiguration.admissionregistration.k8s.io/jaeger-operator-mutating-webhook-configuration\
+              \ serverside-applied\n        Name:        jaeger-operator-mutating-webhook-configuration\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    cert-manager.io\n        Hook Phase:  Running\n        Kind:  \
+              \      Certificate\n        Message:     certificate.cert-manager.io/jaeger-operator-service-cert\
+              \ serverside-applied\n        Name:        jaeger-operator-service-cert\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       admissionregistration.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ValidatingWebhookConfiguration\n\
+              \        Message:     validatingwebhookconfiguration.admissionregistration.k8s.io/jaeger-operator-validating-webhook-configuration\
+              \ serverside-applied\n        Name:        jaeger-operator-validating-webhook-configuration\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    cert-manager.io\n        Hook Phase:  R"
+          events:
             result: pass
-            path: runtime-diagnostics/regular-helm/default/workloads-describe.txt
-            sha256: b7c8216194b94c87f493bd308f5dc1a99fa5face8c850b4d97b0e23bbb2dca5d
-            bytes: 40
-          podArtifacts: []
-      stderr: 'Error: unable to build kubernetes objects from release manifest: [resource
-        mapping not found for name: "jaeger-operator-service-cert" namespace: "default-helm"
-        from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                               MESSAGE
 
-        ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
-        namespace: "default-helm" from "": no matches for kind "Issuer" in version
-        "cert-manager.io/v1"
+              14s         Normal   OperationStarted     application/jaeger-operator-parity   Initiated
+              automated sync to ''sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3''
 
-        ensure CRDs are installed first]'
-      getManifestError: 'Error: release: not found'
+              14s         Normal   ResourceUpdated      application/jaeger-operator-parity   Updated
+              sync status:  -> OutOfSync
+
+              14s         Normal   ResourceUpdated      application/jaeger-operator-parity   Updated
+              health status:  -> Healthy
+
+              12s         Normal   OperationCompleted   application/jaeger-operator-parity   Sync
+              operation to sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3
+              succeeded
+
+              11s         Normal   ResourceUpdated      application/jaeger-operator-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              11s         Normal   ResourceUpdated      application/jaeger-operator-parity   Updated
+              health status: Healthy -> Progressing
+
+              10s         Normal   ResourceUpdated      application/jaeger-operator-parity   Updated
+              health status: Progressing -> Healthy'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: 8adbc6784d40e4b2b1b01105f4e10daf77bc50fed3cc3c965e3aba3449f042ad
+                bytes: 14476
+              output: "{\n  \"metadata\": {\n    \"name\": \"jaeger-operator-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"e5c8f3f2-4f55-494e-8ae4-1ef429ae3383\"\
+                ,\n    \"resourceVersion\": \"1572\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-07-28T21:11:28Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster:argoproj.io/Application:argocd/jaeger-operator-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"7ce96cf3-52fc-4e90-8515-9015443cb8ad\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\\\
+                \",\\\"unitId\\\":\\\"2cb570af-52fc-4287-9cd7-4a0b74159966\\\",\\\"\
+                unitSlug\\\":\\\"jaeger-operator-parity-app\\\",\\\"revisionNum\\\"\
+                :1}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-07-28T21:11:28Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-07-28T21:11:58Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"default-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"default\",\n        \"name\": \"jaeger-operator-metrics\",\n \
+                \       \"status\": \"Synced\",\n        \"health\": {\n         \
+                \ \"status\": \"Healthy\"\n        }\n      },\n      {\n        \"\
+                version\": \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"jaeger-operator-webhook-service\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"jaeger-operator\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"MutatingWebhookConfiguration\",\n        \"name\"\
+                : \"jaeger-operator-mutating-webhook-configuration\",\n        \"\
+                status\": \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\"\
+                ,\n        \"name\": \"jaeger-operator-validating-webhook-configuration\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"apps\",\n"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: b28dbf8a8da8fdff8a9419f31e2ae46a0727f85f0d2c73742634d466c2ca9836
+                bytes: 2625
+              output: "Name:               argocd/jaeger-operator-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:58073/applications/jaeger-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \                  STATUS  HEALTH   AGE  MESSAGE                 \
+                \                                                     REASON\nNamespace/default-oci\
+                \                                                            Synced\
+                \           84s                                                  \
+                \                             \nMutatingWebhookConfiguration/jaeger-operator-mutating-webhook-configuration\
+                \      Synced           29s                                      \
+                \                                         \nValidatingWebhookConfiguration/jaeger-operator-validating-webhook-configuration\
+                \  Synced           29s                                          \
+                \                                     \nIssuer/selfsigned-issuer \
+                \                                                        Synced  Healthy\
+                \  29s  issuer.cert-manager.io/selfsigned-issuer serverside-applied\
+                \                  \nRole/jaeger-operator                        \
+                \                                     Synced           29s  role.rbac.authorization.k8s.io/jaeger-operator\
+                \ serverside-applied            \nRoleBinding/jaeger-operator    \
+                \                                                  Synced        \
+                \   29s  rolebinding.rbac.authorization.k8s.io/jaeger-operator serverside-applied\
+                \     \nService/jaeger-operator-metrics                          \
+                \                        Synced  Healthy  29s  service/jaeger-operator-metrics\
+                \ serverside-applied                           \nService/jaeger-operator-webhook-service\
+                \                                          Synced  Healthy  29s  service/jaeger-operator-webhook-service\
+                \ serverside-applied                   \nServiceAccount/jaeger-operator\
+                \                                                   Synced       \
+                \    29s  serviceaccount/jaeger-operator serverside-applied      \
+                \                      \nDeployment/jaeger-operator              \
+                \                                         Synced  Healthy  29s  deployment.apps/jaeger-operator\
+                \ serverside-applied                           \n\u2514\u2500ReplicaSet/jaeger-operator-b44465548\
+                \                                                   Healthy  29s \
+                \                                                                \
+                \              \n  \u2514\u2500Pod/jaeger-operator-b44465548-szshn\
+                \                                                  Healthy  29s  \
+                \                                                                \
+                \             \nCertificate/jaeger-operator-service-cert         \
+                \                                Synced  Healthy  29s  certificate.cert-manager.io/jaeger-operator-service-cert\
+                \ serverside-applied  Certificate is up to date and has not expired"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              jaeger-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/jaeger-operator-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"jaeger-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+              targetRevision: latest
+          revision: sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe
+          status: Synced
+        health:
+          lastTransitionTime: '2026-07-28T21:09:12Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-07-28T21:11:27Z'
+          finishedAt: '2026-07-28T21:11:29Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a
+          deployedAt: '2026-07-28T21:09:14Z'
+          deployStartedAt: '2026-07-28T21:09:12Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe
+          deployedAt: '2026-07-28T21:11:28Z'
+          deployStartedAt: '2026-07-28T21:11:27Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: jaeger-operator-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  confighub.com/origin:\n\
+              \                {\"spaceId\":\"7ce96cf3-52fc-4e90-8515-9015443cb8ad\"\
+              ,\"spaceSlug\":\"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\"unitId\":\"7201c087-2...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T21:09:04Z\n\
+              \  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:\
+              \        14\n  Resource Version:  1471\n  UID:               c3136e11-de3a-457d-88a1-7368ea06fe63\n\
+              Spec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-07-28T21:09:12Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-28T21:09:12Z\n\
+              \    Deployed At:        2026-07-28T21:09:14Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-07-28T21:11:27Z\n\
+              \    Deployed At:        2026-07-28T21:11:28Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-28T21:11:29Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-28T21:11:27Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
+              \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
+              \        Message:     application.argoproj.io/jaeger-operator-parity\
+              \ serverside-applied\n        Name:        jaeger-operator-parity\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-28T21:11:30Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       jaeger-operator-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+              \        Target Revision:  latest\n    Revision:             sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    2m55s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a'\n\
+              \  Normal  ResourceUpdated     2m55s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  2m55s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  2m53s  argocd-application-controller\
+              \  Sync operation to sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a\
+              \ succeeded\n  Normal  ResourceUpdated     2m52s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    40s    argocd-application-controller  Initiated automated sync\
+              \ to 'sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe'\n\
+              \  Normal  ResourceUpdated     40s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  38s    argocd-application"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                              MESSAGE
+
+              2m55s       Normal   OperationStarted     application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Initiated
+              automated sync to ''sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a''
+
+              2m55s       Normal   ResourceUpdated      application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Updated
+              sync status:  -> OutOfSync
+
+              2m55s       Normal   ResourceUpdated      application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Updated
+              health status:  -> Healthy
+
+              2m53s       Normal   OperationCompleted   application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Sync
+              operation to sha256:05e713f8a2c85696dea718cdef33c83d0bba0a39fccd30011582cd909daaad9a
+              succeeded
+
+              2m52s       Normal   ResourceUpdated      application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Updated
+              sync status: OutOfSync -> Synced
+
+              40s         Normal   OperationStarted     application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Initiated
+              automated sync to ''sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe''
+
+              40s         Normal   ResourceUpdated      application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              38s         Normal   OperationCompleted   application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Sync
+              operation to sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe
+              succeeded
+
+              37s         Normal   ResourceUpdated      application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 67e85b98434f1d00b41f486cf897830c6b6bad1c7f26a85fd3cb983320af2b30
+                bytes: 9916
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"c3136e11-de3a-457d-88a1-7368ea06fe63\"\
+                ,\n    \"resourceVersion\": \"1599\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-07-28T21:09:04Z\",\n    \"annotations\"\
+                : {\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"7ce96cf3-52fc-4e90-8515-9015443cb8ad\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\\\
+                \",\\\"unitId\\\":\\\"7201c087-2a46-4286-aa54-f1ac89c69b05\\\",\\\"\
+                unitSlug\\\":\\\"root\\\",\\\"revisionNum\\\":1}\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\\\
+                \",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\
+                \":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-07-28T21:09:14Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:confighub.com/origin\"\
+                : {},\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-07-28T21:12:15Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"jaeger-operator-parity\",\n        \"status\": \"\
+                Synced\"\n      }\n    ],\n    \"sync\": {\n      \"status\""
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: f6b8a1ab80c7c329a2eda98d4ffea7c4d0e2167c366a0d35911b4a342a715b82
+                bytes: 1142
+              output: "Name:               argocd/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:58187/applications/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \    STATUS  HEALTH  AGE    MESSAGE                              \
+                \                                                             REASON\n\
+                Application/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\
+                \  Synced          3m19s  application.argoproj.io/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\
+                \ serverside-applied  \nApplication/jaeger-operator-parity       \
+                \                          Synced          55s    application.argoproj.io/jaeger-operator-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\",\n     \
+              \ \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1c336828480ee3a0f131ffd007d0bb8266880bbd7e1ef4117d2916971021a0fe\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              jaeger-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/jaeger-operator-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:f61c7a065e90ab534bfbf753905779c713d54bc8c55ecdd44338cac15e61b7e3\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"jaeger-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# default
+
+          deployment.apps/jaeger-operator   1/1   1     1     46s'
+        pods: '# default
+
+          jaeger-operator-b44465548-szshn   1/1   Running   0     46s'
+        notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
     semanticNormalizations: []
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
   operationTimings:
   - name: regular-helm-install
-    result: blocked
-    startedAt: '2026-06-16T02:01:04Z'
-    finishedAt: '2026-06-16T02:01:07Z'
-    elapsedSeconds: 3.016
+    result: pass
+    startedAt: '2026-07-28T21:09:23Z'
+    finishedAt: '2026-07-28T21:09:42Z'
+    elapsedSeconds: 18.497
     timeoutSeconds: 900
     command: helm upgrade --install jaeger-operator jaeger-operator --repo https://jaegertracing.github.io/helm-charts
-      --version 2.57.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
+      --version 2.57.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
-    startedAt: '2026-06-16T02:04:10Z'
-    finishedAt: '2026-06-16T02:04:11Z'
-    elapsedSeconds: 0.406
+    startedAt: '2026-07-28T21:10:24Z'
+    finishedAt: '2026-07-28T21:10:24Z'
+    elapsedSeconds: 0.332
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
-      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-mqfzv370-1msv-jaeger-operator
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
-    result: blocked
-    startedAt: '2026-06-16T02:04:11Z'
-    finishedAt: '2026-06-16T02:04:11Z'
-    elapsedSeconds: 0.211
+    result: pass
+    startedAt: '2026-07-28T21:10:27Z'
+    finishedAt: '2026-07-28T21:10:27Z'
+    elapsedSeconds: 0.166
     timeoutSeconds: 300
-    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig
-      --context kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv apply --server-side
-      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig
+      --context kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml
     objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-07-28T21:10:27Z'
+    finishedAt: '2026-07-28T21:10:37Z'
+    elapsedSeconds: 10.251
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-07-28T21:10:42Z'
+    finishedAt: '2026-07-28T21:10:43Z'
+    elapsedSeconds: 0.241
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jaegertracing/jaeger-operator/2.57.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-07-28T21:10:44Z'
+    finishedAt: '2026-07-28T21:11:15Z'
+    elapsedSeconds: 30.339
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+      --space helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator --target
+      helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-07-28T21:11:15Z'
+    finishedAt: '2026-07-28T21:11:16Z'
+    elapsedSeconds: 0.916
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+      --release-target helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster/oci
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-07-28T21:11:16Z'
+    finishedAt: '2026-07-28T21:11:17Z'
+    elapsedSeconds: 0.816
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-07-28T21:11:17Z'
+    finishedAt: '2026-07-28T21:11:17Z'
+    elapsedSeconds: 0.922
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-jaegeroperator-ms55d7i2-1grx-jaeger-operator
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-07-28T21:11:17Z'
+    finishedAt: '2026-07-28T21:11:18Z'
+    elapsedSeconds: 1.022
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+      jaeger-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argo-application.json
+      --target helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster/oci --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-07-28T21:11:18Z'
+    finishedAt: '2026-07-28T21:11:19Z'
+    elapsedSeconds: 0.682
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-jaegeroperator-ms55d7i2-1grx-cluster
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-07-28T21:11:19Z'
+    finishedAt: '2026-07-28T21:11:49Z'
+    elapsedSeconds: 30.231
+    timeoutSeconds: 420
+    waitedSeconds: 30
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-07-28T21:12:24Z'
+    finishedAt: '2026-07-28T21:12:24Z'
+    elapsedSeconds: 0.092
+    timeoutSeconds: 180
+    namespaces: default
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-jaegeroperator-mqfzv370-1msv\"\
-      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-jaegeroperator-mqfzv370-1msv\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx\"\
+      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-jaegeroperator-ms55d7i2-1grx\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -139,66 +1092,105 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-jaegeroperator-mqfzv370-1msv\
-      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-jaegeroperator-mqfzv370-1msv.kubeconfig\n\
-      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
-      argocd\"...\napiVersion: v1"
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-jaegeroperator-ms55d7i2-1grx\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-jaegeroperator-ms55d7i2-1grx.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k"
+  - name: target-profile
+    result: pass
+    detail: 'kind-cert-manager: The verified cert-manager catalog package installed
+      its six CRDs and three controllers before the chart under test. Certificate
+      and Issuer objects can now be reconciled instead of remaining permanently Progressing.'
   - name: target-facts-regular-helm
     result: pass
-    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+    detail: secrets=0 crds=3 namespaces=0 objectStores=0
   - name: regular-helm-live
-    result: blocked
-    detail: 'Error: unable to build kubernetes objects from release manifest: [resource
-      mapping not found for name: "jaeger-operator-service-cert" namespace: "default-helm"
-      from "": no matches for kind "Certificate" in version "cert-manager.io/v1"
-
-      ensure CRDs are installed first, resource mapping not found for name: "selfsigned-issuer"
-      namespace: "default-helm" from "": no matches for kind "Issuer" in version "cert-manager.io/v1"
-
-      ensure CRDs are installed first]'
+    result: pass
+    detail: "Release \"jaeger-operator\" does not exist. Installing it now.\nNAME:\
+      \ jaeger-operator\nLAST DEPLOYED: Tue Jul 28 22:09:26 2026\nNAMESPACE: default-helm\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\njaeger-operator is installed.\n\n\nCheck the jaeger-operator logs\n\
+      \  export POD=$(kubectl get pods -l app.kubernetes.io/instance=jaeger-operator\
+      \ -l app.kubernetes.io/name=jaeger-operator --namespace default-helm --output\
+      \ name)\n  kubectl logs $POD --namespace=default-helm"
   - name: target-facts-confighub-apply
     result: pass
-    detail: secrets=0 crds=0 namespaces=0 objectStores=0
-  - name: failure
-    result: blocked
-    detail: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
-      namespace: "default" from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
-      no matches for kind "Certificate" in version "cert-manager.io/v1"
+    detail: secrets=0 crds=3 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
 
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
-      from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
-      no matches for kind "Issuer" in version "cert-manager.io/v1"
-
-      ensure CRDs are installed first'
+      deployment.apps/jaeger-operator   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=2
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=8 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=3 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
   targetFacts:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: jaegers.jaegertracing.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: certificates.cert-manager.io
+        sourceVariant: default
+        lane: regularHelm
+      - name: issuers.cert-manager.io
+        sourceVariant: default
+        lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
     configHubKubectlApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: jaegers.jaegertracing.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: certificates.cert-manager.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: issuers.cert-manager.io
+        sourceVariant: default
+        lane: configHubKubectlApply
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: jaegers.jaegertracing.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: certificates.cert-manager.io
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: issuers.cert-manager.io
+        sourceVariant: default
+        lane: configHubOciArgo
       stagedObjectStores: []
       stagedNamespaces: []
   operatingPolicy:
     regularHelm:
       result: pass
       operation: none
-  failure:
-    message: 'manifest apply failed: resource mapping not found for name: "jaeger-operator-service-cert"
-      namespace: "default" from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
-      no matches for kind "Certificate" in version "cert-manager.io/v1"
-
-      ensure CRDs are installed first
-
-      resource mapping not found for name: "selfsigned-issuer" namespace: "default"
-      from "$HOME/code/helm-expt/runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/direct-apply-manifest.yaml":
-      no matches for kind "Issuer" in version "cert-manager.io/v1"
-
-      ensure CRDs are installed first'
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

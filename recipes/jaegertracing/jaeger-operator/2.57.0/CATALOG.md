@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | local-kubernetes-live |
-| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 2/2; ConfigHub 2/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | crds;webhooks;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/jaegertracing/jaeger-operator/2.57.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/jaegertracing/jaeger-operator/2.57.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/jaegertracing/jaeger-operator/2.57.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Target prerequisite plan | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/jaegertracing/jaeger-operator/2.57.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml](helm-pain-report.yaml) |

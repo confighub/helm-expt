@@ -29,8 +29,8 @@ Which detailed CSV should I open next?
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 89/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | top100 promotion-review queue | 37/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
-| top100 | first strict top100 promotion wave | 30/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
-| top100 | fast-track top100 promotion candidates | 0/30 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
+| top100 | first strict top100 promotion wave | 31/37 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
+| top100 | fast-track top100 promotion candidates | 0/31 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | fast-track promotion review packets | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
 | top100 | fast-track storage rollback reviews | 0/0 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 33/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
@@ -54,8 +54,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 148/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 14/14 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 50/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
-| proof lanes | GitOps/OCI live pass rows | 137/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 137/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | GitOps/OCI live pass rows | 138/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 138/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 128/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 153/178 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 126/199 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -70,11 +70,11 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 137/198 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 138/198 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 178/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 110/110 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 54/110 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 38/110 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 109/109 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 53/109 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 38/109 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live matrix commands remaining | 128 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 57 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix two-cluster kind commands remaining | 71 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
@@ -193,7 +193,7 @@ considered.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 53 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
@@ -260,7 +260,6 @@ needs a support artifact or a direct receipt review before rerun.
 | traefik/traefik@40.2.0 | no-crds | watch | gitops-runtime-review | [recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) |
 | istio/istiod@1.30.0 | default | blocked | stage-prerequisite | [recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml](../../recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml) |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | stage-prerequisite | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | stage-prerequisite | [recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml](../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml) |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | capability-profile-base | [recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md](../../recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | capability-profile-base | [recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md](../../recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | blocked | stage-prerequisite | [recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml](../../recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml) |
@@ -395,9 +394,9 @@ top-100 chart and the next command or file to open.
 
 | Strongest evidence | Charts |
 | --- | ---: |
-| live-helm-vs-confighub-parity | 72 |
+| live-helm-vs-confighub-parity | 73 |
 | in-confighub-proof | 15 |
-| local-kubernetes-live | 9 |
+| local-kubernetes-live | 8 |
 | two-cluster-kind-parity | 4 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
@@ -474,8 +473,8 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 198 | 0 | 1 | 199 |
 | local live | 148 | 51 | 0 | 199 |
-| GitOps/OCI live | 137 | 61 | 1 | 199 |
-| live Helm-vs-ConfigHub parity | 137 | 61 | 1 | 199 |
+| GitOps/OCI live | 138 | 60 | 1 | 199 |
+| live Helm-vs-ConfigHub parity | 138 | 60 | 1 | 199 |
 | two-cluster kind parity | 128 | 50 | 0 | 178 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
@@ -503,14 +502,14 @@ useful.
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
 | inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
-| model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 53 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 | review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
 | inspect-parity-diff | 16 | Inspect the semantic object diff before changing waits, target provisioning, or the recipe. |
-| stage-prerequisite | 15 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
+| stage-prerequisite | 14 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | lifecycle-route | 1 | Choose the hook or lifecycle observation route before rerunning strict parity. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
@@ -573,7 +572,6 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | istio/gateway@1.30.0 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | istio/istiod@1.30.0 | default | blocked | target-prerequisite: namespace missing (parity passed) |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite: cert-manager CRDs missing |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite: cert-manager CRDs missing |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime: Argo health Progressing (parity passed) |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) |

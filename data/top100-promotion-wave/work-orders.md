@@ -12,8 +12,8 @@ routed deferral.
 ## Summary
 
 ~~~text
-charts: 30
-work orders: 168
+charts: 31
+work orders: 174
 ~~~
 
 ## Work Orders By Chart
@@ -239,6 +239,22 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 | 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
 | 3 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
 | 4 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
+
+### jaegertracing/jaeger-operator@2.57.0
+
+Variants: `default;no-crds`<br>
+Evidence: `live-helm-vs-confighub-parity`<br>
+Feature focus: `crds;webhooks`<br>
+Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
+
+| Order | Work type | Reviewer | Done when |
+| ---: | --- | --- | --- |
+| 1 | variant-selection | catalog reviewer | A selected variant is named from default;no-crds and the non-selected variants have a written promote/defer reason. |
+| 2 | scan-and-gate-disposition | security reviewer | Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support. |
+| 3 | crd-lifecycle | platform reviewer | CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base. |
+| 4 | webhook-readiness | platform reviewer | Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred. |
+| 5 | selected-live-evidence | operator reviewer | The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale. |
+| 6 | target-scoped-support-decision | catalog owner | A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome. |
 
 ### jetstack/trust-manager@v0.22.1
 

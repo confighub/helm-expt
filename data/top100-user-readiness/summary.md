@@ -76,7 +76,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | elastic/filebeat@8.5.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | hashicorp/terraform@1.1.2 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
-| jaegertracing/jaeger-operator@2.57.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
+| jaegertracing/jaeger-operator@2.57.0 | no-crds (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
 | strimzi/strimzi-kafka-operator@1.0.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | percona/pxc-operator@1.19.1 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); target facts at variant time | run catalog promotion review |
 | argo-cd/argo-events@2.4.21 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |

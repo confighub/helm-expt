@@ -13,17 +13,17 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 669,
+  "cellCount": 667,
   "byCompletionClass": {
-    "needs-target-or-prereq-fix": 447,
+    "needs-target-or-prereq-fix": 445,
     "already-decided": 122,
     "needs-run": 53,
     "needs-modeling": 47
   },
   "byLane": {
     "promotion": 389,
-    "G": 62,
-    "P": 62,
+    "G": 61,
+    "P": 61,
     "lifecycle": 53,
     "K": 52,
     "L": 51
@@ -6067,20 +6067,6 @@
       "chart": "jaegertracing/jaeger-operator",
       "version": "2.57.0",
       "variant": "no-crds",
-      "lane": "G",
-      "lane_label": "gitops-oci-live",
-      "state": "blocked",
-      "reason": "target-prerequisite: cert-manager CRDs missing",
-      "next_action": "Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass.",
-      "support_artifact": "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml",
-      "owner": "user",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds"
-    },
-    {
-      "chart": "jaegertracing/jaeger-operator",
-      "version": "2.57.0",
-      "variant": "no-crds",
       "lane": "K",
       "lane_label": "two-cluster-kind",
       "state": "blocked",
@@ -6118,20 +6104,6 @@
       "owner": "catalog",
       "completion_class": "needs-run",
       "command": ""
-    },
-    {
-      "chart": "jaegertracing/jaeger-operator",
-      "version": "2.57.0",
-      "variant": "no-crds",
-      "lane": "P",
-      "lane_label": "live-helm-vs-confighub-parity",
-      "state": "blocked",
-      "reason": "target-prerequisite: cert-manager CRDs missing",
-      "next_action": "Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass.",
-      "support_artifact": "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml",
-      "owner": "user",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds"
     },
     {
       "chart": "jaegertracing/jaeger-operator",
