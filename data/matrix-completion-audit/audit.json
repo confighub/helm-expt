@@ -13,19 +13,19 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 676,
+  "cellCount": 673,
   "byCompletionClass": {
-    "needs-target-or-prereq-fix": 448,
-    "already-decided": 127,
-    "needs-run": 54,
+    "needs-target-or-prereq-fix": 447,
+    "already-decided": 126,
+    "needs-run": 53,
     "needs-modeling": 47
   },
   "byLane": {
-    "promotion": 390,
+    "promotion": 389,
     "G": 64,
     "P": 64,
-    "lifecycle": 54,
-    "K": 53,
+    "lifecycle": 53,
+    "K": 52,
     "L": 51
   },
   "cells": [
@@ -6407,8 +6407,8 @@
       "lane_label": "lifecycle-observed",
       "state": "todo",
       "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
+      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
+      "support_artifact": "data/lifecycle-route-actions/summary.md",
       "owner": "catalog",
       "completion_class": "needs-run",
       "command": ""
@@ -6425,48 +6425,6 @@
       "support_artifact": "runs/keda-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "variant": "no-crds + secret",
-      "lane": "promotion",
-      "lane_label": "variant-promotion (not-applicable-candidate)",
-      "state": "not-applicable-candidate",
-      "reason": "candidate rows are planning rows, not server-side promotion evidence",
-      "next_action": "turn this candidate into a real base or derived variant before server-side promotion applies",
-      "support_artifact": "",
-      "owner": "catalog/promotion",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "variant": "no-crds",
-      "lane": "K",
-      "lane_label": "two-cluster-kind",
-      "state": "watch",
-      "reason": "target-prerequisite: required Secret missing (parity passed)",
-      "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
-      "support_artifact": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml",
-      "owner": "user",
-      "completion_class": "already-decided",
-      "command": "npm run kind-parity:run -- --recipe recipes/kedacore/keda/2.19.0 --base no-crds"
-    },
-    {
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "variant": "no-crds",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {

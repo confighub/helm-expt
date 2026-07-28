@@ -434,26 +434,26 @@
 <p>One row per <b>non-green / not-yet-run</b> cell of the <a href="../master-catalog-matrix/summary.html">master catalog matrix</a>. For each cell it records the lane, the state, a product-readable reason, the next action, the support artifact, and a <b>completion class</b> that separates <i>needs a run</i> from <i>needs a model/support fix</i> from <i>already has a named product decision</i> - so the matrix can be finished in the right order.</p>
 <p>It is a read-only projection over the committed decision/queue surfaces (disposition-frontier, the live/kind decisions, the burn-down, run-blocks, base-outcomes, lifecycle-route-actions, and the matrix's own promotion/lifecycle columns). It changes no status and runs nothing.</p>
 <h2 id="completion-classes">Completion classes</h2>
-<p>676 non-green cells:</p>
-<table><thead><tr><th>Class</th><th>Cells</th><th>Meaning</th></tr></thead><tbody><tr><td><code>needs-target-or-prereq-fix</code></td><td>448</td><td>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</td></tr>
-<tr><td><code>already-decided</code></td><td>127</td><td>A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.</td></tr>
-<tr><td><code>needs-run</code></td><td>54</td><td>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</td></tr>
+<p>673 non-green cells:</p>
+<table><thead><tr><th>Class</th><th>Cells</th><th>Meaning</th></tr></thead><tbody><tr><td><code>needs-target-or-prereq-fix</code></td><td>447</td><td>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</td></tr>
+<tr><td><code>already-decided</code></td><td>126</td><td>A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.</td></tr>
+<tr><td><code>needs-run</code></td><td>53</td><td>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</td></tr>
 <tr><td><code>needs-modeling</code></td><td>47</td><td>The catalog/model has to change before this can pass.</td></tr></tbody></table>
-<table><thead><tr><th>Lane</th><th>Cells</th></tr></thead><tbody><tr><td><code>promotion</code></td><td>390</td></tr>
+<table><thead><tr><th>Lane</th><th>Cells</th></tr></thead><tbody><tr><td><code>promotion</code></td><td>389</td></tr>
 <tr><td><code>G</code></td><td>64</td></tr>
 <tr><td><code>P</code></td><td>64</td></tr>
-<tr><td><code>lifecycle</code></td><td>54</td></tr>
-<tr><td><code>K</code></td><td>53</td></tr>
+<tr><td><code>lifecycle</code></td><td>53</td></tr>
+<tr><td><code>K</code></td><td>52</td></tr>
 <tr><td><code>L</code></td><td>51</td></tr></tbody></table>
 <table><thead><tr><th>State</th><th>Cells</th></tr></thead><tbody><tr><td><code>proven</code></td><td>179</td></tr>
-<tr><td><code>watch</code></td><td>127</td></tr>
+<tr><td><code>watch</code></td><td>126</td></tr>
 <tr><td><code>not-applicable-source</code></td><td>110</td></tr>
 <tr><td><code>blocked</code></td><td>107</td></tr>
-<tr><td><code>not-applicable-candidate</code></td><td>68</td></tr>
-<tr><td><code>todo</code></td><td>54</td></tr>
+<tr><td><code>not-applicable-candidate</code></td><td>67</td></tr>
+<tr><td><code>todo</code></td><td>53</td></tr>
 <tr><td><code>fail</code></td><td>18</td></tr>
 <tr><td><code>not-applicable-derived-variant</code></td><td>13</td></tr></tbody></table>
-<h2 id="needs-run-54">needs-run (54)</h2>
+<h2 id="needs-run-53">needs-run (53)</h2>
 <p>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</p>
 <table><thead><tr><th>Chart</th><th>Variant</th><th>Lane</th><th>State</th><th>Reason</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-workflows@1.0.14</td><td>controller-default-reviewed</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (todo:1) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>argo-cd/argo-workflows@1.0.14</td><td>default</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (todo:1) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
@@ -491,8 +491,7 @@
 <tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
-<tr><td>kedacore/keda@2.19.0</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
-<tr><td>kedacore/keda@2.19.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
+<tr><td>kedacore/keda@2.19.0</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>kyverno/kyverno@3.8.1</td><td>default</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (observed:6) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>kyverno/kyverno@3.8.1</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>lifecycle route(s) defined (observed:6) but not yet observed live</td><td>observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)</td></tr>
 <tr><td>minio-operator/operator@7.1.1</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
@@ -509,7 +508,7 @@
 <tr><td>strimzi/strimzi-kafka-operator@1.0.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>traefik/traefik@40.2.0</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>traefik/traefik@40.2.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr></tbody></table>
-<h2 id="needs-target-or-prereq-fix-448">needs-target-or-prereq-fix (448)</h2>
+<h2 id="needs-target-or-prereq-fix-447">needs-target-or-prereq-fix (447)</h2>
 <p>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</p>
 <table><thead><tr><th>Chart</th><th>Variant</th><th>Lane</th><th>State</th><th>Reason</th><th>Next action</th></tr></thead><tbody><tr><td>aqua/trivy-operator@0.32.1</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>
 <tr><td>aqua/trivy-operator@0.32.1</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
@@ -802,7 +801,6 @@
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>no-crds</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>kedacore/keda@2.19.0</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>
 <tr><td>kedacore/keda@2.19.0</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
-<tr><td>kedacore/keda@2.19.0</td><td>no-crds + secret</td><td>promotion</td><td>not-applicable-candidate</td><td>candidate rows are planning rows, not server-side promotion evidence</td><td>turn this candidate into a real base or derived variant before server-side promotion applies</td></tr>
 <tr><td>kedacore/keda@2.19.0</td><td>no-crds</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
@@ -1008,7 +1006,7 @@
 <tr><td>velero/velero@12.0.1</td><td>default</td><td>P</td><td>blocked</td><td>render-input: required Velero provider values missing</td><td>Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.</td></tr>
 <tr><td>velero/velero@12.0.1</td><td>no-crds</td><td>G</td><td>blocked</td><td>render-input: required Velero provider values missing</td><td>Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.</td></tr>
 <tr><td>velero/velero@12.0.1</td><td>no-crds</td><td>P</td><td>blocked</td><td>render-input: required Velero provider values missing</td><td>Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane.</td></tr></tbody></table>
-<h2 id="already-decided-127">already-decided (127)</h2>
+<h2 id="already-decided-126">already-decided (126)</h2>
 <p>A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.</p>
 <table><thead><tr><th>Chart</th><th>Variant</th><th>Lane</th><th>State</th><th>Reason</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@9.5.17</td><td>default</td><td>G</td><td>watch</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
 <tr><td>argo-cd/argo-cd@9.5.17</td><td>default</td><td>P</td><td>watch</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
@@ -1115,7 +1113,6 @@
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>default</td><td>P</td><td>watch</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>no-crds</td><td>G</td><td>watch</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>no-crds</td><td>P</td><td>watch</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
-<tr><td>kedacore/keda@2.19.0</td><td>no-crds</td><td>K</td><td>watch</td><td>target-prerequisite: required Secret missing (parity passed)</td><td>Stage the named Secret as a target fact, then the row can move to pass.</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>G</td><td>watch</td><td>gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>K</td><td>watch</td><td>watch: object parity passed; readiness needs review</td><td>Confirm workload readiness on the target and record the result.</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>P</td><td>watch</td><td>gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed)</td><td>Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.</td></tr>

@@ -35,7 +35,7 @@ const htmlPath = join(repoRoot, outDir, "by-variant.html");
 
 const CSV_HEADERS = [
   "chart", "recipe_version", "base", "route_source_version", "quirk_class", "route_name", "lifecycle_phase",
-  "action_kind", "execution_mode", "base_disposition", "automatic", "who_runs", "delta", "reason", "command",
+  "action_kind", "execution_mode", "base_disposition", "automatic", "who_runs", "operating_details", "delta", "reason", "command",
   "evidence", "next_action", "evidence_required", "source_drift",
 ];
 
@@ -96,7 +96,7 @@ function whoRuns(execMode, actionKind, disposition) {
   if (execMode === "target-owned") {
     if (actionKind === "preserve-ordering") return "Your applier — must apply CRDs before dependent objects";
     if (actionKind === "accept-target-policy") return "Your cluster — at uninstall, automatically";
-    if (actionKind === "observe-webhook") return "Your delivery and cluster — stage any declared certificate, then check webhook readiness";
+    if (actionKind === "observe-webhook") return "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness";
     return "Your cluster — handles it automatically";
   }
   if (execMode === "not-yet-executable" || disposition === "blocked") return "Blocked — a prerequisite must be met first";
@@ -204,6 +204,7 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       disposition,
       automatic: false,
       whoRuns: whoRuns(route.execution_mode, route.action_kind, disposition),
+      operatingDetails: route.required_target_facts,
       command: cleanCommand(route.human_command),
       delta,
       reason,
@@ -260,7 +261,7 @@ function emit(chart, variant, chartRoutes, matrixDispVal, csvRows, crdCount) {
       chart, recipe_version: variant.version, base: variant.base, route_source_version: r.sourceVersion, quirk_class: r.quirk_class,
       route_name: r.route_name, lifecycle_phase: r.lifecycle_phase, action_kind: r.action_kind,
       execution_mode: r.execution_mode, base_disposition: r.disposition, automatic: "false",
-      who_runs: r.whoRuns, delta: r.delta, reason: r.reason, command: r.command,
+      who_runs: r.whoRuns, operating_details: r.operatingDetails, delta: r.delta, reason: r.reason, command: r.command,
       evidence: r.evidence, next_action: r.nextAction, evidence_required: r.evidenceRequired, source_drift: r.sourceDrift,
     });
   }

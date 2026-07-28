@@ -13,19 +13,19 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 676,
+  "nonGreenCellsCovered": 673,
   "familyCount": 20,
   "byActionType": {
-    "run-promotion": 390,
-    "record-decision": 118,
+    "run-promotion": 389,
+    "record-decision": 116,
     "refresh-image": 74,
     "stage-prereq": 60,
     "fix-model": 27,
     "lifecycle-observe": 7
   },
   "byOwnerLane": {
-    "Codex-live": 397,
-    "product-decision": 149,
+    "Codex-live": 396,
+    "product-decision": 147,
     "Claude-non-live": 130
   },
   "top10": [
@@ -33,7 +33,7 @@
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 390,
+      "affected_cell_count": 389,
       "owner_lane": "Codex-live"
     },
     {
@@ -47,14 +47,14 @@
       "action_id": "CCP-03",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 70,
+      "affected_cell_count": 69,
       "owner_lane": "product-decision"
     },
     {
       "action_id": "CCP-04",
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
-      "affected_cell_count": 48,
+      "affected_cell_count": 47,
       "owner_lane": "product-decision"
     },
     {
@@ -106,7 +106,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 390,
+      "affected_cell_count": 389,
       "lanes": [
         "promotion"
       ],
@@ -369,7 +369,6 @@
         "jetstack/trust-manager@v0.22.1/no-crds [promotion]",
         "kedacore/keda@2.19.0/(source) [promotion]",
         "kedacore/keda@2.19.0/default [promotion]",
-        "kedacore/keda@2.19.0/no-crds + secret [promotion]",
         "kedacore/keda@2.19.0/no-crds [promotion]",
         "kyverno/kyverno-policies@3.8.0/(source) [promotion]",
         "kyverno/kyverno-policies@3.8.0/default [promotion]",
@@ -609,7 +608,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 70,
+      "affected_cell_count": 69,
       "lanes": [
         "G",
         "K",
@@ -670,7 +669,6 @@
         "jetstack/trust-manager@v0.22.1/default [P]",
         "jetstack/trust-manager@v0.22.1/no-crds [G]",
         "jetstack/trust-manager@v0.22.1/no-crds [P]",
-        "kedacore/keda@2.19.0/no-crds [K]",
         "kyverno/kyverno-policies@3.8.0/default [G]",
         "kyverno/kyverno-policies@3.8.0/default [K]",
         "kyverno/kyverno-policies@3.8.0/default [P]",
@@ -699,7 +697,7 @@
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
       "owner_lane": "product-decision",
-      "affected_cell_count": 48,
+      "affected_cell_count": 47,
       "lanes": [
         "lifecycle"
       ],
@@ -744,7 +742,6 @@
         "jaegertracing/jaeger-operator@2.57.0/default [lifecycle]",
         "jaegertracing/jaeger-operator@2.57.0/no-crds [lifecycle]",
         "kedacore/keda@2.19.0/default [lifecycle]",
-        "kedacore/keda@2.19.0/no-crds [lifecycle]",
         "minio-operator/operator@7.1.1/default [lifecycle]",
         "percona/pxc-operator@1.19.1/default [lifecycle]",
         "percona/pxc-operator@1.19.1/no-crds [lifecycle]",

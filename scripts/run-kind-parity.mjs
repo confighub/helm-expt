@@ -434,11 +434,29 @@ function classifyReceipt(receipt) {
 }
 
 function verifyReceipts() {
+  verifyReadinessClassifier();
   if (latestCandidates) return verifyLatestCandidateReceipts();
   const receipts = findReceipts();
   check(receipts.length >= 1, "expected at least one two-cluster kind parity receipt");
   for (const path of receipts) verifyReceipt(path);
   console.log(`verified ${receipts.length} two-cluster kind parity receipt(s)`);
+}
+
+function verifyReadinessClassifier() {
+  const result = spawnSync(
+    "python3",
+    ["tests/live-helm-installer-kind-parity-test", "--self-test"],
+    {
+      cwd: repoRoot,
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024,
+    },
+  );
+  check(
+    result.status === 0,
+    `kind parity readiness classifier self-test failed: ${result.stderr || result.stdout}`,
+  );
+  console.log("verified kind parity readiness classifier self-test");
 }
 
 function verifyLatestCandidateReceipts() {

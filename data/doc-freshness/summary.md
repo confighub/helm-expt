@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-07-28 (commit `6d00eed43`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-07-28 (commit `f8b9007d5`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 233 |
-| Fresh (no linked source newer than the doc) | 27 |
-| **Review-due** | 66 |
+| Fresh (no linked source newer than the doc) | 28 |
+| **Review-due** | 65 |
 | No linked evidence sources (cannot auto-trigger) | 140 |
 
 ## Review queue
@@ -77,7 +77,7 @@ most recently changed triggers.
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 19 | `data/extension-slots/summary.md (2026-06-30)`<br>`data/quirk-coverage/coverage.csv (2026-06-24)`<br>`data/quirk-coverage/summary.md (2026-06-24)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 19 | `data/extension-slots/extension-slots.csv (2026-06-30)`<br>`data/extension-slots/summary.md (2026-06-30)` |
 | [docs/user/nginx-configuration-files.md](../../docs/user/nginx-configuration-files.md) | user | 2026-06-11 | 19 | `data/extension-slots/summary.md (2026-06-30)` |
-| [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-07-09 | 19 | `data/live-kind-parity/summary.md (2026-07-28)`<br>`data/master-catalog-matrix/summary.md (2026-07-28)` |
+| [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md) | user | 2026-07-09 | 19 | `packages/jetstack/cert-manager/v1.20.2/installer.yaml (2026-07-28)`<br>`data/live-kind-parity/summary.md (2026-07-28)`<br>`data/master-catalog-matrix/summary.md (2026-07-28)` |
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 13 | `data/image-digest-workdown/summary.md (2026-06-29)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 12 | `data/cub-adoption-caveats/summary.md (2026-07-25)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-06-21 | 12 | `data/crd-ordering-gap/summary.md (2026-07-03)`<br>`data/default-credential-check/summary.md (2026-07-01)` |
@@ -96,7 +96,6 @@ most recently changed triggers.
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-07-27 | 1 | `data/lifecycle-route-actions/summary.md (2026-07-27)`<br>`data/lifecycle-routes/summary.md (2026-07-27)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-07-28 | 1 | `data/helm-render-intents/summary.md (2026-07-28)`<br>`data/outcome-coverage/summary.md (2026-07-28)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-07-26 | 1 | `tests/doctrine.md (2026-07-26)` |
-| [docs/user/helm-render-intents.md](../../docs/user/helm-render-intents.md) | user | 2026-07-28 | 1 | `data/helm-render-intents/contract-gaps.csv (2026-07-28)`<br>`data/helm-render-intents/contract-gaps.md (2026-07-28)`<br>`data/helm-render-intents/contract.md (2026-07-28)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-07-27 | 1 | `data/lifecycle-routes/contract.md (2026-07-27)`<br>`data/lifecycle-routes/routes.csv (2026-07-27)`<br>`data/lifecycle-routes/routes.json (2026-07-27)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-07-28 | 1 | `data/installer-oci-packages/packages.csv (2026-07-28)`<br>`data/installer-oci-packages/packages.json (2026-07-28)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-30 | 1 | `data/chart-use-guide/summary.md (2026-07-01)` |

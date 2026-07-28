@@ -28,7 +28,7 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 5 prerequisite(s): 5 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 6 prerequisite(s): 5 CRDs, 1 other item. Create these with your own values before you apply the rendered objects.
 
 No hook or lifecycle route is recorded for this preset config.
 
@@ -84,11 +84,12 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD cephblockpools.ceph.rook.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cephclusters.ceph.rook.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cephfilesystems.ceph.rook.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cephfilesystemsubvolumegroups.ceph.rook.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cephobjectstores.ceph.rook.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD cephblockpools.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD cephclusters.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD cephfilesystems.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD cephfilesystemsubvolumegroups.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD cephobjectstores.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | Namespace rook-ceph | kubectl create namespace rook-ceph --dry-run=client -o yaml \| kubectl apply -f - |
 
 ## Evidence
 

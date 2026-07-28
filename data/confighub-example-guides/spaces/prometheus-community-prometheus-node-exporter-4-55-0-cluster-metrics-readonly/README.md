@@ -84,7 +84,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml |
 
 ## Evidence
 

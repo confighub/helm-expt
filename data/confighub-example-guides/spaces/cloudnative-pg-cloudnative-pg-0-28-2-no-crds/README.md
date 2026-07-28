@@ -85,16 +85,16 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret default/cnpg-webhook-cert keys tls.crt,tls.key | kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
-| ClusterFeature | CRD backups.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterimagecatalogs.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusters.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD databases.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD failoverquorums.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD imagecatalogs.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD poolers.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD publications.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD scheduledbackups.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD subscriptions.postgresql.cnpg.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD backups.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterimagecatalogs.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusters.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD databases.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD failoverquorums.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD imagecatalogs.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD poolers.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD publications.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD scheduledbackups.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD subscriptions.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

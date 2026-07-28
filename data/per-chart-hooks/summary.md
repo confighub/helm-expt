@@ -4,13 +4,13 @@
 
 Render parity proves every **non-hook** object in a chart. A hook (a Job, a test, a delete-policy cleanup) is the one thing render parity is *not* allowed to claim — so each is re-expressed as an explicit, named **lifecycle route**: visible, runnable, and **never automatic**. This page is the per-chart view of those routes.
 
-**13 catalog charts have lifecycle routes**, 25 routes in total — and **0 of 25 are automatic**. Nothing claims the product silently runs a hook for you. (Charts not listed here have no lifecycle hooks; render parity covers their full object set.)
+**14 catalog charts have lifecycle routes**, 27 routes in total — and **0 of 27 are automatic**. Nothing claims the product silently runs a hook for you. (Charts not listed here have no lifecycle hooks; render parity covers their full object set.)
 
 | Chart | Disposition | Routes | Automatic | Skill for this chart |
 | --- | --- | --- | --- | --- |
 | airflow-helm/airflow@8.9.0 | blocked | 1 | 0/1 | — |
 | apache-airflow/airflow@1.21.0 | blocked | 1 | 0/1 | — |
-| argo-cd/argo-workflows@1.0.14 | blocked | 1 | 0/1 | hook-and-secret-lifecycle; live-parity |
+| argo-cd/argo-workflows@1.0.14 | observed | 2 | 0/2 | hook-and-secret-lifecycle; live-parity |
 | bitnami/kafka@32.4.3 | blocked | 1 | 0/1 | — |
 | bitnami/minio@17.0.21 | blocked | 1 | 0/1 | — |
 | bitnami/thanos@17.3.1 | blocked | 1 | 0/1 | — |
@@ -18,14 +18,15 @@ Render parity proves every **non-hook** object in a chart. A hook (a Job, a test
 | fluent/fluent-bit@0.57.6 | observed | 2 | 0/2 | hook-and-secret-lifecycle; live-parity |
 | gitlab/gitlab@10.0.0 | blocked | 1 | 0/1 | — |
 | k8s-dashboard/kubernetes-dashboard@7.14.0 | routed | 1 | 0/1 | — |
+| kedacore/keda@2.19.0 | observed | 1 | 0/1 | serious-chart-playbooks; hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity |
 | kong/kong@3.2.0 | routed | 1 | 0/1 | — |
 | kyverno/kyverno@3.8.1 | observed | 6 | 0/6 | hook-and-secret-lifecycle; target-facts-and-lifecycle; large-app-evidence-funnel; live-parity |
-| prometheus-community/kube-prometheus-stack@85.3.0 | observed | 7 | 0/7 | serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity |
+| prometheus-community/kube-prometheus-stack@85.3.3 | observed | 7 | 0/7 | serious-chart-playbooks; hook-and-secret-lifecycle; large-app-evidence-funnel; live-parity |
 
 ## What each disposition means
 - **blocked** — the route is known but a precondition (images / CRDs / deps) blocks live observation.
-- **per-target** — the route depends on the target — it runs only where the precondition holds.
 - **observed** — a live receipt exists — the hook ran and was recorded.
+- **per-target** — the route depends on the target — it runs only where the precondition holds.
 - **routed** — the hook is named and has a route, not yet observed live.
 
 - Per-chart detail (colored cards): `data/per-chart-hooks/by-chart.html`.

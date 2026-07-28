@@ -84,12 +84,12 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD challenges.acme.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD orders.acme.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD certificaterequests.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD certificates.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterissuers.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD issuers.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD challenges.acme.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD orders.acme.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD certificaterequests.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD certificates.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD clusterissuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD issuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
 
 ## Evidence
 

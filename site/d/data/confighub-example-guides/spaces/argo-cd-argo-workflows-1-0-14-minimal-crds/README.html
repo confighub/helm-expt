@@ -444,7 +444,7 @@
 <p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-argo-workflows-minimal-crds</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
 <p>No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.</p>
-<p>This preset config records 1 hook or lifecycle route(s). The current route status is todo:1, with execution modes not-yet-executable:1. They are listed here instead of being left inside the Helm release.</p>
+<p>This preset config records 1 hook or lifecycle route(s). The current route status is observed:1, with execution modes target-owned:1. They are listed here instead of being left inside the Helm release.</p>
 <p>CRD ownership is recorded as part of the preset config. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 27 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Hook and lifecycle work is counted and linked to the route record.</li></ul>

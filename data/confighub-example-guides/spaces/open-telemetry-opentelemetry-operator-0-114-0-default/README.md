@@ -85,8 +85,8 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key | Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator |
-| ClusterFeature | CRD certificates.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD issuers.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD certificates.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD issuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
 
 ## Evidence
 

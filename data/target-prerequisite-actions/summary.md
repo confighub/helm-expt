@@ -13,7 +13,7 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 42 action packets
+## 41 action packets
 
 | Action kind | Rows |
 | --- | ---: |
@@ -21,14 +21,14 @@ for the sibling image story, and
 | `install-crds` | 8 |
 | `create-namespace` | 4 |
 | `provide-external-service` | 4 |
-| `stage-secret` | 4 |
+| `stage-secret` | 3 |
 | `unknown-preflight` | 2 |
 | `provide-storage-or-topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
 | `operator-review` | 27 |
-| `user-stage` | 14 |
+| `user-stage` | 13 |
 | `target-policy` | 1 |
 
 ## Packets
@@ -63,7 +63,6 @@ for the sibling image story, and
 | jaegertracing/jaeger-operator@2.57.0 | default | K | install-crds | cert-manager CRDs | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base default` |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | G/P | install-crds | cert-manager CRDs | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds` |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | K | install-crds | cert-manager CRDs | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds` |
-| kedacore/keda@2.19.0 | no-crds | K | stage-secret | Secret kedaorg-certs | `npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds` |
 | nats/surveyor@0.20.9 | default-reviewed | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed` |
 | nats/surveyor@0.20.9 | default-reviewed | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed` |
 | nats/surveyor@0.20.9 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default` |

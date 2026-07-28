@@ -250,6 +250,32 @@
       ]
     },
     {
+      "chart": "kedacore/keda",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "2.19.0",
+          "routes": []
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "2.19.0",
+          "routes": [
+            {
+              "route_name": "webhook-readiness-observation",
+              "action_kind": "observe-webhook",
+              "quirk_class": "webhook-readiness",
+              "emit": false,
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+              "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "chart": "kong/kong",
       "hasBuiltVariants": false,
       "variants": [
@@ -463,8 +489,8 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
-              "argo": "observe webhook and workload health after sync",
-              "flux": "use post-apply health checks; stage any declared certificate first",
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
               "snippet": ""
             }
           ]
@@ -532,8 +558,8 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
-              "argo": "observe webhook and workload health after sync",
-              "flux": "use post-apply health checks; stage any declared certificate first",
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
               "snippet": ""
             }
           ]
@@ -601,8 +627,8 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
-              "argo": "observe webhook and workload health after sync",
-              "flux": "use post-apply health checks; stage any declared certificate first",
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
               "snippet": ""
             }
           ]
@@ -670,8 +696,8 @@
               "action_kind": "observe-webhook",
               "quirk_class": "webhook-readiness",
               "emit": false,
-              "argo": "observe webhook and workload health after sync",
-              "flux": "use post-apply health checks; stage any declared certificate first",
+              "argo": "wait for the certificate handoff, then observe webhook and workload health after sync",
+              "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
               "snippet": ""
             }
           ]

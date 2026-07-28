@@ -23,8 +23,8 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-51 non-pass rows: 4 watch, 47 blocked.
-14 are resolved by the **user** (stage a prerequisite or supply
+50 non-pass rows: 3 watch, 47 blocked.
+13 are resolved by the **user** (stage a prerequisite or supply
 values); 19 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
@@ -34,8 +34,8 @@ readiness review.
 | `remote-image` | 10 |
 | `target-runtime` | 7 |
 | `target-prerequisite-crds` | 6 |
-| `target-prerequisite-secret` | 4 |
 | `capability-profile-diff` | 3 |
+| `target-prerequisite-secret` | 3 |
 | `render-input` | 2 |
 | `target-prerequisite-namespace` | 2 |
 | `hook-lifecycle` | 1 |
@@ -45,7 +45,7 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog` | 19 |
-| `user` | 14 |
+| `user` | 13 |
 | `catalog or image publisher` | 10 |
 | `needs runtime review` | 7 |
 | `needs readiness review` | 1 |
@@ -89,7 +89,6 @@ readiness review.
 | istio/istiod@1.30.0 | default | blocked | target-prerequisite-namespace | user | yes, after creating the Namespace |
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
-| kedacore/keda@2.19.0 | no-crds | watch | target-prerequisite-secret | user | yes, after staging a Secret |
 | kyverno/kyverno-policies@3.8.0 | default | watch | readiness | needs readiness review | watch — objects match, readiness unconfirmed |
 | nats/nack@0.34.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | nats/nats@2.14.0 | ha | blocked | model-gap-render | catalog | no — needs catalog work |

@@ -448,6 +448,34 @@
       "evidence_or_next_action": "record hook-inert-under-default-values for the default base at recipe time; keep the route plan for postgres-mode bases | none (default base is hook-inert; no rehearsal needed for it) | data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/evidence.yaml;data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/hook-resources.yaml"
     },
     {
+      "chart": "kedacore/keda",
+      "version": "2.19.0",
+      "base_or_variant": "no-crds",
+      "quirk_class": "webhook-readiness",
+      "hook_phases": "post-install, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "webhook-readiness-observation",
+      "default_route": "webhook-readiness-observation",
+      "alternatives": [
+        {
+          "route": "postsync-check-or-observation",
+          "requirement": "a post-apply readiness check you run or observe"
+        }
+      ],
+      "route_requirements": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+      "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml;recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml;recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml;runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+    },
+    {
       "chart": "kong/kong",
       "version": "3.2.0",
       "base_or_variant": "",

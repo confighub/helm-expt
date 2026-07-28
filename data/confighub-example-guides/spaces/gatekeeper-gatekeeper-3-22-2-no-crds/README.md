@@ -84,23 +84,23 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD assign.mutations.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD assignimage.mutations.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD assignmetadata.mutations.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD configs.config.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD configpodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD connections.connection.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD connectionpodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD constraintpodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD constrainttemplates.templates.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD constrainttemplatepodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD expansiontemplate.expansion.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD expansiontemplatepodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD modifyset.mutations.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD mutatorpodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD providers.externaldata.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD providerpodstatuses.status.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD syncsets.syncset.gatekeeper.sh | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD assign.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD assignimage.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD assignmetadata.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD configs.config.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD configpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD connections.connection.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD connectionpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD constraintpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD constrainttemplates.templates.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD constrainttemplatepodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD expansiontemplate.expansion.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD expansiontemplatepodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD modifyset.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD mutatorpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD providers.externaldata.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD providerpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD syncsets.syncset.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

@@ -27,7 +27,7 @@ hook partial lifecycle observations:      0/5
 hook routes awaiting observation:         0/5
 hook rows still needing route receipt:    0/5
 hook-like lifecycle observations passing: 4/4
-selected candidate routes observed:       1/1
+selected candidate routes observed:       2/2
 ~~~
 
 ## Rows
@@ -44,6 +44,7 @@ selected candidate routes observed:       1/1
 | hook-like-lifecycle-observation | `external-secrets/external-secrets@2.5.0` | default | pass | no-helm-hook | CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run | universal Helm hook support or support for unrelated hook-bearing charts |
 | hook-like-lifecycle-observation | `external-secrets/external-secrets@2.5.0` | no-crds | pass | no-helm-hook | CRD ownership policy, webhook CA bundle injection, controller-populated webhook Secret data, and server dry-run | universal Helm hook support or support for unrelated hook-bearing charts |
 | selected-hook-route | `argo-cd/argo-workflows@1.0.14` | minimal-crds | lifecycle-observed | The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. | selected hook candidate route has runtime observation for this base | the same route for other bases, full Helm hook execution, full CRD upgrade safety, or production support |
+| selected-hook-route | `kedacore/keda@2.19.0` | no-crds | lifecycle-observed | KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. | selected hook candidate route has runtime observation for this base | the same route for other bases, full Helm hook execution, full CRD upgrade safety, or production support |
 
 ## Files
 

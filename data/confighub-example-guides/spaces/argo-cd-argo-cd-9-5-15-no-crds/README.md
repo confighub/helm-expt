@@ -85,9 +85,9 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret argocd/argocd-redis key auth | kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value> |
-| ClusterFeature | CRD applications.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD applicationsets.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD appprojects.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD applications.argoproj.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD applicationsets.argoproj.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD appprojects.argoproj.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

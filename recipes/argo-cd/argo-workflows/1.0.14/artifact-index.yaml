@@ -68,7 +68,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "a65331c51df10e7b478b63568c896320be0a0dc7e2306416e8821b699b0b3cef"
+    deterministicBundleSHA256: "c6485f61fd5b2a1375f2714257437c97877393172323ef4ae19afa4924638019"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

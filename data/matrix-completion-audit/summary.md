@@ -18,36 +18,36 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-676 non-green cells:
+673 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 448 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 127 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 54 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-target-or-prereq-fix` | 447 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `already-decided` | 126 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 53 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 390 |
+| `promotion` | 389 |
 | `G` | 64 |
 | `P` | 64 |
-| `lifecycle` | 54 |
-| `K` | 53 |
+| `lifecycle` | 53 |
+| `K` | 52 |
 | `L` | 51 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
-| `watch` | 127 |
+| `watch` | 126 |
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
-| `not-applicable-candidate` | 68 |
-| `todo` | 54 |
+| `not-applicable-candidate` | 67 |
+| `todo` | 53 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (54)
+## needs-run (53)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -89,8 +89,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | jaegertracing/jaeger-operator@2.57.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| kedacore/keda@2.19.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -108,7 +107,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (448)
+## needs-target-or-prereq-fix (447)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -405,7 +404,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/trust-manager@v0.22.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kedacore/keda@2.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kedacore/keda@2.19.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| kedacore/keda@2.19.0 | no-crds + secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | kedacore/keda@2.19.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kyverno/kyverno-policies@3.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kyverno/kyverno-policies@3.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -617,7 +615,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (127)
+## already-decided (126)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -728,7 +726,6 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | jetstack/trust-manager@v0.22.1 | default | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | jetstack/trust-manager@v0.22.1 | no-crds | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | jetstack/trust-manager@v0.22.1 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
-| kedacore/keda@2.19.0 | no-crds | K | watch | target-prerequisite: required Secret missing (parity passed) | Stage the named Secret as a target fact, then the row can move to pass. |
 | kyverno/kyverno-policies@3.8.0 | default | G | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | kyverno/kyverno-policies@3.8.0 | default | K | watch | watch: object parity passed; readiness needs review | Confirm workload readiness on the target and record the result. |
 | kyverno/kyverno-policies@3.8.0 | default | P | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |

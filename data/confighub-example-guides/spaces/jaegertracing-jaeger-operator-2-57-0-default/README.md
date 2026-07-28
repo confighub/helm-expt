@@ -28,11 +28,11 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset config records 2 prerequisite(s): 2 CRDs. Create these with your own values before you apply the rendered objects.
 
 No hook or lifecycle route is recorded for this preset config.
 
-For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
+Some CRDs must already exist before the rendered objects are applied.
 
 ## Why you can trust it
 
@@ -40,6 +40,7 @@ For this preset, the main change from plain Helm is that the render inputs and o
 - The render variant is committed as YAML and contains 11 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -83,7 +84,8 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| ClusterFeature | CRD certificates.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD issuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
 
 ## Evidence
 

@@ -85,8 +85,8 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret default/vpa-tls-secret keys ca,cert,key | kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value> |
-| ClusterFeature | CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD verticalpodautoscalers.autoscaling.k8s.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD verticalpodautoscalers.autoscaling.k8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

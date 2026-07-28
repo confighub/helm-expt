@@ -85,14 +85,14 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD clusterworkflowtemplates.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cronworkflows.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workflowartifactgctasks.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workfloweventbindings.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workflows.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workflowtaskresults.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workflowtasksets.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD workflowtemplates.argoproj.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD clusterworkflowtemplates.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD cronworkflows.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workflowartifactgctasks.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workfloweventbindings.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workflows.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workflowtaskresults.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workflowtasksets.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| ClusterFeature | CRD workflowtemplates.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
 
 ## Evidence
 

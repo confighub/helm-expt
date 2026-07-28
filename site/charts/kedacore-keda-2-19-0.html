@@ -510,7 +510,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <h2 id="matrix-options">Base Variants And Options</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
       <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
-      <p class="mono" style="font-size:.9rem">4 matrix rows for kedacore/keda@2.19.0 · <a href="../matrix.html">open the full matrix</a></p>
+      <p class="mono" style="font-size:.9rem">3 matrix rows for kedacore/keda@2.19.0 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
           <div>
@@ -572,39 +572,17 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --base no-crds --work-dir ./kedacore-keda-2-19-0-no-crds --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/kedacore-keda-2-19-0/no-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/kedacore-keda-2-19-0/no-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
-          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml">Open the full record.</a></dd>
-          <dt>Prerequisites</dt><dd>6 prerequisites are declared for this base, with 1 follow-up action record from live tests. Each prerequisite says whether it must be checked before render or before apply.</dd>
-          <dt>Next</dt><dd>Stage prerequisite</dd>
-          <dt>Reason</dt><dd>Target prerequisite: required Secret missing (parity passed)</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook(s); observed; live: yes; route: yes</dd>
+          <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (1); no step is called automatic until its run has a receipt</dd>
+          <dt>Lifecycle record</dt><dd>1 chart-specific lifecycle route is recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml">Open the full record.</a></dd>
+          <dt>Prerequisites</dt><dd>6 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
+          <dt>Next</dt><dd>Run APIService promotion review: choose supported base; Target scope; CRD ownership path; And evidence refresh rule using the committed aggregation receipt</dd>
+          <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for no-crds">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill watch" title="Kind parity: watch"><b>K</b><em>watch</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill yes" title="Lifecycle: yes"><b>Y</b><em>yes</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/kedacore/keda/2.19.0/CATALOG.html">catalog</a> · <a href="../../recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml">variant</a> · <a href="../../recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml">render intent</a> · <a href="../../data/base-variant-records/records/kedacore-keda-2-19-0-no-crds.yaml">base record</a> · <a href="../../packages/kedacore/keda/2.19.0/bases/no-crds">package base</a> · <a href="../../runs/keda-no-crds-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://kedacore.github.io/charts" rel="noopener">source repo</a></p>
-      </article><article class="matrix-row-card">
-        <div class="matrix-row-head">
-          <div>
-            <span class="row-layer">F3</span>
-            <h3>no-crds + secret</h3>
-          </div>
-          <span class="row-kind">Candidate</span>
-        </div>
-        <p class="row-purpose">Candidate path, not ready yet</p>
-        <dl>
-          <dt>Status</dt><dd>Candidate path</dd>
-          <dt>How to run</dt><dd>Not ready to run yet. First: The named Secret(s) present in the target namespace before apply; Then a fresh K parity receipt for this base.</dd>
-          <dt>Evidence</dt><dd>Planning evidence only</dd>
-          <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
-          <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Next</dt><dd>Stage secret: Secret kedaorg certs; Npm run kind parity:run      chart kedacore/keda   version 2.19.0   base no crds</dd>
-          <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
-        </dl>
-        <div class="lane-strip" aria-label="Proof lanes for no-crds + secret">
-          <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
-        </div>
-        <p class="row-links"><a href="../d/recipes/kedacore/keda/2.19.0/CATALOG.html">catalog</a> · <a href="../../runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml">receipt</a> · <a href="https://kedacore.github.io/charts" rel="noopener">source repo</a></p>
       </article></div>
     </section>
 
@@ -671,7 +649,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>n/a: 1/3; yes: 2/3</td></tr><tr><td>ConfigHub proof</td><td>n/a: 1/3; yes: 2/3</td></tr><tr><td>Local live</td><td>n/a: 1/3; yes: 2/3</td></tr><tr><td>GitOps/OCI live</td><td>n/a: 1/3; yes: 2/3</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>n/a: 1/3; yes: 2/3</td></tr><tr><td>Two-cluster kind</td><td>n/a: 1/3; watch: 1/3; yes: 1/3</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>yes: 2/2</td></tr><tr><td>ConfigHub proof</td><td>yes: 2/2</td></tr><tr><td>Local live</td><td>yes: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>yes: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>yes: 2/2</td></tr><tr><td>Two-cluster kind</td><td>yes: 2/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -681,7 +659,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>no-crds</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>watch</td></tr><tr><td>no-crds + secret</td><td>candidate</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr></tbody>
+        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr><tr><td>no-crds</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td><td>yes</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -723,7 +701,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
-      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <h4>default</h4><div class="card"><table>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+<h4>no-crds: needs 6 CRDs supplied first</h4><div class="card"><table>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <tbody><tr><td>webhook-readiness (webhook-readiness-observation)<br><span class="small">KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.</span></td><td>Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td><td>-</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml">data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml</a><br><a href="../../recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml">recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml</a><br><a href="../../recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml">recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml</a><br><a href="../../runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml">runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml</a></p>
     </section>
 
     <section aria-labelledby="production">

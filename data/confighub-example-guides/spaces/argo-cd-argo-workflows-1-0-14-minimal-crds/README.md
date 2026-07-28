@@ -30,7 +30,7 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
 
-This preset config records 1 hook or lifecycle route(s). The current route status is todo:1, with execution modes not-yet-executable:1. They are listed here instead of being left inside the Helm release.
+This preset config records 1 hook or lifecycle route(s). The current route status is observed:1, with execution modes target-owned:1. They are listed here instead of being left inside the Helm release.
 
 CRD ownership is recorded as part of the preset config. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
 

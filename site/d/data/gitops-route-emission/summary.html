@@ -436,6 +436,8 @@
 <table><thead><tr><th>Base</th><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody><tr><td>controller-default-reviewed@1.0.14</td><td>crd-install → <code>preflight-or-presync-crd-apply</code></td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td></tr>
 <tr><td>default@1.0.14</td><td>crd-install → <code>preflight-or-presync-crd-apply</code></td><td>PreSync · sync-wave -2 · ServerSideApply</td><td>HelmRelease .spec.install.crds=Create (or apply CRDs first)</td></tr>
 <tr><td>minimal-crds@1.0.14</td><td>crd-install → <code>self-contained-crd-base</code></td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td></tr></tbody></table>
+<h2 id="kedacorekeda">kedacore/keda</h2>
+<table><thead><tr><th>Base</th><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody><tr><td>no-crds@2.19.0</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr></tbody></table>
 <h2 id="kyvernokyverno">kyverno/kyverno</h2>
 <table><thead><tr><th>Base</th><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody><tr><td>default@3.8.1</td><td>hook-delete-policy → <code>delete-cleanup-policy</code></td><td>none - your cluster handles it</td><td>none - your cluster handles it</td></tr>
 <tr><td>default@3.8.1</td><td>hook-delete-policy → <code>preserve-cleanup-policy</code></td><td>none - your cluster handles it</td><td>none - your cluster handles it</td></tr>
@@ -456,28 +458,28 @@
 <tr><td>default@85.3.3</td><td>hook-phase → <code>upgrade-action-with-receipt</code></td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>default@85.3.3</td><td>hook-weight-ordering → <code>preserve-ordering</code></td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td></tr>
 <tr><td>default@85.3.3</td><td>target-facts → <code>target-facts-or-preflight</code></td><td>none - supply the inputs before sync</td><td>none - supply the inputs before sync</td></tr>
-<tr><td>default@85.3.3</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>observe webhook and workload health after sync</td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+<tr><td>default@85.3.3</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
 <tr><td>no-crds@85.3.3</td><td>hook-delete-policy → <code>preserve-cleanup-policy</code></td><td>none - your cluster handles it</td><td>none - your cluster handles it</td></tr>
 <tr><td>no-crds@85.3.3</td><td>hook-phase → <code>postsync-check-or-observation</code></td><td>PostSync</td><td>post-apply Job / follow-on Kustomization</td></tr>
 <tr><td>no-crds@85.3.3</td><td>hook-phase → <code>preflight-or-presync</code></td><td>PreSync · sync-wave -1</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>no-crds@85.3.3</td><td>hook-phase → <code>upgrade-action-with-receipt</code></td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>no-crds@85.3.3</td><td>hook-weight-ordering → <code>preserve-ordering</code></td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td></tr>
 <tr><td>no-crds@85.3.3</td><td>target-facts → <code>target-facts-or-preflight</code></td><td>none - supply the inputs before sync</td><td>none - supply the inputs before sync</td></tr>
-<tr><td>no-crds@85.3.3</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>observe webhook and workload health after sync</td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+<tr><td>no-crds@85.3.3</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
 <tr><td>default@86.1.0</td><td>hook-delete-policy → <code>preserve-cleanup-policy</code></td><td>none - your cluster handles it</td><td>none - your cluster handles it</td></tr>
 <tr><td>default@86.1.0</td><td>hook-phase → <code>postsync-check-or-observation</code></td><td>PostSync</td><td>post-apply Job / follow-on Kustomization</td></tr>
 <tr><td>default@86.1.0</td><td>hook-phase → <code>preflight-or-presync</code></td><td>PreSync · sync-wave -1</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>default@86.1.0</td><td>hook-phase → <code>upgrade-action-with-receipt</code></td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>default@86.1.0</td><td>hook-weight-ordering → <code>preserve-ordering</code></td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td></tr>
 <tr><td>default@86.1.0</td><td>target-facts → <code>target-facts-or-preflight</code></td><td>none - supply the inputs before sync</td><td>none - supply the inputs before sync</td></tr>
-<tr><td>default@86.1.0</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>observe webhook and workload health after sync</td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+<tr><td>default@86.1.0</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
 <tr><td>no-crds@86.1.0</td><td>hook-delete-policy → <code>preserve-cleanup-policy</code></td><td>none - your cluster handles it</td><td>none - your cluster handles it</td></tr>
 <tr><td>no-crds@86.1.0</td><td>hook-phase → <code>postsync-check-or-observation</code></td><td>PostSync</td><td>post-apply Job / follow-on Kustomization</td></tr>
 <tr><td>no-crds@86.1.0</td><td>hook-phase → <code>preflight-or-presync</code></td><td>PreSync · sync-wave -1</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>no-crds@86.1.0</td><td>hook-phase → <code>upgrade-action-with-receipt</code></td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td></tr>
 <tr><td>no-crds@86.1.0</td><td>hook-weight-ordering → <code>preserve-ordering</code></td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td></tr>
 <tr><td>no-crds@86.1.0</td><td>target-facts → <code>target-facts-or-preflight</code></td><td>none - supply the inputs before sync</td><td>none - supply the inputs before sync</td></tr>
-<tr><td>no-crds@86.1.0</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>observe webhook and workload health after sync</td><td>use post-apply health checks; stage any declared certificate first</td></tr></tbody></table>
+<tr><td>no-crds@86.1.0</td><td>webhook-readiness → <code>webhook-readiness-observation</code></td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr></tbody></table>
 <h2 id="argo-cd-hook-snippet-for-an-emitted-route">Argo CD hook snippet (for an emitted route)</h2>
 <p>Add to the route's rendered hook object, e.g. a PostSync run-job:</p>
 <pre><code>metadata:

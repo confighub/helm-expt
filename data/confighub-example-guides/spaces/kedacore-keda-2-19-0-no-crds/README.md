@@ -28,11 +28,11 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset config records 6 prerequisite(s): 6 CRDs. Create these with your own values before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+This preset config records 1 hook or lifecycle route(s). The current route status is observed:1, with execution modes target-owned:1. They are listed here instead of being left inside the Helm release.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config.
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
 
 ## Why you can trust it
 
@@ -40,6 +40,8 @@ CRDs are made into an explicit choice instead of being mixed into the applicatio
 - The render variant is committed as YAML and contains 23 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
+- Hook and lifecycle work is counted and linked to the route record.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -83,7 +85,12 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| ClusterFeature | CRD cloudeventsources.eventing.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustercloudeventsources.eventing.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustertriggerauthentications.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD scaledjobs.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD scaledobjects.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD triggerauthentications.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 
@@ -94,7 +101,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | Local kind run | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
-| Lifecycle routes | `0` |
+| Lifecycle routes | `1` |
 
 ## Limits
 

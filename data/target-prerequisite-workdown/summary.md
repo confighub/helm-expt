@@ -15,7 +15,7 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 42 target-prerequisite rows
+## 41 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
@@ -23,13 +23,13 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | `crd` | 8 |
 | `external-api` | 4 |
 | `namespace` | 4 |
-| `secret` | 4 |
+| `secret` | 3 |
 | `topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
 | `operator-review` | 27 |
-| `user-stage` | 14 |
+| `user-stage` | 13 |
 | `target-policy` | 1 |
 
 ## Rows
@@ -64,7 +64,6 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | jaegertracing/jaeger-operator@2.57.0 | default | K | crd | cert-manager CRDs | operator-review | unknown |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | G/P | crd | cert-manager CRDs | operator-review | unknown |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | K | crd | cert-manager CRDs | operator-review | unknown |
-| kedacore/keda@2.19.0 | no-crds | K | secret | Secret kedaorg-certs | user-stage | yes |
 | nats/surveyor@0.20.9 | default-reviewed | G/P | unknown | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default-reviewed | K | external-api | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default | G/P | unknown | unknown | operator-review | yes |

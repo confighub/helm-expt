@@ -8,18 +8,18 @@
     "data/live-parity-rerun-plan/rerun-plan.csv",
     "runs/live-*/**/receipt.yaml"
   ],
-  "rowCount": 42,
+  "rowCount": 41,
   "byKind": {
     "unknown": 21,
     "crd": 8,
     "external-api": 4,
     "namespace": 4,
-    "secret": 4,
+    "secret": 3,
     "topology": 1
   },
   "byOwner": {
     "operator-review": 27,
-    "user-stage": 14,
+    "user-stage": 13,
     "target-policy": 1
   },
   "rows": [
@@ -442,21 +442,6 @@
       "recommended_next_action": "Stage the required CRDs (cert-manager CRDs) on the target (or use the CRD-rendering base), then rerun.",
       "rerun_command": "npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds",
       "evidence_path": "runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
-    },
-    {
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "base": "no-crds",
-      "lane": "K",
-      "result": "watch",
-      "prerequisite_kind": "secret",
-      "prerequisite_name": "Secret kedaorg-certs",
-      "semantic_parity_passed": "yes",
-      "owner_class": "user-stage",
-      "support_artifact": "",
-      "recommended_next_action": "Create the required Secret(s) (Secret kedaorg-certs) on the target as a target fact, then rerun.",
-      "rerun_command": "npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds",
-      "evidence_path": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
     },
     {
       "chart": "nats/surveyor",

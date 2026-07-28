@@ -291,6 +291,9 @@
                   "automatic": {
                     "const": false
                   },
+                  "operatingDetails": {
+                    "type": "string"
+                  },
                   "evidence": {
                     "type": "array",
                     "minItems": 1,

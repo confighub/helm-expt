@@ -84,18 +84,18 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD clustercompliancereports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterconfigauditreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterinfraassessmentreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterrbacassessmentreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clustersbomreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clustervulnerabilityreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD configauditreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD exposedsecretreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD infraassessmentreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD rbacassessmentreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD sbomreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD vulnerabilityreports.aquasecurity.github.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD clustercompliancereports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterconfigauditreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterinfraassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterrbacassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustersbomreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustervulnerabilityreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD configauditreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD exposedsecretreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD infraassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD rbacassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD sbomreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD vulnerabilityreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

@@ -471,7 +471,7 @@
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
 <table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>Secret tempo/tempo-s3-credentials keys access_key,secret_key</td><td>kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=&lt;value&gt; --from-literal=secret_key=&lt;value&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD servicemonitors.monitoring.coreos.com</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
+<tr><td>ClusterFeature</td><td>CRD servicemonitors.monitoring.coreos.com</td><td>package://prerequisites/target-facts/s3-query-observability-crds.yaml</td></tr>
 <tr><td>ClusterFeature</td><td>S3-compatible object store tempo/tempo-object-store</td><td>create or bind an S3-compatible endpoint, bucket, and credentials before apply</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>

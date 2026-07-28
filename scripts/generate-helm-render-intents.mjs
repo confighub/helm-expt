@@ -128,6 +128,7 @@ function buildIntent(
       executionMode: route.execution_mode,
       automatic: route.automatic === true,
       whoRuns: route.whoRuns,
+      operatingDetails: route.operatingDetails,
       command: route.command,
       disposition: route.disposition,
       delta: route.delta,

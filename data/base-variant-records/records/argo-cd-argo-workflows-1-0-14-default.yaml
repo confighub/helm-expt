@@ -116,6 +116,7 @@ spec:
         executionMode: "not-yet-executable"
         automatic: false
         whoRuns: "Prerequisite — apply the CRDs before the workloads"
+        operatingDetails: "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits"
         command: "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified"
         disposition: "routed"
         delta: "prerequisite"

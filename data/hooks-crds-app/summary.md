@@ -24,7 +24,7 @@ The `catalog-standard` apply policy checks every LifecycleRoute stored in the de
 | prometheus-community/kube-prometheus-stack@85.3.3/default | preserve-ordering | pre-apply | Your applier — must apply CRDs before dependent objects | no | pass | not-run | not-run |
 | prometheus-community/kube-prometheus-stack@85.3.3/default | target-facts-or-preflight | preflight | Prerequisite — supply once (Secret / CRD / storage), like values | no | pass | not-run | not-run |
 | prometheus-community/kube-prometheus-stack@85.3.3/default | upgrade-action-with-receipt | pre-apply | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | no | not-run | not-run | not-run |
-| prometheus-community/kube-prometheus-stack@85.3.3/default | webhook-readiness-observation | observe | Your delivery and cluster — stage any declared certificate, then check webhook readiness | no | pass | not-run | not-run |
+| prometheus-community/kube-prometheus-stack@85.3.3/default | webhook-readiness-observation | observe | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | no | pass | not-run | not-run |
 
 ## Human guide
 

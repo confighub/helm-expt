@@ -85,28 +85,28 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD cleanuppolicies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clustercleanuppolicies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterpolicies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD globalcontextentries.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD policyexceptions.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD updaterequests.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterephemeralreports.reports.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD ephemeralreports.reports.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterpolicyreports.wgpolicyk8s.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD policyreports.wgpolicyk8s.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD deletingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD generatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD imagevalidatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD mutatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD namespaceddeletingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD namespacedgeneratingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD namespacedimagevalidatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD namespacedmutatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD namespacedvalidatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD policyexceptions.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD validatingpolicies.policies.kyverno.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD cleanuppolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustercleanuppolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterpolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD globalcontextentries.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD policyexceptions.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD updaterequests.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterephemeralreports.reports.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD ephemeralreports.reports.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterpolicyreports.wgpolicyk8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD policyreports.wgpolicyk8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD deletingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD generatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD imagevalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD mutatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD namespaceddeletingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD namespacedgeneratingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD namespacedimagevalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD namespacedmutatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD namespacedvalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD policyexceptions.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD validatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

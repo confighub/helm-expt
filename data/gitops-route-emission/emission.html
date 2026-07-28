@@ -32,6 +32,17 @@
         <tr><td>crd-install <span class="rt">self-contained-crd-base</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
       </tbody></table>
     </section>
+    <section><h2>kedacore/keda</h2>
+      <h4>default@2.19.0</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+
+      </tbody></table>
+
+      <h4>no-crds@2.19.0</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">wait for the certificate handoff, then observe webhook and workload health after sync</span></td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
+      </tbody></table>
+    </section>
     <section><h2>kyverno/kyverno</h2>
       <h4>default@3.8.1</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
@@ -62,7 +73,7 @@
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
-        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">wait for the certificate handoff, then observe webhook and workload health after sync</span></td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
       </tbody></table>
 
       <h4>no-crds@85.3.3</h4>
@@ -73,7 +84,7 @@
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
-        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">wait for the certificate handoff, then observe webhook and workload health after sync</span></td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
       </tbody></table>
 
       <h4>default@86.1.0</h4>
@@ -84,7 +95,7 @@
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
-        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">wait for the certificate handoff, then observe webhook and workload health after sync</span></td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
       </tbody></table>
 
       <h4>no-crds@86.1.0</h4>
@@ -95,7 +106,7 @@
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
         <tr><td>target-facts <span class="rt">target-facts-or-preflight</span></td><td><span class="chip muted">none — supply the inputs before sync</span></td><td>none — supply the inputs before sync</td></tr>
-        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">observe webhook and workload health after sync</span></td><td>use post-apply health checks; stage any declared certificate first</td></tr>
+        <tr><td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td><td><span class="chip muted">wait for the certificate handoff, then observe webhook and workload health after sync</span></td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td></tr>
       </tbody></table>
     </section>
   <h2>Argo CD hook snippet</h2>
