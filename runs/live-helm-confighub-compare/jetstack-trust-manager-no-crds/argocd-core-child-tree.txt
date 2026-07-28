@@ -2,34 +2,30 @@ Name:               argocd/trust-manager-parity
 Project:            default
 Server:             https://kubernetes.default.svc
 Namespace:          default-oci
-URL:                http://localhost:61828/applications/trust-manager-parity
+URL:                http://localhost:55860/applications/trust-manager-parity
 Source:
-- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
   Target:           latest
-  Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+  Path:             .
 SyncWindow:         Sync Allowed
 Sync Policy:        Automated (Prune)
 Sync Status:        Synced to latest (sha256:)
-Health Status:      Progressing
+Health Status:      Healthy
 
-KIND/NAME                                     STATUS  HEALTH       AGE    MESSAGE                                                                                                                                                                                               REASON
-ServiceAccount/trust-manager                  Synced               8m34s  serviceaccount/trust-manager serverside-applied
-Deployment/trust-manager                      Synced  Healthy      8m34s  deployment.apps/trust-manager serverside-applied
-└─ReplicaSet/trust-manager-6db9f66446                 Healthy      8m34s
-  └─Pod/trust-manager-6db9f66446-9lfdp                Healthy      8m34s
-Issuer/trust-manager                          Synced  Progressing  8m34s  issuer.cert-manager.io/trust-manager serverside-applied                                                                                                                                               Initializing issuer
-ClusterRole/trust-manager                     Synced               7m8s
-ClusterRoleBinding/trust-manager              Synced               7m8s
-RoleBinding/trust-manager:leaderelection      Synced               8m34s  rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
-Namespace/default-oci                         Synced               8m13s
-Service/trust-manager-metrics                 Synced  Healthy      8m34s  service/trust-manager-metrics serverside-applied
-ValidatingWebhookConfiguration/trust-manager  Synced               7m8s
-Certificate/trust-manager                     Synced  Progressing  8m34s  certificate.cert-manager.io/trust-manager serverside-applied                                                                                                                                          Waiting for certificate
-Role/trust-manager                            Synced               7m8s   role.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create
-                                              missing rules added:
-                                                      {Verbs:[get list watch] APIGroups:[] Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/trust-manager serverside-applied
-Role/trust-manager:leaderelection             Synced                                                                                                                                                                  8m34s  role.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled. reconciliation required update. role.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
-RoleBinding/trust-manager                     Synced                                                                                                                                                                  7m8s   rolebinding.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation required create
-                                              missing subjects added:
-                                                      {Kind:ServiceAccount APIGroup: Name:trust-manager Namespace:default}. rolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied
-Service/trust-manager                         Synced  Healthy                                                                                                                                       8m34s  service/trust-manager serverside-applied
+KIND/NAME                                     STATUS  HEALTH   AGE  MESSAGE                                                                                REASON
+Issuer/trust-manager                          Synced  Healthy  29s  issuer.cert-manager.io/trust-manager serverside-applied
+ClusterRole/trust-manager                     Synced           29s
+Role/trust-manager                            Synced           29s  role.rbac.authorization.k8s.io/trust-manager serverside-applied
+RoleBinding/trust-manager                     Synced           29s  rolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied
+RoleBinding/trust-manager:leaderelection      Synced           29s  rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
+Namespace/default-oci                         Synced           91s
+Service/trust-manager-metrics                 Synced  Healthy  29s  service/trust-manager-metrics serverside-applied
+ValidatingWebhookConfiguration/trust-manager  Synced           29s
+Deployment/trust-manager                      Synced  Healthy  29s  deployment.apps/trust-manager serverside-applied
+└─ReplicaSet/trust-manager-6db9f66446                 Healthy  29s
+  └─Pod/trust-manager-6db9f66446-hkmqv                Healthy  29s
+Certificate/trust-manager                     Synced  Healthy  29s  certificate.cert-manager.io/trust-manager serverside-applied                           Certificate is up to date and has not expired
+ClusterRoleBinding/trust-manager              Synced           29s
+Role/trust-manager:leaderelection             Synced           29s  role.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied
+Service/trust-manager                         Synced  Healthy  29s  service/trust-manager serverside-applied
+ServiceAccount/trust-manager                  Synced           29s  serviceaccount/trust-manager serverside-applied

@@ -648,20 +648,6 @@
       "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
     },
     {
-      "chart": "jetstack/trust-manager",
-      "version": "v0.22.1",
-      "variant": "no-crds",
-      "result": "watch",
-      "residue_category": "gitops-runtime",
-      "blocker_owner": "needs GitOps controller-health review",
-      "usable_today": "watch — synced and converged; aggregate health needs explanation",
-      "user_decision": "Desired state synced through ConfigHub OCI/Argo and the workloads converged, and semantic Helm-vs-ConfigHub parity passed — but Argo's aggregate health is Progressing, or a resource reads OutOfSync while Healthy. Known GitOps controller-health residue, not a parity defect.",
-      "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
-      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "support_artifact": "recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml",
-      "receipt": "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
-    },
-    {
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
       "variant": "default",

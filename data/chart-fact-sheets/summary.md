@@ -1054,8 +1054,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 1/2)
+- **Recommended base:** `no-crds`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)

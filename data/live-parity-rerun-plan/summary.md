@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 111
+rows: 110
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 57
-watch: 54
-configHub-oci-live-comparison: 62
+watch: 53
+configHub-oci-live-comparison: 61
 two-cluster-kind-parity: 49
 semantic-parity-defects: 16
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 16
-runtime-or-watch-rows: 39
+runtime-or-watch-rows: 38
 ```
 
 ## Current Interpretation
@@ -74,7 +74,6 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `istio/gateway@1.30.0` | controller-default-reviewed | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `istio/gateway@1.30.0` | default | watch | Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect. | Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning. |
 | `jetstack/trust-manager@v0.22.1` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
-| `jetstack/trust-manager@v0.22.1` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `linkerd/linkerd-crds@1.8.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `minio-operator/tenant@7.1.1` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
@@ -147,7 +146,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 62 | 0 | 52 | 10 | 0 |
+| configHub-oci-live-comparison | 61 | 0 | 51 | 10 | 0 |
 | two-cluster-kind-parity | 49 | 0 | 2 | 47 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -174,7 +173,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | --- | ---: | --- |
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
-| gitops-runtime-review | 15 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 14 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | image-retention-review | 30 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 16 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
@@ -201,7 +200,7 @@ reasonable live rerun candidates.
 | inspect-diff-first | 16 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -281,7 +280,6 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `istio/gateway@1.30.0` | controller-default-reviewed | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base controller-default-reviewed` |
 | 30 | model-or-stage-first | image-retention-review | configHub-oci-live-comparison | `istio/gateway@1.30.0` | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [`data/image-digest-workdown/summary.md`](../../data/image-digest-workdown/summary.md) | `npm run live-parity:run -- --recipe recipes/istio/gateway/1.30.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml`](../../recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base default` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `jetstack/trust-manager@v0.22.1` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml`](../../recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `kyverno/kyverno-policies@3.8.0` | default | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | [`recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml`](../../recipes/kyverno/kyverno-policies/3.8.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/kyverno/kyverno-policies/3.8.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `linkerd/linkerd-crds@1.8.0` | default | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | [`recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml`](../../recipes/linkerd/linkerd-crds/1.8.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/linkerd/linkerd-crds/1.8.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `minio-operator/tenant@7.1.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml`](../../recipes/minio-operator/tenant/7.1.1/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/minio-operator/tenant/7.1.1 --base default` |

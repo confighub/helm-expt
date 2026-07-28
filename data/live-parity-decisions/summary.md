@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-62 non-pass rows: 52 watch, 10 blocked.
+61 non-pass rows: 51 watch, 10 blocked.
 4 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,8 +34,8 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `remote-image` | 20 |
-| `gitops-runtime` | 15 |
 | `target-runtime` | 15 |
+| `gitops-runtime` | 14 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
 | `render-input` | 2 |
@@ -47,8 +47,8 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog or image publisher` | 20 |
-| `needs GitOps controller-health review` | 15 |
 | `needs runtime review` | 15 |
+| `needs GitOps controller-health review` | 14 |
 | `catalog` | 5 |
 | `user` | 4 |
 | `catalog or operator` | 1 |
@@ -104,7 +104,6 @@ passed — the residue is operational, not a config mismatch.
 | jaegertracing/jaeger-operator@2.57.0 | default | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | blocked | target-prerequisite | user | yes, after staging the prerequisite |
 | jetstack/trust-manager@v0.22.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| jetstack/trust-manager@v0.22.1 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | kyverno/kyverno-policies@3.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | linkerd/linkerd-crds@1.8.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | minio-operator/tenant@7.1.1 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
