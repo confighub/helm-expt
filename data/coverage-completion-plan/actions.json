@@ -13,11 +13,11 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 673,
+  "nonGreenCellsCovered": 671,
   "familyCount": 20,
   "byActionType": {
     "run-promotion": 389,
-    "record-decision": 116,
+    "record-decision": 114,
     "refresh-image": 74,
     "stage-prereq": 60,
     "fix-model": 27,
@@ -25,7 +25,7 @@
   },
   "byOwnerLane": {
     "Codex-live": 396,
-    "product-decision": 147,
+    "product-decision": 145,
     "Claude-non-live": 130
   },
   "top10": [
@@ -47,7 +47,7 @@
       "action_id": "CCP-03",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 69,
+      "affected_cell_count": 67,
       "owner_lane": "product-decision"
     },
     {
@@ -608,7 +608,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 69,
+      "affected_cell_count": 67,
       "lanes": [
         "G",
         "K",
@@ -682,8 +682,6 @@
         "nats/surveyor@0.20.9/default [P]",
         "open-telemetry/opentelemetry-operator@0.114.0/default [G]",
         "open-telemetry/opentelemetry-operator@0.114.0/default [P]",
-        "open-telemetry/opentelemetry-operator@0.114.0/no-crds [G]",
-        "open-telemetry/opentelemetry-operator@0.114.0/no-crds [P]",
         "opencost/opencost@2.5.21/default [G]",
         "opencost/opencost@2.5.21/default [P]",
         "prometheus-community/prometheus@29.9.0/default [G]",

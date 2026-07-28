@@ -10,17 +10,17 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 112
+rows: 111
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 57
-watch: 55
-configHub-oci-live-comparison: 63
+watch: 54
+configHub-oci-live-comparison: 62
 two-cluster-kind-parity: 49
 semantic-parity-defects: 16
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 16
-runtime-or-watch-rows: 40
+runtime-or-watch-rows: 39
 ```
 
 ## Current Interpretation
@@ -81,7 +81,6 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 | `nats/surveyor@0.20.9` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `nats/surveyor@0.20.9` | default-reviewed | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
-| `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `opencost/opencost@2.5.21` | default | watch | Receipt exists and comparison did not fail; inspect readiness detail and decide whether this is acceptable target behavior. | Convert to pass only when expected live readiness settles, otherwise keep as watch with a clear target limitation. |
 | `prometheus-community/prometheus@29.9.0` | default | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
 | `traefik/traefik@40.2.0` | no-crds | watch | Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review. | Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing. |
@@ -148,7 +147,7 @@ claims. 1 row(s) are documented below as resolved by a separate useful base and 
 
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| configHub-oci-live-comparison | 63 | 0 | 53 | 10 | 0 |
+| configHub-oci-live-comparison | 62 | 0 | 52 | 10 | 0 |
 | two-cluster-kind-parity | 49 | 0 | 2 | 47 | 0 |
 
 Rows in this queue are non-pass live parity rows that need a decision before
@@ -175,7 +174,7 @@ upstream-runtime work. Only `parity:` rows indicate an object-set defect.
 | --- | ---: | --- |
 | capability-profile-base | 2 | Use the base rendered for the target Kubernetes API set before rerunning. |
 | crd-bootstrap | 1 | Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning. |
-| gitops-runtime-review | 16 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
+| gitops-runtime-review | 15 | Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected. |
 | image-retention-review | 30 | Resolve missing or mutable images by digest, override, or catalog refresh before rerunning. |
 | inspect-parity-diff | 16 | Inspect the object diff before changing waits, target provisioning, or the recipe. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
@@ -202,7 +201,7 @@ reasonable live rerun candidates.
 | inspect-diff-first | 16 | Do not rerun until the semantic diff has been inspected. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 | model-or-stage-first | 54 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 40 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Resolved By Useful Base
 
@@ -289,7 +288,6 @@ faithful to the locked chart/version without changing the recipe.
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `nats/surveyor@0.20.9` | default | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/nats/surveyor/0.20.9/runtime-review.yaml`](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `nats/surveyor@0.20.9` | default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | [`recipes/nats/surveyor/0.20.9/runtime-review.yaml`](../../recipes/nats/surveyor/0.20.9/runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml`](../../recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base default` |
-| 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml`](../../recipes/open-telemetry/opentelemetry-operator/0.114.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds` |
 | 30 | review-target-first | runtime-review | configHub-oci-live-comparison | `opencost/opencost@2.5.21` | default | watch | target-runtime: pod config/runtime errors (parity passed) | - | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `prometheus-community/prometheus@29.9.0` | default | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | [`recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml`](../../recipes/prometheus-community/prometheus/29.9.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.9.0 --base default` |
 | 30 | review-target-first | gitops-runtime-review | configHub-oci-live-comparison | `traefik/traefik@40.2.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | [`recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml`](../../recipes/traefik/traefik/40.2.0/gitops-runtime-review.yaml) | `npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds` |

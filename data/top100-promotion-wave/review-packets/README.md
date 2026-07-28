@@ -27,7 +27,7 @@ chart. Each packet is a review input. It is not a catalog support claim.
 | `kedacore/keda@2.19.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=17, gates=allow;warn | 8 | [kedacore-keda-2-19-0.yaml](./kedacore-keda-2-19-0.yaml) |
 | `nats/nack@0.34.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [nats-nack-0-34-0.yaml](./nats-nack-0-34-0.yaml) |
 | `nats/nats@2.14.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=1, gates=allow;warn | 5 | [nats-nats-2-14-0.yaml](./nats-nats-2-14-0.yaml) |
-| `open-telemetry/opentelemetry-operator@0.114.0` | default | `two-cluster-kind-parity` | high=0, medium=9, gates=allow;warn | 4 | [open-telemetry-opentelemetry-operator-0-114-0.yaml](./open-telemetry-opentelemetry-operator-0-114-0.yaml) |
+| `open-telemetry/opentelemetry-operator@0.114.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=9, gates=allow;warn | 4 | [open-telemetry-opentelemetry-operator-0-114-0.yaml](./open-telemetry-opentelemetry-operator-0-114-0.yaml) |
 | `percona/pg-operator@3.0.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [percona-pg-operator-3-0-0.yaml](./percona-pg-operator-3-0-0.yaml) |
 | `percona/psmdb-operator@1.22.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 4 | [percona-psmdb-operator-1-22-0.yaml](./percona-psmdb-operator-1-22-0.yaml) |
 | `percona/pxc-operator@1.19.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 6 | [percona-pxc-operator-1-19-1.yaml](./percona-pxc-operator-1-19-1.yaml) |

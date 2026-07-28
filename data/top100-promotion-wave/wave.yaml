@@ -753,7 +753,7 @@ spec:
       variants:
         - "default"
         - "no-crds"
-      strongestEvidence: "two-cluster-kind-parity"
+      strongestEvidence: "live-helm-vs-confighub-parity"
       sourceFeatures:
         []
       scan:

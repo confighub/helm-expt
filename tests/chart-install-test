@@ -291,8 +291,11 @@ def main() -> int:
         return fail(f"installer upload failed: {(e or o)[:160]}")
     receipt["proof_rows"].append({"layer": "confighub", "result": "PASS", "detail": f"units uploaded to {wspace}"})
 
-    # 3. apply targeted units (Noop -> populate OCI bundle). Explicit list, excluding
-    #    the untargeted installer-record and any header line.
+    # 3. Set the Space release target, then publish after confirming that upload
+    #    created the expected Units. The release OCI is the artifact Argo reads.
+    rc, o, e = sh(["cub", "space", "update", wspace, "--release-target", target], timeout=120)
+    if not step("workload-release-target", rc, o + e):
+        return fail(f"workload Space release target failed: {(e or o)[:160]}")
     rc, names, e = sh(["cub", "unit", "list", "--space", wspace], timeout=60)
     units = []
     for ln in names.splitlines():
@@ -304,17 +307,17 @@ def main() -> int:
             continue
         units.append(n)
     if not units:
-        return fail(f"no workload units found to apply in {wspace}")
-    rc, o, e = sh(["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units)], timeout=180)
-    if not step("apply-units", rc, o + e):
-        return fail(f"unit apply failed: {(e or o)[:160]}")
+        return fail(f"no workload units found to publish in {wspace}")
+    rc, o, e = sh(["cub", "release", "publish", wspace], timeout=180)
+    if not step("workload-release-publish", rc, o + e):
+        return fail(f"workload Space release publish failed: {(e or o)[:160]}")
 
-    # 4. author + apply the Argo Application unit in the cluster space
+    # 4. author the Argo Application unit, then publish the cluster Space release
     app = {"apiVersion": "argoproj.io/v1alpha1", "kind": "Application",
            "metadata": {"name": args.slug, "namespace": "argocd"},
            "spec": {"project": "default",
-                    "source": {"repoURL": f"oci://oci.hub.confighub.com:443/target/{space_cluster}/oci",
-                               "targetRevision": "latest", "path": f"./{wspace}"},
+                    "source": {"repoURL": f"oci://oci.hub.confighub.com:443/space/{wspace}",
+                               "targetRevision": "latest", "path": "."},
                     "destination": {"server": "https://kubernetes.default.svc", "namespace": ns},
                     "syncPolicy": {"automated": {"selfHeal": True, "prune": True},
                                    "syncOptions": ["ServerSideApply=true", "CreateNamespace=true"]}}}
@@ -322,9 +325,9 @@ def main() -> int:
     Path(appfile).write_text(json.dumps(app))
     rc, o, e = sh(["cub", "unit", "create", "--space", space_cluster, f"{args.slug}-app", appfile, "--target", target], timeout=120)
     step("app-create", rc, o + e)  # tolerate already-exists on re-run
-    rc, o, e = sh(["cub", "unit", "apply", "--space", space_cluster, "--unit", f"{args.slug}-app"], timeout=120)
-    if not step("app-apply", rc, o + e):
-        return fail(f"application apply failed: {(e or o)[:160]}")
+    rc, o, e = sh(["cub", "release", "publish", space_cluster], timeout=120)
+    if not step("app-release-publish", rc, o + e):
+        return fail(f"cluster Space release publish failed: {(e or o)[:160]}")
 
     # The root Argo Application watches the cluster-space OCI artifact. Force a
     # refresh after adding the child Application Unit so the bounded wait below

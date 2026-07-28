@@ -2,30 +2,26 @@
   "metadata": {
     "name": "opentelemetry-operator-parity",
     "namespace": "argocd",
-    "uid": "1d6fa676-77a2-4424-9b80-90ebca9f1602",
-    "resourceVersion": "1819",
-    "generation": 10,
-    "creationTimestamp": "2026-06-16T01:33:06Z",
+    "uid": "ae0e079d-82fc-4c63-b986-e016aef34b9c",
+    "resourceVersion": "1582",
+    "generation": 9,
+    "creationTimestamp": "2026-07-28T19:01:26Z",
     "annotations": {
-      "argocd.argoproj.io/tracking-id": "helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity",
-      "confighub.com/RevisionNum": "1",
-      "confighub.com/SpaceID": "38525f9a-e881-49ad-bd4b-7816d1b14562",
-      "confighub.com/UnitSlug": "opentelemetry-operator-parity-app"
+      "argocd.argoproj.io/tracking-id": "helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity",
+      "confighub.com/origin": "{\"spaceId\":\"d6bdc423-a22b-47ca-b157-ff30004d2758\",\"spaceSlug\":\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\",\"unitId\":\"00e38288-b887-455a-8ac3-0435fddcfb4a\",\"unitSlug\":\"opentelemetry-operator-parity-app\",\"revisionNum\":1}"
     },
     "managedFields": [
       {
         "manager": "argocd-controller",
         "operation": "Apply",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-16T01:33:06Z",
+        "time": "2026-07-28T19:01:26Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:metadata": {
             "f:annotations": {
               "f:argocd.argoproj.io/tracking-id": {},
-              "f:confighub.com/RevisionNum": {},
-              "f:confighub.com/SpaceID": {},
-              "f:confighub.com/UnitSlug": {}
+              "f:confighub.com/origin": {}
             }
           },
           "f:spec": {
@@ -53,7 +49,7 @@
         "manager": "argocd-application-controller",
         "operation": "Update",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-16T01:40:07Z",
+        "time": "2026-07-28T19:01:45Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:status": {
@@ -141,8 +137,8 @@
   },
   "spec": {
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
-      "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator",
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
+      "path": ".",
       "targetRevision": "latest"
     },
     "destination": {
@@ -229,8 +225,8 @@
         "name": "opentelemetry-operator-serving-cert",
         "status": "Synced",
         "health": {
-          "status": "Progressing",
-          "message": "Waiting for certificate"
+          "status": "Healthy",
+          "message": "Certificate is up to date and has not expired"
         }
       },
       {
@@ -241,8 +237,7 @@
         "name": "opentelemetry-operator-selfsigned-issuer",
         "status": "Synced",
         "health": {
-          "status": "Progressing",
-          "message": "Initializing issuer"
+          "status": "Healthy"
         }
       },
       {
@@ -287,8 +282,8 @@
       "status": "Synced",
       "comparedTo": {
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
-          "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
+          "path": ".",
           "targetRevision": "latest"
         },
         "destination": {
@@ -296,37 +291,37 @@
           "namespace": "default-oci"
         }
       },
-      "revision": "sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8"
+      "revision": "sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88"
     },
     "health": {
-      "status": "Progressing",
-      "lastTransitionTime": "2026-06-16T01:33:08Z"
+      "status": "Healthy",
+      "lastTransitionTime": "2026-07-28T19:01:33Z"
     },
     "history": [
       {
-        "revision": "sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8",
-        "deployedAt": "2026-06-16T01:33:09Z",
+        "revision": "sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88",
+        "deployedAt": "2026-07-28T19:01:35Z",
         "id": 0,
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
-          "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
+          "path": ".",
           "targetRevision": "latest"
         },
-        "deployStartedAt": "2026-06-16T01:33:08Z",
+        "deployStartedAt": "2026-07-28T19:01:33Z",
         "initiatedBy": {
           "automated": true
         }
       }
     ],
-    "reconciledAt": "2026-06-16T01:39:59Z",
+    "reconciledAt": "2026-07-28T19:01:38Z",
     "operationState": {
       "operation": {
         "sync": {
-          "revision": "sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8",
+          "revision": "sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88",
           "prune": true,
           "source": {
-            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
-            "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator",
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
+            "path": ".",
             "targetRevision": "latest"
           },
           "syncOptions": [
@@ -372,9 +367,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "default-oci",
-            "name": "opentelemetry-operator-metrics",
+            "name": "opentelemetry-operator-manager",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[get] APIGroups:[] Resources:[] ResourceNames:[] NonResourceURLs:[/metrics]}. clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-manager serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -383,9 +378,9 @@
             "version": "v1",
             "kind": "ClusterRole",
             "namespace": "default-oci",
-            "name": "opentelemetry-operator-manager",
+            "name": "opentelemetry-operator-metrics",
             "status": "Synced",
-            "message": "clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-manager reconciled. reconciliation required create\n\tmissing rules added:\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[] Resources:[configmaps persistentvolumeclaims persistentvolumes pods serviceaccounts services] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list patch watch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[list watch] APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[namespaces/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[nodes/spec] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[pods/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[replicationcontrollers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[replicationcontrollers/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[] Resources:[resourcequotas] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[apps] Resources:[daemonsets deployments statefulsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[apps extensions] Resources:[replicasets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[extensions] Resources:[daemonsets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[extensions] Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[autoscaling] Resources:[horizontalpodautoscalers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[batch] Resources:[jobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[batch] Resources:[cronjobs] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes/proxy] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get] APIGroups:[] Resources:[nodes/stats] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list watch] APIGroups:[config.openshift.io] Resources:[infrastructures infrastructures/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list update] APIGroups:[coordination.k8s.io] Resources:[leases] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list] APIGroups:[discovery.k8s.io] Resources:[endpointslices] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create list patch watch] APIGroups:[events.k8s.io] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[gateway.networking.k8s.io] Resources:[httproutes] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[monitoring.coreos.com] Resources:[podmonitors servicemonitors] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[networking.k8s.io] Resources:[ingresses networkpolicies] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list patch update watch] APIGroups:[opentelemetry.io] Resources:[instrumentations] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[opentelemetry.io] Resources:[opampbridges] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[update] APIGroups:[opentelemetry.io] Resources:[opampbridges/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[opentelemetry.io] Resources:[opampbridges/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get list patch update watch] APIGroups:[opentelemetry.io] Resources:[opentelemetrycollectors] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[opentelemetry.io] Resources:[opentelemetrycollectors/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[opentelemetry.io] Resources:[opentelemetrycollectors/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[policy] Resources:[poddisruptionbudgets] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[route.openshift.io] Resources:[routes routes/custom-host] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create delete get list patch update watch] APIGroups:[opentelemetry.io] Resources:[targetallocators] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[opentelemetry.io] Resources:[targetallocators/status] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[get patch update] APIGroups:[opentelemetry.io] Resources:[targetallocators/finalizers] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create get list watch update patch delete] APIGroups:[cert-manager.io] Resources:[issuers certificaterequests certificates] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authentication.k8s.io] Resources:[tokenreviews] ResourceNames:[] NonResourceURLs:[]}\n\t\t{Verbs:[create] APIGroups:[authorization.k8s.io] Resources:[subjectaccessreviews] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-manager serverside-applied",
+            "message": "clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -396,7 +391,7 @@
             "namespace": "default-oci",
             "name": "opentelemetry-operator-manager",
             "status": "Synced",
-            "message": "clusterrolebinding.rbac.authorization.k8s.io/opentelemetry-operator-manager reconciled. reconciliation required create\n\tmissing subjects added:\n\t\t{Kind:ServiceAccount APIGroup: Name:opentelemetry-operator Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/opentelemetry-operator-manager serverside-applied",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/opentelemetry-operator-manager serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -407,7 +402,7 @@
             "namespace": "default",
             "name": "opentelemetry-operator-leader-election",
             "status": "Synced",
-            "message": "role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election reconciled. reconciliation required update. role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied",
+            "message": "role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -418,7 +413,7 @@
             "namespace": "default",
             "name": "opentelemetry-operator-leader-election",
             "status": "Synced",
-            "message": "rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied",
+            "message": "rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           },
@@ -503,15 +498,15 @@
             "syncPhase": "Sync"
           }
         ],
-        "revision": "sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8",
+        "revision": "sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88",
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
-          "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
+          "path": ".",
           "targetRevision": "latest"
         }
       },
-      "startedAt": "2026-06-16T01:33:08Z",
-      "finishedAt": "2026-06-16T01:33:09Z"
+      "startedAt": "2026-07-28T19:01:33Z",
+      "finishedAt": "2026-07-28T19:01:35Z"
     },
     "sourceType": "Directory",
     "summary": {

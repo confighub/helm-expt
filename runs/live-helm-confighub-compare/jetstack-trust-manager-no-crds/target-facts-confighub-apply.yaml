@@ -6,204 +6,23 @@ items:
   metadata:
     name: trust-manager-tls
     namespace: default
+    annotations:
+      helm-expt.confighub.com/secret-values: redacted-from-committed-evidence
   type: kubernetes.io/tls
   stringData:
-    tls.crt: '-----BEGIN CERTIFICATE-----
-
-      MIIDJTCCAg2gAwIBAgIUbiWqbNVDQ8mP3xuLS6yUSKoOXcUwDQYJKoZIhvcNAQEL
-
-      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjAxMTM1NVoX
-
-      DTI2MDYxNzAxMTM1NVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
-
-      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3TOZOYvsE1TvqhZlFYaZr1RbwMEK
-
-      2fQqRl0L5fFvmMksdmksiZ2KIOiOqVNUTGIquXplbsDut2hDvQHq3wLrK7uB0zWf
-
-      GA3ZcET1WIaAr95ef79P+UlvSuu5tmj8x9JrWKfjXsi4u7wnspO4BKEyiLhUwjBs
-
-      W9R6Row+nwLDtWwOZ46JFtHSME8zAzCjUsG5bdGHpKGzG+apU3WKqqhxAejtKUl6
-
-      vNhpXP6Ww69veVOvRAO6i64zB/TVMc7dVpnHVy1cRYOPCUQ6Pko5RzYRC20JeV8/
-
-      wYL6yr45fT7lvhck0EAUBpAwkoGTE7f5nfVTwR+VUgc40ywfI2SbpZWzAQIDAQAB
-
-      o2MwYTAdBgNVHQ4EFgQUb2PB3f4cyaEpZTGBOWBgpQNwYbEwHwYDVR0jBBgwFoAU
-
-      b2PB3f4cyaEpZTGBOWBgpQNwYbEwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E
-
-      BAMCAqQwDQYJKoZIhvcNAQELBQADggEBADSrBZhIPJ9lw8ruRaZ3pIMqpkxplojL
-
-      56PSvuSpv2ShM3m3/Hb6wUlEfWaMkdIvJ4LVMR41ktXmuYQ4/YuHOQTybagThplG
-
-      51B/aTrNdhaJMVFw5MQyTp/t9KOz27b1y85YNWeZxvvTqDkHsDi16/NPpGEsLDOf
-
-      PzJpVheDb9Vu72IZ8aCGiISwvDzmaHwHu4Ll0j/kA48ScKchVJoGMbMo5zmsguQE
-
-      fxuHGnlZ8xAXoS8MGquw5yCW8DI21cPoVXO0xBhFN3V+RZ/wOKVHec1pPDH2mE3H
-
-      gzV35V7EFU6UNEJ5Rw0QbsMhRHGNzFGjgiKOtsxzSSLBRFG39D8wLzc=
-
-      -----END CERTIFICATE-----
-
-      '
-    tls.key: '-----BEGIN PRIVATE KEY-----
-
-      MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDdM5k5i+wTVO+q
-
-      FmUVhpmvVFvAwQrZ9CpGXQvl8W+YySx2aSyJnYog6I6pU1RMYiq5emVuwO63aEO9
-
-      AerfAusru4HTNZ8YDdlwRPVYhoCv3l5/v0/5SW9K67m2aPzH0mtYp+NeyLi7vCey
-
-      k7gEoTKIuFTCMGxb1HpGjD6fAsO1bA5njokW0dIwTzMDMKNSwblt0YekobMb5qlT
-
-      dYqqqHEB6O0pSXq82Glc/pbDr295U69EA7qLrjMH9NUxzt1WmcdXLVxFg48JRDo+
-
-      SjlHNhELbQl5Xz/BgvrKvjl9PuW+FyTQQBQGkDCSgZMTt/md9VPBH5VSBzjTLB8j
-
-      ZJullbMBAgMBAAECggEAOna8TUbrpvJgg9J2dhmEvh/sPkZnYVLU55MJJYXKCpZF
-
-      P6itolO2odsFdcB1+9hIVYyBiaPJlEUk/iwnETlawczF0/aMrZVffnpjZDnsgk8i
-
-      J95/OzKLDUC/bXRTN1cokx6QjEk99jSVQ3Aih2q5igQ6NrcItL60cLf5hxp6cpT2
-
-      HhgLdazCT4ZC4hRvW3AGFpY6rdpDpPuHhaEvrw4qHJIErz8KRQMOSTddE2Ml4Y/k
-
-      ShjITXn1xOE/AjU/LW6mfTGnHgVp5mpCF2o/YDCBIauP1DrvAE7OfsoV5lMeL62h
-
-      f1VVOT/qhevPSV9MxeIi0UL6gVbi1mnsruf5DSfdJwKBgQD/rzqV/lq6fDnGXnmM
-
-      SiIBBJ8ef3e7fVRO3P+tiMpJAQn7XWQptgjs+iLgIQ9+F/Jj8doZKY8Rx5h8bPY8
-
-      BToIpYS5CwmrPleHITYXXICRDhIFRNbwGgwPg8c2k8ZTD8fnmBQ+ILrTN4bVJnPJ
-
-      Fz04EJzLqOZaM3zyBpx4/nVUzwKBgQDdeXn52pad+g4pZl0qh4zrsYtdD9aVFuUc
-
-      MA5YRSBIq2wc4bTr4ExUbR7K3Uudkjbbi4y2Y2VoySK++dsZmMK7BgvrpP9kgDwn
-
-      N6WX+Zfxp6PXbzANkn7Z34XyYBFAJhdbHlboteyZ4vG8/FNBQtizc9R731VKDNrx
-
-      mT5XS30PLwKBgQCjOcxe4QgusQt5FermopTerYKfR6S6LqJZzj/zGrZ4sI8cx1wg
-
-      PLOqBW2qQ7DOQJ9fKpCfK6bIJPG1zSHM41FPH8uBDgjYJ25dN9h+RXFWKPNcJbxJ
-
-      f3dfmDLfJqufbx2hPbb+iop6OKJ9BJU6NPnCBujyIxsbTm9fWtUdcOSahQKBgDtx
-
-      fVGYX9Cq6t4lwV/G3gXss1EZDSka6gd0xoTemNmoWO4vjlW48APA/gDJAKCcO+kV
-
-      PYE+kFtdkNvdR/dIzwtPhieLM5kP6hVElEeEEEomCo2qJCWgajekDNmO+1JSZvZn
-
-      4D+5hHWROfzVZKshe/Q+ZIuS19t2M9WgoeDgPAK1AoGBAJHMgzY4M2ljvk/1ZYF6
-
-      iad2UAwbS0VqPNIkC1mmflB9GKwy2oDTPZAK3cY6JPr5mK/pJO0WFBwmvQ4MGfuY
-
-      T03moLqsTgYSqkGNWeRtGrlK4+54JKjRjDMA8CXxOlWpvqx7raIY5/okkbblj3mP
-
-      ucweo9nqItxFTofX3Z9OLJ7F
-
-      -----END PRIVATE KEY-----
-
-      '
+    tls.crt: <redacted>
+    tls.key: <redacted>
 - apiVersion: v1
   kind: Secret
   metadata:
     name: trust-manager-tls
     namespace: default-apply
+    annotations:
+      helm-expt.confighub.com/secret-values: redacted-from-committed-evidence
   type: kubernetes.io/tls
   stringData:
-    tls.crt: '-----BEGIN CERTIFICATE-----
-
-      MIIDJTCCAg2gAwIBAgIUbiWqbNVDQ8mP3xuLS6yUSKoOXcUwDQYJKoZIhvcNAQEL
-
-      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjAxMTM1NVoX
-
-      DTI2MDYxNzAxMTM1NVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
-
-      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3TOZOYvsE1TvqhZlFYaZr1RbwMEK
-
-      2fQqRl0L5fFvmMksdmksiZ2KIOiOqVNUTGIquXplbsDut2hDvQHq3wLrK7uB0zWf
-
-      GA3ZcET1WIaAr95ef79P+UlvSuu5tmj8x9JrWKfjXsi4u7wnspO4BKEyiLhUwjBs
-
-      W9R6Row+nwLDtWwOZ46JFtHSME8zAzCjUsG5bdGHpKGzG+apU3WKqqhxAejtKUl6
-
-      vNhpXP6Ww69veVOvRAO6i64zB/TVMc7dVpnHVy1cRYOPCUQ6Pko5RzYRC20JeV8/
-
-      wYL6yr45fT7lvhck0EAUBpAwkoGTE7f5nfVTwR+VUgc40ywfI2SbpZWzAQIDAQAB
-
-      o2MwYTAdBgNVHQ4EFgQUb2PB3f4cyaEpZTGBOWBgpQNwYbEwHwYDVR0jBBgwFoAU
-
-      b2PB3f4cyaEpZTGBOWBgpQNwYbEwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E
-
-      BAMCAqQwDQYJKoZIhvcNAQELBQADggEBADSrBZhIPJ9lw8ruRaZ3pIMqpkxplojL
-
-      56PSvuSpv2ShM3m3/Hb6wUlEfWaMkdIvJ4LVMR41ktXmuYQ4/YuHOQTybagThplG
-
-      51B/aTrNdhaJMVFw5MQyTp/t9KOz27b1y85YNWeZxvvTqDkHsDi16/NPpGEsLDOf
-
-      PzJpVheDb9Vu72IZ8aCGiISwvDzmaHwHu4Ll0j/kA48ScKchVJoGMbMo5zmsguQE
-
-      fxuHGnlZ8xAXoS8MGquw5yCW8DI21cPoVXO0xBhFN3V+RZ/wOKVHec1pPDH2mE3H
-
-      gzV35V7EFU6UNEJ5Rw0QbsMhRHGNzFGjgiKOtsxzSSLBRFG39D8wLzc=
-
-      -----END CERTIFICATE-----
-
-      '
-    tls.key: '-----BEGIN PRIVATE KEY-----
-
-      MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDdM5k5i+wTVO+q
-
-      FmUVhpmvVFvAwQrZ9CpGXQvl8W+YySx2aSyJnYog6I6pU1RMYiq5emVuwO63aEO9
-
-      AerfAusru4HTNZ8YDdlwRPVYhoCv3l5/v0/5SW9K67m2aPzH0mtYp+NeyLi7vCey
-
-      k7gEoTKIuFTCMGxb1HpGjD6fAsO1bA5njokW0dIwTzMDMKNSwblt0YekobMb5qlT
-
-      dYqqqHEB6O0pSXq82Glc/pbDr295U69EA7qLrjMH9NUxzt1WmcdXLVxFg48JRDo+
-
-      SjlHNhELbQl5Xz/BgvrKvjl9PuW+FyTQQBQGkDCSgZMTt/md9VPBH5VSBzjTLB8j
-
-      ZJullbMBAgMBAAECggEAOna8TUbrpvJgg9J2dhmEvh/sPkZnYVLU55MJJYXKCpZF
-
-      P6itolO2odsFdcB1+9hIVYyBiaPJlEUk/iwnETlawczF0/aMrZVffnpjZDnsgk8i
-
-      J95/OzKLDUC/bXRTN1cokx6QjEk99jSVQ3Aih2q5igQ6NrcItL60cLf5hxp6cpT2
-
-      HhgLdazCT4ZC4hRvW3AGFpY6rdpDpPuHhaEvrw4qHJIErz8KRQMOSTddE2Ml4Y/k
-
-      ShjITXn1xOE/AjU/LW6mfTGnHgVp5mpCF2o/YDCBIauP1DrvAE7OfsoV5lMeL62h
-
-      f1VVOT/qhevPSV9MxeIi0UL6gVbi1mnsruf5DSfdJwKBgQD/rzqV/lq6fDnGXnmM
-
-      SiIBBJ8ef3e7fVRO3P+tiMpJAQn7XWQptgjs+iLgIQ9+F/Jj8doZKY8Rx5h8bPY8
-
-      BToIpYS5CwmrPleHITYXXICRDhIFRNbwGgwPg8c2k8ZTD8fnmBQ+ILrTN4bVJnPJ
-
-      Fz04EJzLqOZaM3zyBpx4/nVUzwKBgQDdeXn52pad+g4pZl0qh4zrsYtdD9aVFuUc
-
-      MA5YRSBIq2wc4bTr4ExUbR7K3Uudkjbbi4y2Y2VoySK++dsZmMK7BgvrpP9kgDwn
-
-      N6WX+Zfxp6PXbzANkn7Z34XyYBFAJhdbHlboteyZ4vG8/FNBQtizc9R731VKDNrx
-
-      mT5XS30PLwKBgQCjOcxe4QgusQt5FermopTerYKfR6S6LqJZzj/zGrZ4sI8cx1wg
-
-      PLOqBW2qQ7DOQJ9fKpCfK6bIJPG1zSHM41FPH8uBDgjYJ25dN9h+RXFWKPNcJbxJ
-
-      f3dfmDLfJqufbx2hPbb+iop6OKJ9BJU6NPnCBujyIxsbTm9fWtUdcOSahQKBgDtx
-
-      fVGYX9Cq6t4lwV/G3gXss1EZDSka6gd0xoTemNmoWO4vjlW48APA/gDJAKCcO+kV
-
-      PYE+kFtdkNvdR/dIzwtPhieLM5kP6hVElEeEEEomCo2qJCWgajekDNmO+1JSZvZn
-
-      4D+5hHWROfzVZKshe/Q+ZIuS19t2M9WgoeDgPAK1AoGBAJHMgzY4M2ljvk/1ZYF6
-
-      iad2UAwbS0VqPNIkC1mmflB9GKwy2oDTPZAK3cY6JPr5mK/pJO0WFBwmvQ4MGfuY
-
-      T03moLqsTgYSqkGNWeRtGrlK4+54JKjRjDMA8CXxOlWpvqx7raIY5/okkbblj3mP
-
-      ucweo9nqItxFTofX3Z9OLJ7F
-
-      -----END PRIVATE KEY-----
-
-      '
+    tls.crt: <redacted>
+    tls.key: <redacted>
+metadata:
+  annotations:
+    helm-expt.confighub.com/evidence-note: Secret values are redacted; the live run applied ephemeral values from a temporary file.

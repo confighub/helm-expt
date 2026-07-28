@@ -35,6 +35,7 @@ function printUsage() {
   console.log(`Usage:
   npm run live-parity:run -- --recipe recipes/external-dns/external-dns/1.21.1 --base no-crds
   npm run live-parity:run -- --recipe recipes/traefik/traefik/40.2.0 --base no-crds --target-profile kind-loadbalancer
+  npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds --target-profile kind-cert-manager
 
 This runs the strict live Helm-vs-ConfigHub parity rig for one committed recipe
 and base variant:
@@ -275,7 +276,7 @@ function parseCubAuthExpiry(output) {
 function targetProfileCheck(profile) {
   if (!profile || profile === "none") return { name: "target profile", result: "pass", detail: "none" };
   if (profile === "kind-three-node") return kubernetesNodeProfileCheck();
-  if (["kind-ingress-nginx", "kind-loadbalancer"].includes(profile)) {
+  if (["kind-cert-manager", "kind-ingress-nginx", "kind-loadbalancer"].includes(profile)) {
     return { name: `target profile ${profile}`, result: "pass", detail: "recognized" };
   }
   return { name: `target profile ${profile}`, result: "blocked", detail: "unknown target profile" };

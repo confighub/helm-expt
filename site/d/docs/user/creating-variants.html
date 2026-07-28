@@ -597,13 +597,13 @@ metrics-server/default
 prometheus/server-only-ephemeral
 -&gt; Prometheus-prod-us-east
 -&gt; Prometheus-staging-eu-west</code></pre>
-<p>These examples start from clean uploaded base Spaces, run <code>cub variant create --target</code>, apply the cloned workload Units to ConfigHub OCI targets, and let Argo CD reconcile the derived Spaces into Kubernetes. The receipts are:</p>
+<p>These examples start from clean uploaded base Spaces, run <code>cub variant create --target</code>, publish each derived Space as a ConfigHub release OCI, and let Argo CD reconcile that release into Kubernetes. The receipts are:</p>
 <pre><code>runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/nginx-customer-acme-prod/receipt.yaml
 runs/derived-variant-target-bound/metrics-server-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml</code></pre>
-<p>The example deliberately excludes <code>installer-record</code> from the workload apply. That Unit is installer support metadata, not a Kubernetes object for the workload artifact.</p>
+<p>The release excludes <code>installer-record</code>. That Unit is installer support metadata, not a Kubernetes object for the workload artifact.</p>
 <p>A future/polished <a href="../reference/variant-creation-artifact.html#creator-status">Creator flow</a> should make those building blocks easy to use. It should not introduce a separate variant system.</p>
 <h2 id="ai-assistant-flow">AI Assistant Flow</h2>
 <p><b>Status: AX proposal.</b> The structured task below is the target contract for assistants, not a shipped command or API. Assistants today drive the same shipped commands as the worked path above.</p>

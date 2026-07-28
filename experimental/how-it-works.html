@@ -216,14 +216,14 @@ em{font-style:italic;color:var(--ink);}
   <p>The frozen render is published once to an OCI registry. Argo, Flux, or <code>kubectl</code> all pull the <em>same files</em> — the controller never rebuilds its own version from values. <strong>Keep your controller; just point it at the ConfigHub bundle.</strong></p>
   <pre><code># Argo CD Application source
 source:
-  repoURL: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci
-  path: ./&lt;space&gt;
+  repoURL: oci://oci.hub.confighub.com:443/space/&lt;workload-space&gt;
+  path: .
 
 # Flux source
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 spec:
-  url: oci://oci.hub.confighub.com:443/target/&lt;space&gt;/oci</code></pre>
+  url: oci://oci.hub.confighub.com:443/space/&lt;workload-space&gt;</code></pre>
   <p class="quiet-line">Argo-from-OCI is proven with committed end-to-end receipts. Flux-from-OCI is documented and still in progress until it has the same receipts.</p>
 
   <h2>10 · Letting AI make the changes, safely</h2>

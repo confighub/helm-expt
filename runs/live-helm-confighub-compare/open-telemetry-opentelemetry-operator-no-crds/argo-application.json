@@ -8,9 +8,9 @@
   "spec": {
     "project": "default",
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci",
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator",
       "targetRevision": "latest",
-      "path": "./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator"
+      "path": "."
     },
     "destination": {
       "server": "https://kubernetes.default.svc",

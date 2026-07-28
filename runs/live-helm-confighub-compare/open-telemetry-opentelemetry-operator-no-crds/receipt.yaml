@@ -6,24 +6,41 @@ spec:
   chart: open-telemetry/opentelemetry-operator
   version: 0.114.0
   base: no-crds
-  result: watch
-  observedAt: '2026-06-16T01:29:31Z'
+  result: pass
+  observedAt: '2026-07-28T18:57:41Z'
   package:
     path: packages/open-telemetry/opentelemetry-operator/0.114.0
   recipe:
     path: recipes/open-telemetry/opentelemetry-operator/0.114.0
   variantRevision: recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-cert-manager
     result: pass
-    resources: []
+    source:
+      package: packages/jetstack/cert-manager/v1.20.2
+      base: crds-enabled
+    manifestSHA256: 736687fcace8e44296134bad01af24fc98dedecf939736d872b1f118e30b5271
+    resources:
+    - namespace/cert-manager
+    - customresourcedefinition/certificaterequests.cert-manager.io
+    - customresourcedefinition/certificates.cert-manager.io
+    - customresourcedefinition/challenges.acme.cert-manager.io
+    - customresourcedefinition/clusterissuers.cert-manager.io
+    - customresourcedefinition/issuers.cert-manager.io
+    - customresourcedefinition/orders.acme.cert-manager.io
+    - deployment/cert-manager
+    - deployment/cert-manager-cainjector
+    - deployment/cert-manager-webhook
+    observedBehavior: The verified cert-manager catalog package installed its six
+      CRDs and three controllers before the chart under test. Certificate and Issuer
+      objects can now be reconciled instead of remaining permanently Progressing.
   gitOpsCanonicalizationProfile:
     name: none
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-opentelemetry526bb-mqfysb4j-n77
-    kubeContext: kind-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77
+    rig: helm-expt-parity-opentelemetry526bb-ms50q17q-1aki
+    kubeContext: kind-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki
     namespace: default
     namespaceMode: isolated-leg-namespaces
     legNamespaces:
@@ -32,16 +49,18 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-opentelemetry526bb-mqfysb4j-n77
+      command: cub cluster down --name helm-expt-parity-opentelemetry526bb-ms50q17q-1aki
         --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-opentelemetry526bb-mqfysb4j-n77"...
+      detail: 'Deleting kind cluster "helm-expt-parity-opentelemetry526bb-ms50q17q-1aki"...
 
-        Deleting cluster "helm-expt-parity-opentelemetry526bb-mqfysb4j-n77" ...
+        Deleting cluster "helm-expt-parity-opentelemetry526bb-ms50q17q-1aki" ...
 
-        Deleted nodes: ["helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-control-plane"]
+        Deleted nodes: ["helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-control-plane"]
 
-        Deleting Space "helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster"
+        Clearing release target on Space "helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster"...
+
+        Deleting Space "helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster"
         (recursive: cascades to Unit, Target, Worker)...
 
 
@@ -51,25 +70,25 @@ spec:
       result: pass
       command: helm upgrade --install opentelemetry-operator opentelemetry-operator
         --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-        0.114.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
+        0.114.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1
       objectCount: 13
-      liveHelmManifestSHA256: 93e01edca545db410fa171beef4320d8f7cc5e36f908182805adefe444bd4f80
+      liveHelmManifestSHA256: 00569d1cf643604a3a2a7699ea923413107cd0bab4481a1044e6d4187a0d534d
       liveHelmManifestObjectCount: 13
       namespace: default-helm
       runtime:
         result: pass
-        workloads: deployment.apps/opentelemetry-operator   1/1   1     1     15s
-        pods: opentelemetry-operator-7b79f764b-fhr89   1/1   Running   0     15s
+        workloads: deployment.apps/opentelemetry-operator   1/1   1     1     17s
+        pods: opentelemetry-operator-7b79f764b-n6qjs   1/1   Running   0     17s
         notReady: []
         ignoredJobPods: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
-        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: ec68725c411195a34f2d2be5fc2f3f73353e4a680d11abb6b4bef48bbe2df6d8
@@ -85,11 +104,12 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/opentelemetry-operator   1/1   1     1     21s'
+          deployment.apps/opentelemetry-operator   1/1   1     1     20s'
         pods: '# default
 
-          opentelemetry-operator-7b79f764b-pcbnk   1/1   Running   0     21s'
+          opentelemetry-operator-7b79f764b-phn6t   1/1   Running   0     21s'
         notReady: []
+        terminalReadinessBlockers: {}
       cleanupBeforeOci:
         namespaces:
         - default-apply
@@ -129,8 +149,8 @@ spec:
         reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
           parity rigs
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
+      result: pass
+      workloadSpace: helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
       controller: Argo CD OCI
       app: opentelemetry-operator-parity
       manifestSHA256: 90f779aeb25070a55361cf1113ba38b2e4dfc2eaff5c29ba097a7868c42f116d
@@ -141,9 +161,9 @@ spec:
       - default-oci
       runtimeNamespaces: &id002
       - default
-      ociRevision: sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
+      ociRevision: sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       renderedLifecycleSecrets:
         result: not-needed
@@ -157,22 +177,22 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
               targetRevision: latest
-          revision: sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
+          revision: sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88
           status: Synced
         health:
-          lastTransitionTime: '2026-06-16T01:33:08Z'
-          status: Progressing
+          lastTransitionTime: '2026-07-28T19:01:33Z'
+          status: Healthy
         summary:
           images:
           - ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-16T01:33:08Z'
-          finishedAt: '2026-06-16T01:33:09Z'
+          startedAt: '2026-07-28T19:01:33Z'
+          finishedAt: '2026-07-28T19:01:35Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 14
@@ -180,13 +200,13 @@ spec:
             Synced: 14
         history:
         - id: 0
-          revision: sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
-          deployedAt: '2026-06-16T01:33:09Z'
-          deployStartedAt: '2026-06-16T01:33:08Z'
+          revision: sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88
+          deployedAt: '2026-07-28T19:01:35Z'
+          deployStartedAt: '2026-07-28T19:01:33Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
             targetRevision: latest
-            path: ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
+            path: .
         conditions: []
         resources:
         - group: ''
@@ -307,36 +327,35 @@ spec:
             result: pass
             output: "Name:         opentelemetry-operator-parity\nNamespace:    argocd\n\
               Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\n\
-              \                helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity\n\
-              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
-              \ 38525f9a-e881-49ad-bd4b-7816d1b14562\n              confighub.com/UnitSlug:\
-              \ opentelemetry-operator-parity-app\nAPI Version:  argoproj.io/v1alpha1\n\
-              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T01:33:06Z\n\
-              \  Generation:          9\n  Resource Version:    1557\n  UID:     \
-              \            1d6fa676-77a2-4424-9b80-90ebca9f1602\nSpec:\n  Destination:\n\
+              \                helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              d6bdc423-a22b-47ca-b157-ff30004d2758\",\"spaceSlug\":\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
+              ,\"unitId\":\"00e382...\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-07-28T19:01:26Z\n\
+              \  Generation:          7\n  Resource Version:    1566\n  UID:     \
+              \            ae0e079d-82fc-4c63-b986-e016aef34b9c\nSpec:\n  Destination:\n\
               \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
               \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
-              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T01:33:08Z\n\
-              \    Status:                Progressing\n  History:\n    Deploy Started\
-              \ At:  2026-06-16T01:33:08Z\n    Deployed At:        2026-06-16T01:33:09Z\n\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-28T19:01:33Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-07-28T19:01:33Z\n    Deployed At:        2026-07-28T19:01:35Z\n\
               \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
-              \    Revision:     sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
-              \    Source:\n      Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+              \    Revision:     sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-16T01:33:09Z\n    Message:      successfully synced (all\
+              \  2026-07-28T19:01:35Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
-              \     true\n        Revision:  sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
-              \        Source:\n          Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+              \     true\n        Revision:  sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
-              \       Succeeded\n    Started At:  2026-06-16T01:33:08Z\n    Sync Result:\n\
+              \       Succeeded\n    Started At:  2026-07-28T19:01:33Z\n    Sync Result:\n\
               \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
               \        Kind:        Namespace\n        Message:     namespace/default-oci\
               \ serverside-applied\n        Name:        default-oci\n        Namespace:\
@@ -348,60 +367,61 @@ spec:
               \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
               \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
               \ Phase:  Running\n        Kind:        ClusterRole\n        Message:\
-              \     clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ rules added:\n                       {Verbs:[get] APIGroups:[] Resources:[]\
-              \ ResourceNames:[] NonResourceURLs:[/metrics]}. clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics\
+              \     clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-manager\
+              \ serverside-applied\n        Name:        opentelemetry-operator-manager\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-metrics\
               \ serverside-applied\n        Name:        opentelemetry-operator-metrics\n\
               \        Namespace:   default-oci\n        Status:      Synced\n   \
               \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
               \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
-              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/opentelemetry-operator-manager\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ rules added:\n                       {Verbs:[create delete get list\
-              \ patch update watch] APIGroups:[] Resources:[configmaps persistentvolumeclaims\
-              \ persistentvolumes pods serviceaccounts services] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[create get list\
-              \ patch watch] APIGroups:[] Resources:[events] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[list watch] APIGroups:[] Resources:[namespaces]\
-              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
-              \ list watch] APIGroups:[] Resources:[namespaces/status] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
-              \ APIGroups:[] Resources:[nodes/spec] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[get list watch] APIGroups:[] Resources:[pods/status]\
-              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
-              \ list watch] APIGroups:[] Resources:[replicationcontrollers] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
-              \ APIGroups:[] Resources:[replicationcontrollers/status] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
-              \ APIGroups:[] Resources:[resourcequotas] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[create delete get list patch update\
-              \ watch] APIGroups:[apps] Resources:[daemonsets deployments statefulsets]\
-              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[get\
-              \ list watch] APIGroups:[apps extensions] Resources:[replicasets] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
-              \ APIGroups:[extensions] Resources:[daemonsets] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[get list watch] APIGroups:[extensions]\
-              \ Resources:[deployments] ResourceNames:[] NonResourceURLs:[]}\n   \
-              \     "
+              \   Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/opentelemetry-operator-manager\
+              \ serverside-applied\n        Name:        opentelemetry-operator-manager\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        Role\n        Message:     role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
+              \ serverside-applied\n        Name:        opentelemetry-operator-leader-election\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
+              \ serverside-applied\n        Name:        opentelemetry-operator-leader-election\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        Service\n      \
+              \  Message:     service/opentelemetry-operator-webhook serverside-applied\n\
+              \        Name:        opentelemetry-operator-webhook\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        Service\n        Message:     service/opentelemetry-operator\
+              \ serverside-applied\n        Name:        opentelemetry-operator\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.152.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/opentelemetry-operator\
+              \ serverside-applied\n        Name:        opentelemetry-operator\n\
+              \        Namespace:   default\n        Status:      Syn"
           events:
             result: pass
             output: 'LAST SEEN   TYPE     REASON               OBJECT                                      MESSAGE
 
-              6m51s       Normal   OperationStarted     application/opentelemetry-operator-parity   Initiated
-              automated sync to ''sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8''
+              4s          Normal   OperationStarted     application/opentelemetry-operator-parity   Initiated
+              automated sync to ''sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88''
 
-              6m51s       Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
+              4s          Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
               sync status:  -> OutOfSync
 
-              6m51s       Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
-              health status:  -> Progressing
+              4s          Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
+              health status:  -> Healthy
 
-              6m50s       Normal   OperationCompleted   application/opentelemetry-operator-parity   Sync
-              operation to sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
+              2s          Normal   OperationCompleted   application/opentelemetry-operator-parity   Sync
+              operation to sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88
               succeeded
 
-              6m48s       Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
+              1s          Normal   ResourceUpdated      application/opentelemetry-operator-parity   Updated
               sync status: OutOfSync -> Synced'
           argocdCore:
             result: pass
@@ -411,55 +431,56 @@ spec:
               result: pass
               summary:
                 sync: Synced
-                health: Progressing
+                health: Healthy
                 operationPhase: Succeeded
                 conditions: 0
                 resources: 14
               artifact:
                 path: argocd-core-child.json
-                sha256: b122ec5e535af153c3a648ab27558cb2a358841b43e87be6596a58116aaf54ec
-                bytes: 23130
+                sha256: 6713ab5f3b8d988fee82d51d98cc70183c8d11b210ca7143d7bf7ea570025bc0
+                bytes: 16764
               output: "{\n  \"metadata\": {\n    \"name\": \"opentelemetry-operator-parity\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"1d6fa676-77a2-4424-9b80-90ebca9f1602\"\
-                ,\n    \"resourceVersion\": \"1819\",\n    \"generation\": 10,\n \
-                \   \"creationTimestamp\": \"2026-06-16T01:33:06Z\",\n    \"annotations\"\
-                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity\"\
-                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
-                : \"38525f9a-e881-49ad-bd4b-7816d1b14562\",\n      \"confighub.com/UnitSlug\"\
-                : \"opentelemetry-operator-parity-app\"\n    },\n    \"managedFields\"\
-                : [\n      {\n        \"manager\": \"argocd-controller\",\n      \
-                \  \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-16T01:33:06Z\",\n        \"fieldsType\"\
-                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
-                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
-                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
-                : {}\n            }\n          },\n          \"f:spec\": {\n     \
-                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
-                \              \"f:server\": {}\n            },\n            \"f:project\"\
-                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
-                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
-                : {}\n            },\n            \"f:syncPolicy\": {\n          \
-                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
-                \          \"f:selfHeal\": {}\n              },\n              \"\
-                f:syncOptions\": {}\n            }\n          }\n        }\n     \
-                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
-                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
-                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T01:40:07Z\"\
-                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
-                \          \"f:status\": {\n            \".\": {},\n            \"\
-                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
-                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
-                \              \"f:status\": {}\n            },\n            \"f:history\"\
-                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
-                \              \"f:finishedAt\": {},\n              \"f:message\"\
-                : {},\n              \"f:operation\": {\n                \".\": {},\n\
-                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
-                \                  \"f:automated\": {}\n                },\n     \
-                \           \"f:retry\": {\n                  \".\": {},\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
-                : {},\n                  \"f:revision\": {},\n                  \"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ae0e079d-82fc-4c63-b986-e016aef34b9c\"\
+                ,\n    \"resourceVersion\": \"1582\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-07-28T19:01:26Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster:argoproj.io/Application:argocd/opentelemetry-operator-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"d6bdc423-a22b-47ca-b157-ff30004d2758\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\\\
+                \",\\\"unitId\\\":\\\"00e38288-b887-455a-8ac3-0435fddcfb4a\\\",\\\"\
+                unitSlug\\\":\\\"opentelemetry-operator-parity-app\\\",\\\"revisionNum\\\
+                \":1}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-07-28T19:01:26Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-07-28T19:01:45Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
                 f:source\": {\n                    \".\": {},\n                  \
                 \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
                 \               \"f:targetRevision\": {}\n                  },\n \
@@ -485,120 +506,91 @@ spec:
                 : {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\"\
-                ,\n      \"path\": \"./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator\"\
-                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
-                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
-                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
-                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
-                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
-                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
-                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
-                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
-                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
-                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
-                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
-                : \"opentelemetry-operator\",\n        \"status\": \"Synced\",\n \
-                \       \"health\": {\n          \"status\": \"Healthy\"\n       \
-                \ }\n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
-                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
-                : \"opentelemetry-operator-webhook\",\n        \"status\": \"Synced\"\
-                ,\n        \"health\": {\n          \"status\": \"Healthy\"\n    \
-                \    }\n      },\n      {\n        \"version\": \"v1\",\n        \"\
-                kind\": \"ServiceAccount\",\n        \"namespace\": \"default\",\n\
-                \        \"name\": \"opentelemetry-operator\",\n        \"status\"\
-                : \"Synced\"\n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
-                ,\n        \"version\": \"v1\",\n        \"kind\": \"MutatingWebhookConfiguration\"\
-                ,\n        \"name\": \"opentelemetry-operator-mutation\",\n      \
-                \  \"status\": \"Synced\"\n      },\n      {\n        \"group\": \"\
-                admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n  \
-                \      \"kind\": \"ValidatingWebhookConfiguration\",\n        \"name\"\
-                : \"opentelemetry-operator-validation\",\n  "
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"default-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"default\",\n        \"name\": \"opentelemetry-operator\",\n  \
+                \      \"status\": \"Synced\",\n        \"health\": {\n          \"\
+                status\": \"Healthy\"\n        }\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"default\",\n        \"name\": \"opentelemetry-operator-webhook\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
+                \        \"namespace\": \"default\",\n        \"name\": \"opentelemetry-operator\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"MutatingWebhookConfiguration\",\n        \"name\"\
+                : \"opentelemetry-operator-mutation\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\"\
+                ,\n        \"name\": \"opentelemetry-operator-validation\",\n    \
+                \    \"status\": \"Synced\"\n      },\n      {\n        \"g"
             tree:
               result: pass
               artifact:
                 path: argocd-core-child-tree.txt
-                sha256: 9706f5a985ef1f41bc260468af941a49bf164f1c68314d8033078aae424156ca
-                bytes: 3594
+                sha256: cd97e0d878d7c313039c48473937c43fb8e78feb9365cb2078c58309ec0b7101
+                bytes: 2833
               output: "Name:               argocd/opentelemetry-operator-parity\n\
                 Project:            default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          default-oci\nURL:                http://localhost:62752/applications/opentelemetry-operator-parity\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Progressing\n\nKIND/NAME                                     \
-                \                    STATUS  HEALTH       AGE    MESSAGE         \
+                Namespace:          default-oci\nURL:                http://localhost:53993/applications/opentelemetry-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \   STATUS  HEALTH   AGE   MESSAGE                               \
+                \                                                           REASON\n\
+                MutatingWebhookConfiguration/opentelemetry-operator-mutation     \
+                \ Synced           19s                                           \
+                \                                                         \nClusterRole/opentelemetry-operator-metrics\
+                \                        Synced           19s                    \
                 \                                                                \
+                \                \nClusterRoleBinding/opentelemetry-operator-manager\
+                \                 Synced           19s                           \
                 \                                                                \
-                \                                                                \
-                \          REASON\nServiceAccount/opentelemetry-operator         \
-                \                    Synced               8m47s  serviceaccount/opentelemetry-operator\
+                \         \nRole/opentelemetry-operator-leader-election          \
+                \             Synced           113s  role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
+                \ serverside-applied         \nRoleBinding/opentelemetry-operator-leader-election\
+                \                Synced           113s  rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
+                \ serverside-applied  \nService/opentelemetry-operator           \
+                \                         Synced  Healthy  113s  service/opentelemetry-operator\
                 \ serverside-applied                                             \
+                \   \nService/opentelemetry-operator-webhook                     \
+                \       Synced  Healthy  113s  service/opentelemetry-operator-webhook\
+                \ serverside-applied                                        \nServiceAccount/opentelemetry-operator\
+                \                             Synced           113s  serviceaccount/opentelemetry-operator\
+                \ serverside-applied                                         \nValidatingWebhookConfiguration/opentelemetry-operator-validation\
+                \  Synced           19s                                          \
+                \                                                          \nDeployment/opentelemetry-operator\
+                \                                 Synced  Healthy  113s  deployment.apps/opentelemetry-operator\
+                \ serverside-applied                                        \n\u2514\
+                \u2500ReplicaSet/opentelemetry-operator-7b79f764b                \
+                \             Healthy  113s                                      \
+                \                                                             \n \
+                \ \u2514\u2500Pod/opentelemetry-operator-7b79f764b-phn6t         \
+                \                   Healthy  113s                                \
                 \                                                                \
-                \                                                     \nMutatingWebhookConfiguration/opentelemetry-operator-mutation\
-                \      Synced               7m6s                                 \
+                \   \nCertificate/opentelemetry-operator-serving-cert            \
+                \       Synced  Healthy  113s  certificate.cert-manager.io/opentelemetry-operator-serving-cert\
+                \ serverside-applied               Certificate is up to date and has\
+                \ not expired\nIssuer/opentelemetry-operator-selfsigned-issuer   \
+                \                Synced  Healthy  113s  issuer.cert-manager.io/opentelemetry-operator-selfsigned-issuer\
+                \ serverside-applied               \nClusterRole/opentelemetry-operator-manager\
+                \                        Synced           19s                    \
                 \                                                                \
-                \                                                                \
-                \                                                            \nValidatingWebhookConfiguration/opentelemetry-operator-validation\
-                \  Synced               7m6s                                     \
-                \                                                                \
-                \                                                                \
-                \                                                        \nDeployment/opentelemetry-operator\
-                \                                 Synced  Healthy      8m47s  deployment.apps/opentelemetry-operator\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                                    \n\u2514\u2500\
-                ReplicaSet/opentelemetry-operator-7b79f764b                      \
-                \       Healthy      8m47s                                       \
-                \                                                                \
-                \                                                                \
-                \                                                     \n  \u2514\u2500\
-                Pod/opentelemetry-operator-7b79f764b-pcbnk                       \
-                \     Healthy      8m47s                                         \
-                \                                                                \
-                \                                                                \
-                \                                                   \nCertificate/opentelemetry-operator-serving-cert\
-                \                   Synced  Progressing  8m47s  certificate.cert-manager.io/opentelemetry-operator-serving-cert\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                           Waiting for certificate\nIssuer/opentelemetry-operator-selfsigned-issuer\
-                \                   Synced  Progressing  8m47s  issuer.cert-manager.io/opentelemetry-operator-selfsigned-issuer\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                           Initializing issuer\nClusterRole/opentelemetry-operator-manager\
-                \                        Synced               7m6s               \
-                \                                                                \
-                \                                                                \
-                \                                                                \
-                \              \nClusterRole/opentelemetry-operator-metrics      \
-                \                  Synced               7m6s                     \
-                \                                                                \
-                \                                                                \
-                \                                                                \
-                \        \nClusterRoleBinding/opentelemetry-operator-manager     \
-                \            Synced               7m6s                           \
-                \                                                                \
-                \                                                                \
-                \                                                                \
-                \  \nRole/opentelemetry-operator-leader-election                 \
-                \      Synced               8m47s  role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
-                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
-                \ serverside-applied                \nRoleBinding/opentelemetry-operator-leader-election\
-                \                Synced               8m47s  rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
-                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/opentelemetry-operator-leader-election\
-                \ serverside-applied  \nNamespace/default-oci                    \
-                \                         Synced               8m20s             \
-                \                                                                \
-                \                                                                \
-                \                                                                \
-                \               \nService/opentelemetry-operator                 \
-                \                   Synced  Healthy      8m47s  service/opentelemetry-operator\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                                            \nService/opentelemetry-operator-webhook\
-                \                            Synced  Healthy      8m47s  service/opentelemetry-operator-webhook\
-                \ serverside-applied"
+                \                \nNamespace/default-oci                         \
+                \                    Synced           86s"
           cubScoutGitOpsStatus:
             result: pass
             summary:
@@ -608,25 +600,25 @@ spec:
               resourceCount: 0
             output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
               deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
-              : \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\",\n  \
-              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
               : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\"\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
               opentelemetry-operator-parity\",\n      \"namespace\": \"argocd\",\n\
-              \      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
-              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/opentelemetry-operator-parity\"\
-              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\"\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/opentelemetry-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
               \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opentelemetry-operator-parity\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
-              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       rootArgoStatus:
         result: recorded
         sync:
@@ -635,20 +627,20 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
               targetRevision: latest
-          revision: sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
+          revision: sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c
           status: Synced
         health:
-          lastTransitionTime: '2026-06-16T01:31:06Z'
+          lastTransitionTime: '2026-07-28T18:59:18Z'
           status: Healthy
         summary: {}
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-16T01:33:04Z'
-          finishedAt: '2026-06-16T01:33:06Z'
+          startedAt: '2026-07-28T19:01:24Z'
+          finishedAt: '2026-07-28T19:01:26Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 2
@@ -656,19 +648,27 @@ spec:
             Synced: 2
         history:
         - id: 0
-          revision: sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
-          deployedAt: '2026-06-16T01:33:06Z'
-          deployStartedAt: '2026-06-16T01:33:04Z'
+          revision: sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99
+          deployedAt: '2026-07-28T18:59:19Z'
+          deployStartedAt: '2026-07-28T18:59:18Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
             targetRevision: latest
-            path: ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster
+            path: .
+        - id: 1
+          revision: sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c
+          deployedAt: '2026-07-28T19:01:26Z'
+          deployStartedAt: '2026-07-28T19:01:24Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
+            targetRevision: latest
+            path: .
         conditions: []
         resources:
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster
+          name: helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
           status: Synced
           health: ''
           healthMessage: ''
@@ -685,37 +685,43 @@ spec:
           healthResidue: []
           describe:
             result: pass
-            output: "Name:         helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
-              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
-              \  Creation Timestamp:  2026-06-16T01:30:57Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
-              \  Generation:        10\n  Resource Version:  1759\n  UID:        \
-              \       9a32ac1b-c1e8-496b-9bf1-6e52d7f9de0a\nSpec:\n  Destination:\n\
-              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+            output: "Name:         helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  confighub.com/origin:\n\
+              \                {\"spaceId\":\"d6bdc423-a22b-47ca-b157-ff30004d2758\"\
+              ,\"spaceSlug\":\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
+              ,\"unitId\":\"fc6c59...\nAPI Version:  argoproj.io/v1alpha1\nKind: \
+              \        Application\nMetadata:\n  Creation Timestamp:  2026-07-28T18:59:10Z\n\
+              \  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:\
+              \        13\n  Resource Version:  1523\n  UID:               35b0e094-cff1-4b47-adb4-fe039fb6b3b1\n\
+              Spec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
               \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
               \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
-              \  Health:\n    Last Transition Time:  2026-06-16T01:31:06Z\n    Status:\
-              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T01:33:04Z\n\
-              \    Deployed At:        2026-06-16T01:33:06Z\n    Id:             \
+              \  Health:\n    Last Transition Time:  2026-07-28T18:59:18Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-28T18:59:18Z\n\
+              \    Deployed At:        2026-07-28T18:59:19Z\n    Id:             \
               \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
-              \  sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
-              \    Source:\n      Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+              \  sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-07-28T19:01:24Z\n\
+              \    Deployed At:        2026-07-28T19:01:26Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-16T01:33:06Z\n    Message:      successfully synced (all\
+              \  2026-07-28T19:01:26Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
-              \  sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
-              \        Source:\n          Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
+              \  sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
               \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
-              \    Phase:       Succeeded\n    Started At:  2026-06-16T01:33:04Z\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-28T19:01:24Z\n\
               \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
               \        Hook Phase:  Running\n        Kind:        Application\n  \
               \      Message:     application.argoproj.io/opentelemetry-operator-parity\
@@ -723,59 +729,72 @@ spec:
               \        Namespace:   argocd\n        Status:      Synced\n        Sync\
               \ Phase:  Sync\n        Version:     v1alpha1\n        Group:      \
               \ argoproj.io\n        Hook Phase:  Running\n        Kind:        Application\n\
-              \        Message:     application.argoproj.io/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\
-              \ serverside-applied\n        Name:        helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
+              \        Message:     application.argoproj.io/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
               \        Namespace:   argocd\n        Status:      Synced\n        Sync\
               \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
-              \ sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
-              \      Source:\n        Path:              ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
-              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T01:39:20Z\n\
+              \ sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-28T19:01:26Z\n\
               \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
-              \    Kind:       Application\n    Name:       helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
               \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
               \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
               \       opentelemetry-operator-parity\n    Namespace:  argocd\n    Status:\
               \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
               \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
               \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
-              \      Source:\n        Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
-              \        Target Revision:  latest\n    Revision:             sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+              \        Target Revision:  latest\n    Revision:             sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\n\
               \    Status:               Synced\nEvents:\n  Type    Reason       \
               \       Age    From                           Message\n  ----    ------\
               \              ----   ----                           -------\n  Normal\
-              \  ResourceUpdated     9m10s  argocd-application-controller  Updated\
-              \ sync status:  -> Synced\n  Normal  ResourceUpdated     9m10s  argocd-application-controller\
-              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
-              \  7m12s  argocd-application-controller  Initiated automated sync to\
-              \ 'sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8'\n\
-              \  Normal  ResourceUpdated     7m12s  argocd-application-controller\
-              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
-              \  7m10s  argocd-application-controller  Sync operation to sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\
-              \ succeeded\n  Normal  ResourceUpdated     7m8s   argocd-application-controller\
-              \  Updated sync status: OutOfSync -> Synced"
+              \  OperationStarted    2m36s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99'\n\
+              \  Normal  ResourceUpdated     2m36s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  2m36s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  2m34s  argocd-application-controller\
+              \  Sync operation to sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99\
+              \ succeeded\n  Normal  ResourceUpdated     2m33s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    30s    argocd-application-controller  Initiated automated sync\
+              \ to 'sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c'\n\
+              \  Normal  ResourceUpdated     30s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutO"
           events:
             result: pass
-            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                 MESSAGE
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                                  MESSAGE
 
-              9m10s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Updated
-              sync status:  -> Synced
+              2m36s       Normal   OperationStarted     application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Initiated
+              automated sync to ''sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99''
 
-              9m10s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Updated
+              2m36s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Updated
+              sync status:  -> OutOfSync
+
+              2m36s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Updated
               health status:  -> Healthy
 
-              7m12s       Normal   OperationStarted     application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Initiated
-              automated sync to ''sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8''
-
-              7m12s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Updated
-              sync status: Synced -> OutOfSync
-
-              7m10s       Normal   OperationCompleted   application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Sync
-              operation to sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8
+              2m34s       Normal   OperationCompleted   application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Sync
+              operation to sha256:98c06827836db7b2f6c0a170e328715ab316fce4a41067489ba6643f8ae4ac99
               succeeded
 
-              7m8s        Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster   Updated
+              2m33s       Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Updated
+              sync status: OutOfSync -> Synced
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Initiated
+              automated sync to ''sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              28s         Normal   OperationCompleted   application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Sync
+              operation to sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster   Updated
               sync status: OutOfSync -> Synced'
           argocdCore:
             result: pass
@@ -791,22 +810,24 @@ spec:
                 resources: 2
               artifact:
                 path: argocd-core-root.json
-                sha256: 8f898218e0c1d35c98158395827913896208844e9fcdf4e90158ddfd78018458
-                bytes: 10863
-              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"9a32ac1b-c1e8-496b-9bf1-6e52d7f9de0a\"\
-                ,\n    \"resourceVersion\": \"1848\",\n    \"generation\": 11,\n \
-                \   \"creationTimestamp\": \"2026-06-16T01:30:57Z\",\n    \"annotations\"\
-                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
-                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
-                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
-                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
-                \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\\\",\\\"\
-                namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\
-                \"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                sha256: a62daf47051d933dd730a7347b015fbc560a017361d11e36394b01f97ea4035c
+                bytes: 9989
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"35b0e094-cff1-4b47-adb4-fe039fb6b3b1\"\
+                ,\n    \"resourceVersion\": \"1610\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-07-28T18:59:10Z\",\n    \"annotations\"\
+                : {\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"d6bdc423-a22b-47ca-b157-ff30004d2758\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\\\
+                \",\\\"unitId\\\":\\\"fc6c59a5-425a-4dc6-b525-ec851b3e70e4\\\",\\\"\
+                unitSlug\\\":\\\"root\\\",\\\"revisionNum\\\":1}\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\\\
+                \",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\
+                \":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
                 \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
-                \"./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\\\",\\\
-                \"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\\\
                 \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
                 automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
                 \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
@@ -814,9 +835,10 @@ spec:
                 : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
                 \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
                 ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-16T01:30:57Z\",\n        \"fieldsType\"\
+                ,\n        \"time\": \"2026-07-28T18:59:19Z\",\n        \"fieldsType\"\
                 : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {\n            \"f:annotations\": {\n              \"f:confighub.com/origin\"\
+                : {},\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
                 : {}\n            },\n            \"f:finalizers\": {\n          \
                 \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
                 \          }\n          },\n          \"f:spec\": {\n            \"\
@@ -827,31 +849,10 @@ spec:
                 : {}\n            },\n            \"f:syncPolicy\": {\n          \
                 \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
                 \          },\n              \"f:syncOptions\": {}\n            }\n\
-                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
-                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
-                : {},\n              \"f:status\": {}\n            },\n          \
-                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
-                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
-                : {}\n                },\n                \"f:retry\": {\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \"f:revision\": {},\n             \
-                \     \"f:source\": {\n                    \"f:path\": {},\n     \
-                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
-                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
-                \                }\n              },\n              \"f:startedAt\"\
-                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
-                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
-                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
-                \              \"f:comparedTo\": {\n                \"f:destination\"\
-                : {\n                  \"f:namespace\": {},\n                  \"\
-                f:server\": {}\n                },\n                \"f:source\":\
-                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
-                : {},\n                  \"f:targetRevision\": {}\n              \
-                \  }\n              },\n              \"f:revision\": {}\n       \
-                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
-                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
                 ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
-                : \"2026-06-16T01:40:25Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                : \"2026-07-28T19:02:02Z\",\n        \"fieldsType\": \"FieldsV1\"\
                 ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
                 \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
                 \      \"f:health\": {\n              \".\": {},\n              \"\
@@ -889,27 +890,42 @@ spec:
                 \ {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \    "
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"opentelemetry-operator-parity\",\n        \"status\"\
+                : \"Synced\"\n      }\n    "
             tree:
               result: pass
               artifact:
                 path: argocd-core-root-tree.txt
-                sha256: 281d8998694e85ad9c1c7aee45e0ab402f1ff206613e90eadbd9f66f0edbba57
-                bytes: 1235
-              output: "Name:               argocd/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
+                sha256: 5b07a48726d9d26c19b488bad07f4733b243041f2c3c3a0addef26232db18dcb
+                bytes: 1175
+              output: "Name:               argocd/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
                 Project:            default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          argocd\nURL:                http://localhost:62873/applications/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Healthy\n\nKIND/NAME                                         \
-                \                    STATUS  HEALTH  AGE    MESSAGE              \
+                Namespace:          argocd\nURL:                http://localhost:54107/applications/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \        STATUS  HEALTH  AGE  MESSAGE                            \
                 \                                                                \
-                \                REASON\nApplication/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\
-                \  Synced          9m37s  application.argoproj.io/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\
+                \   REASON\nApplication/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\
+                \  Synced          3m   application.argoproj.io/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\
                 \ serverside-applied  \nApplication/opentelemetry-operator-parity\
-                \                             Synced          7m28s  application.argoproj.io/opentelemetry-operator-parity\
+                \                              Synced          44s  application.argoproj.io/opentelemetry-operator-parity\
                 \ serverside-applied"
           cubScoutGitOpsStatus:
             result: pass
@@ -920,35 +936,36 @@ spec:
               resourceCount: 0
             output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
               deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
-              : \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\",\n  \
-              \    \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
+              : \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\",\n \
+              \     \"namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\"\
               : \"healthy\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\"\
+              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0558a9c45312ffa43eb9d489eee3989276a83a7901e2af343d13e31107fde51c\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
               opentelemetry-operator-parity\",\n      \"namespace\": \"argocd\",\n\
-              \      \"ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\"\
-              : \"Progressing\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/opentelemetry-operator-parity\"\
-              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:8042c60a21e7cfdf7aea69bb3fe9fbe6d735c0eaacd64cc084aa668b6a6273e8\"\
+              \      \"ready\": true,\n      \"stage\": \"healthy\",\n      \"message\"\
+              : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
+              OCIRepository/argocd/opentelemetry-operator-parity\",\n      \"syncStatus\"\
+              : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
+              : \"sha256:dc4f6c833a9f8de273d6b16bdd4e3e60d1121f47499edd5a84410222d7715d88\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
               \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"opentelemetry-operator-parity\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
-              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       runtime:
         result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/opentelemetry-operator   1/1   1     1     9m7s'
+          deployment.apps/opentelemetry-operator   1/1   1     1     2m10s'
         pods: '# default
 
-          opentelemetry-operator-7b79f764b-pcbnk   1/1   Running   0     9m7s'
+          opentelemetry-operator-7b79f764b-phn6t   1/1   Running   0     2m10s'
         notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
@@ -976,118 +993,123 @@ spec:
   operationTimings:
   - name: regular-helm-install
     result: pass
-    startedAt: '2026-06-16T01:31:00Z'
-    finishedAt: '2026-06-16T01:31:18Z'
-    elapsedSeconds: 17.952
+    startedAt: '2026-07-28T18:59:31Z'
+    finishedAt: '2026-07-28T18:59:51Z'
+    elapsedSeconds: 19.612
     timeoutSeconds: 900
     command: helm upgrade --install opentelemetry-operator opentelemetry-operator
       --repo https://open-telemetry.github.io/opentelemetry-helm-charts --version
-      0.114.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
+      0.114.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
-    startedAt: '2026-06-16T01:31:24Z'
-    finishedAt: '2026-06-16T01:31:24Z'
-    elapsedSeconds: 0.436
+    startedAt: '2026-07-28T18:59:57Z'
+    finishedAt: '2026-07-28T18:59:57Z'
+    elapsedSeconds: 0.381
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
-      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
     result: pass
-    startedAt: '2026-06-16T01:31:28Z'
-    finishedAt: '2026-06-16T01:31:28Z'
-    elapsedSeconds: 0.152
+    startedAt: '2026-07-28T19:00:01Z'
+    finishedAt: '2026-07-28T19:00:01Z'
+    elapsedSeconds: 0.165
     timeoutSeconds: 300
-    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77.kubeconfig
-      --context kind-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77 apply --server-side
-      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/direct-apply-manifest.yaml
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki.kubeconfig
+      --context kind-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/direct-apply-manifest.yaml
     objectCount: 13
   - name: configHub-direct-readiness
     result: pass
-    startedAt: '2026-06-16T01:31:28Z'
-    finishedAt: '2026-06-16T01:31:49Z'
-    elapsedSeconds: 20.378
+    startedAt: '2026-07-28T19:00:01Z'
+    finishedAt: '2026-07-28T19:00:22Z'
+    elapsedSeconds: 20.51
     timeoutSeconds: 300
     namespaces: default
   - name: configHub-oci-render
     result: pass
-    startedAt: '2026-06-16T01:31:54Z'
-    finishedAt: '2026-06-16T01:31:54Z'
-    elapsedSeconds: 0.336
+    startedAt: '2026-07-28T19:00:27Z'
+    finishedAt: '2026-07-28T19:00:27Z'
+    elapsedSeconds: 0.297
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
-      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/open-telemetry/opentelemetry-operator/0.114.0
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
     result: pass
-    startedAt: '2026-06-16T01:31:58Z'
-    finishedAt: '2026-06-16T01:32:45Z'
-    elapsedSeconds: 46.626
+    startedAt: '2026-07-28T19:00:31Z'
+    finishedAt: '2026-07-28T19:01:13Z'
+    elapsedSeconds: 41.28
     timeoutSeconds: 600
-    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
-      --space helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
-      --target helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
+      --space helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
+      --target helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster/oci
     objectCount: 14
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-07-28T19:01:13Z'
+    finishedAt: '2026-07-28T19:01:14Z'
+    elapsedSeconds: 0.83
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
+      --release-target helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster/oci
   - name: configHub-oci-unit-list
     result: pass
-    startedAt: '2026-06-16T01:32:45Z'
-    finishedAt: '2026-06-16T01:32:45Z'
-    elapsedSeconds: 0.588
+    startedAt: '2026-07-28T19:01:14Z'
+    finishedAt: '2026-07-28T19:01:14Z'
+    elapsedSeconds: 0.614
     timeoutSeconds: 120
-    command: cub unit list --space helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
-  - name: configHub-oci-unit-apply
+    command: cub unit list --space helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
+  - name: configHub-oci-workload-release-publish
     result: pass
-    startedAt: '2026-06-16T01:32:45Z'
-    finishedAt: '2026-06-16T01:32:54Z'
-    elapsedSeconds: 8.175
+    startedAt: '2026-07-28T19:01:14Z'
+    finishedAt: '2026-07-28T19:01:15Z'
+    elapsedSeconds: 0.992
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-opentelemetry-operator
-      --unit <14 unit(s)> --wait --timeout 5m
+    command: cub release publish helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-opentelemetry-operator
     unitCount: 14
   - name: configHub-oci-app-create
     result: pass
-    startedAt: '2026-06-16T01:32:54Z'
-    finishedAt: '2026-06-16T01:32:55Z'
-    elapsedSeconds: 1.276
+    startedAt: '2026-07-28T19:01:15Z'
+    finishedAt: '2026-07-28T19:01:16Z'
+    elapsedSeconds: 0.889
     timeoutSeconds: 180
-    command: cub unit create --space helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster
-      opentelemetry-operator-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/argo-application.json
-      --target helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster/oci --allow-exists
-  - name: configHub-oci-app-apply
+    command: cub unit create --space helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
+      opentelemetry-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/argo-application.json
+      --target helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster/oci --allow-exists
+  - name: configHub-oci-app-release-publish
     result: pass
-    startedAt: '2026-06-16T01:32:55Z'
-    finishedAt: '2026-06-16T01:32:56Z'
-    elapsedSeconds: 0.98
+    startedAt: '2026-07-28T19:01:16Z'
+    finishedAt: '2026-07-28T19:01:17Z'
+    elapsedSeconds: 0.648
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-opentelemetry526bb-mqfysb4j-n77-cluster
-      --unit <1 unit(s)> --wait --timeout 5m
-    unitCount: 1
+    command: cub release publish helm-expt-parity-opentelemetry526bb-ms50q17q-1aki-cluster
   - name: configHub-oci-argo-wait
-    result: watch
-    startedAt: '2026-06-16T01:32:56Z'
-    finishedAt: '2026-06-16T01:39:58Z'
-    elapsedSeconds: 422.498
+    result: pass
+    startedAt: '2026-07-28T19:01:17Z'
+    finishedAt: '2026-07-28T19:01:37Z'
+    elapsedSeconds: 20.153
     timeoutSeconds: 420
-    waitedSeconds: 420
+    waitedSeconds: 20
     sync: Synced
-    health: Progressing
+    health: Healthy
   - name: configHub-oci-readiness
     result: pass
-    startedAt: '2026-06-16T01:40:35Z'
-    finishedAt: '2026-06-16T01:40:35Z'
-    elapsedSeconds: 0.103
+    startedAt: '2026-07-28T19:02:11Z'
+    finishedAt: '2026-07-28T19:02:11Z'
+    elapsedSeconds: 0.097
     timeoutSeconds: 180
     namespaces: default
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77\"\
-      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-opentelemetry526bb-mqfysb4j-n77\" ...\n\
+    detail: "Creating kind cluster \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki\"\
+      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-opentelemetry526bb-ms50q17q-1aki\" ...\n\
       \ \u2022 Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes\
       \ \U0001F4E6   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -1095,18 +1117,22 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opentelemetry526bb-mqfysb4j-n77\
-      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-opentelemetry526bb-mqfysb4j-n77.kubeconfig\n\
-      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
-      argocd\""
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-opentelemetry526bb-ms50q17q-1aki\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-opentelemetry526bb-ms50q17q-1aki.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCre"
+  - name: target-profile
+    result: pass
+    detail: 'kind-cert-manager: The verified cert-manager catalog package installed
+      its six CRDs and three controllers before the chart under test. Certificate
+      and Issuer objects can now be reconciled instead of remaining permanently Progressing.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=2 crds=6 namespaces=0 objectStores=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"opentelemetry-operator\" does not exist. Installing it now.\n\
-      NAME: opentelemetry-operator\nLAST DEPLOYED: Tue Jun 16 02:31:02 2026\nNAMESPACE:\
+      NAME: opentelemetry-operator\nLAST DEPLOYED: Tue Jul 28 19:59:34 2026\nNAMESPACE:\
       \ default-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
       NOTES:\n[WARNING] No resource limits or requests were set. Consider setter resource\
       \ requests and limits via the `resources` field.\n\n\nopentelemetry-operator\
@@ -1122,7 +1148,7 @@ spec:
     result: pass
     detail: '# default
 
-      deployment.apps/opentelemetry-operator   1/1   1     1     21s'
+      deployment.apps/opentelemetry-operator   1/1   1     1     20s'
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=5
@@ -1130,8 +1156,8 @@ spec:
     result: pass
     detail: secrets=2 crds=6 namespaces=0 objectStores=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
   - name: semantic-object-parity
     result: pass
     detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
@@ -1173,7 +1199,7 @@ spec:
         lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-regular-helm.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1211,7 +1237,7 @@ spec:
         lane: configHubKubectlApply
       stagedObjectStores: []
       stagedNamespaces: []
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-confighub-apply.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1249,7 +1275,7 @@ spec:
         lane: configHubOciArgo
       stagedObjectStores: []
       stagedNamespaces: []
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-confighub-oci.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass
