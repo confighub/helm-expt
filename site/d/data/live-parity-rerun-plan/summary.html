@@ -433,16 +433,16 @@
 <p>This is the generated queue for reducing non-pass live parity rows. It combines:</p>
 <ul><li>the ConfigHub/OCI live comparison lane;</li><li>the strict two-cluster kind parity lane.</li></ul>
 <p>Use this file to choose the next live rerun. Use the receipts linked from each row to diagnose failures. Do not treat an infrastructure or upstream-runtime block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.</p>
-<pre><code>rows: 113
+<pre><code>rows: 112
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
 blocked: 57
-watch: 56
+watch: 55
 configHub-oci-live-comparison: 63
-two-cluster-kind-parity: 50
+two-cluster-kind-parity: 49
 semantic-parity-defects: 16
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 17
+prerequisite-or-lifecycle-rows: 16
 runtime-or-watch-rows: 40</code></pre>
 <h2 id="current-interpretation">Current Interpretation</h2>
 <p>16 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.</p>
@@ -542,7 +542,6 @@ runtime-or-watch-rows: 40</code></pre>
 <tr><td><code>istio/istiod@1.30.0</code></td><td>default</td><td>blocked</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
 <tr><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>default</td><td>blocked</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
 <tr><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>no-crds</td><td>blocked</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
-<tr><td><code>kedacore/keda@2.19.0</code></td><td>no-crds</td><td>watch</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
 <tr><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td>default</td><td>blocked</td><td>Object parity passed, but the selected base did not render a functional workload because required Helm values were missing. Choose or create a values-profile base before rerunning.</td><td>Use a values-profile rerender base such as the reviewed controller base, or model the missing values in a new base before rerunning strict parity.</td></tr>
 <tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
 <tr><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td>cluster-metrics-readonly</td><td>blocked</td><td>The target is missing required API types or prerequisites. Stage them, then rerun the same base.</td><td>Record the prerequisite in the chart facts, base variant, or install checks before promoting.</td></tr>
@@ -561,7 +560,7 @@ runtime-or-watch-rows: 40</code></pre>
 <tr><td><code>opencost/opencost@2.5.21</code></td><td>default</td><td>blocked</td><td>Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.</td><td>Keep the recipe stable unless the rendered object comparison starts failing.</td></tr></tbody></table>
 <h2 id="lane-breakdown">Lane Breakdown</h2>
 <table><thead><tr><th>Lane</th><th>Rows</th><th>Pass</th><th>Watch</th><th>Blocked</th><th>Fail</th></tr></thead><tbody><tr><td>configHub-oci-live-comparison</td><td>63</td><td>0</td><td>53</td><td>10</td><td>0</td></tr>
-<tr><td>two-cluster-kind-parity</td><td>50</td><td>0</td><td>3</td><td>47</td><td>0</td></tr></tbody></table>
+<tr><td>two-cluster-kind-parity</td><td>49</td><td>0</td><td>2</td><td>47</td><td>0</td></tr></tbody></table>
 <p>Rows in this queue are non-pass live parity rows that need a decision before the next claim can be made. A <code>watch</code> row usually means object parity passed and runtime/controller health needs review. A <code>blocked</code> row can come from either lane and may be infrastructure, prerequisite, lifecycle, target-fit, or upstream-runtime work. Only <code>parity:</code> rows indicate an object-set defect.</p>
 <h2 id="recommended-order">Recommended Order</h2>
 <ol><li>Inspect any <code>parity:</code> rows first. Those are the only rows that currently point at an object-set difference.</li><li>Re-run any <code>infra:</code> rows on a clean host, one at a time.</li><li>Resolve <code>target-prerequisite:</code>, <code>target-fit:</code>, and <code>helm-hook:</code> rows by staging the prerequisite, choosing a suitable target, or choosing the lifecycle route before rerunning.</li><li>Review <code>target-runtime:</code>, <code>helm-runtime:</code>, and <code>watch</code> rows last. They usually mean object parity passed and the target needs a readiness, storage, capacity, or operating-policy decision.</li></ol>
@@ -576,14 +575,14 @@ runtime-or-watch-rows: 40</code></pre>
 <tr><td>operating-policy</td><td>1</td><td>Record the operating policy decision, then rerun only if the expected readiness changes.</td></tr>
 <tr><td>render-input-model</td><td>3</td><td>Model the required Helm values as a real base before rerunning.</td></tr>
 <tr><td>runtime-review</td><td>24</td><td>Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning.</td></tr>
-<tr><td>stage-prerequisite</td><td>16</td><td>Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.</td></tr>
+<tr><td>stage-prerequisite</td><td>15</td><td>Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning.</td></tr>
 <tr><td>target-fit-review</td><td>1</td><td>Choose a target that provides the required platform behavior, or create a base that fits the target.</td></tr></tbody></table>
 <p>Rows in <code>stage-prerequisite</code>, <code>lifecycle-route</code>, and <code>operating-policy</code> usually need a model or target decision before another rerun is useful. Rows in <code>runtime-review</code> and <code>gitops-runtime-review</code> are good rerun candidates only after the receipt explains what readiness, storage, controller, or wait condition changed.</p>
 <h2 id="rerun-readiness">Rerun Readiness</h2>
 <p>This table separates rows that need modeling or target work from rows that are reasonable live rerun candidates.</p>
 <table><thead><tr><th>Readiness</th><th>Rows</th><th>Meaning</th></tr></thead><tbody><tr><td>inspect-diff-first</td><td>16</td><td>Do not rerun until the semantic diff has been inspected.</td></tr>
 <tr><td>inspect-receipt-first</td><td>2</td><td>Read the receipt and classify the row before rerunning.</td></tr>
-<tr><td>model-or-stage-first</td><td>55</td><td>Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.</td></tr>
+<tr><td>model-or-stage-first</td><td>54</td><td>Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.</td></tr>
 <tr><td>review-target-first</td><td>40</td><td>Review runtime, storage, controller health, or wait conditions before rerunning.</td></tr></tbody></table>
 <h2 id="resolved-by-useful-base">Resolved By Useful Base</h2>
 <p>These rows are no longer active rerun work. The raw base still has a non-pass receipt, but a separate useful base models the required render inputs and has a passing live receipt. The product answer is to use or promote the useful base, not to keep rerunning a known missing-values render.</p>
@@ -690,7 +689,6 @@ runtime-or-watch-rows: 40</code></pre>
 <tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>istio/istiod@1.30.0</code></td><td>default</td><td>blocked</td><td>target-prerequisite: required Namespace missing (parity passed)</td><td><a href="../../../../recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"><code>recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml</code></a></td><td><code>npm run kind-parity:run -- --chart istio/istiod --version 1.30.0 --base default</code></td></tr>
 <tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>default</td><td>blocked</td><td>target-prerequisite: cert-manager CRDs missing</td><td><a href="../../../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"><code>recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml</code></a></td><td><code>npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base default</code></td></tr>
 <tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>no-crds</td><td>blocked</td><td>target-prerequisite: cert-manager CRDs missing</td><td><a href="../../../../recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"><code>recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml</code></a></td><td><code>npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds</code></td></tr>
-<tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>kedacore/keda@2.19.0</code></td><td>no-crds</td><td>watch</td><td>target-prerequisite: required Secret missing (parity passed)</td><td>-</td><td><code>npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds</code></td></tr>
 <tr><td>50</td><td>model-or-stage-first</td><td>render-input-model</td><td>two-cluster-kind-parity</td><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td>default</td><td>blocked</td><td>render-input: required Helm values missing</td><td><a href="../../../../recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml"><code>recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml</code></a></td><td><code>npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default</code></td></tr>
 <tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>target-prerequisite: CRDs missing</td><td><a href="../../../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"><code>recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml</code></a></td><td><code>npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default</code></td></tr>
 <tr><td>50</td><td>model-or-stage-first</td><td>stage-prerequisite</td><td>two-cluster-kind-parity</td><td><code>prometheus-community/prometheus-adapter@5.3.0</code></td><td>cluster-metrics-readonly</td><td>blocked</td><td>target-prerequisite: CRDs missing</td><td>-</td><td><code>npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base cluster-metrics-readonly</code></td></tr>

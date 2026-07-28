@@ -85,7 +85,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret tempo/tempo-s3-credentials keys access_key,secret_key | kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value> |
-| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | package://prerequisites/target-facts/s3-query-observability-crds.yaml |
 | ClusterFeature | S3-compatible object store tempo/tempo-object-store | create or bind an S3-compatible endpoint, bucket, and credentials before apply |
 
 ## Evidence

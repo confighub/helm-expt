@@ -984,7 +984,84 @@ def stage_target_facts(
     }
 
 
-def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
+def self_generated_secret_names(manifest: str) -> set[str]:
+    names = set()
+    for doc in yaml_docs(manifest):
+        kind = doc.get("kind")
+        spec = doc.get("spec") or {}
+        if kind in {"Deployment", "StatefulSet", "DaemonSet", "Job"}:
+            pod_spec = (((spec.get("template") or {}).get("spec")) or {})
+        elif kind == "CronJob":
+            pod_spec = (((((spec.get("jobTemplate") or {}).get("spec")) or {}).get("template") or {}).get("spec")) or {}
+        elif kind == "Pod":
+            pod_spec = spec
+        else:
+            continue
+        optional_secrets = {
+            secret.get("secretName")
+            for volume in pod_spec.get("volumes") or []
+            if (secret := volume.get("secret"))
+            and secret.get("optional") is True
+            and secret.get("secretName")
+        }
+        if not optional_secrets:
+            continue
+        args = [
+            str(arg)
+            for container in pod_spec.get("containers") or []
+            for arg in container.get("args") or []
+        ]
+        rotation_enabled = any(
+            arg in {"--enable-cert-rotation", "--enable-cert-rotation=true"}
+            for arg in args
+        )
+        if not rotation_enabled:
+            continue
+        for name in optional_secrets:
+            if f"--cert-secret-name={name}" in args:
+                names.add(name)
+    return names
+
+
+def readiness_classifier_self_test() -> int:
+    manifest = """\
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: certificate-producer
+spec:
+  template:
+    spec:
+      containers:
+      - name: producer
+        args:
+        - --enable-cert-rotation=true
+        - --cert-secret-name=generated-certs
+      volumes:
+      - name: certs
+        secret:
+          secretName: generated-certs
+          optional: true
+"""
+    if self_generated_secret_names(manifest) != {"generated-certs"}:
+        raise RuntimeError("self-generated certificate Secret was not detected")
+    if self_generated_secret_names(
+        manifest.replace("--enable-cert-rotation=true", "--other-setting=true")
+    ):
+        raise RuntimeError("missing certificate rotation must not receive extra wait time")
+    if self_generated_secret_names(manifest.replace("optional: true", "optional: false")):
+        raise RuntimeError("a required Secret mount must remain a blocker")
+    print("verified self-generated certificate Secret readiness classifier")
+    return 0
+
+
+def ready_status(
+    kubeconfig: Path,
+    context: str,
+    namespace: str,
+    self_generated_secrets: set[str] | None = None,
+) -> dict:
+    self_generated_secrets = self_generated_secrets or set()
     rc, workloads, workload_err = kubectl(
         ["-n", namespace, "get", "deploy,statefulset,daemonset", "--no-headers"],
         kubeconfig,
@@ -1035,7 +1112,13 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             "logsTail": log_detail[-3000:],
         }
         missing_secret = missing_required_secret(detail)
-        if missing_secret:
+        if missing_secret and missing_secret in self_generated_secrets:
+            item["waitingReason"] = "self-generated-secret"
+            item["waitingForSecret"] = missing_secret
+            diagnostic["result"] = "watch"
+            diagnostic["waitingReason"] = "self-generated-secret"
+            diagnostic["waitingForSecret"] = missing_secret
+        elif missing_secret:
             item["blockedReason"] = "missing-required-secret"
             item["missingSecret"] = missing_secret
             diagnostic["result"] = "blocked"
@@ -1127,11 +1210,19 @@ def pod_status_is_terminal_blocker(status: str) -> bool:
     }
 
 
-def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeout_seconds: int = 300) -> dict:
+def wait_ready_many(
+    kubeconfig: Path,
+    context: str,
+    namespaces: list[str],
+    timeout_seconds: int = 300,
+    manifest: str = "",
+) -> dict:
+    generated_secrets = self_generated_secret_names(manifest)
     if not namespaces:
         return {
             "result": "pass",
             "namespaces": [],
+            "selfGeneratedSecrets": sorted(generated_secrets),
             "workloads": "",
             "pods": "",
             "notReady": [],
@@ -1141,7 +1232,15 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     deadline = start + timeout_seconds
     last = {}
     while time.monotonic() < deadline:
-        results = {namespace: ready_status(kubeconfig, context, namespace) for namespace in namespaces}
+        results = {
+            namespace: ready_status(
+                kubeconfig,
+                context,
+                namespace,
+                generated_secrets,
+            )
+            for namespace in namespaces
+        }
         last = results
         if results and all(item.get("result") == "pass" for item in results.values()):
             break
@@ -1175,6 +1274,7 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
         "result": overall,
         **({"cronJobEvidence": cron_evidence} if cron_evidence else {}),
         "namespaces": namespaces,
+        "selfGeneratedSecrets": sorted(generated_secrets),
         "workloads": "\n".join(workloads),
         "pods": "\n".join(pods),
         "notReady": not_ready,
@@ -1639,6 +1739,8 @@ def apply_installer_manifest(manifest: str, manifests_dir: Path, secrets_dir: Pa
 
 
 def main() -> int:
+    if sys.argv[1:] == ["--self-test"]:
+        return readiness_classifier_self_test()
     parser = argparse.ArgumentParser()
     parser.add_argument("--chart", required=True)
     parser.add_argument("--version", required=True)
@@ -1792,7 +1894,13 @@ def main() -> int:
         receipt["spec"].setdefault("operatingPolicy", {})["regularHelm"] = helm_operations
         check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
         helm_runtime_names = workload_namespaces(canonical_helm_manifest, args.namespace)
-        helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
+        helm_runtime = wait_ready_many(
+            helm_kubeconfig,
+            helm_context,
+            helm_runtime_names,
+            timeout_seconds=wait_seconds,
+            manifest=canonical_helm_manifest,
+        )
         helm_api_services = wait_api_services(helm_kubeconfig, helm_context, api_service_refs(canonical_helm_manifest), timeout_seconds=wait_seconds)
         helm_runtime["apiServices"] = helm_api_services
         rendered_crds = rendered_crd_names(canonical_helm_manifest)
@@ -1888,7 +1996,13 @@ def main() -> int:
         installer_operations = post_render_operations(args.chart, args.base, installer_kubeconfig, installer_context, args.namespace)
         receipt["spec"].setdefault("operatingPolicy", {})["cubInstallerApply"] = installer_operations
         check_item("cub-installer-operating-policy", installer_operations["result"], installer_operations.get("operation", "none"))
-        installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=wait_seconds)
+        installer_runtime = wait_ready_many(
+            installer_kubeconfig,
+            installer_context,
+            apply_info["runtimeNamespaces"],
+            timeout_seconds=wait_seconds,
+            manifest=installer_manifest,
+        )
         installer_api_services = wait_api_services(installer_kubeconfig, installer_context, api_service_refs(installer_manifest), timeout_seconds=wait_seconds)
         installer_runtime["apiServices"] = installer_api_services
         installer_crd_observation = observe_crds(rendered_crds, installer_kubeconfig, installer_context)

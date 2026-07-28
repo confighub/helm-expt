@@ -14,9 +14,9 @@ any variant should be created.
 
 | Metric | Rows |
 | --- | ---: |
-| Total rows | 65 |
+| Total rows | 64 |
 | Model-gap rows | 23 |
-| Target-prerequisite rows | 42 |
+| Target-prerequisite rows | 41 |
 
 ### Rows by resolution path
 
@@ -24,7 +24,7 @@ any variant should be created.
 | --- | ---: |
 | `operator-review-first` | 19 |
 | `crd-ownership-base-or-target-action` | 9 |
-| `derived-target-variant` | 8 |
+| `derived-target-variant` | 7 |
 | `semantic-normalization` | 7 |
 | `stack-or-target-fact-variant` | 4 |
 | `new-provider-base-variant` | 3 |
@@ -46,7 +46,7 @@ any variant should be created.
 | --- | ---: |
 | `no variant until cause is known` | 19 |
 | `CRD ownership base plus target prerequisite` | 9 |
-| `target-bound derived variant` | 8 |
+| `target-bound derived variant` | 7 |
 | `legacy image-retention base` | 6 |
 | `stack-derived variant` | 4 |
 | `CRD ownership off-ramp` | 3 |
@@ -119,7 +119,6 @@ any variant should be created.
 | target-prerequisite | `jaegertracing/jaeger-operator@2.57.0` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `jaegertracing/jaeger-operator@2.57.0` | no-crds | G/P | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `jaegertracing/jaeger-operator@2.57.0` | no-crds | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
-| target-prerequisite | `kedacore/keda@2.19.0` | no-crds | K | derived-target-variant | target-bound derived variant | create or reference the Secret in the target, then bind it through the target-prerequisite action packet |
 | target-prerequisite | `nats/surveyor@0.20.9` | default-reviewed | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `nats/surveyor@0.20.9` | default-reviewed | K | stack-or-target-fact-variant | stack-derived variant | identify the upstream service or API the workload expects, then encode it as a target fact or stack dependency |
 | target-prerequisite | `nats/surveyor@0.20.9` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |

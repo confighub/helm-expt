@@ -84,7 +84,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| ClusterFeature | CRD tenants.minio.min.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD tenants.minio.min.io | package://prerequisites/target-facts/default-crds.yaml |
 
 ## Evidence
 

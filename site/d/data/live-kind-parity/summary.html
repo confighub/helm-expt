@@ -435,12 +435,12 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Under the same chart, version, values, and base variant, does regular Helm reach
 the same live outcome as cub installer output?</code></pre>
-<pre><code>pass: 127
-watch: 4
+<pre><code>pass: 128
+watch: 3
 blocked: 47
 semantic parity pass: 153
 semantic parity defects: 16
-non-pass rows where semantic parity passed: 26
+non-pass rows where semantic parity passed: 25
 non-pass rows with related lifecycle evidence: 0</code></pre>
 <p>Non-pass rows are still useful when object parity passed. They usually point at target prerequisites, controller readiness, storage, hooks, or operating policy. Use the rerun plan for the next command and expected remediation:</p>
 <pre><code>data/live-parity-rerun-plan/summary.md</code></pre>
@@ -449,7 +449,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>10</td></tr>
 <tr><td>helm-runtime: upstream not ready (parity passed)</td><td>4</td></tr>
 <tr><td>target-prerequisite: CRDs missing</td><td>4</td></tr>
-<tr><td>target-prerequisite: required Secret missing (parity passed)</td><td>4</td></tr>
+<tr><td>target-prerequisite: required Secret missing (parity passed)</td><td>3</td></tr>
 <tr><td>target-runtime: pod crash loop (parity passed)</td><td>3</td></tr>
 <tr><td>blocked: inspect receipt</td><td>2</td></tr>
 <tr><td>target-prerequisite: cert-manager CRDs missing</td><td>2</td></tr>
@@ -577,7 +577,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>jetstack/trust-manager@v0.22.1</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/jetstack-trust-manager-default/receipt.yaml</td></tr>
 <tr><td><code>jetstack/trust-manager@v0.22.1</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/jetstack-trust-manager-no-crds/receipt.yaml</td></tr>
 <tr><td><code>kedacore/keda@2.19.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/kedacore-keda-default/receipt.yaml</td></tr>
-<tr><td><code>kedacore/keda@2.19.0</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>target-prerequisite: required Secret missing (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml</td></tr>
+<tr><td><code>kedacore/keda@2.19.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml</td></tr>
 <tr><td><code>kyverno/kyverno-policies@3.8.0</code></td><td>default</td><td>watch</td><td>pass</td><td>watch: object parity passed; readiness needs review</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml</td></tr>
 <tr><td><code>kyverno/kyverno@3.8.1</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml</td></tr>
 <tr><td><code>kyverno/kyverno@3.8.1</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/kyverno-kyverno-no-crds/receipt.yaml</td></tr>

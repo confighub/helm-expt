@@ -85,8 +85,8 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret default/trust-manager-tls keys tls.crt,tls.key | kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
-| ClusterFeature | CRD certificates.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD issuers.cert-manager.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD certificates.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
+| ClusterFeature | CRD issuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
 | ClusterFeature | Namespace cert-manager | kubectl create namespace cert-manager |
 
 ## Evidence

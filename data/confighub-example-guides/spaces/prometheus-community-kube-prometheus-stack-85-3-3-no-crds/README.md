@@ -86,16 +86,16 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret monitoring/kube-prometheus-stack-admission keys cert,key | kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value> |
-| ClusterFeature | CRD alertmanagerconfigs.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD alertmanagers.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD podmonitors.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD probes.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD prometheusagents.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD prometheuses.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD prometheusrules.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD scrapeconfigs.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD thanosrulers.monitoring.coreos.com | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD alertmanagerconfigs.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD alertmanagers.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD podmonitors.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD probes.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD prometheusagents.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD prometheuses.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD prometheusrules.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD scrapeconfigs.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD thanosrulers.monitoring.coreos.com | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

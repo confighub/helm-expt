@@ -471,12 +471,12 @@
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/open-telemetry-opentelemetry-operator-0-114-0-no-crds/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/open-telemetry-opentelemetry-operator-0-114-0-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
 <table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key</td><td>Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD instrumentations.opentelemetry.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD opampbridges.opentelemetry.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD opentelemetrycollectors.opentelemetry.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD targetallocators.opentelemetry.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD instrumentations.opentelemetry.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD opampbridges.opentelemetry.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD opentelemetrycollectors.opentelemetry.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD targetallocators.opentelemetry.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

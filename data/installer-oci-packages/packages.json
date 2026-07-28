@@ -1628,7 +1628,7 @@
       "public_catalog": "yes",
       "proof_surface": "next80-proof-grade",
       "chart_page": "site/charts/kedacore-keda-2-19-0.html",
-      "matrix_rows": "4",
+      "matrix_rows": "3",
       "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0 --base default --work-dir .tmp/demo/kedacore-keda-2-19-0-default --non-interactive --namespace default",
       "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0",
       "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda"

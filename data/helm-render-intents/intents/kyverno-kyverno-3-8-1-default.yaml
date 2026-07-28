@@ -62,6 +62,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -102,6 +103,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -142,6 +144,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: ""
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
@@ -182,6 +185,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
+        operatingDetails: ""
         command: "# run the chart's test/check (helm test equivalent)"
         disposition: "observed"
         delta: "kept"
@@ -222,6 +226,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your applier — must apply CRDs before dependent objects"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -262,6 +267,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        operatingDetails: ""
         command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
         disposition: "observed"
         delta: "kept"

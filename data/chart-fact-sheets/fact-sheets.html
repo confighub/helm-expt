@@ -21,7 +21,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 </style></head><body>
 <h1>Can I use this chart, and how?</h1>
 <p class="sub">Per-chart fact sheets over 100 catalog charts — <b>support level</b> beside <b>evidence depth</b>, with prerequisites, quirks, the applicable skill, and the cub-scout post-apply check. Generated; do not hand-edit.</p>
-<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (50)</span><span><span class="dot block"></span>not ready yet (7)</span></p>
+<p class="legend"><span><span class="dot ok"></span>ready to try (20)</span><span><span class="dot warn"></span>needs prerequisites / better base (48)</span><span><span class="dot block"></span>not ready yet (9)</span></p>
 <table>
 <thead><tr><th>Chart</th><th>Status</th><th>Support (claim)</th><th>Evidence depth</th><th>Base</th><th>You provide/decide</th><th>Quirks &amp; disposition</th><th>Skill</th><th>Post-apply check (cub-scout)</th></tr></thead>
 <tbody>
@@ -41,7 +41,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill ok">Ready to try</span></td>
 <td>yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
-<td><code>static-passwords</code></td>
+<td><code>existing-secret-replicaset</code></td>
 <td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
 <td>generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -52,7 +52,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill ok">Ready to try</span></td>
 <td>yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
-<td><code>static-passwords</code></td>
+<td><code>existing-secret</code></td>
 <td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
 <td>generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -74,7 +74,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill ok">Ready to try</span></td>
 <td>yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
-<td><code>static-passwords</code></td>
+<td><code>existing-secret</code></td>
 <td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
 <td>generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -85,7 +85,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill ok">Ready to try</span></td>
 <td>yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
-<td><code>static-passwords</code></td>
+<td><code>existing-secret</code></td>
 <td>an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
 <td>generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -96,7 +96,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill ok">Ready to try</span></td>
 <td>yes-public-catalog; production decision: default:supported:fresh-target-evidence-passed</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
-<td><code>default</code></td>
+<td><code>reuse-existing-secret</code></td>
 <td>a StorageClass / storage decision; target facts at variant time; mandatory chart inputs</td>
 <td>generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -116,7 +116,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <tr class="ok">
 <td><b>grafana/grafana</b><br><span class="v">10.5.15</span></td>
 <td><span class="pill ok">Ready to try</span></td>
-<td>yes-public-catalog; production decision: static-passwords:superseded:not-production-supported-because-source-chart-is-deprecated</td>
+<td>yes-public-catalog; production decision: existing-secret-ingress:superseded:not-production-supported-because-source-chart-is-deprecated</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>existing-secret-ingress</code></td>
 <td>nothing beyond a cluster and namespace</td>
@@ -160,7 +160,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <tr class="ok">
 <td><b>hashicorp/vault</b><br><span class="v">0.32.0</span></td>
 <td><span class="pill ok">Ready to try</span></td>
-<td>yes-public-catalog; production decision: dev-mode:rejected:not-production-supported-because-vault-dev-mode-is-local-only</td>
+<td>yes-public-catalog; production decision: default:rejected:parity-passed-production-support-rejected</td>
 <td class="ev">catalog-supported-with-live-evidence (render parity 3/3, local live 2/3, live parity 2/3)</td>
 <td><code>default</code></td>
 <td>a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs</td>
@@ -260,7 +260,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>autoscaler/vertical-pod-autoscaler</b><br><span class="v">0.9.0</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -271,8 +271,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>bitnami/opensearch</b><br><span class="v">2.0.10</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 0/3)</td>
+<td><code>legacy</code></td>
 <td>an existing Secret for some bases (buildable — not yet run)</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -282,7 +282,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>cloudnative-pg/cloudnative-pg</b><br><span class="v">0.28.2</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time</td>
 <td>crds;existing-secret;webhooks;extension-slots;generated-facts;tpl;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
@@ -305,7 +305,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
 <td class="ev">proof-grade-ready-for-promotion-review (render parity 3/3, local live 3/3, live parity 3/3)</td>
-<td><code>dry-run-txt-registry</code></td>
+<td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs</td>
 <td>crds;existing-secret;extension-slots;required-values;tpl;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
 <td>target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)</td>
@@ -337,8 +337,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>nats/nack</b><br><span class="v">0.34.0</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 0/2)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>no-crds</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -370,8 +370,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/kube-state-metrics</b><br><span class="v">7.4.0</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
-<td><code>cluster-metrics-readonly</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time</td>
 <td>existing-secret;extension-slots;generated-facts;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -381,8 +381,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/prometheus-node-exporter</b><br><span class="v">4.55.0</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
-<td><code>cluster-metrics-readonly</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs</td>
 <td>existing-secret;extension-slots;required-values;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -392,7 +392,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>sealed-secrets/sealed-secrets</b><br><span class="v">2.18.6</span></td>
 <td><span class="pill warn">Works with prerequisites</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -414,7 +414,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>argo-cd/argocd-image-updater</b><br><span class="v">1.2.2</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td>
 <td>crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -433,21 +433,10 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="warn">
-<td><b>bitnami/apache</b><br><span class="v">11.4.29</span></td>
-<td><span class="pill warn">Needs a better base</span></td>
-<td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
-<td><code>default</code></td>
-<td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists</td>
-<td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
-<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
-<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
-</tr>
-<tr class="warn">
 <td><b>bitnami/memcached</b><br><span class="v">8.5.5</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; your wanted install shape, until a reviewed base exists</td>
 <td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
@@ -455,21 +444,10 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="warn">
-<td><b>bitnami/phpmyadmin</b><br><span class="v">20.0.0</span></td>
-<td><span class="pill warn">Needs a better base</span></td>
-<td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
-<td><code>default</code></td>
-<td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
-<td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
-<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
-<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
-</tr>
-<tr class="warn">
 <td><b>coredns/coredns</b><br><span class="v">1.45.2</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots;required-values;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
@@ -535,7 +513,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>fairwinds-stable/goldilocks</b><br><span class="v">10.3.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; your wanted install shape, until a reviewed base exists</td>
 <td>crds;generated-secrets;existing-secret;webhooks;extension-slots;lookup;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
@@ -546,7 +524,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>falcosecurity/falco</b><br><span class="v">9.0.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots;required-values;lookup;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts</td>
@@ -557,7 +535,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>falcosecurity/falcosidekick</b><br><span class="v">0.13.1</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots;required-values;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -601,7 +579,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>grafana/promtail</b><br><span class="v">6.17.1</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -612,7 +590,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>haproxytech/kubernetes-ingress</b><br><span class="v">1.52.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -634,7 +612,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>jaegertracing/jaeger</b><br><span class="v">4.8.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists</td>
 <td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
@@ -645,7 +623,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>jetstack/cert-manager-csi-driver</b><br><span class="v">v0.14.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>your wanted install shape, until a reviewed base exists</td>
 <td>none-flagged — exact rendered objects with render parity and receipts</td>
@@ -678,7 +656,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>minio-operator/operator</b><br><span class="v">7.1.1</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td>
 <td>crds;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td>
@@ -733,7 +711,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/prometheus-operator-crds</b><br><span class="v">29.0.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists</td>
 <td>crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts</td>
@@ -744,7 +722,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/prometheus-pushgateway</b><br><span class="v">3.6.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>generated-secrets;extension-slots;required-values;tpl;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases</td>
@@ -755,7 +733,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>rook-release/rook-ceph</b><br><span class="v">v1.19.5</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists</td>
 <td>crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td>
@@ -777,7 +755,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>runix/pgadmin4</b><br><span class="v">1.62.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots;required-values;tpl;capabilities;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -788,7 +766,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>vm/victoria-logs-single</b><br><span class="v">0.12.5</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists</td>
 <td>existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -796,10 +774,21 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="block">
+<td><b>bitnami/apache</b><br><span class="v">11.4.29</span></td>
+<td><span class="pill block">Not ready yet</span></td>
+<td>decision-needed-first</td>
+<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 1/2, live parity 0/2)</td>
+<td><code>legacy</code></td>
+<td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; a decision on the named limitation before use</td>
+<td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
+<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="block">
 <td><b>bitnami/contour</b><br><span class="v">21.1.4</span></td>
 <td><span class="pill block">Not ready yet</span></td>
 <td>decision-needed-first</td>
-<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td class="ev">proof-grade-with-named-limitation (render parity 3/3, local live 0/3, live parity 0/3)</td>
 <td><code>default</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use</td>
 <td>crds;generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
@@ -810,8 +799,19 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>bitnami/elasticsearch</b><br><span class="v">22.1.6</span></td>
 <td><span class="pill block">Not ready yet</span></td>
 <td>decision-needed-first</td>
-<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)</td>
+<td><code>legacy</code></td>
+<td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td>
+<td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
+<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
+<td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
+</tr>
+<tr class="block">
+<td><b>bitnami/phpmyadmin</b><br><span class="v">20.0.0</span></td>
+<td><span class="pill block">Not ready yet</span></td>
+<td>decision-needed-first</td>
+<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 1/2, live parity 0/2)</td>
+<td><code>legacy</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use</td>
 <td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -821,8 +821,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>bitnami/spark</b><br><span class="v">10.0.3</span></td>
 <td><span class="pill block">Not ready yet</span></td>
 <td>decision-needed-first</td>
-<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)</td>
+<td><code>legacy</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use</td>
 <td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -832,8 +832,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>bitnami/zookeeper</b><br><span class="v">13.8.7</span></td>
 <td><span class="pill block">Not ready yet</span></td>
 <td>decision-needed-first</td>
-<td class="ev">proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)</td>
+<td><code>legacy</code></td>
 <td>an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use</td>
 <td>generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
 <td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
@@ -898,7 +898,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>argo-cd/argo-workflows</b><br><span class="v">1.0.14</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 1/3)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 3/3)</td>
 <td><code>minimal-crds</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
@@ -909,8 +909,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>autoscaler/cluster-autoscaler</b><br><span class="v">9.57.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
-<td><code>controller-default-reviewed</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>default</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -964,7 +964,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>grafana/rollout-operator</b><br><span class="v">0.49.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 0/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -997,7 +997,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>jaegertracing/jaeger-operator</b><br><span class="v">2.57.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 0/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time</td>
 <td>crds;webhooks;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -1030,7 +1030,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>percona/pg-operator</b><br><span class="v">3.0.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td>
@@ -1041,7 +1041,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>percona/psmdb-operator</b><br><span class="v">1.22.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases</td>
@@ -1052,7 +1052,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>percona/pxc-operator</b><br><span class="v">1.19.1</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base); target facts at variant time</td>
 <td>crds;extension-slots;install-vs-upgrade-divergence;lookup;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts</td>
@@ -1074,8 +1074,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/prometheus-adapter</b><br><span class="v">5.3.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>review-needed</td>
-<td class="ev">proof-grade-compatible-base-needs-standard-lanes (render parity 3/3, local live 1/3, live parity 0/3)</td>
-<td><code>default</code></td>
+<td class="ev">proof-grade-compatible-base-needs-standard-lanes (render parity 3/3, local live 1/3, live parity 1/3)</td>
+<td><code>apiservice-v1-capability</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -1085,8 +1085,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>prometheus-community/prometheus-blackbox-exporter</b><br><span class="v">11.10.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
-<td><code>cluster-metrics-readonly</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>default</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots;tpl;capabilities — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -1096,8 +1096,8 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>stakater/reloader</b><br><span class="v">2.2.12</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)</td>
-<td><code>controller-default-reviewed</code></td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
+<td><code>default</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>
 <td>live-parity (docs/skills/live-parity.md)</td>
@@ -1107,7 +1107,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>strimzi/strimzi-kafka-operator</b><br><span class="v">1.0.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>a CRD ownership choice (crds vs no-crds base)</td>
 <td>crds;extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td>
@@ -1118,7 +1118,7 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>vm/victoria-metrics-single</b><br><span class="v">0.39.0</span></td>
 <td><span class="pill unknown">works-with-operator-review</span></td>
 <td>not-yet-public-catalog-proof-ready</td>
-<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 0/2)</td>
+<td class="ev">proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td>
 <td><code>default</code></td>
 <td>nothing beyond a cluster and namespace</td>
 <td>extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td>

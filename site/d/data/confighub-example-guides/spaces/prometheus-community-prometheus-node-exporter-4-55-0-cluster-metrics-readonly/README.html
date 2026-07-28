@@ -470,7 +470,7 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly"><code>packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD servicemonitors.monitoring.coreos.com</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD servicemonitors.monitoring.coreos.com</td><td>package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

@@ -443,11 +443,11 @@
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml"><code>recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml</code></a>. It contains 10 Kubernetes object(s): Service x2, Certificate x1, Deployment x1, Issuer x1, MutatingWebhookConfiguration x1, Role x1, RoleBinding x1, ServiceAccount x1.</p>
 <p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-jaeger-operator-no-crds</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
-<p>No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.</p>
+<p>This preset config records 3 prerequisite(s): 3 CRDs. Create these with your own values before you apply the rendered objects.</p>
 <p>No hook or lifecycle route is recorded for this preset config.</p>
-<p>CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config.</p>
+<p>CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
-<ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 10 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
+<ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 10 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Prerequisites are named before apply, so they are not discovered after rollout.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
 <h2 id="repeat-it">Repeat it</h2>
 <p>Fast path with no ConfigHub account:</p>
@@ -470,7 +470,9 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds"><code>packages/jaegertracing/jaeger-operator/2.57.0/bases/no-crds</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/jaegertracing-jaeger-operator-2-57-0-no-crds/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/jaegertracing-jaeger-operator-2-57-0-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>None recorded</td><td>This preset does not record chart-specific prerequisites beyond a cluster and namespace.</td><td>-</td></tr></tbody></table>
+<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD jaegers.jaegertracing.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

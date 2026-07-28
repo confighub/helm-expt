@@ -2001,6 +2001,7 @@
               "executionMode": "not-yet-executable",
               "automatic": false,
               "whoRuns": "Prerequisite — apply the CRDs before the workloads",
+              "operatingDetails": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "disposition": "routed",
               "delta": "prerequisite",
@@ -2391,6 +2392,7 @@
               "executionMode": "not-yet-executable",
               "automatic": false,
               "whoRuns": "Prerequisite — apply the CRDs before the workloads",
+              "operatingDetails": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
               "disposition": "routed",
               "delta": "prerequisite",
@@ -2781,6 +2783,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
               "command": "",
               "disposition": "observed",
               "delta": "resolved",
@@ -14680,6 +14683,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -14724,6 +14728,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "operatingDetails": "",
               "command": "# run the chart's test/check (helm test equivalent)",
               "disposition": "observed",
               "delta": "kept",
@@ -22280,30 +22285,83 @@
           "renderParity": "yes",
           "confighubScanOps": "yes",
           "localKind": "yes",
-          "lifecycleObserved": "todo",
+          "lifecycleObserved": "yes",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
-          "routeContract": "n/a",
-          "routeCount": "0",
-          "dispositions": "n/a",
-          "executionModes": "n/a",
-          "safeAutomatic": "n/a",
-          "contractPath": "",
-          "jsonPath": "",
-          "variantRoutes": [],
+          "routeContract": "yes",
+          "routeCount": "1",
+          "dispositions": "observed:1",
+          "executionModes": "target-owned:1",
+          "safeAutomatic": "0/1",
+          "contractPath": "data/lifecycle-routes/summary.md",
+          "jsonPath": "data/lifecycle-routes/routes.json",
+          "variantRoutes": [
+            {
+              "routeName": "webhook-readiness-observation",
+              "quirkClass": "webhook-readiness",
+              "lifecyclePhase": "observe",
+              "actionKind": "observe-webhook",
+              "executionMode": "target-owned",
+              "automatic": false,
+              "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
+              "operatingDetails": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+              "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+              "disposition": "observed",
+              "delta": "kept",
+              "reason": "",
+              "routeSourceVersion": "2.19.0",
+              "evidence": [
+                "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml",
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+                "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml",
+                "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+              ],
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "",
+              "gitOps": {
+                "emitsControllerStep": false,
+                "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+                "argoCdSnippet": ""
+              },
+              "runners": {
+                "direct": {
+                  "implementation": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
+                  "status": "evidence-linked",
+                  "evidence": [
+                    "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+                  ]
+                },
+                "argoCd": {
+                  "implementation": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                  "status": "mapping-only",
+                  "evidence": []
+                },
+                "flux": {
+                  "implementation": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
+                  "status": "mapping-only",
+                  "evidence": []
+                }
+              }
+            }
+          ],
           "coverage": {
-            "state": "no-route-required",
-            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
-            "evidence": [],
+            "state": "attached",
+            "reason": "1 lifecycle route attached for this exact chart version and base.",
+            "evidence": [
+              "data/lifecycle-routes/summary.md",
+              "data/lifecycle-routes/routes.json"
+            ],
             "nextAction": ""
           }
         },
         "targetFacts": {
-          "status": "declared-target-facts-and-observed-action-records",
+          "status": "declared-target-facts",
           "declared": {
             "requiredCRDs": [
               {
@@ -22562,32 +22620,10 @@
               ]
             }
           ],
-          "actions": [
-            {
-              "lane": "K",
-              "prerequisiteKind": "secret",
-              "prerequisiteName": "Secret kedaorg-certs",
-              "actionKind": "stage-secret",
-              "ownerClass": "user-stage",
-              "requiredInputs": "Secret kedaorg-certs",
-              "evidenceRequired": "the named Secret(s) present in the target namespace before apply; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds",
-              "requiredBefore": "apply",
-              "freshness": {
-                "policy": "recheck-before-apply",
-                "maxAge": "one-apply"
-              },
-              "evidence": [
-                "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
-              ]
-            }
-          ],
+          "actions": [],
           "coverage": {
-            "state": "attached-with-observed-actions",
-            "reason": "6 prerequisite declarations and 1 follow-up action record are attached.",
+            "state": "attached",
+            "reason": "6 target prerequisites declared by this base.",
             "declarationSource": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
             "nextAction": ""
           }
@@ -22696,6 +22732,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -22740,6 +22777,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -22784,6 +22822,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -22828,6 +22867,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "operatingDetails": "",
               "command": "# run the chart's test/check (helm test equivalent)",
               "disposition": "observed",
               "delta": "kept",
@@ -22872,6 +22912,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -22916,6 +22957,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "kept",
@@ -23079,6 +23121,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -23123,6 +23166,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -23167,6 +23211,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -23211,6 +23256,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Opt-in check — run from CI or on demand (tests are explicit by design)",
+              "operatingDetails": "",
               "command": "# run the chart's test/check (helm test equivalent)",
               "disposition": "observed",
               "delta": "kept",
@@ -23255,6 +23301,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "reduced",
@@ -23299,6 +23346,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "strengthened",
@@ -28673,6 +28721,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -28719,6 +28768,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -28765,6 +28815,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -28811,6 +28862,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -28857,6 +28909,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -28903,6 +28956,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "kept",
@@ -28948,7 +29002,8 @@
               "actionKind": "observe-webhook",
               "executionMode": "target-owned",
               "automatic": false,
-              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
+              "operatingDetails": "",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "disposition": "observed",
               "delta": "kept",
@@ -28963,8 +29018,8 @@
               "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
-                "argoCd": "observe webhook and workload health after sync",
-                "flux": "use post-apply health checks; stage any declared certificate first",
+                "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                 "argoCdSnippet": ""
               },
               "runners": {
@@ -28976,12 +29031,12 @@
                   ]
                 },
                 "argoCd": {
-                  "implementation": "observe webhook and workload health after sync",
+                  "implementation": "wait for the certificate handoff, then observe webhook and workload health after sync",
                   "status": "mapping-only",
                   "evidence": []
                 },
                 "flux": {
-                  "implementation": "use post-apply health checks; stage any declared certificate first",
+                  "implementation": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                   "status": "mapping-only",
                   "evidence": []
                 }
@@ -29155,6 +29210,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -29199,6 +29255,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -29243,6 +29300,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -29287,6 +29345,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -29331,6 +29390,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "reduced",
@@ -29375,6 +29435,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "strengthened",
@@ -29418,7 +29479,8 @@
               "actionKind": "observe-webhook",
               "executionMode": "target-owned",
               "automatic": false,
-              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
+              "operatingDetails": "",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "disposition": "observed",
               "delta": "kept",
@@ -29433,8 +29495,8 @@
               "sourceDrift": "",
               "gitOps": {
                 "emitsControllerStep": false,
-                "argoCd": "observe webhook and workload health after sync",
-                "flux": "use post-apply health checks; stage any declared certificate first",
+                "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                 "argoCdSnippet": ""
               },
               "runners": {
@@ -29444,12 +29506,12 @@
                   "evidence": []
                 },
                 "argoCd": {
-                  "implementation": "observe webhook and workload health after sync",
+                  "implementation": "wait for the certificate handoff, then observe webhook and workload health after sync",
                   "status": "mapping-only",
                   "evidence": []
                 },
                 "flux": {
-                  "implementation": "use post-apply health checks; stage any declared certificate first",
+                  "implementation": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                   "status": "mapping-only",
                   "evidence": []
                 }
@@ -30025,6 +30087,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -30069,6 +30132,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -30113,6 +30177,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -30157,6 +30222,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -30201,6 +30267,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -30245,6 +30312,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "kept",
@@ -30288,7 +30356,8 @@
               "actionKind": "observe-webhook",
               "executionMode": "target-owned",
               "automatic": false,
-              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
+              "operatingDetails": "",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "disposition": "observed",
               "delta": "kept",
@@ -30303,8 +30372,8 @@
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
-                "argoCd": "observe webhook and workload health after sync",
-                "flux": "use post-apply health checks; stage any declared certificate first",
+                "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                 "argoCdSnippet": ""
               },
               "runners": {
@@ -30314,12 +30383,12 @@
                   "evidence": []
                 },
                 "argoCd": {
-                  "implementation": "observe webhook and workload health after sync",
+                  "implementation": "wait for the certificate handoff, then observe webhook and workload health after sync",
                   "status": "mapping-only",
                   "evidence": []
                 },
                 "flux": {
-                  "implementation": "use post-apply health checks; stage any declared certificate first",
+                  "implementation": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                   "status": "mapping-only",
                   "evidence": []
                 }
@@ -30493,6 +30562,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your cluster — at uninstall, automatically",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -30537,6 +30607,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a post-apply check (receipted)",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "kept",
@@ -30581,6 +30652,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -30625,6 +30697,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "disposition": "observed",
               "delta": "kept",
@@ -30669,6 +30742,7 @@
               "executionMode": "target-owned",
               "automatic": false,
               "whoRuns": "Your applier — must apply CRDs before dependent objects",
+              "operatingDetails": "",
               "command": "",
               "disposition": "observed",
               "delta": "reduced",
@@ -30713,6 +30787,7 @@
               "executionMode": "user-executes",
               "automatic": false,
               "whoRuns": "Prerequisite — supply once (Secret / CRD / storage), like values",
+              "operatingDetails": "",
               "command": "# create the required target facts (Secret/StorageClass/etc.) before apply",
               "disposition": "observed",
               "delta": "strengthened",
@@ -30756,7 +30831,8 @@
               "actionKind": "observe-webhook",
               "executionMode": "target-owned",
               "automatic": false,
-              "whoRuns": "Your delivery and cluster — stage any declared certificate, then check webhook readiness",
+              "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
+              "operatingDetails": "",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "disposition": "observed",
               "delta": "kept",
@@ -30771,8 +30847,8 @@
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
-                "argoCd": "observe webhook and workload health after sync",
-                "flux": "use post-apply health checks; stage any declared certificate first",
+                "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
+                "flux": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                 "argoCdSnippet": ""
               },
               "runners": {
@@ -30782,12 +30858,12 @@
                   "evidence": []
                 },
                 "argoCd": {
-                  "implementation": "observe webhook and workload health after sync",
+                  "implementation": "wait for the certificate handoff, then observe webhook and workload health after sync",
                   "status": "mapping-only",
                   "evidence": []
                 },
                 "flux": {
-                  "implementation": "use post-apply health checks; stage any declared certificate first",
+                  "implementation": "wait for the certificate handoff, then run post-apply webhook and workload health checks",
                   "status": "mapping-only",
                   "evidence": []
                 }

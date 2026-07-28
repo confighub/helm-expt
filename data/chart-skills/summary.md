@@ -109,7 +109,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | jetstack/cert-manager-csi-driver@v0.14.0 | 1 | live-parity | live |
 | jetstack/cert-manager@v1.20.2 | 3 | serious-chart-playbooks | named-serious; live |
 | jetstack/trust-manager@v0.22.1 | 1 | live-parity | live |
-| kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; webhooks; crds; live |
+| kedacore/keda@2.19.0 | 5 | serious-chart-playbooks | crds+webhooks; hooks:1; webhooks; crds; live |
 | kyverno/kyverno-policies@3.8.0 | 2 | target-facts-and-lifecycle | lookup; live |
 | kyverno/kyverno@3.8.1 | 4 | hook-and-secret-lifecycle | hooks:8; generated-facts; crds; lookup; stateful-storage; live |
 | linkerd/linkerd-crds@1.8.0 | 1 | live-parity | live |

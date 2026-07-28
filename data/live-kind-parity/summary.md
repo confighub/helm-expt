@@ -11,12 +11,12 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 127
-watch: 4
+pass: 128
+watch: 3
 blocked: 47
 semantic parity pass: 153
 semantic parity defects: 16
-non-pass rows where semantic parity passed: 26
+non-pass rows where semantic parity passed: 25
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -36,7 +36,7 @@ data/live-parity-rerun-plan/summary.md
 | remote-image: image pull failed or pinned image is unavailable (parity passed) | 10 |
 | helm-runtime: upstream not ready (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 4 |
-| target-prerequisite: required Secret missing (parity passed) | 4 |
+| target-prerequisite: required Secret missing (parity passed) | 3 |
 | target-runtime: pod crash loop (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
@@ -179,7 +179,7 @@ broader support claim.
 | `jetstack/trust-manager@v0.22.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-trust-manager-default/receipt.yaml |
 | `jetstack/trust-manager@v0.22.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/jetstack-trust-manager-no-crds/receipt.yaml |
 | `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
-| `kedacore/keda@2.19.0` | no-crds | watch | pass | target-prerequisite: required Secret missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |
+| `kedacore/keda@2.19.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml |
 | `kyverno/kyverno-policies@3.8.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/kyverno-kyverno-policies-default/receipt.yaml |
 | `kyverno/kyverno@3.8.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kyverno-kyverno-default/receipt.yaml |
 | `kyverno/kyverno@3.8.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/kyverno-kyverno-no-crds/receipt.yaml |

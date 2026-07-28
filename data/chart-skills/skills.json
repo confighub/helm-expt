@@ -1696,6 +1696,7 @@
       "top_skill": "serious-chart-playbooks",
       "matched_signals": [
         "crds+webhooks",
+        "hooks:1",
         "webhooks",
         "crds",
         "live"

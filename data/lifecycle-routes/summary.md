@@ -21,7 +21,7 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-26 route rows across 13 chart/version lifecycle behaviors,
+27 route rows across 14 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
@@ -37,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 26 rows are safe to show as automatic.
+0 of 27 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -51,7 +51,7 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 16 |
+| `observed` | 17 |
 | `routed` | 5 |
 | `todo` | 4 |
 | `per-target` | 1 |
@@ -59,7 +59,7 @@ it.
 | Execution mode | Rows |
 | --- | ---: |
 | `user-executes` | 11 |
-| `target-owned` | 8 |
+| `target-owned` | 9 |
 | `not-yet-executable` | 7 |
 
 | Quirk class | Rows |
@@ -70,8 +70,8 @@ it.
 | `hook-test` | 2 |
 | `hook-weight-ordering` | 2 |
 | `target-facts` | 2 |
+| `webhook-readiness` | 2 |
 | `per-target-hook` | 1 |
-| `webhook-readiness` | 1 |
 
 ## How To Read One Row
 
@@ -107,6 +107,7 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | fluent/fluent-bit@0.57.6 | chart fallback | hook-test | `explicit-test-check` | observed | user-executes | no |
 | gitlab/gitlab@10.0.0 | chart fallback | hook-phase | `argocd-or-flux-lifecycle-hook` | todo | not-yet-executable | no |
 | k8s-dashboard/kubernetes-dashboard@7.14.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
+| kedacore/keda@2.19.0 | no-crds | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
 | kong/kong@3.2.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
 | kyverno/kyverno@3.8.1 | chart fallback | hook-delete-policy | `delete-cleanup-policy` | observed | target-owned | no |
 | kyverno/kyverno@3.8.1 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |

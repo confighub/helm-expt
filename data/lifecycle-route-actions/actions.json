@@ -486,6 +486,39 @@
       "evidence_or_next_action": "record hook-inert-under-default-values for the default base at recipe time; keep the route plan for postgres-mode bases | none (default base is hook-inert; no rehearsal needed for it) | data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/evidence.yaml;data/hook-disposition/evidence/k8s-dashboard-kubernetes-dashboard/hook-resources.yaml"
     },
     {
+      "chart": "kedacore/keda",
+      "version": "2.19.0",
+      "base": "no-crds",
+      "quirk_class": "webhook-readiness",
+      "route_name": "webhook-readiness-observation",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "observe",
+      "action_kind": "observe-webhook",
+      "execution_mode": "target-owned",
+      "automatic": false,
+      "required_target_facts": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+      "human_command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations   # placeholder",
+      "alternatives": [
+        "postsync-check-or-observation"
+      ],
+      "agent_inputs": {
+        "route_name": "webhook-readiness-observation",
+        "default_route": "webhook-readiness-observation",
+        "alternatives": [
+          "postsync-check-or-observation"
+        ],
+        "lifecycle_phase": "observe",
+        "action_kind": "observe-webhook",
+        "required_target_facts": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml;recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml;recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml;runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+    },
+    {
       "chart": "kong/kong",
       "version": "3.2.0",
       "base": "",

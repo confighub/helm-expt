@@ -436,20 +436,20 @@
 <h2 id="what-watch-and-blocked-mean">What watch and blocked mean</h2>
 <ul><li><b>watch</b> - known evidence with a named residue. Semantic parity passed (the rendered objects match regular Helm); a target/runtime/readiness condition still needs review. <b>Not a pass, not a failure.</b></li><li><b>blocked</b> - the run did not reach parity. The decision names why and who owns the fix (often the catalog, not the user).</li></ul>
 <h2 id="this-batch">This batch</h2>
-<p>51 non-pass rows: 4 watch, 47 blocked. 14 are resolved by the <b>user</b> (stage a prerequisite or supply values); 19 need <b>catalog/model</b> work; the rest need a runtime or readiness review.</p>
+<p>50 non-pass rows: 3 watch, 47 blocked. 13 are resolved by the <b>user</b> (stage a prerequisite or supply values); 19 need <b>catalog/model</b> work; the rest need a runtime or readiness review.</p>
 <table><thead><tr><th>Residue category</th><th>Rows</th></tr></thead><tbody><tr><td><code>model-gap-render</code></td><td>14</td></tr>
 <tr><td><code>remote-image</code></td><td>10</td></tr>
 <tr><td><code>target-runtime</code></td><td>7</td></tr>
 <tr><td><code>target-prerequisite-crds</code></td><td>6</td></tr>
-<tr><td><code>target-prerequisite-secret</code></td><td>4</td></tr>
 <tr><td><code>capability-profile-diff</code></td><td>3</td></tr>
+<tr><td><code>target-prerequisite-secret</code></td><td>3</td></tr>
 <tr><td><code>render-input</code></td><td>2</td></tr>
 <tr><td><code>target-prerequisite-namespace</code></td><td>2</td></tr>
 <tr><td><code>hook-lifecycle</code></td><td>1</td></tr>
 <tr><td><code>model-gap-target-fact</code></td><td>1</td></tr>
 <tr><td><code>readiness</code></td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>Who fixes it</th><th>Rows</th></tr></thead><tbody><tr><td><code>catalog</code></td><td>19</td></tr>
-<tr><td><code>user</code></td><td>14</td></tr>
+<tr><td><code>user</code></td><td>13</td></tr>
 <tr><td><code>catalog or image publisher</code></td><td>10</td></tr>
 <tr><td><code>needs runtime review</code></td><td>7</td></tr>
 <tr><td><code>needs readiness review</code></td><td>1</td></tr></tbody></table>
@@ -489,7 +489,6 @@
 <tr><td>istio/istiod@1.30.0</td><td>default</td><td>blocked</td><td>target-prerequisite-namespace</td><td>user</td><td>yes, after creating the Namespace</td></tr>
 <tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>default</td><td>blocked</td><td>target-prerequisite-crds</td><td>user</td><td>yes, after staging CRDs</td></tr>
 <tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>no-crds</td><td>blocked</td><td>target-prerequisite-crds</td><td>user</td><td>yes, after staging CRDs</td></tr>
-<tr><td>kedacore/keda@2.19.0</td><td>no-crds</td><td>watch</td><td>target-prerequisite-secret</td><td>user</td><td>yes, after staging a Secret</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>watch</td><td>readiness</td><td>needs readiness review</td><td>watch - objects match, readiness unconfirmed</td></tr>
 <tr><td>nats/nack@0.34.0</td><td>default</td><td>blocked</td><td>model-gap-render</td><td>catalog</td><td>no - needs catalog work</td></tr>
 <tr><td>nats/nats@2.14.0</td><td>ha</td><td>blocked</td><td>model-gap-render</td><td>catalog</td><td>no - needs catalog work</td></tr>

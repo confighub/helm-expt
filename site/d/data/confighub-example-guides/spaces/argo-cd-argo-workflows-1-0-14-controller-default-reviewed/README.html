@@ -470,14 +470,14 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"><code>packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD clusterworkflowtemplates.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD cronworkflows.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workflowartifactgctasks.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workfloweventbindings.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workflows.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workflowtaskresults.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workflowtasksets.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD workflowtemplates.argoproj.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD clusterworkflowtemplates.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD cronworkflows.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workflowartifactgctasks.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workfloweventbindings.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workflows.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workflowtaskresults.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workflowtasksets.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD workflowtemplates.argoproj.io</td><td>package://prerequisites/target-facts/controller-default-reviewed-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

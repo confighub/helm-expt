@@ -62,6 +62,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -102,6 +103,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
+        operatingDetails: ""
         command: "# run the chart's test/check (helm test equivalent)"
         disposition: "observed"
         delta: "kept"

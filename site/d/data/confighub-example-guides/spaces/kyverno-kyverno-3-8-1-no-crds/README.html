@@ -470,28 +470,28 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/no-crds"><code>packages/kyverno/kyverno/3.8.1/bases/no-crds</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD cleanuppolicies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clustercleanuppolicies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterpolicies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD globalcontextentries.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD policyexceptions.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD updaterequests.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterephemeralreports.reports.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD ephemeralreports.reports.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterpolicyreports.wgpolicyk8s.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD policyreports.wgpolicyk8s.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD deletingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD generatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD imagevalidatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD mutatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD namespaceddeletingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD namespacedgeneratingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD namespacedimagevalidatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD namespacedmutatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD namespacedvalidatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD policyexceptions.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD validatingpolicies.policies.kyverno.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD cleanuppolicies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clustercleanuppolicies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusterpolicies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD globalcontextentries.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD policyexceptions.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD updaterequests.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusterephemeralreports.reports.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD ephemeralreports.reports.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusterpolicyreports.wgpolicyk8s.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD policyreports.wgpolicyk8s.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD deletingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD generatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD imagevalidatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD mutatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD namespaceddeletingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD namespacedgeneratingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD namespacedimagevalidatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD namespacedmutatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD namespacedvalidatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD policyexceptions.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD validatingpolicies.policies.kyverno.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

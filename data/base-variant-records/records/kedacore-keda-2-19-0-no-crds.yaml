@@ -138,9 +138,51 @@ spec:
     installTimeStatus: "partly-declared"
   routing:
     routes:
-      []
+      -
+        routeName: "webhook-readiness-observation"
+        quirkClass: "webhook-readiness"
+        lifecyclePhase: "observe"
+        actionKind: "observe-webhook"
+        executionMode: "target-owned"
+        automatic: false
+        whoRuns: "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness"
+        operatingDetails: "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
+        command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "2.19.0"
+        evidence:
+          - "data/hook-route-candidates/selected-routes/kedacore-keda-no-crds.yaml"
+          - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+          - "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+          - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: false
+          argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"
+          flux: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+          argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+            status: "evidence-linked"
+            evidence:
+              - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+          argoCd:
+            implementation: "wait for the certificate handoff, then observe webhook and workload health after sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "declared-target-facts"
       declared:
         requiredCRDs:
           -
@@ -361,27 +403,10 @@ spec:
             - "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
             - "packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml"
       actions:
-        -
-          lane: "K"
-          prerequisiteKind: "secret"
-          prerequisiteName: "Secret kedaorg-certs"
-          actionKind: "stage-secret"
-          ownerClass: "user-stage"
-          requiredInputs: "Secret kedaorg-certs"
-          evidenceRequired: "the named Secret(s) present in the target namespace before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
+        []
       coverage:
-        state: "attached-with-observed-actions"
-        reason: "6 prerequisite declarations and 1 follow-up action record are attached."
+        state: "attached"
+        reason: "6 target prerequisites declared by this base."
         declarationSource: "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
         nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml"
@@ -404,10 +429,10 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "yes"
-    lifecycleObserved: "todo"
+    lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
-    twoClusterKind: "watch"
+    twoClusterKind: "yes"
     variantPromotion: "proven"
   operations:
     resourceClass: "not-yet-classified"

@@ -434,26 +434,26 @@
 <p>This projects the legible lifecycle-route contract (<a href="../lifecycle-routes/summary.html">../lifecycle-routes/</a>) into machine-readable <b>action packets</b>: per route, the lifecycle phase, the action kind, required target facts, an agent-readable input block, the evidence required to advance, and an explicit <code>automatic</code> flag. It lets a UI or agent turn &quot;where a hook/lifecycle action should go&quot; into a checkable preflight/action/observe plan - without claiming live or automatic execution.</p>
 <p>Schema: <a href="../../../../schemas/lifecycle-route-action.schema.json">schemas/lifecycle-route-action.schema.json</a>. Forms: <a href="../../../../data/lifecycle-route-actions/actions.csv">actions.csv</a>, <a href="../../../../data/lifecycle-route-actions/actions.json">actions.json</a> (agent interface), field definitions in <a href="contract.html">contract.md</a>.</p>
 <h2 id="the-honest-flag">The honest flag</h2>
-<p>0 of 26 packets are <code>automatic</code>. No route is executed by the product today, so <code>automatic</code> is <code>false</code> everywhere; a packet is a <i>plan</i>, not a claim that anything ran. <code>automatic</code> only becomes <code>true</code> when <code>execution_mode</code> is <code>product-executes</code> and committed evidence proves it.</p>
+<p>0 of 27 packets are <code>automatic</code>. No route is executed by the product today, so <code>automatic</code> is <code>false</code> everywhere; a packet is a <i>plan</i>, not a claim that anything ran. <code>automatic</code> only becomes <code>true</code> when <code>execution_mode</code> is <code>product-executes</code> and committed evidence proves it.</p>
 <h2 id="distribution">Distribution</h2>
-<table><thead><tr><th>Disposition</th><th>Packets</th></tr></thead><tbody><tr><td><code>observed</code></td><td>16</td></tr>
+<table><thead><tr><th>Disposition</th><th>Packets</th></tr></thead><tbody><tr><td><code>observed</code></td><td>17</td></tr>
 <tr><td><code>blocked</code></td><td>7</td></tr>
 <tr><td><code>routed</code></td><td>2</td></tr>
 <tr><td><code>per-target</code></td><td>1</td></tr></tbody></table>
-<table><thead><tr><th>Lifecycle phase</th><th>Packets</th></tr></thead><tbody><tr><td><code>pre-apply</code></td><td>8</td></tr>
-<tr><td><code>observe</code></td><td>7</td></tr>
+<table><thead><tr><th>Lifecycle phase</th><th>Packets</th></tr></thead><tbody><tr><td><code>observe</code></td><td>8</td></tr>
+<tr><td><code>pre-apply</code></td><td>8</td></tr>
 <tr><td><code>post-apply</code></td><td>6</td></tr>
 <tr><td><code>preflight</code></td><td>4</td></tr>
 <tr><td><code>pre-render</code></td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>Action kind</th><th>Packets</th></tr></thead><tbody><tr><td><code>run-job</code></td><td>8</td></tr>
 <tr><td><code>accept-target-policy</code></td><td>4</td></tr>
 <tr><td><code>preserve-ordering</code></td><td>3</td></tr>
+<tr><td><code>observe-webhook</code></td><td>2</td></tr>
 <tr><td><code>run-preflight</code></td><td>2</td></tr>
 <tr><td><code>run-test</code></td><td>2</td></tr>
 <tr><td><code>stage-target-facts</code></td><td>2</td></tr>
 <tr><td><code>gitops-sync-hook</code></td><td>1</td></tr>
 <tr><td><code>install-crd</code></td><td>1</td></tr>
-<tr><td><code>observe-webhook</code></td><td>1</td></tr>
 <tr><td><code>run-check</code></td><td>1</td></tr>
 <tr><td><code>verify-render</code></td><td>1</td></tr></tbody></table>
 <h2 id="named-source-drift">Named source drift</h2>

@@ -43,20 +43,20 @@ from a different chart version's disposition row.
 | Metric | Value |
 | --- | ---: |
 | Chart versions | 110 |
-| Matrix rows | 390 |
-| F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 68 / 13 |
-| Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:35 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 968 / 110 / 124 / 85 / 1443 |
+| Matrix rows | 389 |
+| F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 67 / 13 |
+| Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 970 / 109 / 124 / 84 / 1436 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
-| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 1 / 2 / 191 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 8 / 0 / 2 / 380 |
-| Render-intent lifecycle records (attached / gap / no separate route) | 8 / 5 / 186 |
+| Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 1 / 2 / 190 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 9 / 0 / 2 / 378 |
+| Render-intent lifecycle records (attached / gap / no separate route) | 9 / 5 / 185 |
 | Render-intent prerequisite records (attached / gap / none explicitly required) | 63 / 136 / 0 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
-| Rows currently in the active proof queue | 77 |
-| Cells with deferred accepted disposition | 118 |
+| Rows currently in the active proof queue | 76 |
+| Cells with deferred accepted disposition | 116 |
 
 Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): `argo-cd/argo-cd@9.5.17`, `bitnami/mongodb@19.0.9`, `bitnami/mongodb@19.1.0`, `bitnami/nginx@24.0.4`, `bitnami/nginx@25.0.0`, `bitnami/postgresql@18.6.10`, `bitnami/postgresql@18.7.0`, `bitnami/redis@27.0.0`, `prometheus-community/kube-prometheus-stack@86.1.0`, `prometheus-community/prometheus@29.9.0`.
 
@@ -93,13 +93,13 @@ otherwise.
 | Design a more useful base | 33 | Rows where plain render proof exists but the first user-facing base is not yet good enough. | `argo-cd/argocd-image-updater@1.2.2/default`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default`, `bitnami/memcached@8.5.5/default` |
 | Decide a limitation first | 23 | Rows where a product or operator boundary must be chosen before promotion. | `bitnami/apache@11.4.29/default`, `bitnami/apache@11.4.29/legacy`, `bitnami/contour@21.1.4/default` |
 | Complete the core proof lane | 81 | Real base or derived rows missing at least one core evidence lane: ConfigHub proof, live Kubernetes, GitOps/OCI, or live parity. | `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argo-cd@9.5.17/no-crds` |
-| Active proof queue | 77 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
-| Deferred accepted dispositions | 36 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
+| Active proof queue | 76 | Rows with a current non-pass live parity result and an exact rerun or review action. | `argo-cd/argo-cd@9.5.17/default`, `autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default` |
+| Deferred accepted dispositions | 35 | Rows whose current non-green cells are already accepted as watch or n/a; do not spend live-run time until scope changes. | `argo-cd/argo-cd@9.5.17/default`, `argo-cd/argocd-image-updater@1.2.2/default`, `autoscaler/cluster-autoscaler@9.57.0/default` |
 | Derived ConfigHub variants | 13 | Downstream ConfigHub variants cloned from reviewed bases. These show environment, region, customer, or target-specific post-render customization without a Helm rerender. | `bitnami/nginx@24.0.2/customer-acme-prod`, `bitnami/nginx@24.0.2/prod-us-east`, `bitnami/redis@25.5.3/prod-us-east` |
-| Candidate rows | 68 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
+| Candidate rows | 67 | Planned F2/F3 paths from committed work-order data. These are visible product paths, not proof claims. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default + topology`, `bitnami/memcached@8.5.5/storage-default-reviewed` |
 | Custom-discussion candidates | 55 | Non-default or target-specific paths where inputs, ownership, or risk must be discussed before the row becomes runnable. | `autoscaler/cluster-autoscaler@9.57.0/default + review`, `bitnami/memcached@8.5.5/storage-default-reviewed`, `bitnami/phpmyadmin@20.0.0/web-ui-existing-secret` |
 | Decide target run scope | 186 | Rows without a target run decision or target-bound receipt yet. | `aqua/trivy-operator@0.32.1/default`, `aqua/trivy-operator@0.32.1/no-crds`, `argo-cd/argo-cd@9.5.15/no-crds` |
-| Investigate hard gaps | 118 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
+| Investigate hard gaps | 117 | Rows with a named chart/product gap rather than a simple missing receipt. | `argo-cd/argo-cd@9.5.15/default`, `argo-cd/argo-cd@9.5.15/no-crds`, `argo-cd/argocd-image-updater@1.2.2/default` |
 
 ## Sources joined, and what this view compresses
 
@@ -394,8 +394,7 @@ when you want the user/product view with those columns visible.
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ❌ | - | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 | `kedacore/keda@2.19.0` | F1 | source | (source) | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
-|  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ⚠️ | ✅ | deferred | live-parity | ⬜ |
-|  | F3 | candidate | no-crds + secret | candidate | `tpl;capabilities;crds;cluster-rbac;webhooks` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
+|  | F2b | base | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `kyverno/kyverno@3.8.1` | F1 | source | (source) | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | run | live-parity | ⬜ |

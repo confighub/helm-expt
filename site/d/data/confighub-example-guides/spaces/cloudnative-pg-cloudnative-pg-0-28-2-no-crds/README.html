@@ -471,16 +471,16 @@
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
 <table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>Secret default/cnpg-webhook-cert keys tls.crt,tls.key</td><td>kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=&lt;value&gt; --from-literal=tls.key=&lt;value&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD backups.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterimagecatalogs.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusters.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD databases.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD failoverquorums.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD imagecatalogs.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD poolers.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD publications.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD scheduledbackups.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD subscriptions.postgresql.cnpg.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<tr><td>ClusterFeature</td><td>CRD backups.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusterimagecatalogs.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusters.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD databases.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD failoverquorums.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD imagecatalogs.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD poolers.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD publications.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD scheduledbackups.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD subscriptions.postgresql.cnpg.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

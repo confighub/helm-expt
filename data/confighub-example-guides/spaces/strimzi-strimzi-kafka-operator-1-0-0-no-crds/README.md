@@ -28,11 +28,11 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset config records 10 prerequisite(s): 10 CRDs. Create these with your own values before you apply the rendered objects.
 
 No hook or lifecycle route is recorded for this preset config.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config.
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.
 
 ## Why you can trust it
 
@@ -40,6 +40,7 @@ CRDs are made into an explicit choice instead of being mixed into the applicatio
 - The render variant is committed as YAML and contains 17 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -83,7 +84,16 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | Kind | What | How to provide it |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| ClusterFeature | CRD kafkas.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkaconnects.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD strimzipodsets.core.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkatopics.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkausers.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkanodepools.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkabridges.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkaconnectors.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkamirrormaker2s.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD kafkarebalances.kafka.strimzi.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

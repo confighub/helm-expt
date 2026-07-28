@@ -62,6 +62,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your cluster — at uninstall, automatically"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -102,6 +103,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a post-apply check (receipted)"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "kept"
@@ -142,6 +144,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: ""
         command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
@@ -182,6 +185,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: ""
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
@@ -222,6 +226,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your applier — must apply CRDs before dependent objects"
+        operatingDetails: ""
         command: ""
         disposition: "observed"
         delta: "reduced"
@@ -262,6 +267,7 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+        operatingDetails: ""
         command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
         disposition: "observed"
         delta: "strengthened"
@@ -301,7 +307,8 @@ spec:
         actionKind: "observe-webhook"
         executionMode: "target-owned"
         automatic: false
-        whoRuns: "Your delivery and cluster — stage any declared certificate, then check webhook readiness"
+        whoRuns: "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness"
+        operatingDetails: ""
         command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
         disposition: "observed"
         delta: "kept"
@@ -315,8 +322,8 @@ spec:
         sourceDrift: "route source version 85.3.3; recipe version 86.1.0"
         gitOps:
           emitsControllerStep: false
-          argoCd: "observe webhook and workload health after sync"
-          flux: "use post-apply health checks; stage any declared certificate first"
+          argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"
+          flux: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
           argoCdSnippet: ""
         runners:
           direct:
@@ -325,12 +332,12 @@ spec:
             evidence:
               []
           argoCd:
-            implementation: "observe webhook and workload health after sync"
+            implementation: "wait for the certificate handoff, then observe webhook and workload health after sync"
             status: "mapping-only"
             evidence:
               []
           flux:
-            implementation: "use post-apply health checks; stage any declared certificate first"
+            implementation: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
             status: "mapping-only"
             evidence:
               []

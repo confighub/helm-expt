@@ -50,8 +50,8 @@ function emissionFor(route) {
   if (kind === "observe-webhook") {
     return {
       emit: false,
-      argo: "observe webhook and workload health after sync",
-      flux: "use post-apply health checks; stage any declared certificate first",
+      argo: "wait for the certificate handoff, then observe webhook and workload health after sync",
+      flux: "wait for the certificate handoff, then run post-apply webhook and workload health checks",
       snippet: "",
     };
   }

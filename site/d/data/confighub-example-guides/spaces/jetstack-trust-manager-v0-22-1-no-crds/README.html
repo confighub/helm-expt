@@ -471,9 +471,9 @@
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-no-crds/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
 <table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>Secret default/trust-manager-tls keys tls.crt,tls.key</td><td>kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=&lt;value&gt; --from-literal=tls.key=&lt;value&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD bundles.trust.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
+<tr><td>ClusterFeature</td><td>CRD bundles.trust.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>package://prerequisites/target-facts/no-crds-crds.yaml</td></tr>
 <tr><td>ClusterFeature</td><td>Namespace cert-manager</td><td>kubectl create namespace cert-manager</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>

@@ -870,23 +870,6 @@
     },
     {
       "source_queue": "target-prerequisite",
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "base": "no-crds",
-      "lane": "K",
-      "current_result": "watch",
-      "gap_kind": "secret",
-      "resolution_path": "derived-target-variant",
-      "variant_role": "target-bound derived variant",
-      "recommended_variant_or_action": "bind Secret kedaorg-certs as a target fact on a derived ConfigHub variant",
-      "existing_off_ramp": "",
-      "first_step": "create or reference the Secret in the target, then bind it through the target-prerequisite action packet",
-      "evidence_needed": "the named Secret(s) present in the target namespace before apply; then a fresh K parity receipt for this base",
-      "rerun_command": "npm run kind-parity:run -- --chart kedacore/keda --version 2.19.0 --base no-crds",
-      "source_evidence": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
-    },
-    {
-      "source_queue": "target-prerequisite",
       "chart": "nats/surveyor",
       "version": "0.20.9",
       "base": "default-reviewed",

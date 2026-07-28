@@ -75,6 +75,31 @@
       </div>
     </section>
     <section>
+      <h2>kedacore/keda</h2>
+      <div class="base">
+        <div class="base-h">default@2.19.0</div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="base">
+        <div class="base-h">no-crds@2.19.0 <span class="muted">· needs 6 CRDs supplied first</span></div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
+          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section>
       <h2>kyverno/kyverno</h2>
       <div class="base">
         <div class="base-h">default@3.8.1</div>
@@ -192,7 +217,7 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
@@ -235,7 +260,7 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
@@ -278,7 +303,7 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
@@ -321,7 +346,7 @@
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery and cluster — stage any declared certificate, then check webhook readiness</span></td>
+          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>

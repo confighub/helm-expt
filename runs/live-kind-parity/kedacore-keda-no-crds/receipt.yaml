@@ -6,8 +6,8 @@ spec:
   chart: kedacore/keda
   version: 2.19.0
   base: no-crds
-  result: watch
-  observedAt: '2026-06-15T09:17:54Z'
+  result: pass
+  observedAt: '2026-07-28T14:20:01Z'
   package:
     path: packages/kedacore/keda/2.19.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-keda-33086-2sqs-helm
-    installerCluster: hx-keda-33086-2sqs-installer
+    helmCluster: hx-keda-33086-syi4-helm
+    installerCluster: hx-keda-33086-syi4-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-keda-33086-2sqs-helm
+      - cluster: hx-keda-33086-syi4-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-keda-33086-2sqs-helm" ...
+        detail: 'Deleting cluster "hx-keda-33086-syi4-helm" ...
 
-          Deleted nodes: ["hx-keda-33086-2sqs-helm-control-plane"]'
-      - cluster: hx-keda-33086-2sqs-installer
+          Deleted nodes: ["hx-keda-33086-syi4-helm-control-plane"]'
+      - cluster: hx-keda-33086-syi4-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-keda-33086-2sqs-installer" ...
+        detail: 'Deleting cluster "hx-keda-33086-syi4-installer" ...
 
-          Deleted nodes: ["hx-keda-33086-2sqs-installer-control-plane"]'
+          Deleted nodes: ["hx-keda-33086-syi4-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install keda keda --repo https://kedacore.github.io/charts
-        --version 2.19.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
+        --version 2.19.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7
@@ -52,21 +52,23 @@ spec:
       runtime:
         result: pass
         namespaces: *id001
+        selfGeneratedSecrets:
+        - kedaorg-certs
         workloads: '# default
 
-          deployment.apps/keda-admission-webhooks           1/1   1     1     50s
+          deployment.apps/keda-admission-webhooks           1/1   1     1     44s
 
-          deployment.apps/keda-operator                     1/1   1     1     50s
+          deployment.apps/keda-operator                     1/1   1     1     44s
 
-          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     50s'
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     44s'
         pods: '# default
 
-          keda-admission-webhooks-7b48797dc8-k9l25          1/1   Running   0             50s
+          keda-admission-webhooks-7b48797dc8-mj8fc          1/1   Running   0             44s
 
-          keda-operator-55db59458d-8nl7v                    1/1   Running   1 (39s
-          ago)   50s
+          keda-operator-55db59458d-9xqqq                    1/1   Running   1 (32s
+          ago)   44s
 
-          keda-operator-metrics-apiserver-cb7df9874-55w7g   1/1   Running   0             50s'
+          keda-operator-metrics-apiserver-cb7df9874-v95vv   1/1   Running   0             44s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -87,9 +89,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: blocked
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/kedacore/keda/2.19.0
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-keda-33086-2sqs-keda
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-keda-33086-syi4-keda
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -102,300 +104,27 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: blocked
+        result: pass
         namespaces: *id002
+        selfGeneratedSecrets:
+        - kedaorg-certs
         workloads: '# default
 
-          deployment.apps/keda-admission-webhooks           0/1   1     0     10s
+          deployment.apps/keda-admission-webhooks           1/1   1     1     51s
 
-          deployment.apps/keda-operator                     0/1   1     0     10s
+          deployment.apps/keda-operator                     1/1   1     1     51s
 
-          deployment.apps/keda-operator-metrics-apiserver   0/1   1     0     10s'
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
         pods: '# default
 
-          keda-admission-webhooks-7b48797dc8-n8z42          0/1   ContainerCreating   0     10s
+          keda-admission-webhooks-7b48797dc8-5gpxn          1/1   Running   0             51s
 
-          keda-operator-55db59458d-fj9t2                    0/1   ContainerCreating   0     10s
+          keda-operator-55db59458d-w74xv                    1/1   Running   1 (39s
+          ago)   51s
 
-          keda-operator-metrics-apiserver-cb7df9874-xvkft   0/1   ContainerCreating   0     10s'
-        notReady:
-        - namespace: default
-          pod: keda-admission-webhooks-7b48797dc8-n8z42
-          ready: 0/1
-          status: ContainerCreating
-          blockedReason: missing-required-secret
-          missingSecret: kedaorg-certs
-        - namespace: default
-          pod: keda-operator-55db59458d-fj9t2
-          ready: 0/1
-          status: ContainerCreating
-        - namespace: default
-          pod: keda-operator-metrics-apiserver-cb7df9874-xvkft
-          ready: 0/1
-          status: ContainerCreating
-          blockedReason: missing-required-secret
-          missingSecret: kedaorg-certs
-        diagnostics:
-        - namespace: default
-          pod: keda-admission-webhooks-7b48797dc8-n8z42
-          result: blocked
-          detailHead: "Name:             keda-admission-webhooks-7b48797dc8-n8z42\n\
-            Namespace:        default\nPriority:         0\nService Account:  keda-webhook\n\
-            Node:             hx-keda-33086-2sqs-installer-control-plane/192.168.97.3\n\
-            Start Time:       Mon, 15 Jun 2026 10:19:37 +0100\nLabels:           app=keda-admission-webhooks\n\
-            \                  app.kubernetes.io/component=operator\n            \
-            \      app.kubernetes.io/instance=keda\n                  app.kubernetes.io/managed-by=Helm\n\
-            \                  app.kubernetes.io/name=keda-admission-webhooks\n  \
-            \                app.kubernetes.io/part-of=keda-operator\n           \
-            \       app.kubernetes.io/version=2.19.0\n                  helm.sh/chart=keda-2.19.0\n\
-            \                  name=keda-admission-webhooks\n                  pod-template-hash=7b48797dc8\n\
-            Annotations:      <none>\nStatus:           Pending\nIP:             \
-            \  \nIPs:              <none>\nControlled By:    ReplicaSet/keda-admission-webhooks-7b48797dc8\n\
-            Containers:\n  keda-admission-webhooks:\n    Container ID:    \n    Image:\
-            \           ghcr.io/kedacore/keda-admission-webhooks:2.19.0\n    Image\
-            \ ID:        \n    Port:            9443/TCP (http)\n    Host Port:  \
-            \     0/TCP (http)\n    SeccompProfile:  RuntimeDefault\n    Command:\n\
-            \      /keda-admission-webhooks\n    Args:\n      --zap-log-level=info\n\
-            \      --zap-encoder=console\n      --zap-time-encoding=rfc3339\n    \
-            \  --cert-dir=/certs\n      --health-probe-bind-address=:8081\n      --metrics-bind-address=:8080\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
-            \ cpu:     1\n      memory:  1000Mi\n    Requests:\n      cpu:      100m\n\
-            \      memory:   100Mi\n    Liveness:   http-get http://:8081/healthz\
-            \ delay=25s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
-            \  http-get http://:8081/readyz delay=20s timeout=1s period=3s #success=1\
-            \ #failure=3\n    Environment:\n      WATCH_NAMESPACE:  \n      POD_NAME:\
-            \         keda-admission-webhooks-7b48797dc8-n8z42 (v1:metadata.name)\n\
-            \      POD_NAMESPACE:    default (v1:metadata.namespace)\n    Mounts:\n\
-            \      /certs from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-c9dbz (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    false\n  kube-api-access-c9dbz:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        Burstable\nNode-Selectors:              kubernetes.io/os=linux\n\
-            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
-            \ for 300s\n           "
-          detailTail: "p.kubernetes.io/part-of=keda-operator\n                  app.kubernetes.io/version=2.19.0\n\
-            \                  helm.sh/chart=keda-2.19.0\n                  name=keda-admission-webhooks\n\
-            \                  pod-template-hash=7b48797dc8\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/keda-admission-webhooks-7b48797dc8\nContainers:\n\
-            \  keda-admission-webhooks:\n    Container ID:    \n    Image:       \
-            \    ghcr.io/kedacore/keda-admission-webhooks:2.19.0\n    Image ID:  \
-            \      \n    Port:            9443/TCP (http)\n    Host Port:       0/TCP\
-            \ (http)\n    SeccompProfile:  RuntimeDefault\n    Command:\n      /keda-admission-webhooks\n\
-            \    Args:\n      --zap-log-level=info\n      --zap-encoder=console\n\
-            \      --zap-time-encoding=rfc3339\n      --cert-dir=/certs\n      --health-probe-bind-address=:8081\n\
-            \      --metrics-bind-address=:8080\n    State:          Waiting\n   \
-            \   Reason:       ContainerCreating\n    Ready:          False\n    Restart\
-            \ Count:  0\n    Limits:\n      cpu:     1\n      memory:  1000Mi\n  \
-            \  Requests:\n      cpu:      100m\n      memory:   100Mi\n    Liveness:\
-            \   http-get http://:8081/healthz delay=25s timeout=1s period=10s #success=1\
-            \ #failure=3\n    Readiness:  http-get http://:8081/readyz delay=20s timeout=1s\
-            \ period=3s #success=1 #failure=3\n    Environment:\n      WATCH_NAMESPACE:\
-            \  \n      POD_NAME:         keda-admission-webhooks-7b48797dc8-n8z42\
-            \ (v1:metadata.name)\n      POD_NAMESPACE:    default (v1:metadata.namespace)\n\
-            \    Mounts:\n      /certs from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-c9dbz (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    false\n  kube-api-access-c9dbz:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        Burstable\nNode-Selectors:              kubernetes.io/os=linux\n\
-            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
-            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \    From               Message\n  ----     ------       ----        \
-            \      ----               -------\n  Normal   Scheduled    10s       \
-            \        default-scheduler  Successfully assigned default/keda-admission-webhooks-7b48797dc8-n8z42\
-            \ to hx-keda-33086-2sqs-installer-control-plane\n  Warning  FailedMount\
-            \  2s (x5 over 10s)  kubelet            MountVolume.SetUp failed for volume\
-            \ \"certificates\" : secret \"kedaorg-certs\" not found"
-          blockedReason: missing-required-secret
-          missingSecret: kedaorg-certs
-        - namespace: default
-          pod: keda-operator-55db59458d-fj9t2
-          result: pass
-          detailHead: "Name:             keda-operator-55db59458d-fj9t2\nNamespace:\
-            \        default\nPriority:         0\nService Account:  keda-operator\n\
-            Node:             hx-keda-33086-2sqs-installer-control-plane/192.168.97.3\n\
-            Start Time:       Mon, 15 Jun 2026 10:19:37 +0100\nLabels:           app=keda-operator\n\
-            \                  app.kubernetes.io/component=operator\n            \
-            \      app.kubernetes.io/instance=keda\n                  app.kubernetes.io/managed-by=Helm\n\
-            \                  app.kubernetes.io/name=keda-operator\n            \
-            \      app.kubernetes.io/part-of=keda-operator\n                  app.kubernetes.io/version=2.19.0\n\
-            \                  helm.sh/chart=keda-2.19.0\n                  name=keda-operator\n\
-            \                  pod-template-hash=55db59458d\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/keda-operator-55db59458d\nContainers:\n \
-            \ keda-operator:\n    Container ID:    \n    Image:           ghcr.io/kedacore/keda:2.19.0\n\
-            \    Image ID:        \n    Port:            9666/TCP (metricsservice)\n\
-            \    Host Port:       0/TCP (metricsservice)\n    SeccompProfile:  RuntimeDefault\n\
-            \    Command:\n      /keda\n    Args:\n      --leader-elect\n      --disable-compression=true\n\
-            \      --zap-log-level=info\n      --zap-encoder=console\n      --zap-time-encoding=rfc3339\n\
-            \      --enable-webhook-patching=true\n      --cert-dir=/certs\n     \
-            \ --enable-cert-rotation=true\n      --cert-secret-name=kedaorg-certs\n\
-            \      --operator-service-name=keda-operator\n      --metrics-server-service-name=keda-operator-metrics-apiserver\n\
-            \      --webhooks-service-name=keda-admission-webhooks\n      --k8s-cluster-name=kubernetes-default\n\
-            \      --k8s-cluster-domain=cluster.local\n      --enable-prometheus-metrics=false\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
-            \ cpu:     1\n      memory:  1000Mi\n    Requests:\n      cpu:      100m\n\
-            \      memory:   100Mi\n    Liveness:   http-get http://:8081/healthz\
-            \ delay=25s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
-            \  http-get http://:8081/readyz delay=20s timeout=1s period=3s #success=1\
-            \ #failure=3\n    Environment:\n      WATCH_NAMESPACE:            \n \
-            \     POD_NAME:                   keda-operator-55db59458d-fj9t2 (v1:metadata.name)\n\
-            \      POD_NAMESPACE:              default (v1:metadata.namespace)\n \
-            \     OPERATOR_NAME:              keda-operator\n      KEDA_HTTP_DEFAULT_TIMEOUT:\
-            \  3000\n      KEDA_HTTP_MIN_TLS_VERSION:  TLS12\n    Mounts:\n      /certs\
-            \ from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-7jw7t (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    true\n  kube-api-acc"
-          detailTail: "Container ID:    \n    Image:           ghcr.io/kedacore/keda:2.19.0\n\
-            \    Image ID:        \n    Port:            9666/TCP (metricsservice)\n\
-            \    Host Port:       0/TCP (metricsservice)\n    SeccompProfile:  RuntimeDefault\n\
-            \    Command:\n      /keda\n    Args:\n      --leader-elect\n      --disable-compression=true\n\
-            \      --zap-log-level=info\n      --zap-encoder=console\n      --zap-time-encoding=rfc3339\n\
-            \      --enable-webhook-patching=true\n      --cert-dir=/certs\n     \
-            \ --enable-cert-rotation=true\n      --cert-secret-name=kedaorg-certs\n\
-            \      --operator-service-name=keda-operator\n      --metrics-server-service-name=keda-operator-metrics-apiserver\n\
-            \      --webhooks-service-name=keda-admission-webhooks\n      --k8s-cluster-name=kubernetes-default\n\
-            \      --k8s-cluster-domain=cluster.local\n      --enable-prometheus-metrics=false\n\
-            \    State:          Waiting\n      Reason:       ContainerCreating\n\
-            \    Ready:          False\n    Restart Count:  0\n    Limits:\n     \
-            \ cpu:     1\n      memory:  1000Mi\n    Requests:\n      cpu:      100m\n\
-            \      memory:   100Mi\n    Liveness:   http-get http://:8081/healthz\
-            \ delay=25s timeout=1s period=10s #success=1 #failure=3\n    Readiness:\
-            \  http-get http://:8081/readyz delay=20s timeout=1s period=3s #success=1\
-            \ #failure=3\n    Environment:\n      WATCH_NAMESPACE:            \n \
-            \     POD_NAME:                   keda-operator-55db59458d-fj9t2 (v1:metadata.name)\n\
-            \      POD_NAMESPACE:              default (v1:metadata.namespace)\n \
-            \     OPERATOR_NAME:              keda-operator\n      KEDA_HTTP_DEFAULT_TIMEOUT:\
-            \  3000\n      KEDA_HTTP_MIN_TLS_VERSION:  TLS12\n    Mounts:\n      /certs\
-            \ from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-7jw7t (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    true\n  kube-api-access-7jw7t:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        Burstable\nNode-Selectors:              kubernetes.io/os=linux\n\
-            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
-            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type    Reason     Age   From       \
-            \        Message\n  ----    ------     ----  ----               -------\n\
-            \  Normal  Scheduled  10s   default-scheduler  Successfully assigned default/keda-operator-55db59458d-fj9t2\
-            \ to hx-keda-33086-2sqs-installer-control-plane\n  Normal  Pulling   \
-            \ 10s   kubelet            spec.containers{keda-operator}: Pulling image\
-            \ \"ghcr.io/kedacore/keda:2.19.0\""
-        - namespace: default
-          pod: keda-operator-metrics-apiserver-cb7df9874-xvkft
-          result: blocked
-          detailHead: "Name:             keda-operator-metrics-apiserver-cb7df9874-xvkft\n\
-            Namespace:        default\nPriority:         0\nService Account:  keda-metrics-server\n\
-            Node:             hx-keda-33086-2sqs-installer-control-plane/192.168.97.3\n\
-            Start Time:       Mon, 15 Jun 2026 10:19:37 +0100\nLabels:           app=keda-operator-metrics-apiserver\n\
-            \                  app.kubernetes.io/component=operator\n            \
-            \      app.kubernetes.io/instance=keda\n                  app.kubernetes.io/managed-by=Helm\n\
-            \                  app.kubernetes.io/name=keda-operator-metrics-apiserver\n\
-            \                  app.kubernetes.io/part-of=keda-operator\n         \
-            \         app.kubernetes.io/version=2.19.0\n                  helm.sh/chart=keda-2.19.0\n\
-            \                  pod-template-hash=cb7df9874\nAnnotations:      <none>\n\
-            Status:           Pending\nIP:               \nIPs:              <none>\n\
-            Controlled By:    ReplicaSet/keda-operator-metrics-apiserver-cb7df9874\n\
-            Containers:\n  keda-operator-metrics-apiserver:\n    Container ID:   \
-            \ \n    Image:           ghcr.io/kedacore/keda-metrics-apiserver:2.19.0\n\
-            \    Image ID:        \n    Ports:           6443/TCP (https), 8080/TCP\
-            \ (metrics)\n    Host Ports:      0/TCP (https), 0/TCP (metrics)\n   \
-            \ SeccompProfile:  RuntimeDefault\n    Command:\n      /keda-adapter\n\
-            \    Args:\n      --port=8080\n      --secure-port=6443\n      --logtostderr=true\n\
-            \      --stderrthreshold=ERROR\n      --disable-compression=true\n   \
-            \   --metrics-service-address=keda-operator.default.svc.cluster.local:9666\n\
-            \      --client-ca-file=/certs/ca.crt\n      --tls-cert-file=/certs/tls.crt\n\
-            \      --tls-private-key-file=/certs/tls.key\n      --cert-dir=/certs\n\
-            \      --v=0\n      --zap-log-level=info\n      --zap-encoder=console\n\
-            \      --zap-time-encoding=rfc3339\n    State:          Waiting\n    \
-            \  Reason:       ContainerCreating\n    Ready:          False\n    Restart\
-            \ Count:  0\n    Limits:\n      cpu:     1\n      memory:  1000Mi\n  \
-            \  Requests:\n      cpu:      100m\n      memory:   100Mi\n    Liveness:\
-            \   http-get https://:6443/healthz delay=5s timeout=1s period=10s #success=1\
-            \ #failure=3\n    Readiness:  http-get https://:6443/readyz delay=5s timeout=1s\
-            \ period=3s #success=1 #failure=3\n    Environment:\n      WATCH_NAMESPACE:\
-            \            \n      POD_NAMESPACE:              default (v1:metadata.namespace)\n\
-            \      KEDA_HTTP_DEFAULT_TIMEOUT:  3000\n      KEDA_HTTP_MIN_TLS_VERSION:\
-            \  TLS12\n    Mounts:\n      /certs from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-cmm6p (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    false\n  kube-api-access-cmm6p:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n  "
-          detailTail: "olled By:    ReplicaSet/keda-operator-metrics-apiserver-cb7df9874\n\
-            Containers:\n  keda-operator-metrics-apiserver:\n    Container ID:   \
-            \ \n    Image:           ghcr.io/kedacore/keda-metrics-apiserver:2.19.0\n\
-            \    Image ID:        \n    Ports:           6443/TCP (https), 8080/TCP\
-            \ (metrics)\n    Host Ports:      0/TCP (https), 0/TCP (metrics)\n   \
-            \ SeccompProfile:  RuntimeDefault\n    Command:\n      /keda-adapter\n\
-            \    Args:\n      --port=8080\n      --secure-port=6443\n      --logtostderr=true\n\
-            \      --stderrthreshold=ERROR\n      --disable-compression=true\n   \
-            \   --metrics-service-address=keda-operator.default.svc.cluster.local:9666\n\
-            \      --client-ca-file=/certs/ca.crt\n      --tls-cert-file=/certs/tls.crt\n\
-            \      --tls-private-key-file=/certs/tls.key\n      --cert-dir=/certs\n\
-            \      --v=0\n      --zap-log-level=info\n      --zap-encoder=console\n\
-            \      --zap-time-encoding=rfc3339\n    State:          Waiting\n    \
-            \  Reason:       ContainerCreating\n    Ready:          False\n    Restart\
-            \ Count:  0\n    Limits:\n      cpu:     1\n      memory:  1000Mi\n  \
-            \  Requests:\n      cpu:      100m\n      memory:   100Mi\n    Liveness:\
-            \   http-get https://:6443/healthz delay=5s timeout=1s period=10s #success=1\
-            \ #failure=3\n    Readiness:  http-get https://:6443/readyz delay=5s timeout=1s\
-            \ period=3s #success=1 #failure=3\n    Environment:\n      WATCH_NAMESPACE:\
-            \            \n      POD_NAMESPACE:              default (v1:metadata.namespace)\n\
-            \      KEDA_HTTP_DEFAULT_TIMEOUT:  3000\n      KEDA_HTTP_MIN_TLS_VERSION:\
-            \  TLS12\n    Mounts:\n      /certs from certificates (ro)\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-cmm6p (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   False \n  Initialized\
-            \                 True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  certificates:\n    Type:        Secret (a volume populated by a Secret)\n\
-            \    SecretName:  kedaorg-certs\n    Optional:    false\n  kube-api-access-cmm6p:\n\
-            \    Type:                    Projected (a volume that contains injected\
-            \ data from multiple sources)\n    TokenExpirationSeconds:  3607\n   \
-            \ ConfigMapName:           kube-root-ca.crt\n    Optional:           \
-            \     false\n    DownwardAPI:             true\nQoS Class:           \
-            \        Burstable\nNode-Selectors:              kubernetes.io/os=linux\n\
-            Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists\
-            \ for 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason       Age           \
-            \    From               Message\n  ----     ------       ----        \
-            \      ----               -------\n  Normal   Scheduled    10s       \
-            \        default-scheduler  Successfully assigned default/keda-operator-metrics-apiserver-cb7df9874-xvkft\
-            \ to hx-keda-33086-2sqs-installer-control-plane\n  Warning  FailedMount\
-            \  2s (x5 over 10s)  kubelet            MountVolume.SetUp failed for volume\
-            \ \"certificates\" : secret \"kedaorg-certs\" not found"
-          blockedReason: missing-required-secret
-          missingSecret: kedaorg-certs
+          keda-operator-metrics-apiserver-cb7df9874-lxnpn   1/1   Running   0             51s'
+        notReady: []
+        diagnostics: []
         apiServices:
           result: pass
           items:
@@ -415,16 +144,28 @@ spec:
     allowedExtraInstallerObjects:
     - v1|Namespace||default
     semanticNormalizations: []
+    regularHelmRenderVsLive:
+      result: pass
+      helmObjectCount: 23
+      installerObjectCount: 23
+      missingFromInstaller: []
+      allowedMissingFromInstaller: []
+      extraInInstaller: []
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: d2a6d3b2b8eabfea6c09a58367f357294ef366ff3dee5981c06afc83cb9ea31a
+    helmManagedCRDsOmittedFromGetManifest: []
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 23
       installerObjectCount: 24
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||default
       semanticDiffs: []
       semanticNormalizations: []
-      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+      comparisonSHA256: a28e3a0a28888d3ab4f4c4abd6dd4c294bb503b0d7e93c64138acce64f9e0ea5
   checks:
   - name: kind-create-helm
     result: pass
@@ -434,17 +175,23 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=6 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0
+    detail: secrets=0 crds=6 namespaces=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
+  - name: regular-helm-rendered-crds
+    result: pass
+    detail: observed=0/0
+  - name: regular-helm-render-live-parity
+    result: pass
+    detail: missing=0 extra=[] diffs=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"keda\" does not exist. Installing it now.\nNAME: keda\nLAST\
-      \ DEPLOYED: Mon Jun 15 10:18:46 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      \ DEPLOYED: Tue Jul 28 15:20:57 2026\nNAMESPACE: default\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n:::^.\
       \     .::::^:     :::::::::::::::    .:::::::::.                   .^.     \
       \             \n7???~   .^7????~.     7??????????????.   :?????????77!^.   \
@@ -463,15 +210,18 @@ spec:
   - name: cub-installer-operating-policy
     result: pass
     detail: none
+  - name: cub-installer-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: cub-installer-apply-live
-    result: blocked
+    result: pass
     detail: '# default
 
-      deployment.apps/keda-admission-webhooks           0/1   1     0     10s
+      deployment.apps/keda-admission-webhooks           1/1   1     1     51s
 
-      deployment.apps/keda-operator                     0/1   1     0     10s
+      deployment.apps/keda-operator                     1/1   1     1     51s
 
-      deployment.apps/keda-operator-metrics-apiserver   0/1   1     0     10s'
+      deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
   - name: cub-installer-apiservice-aggregation
     result: pass
     detail: v1beta1.external.metrics.k8s.io available=True query=pass
@@ -482,13 +232,77 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: cloudeventsources.eventing.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
+      - name: clustercloudeventsources.eventing.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
+      - name: clustertriggerauthentications.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
+      - name: scaledjobs.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
+      - name: scaledobjects.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
+      - name: triggerauthentications.keda.sh
+        sourceVariant: default
+        sourceKind: recorded-source-path
+        sourcePath: /Users/alexis/code/helm-expt/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml
+        lane: regularHelm
       stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: cloudeventsources.eventing.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
+      - name: clustercloudeventsources.eventing.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
+      - name: clustertriggerauthentications.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
+      - name: scaledjobs.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
+      - name: scaledobjects.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
+      - name: triggerauthentications.keda.sh
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0/prerequisites/target-facts/no-crds-crds.yaml
+        lane: cubInstallerApply
       stagedObjectStores: []
+      stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/kedacore-keda-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:
@@ -497,3 +311,10 @@ spec:
     cubInstallerApply:
       result: pass
       operation: none
+  crdObservations:
+    regularHelm:
+      result: pass
+      items: []
+    cubInstallerApply:
+      result: pass
+      items: []

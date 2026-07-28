@@ -85,29 +85,29 @@ After upload, create environment versions with `cub variant create` and move rev
 | Kind | What | How to provide it |
 | --- | --- | --- |
 | ClusterFeature | Secret external-secrets/external-secrets-webhook | kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml |
-| ClusterFeature | CRD acraccesstokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD cloudsmithaccesstokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterexternalsecrets.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clustergenerators.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clusterpushsecrets.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD clustersecretstores.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD ecrauthorizationtokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD externalsecrets.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD fakes.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD gcraccesstokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD generatorstates.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD githubaccesstokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD grafanas.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD mfas.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD passwords.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD pushsecrets.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD quayaccesstokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD secretstores.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD sshkeys.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD stssessiontokens.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD uuids.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD vaultdynamicsecrets.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
-| ClusterFeature | CRD webhooks.generators.external-secrets.io | kubectl apply -f <crd-manifest.yaml> |
+| ClusterFeature | CRD acraccesstokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD cloudsmithaccesstokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterexternalsecrets.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustergenerators.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clusterpushsecrets.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD clustersecretstores.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD ecrauthorizationtokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD externalsecrets.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD fakes.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD gcraccesstokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD generatorstates.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD githubaccesstokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD grafanas.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD mfas.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD passwords.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD pushsecrets.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD quayaccesstokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD secretstores.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD sshkeys.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD stssessiontokens.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD uuids.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD vaultdynamicsecrets.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| ClusterFeature | CRD webhooks.generators.external-secrets.io | package://prerequisites/target-facts/no-crds-crds.yaml |
 
 ## Evidence
 

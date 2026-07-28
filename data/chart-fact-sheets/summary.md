@@ -13,7 +13,7 @@ never one without the other. Read-only projection over
 [chart-skills](../chart-skills/skills.csv). The browser board is
 [fact-sheets.html](fact-sheets.html).
 
-Covers **100 charts**. By support status: needs-better-base-variant 35 · works-with-operator-review 23 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 7.
+Covers **100 charts**. By support status: needs-better-base-variant 33 · works-with-operator-review 23 · ready-to-try 20 · works-with-target-prerequisites 15 · not-ready-yet 9.
 
 After any apply, the honest check is **cub-scout** — `object-set-matches`,
 `prerequisites-met`, `workloads-converged` — because "created" is not "working".
@@ -35,19 +35,19 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Status:** Ready to try (`ready-to-try`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `static-passwords`
+- **Recommended base:** `existing-secret-replicaset`
 - **You must provide/decide:** a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope
+- **Next action:** choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first
 
 ## bitnami/mysql@14.0.3
 
 - **Status:** Ready to try (`ready-to-try`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `static-passwords`
+- **Recommended base:** `existing-secret`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -64,26 +64,26 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision
+- **Next action:** choose whether http-clusterip is in production scope; close or document its render-only live-readiness issue first
 
 ## bitnami/postgresql@18.6.7
 
 - **Status:** Ready to try (`ready-to-try`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `static-passwords`
+- **Recommended base:** `existing-secret`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope
+- **Next action:** choose whether static-passwords is in production scope; close or document its render-only live-readiness issue first
 
 ## bitnami/rabbitmq@16.0.14
 
 - **Status:** Ready to try (`ready-to-try`)
 - **Support (claim):** yes-public-catalog; production decision: static-passwords:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `static-passwords`
+- **Recommended base:** `existing-secret`
 - **You must provide/decide:** an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;existing-secret;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -95,12 +95,12 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Status:** Ready to try (`ready-to-try`)
 - **Support (claim):** yes-public-catalog; production decision: default:supported:fresh-target-evidence-passed
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
-- **Recommended base:** `default`
+- **Recommended base:** `reuse-existing-secret`
 - **You must provide/decide:** a StorageClass / storage decision; target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** generated-secrets;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope
+- **Next action:** choose whether default is in production scope; close or document its render-only live-readiness issue first
 
 ## external-secrets/external-secrets@2.5.0
 
@@ -117,7 +117,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## grafana/grafana@10.5.15
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: static-passwords:superseded:not-production-supported-because-source-chart-is-deprecated
+- **Support (claim):** yes-public-catalog; production decision: existing-secret-ingress:superseded:not-production-supported-because-source-chart-is-deprecated
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `existing-secret-ingress`
 - **You must provide/decide:** nothing beyond a cluster and namespace
@@ -165,7 +165,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 ## hashicorp/vault@0.32.0
 
 - **Status:** Ready to try (`ready-to-try`)
-- **Support (claim):** yes-public-catalog; production decision: dev-mode:rejected:not-production-supported-because-vault-dev-mode-is-local-only
+- **Support (claim):** yes-public-catalog; production decision: default:rejected:parity-passed-production-support-rejected
 - **Evidence depth:** catalog-supported-with-live-evidence (render parity 3/3, local live 2/3, live parity 2/3)
 - **Recommended base:** `default`
 - **You must provide/decide:** a StorageClass / storage decision; webhook/cert readiness at delivery time; mandatory chart inputs
@@ -275,7 +275,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
 - **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 3/3, local live 3/3, live parity 3/3)
-- **Recommended base:** `dry-run-txt-registry`
+- **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); mandatory chart inputs
 - **Quirks & disposition:** crds;existing-secret;extension-slots;required-values;tpl;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
 - **Skill:** target-facts-and-lifecycle (docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)
@@ -310,7 +310,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time
 - **Quirks & disposition:** crds;existing-secret;webhooks;extension-slots;generated-facts;tpl;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
@@ -334,7 +334,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots;required-values;tpl;capabilities;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -370,8 +370,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
-- **Recommended base:** `cluster-metrics-readonly`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time
 - **Quirks & disposition:** existing-secret;extension-slots;generated-facts;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -418,8 +418,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
-- **Recommended base:** `cluster-metrics-readonly`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `default`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots;tpl;capabilities — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -430,8 +430,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Not ready yet (`not-ready-yet`)
 - **Support (claim):** decision-needed-first
-- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)
+- **Recommended base:** `legacy`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -442,8 +442,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
-- **Recommended base:** `controller-default-reviewed`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `default`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -454,7 +454,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
@@ -514,7 +514,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots;required-values;lookup;tpl;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
@@ -526,8 +526,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
-- **Recommended base:** `cluster-metrics-readonly`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs
 - **Quirks & disposition:** existing-secret;extension-slots;required-values;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -538,8 +538,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Not ready yet (`not-ready-yet`)
 - **Support (claim):** decision-needed-first
-- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)
+- **Recommended base:** `legacy`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -562,8 +562,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** review-needed
-- **Evidence depth:** proof-grade-compatible-base-needs-standard-lanes (render parity 3/3, local live 1/3, live parity 0/3)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-compatible-base-needs-standard-lanes (render parity 3/3, local live 1/3, live parity 1/3)
+- **Recommended base:** `apiservice-v1-capability`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -586,7 +586,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** crds;generated-secrets;existing-secret;webhooks;extension-slots;lookup;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
@@ -598,7 +598,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); target facts at variant time; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** crds;existing-secret;generated-facts — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; cluster lookups lifted into declared target facts
@@ -610,8 +610,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Not ready yet (`not-ready-yet`)
 - **Support (claim):** decision-needed-first
-- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 3/3, local live 1/3, live parity 0/3)
+- **Recommended base:** `legacy`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; a decision on the named limitation before use
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
@@ -646,7 +646,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots;required-values;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases; cluster lookups lifted into declared target facts
@@ -668,21 +668,21 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 ## bitnami/phpmyadmin@20.0.0
 
-- **Status:** Needs a better base (`needs-better-base-variant`)
-- **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
-- **Recommended base:** `default`
-- **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists
+- **Status:** Not ready yet (`not-ready-yet`)
+- **Support (claim):** decision-needed-first
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 1/2, live parity 0/2)
+- **Recommended base:** `legacy`
+- **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs; a decision on the named limitation before use
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** add at least one user-shaped variant before catalog promotion
+- **Next action:** review limitation before promotion: existing-secret (chart ships no Secret toggle)
 
 ## prometheus-community/prometheus-pushgateway@3.6.0
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** generated-secrets;extension-slots;required-values;tpl;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases
@@ -706,7 +706,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 0/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time
 - **Quirks & disposition:** crds;webhooks;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -718,7 +718,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a StorageClass / storage decision; target facts at variant time; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;storage — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
@@ -730,7 +730,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;extension-slots;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -766,7 +766,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Not ready yet (`not-ready-yet`)
 - **Support (claim):** decision-needed-first
-- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 0/2, live parity 0/2)
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 3/3, local live 0/3, live parity 0/3)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use
 - **Quirks & disposition:** crds;generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
@@ -802,7 +802,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** crds;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
@@ -814,7 +814,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base); target facts at variant time
 - **Quirks & disposition:** crds;extension-slots;install-vs-upgrade-divergence;lookup;rbac — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
@@ -824,15 +824,15 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 ## bitnami/apache@11.4.29
 
-- **Status:** Needs a better base (`needs-better-base-variant`)
-- **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
-- **Recommended base:** `default`
-- **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; your wanted install shape, until a reviewed base exists
+- **Status:** Not ready yet (`not-ready-yet`)
+- **Support (claim):** decision-needed-first
+- **Evidence depth:** proof-grade-with-named-limitation (render parity 2/2, local live 1/2, live parity 0/2)
+- **Recommended base:** `legacy`
+- **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time; a decision on the named limitation before use
 - **Quirks & disposition:** generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
 - **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
-- **Next action:** add at least one user-shaped variant before catalog promotion
+- **Next action:** review limitation before promotion: existing-secret (chart ships no Secret toggle)
 
 ## grafana/pyroscope@2.0.2
 
@@ -862,7 +862,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a StorageClass / storage decision; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots;required-values;capabilities;rbac;storage — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -910,7 +910,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 1/3)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 3/3)
 - **Recommended base:** `minimal-crds`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -922,7 +922,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -934,8 +934,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
-- **Recommended base:** `controller-default-reviewed`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `default`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -946,7 +946,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -958,8 +958,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 0/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 3/3, local live 1/3, live parity 0/3)
+- **Recommended base:** `legacy`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run)
 - **Quirks & disposition:** existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -982,7 +982,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -994,7 +994,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 0/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -1006,7 +1006,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -1042,7 +1042,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** none-flagged — exact rendered objects with render parity and receipts
@@ -1090,8 +1090,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
+- **Recommended base:** `no-crds`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
 - **Skill:** live-parity (docs/skills/live-parity.md)
@@ -1126,7 +1126,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
@@ -1138,7 +1138,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
@@ -1150,7 +1150,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** crds — exact rendered objects with render parity and receipts; CRD handling split into explicit bases
@@ -1174,7 +1174,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Works with prerequisites (`works-with-target-prerequisites`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 1/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base)
 - **Quirks & disposition:** crds;existing-secret;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
@@ -1198,7 +1198,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 1/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** an existing Secret for some bases (buildable — not yet run); your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** existing-secret;extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases
@@ -1210,7 +1210,7 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 0/2)
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)
 - **Recommended base:** `default`
 - **You must provide/decide:** nothing beyond a cluster and namespace
 - **Quirks & disposition:** extension-slots — exact rendered objects with render parity and receipts; extension slots routed to reviewed bases

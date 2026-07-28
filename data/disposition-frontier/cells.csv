@@ -796,7 +796,7 @@ kedacore/keda@2.19.0,no-crds,in_confighub,C,pass,pass,no,,,
 kedacore/keda@2.19.0,no-crds,local_live,L,pass,pass,no,,,
 kedacore/keda@2.19.0,no-crds,gitops_oci_live,G,pass,pass,no,,,
 kedacore/keda@2.19.0,no-crds,live_helm_vs_confighub_parity,P,pass,pass,no,,,
-kedacore/keda@2.19.0,no-crds,two_cluster_kind_parity,K,watch,watch,no,target-prerequisite: required Secret missing (parity passed),,kind-parity
+kedacore/keda@2.19.0,no-crds,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
 kyverno/kyverno-policies@3.8.0,default,render_parity,R,pass,pass,no,,,
 kyverno/kyverno-policies@3.8.0,default,in_confighub,C,pass,pass,no,,,
 kyverno/kyverno-policies@3.8.0,default,local_live,L,pass,pass,no,,,

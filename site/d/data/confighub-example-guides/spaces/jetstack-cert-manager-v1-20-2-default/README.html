@@ -470,12 +470,12 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.20.2/bases/default"><code>packages/jetstack/cert-manager/v1.20.2/bases/default</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD challenges.acme.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD orders.acme.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificaterequests.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterissuers.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr>
-<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>kubectl apply -f &lt;crd-manifest.yaml&gt;</td></tr></tbody></table>
+<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD challenges.acme.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD orders.acme.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD certificaterequests.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD clusterissuers.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
+<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

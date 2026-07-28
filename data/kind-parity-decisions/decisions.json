@@ -509,20 +509,6 @@
       "receipt": "runs/live-kind-parity/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
     },
     {
-      "chart": "kedacore/keda",
-      "version": "2.19.0",
-      "base": "no-crds",
-      "result": "watch",
-      "semantic_parity": "pass",
-      "residue_category": "target-prerequisite-secret",
-      "blocker_owner": "user",
-      "usable_today": "yes, after staging a Secret",
-      "user_decision": "Usable once you stage the required Secret on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
-      "next_action": "Stage the named Secret as a target fact, then the row can move to pass.",
-      "reason": "target-prerequisite: required Secret missing (parity passed)",
-      "receipt": "runs/live-kind-parity/kedacore-keda-no-crds/receipt.yaml"
-    },
-    {
       "chart": "kyverno/kyverno-policies",
       "version": "3.8.0",
       "base": "default",
