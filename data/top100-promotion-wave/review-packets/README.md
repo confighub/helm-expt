@@ -23,7 +23,7 @@ chart. Each packet is a review input. It is not a catalog support claim.
 | `gatekeeper/gatekeeper@3.22.2` | default | `live-helm-vs-confighub-parity` | high=0, medium=22, gates=allow;warn | 8 | [gatekeeper-gatekeeper-3-22-2.yaml](./gatekeeper-gatekeeper-3-22-2.yaml) |
 | `grafana/alloy@1.8.2` | default | `live-helm-vs-confighub-parity` | high=0, medium=3, gates=allow;warn | 8 | [grafana-alloy-1-8-2.yaml](./grafana-alloy-1-8-2.yaml) |
 | `grafana/rollout-operator@0.49.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [grafana-rollout-operator-0-49-0.yaml](./grafana-rollout-operator-0-49-0.yaml) |
-| `jetstack/trust-manager@v0.22.1` | default | `two-cluster-kind-parity` | high=0, medium=4, gates=allow;warn | 4 | [jetstack-trust-manager-v0-22-1.yaml](./jetstack-trust-manager-v0-22-1.yaml) |
+| `jetstack/trust-manager@v0.22.1` | default | `live-helm-vs-confighub-parity` | high=0, medium=4, gates=allow;warn | 4 | [jetstack-trust-manager-v0-22-1.yaml](./jetstack-trust-manager-v0-22-1.yaml) |
 | `kedacore/keda@2.19.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=17, gates=allow;warn | 8 | [kedacore-keda-2-19-0.yaml](./kedacore-keda-2-19-0.yaml) |
 | `nats/nack@0.34.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=8, gates=allow;warn | 4 | [nats-nack-0-34-0.yaml](./nats-nack-0-34-0.yaml) |
 | `nats/nats@2.14.0` | default | `live-helm-vs-confighub-parity` | high=0, medium=1, gates=allow;warn | 5 | [nats-nats-2-14-0.yaml](./nats-nats-2-14-0.yaml) |

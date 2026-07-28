@@ -6,24 +6,41 @@ spec:
   chart: jetstack/trust-manager
   version: v0.22.1
   base: no-crds
-  result: watch
-  observedAt: '2026-06-16T01:12:31Z'
+  result: pass
+  observedAt: '2026-07-28T19:43:28Z'
   package:
     path: packages/jetstack/trust-manager/v0.22.1
   recipe:
     path: recipes/jetstack/trust-manager/v0.22.1
   variantRevision: recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml
   targetProfile:
-    name: none
+    name: kind-cert-manager
     result: pass
-    resources: []
+    source:
+      package: packages/jetstack/cert-manager/v1.20.2
+      base: crds-enabled
+    manifestSHA256: 736687fcace8e44296134bad01af24fc98dedecf939736d872b1f118e30b5271
+    resources:
+    - namespace/cert-manager
+    - customresourcedefinition/certificaterequests.cert-manager.io
+    - customresourcedefinition/certificates.cert-manager.io
+    - customresourcedefinition/challenges.acme.cert-manager.io
+    - customresourcedefinition/clusterissuers.cert-manager.io
+    - customresourcedefinition/issuers.cert-manager.io
+    - customresourcedefinition/orders.acme.cert-manager.io
+    - deployment/cert-manager
+    - deployment/cert-manager-cainjector
+    - deployment/cert-manager-webhook
+    observedBehavior: The verified cert-manager catalog package installed its six
+      CRDs and three controllers before the chart under test. Certificate and Issuer
+      objects can now be reconciled instead of remaining permanently Progressing.
   gitOpsCanonicalizationProfile:
     name: none
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-trustmanager-mqfy6fwk-4q0
-    kubeContext: kind-helm-expt-parity-trustmanager-mqfy6fwk-4q0
+    rig: helm-expt-parity-trustmanager-ms52cwh1-1s3u
+    kubeContext: kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u
     namespace: default
     namespaceMode: isolated-leg-namespaces
     legNamespaces:
@@ -32,15 +49,18 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-trustmanager-mqfy6fwk-4q0 --force
+      command: cub cluster down --name helm-expt-parity-trustmanager-ms52cwh1-1s3u
+        --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-trustmanager-mqfy6fwk-4q0"...
+      detail: 'Deleting kind cluster "helm-expt-parity-trustmanager-ms52cwh1-1s3u"...
 
-        Deleting cluster "helm-expt-parity-trustmanager-mqfy6fwk-4q0" ...
+        Deleting cluster "helm-expt-parity-trustmanager-ms52cwh1-1s3u" ...
 
-        Deleted nodes: ["helm-expt-parity-trustmanager-mqfy6fwk-4q0-control-plane"]
+        Deleted nodes: ["helm-expt-parity-trustmanager-ms52cwh1-1s3u-control-plane"]
 
-        Deleting Space "helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster" (recursive:
+        Clearing release target on Space "helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster"...
+
+        Deleting Space "helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -49,25 +69,25 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
-        --version v0.22.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
+        --version v0.22.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250
       objectCount: 13
-      liveHelmManifestSHA256: 2aeb12aa00acee4ead294f649ca1e956e987dbabc3263b2bd8190ab64e60c4b6
+      liveHelmManifestSHA256: 1471c3fd8f06b99957c430ed17c5869bab9ef43e233e1eddfa96d3102c81c971
       liveHelmManifestObjectCount: 13
       namespace: default-helm
       runtime:
         result: pass
-        workloads: deployment.apps/trust-manager   1/1   1     1     15s
-        pods: trust-manager-6db9f66446-b9zrc   1/1   Running   0     15s
+        workloads: deployment.apps/trust-manager   1/1   1     1     17s
+        pods: trust-manager-6db9f66446-546pk   1/1   Running   0     17s
         notReady: []
         ignoredJobPods: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
-        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: a24f1a90f5c152a4be59fb57840386c2687171094ff67faacb4d4c2c6851f51f
@@ -87,13 +107,15 @@ spec:
           deployment.apps/trust-manager   1/1   1     1     10s'
         pods: '# default
 
-          trust-manager-6db9f66446-9lfdp   1/1   Running   0     10s'
+          trust-manager-6db9f66446-tdnqx   1/1   Running   0     10s'
         notReady: []
+        terminalReadinessBlockers: {}
       cleanupBeforeOci:
         namespaces:
-        - cert-manager
         - default-apply
-        retainedNamespaces: []
+        retainedNamespaces: &id002
+        - cert-manager
+        - default
         clusterScopedResources:
           result: pass
           objectCount: 3
@@ -104,25 +126,41 @@ spec:
 
             validatingwebhookconfiguration.admissionregistration.k8s.io "trust-manager"
             deleted'
-        protectedNamespaceResources:
-          result: not-needed
-          namespaces:
-          - default
-          objectCount: 0
-          preservedPreExistingObjects:
-          - apps/v1|Deployment|default|trust-manager
-          - cert-manager.io/v1|Certificate|default|trust-manager
-          - cert-manager.io/v1|Issuer|default|trust-manager
-          - rbac.authorization.k8s.io/v1|RoleBinding|default|trust-manager:leaderelection
-          - rbac.authorization.k8s.io/v1|Role|default|trust-manager:leaderelection
-          - v1|ServiceAccount|default|trust-manager
-          - v1|Service|default|trust-manager
-          - v1|Service|default|trust-manager-metrics
-        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
-          parity rigs
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 10
+          preservedPreExistingObjects: []
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'certificate.cert-manager.io "trust-manager" deleted from default
+            namespace
+
+            deployment.apps "trust-manager" deleted from default namespace
+
+            issuer.cert-manager.io "trust-manager" deleted from default namespace
+
+            role.rbac.authorization.k8s.io "trust-manager" deleted from cert-manager
+            namespace
+
+            role.rbac.authorization.k8s.io "trust-manager:leaderelection" deleted
+            from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "trust-manager" deleted from cert-manager
+            namespace
+
+            rolebinding.rbac.authorization.k8s.io "trust-manager:leaderelection" deleted
+            from default namespace
+
+            service "trust-manager-metrics" deleted from default namespace
+
+            service "trust-manager" deleted from default namespace
+
+            serviceaccount "trust-manager" deleted from default namespace'
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
     configHubOciArgo:
-      result: watch
-      workloadSpace: helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+      result: pass
+      workloadSpace: helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
       controller: Argo CD OCI
       app: trust-manager-parity
       manifestSHA256: fb45f6558b9d63650317166d7c590f5c3f79edd1651a475e14fbfad49343a12a
@@ -132,11 +170,11 @@ spec:
       - cert-manager
       - default
       - default-oci
-      runtimeNamespaces: &id002
+      runtimeNamespaces: &id003
       - default
-      ociRevision: sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
+      ociRevision: sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294
       sync: Synced
-      health: Progressing
+      health: Healthy
       separatedSecrets: []
       renderedLifecycleSecrets:
         result: not-needed
@@ -150,14 +188,14 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
               targetRevision: latest
-          revision: sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
+          revision: sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294
           status: Synced
         health:
-          lastTransitionTime: '2026-06-16T01:15:46Z'
-          status: Progressing
+          lastTransitionTime: '2026-07-28T19:47:11Z'
+          status: Healthy
         summary:
           images:
           - quay.io/jetstack/trust-manager:v0.22.1
@@ -165,8 +203,8 @@ spec:
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-16T01:15:46Z'
-          finishedAt: '2026-06-16T01:15:47Z'
+          startedAt: '2026-07-28T19:46:57Z'
+          finishedAt: '2026-07-28T19:46:59Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 14
@@ -174,13 +212,13 @@ spec:
             Synced: 14
         history:
         - id: 0
-          revision: sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
-          deployedAt: '2026-06-16T01:15:47Z'
-          deployStartedAt: '2026-06-16T01:15:46Z'
+          revision: sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294
+          deployedAt: '2026-07-28T19:46:59Z'
+          deployStartedAt: '2026-07-28T19:46:57Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
             targetRevision: latest
-            path: ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+            path: .
         conditions: []
         resources:
         - group: ''
@@ -300,36 +338,35 @@ spec:
           describe:
             result: pass
             output: "Name:         trust-manager-parity\nNamespace:    argocd\nLabels:\
-              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster:argoproj.io/Application:argocd/trust-manager-parity\n\
-              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
-              \ 0dbc1cb6-32e8-4b63-94b2-5b1becd1a149\n              confighub.com/UnitSlug:\
-              \ trust-manager-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
-              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-16T01:15:44Z\n\
-              \  Generation:          10\n  Resource Version:    1940\n  UID:    \
-              \             8a2b8167-7929-4056-879d-0e759a962736\nSpec:\n  Destination:\n\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster:argoproj.io/Application:argocd/trust-manager-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              73983431-c390-4b7b-9c00-dcf074f08433\",\"spaceSlug\":\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
+              ,\"unitId\":\"d2bf6beb-a65...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T19:46:50Z\n\
+              \  Generation:          9\n  Resource Version:    1612\n  UID:     \
+              \            ca47710f-f59e-4810-9c06-40a319bd4c6d\nSpec:\n  Destination:\n\
               \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
               \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
-              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-16T01:15:46Z\n\
-              \    Status:                Progressing\n  History:\n    Deploy Started\
-              \ At:  2026-06-16T01:15:46Z\n    Deployed At:        2026-06-16T01:15:47Z\n\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-28T19:47:11Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-07-28T19:46:57Z\n    Deployed At:        2026-07-28T19:46:59Z\n\
               \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
-              \    Revision:     sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
-              \    Source:\n      Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+              \    Revision:     sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-16T01:15:47Z\n    Message:      successfully synced (all\
+              \  2026-07-28T19:46:59Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
-              \     true\n        Revision:  sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
-              \        Source:\n          Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+              \     true\n        Revision:  sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
-              \       Succeeded\n    Started At:  2026-06-16T01:15:46Z\n    Sync Result:\n\
+              \       Succeeded\n    Started At:  2026-07-28T19:46:57Z\n    Sync Result:\n\
               \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
               \        Kind:        Namespace\n        Message:     namespace/default-oci\
               \ serverside-applied\n        Name:        default-oci\n        Namespace:\
@@ -341,61 +378,72 @@ spec:
               \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
               \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
               \  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/trust-manager\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[trust.cert-manager.io]\
-              \ Resources:[bundles] ResourceNames:[] NonResourceURLs:[]}\n       \
-              \                {Verbs:[update] APIGroups:[trust.cert-manager.io] Resources:[bundles/finalizers]\
-              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[patch]\
-              \ APIGroups:[trust.cert-manager.io] Resources:[bundles/status] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get list watch]\
-              \ APIGroups:[] Resources:[namespaces] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[get list create patch watch delete]\
-              \ APIGroups:[] Resources:[configmaps] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[create patch] APIGroups:[ events.k8s.io]\
-              \ Resources:[events] ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/trust-manager\
               \ serverside-applied\n        Name:        trust-manager\n        Namespace:\
               \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
               \        Hook Phase:  Running\n        Kind:        ClusterRoleBinding\n\
               \        Message:     clusterrolebinding.rbac.authorization.k8s.io/trust-manager\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ subjects added:\n                       {Kind:ServiceAccount APIGroup:\
-              \ Name:trust-manager Namespace:default}. clusterrolebinding.rbac.authorization.k8s.io/trust-manager\
               \ serverside-applied\n        Name:        trust-manager\n        Namespace:\
               \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
               \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
-              \     role.rbac.authorization.k8s.io/trust-manager:leaderelection reconciled.\
-              \ reconciliation required update. role.rbac.authorization.k8s.io/trust-manager:leaderelection\
+              \     role.rbac.authorization.k8s.io/trust-manager:leaderelection serverside-applied\n\
+              \        Name:        trust-manager:leaderelection\n        Namespace:\
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
+              \     role.rbac.authorization.k8s.io/trust-manager serverside-applied\n\
+              \        Name:        trust-manager\n        Namespace:   cert-manager\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        RoleBinding\n        Message:\
+              \     rolebinding.rbac.authorization.k8s.io/trust-manager serverside-applied\n\
+              \        Name:        trust-manager\n        Namespace:   cert-manager\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       rbac.authorization.k8s.io\n        Hook\
+              \ Phase:  Running\n        Kind:        RoleBinding\n        Message:\
+              \     rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection\
               \ serverside-applied\n        Name:        trust-manager:leaderelection\n\
               \        Namespace:   default\n        Status:      Synced\n       \
-              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
-              \        Hook Phase:  Running\n        Kind:        Role\n        Message:\
-              \     role.rbac.authorization.k8s.io/trust-manager reconciled. reconciliation\
-              \ required create\n                     missing rules added:\n     \
-              \                  {Verbs:[get list watch] APIGroups:[] Resources:[secrets]\
-              \ ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/trust-manager\
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        Service\n      \
+              \  Message:     service/trust-manager-metrics serverside-applied\n \
+              \       Name:        trust-manager-metrics\n        Namespace:   default\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       \n        Hook Phase:  Running\n    \
+              \    Kind:        Service\n        Message:     service/trust-manager\
               \ serverside-applied\n        Name:        trust-manager\n        Namespace:\
-              \   cert-manager\n       "
+              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       apps\n        Hook Phase:\
+              \  Running\n        Images:\n          quay.io/jetstack/trust-manager:v0.22.1\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/trust-manager\
+              \ serverside-applied\n        Name:        trust-manager\n        Namespace:\
+              \   default\n        Status:      Synce"
           events:
             result: pass
             output: 'LAST SEEN   TYPE     REASON               OBJECT                             MESSAGE
 
-              6m52s       Normal   OperationStarted     application/trust-manager-parity   Initiated
-              automated sync to ''sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502''
+              14s         Normal   OperationStarted     application/trust-manager-parity   Initiated
+              automated sync to ''sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294''
 
-              6m52s       Normal   ResourceUpdated      application/trust-manager-parity   Updated
+              14s         Normal   ResourceUpdated      application/trust-manager-parity   Updated
               sync status:  -> OutOfSync
 
-              6m52s       Normal   ResourceUpdated      application/trust-manager-parity   Updated
-              health status:  -> Progressing
+              14s         Normal   ResourceUpdated      application/trust-manager-parity   Updated
+              health status:  -> Healthy
 
-              6m51s       Normal   OperationCompleted   application/trust-manager-parity   Sync
-              operation to sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
+              12s         Normal   OperationCompleted   application/trust-manager-parity   Sync
+              operation to sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294
               succeeded
 
-              6m49s       Normal   ResourceUpdated      application/trust-manager-parity   Updated
-              sync status: OutOfSync -> Synced'
+              11s         Normal   ResourceUpdated      application/trust-manager-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              11s         Normal   ResourceUpdated      application/trust-manager-parity   Updated
+              health status: Healthy -> Progressing
+
+              0s          Normal   ResourceUpdated      application/trust-manager-parity   Updated
+              health status: Progressing -> Healthy'
           argocdCore:
             result: pass
             coreNamespace: argocd
@@ -404,55 +452,56 @@ spec:
               result: pass
               summary:
                 sync: Synced
-                health: Progressing
+                health: Healthy
                 operationPhase: Succeeded
                 conditions: 0
                 resources: 14
               artifact:
                 path: argocd-core-child.json
-                sha256: 753c8dfc9449c69e88b2e396628a676a481ba1be0e1afe62ec6269acb7e86327
-                bytes: 18009
+                sha256: 8a7e4ef907bfdb164e8a298364f451205b1bf2c6bcd0bbadc86d75c7c84dd454
+                bytes: 16061
               output: "{\n  \"metadata\": {\n    \"name\": \"trust-manager-parity\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"8a2b8167-7929-4056-879d-0e759a962736\"\
-                ,\n    \"resourceVersion\": \"2040\",\n    \"generation\": 11,\n \
-                \   \"creationTimestamp\": \"2026-06-16T01:15:44Z\",\n    \"annotations\"\
-                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster:argoproj.io/Application:argocd/trust-manager-parity\"\
-                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
-                : \"0dbc1cb6-32e8-4b63-94b2-5b1becd1a149\",\n      \"confighub.com/UnitSlug\"\
-                : \"trust-manager-parity-app\"\n    },\n    \"managedFields\": [\n\
-                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
-                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-16T01:15:44Z\",\n        \"fieldsType\"\
-                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
-                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
-                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
-                : {}\n            }\n          },\n          \"f:spec\": {\n     \
-                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
-                \              \"f:server\": {}\n            },\n            \"f:project\"\
-                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
-                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
-                : {}\n            },\n            \"f:syncPolicy\": {\n          \
-                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
-                \          \"f:selfHeal\": {}\n              },\n              \"\
-                f:syncOptions\": {}\n            }\n          }\n        }\n     \
-                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
-                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
-                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-16T01:22:47Z\"\
-                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
-                \          \"f:status\": {\n            \".\": {},\n            \"\
-                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
-                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
-                \              \"f:status\": {}\n            },\n            \"f:history\"\
-                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
-                \              \"f:finishedAt\": {},\n              \"f:message\"\
-                : {},\n              \"f:operation\": {\n                \".\": {},\n\
-                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
-                \                  \"f:automated\": {}\n                },\n     \
-                \           \"f:retry\": {\n                  \".\": {},\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
-                : {},\n                  \"f:revision\": {},\n                  \"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"ca47710f-f59e-4810-9c06-40a319bd4c6d\"\
+                ,\n    \"resourceVersion\": \"1630\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-07-28T19:46:50Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster:argoproj.io/Application:argocd/trust-manager-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"73983431-c390-4b7b-9c00-dcf074f08433\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\\\
+                \",\\\"unitId\\\":\\\"d2bf6beb-a65e-4a45-aed6-75db1808943c\\\",\\\"\
+                unitSlug\\\":\\\"trust-manager-parity-app\\\",\\\"revisionNum\\\"\
+                :1}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-07-28T19:46:50Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-07-28T19:47:19Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
                 f:source\": {\n                    \".\": {},\n                  \
                 \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
                 \               \"f:targetRevision\": {}\n                  },\n \
@@ -478,123 +527,87 @@ spec:
                 : {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\"\
-                ,\n      \"path\": \"./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager\"\
-                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
-                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
-                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
-                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
-                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
-                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
-                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
-                \    {\n        \"version\": \"v1\",\n        \"kind\": \"Namespace\"\
-                ,\n        \"name\": \"default-oci\",\n        \"status\": \"Synced\"\
-                \n      },\n      {\n        \"version\": \"v1\",\n        \"kind\"\
-                : \"Service\",\n        \"namespace\": \"default\",\n        \"name\"\
-                : \"trust-manager\",\n        \"status\": \"Synced\",\n        \"\
-                health\": {\n          \"status\": \"Healthy\"\n        }\n      },\n\
-                \      {\n        \"version\": \"v1\",\n        \"kind\": \"Service\"\
-                ,\n        \"namespace\": \"default\",\n        \"name\": \"trust-manager-metrics\"\
-                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
-                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
-                \   \"version\": \"v1\",\n        \"kind\": \"ServiceAccount\",\n\
-                \        \"namespace\": \"default\",\n        \"name\": \"trust-manager\"\
-                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
-                : \"admissionregistration.k8s.io\",\n        \"version\": \"v1\",\n\
-                \        \"kind\": \"ValidatingWebhookConfiguration\",\n        \"\
-                name\": \"trust-manager\",\n        \"status\": \"Synced\"\n     \
-                \ },\n      {\n        \"group\": \"apps\",\n        \"version\":\
-                \ \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"default-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Service\",\n        \"namespace\":\
+                \ \"default\",\n        \"name\": \"trust-manager\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"Service\",\n        \"namespace\": \"default\",\n\
+                \        \"name\": \"trust-manager-metrics\",\n        \"status\"\
+                : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
+                \n        }\n      },\n      {\n        \"version\": \"v1\",\n   \
+                \     \"kind\": \"ServiceAccount\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"trust-manager\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"admissionregistration.k8s.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"ValidatingWebhookConfiguration\"\
+                ,\n        \"name\": \"trust-manager\",\n        \"status\": \"Synced\"\
+                \n      },\n      {\n        \"group\": \"apps\",\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"Deployment\",\n        \"namespace\"\
                 : \"default\",\n        \"name\": \"trust-manager\",\n        \"status\"\
                 : \"Synced\",\n        \"health\": {\n          \"status\": \"Healthy\"\
-                \n        }\n      },\n      {\n        \"group\": \"cert-man"
+                \n        }\n      },\n      {\n        \"group\": \"cert-manager.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": "
             tree:
               result: pass
               artifact:
                 path: argocd-core-child-tree.txt
-                sha256: 88ed73303254aeeb3ef633d45a5b1001e6e3eb937afe5988f0032e74bcfdac35
-                bytes: 4234
+                sha256: 0052288ea4fc1c2b5346ec42cafbe693cfa8e855d8f7cba9e5d4f346191f5ba9
+                bytes: 2483
               output: "Name:               argocd/trust-manager-parity\nProject: \
                 \           default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          default-oci\nURL:                http://localhost:61828/applications/trust-manager-parity\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Progressing\n\nKIND/NAME                                     STATUS\
-                \  HEALTH       AGE    MESSAGE                                   \
+                Namespace:          default-oci\nURL:                http://localhost:55860/applications/trust-manager-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                     STATUS  HEALTH   AGE\
+                \  MESSAGE                                                       \
+                \                         REASON\nIssuer/trust-manager           \
+                \               Synced  Healthy  29s  issuer.cert-manager.io/trust-manager\
+                \ serverside-applied                                \nClusterRole/trust-manager\
+                \                     Synced           29s                       \
                 \                                                                \
-                \                                                                \
-                \                            REASON\nServiceAccount/trust-manager\
-                \                  Synced               8m34s  serviceaccount/trust-manager\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                          \nDeployment/trust-manager\
-                \                      Synced  Healthy      8m34s  deployment.apps/trust-manager\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                         \n\u2514\u2500ReplicaSet/trust-manager-6db9f66446\
-                \                 Healthy      8m34s                             \
-                \                                                                \
-                \                                                                \
-                \                                           \n  \u2514\u2500Pod/trust-manager-6db9f66446-9lfdp\
-                \                Healthy      8m34s                              \
-                \                                                                \
-                \                                                                \
-                \                                          \nIssuer/trust-manager\
-                \                          Synced  Progressing  8m34s  issuer.cert-manager.io/trust-manager\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                  Initializing issuer\nClusterRole/trust-manager\
-                \                     Synced               7m8s                  \
-                \                                                                \
-                \                                                                \
-                \                                                       \nClusterRoleBinding/trust-manager\
-                \              Synced               7m8s                         \
-                \                                                                \
-                \                                                                \
-                \                                                \nRoleBinding/trust-manager:leaderelection\
-                \      Synced               8m34s  rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection\
-                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection\
+                \  \nRole/trust-manager                            Synced        \
+                \   29s  role.rbac.authorization.k8s.io/trust-manager serverside-applied\
+                \                        \nRoleBinding/trust-manager             \
+                \        Synced           29s  rolebinding.rbac.authorization.k8s.io/trust-manager\
+                \ serverside-applied                 \nRoleBinding/trust-manager:leaderelection\
+                \      Synced           29s  rolebinding.rbac.authorization.k8s.io/trust-manager:leaderelection\
                 \ serverside-applied  \nNamespace/default-oci                    \
-                \     Synced               8m13s                                 \
-                \                                                                \
-                \                                                                \
-                \                                       \nService/trust-manager-metrics\
-                \                 Synced  Healthy      8m34s  service/trust-manager-metrics\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                                         \nValidatingWebhookConfiguration/trust-manager\
-                \  Synced               7m8s                                     \
-                \                                                                \
-                \                                                                \
-                \                                    \nCertificate/trust-manager \
-                \                    Synced  Progressing  8m34s  certificate.cert-manager.io/trust-manager\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                             Waiting for certificate\nRole/trust-manager\
-                \                            Synced               7m8s   role.rbac.authorization.k8s.io/trust-manager\
-                \ reconciled. reconciliation required create\n                   \
-                \                           missing rules added:\n               \
-                \                                       {Verbs:[get list watch] APIGroups:[]\
-                \ Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}. role.rbac.authorization.k8s.io/trust-manager\
-                \ serverside-applied  \nRole/trust-manager:leaderelection        \
-                \     Synced                                                     \
-                \                                                                \
-                \                                             8m34s  role.rbac.authorization.k8s.io/trust-manager:leaderelection\
-                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/trust-manager:leaderelection\
-                \ serverside-applied  \nRoleBinding/trust-manager                \
-                \     Synced                                                     \
-                \                                                                \
-                \                                             7m8s   rolebinding.rbac.authorization.k8s.io/trust-manager\
-                \ reconciled. reconciliation required create\n                   \
-                \                           missing subjects added:\n            \
-                \                                          {Kind:ServiceAccount APIGroup:\
-                \ Name:trust-manager Namespace:default}. rolebinding.rbac.authorization.k8s.io/trust-manager\
-                \ serverside-applied  \nService/trust-manager                    \
-                \     Synced  Healthy                                            \
-                \                                                                \
-                \                           8m34s  service/trust-manager serverside-applied"
+                \     Synced           91s                                       \
+                \                                                  \nService/trust-manager-metrics\
+                \                 Synced  Healthy  29s  service/trust-manager-metrics\
+                \ serverside-applied                                       \nValidatingWebhookConfiguration/trust-manager\
+                \  Synced           29s                                          \
+                \                                               \nDeployment/trust-manager\
+                \                      Synced  Healthy  29s  deployment.apps/trust-manager\
+                \ serverside-applied                                       \n\u2514\
+                \u2500ReplicaSet/trust-manager-6db9f66446                 Healthy\
+                \  29s                                                           \
+                \                              \n  \u2514\u2500Pod/trust-manager-6db9f66446-hkmqv\
+                \                Healthy  29s                                    \
+                \                                                     \nCertificate/trust-manager\
+                \                     Synced  Healthy  29s  certificate.cert-manager.io/trust-manager\
+                \ serverside-applied                           Certificate is up to\
+                \ date and has not expired\nClusterRoleBinding/trust-manager     \
+                \         Synced           29s                                   \
+                \                                                      \nRole/trust-manager:leaderelection\
+                \             Synced           29s  role.rbac.authorization.k8s.io/trust-manager:leaderelection\
+                \ serverside-applied         \nService/trust-manager             \
+                \            Synced  Healthy  29s  service/trust-manager serverside-applied\
+                \                                               \nServiceAccount/trust-manager\
+                \                  Synced           29s  serviceaccount/trust-manager\
+                \ serverside-applied"
           cubScoutGitOpsStatus:
             result: pass
             summary:
@@ -604,25 +617,24 @@ spec:
               resourceCount: 0
             output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
               deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
-              : \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\",\n      \"\
+              : \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\",\n      \"\
               namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
               healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
-              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
               trust-manager-parity\",\n      \"namespace\": \"argocd\",\n      \"\
-              ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"\
-              Progressing\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/trust-manager-parity\"\
-              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/trust-manager-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
               \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"trust-manager-parity\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
-              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       rootArgoStatus:
         result: recorded
         sync:
@@ -631,20 +643,20 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
               targetRevision: latest
-          revision: sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
+          revision: sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5
           status: Synced
         health:
-          lastTransitionTime: '2026-06-16T01:14:03Z'
+          lastTransitionTime: '2026-07-28T19:45:01Z'
           status: Healthy
         summary: {}
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-16T01:15:43Z'
-          finishedAt: '2026-06-16T01:15:44Z'
+          startedAt: '2026-07-28T19:46:48Z'
+          finishedAt: '2026-07-28T19:46:50Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 2
@@ -652,19 +664,27 @@ spec:
             Synced: 2
         history:
         - id: 0
-          revision: sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
-          deployedAt: '2026-06-16T01:15:44Z'
-          deployStartedAt: '2026-06-16T01:15:43Z'
+          revision: sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57
+          deployedAt: '2026-07-28T19:45:02Z'
+          deployStartedAt: '2026-07-28T19:45:01Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
             targetRevision: latest
-            path: ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
+            path: .
+        - id: 1
+          revision: sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5
+          deployedAt: '2026-07-28T19:46:50Z'
+          deployStartedAt: '2026-07-28T19:46:48Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
+            targetRevision: latest
+            path: .
         conditions: []
         resources:
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
+          name: helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
           status: Synced
           health: ''
           healthMessage: ''
@@ -681,96 +701,116 @@ spec:
           healthResidue: []
           describe:
             result: pass
-            output: "Name:         helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
-              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
-              \  Creation Timestamp:  2026-06-16T01:13:54Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
-              \  Generation:        10\n  Resource Version:  1778\n  UID:        \
-              \       f77eaab7-9269-4306-ac51-cd4faa8c86ef\nSpec:\n  Destination:\n\
-              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+            output: "Name:         helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  confighub.com/origin:\n\
+              \                {\"spaceId\":\"73983431-c390-4b7b-9c00-dcf074f08433\"\
+              ,\"spaceSlug\":\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
+              ,\"unitId\":\"0d919847-66a...\nAPI Version:  argoproj.io/v1alpha1\n\
+              Kind:         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T19:44:53Z\n\
+              \  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:\
+              \        13\n  Resource Version:  1490\n  UID:               2b78b77a-bc4f-4fc5-9a63-03c8ba5677f4\n\
+              Spec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
               \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
               \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
-              \  Health:\n    Last Transition Time:  2026-06-16T01:14:03Z\n    Status:\
-              \                Healthy\n  History:\n    Deploy Started At:  2026-06-16T01:15:43Z\n\
-              \    Deployed At:        2026-06-16T01:15:44Z\n    Id:             \
+              \  Health:\n    Last Transition Time:  2026-07-28T19:45:01Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-28T19:45:01Z\n\
+              \    Deployed At:        2026-07-28T19:45:02Z\n    Id:             \
               \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
-              \  sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
-              \    Source:\n      Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+              \  sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-07-28T19:46:48Z\n\
+              \    Deployed At:        2026-07-28T19:46:50Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-16T01:15:44Z\n    Message:      successfully synced (all\
+              \  2026-07-28T19:46:50Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
-              \  sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
-              \        Source:\n          Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
+              \  sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
               \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
-              \    Phase:       Succeeded\n    Started At:  2026-06-16T01:15:43Z\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-28T19:46:48Z\n\
               \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
               \        Hook Phase:  Running\n        Kind:        Application\n  \
               \      Message:     application.argoproj.io/trust-manager-parity serverside-applied\n\
               \        Name:        trust-manager-parity\n        Namespace:   argocd\n\
               \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
               \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
-              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\
-              \ serverside-applied\n        Name:        helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
               \        Namespace:   argocd\n        Status:      Synced\n        Sync\
               \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
-              \ sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
-              \      Source:\n        Path:              ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
-              \        Target Revision:   latest\n  Reconciled At:           2026-06-16T01:20:19Z\n\
+              \ sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-28T19:46:50Z\n\
               \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
-              \    Kind:       Application\n    Name:       helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
               \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
               \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
               \       trust-manager-parity\n    Namespace:  argocd\n    Status:  \
               \   Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source Type:\
               \  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
               \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
-              \      Source:\n        Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
-              \        Target Revision:  latest\n    Revision:             sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+              \        Target Revision:  latest\n    Revision:             sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\n\
               \    Status:               Synced\nEvents:\n  Type    Reason       \
               \       Age    From                           Message\n  ----    ------\
               \              ----   ----                           -------\n  Normal\
-              \  ResourceUpdated     8m53s  argocd-application-controller  Updated\
-              \ sync status:  -> Synced\n  Normal  ResourceUpdated     8m53s  argocd-application-controller\
-              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
-              \  7m13s  argocd-application-controller  Initiated automated sync to\
-              \ 'sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502'\n\
-              \  Normal  ResourceUpdated     7m13s  argocd-application-controller\
+              \  OperationStarted    2m27s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57'\n\
+              \  Normal  ResourceUpdated     2m27s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  2m27s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  2m26s  argocd-application-controller\
+              \  Sync operation to sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57\
+              \ succeeded\n  Normal  ResourceUpdated     2m24s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    40s    argocd-application-controller  Initiated automated sync\
+              \ to 'sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5'\n\
+              \  Normal  ResourceUpdated     40s    argocd-application-controller\
               \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
-              \  7m12s  argocd-application-controller  Sync operation to sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\
-              \ succeeded\n  Normal  ResourceUpdated     7m10s  argocd-application-controller\
-              \  Updated sync status: OutOfSync -> Synced"
+              \  38s    argocd-application-controller  Sync operatio"
           events:
             result: pass
-            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                           MESSAGE
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                            MESSAGE
 
-              8m53s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Updated
-              sync status:  -> Synced
+              2m27s       Normal   OperationStarted     application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Initiated
+              automated sync to ''sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57''
 
-              8m53s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Updated
+              2m27s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Updated
+              sync status:  -> OutOfSync
+
+              2m27s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Updated
               health status:  -> Healthy
 
-              7m13s       Normal   OperationStarted     application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Initiated
-              automated sync to ''sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502''
-
-              7m13s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Updated
-              sync status: Synced -> OutOfSync
-
-              7m12s       Normal   OperationCompleted   application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Sync
-              operation to sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502
+              2m26s       Normal   OperationCompleted   application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Sync
+              operation to sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57
               succeeded
 
-              7m10s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster   Updated
+              2m24s       Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Updated
+              sync status: OutOfSync -> Synced
+
+              40s         Normal   OperationStarted     application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Initiated
+              automated sync to ''sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5''
+
+              40s         Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              38s         Normal   OperationCompleted   application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Sync
+              operation to sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5
+              succeeded
+
+              37s         Normal   ResourceUpdated      application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster   Updated
               sync status: OutOfSync -> Synced'
           argocdCore:
             result: pass
@@ -786,22 +826,24 @@ spec:
                 resources: 2
               artifact:
                 path: argocd-core-root.json
-                sha256: 5cd6bbe44b44e684a8aa2153ebdcc06bae985f4c45393d84dc3e40bb7c52ca5e
-                bytes: 10734
-              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"f77eaab7-9269-4306-ac51-cd4faa8c86ef\"\
-                ,\n    \"resourceVersion\": \"2077\",\n    \"generation\": 11,\n \
-                \   \"creationTimestamp\": \"2026-06-16T01:13:54Z\",\n    \"annotations\"\
-                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
-                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
-                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
-                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
-                \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\\\",\\\"namespace\\\
-                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
-                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                sha256: 7db48938789a3c8e23fc8901994c8a1a52337c2d3bfb3e26ac96c1bef282cd23
+                bytes: 9884
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"2b78b77a-bc4f-4fc5-9a63-03c8ba5677f4\"\
+                ,\n    \"resourceVersion\": \"1665\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-07-28T19:44:53Z\",\n    \"annotations\"\
+                : {\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"73983431-c390-4b7b-9c00-dcf074f08433\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\\\
+                \",\\\"unitId\\\":\\\"0d919847-66a8-4322-87b3-6bea93e2fc81\\\",\\\"\
+                unitSlug\\\":\\\"root\\\",\\\"revisionNum\\\":1}\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\\\
+                \",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\
+                \":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
                 \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
-                \"./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\\\",\\\"repoURL\\\
-                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\\\
                 \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
                 automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
                 \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
@@ -809,9 +851,10 @@ spec:
                 : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
                 \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
                 ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-16T01:13:54Z\",\n        \"fieldsType\"\
+                ,\n        \"time\": \"2026-07-28T19:45:02Z\",\n        \"fieldsType\"\
                 : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {\n            \"f:annotations\": {\n              \"f:confighub.com/origin\"\
+                : {},\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
                 : {}\n            },\n            \"f:finalizers\": {\n          \
                 \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
                 \          }\n          },\n          \"f:spec\": {\n            \"\
@@ -822,31 +865,10 @@ spec:
                 : {}\n            },\n            \"f:syncPolicy\": {\n          \
                 \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
                 \          },\n              \"f:syncOptions\": {}\n            }\n\
-                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
-                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
-                : {},\n              \"f:status\": {}\n            },\n          \
-                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
-                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
-                : {}\n                },\n                \"f:retry\": {\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \"f:revision\": {},\n             \
-                \     \"f:source\": {\n                    \"f:path\": {},\n     \
-                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
-                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
-                \                }\n              },\n              \"f:startedAt\"\
-                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
-                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
-                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
-                \              \"f:comparedTo\": {\n                \"f:destination\"\
-                : {\n                  \"f:namespace\": {},\n                  \"\
-                f:server\": {}\n                },\n                \"f:source\":\
-                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
-                : {},\n                  \"f:targetRevision\": {}\n              \
-                \  }\n              },\n              \"f:revision\": {}\n       \
-                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
-                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
                 ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
-                : \"2026-06-16T01:23:04Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                : \"2026-07-28T19:47:36Z\",\n        \"fieldsType\": \"FieldsV1\"\
                 ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
                 \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
                 \      \"f:health\": {\n              \".\": {},\n              \"\
@@ -884,27 +906,43 @@ spec:
                 \ {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \      \"repoURL\": \"oci://oci."
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"trust-manager-parity\",\n        \"status\": \"\
+                Synced\"\n      }\n    ],\n    \"sync\": {\n      \"status\": \"Synced\"\
+                ,\n  "
             tree:
               result: pass
               artifact:
                 path: argocd-core-root-tree.txt
-                sha256: 315d104d2c05891a5d12ef5db9355c884d14f144856cc11ab8121a3384df6cae
-                bytes: 1172
-              output: "Name:               argocd/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
+                sha256: 817f180c098c0daa5317c3f21ec42e1d2adc18cd8db93078e32666d5ebf772fb
+                bytes: 1124
+              output: "Name:               argocd/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
                 Project:            default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          argocd\nURL:                http://localhost:61943/applications/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Healthy\n\nKIND/NAME                                         \
-                \              STATUS  HEALTH  AGE    MESSAGE                    \
-                \                                                                \
-                \    REASON\nApplication/trust-manager-parity                    \
-                \            Synced          7m31s  application.argoproj.io/trust-manager-parity\
-                \ serverside-applied                                \nApplication/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\
-                \  Synced          9m21s  application.argoproj.io/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\
+                Namespace:          argocd\nURL:                http://localhost:55973/applications/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \  STATUS  HEALTH  AGE    MESSAGE                                \
+                \                                                         REASON\n\
+                Application/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster  Synced\
+                \          2m51s  application.argoproj.io/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\
+                \ serverside-applied  \nApplication/trust-manager-parity         \
+                \                        Synced          54s    application.argoproj.io/trust-manager-parity\
                 \ serverside-applied"
           cubScoutGitOpsStatus:
             result: pass
@@ -915,35 +953,35 @@ spec:
               resourceCount: 0
             output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
               deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
-              : \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\",\n      \"\
+              : \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\",\n      \"\
               namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
               healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
-              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
               trust-manager-parity\",\n      \"namespace\": \"argocd\",\n      \"\
-              ready\": false,\n      \"stage\": \"unknown\",\n      \"reason\": \"\
-              Progressing\",\n      \"message\": \"successfully synced (all tasks\
-              \ run)\",\n      \"sourceRef\": \"OCIRepository/argocd/trust-manager-parity\"\
-              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Progressing\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502\"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/trust-manager-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:34a3b6beecf3e868cd48305cd0d55caff99a99e14e1bbbda35a4d4b428478294\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
-              ,\n      \"name\": \"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\"\
+              ,\n      \"name\": \"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
               \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"trust-manager-parity\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
-              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       runtime:
         result: pass
-        namespaces: *id002
+        namespaces: *id003
         workloads: '# default
 
-          deployment.apps/trust-manager   1/1   1     1     8m54s'
+          deployment.apps/trust-manager   1/1   1     1     46s'
         pods: '# default
 
-          trust-manager-6db9f66446-9lfdp   1/1   Running   0     8m54s'
+          trust-manager-6db9f66446-hkmqv   1/1   Running   0     46s'
         notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
@@ -971,116 +1009,121 @@ spec:
   operationTimings:
   - name: regular-helm-install
     result: pass
-    startedAt: '2026-06-16T01:13:55Z'
-    finishedAt: '2026-06-16T01:14:13Z'
-    elapsedSeconds: 17.607
+    startedAt: '2026-07-28T19:45:13Z'
+    finishedAt: '2026-07-28T19:45:33Z'
+    elapsedSeconds: 19.611
     timeoutSeconds: 900
     command: helm upgrade --install trust-manager trust-manager --repo https://charts.jetstack.io
-      --version v0.22.1 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
+      --version v0.22.1 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
-    startedAt: '2026-06-16T01:14:19Z'
-    finishedAt: '2026-06-16T01:14:19Z'
-    elapsedSeconds: 0.476
+    startedAt: '2026-07-28T19:45:38Z'
+    finishedAt: '2026-07-28T19:45:39Z'
+    elapsedSeconds: 0.369
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
-      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
     result: pass
-    startedAt: '2026-06-16T01:14:21Z'
-    finishedAt: '2026-06-16T01:14:21Z'
-    elapsedSeconds: 0.152
+    startedAt: '2026-07-28T19:45:41Z'
+    finishedAt: '2026-07-28T19:45:41Z'
+    elapsedSeconds: 0.158
     timeoutSeconds: 300
-    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-trustmanager-mqfy6fwk-4q0.kubeconfig
-      --context kind-helm-expt-parity-trustmanager-mqfy6fwk-4q0 apply --server-side
-      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/direct-apply-manifest.yaml
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig
+      --context kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/direct-apply-manifest.yaml
     objectCount: 13
   - name: configHub-direct-readiness
     result: pass
-    startedAt: '2026-06-16T01:14:21Z'
-    finishedAt: '2026-06-16T01:14:31Z'
-    elapsedSeconds: 10.202
+    startedAt: '2026-07-28T19:45:41Z'
+    finishedAt: '2026-07-28T19:45:51Z'
+    elapsedSeconds: 10.329
     timeoutSeconds: 300
     namespaces: default
   - name: configHub-oci-render
     result: pass
-    startedAt: '2026-06-16T01:14:42Z'
-    finishedAt: '2026-06-16T01:14:42Z'
-    elapsedSeconds: 0.263
+    startedAt: '2026-07-28T19:45:56Z'
+    finishedAt: '2026-07-28T19:45:57Z'
+    elapsedSeconds: 0.278
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
-      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/jetstack/trust-manager/v0.22.1
+      --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
     result: pass
-    startedAt: '2026-06-16T01:14:44Z'
-    finishedAt: '2026-06-16T01:15:24Z'
-    elapsedSeconds: 40.274
+    startedAt: '2026-07-28T19:45:58Z'
+    finishedAt: '2026-07-28T19:46:37Z'
+    elapsedSeconds: 38.645
     timeoutSeconds: 600
-    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
-      --space helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager --target helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
+      --space helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager --target helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster/oci
     objectCount: 14
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-07-28T19:46:37Z'
+    finishedAt: '2026-07-28T19:46:38Z'
+    elapsedSeconds: 0.832
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
+      --release-target helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster/oci
   - name: configHub-oci-unit-list
     result: pass
-    startedAt: '2026-06-16T01:15:24Z'
-    finishedAt: '2026-06-16T01:15:25Z'
-    elapsedSeconds: 0.599
+    startedAt: '2026-07-28T19:46:38Z'
+    finishedAt: '2026-07-28T19:46:38Z'
+    elapsedSeconds: 0.602
     timeoutSeconds: 120
-    command: cub unit list --space helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
-  - name: configHub-oci-unit-apply
+    command: cub unit list --space helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
+  - name: configHub-oci-workload-release-publish
     result: pass
-    startedAt: '2026-06-16T01:15:25Z'
-    finishedAt: '2026-06-16T01:15:34Z'
-    elapsedSeconds: 8.914
+    startedAt: '2026-07-28T19:46:38Z'
+    finishedAt: '2026-07-28T19:46:39Z'
+    elapsedSeconds: 0.805
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager
-      --unit <14 unit(s)> --wait --timeout 5m
+    command: cub release publish helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager
     unitCount: 14
   - name: configHub-oci-app-create
     result: pass
-    startedAt: '2026-06-16T01:15:34Z'
-    finishedAt: '2026-06-16T01:15:35Z'
-    elapsedSeconds: 0.983
+    startedAt: '2026-07-28T19:46:39Z'
+    finishedAt: '2026-07-28T19:46:40Z'
+    elapsedSeconds: 0.916
     timeoutSeconds: 180
-    command: cub unit create --space helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
-      trust-manager-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argo-application.json
-      --target helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci --allow-exists
-  - name: configHub-oci-app-apply
+    command: cub unit create --space helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
+      trust-manager-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argo-application.json
+      --target helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster/oci --allow-exists
+  - name: configHub-oci-app-release-publish
     result: pass
-    startedAt: '2026-06-16T01:15:35Z'
-    finishedAt: '2026-06-16T01:15:35Z'
-    elapsedSeconds: 0.94
+    startedAt: '2026-07-28T19:46:40Z'
+    finishedAt: '2026-07-28T19:46:41Z'
+    elapsedSeconds: 0.73
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster
-      --unit <1 unit(s)> --wait --timeout 5m
-    unitCount: 1
+    command: cub release publish helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster
   - name: configHub-oci-argo-wait
-    result: watch
-    startedAt: '2026-06-16T01:15:36Z'
-    finishedAt: '2026-06-16T01:22:38Z'
-    elapsedSeconds: 422.474
+    result: pass
+    startedAt: '2026-07-28T19:46:41Z'
+    finishedAt: '2026-07-28T19:47:11Z'
+    elapsedSeconds: 30.215
     timeoutSeconds: 420
-    waitedSeconds: 420
+    waitedSeconds: 30
     sync: Synced
-    health: Progressing
+    health: Healthy
   - name: configHub-oci-readiness
     result: pass
-    startedAt: '2026-06-16T01:23:15Z'
-    finishedAt: '2026-06-16T01:23:15Z'
-    elapsedSeconds: 0.1
+    startedAt: '2026-07-28T19:47:45Z'
+    finishedAt: '2026-07-28T19:47:45Z'
+    elapsedSeconds: 0.097
     timeoutSeconds: 180
     namespaces: default
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-trustmanager-mqfy6fwk-4q0\"\
-      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-trustmanager-mqfy6fwk-4q0.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-trustmanager-mqfy6fwk-4q0\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-trustmanager-ms52cwh1-1s3u\"\
+      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-trustmanager-ms52cwh1-1s3u\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -1088,18 +1131,22 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-trustmanager-mqfy6fwk-4q0\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-trustmanager-mqfy6fwk-4q0\
-      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-trustmanager-mqfy6fwk-4q0.kubeconfig\n\
-      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
-      argocd\"...\napiVersion: v1\nkind: Namespace\nm"
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-trustmanager-ms52cwh1-1s3u\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-trustmanager-ms52cwh1-1s3u.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#commu"
+  - name: target-profile
+    result: pass
+    detail: 'kind-cert-manager: The verified cert-manager catalog package installed
+      its six CRDs and three controllers before the chart under test. Certificate
+      and Issuer objects can now be reconciled instead of remaining permanently Progressing.'
   - name: target-facts-regular-helm
     result: pass
     detail: secrets=2 crds=3 namespaces=1 objectStores=0
   - name: regular-helm-live
     result: pass
     detail: "Release \"trust-manager\" does not exist. Installing it now.\nNAME: trust-manager\n\
-      LAST DEPLOYED: Tue Jun 16 02:13:58 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
+      LAST DEPLOYED: Tue Jul 28 20:45:15 2026\nNAMESPACE: default-helm\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n\u26A0\
       \uFE0F  WARNING: Consider increasing the Helm value `replicaCount` to 2 if you\
       \ require high availability.\n\u26A0\uFE0F  WARNING: Consider setting the Helm\
@@ -1121,12 +1168,15 @@ spec:
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=3
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=10 namespaces=cert-manager,default
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=2 crds=3 namespaces=1 objectStores=0
   - name: confighub-oci-argo-live
-    result: watch
-    detail: sync=Synced health=Progressing after 420s
+    result: pass
+    detail: sync=Synced health=Healthy after 30s
   - name: semantic-object-parity
     result: pass
     detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
@@ -1161,7 +1211,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: regularHelm
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-regular-helm.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-regular-helm.yaml
     configHubKubectlApply:
       result: pass
       stagedSecrets:
@@ -1192,7 +1242,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: configHubKubectlApply
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-apply.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-apply.yaml
     configHubOciArgo:
       result: pass
       stagedSecrets:
@@ -1223,7 +1273,7 @@ spec:
       stagedNamespaces:
       - name: cert-manager
         lane: configHubOciArgo
-      path: $HOME/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-oci.yaml
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/target-facts-confighub-oci.yaml
   operatingPolicy:
     regularHelm:
       result: pass

@@ -3068,11 +3068,33 @@ def main() -> int:
         secrets_dir = workdir / "out" / "secrets"
         cub_manifest_raw = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
         cub_manifest = cub_manifest_raw
-        direct_apply_manifest = cub_manifest_raw
+        direct_apply_manifest, defaulted_namespace_docs = namespace_missing_direct_apply_docs(
+            cub_manifest_raw,
+            apply_namespace,
+            kubeconfig,
+            context,
+        )
         write_text(run_root / "confighub-rendered-manifest.yaml", cub_manifest)
+        if defaulted_namespace_docs:
+            write_text(run_root / "direct-apply-target-manifest.yaml", direct_apply_manifest)
 
-        apply_manifest_namespaces = manifest_namespaces(cub_manifest) or [apply_namespace]
-        apply_runtime_namespaces = workload_namespaces(cub_manifest, apply_namespace)
+        apply_manifest_namespaces = manifest_namespaces(direct_apply_manifest) or [apply_namespace]
+        apply_runtime_namespaces = workload_namespaces(direct_apply_manifest, apply_namespace)
+        apply_preexisting_namespaces = {
+            namespace
+            for namespace in apply_manifest_namespaces
+            if kubectl(
+                ["get", "namespace", namespace, "-o", "name"],
+                kubeconfig,
+                context,
+                timeout=30,
+            )[0] == 0
+        }
+        apply_retained_namespaces = sorted({
+            namespace
+            for namespace in apply_manifest_namespaces
+            if namespace in apply_preexisting_namespaces or protected_namespace(namespace)
+        })
         namespace_docs = []
         for namespace in apply_manifest_namespaces:
             if protected_namespace(namespace):
@@ -3100,6 +3122,15 @@ def main() -> int:
         )
         receipt["spec"]["targetFacts"]["configHubKubectlApply"] = apply_target_facts
         check_item("target-facts-confighub-apply", apply_target_facts["result"], f"secrets={len(apply_target_facts.get('stagedSecrets', []))} crds={len(apply_target_facts.get('stagedCRDs', []))} namespaces={len(apply_target_facts.get('stagedNamespaces', []))} objectStores={len(apply_target_facts.get('stagedObjectStores', []))}")
+        retained_cleanup_candidates = namespaced_cleanup_docs(
+            direct_apply_manifest,
+            set(apply_retained_namespaces),
+        )
+        preserved_retained_identities = existing_namespaced_doc_identities(
+            retained_cleanup_candidates,
+            kubeconfig,
+            context,
+        )
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
                 apply_secret_path = namespace_secret_for_destination(
@@ -3125,16 +3156,6 @@ def main() -> int:
                     name = crd.get("metadata", {}).get("name")
                     if name:
                         kubectl(["wait", "--for=condition=Established", f"crd/{name}", "--timeout=180s"], kubeconfig, context, timeout=210)
-            direct_apply_manifest, defaulted_namespace_docs = namespace_missing_direct_apply_docs(
-                cub_manifest_raw,
-                apply_namespace,
-                kubeconfig,
-                context,
-            )
-            if defaulted_namespace_docs:
-                write_text(run_root / "direct-apply-target-manifest.yaml", direct_apply_manifest)
-            apply_manifest_namespaces = manifest_namespaces(direct_apply_manifest) or [apply_namespace]
-            apply_runtime_namespaces = workload_namespaces(direct_apply_manifest, apply_namespace)
             direct_apply_docs = [
                 doc for doc in yaml_docs(direct_apply_manifest)
                 if doc.get("kind") not in {"CustomResourceDefinition", "Namespace"}
@@ -3176,25 +3197,14 @@ def main() -> int:
         apply_result = "pass" if apply_operations["result"] == "pass" and apply_runtime["result"] == "pass" else "watch"
         apply_cleanup_candidates = [
             namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
-            if not protected_namespace(namespace)
+            if namespace not in apply_retained_namespaces
         ]
-        apply_protected_cleanup_namespaces = {
-            namespace for namespace in sorted(set(apply_manifest_namespaces + apply_runtime_namespaces))
-            if protected_namespace(namespace)
-        }
         apply_cleanup_namespaces = apply_cleanup_candidates
-        apply_retained_namespaces = []
-        protected_cleanup_candidates = namespaced_cleanup_docs(direct_apply_manifest, apply_protected_cleanup_namespaces)
-        preserved_protected_identities = existing_namespaced_doc_identities(
-            protected_cleanup_candidates,
-            kubeconfig,
-            context,
-        )
-        apply_protected_cleanup = {
+        apply_retained_cleanup = {
             "result": "not-needed",
-            "namespaces": sorted(apply_protected_cleanup_namespaces),
+            "namespaces": apply_retained_namespaces,
             "objectCount": 0,
-            "preservedPreExistingObjects": sorted(preserved_protected_identities),
+            "preservedPreExistingObjects": sorted(preserved_retained_identities),
         }
         apply_cluster_cleanup = {"result": "not-needed", "objectCount": 0}
         leg("configHubKubectlApply",
@@ -3211,8 +3221,8 @@ def main() -> int:
                 "namespaces": apply_cleanup_namespaces,
                 "retainedNamespaces": apply_retained_namespaces,
                 "clusterScopedResources": apply_cluster_cleanup,
-                "protectedNamespaceResources": apply_protected_cleanup,
-                "reason": "isolate the OCI/Argo leg from direct-apply workloads in single-cluster parity rigs",
+                "retainedNamespaceResources": apply_retained_cleanup,
+                "reason": "remove the direct-apply workload while preserving namespaces and objects that existed before the lane",
             },
         )
         check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
@@ -3240,35 +3250,35 @@ def main() -> int:
             )
             if rc != 0:
                 raise RuntimeError(f"direct-apply cluster-scoped cleanup failed: {(err or out)[:1000]}")
-        protected_cleanup_docs = exclude_cleanup_identities(
-            protected_cleanup_candidates,
-            preserved_protected_identities,
+        retained_cleanup_docs = exclude_cleanup_identities(
+            retained_cleanup_candidates,
+            preserved_retained_identities,
         )
-        if protected_cleanup_docs:
-            cleanup_path = run_root / "protected-namespace-apply-cleanup.yaml"
-            write_text(cleanup_path, render_docs_to_yaml(protected_cleanup_docs))
+        if retained_cleanup_docs:
+            cleanup_path = run_root / "retained-namespace-apply-cleanup.yaml"
+            write_text(cleanup_path, render_docs_to_yaml(retained_cleanup_docs))
             rc, out, err = kubectl(
                 ["delete", "--ignore-not-found=true", "--wait=true", "--timeout=300s", "-f", str(cleanup_path)],
                 kubeconfig,
                 context,
                 timeout=330,
             )
-            apply_protected_cleanup = {
+            apply_retained_cleanup = {
                 "result": "pass" if rc == 0 else "blocked",
-                "namespaces": sorted(apply_protected_cleanup_namespaces),
-                "objectCount": len(protected_cleanup_docs),
-                "preservedPreExistingObjects": sorted(preserved_protected_identities),
+                "namespaces": apply_retained_namespaces,
+                "objectCount": len(retained_cleanup_docs),
+                "preservedPreExistingObjects": sorted(preserved_retained_identities),
                 "manifest": str(cleanup_path.relative_to(run_root)),
                 "detail": (err or out)[:1000],
             }
-            receipt["spec"]["legs"]["configHubKubectlApply"]["cleanupBeforeOci"]["protectedNamespaceResources"] = apply_protected_cleanup
+            receipt["spec"]["legs"]["configHubKubectlApply"]["cleanupBeforeOci"]["retainedNamespaceResources"] = apply_retained_cleanup
             check_item(
-                "confighub-kubectl-apply-protected-cleanup",
-                apply_protected_cleanup["result"],
-                f"objects={len(protected_cleanup_docs)} namespaces={','.join(sorted(apply_protected_cleanup_namespaces))}",
+                "confighub-kubectl-apply-retained-namespace-cleanup",
+                apply_retained_cleanup["result"],
+                f"objects={len(retained_cleanup_docs)} namespaces={','.join(apply_retained_namespaces)}",
             )
             if rc != 0:
-                raise RuntimeError(f"direct-apply protected namespace cleanup failed: {(err or out)[:1000]}")
+                raise RuntimeError(f"direct-apply retained namespace cleanup failed: {(err or out)[:1000]}")
         for namespace in apply_cleanup_namespaces:
             delete_namespace_if_safe(namespace, kubeconfig, context)
 

@@ -56,7 +56,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 | aqua/trivy-operator@0.32.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | bitnami/opensearch@2.0.10 | legacy (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run) | run catalog promotion review |
-| jetstack/trust-manager@v0.22.1 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
+| jetstack/trust-manager@v0.22.1 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | nats/nack@0.34.0 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | sealed-secrets/sealed-secrets@2.18.6 | default (unreviewed first guess) | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |

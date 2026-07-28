@@ -13,11 +13,11 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 671,
+  "nonGreenCellsCovered": 669,
   "familyCount": 20,
   "byActionType": {
     "run-promotion": 389,
-    "record-decision": 114,
+    "record-decision": 112,
     "refresh-image": 74,
     "stage-prereq": 60,
     "fix-model": 27,
@@ -25,7 +25,7 @@
   },
   "byOwnerLane": {
     "Codex-live": 396,
-    "product-decision": 145,
+    "product-decision": 143,
     "Claude-non-live": 130
   },
   "top10": [
@@ -47,7 +47,7 @@
       "action_id": "CCP-03",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 67,
+      "affected_cell_count": 65,
       "owner_lane": "product-decision"
     },
     {
@@ -608,7 +608,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 67,
+      "affected_cell_count": 65,
       "lanes": [
         "G",
         "K",
@@ -667,8 +667,6 @@
         "hashicorp/vault@0.32.0/ha-raft-ui [P]",
         "jetstack/trust-manager@v0.22.1/default [G]",
         "jetstack/trust-manager@v0.22.1/default [P]",
-        "jetstack/trust-manager@v0.22.1/no-crds [G]",
-        "jetstack/trust-manager@v0.22.1/no-crds [P]",
         "kyverno/kyverno-policies@3.8.0/default [G]",
         "kyverno/kyverno-policies@3.8.0/default [K]",
         "kyverno/kyverno-policies@3.8.0/default [P]",

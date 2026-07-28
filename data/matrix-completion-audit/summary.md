@@ -18,20 +18,20 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-671 non-green cells:
+669 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
 | `needs-target-or-prereq-fix` | 447 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 124 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `already-decided` | 122 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 53 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
 | `promotion` | 389 |
-| `G` | 63 |
-| `P` | 63 |
+| `G` | 62 |
+| `P` | 62 |
 | `lifecycle` | 53 |
 | `K` | 52 |
 | `L` | 51 |
@@ -39,7 +39,7 @@ columns). It changes no status and runs nothing.
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
-| `watch` | 124 |
+| `watch` | 122 |
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
 | `not-applicable-candidate` | 67 |
@@ -615,7 +615,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (124)
+## already-decided (122)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -724,8 +724,6 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | istio/gateway@1.30.0 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | jetstack/trust-manager@v0.22.1 | default | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | jetstack/trust-manager@v0.22.1 | default | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
-| jetstack/trust-manager@v0.22.1 | no-crds | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
-| jetstack/trust-manager@v0.22.1 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | kyverno/kyverno-policies@3.8.0 | default | G | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | kyverno/kyverno-policies@3.8.0 | default | K | watch | watch: object parity passed; readiness needs review | Confirm workload readiness on the target and record the result. |
 | kyverno/kyverno-policies@3.8.0 | default | P | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |

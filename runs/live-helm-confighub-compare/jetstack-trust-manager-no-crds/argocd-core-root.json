@@ -1,13 +1,14 @@
 {
   "metadata": {
-    "name": "helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+    "name": "helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
     "namespace": "argocd",
-    "uid": "f77eaab7-9269-4306-ac51-cd4faa8c86ef",
-    "resourceVersion": "2077",
-    "generation": 11,
-    "creationTimestamp": "2026-06-16T01:13:54Z",
+    "uid": "2b78b77a-bc4f-4fc5-9a63-03c8ba5677f4",
+    "resourceVersion": "1665",
+    "generation": 14,
+    "creationTimestamp": "2026-07-28T19:44:53Z",
     "annotations": {
-      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\"./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster\",\"repoURL\":\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
+      "confighub.com/origin": "{\"spaceId\":\"73983431-c390-4b7b-9c00-dcf074f08433\",\"spaceSlug\":\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\",\"unitId\":\"0d919847-66a8-4322-87b3-6bea93e2fc81\",\"unitSlug\":\"root\",\"revisionNum\":1}",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"finalizers\":[\"resources-finalizer.argocd.argoproj.io\"],\"name\":\"helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"argocd\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\".\",\"repoURL\":\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster\",\"targetRevision\":\"latest\"},\"syncPolicy\":{\"automated\":{\"selfHeal\":true},\"syncOptions\":[\"ServerSideApply=true\",\"ServerSideApply.ForceConflicts=true\",\"RespectIgnoreDifferences=true\",\"CreateNamespace=false\"]}}}\n"
     },
     "finalizers": [
       "resources-finalizer.argocd.argoproj.io"
@@ -17,11 +18,12 @@
         "manager": "argocd-controller",
         "operation": "Apply",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-16T01:13:54Z",
+        "time": "2026-07-28T19:45:02Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:metadata": {
             "f:annotations": {
+              "f:confighub.com/origin": {},
               "f:kubectl.kubernetes.io/last-applied-configuration": {}
             },
             "f:finalizers": {
@@ -45,51 +47,6 @@
               },
               "f:syncOptions": {}
             }
-          },
-          "f:status": {
-            "f:controllerNamespace": {},
-            "f:health": {
-              "f:lastTransitionTime": {},
-              "f:status": {}
-            },
-            "f:operationState": {
-              "f:operation": {
-                "f:initiatedBy": {
-                  "f:automated": {}
-                },
-                "f:retry": {
-                  "f:limit": {}
-                },
-                "f:sync": {
-                  "f:revision": {},
-                  "f:source": {
-                    "f:path": {},
-                    "f:repoURL": {},
-                    "f:targetRevision": {}
-                  },
-                  "f:syncOptions": {}
-                }
-              },
-              "f:startedAt": {}
-            },
-            "f:resourceHealthSource": {},
-            "f:sourceHydrator": {},
-            "f:sourceType": {},
-            "f:summary": {},
-            "f:sync": {
-              "f:comparedTo": {
-                "f:destination": {
-                  "f:namespace": {},
-                  "f:server": {}
-                },
-                "f:source": {
-                  "f:path": {},
-                  "f:repoURL": {},
-                  "f:targetRevision": {}
-                }
-              },
-              "f:revision": {}
-            }
           }
         }
       },
@@ -97,7 +54,7 @@
         "manager": "argocd-application-controller",
         "operation": "Update",
         "apiVersion": "argoproj.io/v1alpha1",
-        "time": "2026-06-16T01:23:04Z",
+        "time": "2026-07-28T19:47:36Z",
         "fieldsType": "FieldsV1",
         "fieldsV1": {
           "f:status": {
@@ -181,8 +138,8 @@
   },
   "spec": {
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
-      "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+      "path": ".",
       "targetRevision": "latest"
     },
     "destination": {
@@ -209,7 +166,7 @@
         "version": "v1alpha1",
         "kind": "Application",
         "namespace": "argocd",
-        "name": "helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+        "name": "helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
         "status": "Synced"
       },
       {
@@ -225,8 +182,8 @@
       "status": "Synced",
       "comparedTo": {
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
-          "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+          "path": ".",
           "targetRevision": "latest"
         },
         "destination": {
@@ -234,36 +191,50 @@
           "namespace": "argocd"
         }
       },
-      "revision": "sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502"
+      "revision": "sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5"
     },
     "health": {
       "status": "Healthy",
-      "lastTransitionTime": "2026-06-16T01:14:03Z"
+      "lastTransitionTime": "2026-07-28T19:45:01Z"
     },
     "history": [
       {
-        "revision": "sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502",
-        "deployedAt": "2026-06-16T01:15:44Z",
+        "revision": "sha256:2b6132fd98aa049e813dee4101d4b8f1bc2faea142482b9a70109c5b38df5b57",
+        "deployedAt": "2026-07-28T19:45:02Z",
         "id": 0,
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
-          "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+          "path": ".",
           "targetRevision": "latest"
         },
-        "deployStartedAt": "2026-06-16T01:15:43Z",
+        "deployStartedAt": "2026-07-28T19:45:01Z",
+        "initiatedBy": {
+          "automated": true
+        }
+      },
+      {
+        "revision": "sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5",
+        "deployedAt": "2026-07-28T19:46:50Z",
+        "id": 1,
+        "source": {
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+          "path": ".",
+          "targetRevision": "latest"
+        },
+        "deployStartedAt": "2026-07-28T19:46:48Z",
         "initiatedBy": {
           "automated": true
         }
       }
     ],
-    "reconciledAt": "2026-06-16T01:22:56Z",
+    "reconciledAt": "2026-07-28T19:47:29Z",
     "operationState": {
       "operation": {
         "sync": {
-          "revision": "sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502",
+          "revision": "sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5",
           "source": {
-            "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
-            "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+            "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+            "path": ".",
             "targetRevision": "latest"
           },
           "syncOptions": [
@@ -300,22 +271,22 @@
             "version": "v1alpha1",
             "kind": "Application",
             "namespace": "argocd",
-            "name": "helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+            "name": "helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
             "status": "Synced",
-            "message": "application.argoproj.io/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster serverside-applied",
+            "message": "application.argoproj.io/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster serverside-applied",
             "hookPhase": "Running",
             "syncPhase": "Sync"
           }
         ],
-        "revision": "sha256:502fecc3f2fbb1f27b3892f3a8f22507fe266f96cbbaabea77eb44cb5abda502",
+        "revision": "sha256:5a8c5b551e3310f70bde5ff8bd150dc4eebbb06077d6dfdffd79dd74b519c0e5",
         "source": {
-          "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
-          "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster",
+          "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-cluster",
+          "path": ".",
           "targetRevision": "latest"
         }
       },
-      "startedAt": "2026-06-16T01:15:43Z",
-      "finishedAt": "2026-06-16T01:15:44Z"
+      "startedAt": "2026-07-28T19:46:48Z",
+      "finishedAt": "2026-07-28T19:46:50Z"
     },
     "sourceType": "Directory",
     "summary": {},

@@ -6,8 +6,8 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 136
-watch: 52
+pass: 137
+watch: 51
 blocked: 10
 not-started: 0
 ```
@@ -168,7 +168,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml |
 |  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml |
-|  | `jetstack/trust-manager@v0.22.1` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml |
+|  | `jetstack/trust-manager@v0.22.1` | no-crds | pass | - | runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | no-crds | pass | - | runs/live-helm-confighub-compare/kedacore-keda-no-crds/receipt.yaml |
 |  | `kyverno/kyverno@3.8.1` | default | pass | - | runs/live-helm-confighub-compare/kyverno-kyverno-default/receipt.yaml |

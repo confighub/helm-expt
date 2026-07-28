@@ -13,17 +13,17 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 671,
+  "cellCount": 669,
   "byCompletionClass": {
     "needs-target-or-prereq-fix": 447,
-    "already-decided": 124,
+    "already-decided": 122,
     "needs-run": 53,
     "needs-modeling": 47
   },
   "byLane": {
     "promotion": 389,
-    "G": 63,
-    "P": 63,
+    "G": 62,
+    "P": 62,
     "lifecycle": 53,
     "K": 52,
     "L": 51
@@ -6333,20 +6333,6 @@
       "chart": "jetstack/trust-manager",
       "version": "v0.22.1",
       "variant": "no-crds",
-      "lane": "G",
-      "lane_label": "gitops-oci-live",
-      "state": "watch",
-      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
-      "support_artifact": "recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml",
-      "owner": "needs GitOps controller-health review",
-      "completion_class": "already-decided",
-      "command": "npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds"
-    },
-    {
-      "chart": "jetstack/trust-manager",
-      "version": "v0.22.1",
-      "variant": "no-crds",
       "lane": "L",
       "lane_label": "local-live",
       "state": "fail",
@@ -6355,20 +6341,6 @@
       "support_artifact": "runs/next80-local-kind/jetstack-trust-manager-v0.22.1-no-crds/observation-receipt.yaml",
       "owner": "runtime-readiness",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds"
-    },
-    {
-      "chart": "jetstack/trust-manager",
-      "version": "v0.22.1",
-      "variant": "no-crds",
-      "lane": "P",
-      "lane_label": "live-helm-vs-confighub-parity",
-      "state": "watch",
-      "reason": "gitops-runtime: Argo health Progressing (parity passed)",
-      "next_action": "Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact.",
-      "support_artifact": "recipes/jetstack/trust-manager/v0.22.1/gitops-runtime-review.yaml",
-      "owner": "needs GitOps controller-health review",
-      "completion_class": "already-decided",
       "command": "npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds"
     },
     {

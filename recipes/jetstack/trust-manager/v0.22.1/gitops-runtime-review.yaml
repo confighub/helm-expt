@@ -1,51 +1,55 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "GitOpsRuntimeReview"
 metadata:
-  name: "trust-manager-argo-health-progressing-watch"
+  name: "trust-manager-no-crds-cert-manager-pass"
   chart: "jetstack/trust-manager"
   version: "v0.22.1"
 spec:
-  base: "default"
-  coveredBases:
-    - "default"
-    - "no-crds"
-  controller: "Argo CD OCI"
-  targetShape: "kind proof rig with ConfigHub OCI source and local-path storage"
-  receipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
-  additionalReceipts:
-    no-crds: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
-  observedResult: "watch"
+  base: "no-crds"
+  controller: "Argo CD"
+  targetShape: "cub-managed kind proof cluster with target profile kind-cert-manager"
+  receipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
+  observedResult: "pass"
+  targetProfile:
+    name: "kind-cert-manager"
+    sourcePackage: "jetstack/cert-manager@v1.20.2"
+    sourceBase: "crds-enabled"
+    provides:
+      - "the six cert-manager CRDs"
+      - "the cert-manager, cainjector, and webhook controllers"
+      - "a controller that reconciles trust-manager's Issuer and Certificate"
   currentSummary:
     regularHelmRuntime: "pass"
     configHubDirectRuntime: "pass"
     configHubOciSync: "Synced"
-    configHubOciHealth: "Progressing"
-    semanticParityDirectApply: "pass"
-    semanticParityOciArgo: "pass"
-    runtimeResidue: "Argo CD reports the application Synced with all 15 resources Synced and the sync operation Succeeded, but the aggregate application health reads Progressing."
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
   passed:
-    - "regular Helm rendered and applied the trust-manager object set and the workload became ready (notReady empty)"
-    - "ConfigHub direct apply rendered and applied the same object set and the workload became ready"
-    - "ConfigHub OCI upload, Unit apply, and Argo Application apply completed"
-    - "ConfigHub OCI/Argo reported the application Synced (15/15 resources Synced, sync operation Succeeded: 'successfully synced (all tasks run)')"
-    - "Helm-vs-ConfigHub semantic parity passed for direct apply and OCI/Argo"
-  watch:
-    summary: "The only residue is that Argo CD's aggregate application health reads Progressing even though every resource is Synced, the sync operation Succeeded, and the direct-apply and regular-Helm legs reached readiness. This is a GitOps controller-health reporting residue, not a parity or delivery defect."
-    observedResidue:
-      - "ConfigHub OCI/Argo: sync=Synced, health=Progressing, operationState.phase=Succeeded, syncResultStatusCounts.Synced=15"
-      - "regular Helm and ConfigHub direct apply: workloads became ready (notReady empty)"
-    interpretation: "Argo aggregate health can lag at Progressing for controllers whose readiness it does not fully resolve, even after all resources are Synced and the workload is up. The condition needs explanation/observation, not a config change."
-  diagnosis:
-    summary: "trust-manager delivers cleanly through ConfigHub OCI/Argo; the watch is a controller-health reporting residue to explain, not a defect."
-    productBoundary: "A supported claim needs an explanation (or a settled Healthy reading) for the Argo aggregate health Progressing condition, captured as fresh evidence."
-    nextInvestigation:
-      - "Inspect the Argo application resource tree to identify which child keeps aggregate health at Progressing."
-      - "Confirm whether health settles to Healthy on a longer observation window."
-      - "Rerun ConfigHub OCI live parity and record whether health reaches Healthy."
-  evidence:
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub published the workload Space and cluster Space as OCI releases"
+    - "ConfigHub OCI/Argo synced all rendered Units and reported Healthy"
+    - "the trust-manager Deployment reached readiness"
+    - "trust-manager's Issuer and Certificate were reconciled by cert-manager"
+    - "semantic object parity passed with zero object diffs for direct apply and OCI/Argo"
+  previousObservation:
+    base: "default"
     receipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml"
-    noCrdsReceipt: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml"
+    result: "watch"
+    detail: "On a plain kind target without a cert-manager controller, Argo synced the objects but remained Progressing because the chart's Certificate could not be reconciled."
+  diagnosis:
+    summary: "The earlier watch was caused by a missing target prerequisite, not by a render difference or an Argo health-reporting delay."
+    interpretation: "Use the no-crds preset when the platform owns the trust-manager CRDs. Install and verify cert-manager first; trust-manager can then be delivered by Helm, direct apply, or ConfigHub OCI through Argo."
+  nextActions:
+    - "Use a target with a working cert-manager controller before installing trust-manager."
+    - "Keep the trust-manager CRDs under explicit platform ownership when using the no-crds preset."
+    - "Replace the local kind profile with evidence from the real target's cert-manager, certificate policy, and CRD lifecycle before making a production claim."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/argocd-core-root-tree.txt"
   notClaimed:
-    - "This row does not prove trust-manager production support."
-    - "This row does not prove the Argo aggregate health Progressing condition can be ignored in production."
-    - "This row does not claim automatic remediation of the controller-health residue."
+    - "This row does not prove trust-manager production support for arbitrary targets."
+    - "This row does not prove the default base or a target without cert-manager."
+    - "This row does not prove long-term certificate rotation or webhook certificate renewal."

@@ -8,9 +8,9 @@
   "spec": {
     "project": "default",
     "source": {
-      "repoURL": "oci://oci.hub.confighub.com:443/target/helm-expt-parity-trustmanager-mqfy6fwk-4q0-cluster/oci",
+      "repoURL": "oci://oci.hub.confighub.com:443/space/helm-expt-parity-trustmanager-ms52cwh1-1s3u-trust-manager",
       "targetRevision": "latest",
-      "path": "./helm-expt-parity-trustmanager-mqfy6fwk-4q0-trust-manager"
+      "path": "."
     },
     "destination": {
       "server": "https://kubernetes.default.svc",
