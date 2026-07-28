@@ -38,6 +38,9 @@ ls ./istio-istiod-1-30-0-default/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Ensure the istio-system namespace exists"
+kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -
+
 if [ -d ./istio-istiod-1-30-0-default/out/secrets ]; then
   say "Apply rendered Secrets first"
   kubectl apply -f ./istio-istiod-1-30-0-default/out/secrets

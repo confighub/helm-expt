@@ -15,10 +15,10 @@ The generator emits files only for real base rows in the master matrix. Candidat
 | Candidate/custom-discussion rows skipped | 74 |
 | Intents with lifecycle routes attached | 10 |
 | Intents whose routes name the Argo CD and Flux handling | 10 |
-| Intents with target facts declared by the base variant | 50 |
+| Intents with target facts declared by the base variant | 59 |
 | Intents with action records from observed prerequisite failures | 34 |
 | Lifecycle contract gaps named for follow-up | 5 |
-| Target-prerequisite reviews still missing | 149 |
+| Target-prerequisite reviews still missing | 140 |
 
 ## Contract Coverage
 
@@ -32,9 +32,9 @@ Every render intent now states whether its lifecycle and target-prerequisite con
 
 | Target-prerequisite state | Intents |
 | --- | ---: |
-| `actionable-gap` | 149 |
+| `actionable-gap` | 140 |
 | `attached` | 46 |
-| `attached-with-observed-actions` | 4 |
+| `attached-with-observed-actions` | 13 |
 
 Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.
 

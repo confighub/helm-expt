@@ -45,7 +45,9 @@ This base variant needs resources you must create with your own values first:
     kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>
   - Secret nginx/nginx-ingress-tls keys tls.crt,tls.key
     kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

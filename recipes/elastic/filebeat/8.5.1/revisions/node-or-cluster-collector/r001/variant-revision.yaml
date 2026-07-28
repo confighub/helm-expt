@@ -8,13 +8,13 @@ metadata:
     confighub.io/variant: "node-or-cluster-collector"
   name: "node-or-cluster-collector-r001"
 spec:
-  digest: "90821ca2dd82d1dc06428a568a8cdacfff1e2b2413bef0eb44c5628d3a7baf61"
+  digest: "7682debd6c360ad39daf54d962a5f2be5dae84683c6e0631412093803dc4e972"
   digestInputs:
     effectiveValuesSHA256: "cbc7fcb6472f937b001c95b891d71cd70f145aca22dac4fa38ef9902ff25d8af"
     recipeSHA256: "666af8de0ab932fddbc97264e6e762d91addfe86d55e27f47b9b38e9157908d3"
     renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
     rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
-    variantSHA256: "76679733e081f438fd049b6753b47db6304b4021ca849cdc2a9d693c195f0ff6"
+    variantSHA256: "fdaefaa98bf1e2c42310d7a06b6f1d9916476c570686bda50fad5bde4be013c3"
   rendered:
     objectCount: 7
     objectInventory: "rendered/object-inventory.yaml"

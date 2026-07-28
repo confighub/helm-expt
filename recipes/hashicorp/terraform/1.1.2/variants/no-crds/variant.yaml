@@ -10,6 +10,52 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "terraform"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "terraformrc"
+        keys:
+          - "credentials"
+        purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+        suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
+          - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+      -
+        namespace: "default"
+        name: "workspacesecrets"
+        purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+        suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
+          - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+    requiredCRDs:
+      -
+        name: "workspaces.app.terraform.io"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "Terraform Workspace CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

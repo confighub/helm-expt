@@ -33,17 +33,129 @@ spec:
       - "releaseName=metricbeat"
       - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
     installTime:
-      []
-    installTimeStatus: "not-yet-declared"
+      -
+        name: "elasticsearch-master-certs"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+          name: "elasticsearch-master-certs"
+          namespace: "default"
+          purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+      -
+        name: "elasticsearch-master-credentials"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+          keys:
+            - "username"
+            - "password"
+          name: "elasticsearch-master-credentials"
+          namespace: "default"
+          purpose: "Elasticsearch username and password read by the Metricbeat workloads"
+          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+    installTimeStatus: "partly-declared"
   routing:
     routes:
       []
     targetFacts:
-      status: "observed-action-records"
+      status: "declared-target-facts-and-observed-action-records"
       declared:
-        {}
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+              - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+            name: "elasticsearch-master-certs"
+            namespace: "default"
+            purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+              - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+            keys:
+              - "username"
+              - "password"
+            name: "elasticsearch-master-credentials"
+            namespace: "default"
+            purpose: "Elasticsearch username and password read by the Metricbeat workloads"
+            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
       requirements:
-        []
+        -
+          category: "secret"
+          name: "default/elasticsearch-master-certs"
+          namespace: "default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+          check: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+          declarationPath: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+        -
+          category: "secret"
+          name: "default/elasticsearch-master-credentials"
+          namespace: "default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Elasticsearch username and password read by the Metricbeat workloads"
+          check: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+          declarationPath: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
       actions:
         -
           lane: "G/P"
@@ -82,10 +194,10 @@ spec:
           evidence:
             - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
       coverage:
-        state: "actionable-gap"
-        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+        state: "attached-with-observed-actions"
+        reason: "2 prerequisite declarations and 2 follow-up action records are attached."
+        declarationSource: "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
   delivery:
     literalConfigOci:

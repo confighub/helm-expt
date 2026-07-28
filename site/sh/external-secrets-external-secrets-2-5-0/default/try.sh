@@ -43,7 +43,9 @@ if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
 This base variant needs resources you must create with your own values first:
   - Secret external-secrets/external-secrets-webhook
     kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

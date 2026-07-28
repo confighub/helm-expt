@@ -38,20 +38,18 @@ ls ./open-telemetry-opentelemetry-operator-0-114-0-default/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-say "Requirement before apply: Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key"
-if ! Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator; then
-  printf '!! The requirement command failed. If the resource already exists, review it and re-run; otherwise fix the error above.\n' >&2
-  exit 1
-fi
-
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
+  - Secret default/opentelemetry-operator-controller-manager-service-cert keys tls.crt,tls.key
+    Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator
   - CRD certificates.cert-manager.io
     kubectl apply -f <crd-manifest.yaml>
   - CRD issuers.cert-manager.io
     kubectl apply -f <crd-manifest.yaml>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

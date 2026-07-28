@@ -14,7 +14,9 @@ import {
 
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
-const targetCharts = targetFactCharts();
+const recipeSelectors = parseRecipeSelectors(args.slice(1));
+const targetCharts = selectTargetCharts(targetFactCharts(), recipeSelectors);
+verifySuggestedSourceMerge();
 
 if (mode === "--generate") {
   for (const chart of targetCharts) syncChart(chart);
@@ -24,9 +26,31 @@ if (mode === "--generate") {
   console.log(`verified installer target facts for ${targetCharts.length} chart(s)`);
 } else {
   console.log(`Usage:
-  node scripts/sync-installer-target-facts.mjs --generate
-  node scripts/sync-installer-target-facts.mjs --verify`);
+  node scripts/sync-installer-target-facts.mjs --generate [--recipe recipes/<repo>/<chart>/<version>]...
+  node scripts/sync-installer-target-facts.mjs --verify [--recipe recipes/<repo>/<chart>/<version>]...`);
   process.exit(1);
+}
+
+function parseRecipeSelectors(selectorArgs) {
+  const selectors = [];
+  for (let index = 0; index < selectorArgs.length; index += 1) {
+    check(selectorArgs[index] === "--recipe", `unknown argument ${selectorArgs[index]}`);
+    const value = selectorArgs[index + 1];
+    check(value && !value.startsWith("--"), "--recipe requires a recipe path");
+    selectors.push(value.replace(/\/+$/, ""));
+    index += 1;
+  }
+  return [...new Set(selectors)].sort();
+}
+
+function selectTargetCharts(charts, selectors) {
+  if (selectors.length === 0) return charts;
+  const chartByRecipe = new Map(charts.map((chart) => [relativeRepo(chart.recipeRoot), chart]));
+  return selectors.map((selector) => {
+    const chart = chartByRecipe.get(selector);
+    check(Boolean(chart), `${selector} has no variants with target facts`);
+    return chart;
+  });
 }
 
 function targetFactCharts() {
@@ -65,7 +89,12 @@ function syncChart(chart) {
   };
   installer.spec.bases = (installer.spec.bases ?? []).map((base) => {
     const targetFacts = factsByVariant.get(base.name);
-    const generated = targetFacts ? externalRequiresFor(targetFacts) : [];
+    const currentGenerated = (base.externalRequires ?? []).filter((item) => isGeneratedTargetFactRequire(item));
+    const generated = targetFacts
+      ? externalRequiresFor(targetFacts).map((requirement) =>
+          preserveConcreteSuggestedSource(requirement, currentGenerated),
+        )
+      : [];
     const existing = (base.externalRequires ?? []).filter((item) => !isGeneratedTargetFactRequire(item));
     const next = { ...base };
     if (existing.length || generated.length) next.externalRequires = [...existing, ...generated];
@@ -210,7 +239,7 @@ function externalRequiresFor(targetFacts) {
     ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
       kind: "ClusterFeature",
       name: crdRequirementName(crd),
-      suggestedSource: "kubectl apply -f <crd-manifest.yaml>",
+      suggestedSource: crd.suggestedSource ?? "kubectl apply -f <crd-manifest.yaml>",
     })),
   );
   requirements.push(
@@ -239,6 +268,53 @@ function externalRequiresFor(targetFacts) {
     });
   }
   return requirements;
+}
+
+function preserveConcreteSuggestedSource(requirement, currentRequirements) {
+  const current = currentRequirements.find((item) => sameRequire(item, requirement));
+  if (
+    current?.suggestedSource &&
+    hasPlaceholder(requirement.suggestedSource) &&
+    !hasPlaceholder(current.suggestedSource) &&
+    isExecutableSuggestedSource(current.suggestedSource)
+  ) {
+    return { ...requirement, suggestedSource: current.suggestedSource };
+  }
+  return requirement;
+}
+
+function hasPlaceholder(value) {
+  return typeof value === "string" && /<[^>]+>/.test(value);
+}
+
+function isExecutableSuggestedSource(value) {
+  return /^(kubectl|helm|bash|sh|cub|flux|argocd|curl)\b/.test(String(value ?? "").trim());
+}
+
+function verifySuggestedSourceMerge() {
+  const identity = {
+    kind: "ClusterFeature",
+    name: "Secret default/example key password",
+    namespace: "default",
+  };
+  const generic = { ...identity, suggestedSource: "kubectl create secret generic example --from-literal=password=<value>" };
+  const concrete = {
+    ...identity,
+    suggestedSource: 'kubectl create secret generic example --from-literal=password="$(openssl rand -base64 32)"',
+  };
+  check(
+    preserveConcreteSuggestedSource(generic, [concrete]).suggestedSource === concrete.suggestedSource,
+    "target-fact sync must preserve an existing concrete setup command",
+  );
+  check(
+    preserveConcreteSuggestedSource(concrete, [generic]).suggestedSource === concrete.suggestedSource,
+    "target-fact sync must prefer a new concrete setup command",
+  );
+  check(
+    preserveConcreteSuggestedSource(generic, [{ ...identity, suggestedSource: "Create this Secret before apply." }])
+      .suggestedSource === generic.suggestedSource,
+    "target-fact sync must not preserve prose as an executable setup command",
+  );
 }
 
 function secretRequirementName(secret) {

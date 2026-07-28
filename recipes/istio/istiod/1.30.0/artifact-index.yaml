@@ -66,7 +66,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0"
     installer: "packages/istio/istiod/1.30.0/installer.yaml"
     receipt: "recipes/istio/istiod/1.30.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e"
+    deterministicBundleSHA256: "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -87,8 +87,21 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredNamespaces:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+              - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+            name: "istio-system"
+            purpose: "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent."
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+      targetFactSummary: "required Namespace istio-system"
       packageBase:
         name: "default"
         path: "packages/istio/istiod/1.30.0/bases/default"

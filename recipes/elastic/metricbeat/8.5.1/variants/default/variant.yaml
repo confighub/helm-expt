@@ -11,6 +11,39 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "metricbeat"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "elasticsearch-master-certs"
+        purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+          - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+      -
+        namespace: "default"
+        name: "elasticsearch-master-credentials"
+        keys:
+          - "username"
+          - "password"
+        purpose: "Elasticsearch username and password read by the Metricbeat workloads"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+          - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
   valuesProfile: "../../effective-values.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

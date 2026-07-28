@@ -11,6 +11,39 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "filebeat"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "elasticsearch-master-certs"
+        purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
+      -
+        namespace: "default"
+        name: "elasticsearch-master-credentials"
+        keys:
+          - "username"
+          - "password"
+        purpose: "Elasticsearch username and password read by the Filebeat container"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
   valuesProfile: "../../effective-values.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

@@ -6,7 +6,18 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "istio/istiod default variant rendered from istio/istiod@1.30.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Namespace istio-system"
+          namespace: "istio-system"
+          suggestedSource: "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+      name: "default"
+      path: "bases/default"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

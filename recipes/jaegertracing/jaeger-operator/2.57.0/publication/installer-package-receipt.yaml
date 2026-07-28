@@ -4,17 +4,16 @@ metadata:
   name: "jaegertracing-jaeger-operator-2-57-0"
 spec:
   chart:
-    repository: "jaegertracing"
     name: "jaeger-operator"
+    repository: "jaegertracing"
     version: "2.57.0"
   deterministicBundle:
-    command: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz"
-    sha256: "98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz"
+    sha256: "a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123"
   package:
-    path: "packages/jaegertracing/jaeger-operator/2.57.0"
     name: "jaegertracing-jaeger-operator"
-    version: "2.57.0"
+    path: "packages/jaegertracing/jaeger-operator/2.57.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
         bytes: 9435
       -
+        path: "collector/target-facts.sh"
+        sha256: "ea93c717a8c36329bcf9ff125c5ecfc4cf4f8abc6bd748af6a8aed4d187c099b"
+        bytes: 5239
+      -
         path: "installer.yaml"
-        sha256: "0a433b4ebea5e917003c8a0b3739389c60f3c21c6f23be55cd979a14c9f1272c"
-        bytes: 516
+        sha256: "7a6b632811455906269d92c623a4a681a10549d2111b142297259236df349521"
+        bytes: 1595
+    version: "2.57.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 11
       semanticObjectMatches: "11/11"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/jaegertracing/jaeger-operator/2.57.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

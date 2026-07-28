@@ -38,6 +38,9 @@ ls ./rook-release-rook-ceph-cluster-v1-19-5-default/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Ensure the rook-ceph namespace exists"
+kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -
+
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
@@ -51,7 +54,9 @@ This base variant needs resources you must create with your own values first:
     kubectl apply -f <crd-manifest.yaml>
   - CRD cephobjectstores.ceph.rook.io
     kubectl apply -f <crd-manifest.yaml>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

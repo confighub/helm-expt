@@ -138,7 +138,7 @@ spec:
             name: "trust-manager-tls"
             namespace: "default"
             purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
-      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
+      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io; required Namespace cert-manager"
       packageBase:
         name: "default"
         path: "packages/jetstack/trust-manager/v0.22.1/bases/default"
@@ -251,7 +251,7 @@ spec:
             name: "trust-manager-tls"
             namespace: "default"
             purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
-      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD bundles.trust.cert-manager.io; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io"
+      targetFactSummary: "required Secret default/trust-manager-tls keys tls.crt,tls.key; required CRD bundles.trust.cert-manager.io; required CRD certificates.cert-manager.io; required CRD issuers.cert-manager.io; required Namespace cert-manager"
       packageBase:
         name: "no-crds"
         path: "packages/jetstack/trust-manager/v0.22.1/bases/no-crds"

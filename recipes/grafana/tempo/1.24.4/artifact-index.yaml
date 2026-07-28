@@ -214,7 +214,7 @@ spec:
             path: "tempo.storage.trace.s3.region"
             purpose: "Object-store region used with the selected endpoint and bucket"
             stage: "pre-render"
-      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)"
+      targetFactSummary: "required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required S3CompatibleObjectStore tempo/tempo-object-store; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)"
       packageBase:
         name: "s3-query-observability"
         path: "packages/grafana/tempo/1.24.4/bases/s3-query-observability"

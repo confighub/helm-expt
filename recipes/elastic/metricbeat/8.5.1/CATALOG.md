@@ -58,7 +58,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/metricbeat/8.5.1/bases/default](../../../../packages/elastic/metricbeat/8.5.1/bases/default) | [recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 14 | 15 | 14/14 | pass | warn | warn | none |
+| default | [recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/metricbeat/8.5.1/bases/default](../../../../packages/elastic/metricbeat/8.5.1/bases/default) | [recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 14 | 15 | 14/14 | pass | warn | warn | required Secret default/elasticsearch-master-certs; required Secret default/elasticsearch-master-credentials keys username,password |
 
 ## Package Bases
 

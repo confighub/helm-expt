@@ -8,9 +8,36 @@ spec:
     -
       default: true
       description: "jaegertracing/jaeger-operator default variant rendered from jaegertracing/jaeger-operator@2.57.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
       name: "default"
       path: "bases/default"
     -
+      description: "jaegertracing/jaeger-operator no-crds variant rendered from jaegertracing/jaeger-operator@2.57.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD jaegers.jaegertracing.io"
+          suggestedSource: "kubectl apply -f <jaeger-crd.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD certificates.cert-manager.io"
+          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD issuers.cert-manager.io"
+          suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "jaegertracing/jaeger-operator no-crds variant rendered from jaegertracing/jaeger-operator@2.57.0"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

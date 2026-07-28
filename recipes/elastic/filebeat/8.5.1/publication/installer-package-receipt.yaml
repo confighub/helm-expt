@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
-    sha256: "32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c"
+    sha256: "77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1"
   package:
     name: "elastic-filebeat"
     path: "packages/elastic/filebeat/8.5.1"
@@ -36,9 +36,13 @@ spec:
         sha256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
         bytes: 6911
       -
+        path: "collector/target-facts.sh"
+        sha256: "621574c873714834fc2958d13d4535c8bf01d02d08c8e44e4c0f406b3a4f5282"
+        bytes: 5594
+      -
         path: "installer.yaml"
-        sha256: "cafcf98809c4288d3986bb0ceb62b45570a1d408293597b76b7b6f418d12938f"
-        bytes: 547
+        sha256: "18002a67c998d48bba820be85e38aec88feaeacea54d83f4c58a47f02530e52e"
+        bytes: 1980
     version: "8.5.1"
   setupChecks:
     -
@@ -50,6 +54,8 @@ spec:
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
       allowedCubOnlyObjects:
@@ -60,4 +66,6 @@ spec:
       helmReleaseObjectCount: 7
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "node-or-cluster-collector"

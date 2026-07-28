@@ -4,17 +4,16 @@ metadata:
   name: "hashicorp-terraform-1-1-2"
 spec:
   chart:
-    repository: "hashicorp"
     name: "terraform"
+    repository: "hashicorp"
     version: "1.1.2"
   deterministicBundle:
-    command: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
-    sha256: "737667648f89276c77a2268dd67e52b33ed27b88add655c7aea2232f12ab8ef0"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/hashicorp/terraform/1.1.2 -o <tmp>/hashicorp-terraform-1.1.2.tgz"
+    sha256: "21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e"
   package:
-    path: "packages/hashicorp/terraform/1.1.2"
     name: "hashicorp-terraform"
-    version: "1.1.2"
+    path: "packages/hashicorp/terraform/1.1.2"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
         bytes: 4400
       -
+        path: "collector/target-facts.sh"
+        sha256: "ccd07dbb13a1c1668e27e08fab3cacc6c6ffb29dddf6289fdbaeda064a4a1e02"
+        bytes: 5505
+      -
         path: "installer.yaml"
-        sha256: "f13d2ef65016050c5b765f8ca02d32fd2fea04abdab35d119e9f07c0a7c6c971"
-        bytes: 463
+        sha256: "cb430bc0d92099a04c3caba04b5ee450a6bf5afebdc5b33dc7056a51ea801d7f"
+        bytes: 1832
+    version: "1.1.2"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/hashicorp/terraform/1.1.2 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

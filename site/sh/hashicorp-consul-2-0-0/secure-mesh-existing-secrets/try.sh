@@ -38,12 +38,6 @@ ls ./hashicorp-consul-2-0-0-secure-mesh-existing-secrets/out/manifests
 say "Ensure the consul namespace exists"
 kubectl create namespace consul --dry-run=client -o yaml | kubectl apply -f -
 
-say "Requirement before apply: minimum schedulable nodes 3"
-if ! use a target with at least 3 schedulable nodes before applying this base; then
-  printf '!! The requirement command failed. If the resource already exists, review it and re-run; otherwise fix the error above.\n' >&2
-  exit 1
-fi
-
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
@@ -55,7 +49,11 @@ This base variant needs resources you must create with your own values first:
     kubectl -n consul create secret generic consul-gossip-encryption-key --from-literal=key=<value>
   - Secret consul/consul-bootstrap-acl-token key token
     kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value>
-Substitute the <...> placeholders and create these, then re-run with:
+  - minimum schedulable nodes 3
+    use a target with at least 3 schedulable nodes before applying this base
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

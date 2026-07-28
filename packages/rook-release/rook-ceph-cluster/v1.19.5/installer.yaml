@@ -29,6 +29,11 @@ spec:
           kind: "ClusterFeature"
           name: "CRD cephobjectstores.ceph.rook.io"
           suggestedSource: "kubectl apply -f <crd-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "Namespace rook-ceph"
+          namespace: "rook-ceph"
+          suggestedSource: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
       name: "default"
       path: "bases/default"
   collector:

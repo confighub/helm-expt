@@ -43,7 +43,9 @@ if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
 This base variant needs resources you must create with your own values first:
   - Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca
     kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=<value> --from-literal=key=<value> --from-literal=ca=<value>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

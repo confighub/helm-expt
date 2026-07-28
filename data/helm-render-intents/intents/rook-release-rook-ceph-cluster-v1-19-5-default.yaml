@@ -115,6 +115,20 @@ spec:
           purpose: "Rook Ceph cluster base creates CephObjectStore resources"
           sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
+      requiredNamespaces:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
+            - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+          name: "rook-ceph"
+          purpose: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
     requirements:
       -
         category: "crd"
@@ -216,6 +230,28 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+      -
+        category: "namespace"
+        name: "rook-ceph"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
+        check: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
+        declarationPath: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
+          - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
     actions:
       -
         lane: "G/P"
@@ -257,7 +293,7 @@ spec:
           - "recipes/rook-release/rook-ceph-cluster/v1.19.5/target-prerequisite-plan.yaml"
     coverage:
       state: "attached-with-observed-actions"
-      reason: "5 prerequisite declarations and 2 follow-up action records are attached."
+      reason: "6 prerequisite declarations and 2 follow-up action records are attached."
       declarationSource: "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
       nextAction: ""
   provenance:

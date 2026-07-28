@@ -439,18 +439,18 @@
 <tr><td>Candidate/custom-discussion rows skipped</td><td>74</td></tr>
 <tr><td>Intents with lifecycle routes attached</td><td>10</td></tr>
 <tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>10</td></tr>
-<tr><td>Intents with target facts declared by the base variant</td><td>50</td></tr>
+<tr><td>Intents with target facts declared by the base variant</td><td>59</td></tr>
 <tr><td>Intents with action records from observed prerequisite failures</td><td>34</td></tr>
 <tr><td>Lifecycle contract gaps named for follow-up</td><td>5</td></tr>
-<tr><td>Target-prerequisite reviews still missing</td><td>149</td></tr></tbody></table>
+<tr><td>Target-prerequisite reviews still missing</td><td>140</td></tr></tbody></table>
 <h2 id="contract-coverage">Contract Coverage</h2>
 <p>Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.</p>
 <table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>5</td></tr>
 <tr><td><code>attached</code></td><td>8</td></tr>
 <tr><td><code>no-route-required</code></td><td>186</td></tr></tbody></table>
-<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>149</td></tr>
+<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>140</td></tr>
 <tr><td><code>attached</code></td><td>46</td></tr>
-<tr><td><code>attached-with-observed-actions</code></td><td>4</td></tr></tbody></table>
+<tr><td><code>attached-with-observed-actions</code></td><td>13</td></tr></tbody></table>
 <p>Open <a href="contract-gaps.html">contract-gaps.md</a> for the exact bases that still need a route or target-prerequisite review.</p>
 <h2 id="by-catalog-layer">By Catalog Layer</h2>
 <table><thead><tr><th>Layer</th><th>Intents</th></tr></thead><tbody><tr><td>F2a</td><td>95</td></tr>

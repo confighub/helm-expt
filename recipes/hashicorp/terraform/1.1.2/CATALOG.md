@@ -59,8 +59,8 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/hashicorp/terraform/1.1.2/bases/default](../../../../packages/hashicorp/terraform/1.1.2/bases/default) | [recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | none |
-| no-crds | [recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/hashicorp/terraform/1.1.2/bases/no-crds](../../../../packages/hashicorp/terraform/1.1.2/bases/no-crds) | [recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 4 |  | 4/4 | pass |  | allow | none |
+| default | [recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/hashicorp/terraform/1.1.2/bases/default](../../../../packages/hashicorp/terraform/1.1.2/bases/default) | [recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 5 | 6 | 5/5 | pass | warn | warn | required Secret default/terraformrc keys credentials; required Secret default/workspacesecrets |
+| no-crds | [recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/hashicorp/terraform/1.1.2/bases/no-crds](../../../../packages/hashicorp/terraform/1.1.2/bases/no-crds) | [recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 4 |  | 4/4 | pass |  | allow | required Secret default/terraformrc keys credentials; required Secret default/workspacesecrets; required CRD workspaces.app.terraform.io |
 
 ## Package Bases
 

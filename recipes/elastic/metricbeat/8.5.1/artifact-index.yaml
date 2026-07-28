@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1"
     installer: "packages/elastic/metricbeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/metricbeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "99ede039ded16519984ee38269155919b83d30384905e7ba5e79bfd69e16efa6"
+    deterministicBundleSHA256: "1ff5a1bfab7deb2f18d4a44644527ff1b969134f0342e33fb5b2a3fd62c67c80"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -86,8 +86,39 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+              - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+            name: "elasticsearch-master-certs"
+            namespace: "default"
+            purpose: "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection"
+            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
+              - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+            keys:
+              - "username"
+              - "password"
+            name: "elasticsearch-master-credentials"
+            namespace: "default"
+            purpose: "Elasticsearch username and password read by the Metricbeat workloads"
+            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+      targetFactSummary: "required Secret default/elasticsearch-master-certs; required Secret default/elasticsearch-master-credentials keys username,password"
       packageBase:
         name: "default"
         path: "packages/elastic/metricbeat/8.5.1/bases/default"

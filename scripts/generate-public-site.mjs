@@ -5431,6 +5431,12 @@ function shellStepText(value) {
   return String(value ?? "").replace(/["`$\\]/g, "").replace(/\s+/g, " ").trim();
 }
 
+function isRunnableRequirementCommand(value) {
+  const command = String(value ?? "").trim();
+  if (!command || /[<>]/.test(command)) return false;
+  return /^(kubectl|helm|bash|sh|cub|flux|argocd|curl)\b/.test(command);
+}
+
 function presetScriptPreamble(entry, row, purposeLines) {
   const pageUrl = `${SITE_BASE_URL}charts/${chartPageFileName(entry)}`;
   return [
@@ -5466,6 +5472,9 @@ function presetTryScript(entry, row) {
   const setup = installerSetupCommand(entry.package_path, row.variant, entry, row);
   const requirements = packageRequirementsForBase(entry, row.variant);
   const namespaces = [...new Set([entry.namespace, ...requirements.map((requirement) => requirement.namespace)].filter(Boolean))];
+  const remainingRequirements = requirements.filter(
+    (requirement) => !(String(requirement.name ?? "").startsWith("Namespace ") && requirement.namespace),
+  );
   const lines = presetScriptPreamble(entry, row, [
     "Path: pull the package, render this base variant locally, read the objects,",
     "then apply them with kubectl. No ConfigHub account is needed.",
@@ -5490,11 +5499,10 @@ function presetTryScript(entry, row) {
       `kubectl create namespace ${namespace} --dry-run=client -o yaml | kubectl apply -f -`,
     );
   }
-  const runnable = requirements.filter((requirement) => {
-    const suggested = String(requirement.suggestedSource ?? "").trim();
-    return suggested && !/[<>]/.test(suggested);
-  });
-  const manual = requirements.filter((requirement) => !runnable.includes(requirement));
+  const runnable = remainingRequirements.filter((requirement) =>
+    isRunnableRequirementCommand(requirement.suggestedSource),
+  );
+  const manual = remainingRequirements.filter((requirement) => !runnable.includes(requirement));
   for (const requirement of runnable) {
     const label = shellStepText(requirement.name || requirement.kind || "required target input");
     lines.push(
@@ -5520,7 +5528,9 @@ function presetTryScript(entry, row) {
         const suggested = String(requirement.suggestedSource ?? "").trim();
         return suggested ? [`  - ${label}`, `    ${suggested}`] : [`  - ${label} (no command recorded; see the chart page)`];
       }),
-      "Substitute the <...> placeholders and create these, then re-run with:",
+      "Complete these prerequisites before applying the rendered objects.",
+      "Replace any <...> placeholders with values or files for your environment.",
+      "When the resources exist, re-run with:",
       "  REQUIREMENTS_READY=1 bash try.sh",
       "EOF_REQUIREMENTS",
       "  exit 1",
