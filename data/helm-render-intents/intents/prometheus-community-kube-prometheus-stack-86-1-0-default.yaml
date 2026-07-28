@@ -78,6 +78,22 @@ spec:
           argoCd: "none — your cluster handles it"
           flux: "none — your cluster handles it"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "postsync-check-or-observation"
         quirkClass: "hook-phase"
@@ -102,6 +118,22 @@ spec:
           argoCd: "PostSync"
           flux: "post-apply Job / follow-on Kustomization"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "Your delivery — a post-apply check (receipted)"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PostSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "post-apply Job / follow-on Kustomization"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preflight-or-presync"
         quirkClass: "hook-phase"
@@ -126,6 +158,22 @@ spec:
           argoCd: "PreSync · sync-wave -1"
           flux: "apply before the release (Kustomization dependsOn)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "upgrade-action-with-receipt"
         quirkClass: "hook-phase"
@@ -150,6 +198,22 @@ spec:
           argoCd: "PreSync"
           flux: "apply before the release (Kustomization dependsOn)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preserve-ordering"
         quirkClass: "hook-weight-ordering"
@@ -174,6 +238,22 @@ spec:
           argoCd: "no extra hook — keep CRDs before dependent objects"
           flux: "no extra hook — make sure CRDs are applied before workloads"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "target-facts-or-preflight"
         quirkClass: "target-facts"
@@ -198,6 +278,22 @@ spec:
           argoCd: "none — supply the inputs before sync"
           flux: "none — supply the inputs before sync"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "webhook-readiness-observation"
         quirkClass: "webhook-readiness"
@@ -222,6 +318,29 @@ spec:
           argoCd: "observe webhook and workload health after sync"
           flux: "use post-apply health checks; stage any declared certificate first"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "observe webhook and workload health after sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "use post-apply health checks; stage any declared certificate first"
+            status: "mapping-only"
+            evidence:
+              []
+    coverage:
+      state: "actionable-gap"
+      reason: "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.3 instead of 86.1.0."
+      evidence:
+        - "data/hook-lifecycle/receipt-index.csv"
+        - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+      nextAction: "Run the lifecycle proof for 86.1.0, then update the route source version and receipt."
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -237,8 +356,33 @@ spec:
           name: "kube-prometheus-stack-admission"
           namespace: "monitoring"
           purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+    requirements:
+      -
+        category: "secret"
+        name: "monitoring/kube-prometheus-stack-admission"
+        namespace: "monitoring"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+        check: ""
+        declarationPath: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/default/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "1 target prerequisite declared by this base."
+      declarationSource: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

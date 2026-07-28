@@ -51,6 +51,7 @@ data/hard-proof-gaps/shortlist.csv,hard-proof-gaps,supporting,"shortlist of top-
 data/helm-catalog-readmes/readmes.csv,helm-catalog-readmes,planning,supporting generated CSV,data/helm-catalog-readmes/summary.md,,
 data/helm-org/exhibits.csv,helm-org,supporting,supporting generated CSV,data/helm-org/summary.md,,
 data/helm-org/wave1.csv,helm-org,supporting,first runtime/GitOps wave,data/helm-org/summary.md,,
+data/helm-render-intents/contract-gaps.csv,helm-render-intents,user/front-door,supporting generated CSV,data/helm-render-intents/summary.md,npm run helm-render-intents,npm run helm-render-intents:verify
 data/helm-render-intents/intents.csv,helm-render-intents,user/front-door,"one row per real base variant with chart/version/base, render inputs, evidence lanes, lifecycle route status, target-prerequisite action count, and source repository URL",data/helm-render-intents/summary.md,npm run helm-render-intents,npm run helm-render-intents:verify
 data/high-fanout-demo/prometheus-kps.csv,high-fanout-demo,user/front-door,Prometheus/kube-prometheus-stack high-fanout base-variant example,data/high-fanout-demo/summary.md,npm run high-fanout:generate,npm run high-fanout:verify
 data/hook-coverage/top100-hook-coverage.csv,hook-coverage,user/front-door,one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage,data/hook-coverage/summary.md,npm run hooks:coverage,npm run hooks:coverage:verify

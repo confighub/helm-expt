@@ -205,6 +205,22 @@ spec:
           argoCd: "none — your cluster handles it"
           flux: "none — your cluster handles it"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "postsync-check-or-observation"
         quirkClass: "hook-phase"
@@ -229,6 +245,22 @@ spec:
           argoCd: "PostSync"
           flux: "post-apply Job / follow-on Kustomization"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "Your delivery — a post-apply check (receipted)"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PostSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "post-apply Job / follow-on Kustomization"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preflight-or-presync"
         quirkClass: "hook-phase"
@@ -253,6 +285,22 @@ spec:
           argoCd: "PreSync · sync-wave -1"
           flux: "apply before the release (Kustomization dependsOn)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "upgrade-action-with-receipt"
         quirkClass: "hook-phase"
@@ -277,6 +325,22 @@ spec:
           argoCd: "PreSync"
           flux: "apply before the release (Kustomization dependsOn)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preserve-ordering"
         quirkClass: "hook-weight-ordering"
@@ -301,6 +365,22 @@ spec:
           argoCd: "no extra hook — keep CRDs before dependent objects"
           flux: "no extra hook — make sure CRDs are applied before workloads"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "target-facts-or-preflight"
         quirkClass: "target-facts"
@@ -325,6 +405,22 @@ spec:
           argoCd: "none — supply the inputs before sync"
           flux: "none — supply the inputs before sync"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "webhook-readiness-observation"
         quirkClass: "webhook-readiness"
@@ -349,6 +445,22 @@ spec:
           argoCd: "observe webhook and workload health after sync"
           flux: "use post-apply health checks; stage any declared certificate first"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "observe webhook and workload health after sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "use post-apply health checks; stage any declared certificate first"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
       status: "declared-target-facts"
       declared:
@@ -455,8 +567,233 @@ spec:
             name: "kube-prometheus-stack-admission"
             namespace: "monitoring"
             purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      requirements:
+        -
+          category: "crd"
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "alertmanagers.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "podmonitors.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "probes.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "prometheusagents.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "prometheuses.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "prometheusrules.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "scrapeconfigs.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "servicemonitors.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "thanosrulers.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator CRD managed outside this no-crds base"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        -
+          category: "secret"
+          name: "monitoring/kube-prometheus-stack-admission"
+          namespace: "monitoring"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+          check: ""
+          declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "11 target prerequisites declared by this base."
+        declarationSource: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/no-crds/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
   delivery:
     literalConfigOci:

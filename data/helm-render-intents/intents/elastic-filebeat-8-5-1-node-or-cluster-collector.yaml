@@ -55,10 +55,18 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "observed-action-records"
     declared:
       {}
+    requirements:
+      []
     actions:
       -
         lane: "G/P"
@@ -72,6 +80,13 @@ spec:
         supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
         sourceReceipt: "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
         rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base node-or-cluster-collector"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
       -
         lane: "K"
         prerequisiteKind: "external-api"
@@ -84,6 +99,18 @@ spec:
         supportArtifact: "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
         sourceReceipt: "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
         rerunCommand: "npm run kind-parity:run -- --chart elastic/filebeat --version 8.5.1 --base node-or-cluster-collector"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
+    coverage:
+      state: "actionable-gap"
+      reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+      declarationSource: ""
+      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

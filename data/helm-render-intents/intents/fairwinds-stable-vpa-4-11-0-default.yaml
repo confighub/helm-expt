@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts-and-observed-action-records"
     declared:
@@ -71,6 +77,26 @@ spec:
           name: "vpa-tls-secret"
           namespace: "default"
           purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+    requirements:
+      -
+        category: "secret"
+        name: "default/vpa-tls-secret"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "VPA admission controller webhook TLS material normally created by Helm hook lifecycle"
+        check: ""
+        declarationPath: "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
     actions:
       -
         lane: "K"
@@ -84,6 +110,17 @@ spec:
         supportArtifact: ""
         sourceReceipt: "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
         rerunCommand: "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
+    coverage:
+      state: "attached-with-observed-actions"
+      reason: "1 prerequisite declaration and 1 follow-up action record are attached."
+      declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

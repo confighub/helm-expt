@@ -548,7 +548,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Scripts</dt><dd><a href="../sh/fluent-fluent-bit-0-57-6/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/fluent-fluent-bit-0-57-6/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
           <dt>Hooks/actions</dt><dd>1 source hook(s); observed; live: yes; route: yes</dd>
-          <dt>Who runs actions?</dt><dd>target-owned:1, user-executes:1; automatic false until route execution has evidence</dd>
+          <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (1), you or your delivery pipeline (1); no step is called automatic until its run has a receipt</dd>
+          <dt>Lifecycle record</dt><dd>2 chart-specific lifecycle routes are recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml">Open the full record.</a></dd>
+          <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Add at least one user shaped variant before catalog promotion</dd>
           <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>

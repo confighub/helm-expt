@@ -42,8 +42,15 @@ spec:
       status: "none-declared-or-observed"
       declared:
         {}
+      requirements:
+        []
       actions:
         []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
     sourceRecord: "data/helm-render-intents/intents/minio-operator-operator-7-1-1-default.yaml"
   delivery:
     literalConfigOci:

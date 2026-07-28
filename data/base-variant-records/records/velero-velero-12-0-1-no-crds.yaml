@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "K"
@@ -55,6 +57,17 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart velero/velero --version 12.0.1 --base no-crds"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/velero-velero-no-crds/receipt.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/velero-velero-12-0-1-no-crds.yaml"
   delivery:
     literalConfigOci:

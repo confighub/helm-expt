@@ -43,7 +43,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [known-gaps-we-surface.md](./user/known-gaps-we-surface.md) | User-facing guide to current watch findings that the project deliberately surfaces instead of hiding. |
 | [serious-chart-proof.md](./user/serious-chart-proof.md) | Concise kube-prometheus-stack proof path for the serious chart example. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
-| [helm-render-intents.md](./user/helm-render-intents.md) | The two-layer model: base variants describe how Helm is rendered, managed variants describe how ConfigHub operates the rendered config, and generated render-intent objects keep the proof chain attached. |
+| [helm-render-intents.md](./user/helm-render-intents.md) | The two-layer model, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts. |
 | [helm-presets-and-values.md](./user/helm-presets-and-values.md) | How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices. |
 | [verification.md](./user/verification.md) | Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route. |
 | [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `helm template`, `cub installer`, `cub variant upload`, `cub variant create`, or repo verifiers. |

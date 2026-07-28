@@ -168,8 +168,120 @@ spec:
             path: "tempo.storage.trace.s3.region"
             purpose: "Object-store region used with the selected endpoint and bucket"
             stage: "pre-render"
+      requirements:
+        -
+          category: "crd"
+          name: "servicemonitors.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+          sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        -
+          category: "object-store"
+          name: "tempo-object-store"
+          namespace: "tempo"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Local S3-compatible object-store fixture used to prove the S3 base can become ready when its target prerequisite exists"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        -
+          category: "secret"
+          name: "tempo/tempo-s3-credentials"
+          namespace: "tempo"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "S3 access credentials referenced by Tempo environment variables"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        -
+          category: "value"
+          name: "tempo.storage.trace.s3.endpoint"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "S3-compatible endpoint that Tempo will write traces to"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "recipe"
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        -
+          category: "value"
+          name: "tempo.storage.trace.s3.bucket"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "Existing bucket for Tempo trace blocks"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "recipe"
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        -
+          category: "value"
+          name: "tempo.storage.trace.s3.region"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "Object-store region used with the selected endpoint and bucket"
+          check: ""
+          declarationPath: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "recipe"
+          evidence:
+            - "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "6 target prerequisites declared by this base."
+        declarationSource: "recipes/grafana/tempo/1.24.4/variants/s3-query-observability/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml"
   delivery:
     literalConfigOci:

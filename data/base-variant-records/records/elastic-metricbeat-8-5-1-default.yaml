@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "G/P"
@@ -55,6 +57,12 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
           rerunCommand: "npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml"
         -
           lane: "K"
           prerequisiteKind: "secret"
@@ -67,6 +75,17 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart elastic/metricbeat --version 8.5.1 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/elastic-metricbeat-8-5-1-default.yaml"
   delivery:
     literalConfigOci:

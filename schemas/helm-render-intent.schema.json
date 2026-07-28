@@ -12,6 +12,51 @@
     "spec",
     "status"
   ],
+  "definitions": {
+    "runnerEvidence": {
+      "type": "object",
+      "required": [
+        "implementation",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "implementation": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "freshness": {
+      "type": "object",
+      "required": [
+        "policy",
+        "maxAge"
+      ],
+      "properties": {
+        "policy": {
+          "enum": [
+            "recheck-before-render",
+            "recheck-before-apply"
+          ]
+        },
+        "maxAge": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "properties": {
     "apiVersion": {
       "const": "helm-expt.confighub.com/v1alpha1"
@@ -199,7 +244,9 @@
             "routeCount",
             "dispositions",
             "executionModes",
-            "safeAutomatic"
+            "safeAutomatic",
+            "variantRoutes",
+            "coverage"
           ],
           "properties": {
             "routeContract": {
@@ -226,8 +273,89 @@
             "variantRoutes": {
               "type": "array",
               "items": {
-                "type": "object"
+                "type": "object",
+                "required": [
+                  "routeName",
+                  "routeSourceVersion",
+                  "evidence",
+                  "gitOps",
+                  "runners"
+                ],
+                "properties": {
+                  "routeName": {
+                    "type": "string"
+                  },
+                  "routeSourceVersion": {
+                    "type": "string"
+                  },
+                  "automatic": {
+                    "const": false
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "gitOps": {
+                    "type": "object"
+                  },
+                  "runners": {
+                    "type": "object",
+                    "required": [
+                      "direct",
+                      "argoCd",
+                      "flux"
+                    ],
+                    "properties": {
+                      "direct": {
+                        "$ref": "#/definitions/runnerEvidence"
+                      },
+                      "argoCd": {
+                        "$ref": "#/definitions/runnerEvidence"
+                      },
+                      "flux": {
+                        "$ref": "#/definitions/runnerEvidence"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": true
               }
+            },
+            "coverage": {
+              "type": "object",
+              "required": [
+                "state",
+                "reason",
+                "evidence",
+                "nextAction"
+              ],
+              "properties": {
+                "state": {
+                  "enum": [
+                    "attached",
+                    "actionable-gap",
+                    "no-route-required"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "nextAction": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
             }
           },
           "additionalProperties": false
@@ -237,7 +365,9 @@
           "required": [
             "status",
             "declared",
-            "actions"
+            "requirements",
+            "actions",
+            "coverage"
           ],
           "properties": {
             "status": {
@@ -248,12 +378,106 @@
               "description": "Target facts declared by the base variant, including required Secrets, CRDs, namespaces, values, storage, DNS names, or topology.",
               "additionalProperties": true
             },
+            "requirements": {
+              "type": "array",
+              "description": "Normalized target prerequisites, including when they must be checked again and any linked evidence.",
+              "items": {
+                "type": "object",
+                "required": [
+                  "category",
+                  "name",
+                  "requiredBefore",
+                  "freshness",
+                  "declarationPath",
+                  "evidence"
+                ],
+                "properties": {
+                  "category": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "requiredBefore": {
+                    "enum": [
+                      "render",
+                      "apply"
+                    ]
+                  },
+                  "freshness": {
+                    "$ref": "#/definitions/freshness"
+                  },
+                  "declarationPath": {
+                    "type": "string"
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
             "actions": {
               "type": "array",
               "description": "Follow-up action records derived from observed prerequisite failures. These are separate from the base declaration.",
               "items": {
-                "type": "object"
+                "type": "object",
+                "required": [
+                  "requiredBefore",
+                  "freshness",
+                  "evidence"
+                ],
+                "properties": {
+                  "requiredBefore": {
+                    "const": "apply"
+                  },
+                  "freshness": {
+                    "$ref": "#/definitions/freshness"
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
               }
+            },
+            "coverage": {
+              "type": "object",
+              "required": [
+                "state",
+                "reason",
+                "declarationSource",
+                "nextAction"
+              ],
+              "properties": {
+                "state": {
+                  "enum": [
+                    "attached",
+                    "attached-with-observed-actions",
+                    "actionable-gap",
+                    "no-target-facts-required"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "declarationSource": {
+                  "type": "string"
+                },
+                "nextAction": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
             }
           },
           "additionalProperties": false

@@ -115,6 +115,22 @@ spec:
           argoCd: "PreSync · sync-wave -2 · ServerSideApply"
           flux: "HelmRelease .spec.install.crds=Create (or apply CRDs first)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-2\"\n    argocd.argoproj.io/sync-options: ServerSideApply=true"
+        runners:
+          direct:
+            implementation: "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync · sync-wave -2 · ServerSideApply"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "HelmRelease .spec.install.crds=Create (or apply CRDs first)"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
       status: "declared-target-facts"
       declared:
@@ -143,8 +159,150 @@ spec:
           -
             name: "workflowtemplates.argoproj.io"
             sourceVariant: "minimal-crds"
+      requirements:
+        -
+          category: "crd"
+          name: "clusterworkflowtemplates.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "cronworkflows.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workflowartifactgctasks.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workfloweventbindings.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workflows.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workflowtaskresults.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workflowtasksets.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        -
+          category: "crd"
+          name: "workflowtemplates.argoproj.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: ""
+          check: ""
+          declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+          sourceVariant: "minimal-crds"
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "8 target prerequisites declared by this base."
+        declarationSource: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml"
   delivery:
     literalConfigOci:

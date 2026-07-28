@@ -55,10 +55,18 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "actionable-gap"
+      reason: "1 source hook is recorded, but this base has no attached lifecycle route."
+      evidence:
+        []
+      nextAction: "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts."
   targetFacts:
     status: "observed-action-records"
     declared:
       {}
+    requirements:
+      []
     actions:
       -
         lane: "K"
@@ -72,6 +80,18 @@ spec:
         supportArtifact: "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"
         sourceReceipt: "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
         rerunCommand: "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
+          - "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"
+    coverage:
+      state: "actionable-gap"
+      reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
+      declarationSource: ""
+      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

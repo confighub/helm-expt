@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-07-27 (commit `cd9b752f5`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-07-27 (commit `9d6d46abd`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 233 |
-| Fresh (no linked source newer than the doc) | 29 |
-| **Review-due** | 64 |
+| Fresh (no linked source newer than the doc) | 28 |
+| **Review-due** | 65 |
 | No linked evidence sources (cannot auto-trigger) | 140 |
 
 ## Review queue
@@ -38,11 +38,11 @@ most recently changed triggers.
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 48 | `data/outcome-coverage/base-outcomes.csv (2026-07-27)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-27)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/planning/large-machine-handover.md](../../docs/planning/large-machine-handover.md) | planning | 2026-06-11 | 47 | `data/outcome-coverage/summary.md (2026-07-27)` |
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 47 | `data/top100-user-readiness/summary.md (2026-07-27)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 47 | `data/README.md (2026-07-27)`<br>`data/csv-index.csv (2026-07-27)`<br>`data/outcome-coverage/base-outcomes.csv (2026-07-27)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 47 | `data/outcome-coverage/base-outcomes.csv (2026-07-27)`<br>`data/chart-use-guide/summary.md (2026-07-01)`<br>`data/production-disposition/next-actions.csv (2026-06-30)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 47 | `data/outcome-coverage/summary.md (2026-07-27)`<br>`tests/npm-scripts.md (2026-07-13)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 46 | `data/outcome-coverage/base-outcomes.csv (2026-07-27)`<br>`data/top100-user-readiness/readiness.csv (2026-07-27)`<br>`data/top100-user-readiness/summary.md (2026-07-27)` |
 | [docs/reference/what-hook-support-means.md](../../docs/reference/what-hook-support-means.md) | reference | 2026-06-11 | 46 | `data/hook-disposition/top100-hook-dispositions.csv (2026-07-26)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 46 | `data/outcome-coverage/base-outcomes.csv (2026-07-27)`<br>`data/outcome-coverage/chart-outcomes.csv (2026-07-27)`<br>`data/outcome-coverage/summary.md (2026-07-27)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 45 | `data/top100-user-readiness/summary.md (2026-07-27)`<br>`data/top20-base-readiness/start-here.md (2026-07-01)`<br>`data/top100-readiness/summary.md (2026-06-30)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 44 | `data/lifecycle-routes/routes.json (2026-07-27)`<br>`data/lifecycle-routes/summary.md (2026-07-27)` |
 | [docs/reference/variant-promotion-model.md](../../docs/reference/variant-promotion-model.md) | reference | 2026-06-14 | 44 | `data/variant-promotion/summary.md (2026-07-27)` |
@@ -81,17 +81,18 @@ most recently changed triggers.
 | [docs/planning/free-path-pitch.md](../../docs/planning/free-path-pitch.md) | planning | 2026-07-14 | 12 | `data/cub-adoption-caveats/summary.md (2026-07-25)` |
 | [docs/user/known-gaps-we-surface.md](../../docs/user/known-gaps-we-surface.md) | user | 2026-06-21 | 12 | `data/crd-ordering-gap/summary.md (2026-07-03)`<br>`data/default-credential-check/summary.md (2026-07-01)` |
 | [docs/user/target-prerequisites-before-rerun.md](../../docs/user/target-prerequisites-before-rerun.md) | user | 2026-06-16 | 8 | `data/model-gap-workdown/summary.md (2026-06-24)`<br>`data/target-prerequisite-actions/summary.md (2026-06-18)`<br>`data/target-prerequisite-workdown/summary.md (2026-06-18)` |
-| [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 6 | `data/webhook-cert-lifecycle/summary.md (2026-06-17)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 4 | `tests/README.md (2026-07-26)`<br>`tests/doctrine.md (2026-07-26)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
-| [README.md](../../README.md) | root | 2026-07-27 | 1 | `data/apply-policy-profiles/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-27)` |
+| [README.md](../../README.md) | root | 2026-07-27 | 1 | `data/base-variant-records/summary.md (2026-07-27)`<br>`data/apply-policy-profiles/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)` |
 | [docs/README.md](../../docs/README.md) | docs | 2026-07-27 | 1 | `data/top50-completion/summary.md (2026-07-27)` |
 | [docs/planning/agreed-execution-plan.md](../../docs/planning/agreed-execution-plan.md) | planning | 2026-07-26 | 1 | `data/outcome-coverage/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)` |
 | [docs/planning/roadmap.md](../../docs/planning/roadmap.md) | planning | 2026-07-27 | 1 | `data/top50-completion/summary.md (2026-07-27)`<br>`data/master-catalog-matrix/matrix.html (2026-07-27)`<br>`data/outcome-evidence-contract/summary.md (2026-07-27)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) | reference | 2026-07-27 | 1 | `data/redis-upgrade-app-proof/summary.md (2026-07-27)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-07-26 | 1 | `data/app-readiness/summary.md (2026-07-27)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) | user | 2026-07-27 | 1 | `data/lifecycle-route-actions/summary.md (2026-07-27)`<br>`data/lifecycle-routes/summary.md (2026-07-27)` |
+| [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-07-27 | 1 | `data/redis-upgrade-app-proof/summary.md (2026-07-27)`<br>`data/apply-policy-profiles/live-helm-catalog.yaml (2026-07-27)`<br>`data/base-variant-records/summary.md (2026-07-27)` |
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-27 | 1 | `data/master-catalog-matrix/matrix.html (2026-07-27)`<br>`data/outcome-coverage/summary.md (2026-07-27)`<br>`data/status-dashboard/summary.md (2026-07-27)` |
 | [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | user | 2026-07-26 | 1 | `tests/doctrine.md (2026-07-26)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 1 | `data/claims-register/summary.md (2026-07-27)` |

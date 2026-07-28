@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "G/P"
@@ -55,6 +57,13 @@ spec:
           supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
           sourceReceipt: "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
           rerunCommand: "npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml"
+            - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
         -
           lane: "K"
           prerequisiteKind: "external-api"
@@ -67,6 +76,18 @@ spec:
           supportArtifact: "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
           sourceReceipt: "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/nats-surveyor-default-reviewed/receipt.yaml"
+            - "recipes/nats/surveyor/0.20.9/runtime-review.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/nats-surveyor-0-20-9-default-reviewed.yaml"
   delivery:
     literalConfigOci:

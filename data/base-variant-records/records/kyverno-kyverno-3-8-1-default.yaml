@@ -61,6 +61,22 @@ spec:
           argoCd: "none — your cluster handles it"
           flux: "none — your cluster handles it"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preserve-cleanup-policy"
         quirkClass: "hook-delete-policy"
@@ -85,6 +101,22 @@ spec:
           argoCd: "none — your cluster handles it"
           flux: "none — your cluster handles it"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "upgrade-action-with-receipt"
         quirkClass: "hook-phase"
@@ -109,6 +141,22 @@ spec:
           argoCd: "PreSync"
           flux: "apply before the release (Kustomization dependsOn)"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PreSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "explicit-test-check"
         quirkClass: "hook-test"
@@ -133,6 +181,22 @@ spec:
           argoCd: "PostSync test Job (Argo has no native helm test)"
           flux: "HelmRelease .spec.test.enable=true"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "# run the chart's test/check (helm test equivalent)"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PostSync test Job (Argo has no native helm test)"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "HelmRelease .spec.test.enable=true"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "preserve-ordering"
         quirkClass: "hook-weight-ordering"
@@ -157,6 +221,22 @@ spec:
           argoCd: "no extra hook — keep CRDs before dependent objects"
           flux: "no extra hook — make sure CRDs are applied before workloads"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "target-facts-or-preflight"
         quirkClass: "target-facts"
@@ -181,12 +261,35 @@ spec:
           argoCd: "none — supply the inputs before sync"
           flux: "none — supply the inputs before sync"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "# create the required target facts (Secret/StorageClass/etc.) before apply"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — supply the inputs before sync"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
       status: "none-declared-or-observed"
       declared:
         {}
+      requirements:
+        []
       actions:
         []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
     sourceRecord: "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml"
   delivery:
     literalConfigOci:

@@ -473,18 +473,28 @@ Can ConfigHub keep managing those objects after that?</code></pre>
 <p>A render intent records:</p>
 <ul><li>which chart and version are used;</li><li>which preset/base variant is being rendered;</li><li>which values profile, namespace, release name, capability profile, and source lock are part of the render;</li><li>which installer package OCI ref users pull for that chart version;</li><li>where the full rendered YAML is stored;</li><li>where the revision/checksum record is stored;</li><li>which evidence lanes exist for the row;</li><li>which lifecycle routes and target prerequisites are known.</li></ul>
 <p>The target-prerequisite section has two parts:</p>
-<ul><li><code>targetFacts.declared</code> is copied from the base variant. It names the Secrets, CRDs, namespaces, values, storage, DNS names, or topology that must already exist.</li><li><code>targetFacts.actions</code> contains follow-up work derived from an observed failed or blocked run. A base can have declared facts even when no failure has produced an action record.</li></ul>
-<p>For a chart with lifecycle routes, each route names the exact chart version and base it applies to. It also records what Argo CD does, what Flux does, and whether either controller needs an extra step. This prevents a route proven for a newer chart version from being shown as evidence for an older one.</p>
+<ul><li><code>targetFacts.declared</code> is the original declaration copied from the base variant.</li><li><code>targetFacts.requirements</code> turns that declaration into a consistent list of Secrets, CRDs, namespaces, values, storage, DNS names, or topology. Each item says whether it must be checked before render or before apply. The default freshness rule is one render or one apply, so a previous check is not reused for the next operation.</li><li><code>targetFacts.actions</code> contains follow-up work derived from an observed failed or blocked run. A base can have declared facts even when no failure has produced an action record.</li></ul>
+<p>For a chart with lifecycle routes, each route names the version that supplied its evidence. It has separate records for direct commands, Argo CD, and Flux. <code>pass</code> means that exact path ran. <code>mapping-only</code> explains how the controller would handle the work but does not claim that it ran.</p>
+<p>If a route is carried forward from another chart version, the route remains visible as a useful starting point, but the lifecycle coverage state becomes <code>actionable-gap</code>. For example, the kube-prometheus-stack <code>86.1.0</code> mappings currently point to <code>85.3.3</code> evidence. They do not become <code>86.1.0</code> proof until a version-matched run and receipt exist.</p>
+<h2 id="coverage-for-every-base">Coverage For Every Base</h2>
+<p>Every generated render intent has two coverage states:</p>
+<table><thead><tr><th>Area</th><th>Complete states</th><th>Missing-work state</th></tr></thead><tbody><tr><td>Hooks and lifecycle work</td><td><code>attached</code> or <code>no-route-required</code></td><td><code>actionable-gap</code></td></tr>
+<tr><td>Target prerequisites</td><td><code>attached</code>, <code>attached-with-observed-actions</code>, or <code>no-target-facts-required</code></td><td><code>actionable-gap</code></td></tr></tbody></table>
+<p><code>no-route-required</code> and <code>no-target-facts-required</code> are explicit decisions. A missing declaration does not receive either state.</p>
+<p>The current work list is generated here:</p>
+<ul><li><a href="../../data/helm-render-intents/contract-gaps.html">human-readable gap list</a></li><li><a href="../../../../data/helm-render-intents/contract-gaps.csv">CSV gap list</a></li></ul>
+<p>The gap list currently includes bases whose hooks still need a route, bases whose route evidence comes from another chart version, and bases that have not yet said what the target must provide.</p>
 <h2 id="why-we-generate-it">Why We Generate It</h2>
 <p>The render intent gives people and agents one file that names the render inputs and the matching output.</p>
 <p>For a chart with CRDs, hooks, setup jobs, or external Secrets, it also points to the recipe, captured render variant, package base, receipts, and matrix row.</p>
 <p>We do not generate render intents for candidate or custom-discussion rows yet. Those rows stay visible in the matrix, but they are not treated as runnable configs until the underlying base path is real.</p>
 <h2 id="current-generated-surface">Current Generated Surface</h2>
 <p>The generated surface is here:</p>
-<ul><li><a href="../../data/helm-render-intents/summary.html">summary</a></li><li><a href="../../../../data/helm-render-intents/intents.csv">CSV</a></li><li><a href="../../../../data/helm-render-intents/intents.json">JSON</a></li><li>per-intent YAML files under <code>data/helm-render-intents/intents/</code></li><li><a href="../../data/helm-render-intents/contract.html">contract</a></li></ul>
+<ul><li><a href="../../data/helm-render-intents/summary.html">summary</a></li><li><a href="../../../../data/helm-render-intents/intents.csv">CSV</a></li><li><a href="../../../../data/helm-render-intents/intents.json">JSON</a></li><li>per-intent YAML files under <code>data/helm-render-intents/intents/</code></li><li><a href="../../data/helm-render-intents/contract.html">contract</a></li><li><a href="../../data/helm-render-intents/contract-gaps.html">contract gaps</a></li></ul>
 <p>The verifier is:</p>
-<pre><code>npm run helm-render-intents:verify</code></pre>
-<p>That verifier checks the generated objects against the master matrix, the base variant's declared target facts, lifecycle-route data, GitOps route mappings, and target-prerequisite action data.</p>
+<pre><code>npm run helm-render-intents:verify
+npm run helm-render-intents:contracts:verify</code></pre>
+<p>That verifier checks the generated objects against the master matrix, the base variant's declared target facts, lifecycle-route data, GitOps route mappings, and target-prerequisite action data. It also fails when an evidence path is missing, a route hides chart-version drift, a prerequisite lacks a check point or freshness rule, or the generated gap list omits an incomplete base.</p>
 <h2 id="what-this-does-not-claim">What This Does Not Claim</h2>
 <p>A render intent is not a production promise. It does not say every live lane is green. It does not make hooks automatic. It does not create ConfigHub server state by itself.</p>
 <p>It says something narrower: this Helm preset/base variant has a real catalog path, and the inputs, captured output, evidence links, and known extra work are recorded in one machine-readable object.</p>

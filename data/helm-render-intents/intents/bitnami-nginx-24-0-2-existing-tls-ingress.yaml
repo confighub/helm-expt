@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -74,8 +80,48 @@ spec:
           name: "nginx-ingress-tls"
           namespace: "nginx"
           purpose: "TLS certificate material referenced by the Ingress"
+    requirements:
+      -
+        category: "secret"
+        name: "nginx/nginx-backend-tls"
+        namespace: "nginx"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "TLS certificate material mounted by the NGINX pod"
+        check: ""
+        declarationPath: "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
+      -
+        category: "secret"
+        name: "nginx/nginx-ingress-tls"
+        namespace: "nginx"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "TLS certificate material referenced by the Ingress"
+        check: ""
+        declarationPath: "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/bitnami/nginx/24.0.2/variants/existing-tls-ingress/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

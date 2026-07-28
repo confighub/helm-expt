@@ -65,8 +65,31 @@ spec:
             name: "ingress-nginx-admission"
             namespace: "ingress-nginx"
             purpose: "admission webhook certificate normally created by Helm hook jobs"
+      requirements:
+        -
+          category: "secret"
+          name: "ingress-nginx/ingress-nginx-admission"
+          namespace: "ingress-nginx"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "admission webhook certificate normally created by Helm hook jobs"
+          check: ""
+          declarationPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "cubInstallerApply"
+          evidence:
+            - "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "1 target prerequisite declared by this base."
+        declarationSource: "recipes/ingress-nginx/ingress-nginx/4.15.1/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml"
   delivery:
     literalConfigOci:

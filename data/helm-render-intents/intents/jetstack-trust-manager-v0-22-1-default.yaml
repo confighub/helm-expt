@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -101,8 +107,94 @@ spec:
           name: "trust-manager-tls"
           namespace: "default"
           purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+    requirements:
+      -
+        category: "crd"
+        name: "certificates.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Certificate CRD required by trust-manager certificate.yaml"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "issuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Issuer CRD required by trust-manager certificate.yaml"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      -
+        category: "namespace"
+        name: "cert-manager"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "trust-manager uses cert-manager as the default trust namespace and regular Helm does not create it for this base"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      -
+        category: "secret"
+        name: "default/trust-manager-tls"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "trust-manager admission webhook TLS material normally produced by the rendered cert-manager Certificate lifecycle"
+        check: ""
+        declarationPath: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "4 target prerequisites declared by this base."
+      declarationSource: "recipes/jetstack/trust-manager/v0.22.1/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

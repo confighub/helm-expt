@@ -93,17 +93,48 @@ A render intent records:
 
 The target-prerequisite section has two parts:
 
-- `targetFacts.declared` is copied from the base variant. It names the Secrets,
-  CRDs, namespaces, values, storage, DNS names, or topology that must already
-  exist.
+- `targetFacts.declared` is the original declaration copied from the base
+  variant.
+- `targetFacts.requirements` turns that declaration into a consistent list of
+  Secrets, CRDs, namespaces, values, storage, DNS names, or topology. Each item
+  says whether it must be checked before render or before apply. The default
+  freshness rule is one render or one apply, so a previous check is not reused
+  for the next operation.
 - `targetFacts.actions` contains follow-up work derived from an observed failed
   or blocked run. A base can have declared facts even when no failure has
   produced an action record.
 
-For a chart with lifecycle routes, each route names the exact chart version and
-base it applies to. It also records what Argo CD does, what Flux does, and
-whether either controller needs an extra step. This prevents a route proven for
-a newer chart version from being shown as evidence for an older one.
+For a chart with lifecycle routes, each route names the version that supplied
+its evidence. It has separate records for direct commands, Argo CD, and Flux.
+`pass` means that exact path ran. `mapping-only` explains how the controller
+would handle the work but does not claim that it ran.
+
+If a route is carried forward from another chart version, the route remains
+visible as a useful starting point, but the lifecycle coverage state becomes
+`actionable-gap`. For example, the kube-prometheus-stack `86.1.0` mappings
+currently point to `85.3.3` evidence. They do not become `86.1.0` proof until a
+version-matched run and receipt exist.
+
+## Coverage For Every Base
+
+Every generated render intent has two coverage states:
+
+| Area | Complete states | Missing-work state |
+| --- | --- | --- |
+| Hooks and lifecycle work | `attached` or `no-route-required` | `actionable-gap` |
+| Target prerequisites | `attached`, `attached-with-observed-actions`, or `no-target-facts-required` | `actionable-gap` |
+
+`no-route-required` and `no-target-facts-required` are explicit decisions. A
+missing declaration does not receive either state.
+
+The current work list is generated here:
+
+- [human-readable gap list](../../data/helm-render-intents/contract-gaps.md)
+- [CSV gap list](../../data/helm-render-intents/contract-gaps.csv)
+
+The gap list currently includes bases whose hooks still need a route, bases
+whose route evidence comes from another chart version, and bases that have not
+yet said what the target must provide.
 
 ## Why We Generate It
 
@@ -126,16 +157,20 @@ The generated surface is here:
 - [JSON](../../data/helm-render-intents/intents.json)
 - per-intent YAML files under `data/helm-render-intents/intents/`
 - [contract](../../data/helm-render-intents/contract.md)
+- [contract gaps](../../data/helm-render-intents/contract-gaps.md)
 
 The verifier is:
 
 ```sh
 npm run helm-render-intents:verify
+npm run helm-render-intents:contracts:verify
 ```
 
 That verifier checks the generated objects against the master matrix, the base
 variant's declared target facts, lifecycle-route data, GitOps route mappings,
-and target-prerequisite action data.
+and target-prerequisite action data. It also fails when an evidence path is
+missing, a route hides chart-version drift, a prerequisite lacks a check point
+or freshness rule, or the generated gap list omits an incomplete base.
 
 ## What This Does Not Claim
 

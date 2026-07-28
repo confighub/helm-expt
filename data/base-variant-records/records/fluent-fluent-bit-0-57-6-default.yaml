@@ -61,6 +61,22 @@ spec:
           argoCd: "none — your cluster handles it"
           flux: "none — your cluster handles it"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your cluster — at uninstall, automatically"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "none — your cluster handles it"
+            status: "mapping-only"
+            evidence:
+              []
       -
         routeName: "explicit-test-check"
         quirkClass: "hook-test"
@@ -85,12 +101,35 @@ spec:
           argoCd: "PostSync test Job (Argo has no native helm test)"
           flux: "HelmRelease .spec.test.enable=true"
           argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "# run the chart's test/check (helm test equivalent)"
+            status: "not-run"
+            evidence:
+              []
+          argoCd:
+            implementation: "PostSync test Job (Argo has no native helm test)"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "HelmRelease .spec.test.enable=true"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
       status: "none-declared-or-observed"
       declared:
         {}
+      requirements:
+        []
       actions:
         []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
     sourceRecord: "data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml"
   delivery:
     literalConfigOci:

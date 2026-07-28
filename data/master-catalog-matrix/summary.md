@@ -52,6 +52,8 @@ from a different chart version's disposition row.
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 1 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 1 / 2 / 197 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 8 / 0 / 2 / 386 |
+| Render-intent lifecycle records (attached / gap / no separate route) | 8 / 5 / 186 |
+| Render-intent prerequisite records (attached / gap / none explicitly required) | 50 / 149 / 0 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 83 |
 | Cells with deferred accepted disposition | 125 |
@@ -72,6 +74,7 @@ Use the row to answer three questions before deciding what to do next:
 | Where am I in the customization flow? | Layer, Kind |
 | Can downstream ConfigHub variants be promoted from this base? | V, Promotion status |
 | If a hook or lifecycle behavior exists, where does it go? | Route, Hooks, lifecycle route contract |
+| Has this exact base recorded its lifecycle work and target prerequisites? | Render-intent lifecycle and target states in the CSV/HTML view |
 | Which non-pass live row should be rerun or reviewed now? | Active proof |
 | Is this row active work, an external dependency, or deferred for now? | Action |
 
@@ -128,6 +131,7 @@ duplicates of this one.
 | [catalog-promotion-wave2/variant-work-orders.yaml](../catalog-promotion-wave2/variant-work-orders.yaml) | candidate F2 base/fork rows that are explicitly not rendered yet and need recipe/package/evidence work before becoming real bases | per-value detail beyond the compact inputs, blockers, and first action shown in the candidate row |
 | [useful-base-realization-wave/wave2-selection.csv](../useful-base-realization-wave/wave2-selection.csv) | candidate F2 user-shaped base rows from the useful-base queue, including render-time knobs, target inputs, and required receipts | priority scoring internals; follow the source for full wave ordering |
 | [target-prerequisite-actions/actions.csv](../target-prerequisite-actions/actions.csv) | candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether human review is needed | duplicate lane-level rows after they are grouped by chart/base/prerequisite/action |
+| [helm-render-intents/intents.csv](../helm-render-intents/intents.csv) | one lifecycle-contract state and one target-prerequisite state for every real base, plus requirement/action counts and the exact generated intent | the full route implementations, normalized prerequisite records, freshness rules, and evidence links; follow the render intent for those details |
 
 The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next
 action, target run scope, and active proof queue details. The Markdown

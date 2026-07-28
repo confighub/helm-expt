@@ -13,12 +13,15 @@ const matrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv")
 const lifecycleByVariantPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const targetPrereqActionsPath = join(repoRoot, "data", "target-prerequisite-actions", "actions.csv");
+const kpsLifecycleReceiptPath = "runs/kps-lifecycle-route-proof/receipt.yaml";
 
 const outputs = {
   summary: join(root, "summary.md"),
   csv: join(root, "intents.csv"),
   json: join(root, "intents.json"),
   contract: join(root, "contract.md"),
+  gaps: join(root, "contract-gaps.md"),
+  gapsCsv: join(root, "contract-gaps.csv"),
 };
 
 if (mode === "--generate") {
@@ -29,6 +32,8 @@ if (mode === "--generate") {
   write(outputs.csv, report.csv);
   write(outputs.json, `${JSON.stringify({ intents: report.intents }, null, 2)}\n`);
   write(outputs.contract, report.contract);
+  write(outputs.gaps, report.gaps);
+  write(outputs.gapsCsv, report.gapsCsv);
   console.log(`wrote helm render intents -> ${relativeRepo(root)} (${report.intents.length} intent(s), ${report.candidates} candidate row(s) skipped)`);
 } else if (mode === "--verify") {
   const report = buildReport();
@@ -36,10 +41,14 @@ if (mode === "--generate") {
   check(existsSync(outputs.csv), `${relativeRepo(outputs.csv)} is missing; run npm run helm-render-intents`);
   check(existsSync(outputs.json), `${relativeRepo(outputs.json)} is missing; run npm run helm-render-intents`);
   check(existsSync(outputs.contract), `${relativeRepo(outputs.contract)} is missing; run npm run helm-render-intents`);
+  check(existsSync(outputs.gaps), `${relativeRepo(outputs.gaps)} is missing; run npm run helm-render-intents`);
+  check(existsSync(outputs.gapsCsv), `${relativeRepo(outputs.gapsCsv)} is missing; run npm run helm-render-intents`);
   check(readFileSync(outputs.summary, "utf8") === report.summary, `${relativeRepo(outputs.summary)} is stale; run npm run helm-render-intents`);
   check(readFileSync(outputs.csv, "utf8") === report.csv, `${relativeRepo(outputs.csv)} is stale; run npm run helm-render-intents`);
   check(readFileSync(outputs.json, "utf8") === `${JSON.stringify({ intents: report.intents }, null, 2)}\n`, `${relativeRepo(outputs.json)} is stale; run npm run helm-render-intents`);
   check(readFileSync(outputs.contract, "utf8") === report.contract, `${relativeRepo(outputs.contract)} is stale; run npm run helm-render-intents`);
+  check(readFileSync(outputs.gaps, "utf8") === report.gaps, `${relativeRepo(outputs.gaps)} is stale; run npm run helm-render-intents`);
+  check(readFileSync(outputs.gapsCsv, "utf8") === report.gapsCsv, `${relativeRepo(outputs.gapsCsv)} is stale; run npm run helm-render-intents`);
   for (const intent of report.intents) {
     const path = join(intentsRoot, `${intent.metadata.name}.yaml`);
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run helm-render-intents`);
@@ -64,16 +73,35 @@ function buildReport() {
   const targetPrereqRows = existsSync(targetPrereqActionsPath)
     ? parseCsv(readFileSync(targetPrereqActionsPath, "utf8"))
     : [];
+  const kpsLifecycleReceipt = existsSync(join(repoRoot, kpsLifecycleReceiptPath))
+    ? readYaml(join(repoRoot, kpsLifecycleReceiptPath))
+    : null;
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
-  const intents = realBases.map((row) => buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqRows)).sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
+  const intents = realBases
+    .map((row) => buildIntent(
+      row,
+      lifecycleByVariant,
+      gitopsRouteEmission,
+      targetPrereqRows,
+      kpsLifecycleReceipt,
+    ))
+    .sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
   const csv = renderCsv(intents);
   const contract = contractMd(intents, candidates);
-  return { intents, candidates, summary, csv, contract };
+  const gaps = contractGapsMd(intents);
+  const gapsCsv = contractGapsCsv(intents);
+  return { intents, candidates, summary, csv, contract, gaps, gapsCsv };
 }
 
-function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqRows) {
+function buildIntent(
+  row,
+  lifecycleByVariant,
+  gitopsRouteEmission,
+  targetPrereqRows,
+  kpsLifecycleReceipt,
+) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
   const variantLifecycle = chartLifecycle?.variants?.find((item) => item.base === row.variant && (!item.recipeVersion || item.recipeVersion === row.version));
@@ -115,6 +143,13 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
         flux: emission.flux,
         argoCdSnippet: emission.snippet,
       },
+      runners: routeRunnerRecords({
+        route,
+        routeEvidence,
+        emission,
+        isKpsDefault,
+        kpsLifecycleReceipt,
+      }),
     };
   });
   const targetActions = targetFacts.map((fact) => ({
@@ -129,8 +164,19 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
     supportArtifact: fact.support_artifact,
     sourceReceipt: fact.source_receipt,
     rerunCommand: fact.rerun_command,
+    requiredBefore: "apply",
+    freshness: {
+      policy: "recheck-before-apply",
+      maxAge: "one-apply",
+    },
+    evidence: [fact.source_receipt, fact.support_artifact].filter(Boolean),
   }));
   const declaredTargetFacts = variantSpec.targetFacts ?? {};
+  const declaredTargetFactsPresent = Object.hasOwn(variantSpec, "targetFacts");
+  const targetRequirements = normalizeTargetRequirements(
+    declaredTargetFacts,
+    row.variant_path,
+  );
   const declaredTargetFactCount = targetFactCount(declaredTargetFacts);
   const targetStatus = declaredTargetFactCount > 0 && targetActions.length > 0
     ? "declared-target-facts-and-observed-action-records"
@@ -139,6 +185,13 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
       : targetActions.length > 0
         ? "observed-action-records"
         : "none-declared-or-observed";
+  const lifecycleCoverage = lifecycleContractCoverage(row, lifecycleRoutes);
+  const targetCoverage = targetFactCoverage({
+    declaredTargetFactCount,
+    declaredTargetFactsPresent,
+    targetActions,
+    row,
+  });
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmRenderIntent",
@@ -208,11 +261,14 @@ function buildIntent(row, lifecycleByVariant, gitopsRouteEmission, targetPrereqR
         contractPath: row.lifecycle_route_contract_path || "",
         jsonPath: row.lifecycle_route_json_path || "",
         variantRoutes: lifecycleRoutes,
+        coverage: lifecycleCoverage,
       },
       targetFacts: {
         status: targetStatus,
         declared: declaredTargetFacts,
+        requirements: targetRequirements,
         actions: targetActions,
+        coverage: targetCoverage,
       },
       provenance: {
         matrixRowKind: row.row_kind,
@@ -257,7 +313,211 @@ function readVariantSpec(path) {
 }
 
 function targetFactCount(targetFacts) {
-  return Object.values(targetFacts ?? {}).reduce((count, value) => count + (Array.isArray(value) ? value.length : 0), 0);
+  return Object.values(targetFacts ?? {}).reduce((count, value) => {
+    if (Array.isArray(value)) return count + value.length;
+    if (value && typeof value === "object") {
+      return count + (Object.keys(value).length > 0 ? 1 : 0);
+    }
+    return count + (value === undefined || value === null || value === "" ? 0 : 1);
+  }, 0);
+}
+
+function normalizeTargetRequirements(targetFacts, variantPath) {
+  return Object.entries(targetFacts ?? {}).flatMap(([field, raw]) => {
+    const items = Array.isArray(raw)
+      ? raw
+      : raw && typeof raw === "object"
+        ? [raw]
+        : [];
+    return items.map((item, index) => {
+      const category = targetFactCategory(field);
+      const requiredBefore = field === "requiredValues" ? "render" : "apply";
+      const name = targetFactName(field, item, index);
+      return {
+        category,
+        name,
+        namespace: String(item.namespace ?? ""),
+        requiredBefore,
+        freshness: {
+          policy: requiredBefore === "render"
+            ? "recheck-before-render"
+            : "recheck-before-apply",
+          maxAge: String(item.freshness ?? (requiredBefore === "render"
+            ? "one-render"
+            : "one-apply")),
+        },
+        purpose: String(item.purpose ?? ""),
+        check: String(item.suggestedSource ?? ""),
+        declarationPath: variantPath,
+        sourceVariant: String(item.sourceVariant ?? ""),
+        sourcePath: String(item.sourcePath ?? ""),
+        deliveryLanes: asStringList(item.deliveryLanes),
+        evidence: uniqueStrings([
+          variantPath,
+          ...asStringList(item.evidence ?? item.receipts),
+        ]),
+      };
+    });
+  });
+}
+
+function targetFactCategory(field) {
+  return {
+    requiredCRDs: "crd",
+    requiredSecrets: "secret",
+    requiredNamespaces: "namespace",
+    requiredValues: "value",
+    requiredObjectStores: "object-store",
+    requiredStorage: "storage",
+    requiredDNSNames: "dns-name",
+    requiredTopology: "topology",
+  }[field] ?? field.replace(/^required/, "").replace(/[A-Z]/g, (value) => `-${value.toLowerCase()}`).replace(/^-/, "");
+}
+
+function targetFactName(field, item, index) {
+  const explicit = item.name ?? item.path ?? item.bucket ?? item.host ?? item.dnsName;
+  if (explicit) {
+    if (field === "requiredSecrets" && item.namespace) {
+      return `${item.namespace}/${explicit}`;
+    }
+    return String(explicit);
+  }
+  if (field === "requiredTopology") return "target topology";
+  if (field === "requiredObjectStores") return "object store";
+  return `${targetFactCategory(field)}-${index + 1}`;
+}
+
+function asStringList(value) {
+  if (Array.isArray(value)) return value.map(String).filter(Boolean);
+  return splitList(value);
+}
+
+function uniqueStrings(values) {
+  return [...new Set(values.map(String).filter(Boolean))];
+}
+
+function lifecycleContractCoverage(row, routes) {
+  const contract = String(row.lifecycle_route_contract || "n/a");
+  const knownHooks = Number(row.hook_count || 0) > 0;
+  const versionDrift = routes.filter((route) => route.routeSourceVersion !== row.version);
+  if (versionDrift.length > 0) {
+    const sourceVersions = uniqueStrings(versionDrift.map((route) => route.routeSourceVersion));
+    return {
+      state: "actionable-gap",
+      reason: `${routes.length} lifecycle route mapping${routes.length === 1 ? " is" : "s are"} attached, but ${versionDrift.length} still use evidence from ${sourceVersions.join(", ")} instead of ${row.version}.`,
+      evidence: uniqueStrings(routes.flatMap((route) => route.evidence)),
+      nextAction: `Run the lifecycle proof for ${row.version}, then update the route source version and receipt.`,
+    };
+  }
+  if (routes.length > 0) {
+    return {
+      state: "attached",
+      reason: `${routes.length} lifecycle route${routes.length === 1 ? "" : "s"} attached for this exact chart version and base.`,
+      evidence: [row.lifecycle_route_contract_path, row.lifecycle_route_json_path].filter(Boolean),
+      nextAction: "",
+    };
+  }
+  if (contract === "todo" || knownHooks) {
+    const hookCount = Number(row.hook_count || 0);
+    return {
+      state: "actionable-gap",
+      reason: knownHooks
+        ? `${hookCount} source hook${hookCount === 1 ? "" : "s"} ${hookCount === 1 ? "is" : "are"} recorded, but this base has no attached lifecycle route.`
+        : "The master matrix marks the lifecycle route contract as unfinished.",
+      evidence: [row.hook_evidence_version].filter(Boolean),
+      nextAction: knownHooks
+        ? "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts."
+        : row.next_action
+          || row.active_proof_next_step
+          || "Choose the chart-specific route, record who runs it, and add a receipt.",
+    };
+  }
+  return {
+    state: "no-route-required",
+    reason: "The current catalog record has no source hook or separate lifecycle step for this base.",
+    evidence: [],
+    nextAction: "",
+  };
+}
+
+function targetFactCoverage({
+  declaredTargetFactCount,
+  declaredTargetFactsPresent,
+  targetActions,
+  row,
+}) {
+  if (declaredTargetFactCount > 0 && targetActions.length > 0) {
+    return {
+      state: "attached-with-observed-actions",
+      reason: `${declaredTargetFactCount} prerequisite declaration${declaredTargetFactCount === 1 ? "" : "s"} and ${targetActions.length} follow-up action record${targetActions.length === 1 ? "" : "s"} are attached.`,
+      declarationSource: row.variant_path,
+      nextAction: "",
+    };
+  }
+  if (declaredTargetFactCount > 0) {
+    return {
+      state: "attached",
+      reason: `${declaredTargetFactCount} target prerequisite${declaredTargetFactCount === 1 ? "" : "s"} declared by this base.`,
+      declarationSource: row.variant_path,
+      nextAction: "",
+    };
+  }
+  if (targetActions.length > 0) {
+    return {
+      state: "actionable-gap",
+      reason: `${targetActions.length} observed prerequisite action record${targetActions.length === 1 ? " exists" : "s exist"}, but the base does not declare the prerequisite.`,
+      declarationSource: "",
+      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof.",
+    };
+  }
+  if (declaredTargetFactsPresent) {
+    return {
+      state: "no-target-facts-required",
+      reason: "The base explicitly declares no separate target prerequisite.",
+      declarationSource: row.variant_path,
+      nextAction: "",
+    };
+  }
+  return {
+    state: "actionable-gap",
+    reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
+    declarationSource: "",
+    nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required.",
+  };
+}
+
+function routeRunnerRecords({
+  route,
+  routeEvidence,
+  emission,
+  isKpsDefault,
+  kpsLifecycleReceipt,
+}) {
+  const directRoute = isKpsDefault
+    ? kpsLifecycleReceipt?.spec?.routes?.[route.route_name]
+    : null;
+  const directEvidence = directRoute
+    ? [kpsLifecycleReceiptPath]
+    : routeEvidence.filter((path) => path.startsWith("runs/"));
+  const directStatus = directRoute?.result
+    ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
+  return {
+    direct: {
+      implementation: route.command || route.whoRuns || "",
+      status: directStatus,
+      evidence: directEvidence,
+    },
+    argoCd: {
+      implementation: emission.argo,
+      status: "mapping-only",
+      evidence: [],
+    },
+    flux: {
+      implementation: emission.flux,
+      status: "mapping-only",
+      evidence: [],
+    },
+  };
 }
 
 function splitList(value) {
@@ -325,8 +585,15 @@ function renderCsv(intents) {
     "lifecycle_route_contract",
     "lifecycle_route_count",
     "gitops_route_count",
+    "lifecycle_contract_state",
+    "lifecycle_contract_reason",
+    "lifecycle_contract_next_action",
     "declared_target_fact_count",
+    "target_requirement_count",
     "target_fact_action_count",
+    "target_fact_contract_state",
+    "target_fact_contract_reason",
+    "target_fact_contract_next_action",
     "source_repository_url",
   ];
   const rows = intents.map((intent) => {
@@ -352,8 +619,15 @@ function renderCsv(intents) {
       lifecycle_route_contract: intent.spec.lifecycle.routeContract,
       lifecycle_route_count: intent.spec.lifecycle.routeCount,
       gitops_route_count: String(intent.spec.lifecycle.variantRoutes.filter((route) => route.gitOps).length),
+      lifecycle_contract_state: intent.spec.lifecycle.coverage.state,
+      lifecycle_contract_reason: intent.spec.lifecycle.coverage.reason,
+      lifecycle_contract_next_action: intent.spec.lifecycle.coverage.nextAction,
       declared_target_fact_count: String(targetFactCount(intent.spec.targetFacts.declared)),
+      target_requirement_count: String(intent.spec.targetFacts.requirements.length),
       target_fact_action_count: String(intent.spec.targetFacts.actions.length),
+      target_fact_contract_state: intent.spec.targetFacts.coverage.state,
+      target_fact_contract_reason: intent.spec.targetFacts.coverage.reason,
+      target_fact_contract_next_action: intent.spec.targetFacts.coverage.nextAction,
       source_repository_url: intent.spec.chart.sourceRepository,
     };
     return headers.map((header) => csvCell(row[header])).join(",");
@@ -367,6 +641,10 @@ function summaryMd(intents, matrixRows, candidates) {
   const gitopsRouteCount = intents.filter((intent) => intent.spec.lifecycle.variantRoutes.some((route) => route.gitOps)).length;
   const declaredTargetFactCount = intents.filter((intent) => targetFactCount(intent.spec.targetFacts.declared) > 0).length;
   const targetActionCount = intents.filter((intent) => intent.spec.targetFacts.actions.length > 0).length;
+  const lifecycleCoverage = countBy(intents, (intent) => intent.spec.lifecycle.coverage.state);
+  const targetCoverage = countBy(intents, (intent) => intent.spec.targetFacts.coverage.state);
+  const lifecycleGapCount = intents.filter((intent) => intent.spec.lifecycle.coverage.state === "actionable-gap").length;
+  const targetGapCount = intents.filter((intent) => intent.spec.targetFacts.coverage.state === "actionable-gap").length;
   const realBaseRows = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-")).length;
   const o = [];
   o.push("# Helm Render Intents", "");
@@ -386,6 +664,21 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push(`| Intents whose routes name the Argo CD and Flux handling | ${gitopsRouteCount} |`);
   o.push(`| Intents with target facts declared by the base variant | ${declaredTargetFactCount} |`);
   o.push(`| Intents with action records from observed prerequisite failures | ${targetActionCount} |`);
+  o.push(`| Lifecycle contract gaps named for follow-up | ${lifecycleGapCount} |`);
+  o.push(`| Target-prerequisite reviews still missing | ${targetGapCount} |`);
+  o.push("");
+  o.push("## Contract Coverage", "");
+  o.push("Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.");
+  o.push("");
+  o.push("| Lifecycle state | Intents |");
+  o.push("| --- | ---: |");
+  for (const [state, count] of lifecycleCoverage) o.push(`| \`${state}\` | ${count} |`);
+  o.push("");
+  o.push("| Target-prerequisite state | Intents |");
+  o.push("| --- | ---: |");
+  for (const [state, count] of targetCoverage) o.push(`| \`${state}\` | ${count} |`);
+  o.push("");
+  o.push("Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.");
   o.push("");
   o.push("## By Catalog Layer", "");
   o.push("| Layer | Intents |");
@@ -416,7 +709,7 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("                promotions / targets / observations");
   o.push("```");
   o.push("");
-  o.push("A render intent keeps two kinds of prerequisite information separate. `targetFacts.declared` copies what the base says must exist, such as a Secret or CRD. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes also state how Argo CD and Flux handle each step for that exact chart version and base.");
+  o.push("A render intent keeps two kinds of prerequisite information separate. `targetFacts.requirements` normalizes what the base says must exist and when it must be checked again. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes separately show the direct, Argo CD, and Flux implementations, and say whether each one has evidence or is only mapped.");
   o.push("");
   const examples = renderVariantExamples(intents);
   if (examples.length) {
@@ -435,6 +728,7 @@ function summaryMd(intents, matrixRows, candidates) {
   o.push("- [`intents.json`](./intents.json) - all generated render intents in one object.");
   o.push("- [`intents/`](./intents/) - one YAML file per generated render intent.");
   o.push("- [`contract.md`](./contract.md) - what the generated object claims and refuses to claim.");
+  o.push("- [`contract-gaps.md`](./contract-gaps.md) and [`contract-gaps.csv`](./contract-gaps.csv) - bases whose route or target-prerequisite contract is still incomplete.");
   o.push("");
   o.push("## Regenerate", "");
   o.push("```sh");
@@ -497,13 +791,22 @@ A \`HelmRenderIntent\` is a generated config object for one real base variant in
 - The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
 - Target facts declared in the base variant are copied onto the object.
-- Lifecycle routes are attached by exact chart version and base, including the recorded Argo CD and Flux handling.
+- Declared target facts are normalized into requirements with a check point
+  (\`render\` or \`apply\`), a freshness policy, and evidence links where they exist.
+- Lifecycle routes name the chart version that supplied their evidence. If that
+  version differs from the base being described, the intent remains an
+  actionable gap until a version-matched lifecycle receipt exists.
+- Each route separates the direct, Argo CD, and Flux implementation. A mapping is
+  not reported as a successful run.
 - Action records derived from observed prerequisite failures stay separate from declared target facts.
+- Every base has a lifecycle coverage state and a target-prerequisite coverage
+  state. Missing contracts are listed in \`contract-gaps.csv\`.
 
 ## What It Does Not Claim
 
 - It does not mean every live lane is green.
 - It does not make hook execution automatic.
+- It does not treat an Argo CD or Flux mapping as execution evidence.
 - It does not replace the full helm-expt chain.
 - It does not create ConfigHub server state by itself. Upload and variant creation still happen later.
 - It does not emit candidate/custom-discussion rows as runnable configs. Current skipped candidate rows: ${candidates}.
@@ -513,6 +816,95 @@ A \`HelmRenderIntent\` is a generated config object for one real base variant in
 Generated objects: ${intents.length}.
 
 The verifier fails if the generated CSV, JSON, summary, contract, or per-intent YAML files drift from the master matrix, variant declarations, or joined route/prerequisite data.
+`;
+}
+
+function contractGaps(intents) {
+  return intents.flatMap((intent) => {
+    const rows = [];
+    const common = {
+      name: intent.metadata.name,
+      chart: intent.spec.chart.name,
+      version: intent.spec.chart.version,
+      base: intent.spec.baseVariant,
+      intentPath: `data/helm-render-intents/intents/${intent.metadata.name}.yaml`,
+    };
+    if (intent.spec.lifecycle.coverage.state === "actionable-gap") {
+      rows.push({
+        ...common,
+        area: "lifecycle-route",
+        reason: intent.spec.lifecycle.coverage.reason,
+        nextAction: intent.spec.lifecycle.coverage.nextAction,
+      });
+    }
+    if (intent.spec.targetFacts.coverage.state === "actionable-gap") {
+      rows.push({
+        ...common,
+        area: "target-prerequisite",
+        reason: intent.spec.targetFacts.coverage.reason,
+        nextAction: intent.spec.targetFacts.coverage.nextAction,
+      });
+    }
+    return rows;
+  });
+}
+
+function contractGapsCsv(intents) {
+  const headers = [
+    "name",
+    "chart",
+    "version",
+    "base",
+    "area",
+    "reason",
+    "next_action",
+    "intent_path",
+  ];
+  const rows = contractGaps(intents).map((gap) => [
+    gap.name,
+    gap.chart,
+    gap.version,
+    gap.base,
+    gap.area,
+    gap.reason,
+    gap.nextAction,
+    gap.intentPath,
+  ].map(csvCell).join(","));
+  return `${headers.join(",")}\n${rows.join("\n")}\n`;
+}
+
+function contractGapsMd(intents) {
+  const gaps = contractGaps(intents);
+  const lifecycle = gaps.filter((gap) => gap.area === "lifecycle-route");
+  const target = gaps.filter((gap) => gap.area === "target-prerequisite");
+  const rows = gaps.length
+    ? gaps.map((gap) => `| ${gap.chart}@${gap.version} | \`${gap.base}\` | ${gap.area} | ${gap.reason} | ${gap.nextAction} | [intent](./intents/${gap.name}.yaml) |`).join("\n")
+    : "| - | - | - | No contract gaps. | - | - |";
+  return `# Helm Render Intent Contract Gaps
+
+**UNOFFICIAL/EXPERIMENTAL.** Generated by
+\`scripts/generate-helm-render-intents.mjs\`; do not hand-edit.
+
+This list prevents missing lifecycle and target-prerequisite work from being
+mistaken for “nothing extra required.” A row remains here until the exact base
+records a route, declares its prerequisites, or explicitly records that none are
+required.
+
+## Snapshot
+
+| Area | Gaps |
+| --- | ---: |
+| Lifecycle route | ${lifecycle.length} |
+| Target prerequisite | ${target.length} |
+| Total | ${gaps.length} |
+
+## Work List
+
+| Chart | Base | Area | Why it is here | Next action | Render intent |
+| --- | --- | --- | --- | --- | --- |
+${rows}
+
+Machine-readable copy: [contract-gaps.csv](./contract-gaps.csv).
 `;
 }
 

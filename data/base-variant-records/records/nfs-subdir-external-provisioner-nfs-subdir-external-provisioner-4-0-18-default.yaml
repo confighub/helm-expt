@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "K"
@@ -55,6 +57,17 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18-default.yaml"
   delivery:
     literalConfigOci:

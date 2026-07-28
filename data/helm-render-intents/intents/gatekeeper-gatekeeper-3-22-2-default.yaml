@@ -55,12 +55,25 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "actionable-gap"
+      reason: "4 source hooks are recorded, but this base has no attached lifecycle route."
+      evidence:
+        []
+      nextAction: "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts."
   targetFacts:
     status: "none-declared-or-observed"
     declared:
       {}
+    requirements:
+      []
     actions:
       []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

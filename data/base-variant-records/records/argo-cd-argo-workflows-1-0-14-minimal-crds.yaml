@@ -67,12 +67,38 @@ spec:
           argoCd: "no extra hook — keep CRDs before dependent objects"
           flux: "no extra hook — make sure CRDs are applied before workloads"
           argoCdSnippet: ""
+        runners:
+          direct:
+            implementation: "Your applier — must apply CRDs before dependent objects"
+            status: "evidence-linked"
+            evidence:
+              - "runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml"
+              - "runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml"
+              - "runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+              - "runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
+          argoCd:
+            implementation: "no extra hook — keep CRDs before dependent objects"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "no extra hook — make sure CRDs are applied before workloads"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
       status: "none-declared-or-observed"
       declared:
         {}
+      requirements:
+        []
       actions:
         []
+      coverage:
+        state: "actionable-gap"
+        reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+        declarationSource: ""
+        nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
     sourceRecord: "data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml"
   delivery:
     literalConfigOci:

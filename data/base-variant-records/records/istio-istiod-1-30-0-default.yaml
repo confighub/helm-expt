@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "G/P"
@@ -55,6 +57,13 @@ spec:
           supportArtifact: "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
           sourceReceipt: "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
           rerunCommand: "npm run live-parity:run -- --recipe recipes/istio/istiod/1.30.0 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+            - "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
         -
           lane: "K"
           prerequisiteKind: "namespace"
@@ -67,6 +76,18 @@ spec:
           supportArtifact: "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
           sourceReceipt: "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart istio/istiod --version 1.30.0 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+            - "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/istio-istiod-1-30-0-default.yaml"
   delivery:
     literalConfigOci:
